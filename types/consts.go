@@ -596,17 +596,6 @@ const (
 	TRAY_LCL
 )
 
-// CombineRgn Mode flags
-type RNGFnCombineMode = int32
-
-const (
-	RGN_AND RNGFnCombineMode = iota + 1
-	RGN_OR
-	RGN_XOR
-	RGN_DIFF
-	RGN_COPY
-)
-
 //type TCefWebRTCHandlingPolicy = Int32
 //
 //const (
