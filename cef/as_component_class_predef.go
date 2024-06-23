@@ -29,16 +29,3 @@ func AsStrings(obj interface{}) IStrings {
 func AsCustomForm(obj interface{}) ICustomForm {
 	return lcl.AsCustomForm(obj)
 }
-
-// AsApplication Convert a pointer object to an existing class object
-func AsApplication(obj interface{}) IApplication {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	application := new(TApplication)
-	application.specificVersion = SvINVALID
-	application.ui = UitInvalid
-	SetObjectInstance(application, instance)
-	return application
-}
