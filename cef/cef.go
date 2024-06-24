@@ -11,7 +11,6 @@
 package cef
 
 import (
-	cefTypes "github.com/energye/cef/types"
 	"github.com/energye/lcl/api"
 	"github.com/energye/lcl/lcl"
 	"github.com/energye/lcl/types"
@@ -106,7 +105,17 @@ type TDragKind = types.TDragKind
 type TCursor = types.TCursor
 type TDragMode = types.TDragMode
 
-type TThreadPriority = cefTypes.TThreadPriority
+type TThreadPriority = types.Int32
+
+const (
+	TpIdle TThreadPriority = iota
+	TpLowest
+	TpLower
+	TpNormal
+	TpHigher
+	TpHighest
+	TpTimeCritical
+)
 
 // PByte = ^Byte
 type PByte = types.PByte
