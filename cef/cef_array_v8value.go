@@ -26,7 +26,7 @@ type ICefV8ValueArray interface {
 type TCefV8ValueArray struct {
 	instance unsafePointer
 	count    int
-	values   []ICefV8Value
+	values   []uintptr
 }
 
 // V8ValueArrayRef -> TCefV8ValueArray
@@ -39,7 +39,7 @@ func (*v8ValueArray) New(count int, instance uintptr) ICefV8ValueArray {
 	return &TCefV8ValueArray{
 		instance: unsafePointer(instance),
 		count:    count,
-		values:   make([]ICefV8Value, count),
+		values:   make([]uintptr, count),
 	}
 }
 
@@ -57,11 +57,11 @@ func (m *TCefV8ValueArray) Get(index int) ICefV8Value {
 	}
 	if index < m.count {
 		result := m.values[index]
-		if result == nil {
-			result = AsCefV8Value(getParamOf(index, m.Instance()))
+		if result == 0 {
+			result = getParamOf(index, m.Instance())
 			m.values[index] = result
 		}
-		return result
+		return AsCefV8Value(result)
 	}
 	return nil
 }
@@ -80,9 +80,8 @@ func (m *TCefV8ValueArray) Free() {
 	}
 	if m.values != nil {
 		for i, v := range m.values {
-			if v != nil {
-				v.Free()
-				m.values[i] = nil
+			if v != 0 {
+				m.values[i] = 0
 			}
 		}
 		m.values = nil
@@ -92,21 +91,24 @@ func (m *TCefV8ValueArray) Free() {
 }
 
 func (m *TCefV8ValueArray) Add(value ICefV8Value) {
-	m.values = append(m.values, value)
+	m.values = append(m.values, value.Instance())
 	m.count++
-	m.instance = unsafePointer(m.values[0].Instance())
+	if m.count > 0 {
+		m.instance = unsafePointer(&m.values[0])
+	} else {
+		m.instance = nil
+	}
 }
 
 func (m *TCefV8ValueArray) Set(value []ICefV8Value) {
-	if m.values != nil {
-		for i, v := range m.values {
-			if v != nil && v.Instance() != 0 {
-				v.Free()
-				m.values[i] = nil
-			}
-		}
+	m.values = make([]uintptr, len(value), len(value))
+	for i, _ := range m.values {
+		m.values[i] = value[i].Instance()
 	}
-	m.values = value
 	m.count = len(value)
-	m.instance = unsafePointer(m.values[0].Instance())
+	if m.count > 0 {
+		m.instance = unsafePointer(&m.values[0])
+	} else {
+		m.instance = nil
+	}
 }
