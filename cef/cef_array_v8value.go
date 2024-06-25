@@ -35,6 +35,10 @@ var V8ValueArrayRef v8ValueArray
 // v8ValueArray
 type v8ValueArray uintptr
 
+// New 创建一个 ICefV8Value 数组引用维护
+//
+//	count: 默认大小
+//	instance:  默认 nil(0)
 func (*v8ValueArray) New(count int, instance uintptr) ICefV8ValueArray {
 	return &TCefV8ValueArray{
 		instance: unsafePointer(instance),
@@ -90,25 +94,25 @@ func (m *TCefV8ValueArray) Free() {
 	m.count = 0
 }
 
+// Add 添加一个 ICefV8Value 后指针实例被重新改变
 func (m *TCefV8ValueArray) Add(value ICefV8Value) {
 	m.values = append(m.values, value.Instance())
+	m.instance = unsafePointer(&m.values[0])
 	m.count++
-	if m.count > 0 {
-		m.instance = unsafePointer(&m.values[0])
-	} else {
-		m.instance = nil
-	}
 }
 
+// Set 设置 []ICefV8Value 集合, 会覆盖已有的
+// 如果value为空或大小为0则清空现有
 func (m *TCefV8ValueArray) Set(value []ICefV8Value) {
-	m.values = make([]uintptr, len(value), len(value))
-	for i, _ := range m.values {
-		m.values[i] = value[i].Instance()
-	}
 	m.count = len(value)
 	if m.count > 0 {
+		m.values = make([]uintptr, m.count, m.count)
+		for i, _ := range m.values {
+			m.values[i] = value[i].Instance()
+		}
 		m.instance = unsafePointer(&m.values[0])
 	} else {
+		m.values = make([]uintptr, 0)
 		m.instance = nil
 	}
 }
