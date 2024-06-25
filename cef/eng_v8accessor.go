@@ -23,6 +23,7 @@ import (
 //	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_v8_capi.h">CEF source file: /include/capi/cef_v8_capi.h (cef_v8accessor_t)</a>
 type IV8Accessor interface {
 	ICefV8Accessor
+	AsInterface() ICefV8Accessor // function
 	// SetOnGet
 	//  Handle retrieval the accessor value identified by |name|. |object| is the
 	//  receiver('this' object) of the accessor. If retrieval succeeds set
@@ -54,8 +55,14 @@ type TV8Accessor struct {
 }
 
 func NewV8Accessor() IV8Accessor {
-	r1 := v8AccessorImportAPI().SysCallN(0)
+	r1 := v8AccessorImportAPI().SysCallN(1)
 	return AsV8Accessor(r1)
+}
+
+func (m *TV8Accessor) AsInterface() ICefV8Accessor {
+	var resultCefV8Accessor uintptr
+	v8AccessorImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefV8Accessor)))
+	return AsCefV8Accessor(resultCefV8Accessor)
 }
 
 func (m *TV8Accessor) SetOnGet(fn TOnV8AccessorGet) {
@@ -63,7 +70,7 @@ func (m *TV8Accessor) SetOnGet(fn TOnV8AccessorGet) {
 		RemoveEventElement(m.getPtr)
 	}
 	m.getPtr = MakeEventDataPtr(fn)
-	v8AccessorImportAPI().SysCallN(1, m.Instance(), m.getPtr)
+	v8AccessorImportAPI().SysCallN(2, m.Instance(), m.getPtr)
 }
 
 func (m *TV8Accessor) SetOnSet(fn TOnV8AccessorSet) {
@@ -71,15 +78,16 @@ func (m *TV8Accessor) SetOnSet(fn TOnV8AccessorSet) {
 		RemoveEventElement(m.setPtr)
 	}
 	m.setPtr = MakeEventDataPtr(fn)
-	v8AccessorImportAPI().SysCallN(2, m.Instance(), m.setPtr)
+	v8AccessorImportAPI().SysCallN(3, m.Instance(), m.setPtr)
 }
 
 var (
 	v8AccessorImport       *imports.Imports = nil
 	v8AccessorImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("V8Accessor_Create", 0),
-		/*1*/ imports.NewTable("V8Accessor_SetOnGet", 0),
-		/*2*/ imports.NewTable("V8Accessor_SetOnSet", 0),
+		/*0*/ imports.NewTable("V8Accessor_AsInterface", 0),
+		/*1*/ imports.NewTable("V8Accessor_Create", 0),
+		/*2*/ imports.NewTable("V8Accessor_SetOnGet", 0),
+		/*3*/ imports.NewTable("V8Accessor_SetOnSet", 0),
 	}
 )
 

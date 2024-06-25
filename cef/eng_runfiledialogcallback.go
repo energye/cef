@@ -21,6 +21,7 @@ import (
 //	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_browser_capi.h">CEF source file: /include/capi/cef_browser_capi.h (cef_run_file_dialog_callback_t)</a>
 type IRunFileDialogCallback interface {
 	ICefRunFileDialogCallback
+	AsInterface() ICefRunFileDialogCallback // function
 	// SetOnRunFileDialogDismissed
 	//  Called asynchronously after the file dialog is dismissed. |file_paths|
 	//  will be a single value or a list of values depending on the dialog mode.
@@ -40,8 +41,14 @@ type TRunFileDialogCallback struct {
 }
 
 func NewRunFileDialogCallback() IRunFileDialogCallback {
-	r1 := runFileDialogCallbackImportAPI().SysCallN(0)
+	r1 := runFileDialogCallbackImportAPI().SysCallN(1)
 	return AsRunFileDialogCallback(r1)
+}
+
+func (m *TRunFileDialogCallback) AsInterface() ICefRunFileDialogCallback {
+	var resultCefRunFileDialogCallback uintptr
+	runFileDialogCallbackImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefRunFileDialogCallback)))
+	return AsCefRunFileDialogCallback(resultCefRunFileDialogCallback)
 }
 
 func (m *TRunFileDialogCallback) SetOnRunFileDialogDismissed(fn TOnRunFileDialogDismissed) {
@@ -49,14 +56,15 @@ func (m *TRunFileDialogCallback) SetOnRunFileDialogDismissed(fn TOnRunFileDialog
 		RemoveEventElement(m.runFileDialogDismissedPtr)
 	}
 	m.runFileDialogDismissedPtr = MakeEventDataPtr(fn)
-	runFileDialogCallbackImportAPI().SysCallN(1, m.Instance(), m.runFileDialogDismissedPtr)
+	runFileDialogCallbackImportAPI().SysCallN(2, m.Instance(), m.runFileDialogDismissedPtr)
 }
 
 var (
 	runFileDialogCallbackImport       *imports.Imports = nil
 	runFileDialogCallbackImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("RunFileDialogCallback_Create", 0),
-		/*1*/ imports.NewTable("RunFileDialogCallback_SetOnRunFileDialogDismissed", 0),
+		/*0*/ imports.NewTable("RunFileDialogCallback_AsInterface", 0),
+		/*1*/ imports.NewTable("RunFileDialogCallback_Create", 0),
+		/*2*/ imports.NewTable("RunFileDialogCallback_SetOnRunFileDialogDismissed", 0),
 	}
 )
 

@@ -30,15 +30,15 @@ func AsBufferPanel(obj interface{}) IBufferPanel {
 	return bufferPanel
 }
 
-// AsCEFAccessibilityHandler Convert a pointer object to an existing class object
-func AsCEFAccessibilityHandler(obj interface{}) ICEFAccessibilityHandler {
+// AsCefAccessibilityHandler Convert a pointer object to an existing class object
+func AsCefAccessibilityHandler(obj interface{}) ICefAccessibilityHandler {
 	instance := GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	cEFAccessibilityHandler := new(TCEFAccessibilityHandler)
-	SetObjectInstance(cEFAccessibilityHandler, instance)
-	return cEFAccessibilityHandler
+	cefAccessibilityHandler := new(TCefAccessibilityHandler)
+	SetObjectInstance(cefAccessibilityHandler, instance)
+	return cefAccessibilityHandler
 }
 
 // AsCEFBaseScopedWrapperRef Convert a pointer object to an existing class object
@@ -2153,48 +2153,48 @@ func AsCefX509CertPrincipal(obj interface{}) ICefX509CertPrincipal {
 	return cefX509CertPrincipal
 }
 
-// AsCefv8ArrayBufferReleaseCallback Convert a pointer object to an existing class object
-func AsCefv8ArrayBufferReleaseCallback(obj interface{}) ICefv8ArrayBufferReleaseCallback {
+// AsCefV8ArrayBufferReleaseCallback Convert a pointer object to an existing class object
+func AsCefV8ArrayBufferReleaseCallback(obj interface{}) ICefV8ArrayBufferReleaseCallback {
 	instance := GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	cefv8ArrayBufferReleaseCallback := new(TCefv8ArrayBufferReleaseCallback)
-	SetObjectInstance(cefv8ArrayBufferReleaseCallback, instance)
-	return cefv8ArrayBufferReleaseCallback
+	cefV8ArrayBufferReleaseCallback := new(TCefV8ArrayBufferReleaseCallback)
+	SetObjectInstance(cefV8ArrayBufferReleaseCallback, instance)
+	return cefV8ArrayBufferReleaseCallback
 }
 
-// AsCefv8Context Convert a pointer object to an existing class object
-func AsCefv8Context(obj interface{}) ICefv8Context {
+// AsCefV8Context Convert a pointer object to an existing class object
+func AsCefV8Context(obj interface{}) ICefV8Context {
 	instance := GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	cefv8Context := new(TCefv8Context)
-	SetObjectInstance(cefv8Context, instance)
-	return cefv8Context
+	cefV8Context := new(TCefV8Context)
+	SetObjectInstance(cefV8Context, instance)
+	return cefV8Context
 }
 
-// AsCefv8Handler Convert a pointer object to an existing class object
-func AsCefv8Handler(obj interface{}) ICefv8Handler {
+// AsCefV8Handler Convert a pointer object to an existing class object
+func AsCefV8Handler(obj interface{}) ICefV8Handler {
 	instance := GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	cefv8Handler := new(TCefv8Handler)
-	SetObjectInstance(cefv8Handler, instance)
-	return cefv8Handler
+	cefV8Handler := new(TCefV8Handler)
+	SetObjectInstance(cefV8Handler, instance)
+	return cefV8Handler
 }
 
-// AsCefv8Value Convert a pointer object to an existing class object
-func AsCefv8Value(obj interface{}) ICefv8Value {
+// AsCefV8Value Convert a pointer object to an existing class object
+func AsCefV8Value(obj interface{}) ICefV8Value {
 	instance := GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	cefv8Value := new(TCefv8Value)
-	SetObjectInstance(cefv8Value, instance)
-	return cefv8Value
+	cefV8Value := new(TCefV8Value)
+	SetObjectInstance(cefV8Value, instance)
+	return cefV8Value
 }
 
 // AsChromium Convert a pointer object to an existing class object

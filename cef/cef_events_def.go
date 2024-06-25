@@ -309,9 +309,9 @@ type TOnGetDataResourceForScale func(resourceId int32, scaleFactor TCefScaleFact
 type TOnWebKitInitialized func()
 type TOnBrowserCreated func(browser ICefBrowser, extraInfo ICefDictionaryValue)
 type TOnBrowserDestroyed func(browser ICefBrowser)
-type TOnContextCreated func(browser ICefBrowser, frame ICefFrame, context ICefv8Context)
-type TOnContextReleased func(browser ICefBrowser, frame ICefFrame, context ICefv8Context)
-type TOnUncaughtException func(browser ICefBrowser, frame ICefFrame, context ICefv8Context, exception ICefV8Exception, stackTrace ICefV8StackTrace)
+type TOnContextCreated func(browser ICefBrowser, frame ICefFrame, context ICefV8Context)
+type TOnContextReleased func(browser ICefBrowser, frame ICefFrame, context ICefV8Context)
+type TOnUncaughtException func(browser ICefBrowser, frame ICefFrame, context ICefV8Context, exception ICefV8Exception, stackTrace ICefV8StackTrace)
 type TOnFocusedNodeChanged func(browser ICefBrowser, frame ICefFrame, node ICefDomNode)
 
 // ICefLoadHandler
@@ -451,8 +451,8 @@ type TNotifyRcc = TNotify
 
 // TV8Accessor
 
-type TOnV8AccessorGet func(name string, object ICefv8Value) (retVal ICefv8Value, exception string, result bool)
-type TOnV8AccessorSet func(name string, object, value ICefv8Value) (exception string, result bool)
+type TOnV8AccessorGet func(name string, object ICefV8Value) (retVal ICefV8Value, exception string, result bool)
+type TOnV8AccessorSet func(name string, object, value ICefV8Value) (exception string, result bool)
 
 // TV8ArrayBufferReleaseCallback
 
@@ -460,14 +460,14 @@ type TOnV8ArrayBufferReleaseBuffer func(buffer uintptr)
 
 // TV8Handler
 
-type TOnV8HandlerExecute func(name string, object ICefv8Value, arguments ICefV8ValueArray) (retVal ICefv8Value, exception string, result bool)
+type TOnV8HandlerExecute func(name string, object ICefV8Value, arguments ICefV8ValueArray) (retVal ICefV8Value, exception string, result bool)
 
 // TV8Interceptor
 
-type TOnV8InterceptorGetByName func(name string, object ICefv8Value) (retVal ICefv8Value, exception string, result bool)
-type TOnV8InterceptorGetByIndex func(index int32, object ICefv8Value) (retVal ICefv8Value, exception string, result bool)
-type TOnV8InterceptorSetByName func(name string, object, value ICefv8Value) (exception string, result bool)
-type TOnV8InterceptorSetByIndex func(index int32, object, value ICefv8Value) (exception string, result bool)
+type TOnV8InterceptorGetByName func(name string, object ICefV8Value) (retVal ICefV8Value, exception string, result bool)
+type TOnV8InterceptorGetByIndex func(index int32, object ICefV8Value) (retVal ICefV8Value, exception string, result bool)
+type TOnV8InterceptorSetByName func(name string, object, value ICefV8Value) (exception string, result bool)
+type TOnV8InterceptorSetByIndex func(index int32, object, value ICefV8Value) (exception string, result bool)
 
 // ICefViewDelegate
 

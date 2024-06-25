@@ -13,7 +13,7 @@ import (
 	"github.com/energye/lcl/api/imports"
 )
 
-// IAccessibilityHandler Parent: ICEFAccessibilityHandler
+// IAccessibilityHandler Parent: ICefAccessibilityHandler
 //
 //	Implement this interface to receive accessibility notification when
 //	accessibility events have been registered. The functions of this interface
@@ -21,7 +21,8 @@ import (
 //	<a cref="uCEFTypes|TCefAccessibilityHandler">Implements TCefAccessibilityHandler</a>
 //	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_accessibility_handler_capi.h">CEF source file: /include/capi/cef_accessibility_handler_capi.h (cef_accessibility_handler_t)</a>
 type IAccessibilityHandler interface {
-	ICEFAccessibilityHandler
+	ICefAccessibilityHandler
+	AsInterface() ICefAccessibilityHandler // function
 	// SetOnTreeChange
 	//  Called after renderer process sends accessibility tree changes to the
 	//  browser process.
@@ -32,7 +33,7 @@ type IAccessibilityHandler interface {
 	SetOnLocationChange(fn TOnAccessibility) // property event
 }
 
-// TAccessibilityHandler Parent: TCEFAccessibilityHandler
+// TAccessibilityHandler Parent: TCefAccessibilityHandler
 //
 //	Implement this interface to receive accessibility notification when
 //	accessibility events have been registered. The functions of this interface
@@ -40,14 +41,20 @@ type IAccessibilityHandler interface {
 //	<a cref="uCEFTypes|TCefAccessibilityHandler">Implements TCefAccessibilityHandler</a>
 //	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_accessibility_handler_capi.h">CEF source file: /include/capi/cef_accessibility_handler_capi.h (cef_accessibility_handler_t)</a>
 type TAccessibilityHandler struct {
-	TCEFAccessibilityHandler
+	TCefAccessibilityHandler
 	treeChangePtr     uintptr
 	locationChangePtr uintptr
 }
 
 func NewAccessibilityHandler() IAccessibilityHandler {
-	r1 := accessibilityHandlerImportAPI().SysCallN(0)
+	r1 := accessibilityHandlerImportAPI().SysCallN(1)
 	return AsAccessibilityHandler(r1)
+}
+
+func (m *TAccessibilityHandler) AsInterface() ICefAccessibilityHandler {
+	var resultCefAccessibilityHandler uintptr
+	accessibilityHandlerImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefAccessibilityHandler)))
+	return AsCefAccessibilityHandler(resultCefAccessibilityHandler)
 }
 
 func (m *TAccessibilityHandler) SetOnTreeChange(fn TOnAccessibility) {
@@ -55,7 +62,7 @@ func (m *TAccessibilityHandler) SetOnTreeChange(fn TOnAccessibility) {
 		RemoveEventElement(m.treeChangePtr)
 	}
 	m.treeChangePtr = MakeEventDataPtr(fn)
-	accessibilityHandlerImportAPI().SysCallN(2, m.Instance(), m.treeChangePtr)
+	accessibilityHandlerImportAPI().SysCallN(3, m.Instance(), m.treeChangePtr)
 }
 
 func (m *TAccessibilityHandler) SetOnLocationChange(fn TOnAccessibility) {
@@ -63,15 +70,16 @@ func (m *TAccessibilityHandler) SetOnLocationChange(fn TOnAccessibility) {
 		RemoveEventElement(m.locationChangePtr)
 	}
 	m.locationChangePtr = MakeEventDataPtr(fn)
-	accessibilityHandlerImportAPI().SysCallN(1, m.Instance(), m.locationChangePtr)
+	accessibilityHandlerImportAPI().SysCallN(2, m.Instance(), m.locationChangePtr)
 }
 
 var (
 	accessibilityHandlerImport       *imports.Imports = nil
 	accessibilityHandlerImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("AccessibilityHandler_Create", 0),
-		/*1*/ imports.NewTable("AccessibilityHandler_SetOnLocationChange", 0),
-		/*2*/ imports.NewTable("AccessibilityHandler_SetOnTreeChange", 0),
+		/*0*/ imports.NewTable("AccessibilityHandler_AsInterface", 0),
+		/*1*/ imports.NewTable("AccessibilityHandler_Create", 0),
+		/*2*/ imports.NewTable("AccessibilityHandler_SetOnLocationChange", 0),
+		/*3*/ imports.NewTable("AccessibilityHandler_SetOnTreeChange", 0),
 	}
 )
 

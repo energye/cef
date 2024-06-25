@@ -10,23 +10,23 @@ package cef
 
 // ICefV8ValueArray
 //
-//	[]ICefv8Value
+//	[]ICefV8Value
 type ICefV8ValueArray interface {
 	Instance() uintptr
-	Get(index int) ICefv8Value
+	Get(index int) ICefV8Value
 	Size() int
 	Free()
-	Add(value ICefv8Value)
-	Set(value []ICefv8Value)
+	Add(value ICefV8Value)
+	Set(value []ICefV8Value)
 }
 
 // TCefV8ValueArray
 //
-//	[]ICefv8Value
+//	[]ICefV8Value
 type TCefV8ValueArray struct {
 	instance unsafePointer
 	count    int
-	values   []ICefv8Value
+	values   []ICefV8Value
 }
 
 // V8ValueArrayRef -> TCefV8ValueArray
@@ -39,7 +39,7 @@ func (*v8ValueArray) New(count int, instance uintptr) ICefV8ValueArray {
 	return &TCefV8ValueArray{
 		instance: unsafePointer(instance),
 		count:    count,
-		values:   make([]ICefv8Value, count),
+		values:   make([]ICefV8Value, count),
 	}
 }
 
@@ -51,14 +51,14 @@ func (m *TCefV8ValueArray) Instance() uintptr {
 }
 
 // Get 根据下标获取 ICefV8Value
-func (m *TCefV8ValueArray) Get(index int) ICefv8Value {
+func (m *TCefV8ValueArray) Get(index int) ICefV8Value {
 	if m == nil {
 		return nil
 	}
 	if index < m.count {
 		result := m.values[index]
 		if result == nil {
-			result = AsCefv8Value(getParamOf(index, m.Instance()))
+			result = AsCefV8Value(getParamOf(index, m.Instance()))
 			m.values[index] = result
 		}
 		return result
@@ -91,13 +91,13 @@ func (m *TCefV8ValueArray) Free() {
 	m.count = 0
 }
 
-func (m *TCefV8ValueArray) Add(value ICefv8Value) {
+func (m *TCefV8ValueArray) Add(value ICefV8Value) {
 	m.values = append(m.values, value)
 	m.count++
 	m.instance = unsafePointer(m.values[0].Instance())
 }
 
-func (m *TCefV8ValueArray) Set(value []ICefv8Value) {
+func (m *TCefV8ValueArray) Set(value []ICefV8Value) {
 	if m.values != nil {
 		for i, v := range m.values {
 			if v != nil && v.Instance() != 0 {

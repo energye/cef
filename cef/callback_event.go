@@ -1106,19 +1106,19 @@ func eventCallbackProc(f uintptr, args uintptr, _ int) uintptr {
 		case TOnContextCreated:
 			browser := AsCefBrowser(getVal(0))
 			frame := AsCefFrame(getVal(1))
-			context := AsCefv8Context(getVal(2))
+			context := AsCefV8Context(getVal(2))
 			fn.(TOnContextCreated)(browser, frame, context)
 
 		case TOnContextReleased:
 			browser := AsCefBrowser(getVal(0))
 			frame := AsCefFrame(getVal(1))
-			context := AsCefv8Context(getVal(2))
+			context := AsCefV8Context(getVal(2))
 			fn.(TOnContextReleased)(browser, frame, context)
 
 		case TOnUncaughtException:
 			browser := AsCefBrowser(getVal(0))
 			frame := AsCefFrame(getVal(1))
-			context := AsCefv8Context(getVal(2))
+			context := AsCefV8Context(getVal(2))
 			exception := AsCefV8Exception(getVal(3))
 			stackTrace := AsCefV8StackTrace(getVal(4))
 			fn.(TOnUncaughtException)(browser, frame, context, exception, stackTrace)
@@ -1559,12 +1559,12 @@ func eventCallbackProc(f uintptr, args uintptr, _ int) uintptr {
 
 		case TOnV8AccessorGet:
 			name := GoStr(getVal(0))
-			object := AsCefv8Value(getPtr(1))
+			object := AsCefV8Value(getPtr(1))
 			retValPtr := (*uintptr)(getPtr(2))
 			exceptionPtr := (*uintptr)(getPtr(3))
 			result := (*bool)(getPtr(4))
 			var (
-				retVal    ICefv8Value
+				retVal    ICefV8Value
 				exception string
 			)
 			retVal, exception, *result = fn.(TOnV8AccessorGet)(name, object)
@@ -1575,8 +1575,8 @@ func eventCallbackProc(f uintptr, args uintptr, _ int) uintptr {
 
 		case TOnV8AccessorSet:
 			name := GoStr(getVal(0))
-			object := AsCefv8Value(getPtr(1))
-			value := AsCefv8Value(getPtr(2))
+			object := AsCefV8Value(getPtr(1))
+			value := AsCefV8Value(getPtr(2))
 			exceptionPtr := (*uintptr)(getPtr(3))
 			result := (*bool)(getPtr(4))
 			var exception string
@@ -1592,14 +1592,14 @@ func eventCallbackProc(f uintptr, args uintptr, _ int) uintptr {
 
 		case TOnV8HandlerExecute:
 			name := GoStr(getVal(0))
-			object := AsCefv8Value(getPtr(1))
+			object := AsCefV8Value(getPtr(1))
 			argumentsPtr, argumentsCount := getVal(2), int(int32(getVal(3)))
 			retValPtr := (*uintptr)(getPtr(4))
 			exceptionPtr := (*uintptr)(getPtr(5))
 			result := (*bool)(getPtr(6))
 			arguments := V8ValueArrayRef.New(argumentsCount, argumentsPtr)
 			var (
-				retVal    ICefv8Value
+				retVal    ICefV8Value
 				exception string
 			)
 			retVal, exception, *result = fn.(TOnV8HandlerExecute)(name, object, arguments)
@@ -1612,12 +1612,12 @@ func eventCallbackProc(f uintptr, args uintptr, _ int) uintptr {
 
 		case TOnV8InterceptorGetByName:
 			name := GoStr(getVal(0))
-			object := AsCefv8Value(getPtr(1))
+			object := AsCefV8Value(getPtr(1))
 			retValPtr := (*uintptr)(getPtr(2))
 			exceptionPtr := (*uintptr)(getPtr(3))
 			result := (*bool)(getPtr(4))
 			var (
-				retVal    ICefv8Value
+				retVal    ICefV8Value
 				exception string
 			)
 			retVal, exception, *result = fn.(TOnV8InterceptorGetByName)(name, object)
@@ -1628,12 +1628,12 @@ func eventCallbackProc(f uintptr, args uintptr, _ int) uintptr {
 
 		case TOnV8InterceptorGetByIndex:
 			index := int32(getVal(0))
-			object := AsCefv8Value(getPtr(1))
+			object := AsCefV8Value(getPtr(1))
 			retValPtr := (*uintptr)(getPtr(2))
 			exceptionPtr := (*uintptr)(getPtr(3))
 			result := (*bool)(getPtr(4))
 			var (
-				retVal    ICefv8Value
+				retVal    ICefV8Value
 				exception string
 			)
 			retVal, exception, *result = fn.(TOnV8InterceptorGetByIndex)(index, object)
@@ -1644,8 +1644,8 @@ func eventCallbackProc(f uintptr, args uintptr, _ int) uintptr {
 
 		case TOnV8InterceptorSetByName:
 			name := GoStr(getVal(0))
-			object := AsCefv8Value(getPtr(1))
-			value := AsCefv8Value(getPtr(2))
+			object := AsCefV8Value(getPtr(1))
+			value := AsCefV8Value(getPtr(2))
 			exceptionPtr := (*uintptr)(getPtr(3))
 			result := (*bool)(getPtr(4))
 			var exception string
@@ -1654,8 +1654,8 @@ func eventCallbackProc(f uintptr, args uintptr, _ int) uintptr {
 
 		case TOnV8InterceptorSetByIndex:
 			index := int32(getVal(0))
-			object := AsCefv8Value(getPtr(1))
-			value := AsCefv8Value(getPtr(2))
+			object := AsCefV8Value(getPtr(1))
+			value := AsCefV8Value(getPtr(2))
 			exceptionPtr := (*uintptr)(getPtr(3))
 			result := (*bool)(getPtr(4))
 			var exception string

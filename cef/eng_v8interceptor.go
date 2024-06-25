@@ -25,6 +25,7 @@ import (
 //	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_v8_capi.h">CEF source file: /include/capi/cef_v8_capi.h (cef_v8interceptor_t)</a>
 type IV8Interceptor interface {
 	ICefV8Interceptor
+	AsInterface() ICefV8Interceptor // function
 	// SetOnGetByName
 	//  Handle retrieval of the interceptor value identified by |name|. |object|
 	//  is the receiver('this' object) of the interceptor. If retrieval succeeds,
@@ -78,8 +79,14 @@ type TV8Interceptor struct {
 }
 
 func NewV8Interceptor() IV8Interceptor {
-	r1 := v8InterceptorImportAPI().SysCallN(0)
+	r1 := v8InterceptorImportAPI().SysCallN(1)
 	return AsV8Interceptor(r1)
+}
+
+func (m *TV8Interceptor) AsInterface() ICefV8Interceptor {
+	var resultCefV8Interceptor uintptr
+	v8InterceptorImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefV8Interceptor)))
+	return AsCefV8Interceptor(resultCefV8Interceptor)
 }
 
 func (m *TV8Interceptor) SetOnGetByName(fn TOnV8InterceptorGetByName) {
@@ -87,7 +94,7 @@ func (m *TV8Interceptor) SetOnGetByName(fn TOnV8InterceptorGetByName) {
 		RemoveEventElement(m.getByNamePtr)
 	}
 	m.getByNamePtr = MakeEventDataPtr(fn)
-	v8InterceptorImportAPI().SysCallN(2, m.Instance(), m.getByNamePtr)
+	v8InterceptorImportAPI().SysCallN(3, m.Instance(), m.getByNamePtr)
 }
 
 func (m *TV8Interceptor) SetOnGetByIndex(fn TOnV8InterceptorGetByIndex) {
@@ -95,7 +102,7 @@ func (m *TV8Interceptor) SetOnGetByIndex(fn TOnV8InterceptorGetByIndex) {
 		RemoveEventElement(m.getByIndexPtr)
 	}
 	m.getByIndexPtr = MakeEventDataPtr(fn)
-	v8InterceptorImportAPI().SysCallN(1, m.Instance(), m.getByIndexPtr)
+	v8InterceptorImportAPI().SysCallN(2, m.Instance(), m.getByIndexPtr)
 }
 
 func (m *TV8Interceptor) SetOnSetByName(fn TOnV8InterceptorSetByName) {
@@ -103,7 +110,7 @@ func (m *TV8Interceptor) SetOnSetByName(fn TOnV8InterceptorSetByName) {
 		RemoveEventElement(m.setByNamePtr)
 	}
 	m.setByNamePtr = MakeEventDataPtr(fn)
-	v8InterceptorImportAPI().SysCallN(4, m.Instance(), m.setByNamePtr)
+	v8InterceptorImportAPI().SysCallN(5, m.Instance(), m.setByNamePtr)
 }
 
 func (m *TV8Interceptor) SetOnSetByIndex(fn TOnV8InterceptorSetByIndex) {
@@ -111,17 +118,18 @@ func (m *TV8Interceptor) SetOnSetByIndex(fn TOnV8InterceptorSetByIndex) {
 		RemoveEventElement(m.setByIndexPtr)
 	}
 	m.setByIndexPtr = MakeEventDataPtr(fn)
-	v8InterceptorImportAPI().SysCallN(3, m.Instance(), m.setByIndexPtr)
+	v8InterceptorImportAPI().SysCallN(4, m.Instance(), m.setByIndexPtr)
 }
 
 var (
 	v8InterceptorImport       *imports.Imports = nil
 	v8InterceptorImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("V8Interceptor_Create", 0),
-		/*1*/ imports.NewTable("V8Interceptor_SetOnGetByIndex", 0),
-		/*2*/ imports.NewTable("V8Interceptor_SetOnGetByName", 0),
-		/*3*/ imports.NewTable("V8Interceptor_SetOnSetByIndex", 0),
-		/*4*/ imports.NewTable("V8Interceptor_SetOnSetByName", 0),
+		/*0*/ imports.NewTable("V8Interceptor_AsInterface", 0),
+		/*1*/ imports.NewTable("V8Interceptor_Create", 0),
+		/*2*/ imports.NewTable("V8Interceptor_SetOnGetByIndex", 0),
+		/*3*/ imports.NewTable("V8Interceptor_SetOnGetByName", 0),
+		/*4*/ imports.NewTable("V8Interceptor_SetOnSetByIndex", 0),
+		/*5*/ imports.NewTable("V8Interceptor_SetOnSetByName", 0),
 	}
 )
 

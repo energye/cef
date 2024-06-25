@@ -22,6 +22,7 @@ import (
 //	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_resource_handler_capi.h">CEF source file: /include/capi/cef_resource_handler_capi.h (cef_resource_handler_t)</a>
 type IResourceHandler interface {
 	ICefResourceHandler
+	AsInterface() ICefResourceHandler // function
 	// SetOnOpen
 	//  Open the response stream. To handle the request immediately set
 	//  |handle_request| to true(1) and return true(1). To decide at a later
@@ -109,8 +110,14 @@ type TResourceHandler struct {
 }
 
 func NewResourceHandler(browser ICefBrowser, frame ICefFrame, schemeName string, request ICefRequest) IResourceHandler {
-	r1 := resourceHandlerImportAPI().SysCallN(0, GetObjectUintptr(browser), GetObjectUintptr(frame), PascalStr(schemeName), GetObjectUintptr(request))
+	r1 := resourceHandlerImportAPI().SysCallN(1, GetObjectUintptr(browser), GetObjectUintptr(frame), PascalStr(schemeName), GetObjectUintptr(request))
 	return AsResourceHandler(r1)
+}
+
+func (m *TResourceHandler) AsInterface() ICefResourceHandler {
+	var resultCefResourceHandler uintptr
+	resourceHandlerImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefResourceHandler)))
+	return AsCefResourceHandler(resultCefResourceHandler)
 }
 
 func (m *TResourceHandler) SetOnOpen(fn TOnResourceHandlerOpen) {
@@ -118,7 +125,7 @@ func (m *TResourceHandler) SetOnOpen(fn TOnResourceHandlerOpen) {
 		RemoveEventElement(m.openPtr)
 	}
 	m.openPtr = MakeEventDataPtr(fn)
-	resourceHandlerImportAPI().SysCallN(3, m.Instance(), m.openPtr)
+	resourceHandlerImportAPI().SysCallN(4, m.Instance(), m.openPtr)
 }
 
 func (m *TResourceHandler) SetOnProcessRequest(fn TOnResourceHandlerProcessRequest) {
@@ -126,7 +133,7 @@ func (m *TResourceHandler) SetOnProcessRequest(fn TOnResourceHandlerProcessReque
 		RemoveEventElement(m.processRequestPtr)
 	}
 	m.processRequestPtr = MakeEventDataPtr(fn)
-	resourceHandlerImportAPI().SysCallN(4, m.Instance(), m.processRequestPtr)
+	resourceHandlerImportAPI().SysCallN(5, m.Instance(), m.processRequestPtr)
 }
 
 func (m *TResourceHandler) SetOnGetResponseHeaders(fn TOnResourceHandlerGetResponseHeaders) {
@@ -134,7 +141,7 @@ func (m *TResourceHandler) SetOnGetResponseHeaders(fn TOnResourceHandlerGetRespo
 		RemoveEventElement(m.getResponseHeadersPtr)
 	}
 	m.getResponseHeadersPtr = MakeEventDataPtr(fn)
-	resourceHandlerImportAPI().SysCallN(2, m.Instance(), m.getResponseHeadersPtr)
+	resourceHandlerImportAPI().SysCallN(3, m.Instance(), m.getResponseHeadersPtr)
 }
 
 func (m *TResourceHandler) SetOnSkip(fn TOnResourceHandlerSkip) {
@@ -142,7 +149,7 @@ func (m *TResourceHandler) SetOnSkip(fn TOnResourceHandlerSkip) {
 		RemoveEventElement(m.skipPtr)
 	}
 	m.skipPtr = MakeEventDataPtr(fn)
-	resourceHandlerImportAPI().SysCallN(7, m.Instance(), m.skipPtr)
+	resourceHandlerImportAPI().SysCallN(8, m.Instance(), m.skipPtr)
 }
 
 func (m *TResourceHandler) SetOnRead(fn TOnResourceHandlerRead) {
@@ -150,7 +157,7 @@ func (m *TResourceHandler) SetOnRead(fn TOnResourceHandlerRead) {
 		RemoveEventElement(m.readPtr)
 	}
 	m.readPtr = MakeEventDataPtr(fn)
-	resourceHandlerImportAPI().SysCallN(5, m.Instance(), m.readPtr)
+	resourceHandlerImportAPI().SysCallN(6, m.Instance(), m.readPtr)
 }
 
 func (m *TResourceHandler) SetOnReadResponse(fn TOnResourceHandlerReadResponse) {
@@ -158,7 +165,7 @@ func (m *TResourceHandler) SetOnReadResponse(fn TOnResourceHandlerReadResponse) 
 		RemoveEventElement(m.readResponsePtr)
 	}
 	m.readResponsePtr = MakeEventDataPtr(fn)
-	resourceHandlerImportAPI().SysCallN(6, m.Instance(), m.readResponsePtr)
+	resourceHandlerImportAPI().SysCallN(7, m.Instance(), m.readResponsePtr)
 }
 
 func (m *TResourceHandler) SetOnCancel(fn TOnResourceHandlerCancel) {
@@ -166,20 +173,21 @@ func (m *TResourceHandler) SetOnCancel(fn TOnResourceHandlerCancel) {
 		RemoveEventElement(m.cancelPtr)
 	}
 	m.cancelPtr = MakeEventDataPtr(fn)
-	resourceHandlerImportAPI().SysCallN(1, m.Instance(), m.cancelPtr)
+	resourceHandlerImportAPI().SysCallN(2, m.Instance(), m.cancelPtr)
 }
 
 var (
 	resourceHandlerImport       *imports.Imports = nil
 	resourceHandlerImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("ResourceHandler_Create", 0),
-		/*1*/ imports.NewTable("ResourceHandler_SetOnCancel", 0),
-		/*2*/ imports.NewTable("ResourceHandler_SetOnGetResponseHeaders", 0),
-		/*3*/ imports.NewTable("ResourceHandler_SetOnOpen", 0),
-		/*4*/ imports.NewTable("ResourceHandler_SetOnProcessRequest", 0),
-		/*5*/ imports.NewTable("ResourceHandler_SetOnRead", 0),
-		/*6*/ imports.NewTable("ResourceHandler_SetOnReadResponse", 0),
-		/*7*/ imports.NewTable("ResourceHandler_SetOnSkip", 0),
+		/*0*/ imports.NewTable("ResourceHandler_AsInterface", 0),
+		/*1*/ imports.NewTable("ResourceHandler_Create", 0),
+		/*2*/ imports.NewTable("ResourceHandler_SetOnCancel", 0),
+		/*3*/ imports.NewTable("ResourceHandler_SetOnGetResponseHeaders", 0),
+		/*4*/ imports.NewTable("ResourceHandler_SetOnOpen", 0),
+		/*5*/ imports.NewTable("ResourceHandler_SetOnProcessRequest", 0),
+		/*6*/ imports.NewTable("ResourceHandler_SetOnRead", 0),
+		/*7*/ imports.NewTable("ResourceHandler_SetOnReadResponse", 0),
+		/*8*/ imports.NewTable("ResourceHandler_SetOnSkip", 0),
 	}
 )
 

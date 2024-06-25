@@ -21,6 +21,7 @@ import (
 //	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_dom_capi.h">CEF source file: /include/capi/cef_dom_capi.h (cef_domvisitor_t)</a>
 type IDomVisitor interface {
 	ICefDomVisitor
+	AsInterface() ICefDomVisitor // function
 	// SetOnDomVisitor
 	//  Method executed for visiting the DOM. The document object passed to this
 	//  function represents a snapshot of the DOM at the time this function is
@@ -42,8 +43,14 @@ type TDomVisitor struct {
 }
 
 func NewDomVisitor() IDomVisitor {
-	r1 := domVisitorImportAPI().SysCallN(0)
+	r1 := domVisitorImportAPI().SysCallN(1)
 	return AsDomVisitor(r1)
+}
+
+func (m *TDomVisitor) AsInterface() ICefDomVisitor {
+	var resultCefDomVisitor uintptr
+	domVisitorImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefDomVisitor)))
+	return AsCefDomVisitor(resultCefDomVisitor)
 }
 
 func (m *TDomVisitor) SetOnDomVisitor(fn TOnDomVisitor) {
@@ -51,14 +58,15 @@ func (m *TDomVisitor) SetOnDomVisitor(fn TOnDomVisitor) {
 		RemoveEventElement(m.domVisitorPtr)
 	}
 	m.domVisitorPtr = MakeEventDataPtr(fn)
-	domVisitorImportAPI().SysCallN(1, m.Instance(), m.domVisitorPtr)
+	domVisitorImportAPI().SysCallN(2, m.Instance(), m.domVisitorPtr)
 }
 
 var (
 	domVisitorImport       *imports.Imports = nil
 	domVisitorImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("DomVisitor_Create", 0),
-		/*1*/ imports.NewTable("DomVisitor_SetOnDomVisitor", 0),
+		/*0*/ imports.NewTable("DomVisitor_AsInterface", 0),
+		/*1*/ imports.NewTable("DomVisitor_Create", 0),
+		/*2*/ imports.NewTable("DomVisitor_SetOnDomVisitor", 0),
 	}
 )
 

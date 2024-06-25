@@ -24,7 +24,7 @@ type ICefFrame interface {
 	GetParent() ICefFrame                                                             // function
 	GetUrl() string                                                                   // function
 	GetBrowser() ICefBrowser                                                          // function
-	GetV8Context() ICefv8Context                                                      // function
+	GetV8Context() ICefV8Context                                                      // function
 	CreateUrlRequest(request ICefRequest, client ICefUrlRequestClient) ICefUrlRequest // function
 	Undo()                                                                            // procedure
 	Redo()                                                                            // procedure
@@ -102,10 +102,10 @@ func (m *TCefFrame) GetBrowser() ICefBrowser {
 	return AsCefBrowser(resultCefBrowser)
 }
 
-func (m *TCefFrame) GetV8Context() ICefv8Context {
-	var resultCefv8Context uintptr
-	frameImportAPI().SysCallN(12, m.Instance(), uintptr(unsafePointer(&resultCefv8Context)))
-	return AsCefv8Context(resultCefv8Context)
+func (m *TCefFrame) GetV8Context() ICefV8Context {
+	var resultCefV8Context uintptr
+	frameImportAPI().SysCallN(12, m.Instance(), uintptr(unsafePointer(&resultCefV8Context)))
+	return AsCefV8Context(resultCefV8Context)
 }
 
 func (m *TCefFrame) CreateUrlRequest(request ICefRequest, client ICefUrlRequestClient) ICefUrlRequest {

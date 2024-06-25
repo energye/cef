@@ -22,6 +22,7 @@ import (
 //	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_menu_model_delegate_capi.h">CEF source file: /include/capi/cef_menu_model_delegate_capi.h (cef_menu_model_delegate_t)</a>
 type IMenuModelDelegate interface {
 	ICefMenuModelDelegate
+	AsInterface() ICefMenuModelDelegate // function
 	// SetOnExecuteCommand
 	//  Perform the action associated with the specified |command_id| and optional
 	//  |event_flags|.
@@ -69,8 +70,14 @@ type TMenuModelDelegate struct {
 }
 
 func NewMenuModelDelegate() IMenuModelDelegate {
-	r1 := menuModelDelegateImportAPI().SysCallN(0)
+	r1 := menuModelDelegateImportAPI().SysCallN(1)
 	return AsMenuModelDelegate(r1)
+}
+
+func (m *TMenuModelDelegate) AsInterface() ICefMenuModelDelegate {
+	var resultCefMenuModelDelegate uintptr
+	menuModelDelegateImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefMenuModelDelegate)))
+	return AsCefMenuModelDelegate(resultCefMenuModelDelegate)
 }
 
 func (m *TMenuModelDelegate) SetOnExecuteCommand(fn TOnExecuteCommand) {
@@ -78,7 +85,7 @@ func (m *TMenuModelDelegate) SetOnExecuteCommand(fn TOnExecuteCommand) {
 		RemoveEventElement(m.executeCommandPtr)
 	}
 	m.executeCommandPtr = MakeEventDataPtr(fn)
-	menuModelDelegateImportAPI().SysCallN(1, m.Instance(), m.executeCommandPtr)
+	menuModelDelegateImportAPI().SysCallN(2, m.Instance(), m.executeCommandPtr)
 }
 
 func (m *TMenuModelDelegate) SetOnMouseOutsideMenu(fn TOnMouseOutsideMenu) {
@@ -86,7 +93,7 @@ func (m *TMenuModelDelegate) SetOnMouseOutsideMenu(fn TOnMouseOutsideMenu) {
 		RemoveEventElement(m.mouseOutsideMenuPtr)
 	}
 	m.mouseOutsideMenuPtr = MakeEventDataPtr(fn)
-	menuModelDelegateImportAPI().SysCallN(5, m.Instance(), m.mouseOutsideMenuPtr)
+	menuModelDelegateImportAPI().SysCallN(6, m.Instance(), m.mouseOutsideMenuPtr)
 }
 
 func (m *TMenuModelDelegate) SetOnUnhandledOpenSubmenu(fn TOnUnhandledOpenSubmenu) {
@@ -94,7 +101,7 @@ func (m *TMenuModelDelegate) SetOnUnhandledOpenSubmenu(fn TOnUnhandledOpenSubmen
 		RemoveEventElement(m.unhandledOpenSubmenuPtr)
 	}
 	m.unhandledOpenSubmenuPtr = MakeEventDataPtr(fn)
-	menuModelDelegateImportAPI().SysCallN(7, m.Instance(), m.unhandledOpenSubmenuPtr)
+	menuModelDelegateImportAPI().SysCallN(8, m.Instance(), m.unhandledOpenSubmenuPtr)
 }
 
 func (m *TMenuModelDelegate) SetOnUnhandledCloseSubmenu(fn TOnUnhandledCloseSubmenu) {
@@ -102,7 +109,7 @@ func (m *TMenuModelDelegate) SetOnUnhandledCloseSubmenu(fn TOnUnhandledCloseSubm
 		RemoveEventElement(m.unhandledCloseSubmenuPtr)
 	}
 	m.unhandledCloseSubmenuPtr = MakeEventDataPtr(fn)
-	menuModelDelegateImportAPI().SysCallN(6, m.Instance(), m.unhandledCloseSubmenuPtr)
+	menuModelDelegateImportAPI().SysCallN(7, m.Instance(), m.unhandledCloseSubmenuPtr)
 }
 
 func (m *TMenuModelDelegate) SetOnMenuWillShow(fn TOnMenuWillShow) {
@@ -110,7 +117,7 @@ func (m *TMenuModelDelegate) SetOnMenuWillShow(fn TOnMenuWillShow) {
 		RemoveEventElement(m.menuWillShowPtr)
 	}
 	m.menuWillShowPtr = MakeEventDataPtr(fn)
-	menuModelDelegateImportAPI().SysCallN(4, m.Instance(), m.menuWillShowPtr)
+	menuModelDelegateImportAPI().SysCallN(5, m.Instance(), m.menuWillShowPtr)
 }
 
 func (m *TMenuModelDelegate) SetOnMenuClosed(fn TOnMenuClosed) {
@@ -118,7 +125,7 @@ func (m *TMenuModelDelegate) SetOnMenuClosed(fn TOnMenuClosed) {
 		RemoveEventElement(m.menuClosedPtr)
 	}
 	m.menuClosedPtr = MakeEventDataPtr(fn)
-	menuModelDelegateImportAPI().SysCallN(3, m.Instance(), m.menuClosedPtr)
+	menuModelDelegateImportAPI().SysCallN(4, m.Instance(), m.menuClosedPtr)
 }
 
 func (m *TMenuModelDelegate) SetOnFormatLabel(fn TOnFormatLabel) {
@@ -126,20 +133,21 @@ func (m *TMenuModelDelegate) SetOnFormatLabel(fn TOnFormatLabel) {
 		RemoveEventElement(m.formatLabelPtr)
 	}
 	m.formatLabelPtr = MakeEventDataPtr(fn)
-	menuModelDelegateImportAPI().SysCallN(2, m.Instance(), m.formatLabelPtr)
+	menuModelDelegateImportAPI().SysCallN(3, m.Instance(), m.formatLabelPtr)
 }
 
 var (
 	menuModelDelegateImport       *imports.Imports = nil
 	menuModelDelegateImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("MenuModelDelegate_Create", 0),
-		/*1*/ imports.NewTable("MenuModelDelegate_SetOnExecuteCommand", 0),
-		/*2*/ imports.NewTable("MenuModelDelegate_SetOnFormatLabel", 0),
-		/*3*/ imports.NewTable("MenuModelDelegate_SetOnMenuClosed", 0),
-		/*4*/ imports.NewTable("MenuModelDelegate_SetOnMenuWillShow", 0),
-		/*5*/ imports.NewTable("MenuModelDelegate_SetOnMouseOutsideMenu", 0),
-		/*6*/ imports.NewTable("MenuModelDelegate_SetOnUnhandledCloseSubmenu", 0),
-		/*7*/ imports.NewTable("MenuModelDelegate_SetOnUnhandledOpenSubmenu", 0),
+		/*0*/ imports.NewTable("MenuModelDelegate_AsInterface", 0),
+		/*1*/ imports.NewTable("MenuModelDelegate_Create", 0),
+		/*2*/ imports.NewTable("MenuModelDelegate_SetOnExecuteCommand", 0),
+		/*3*/ imports.NewTable("MenuModelDelegate_SetOnFormatLabel", 0),
+		/*4*/ imports.NewTable("MenuModelDelegate_SetOnMenuClosed", 0),
+		/*5*/ imports.NewTable("MenuModelDelegate_SetOnMenuWillShow", 0),
+		/*6*/ imports.NewTable("MenuModelDelegate_SetOnMouseOutsideMenu", 0),
+		/*7*/ imports.NewTable("MenuModelDelegate_SetOnUnhandledCloseSubmenu", 0),
+		/*8*/ imports.NewTable("MenuModelDelegate_SetOnUnhandledOpenSubmenu", 0),
 	}
 )
 

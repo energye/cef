@@ -20,6 +20,7 @@ import (
 //	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_scheme_capi.h">CEF source file: /include/capi/cef_scheme_capi.h (cef_scheme_handler_factory_t)</a>
 type ISchemeHandlerFactory interface {
 	ICefSchemeHandlerFactory
+	AsInterface() ICefSchemeHandlerFactory // function
 	// SetOnNew
 	//  Return a new resource handler instance to handle the request or an NULL
 	//  reference to allow default handling of the request. |browser| and |frame|
@@ -41,8 +42,14 @@ type TSchemeHandlerFactory struct {
 }
 
 func NewSchemeHandlerFactory(aClass TCefResourceHandlerClass) ISchemeHandlerFactory {
-	r1 := schemeHandlerFactoryImportAPI().SysCallN(0, uintptr(aClass))
+	r1 := schemeHandlerFactoryImportAPI().SysCallN(1, uintptr(aClass))
 	return AsSchemeHandlerFactory(r1)
+}
+
+func (m *TSchemeHandlerFactory) AsInterface() ICefSchemeHandlerFactory {
+	var resultCefSchemeHandlerFactory uintptr
+	schemeHandlerFactoryImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefSchemeHandlerFactory)))
+	return AsCefSchemeHandlerFactory(resultCefSchemeHandlerFactory)
 }
 
 func (m *TSchemeHandlerFactory) SetOnNew(fn TOnSchemeHandlerFactoryNew) {
@@ -50,14 +57,15 @@ func (m *TSchemeHandlerFactory) SetOnNew(fn TOnSchemeHandlerFactoryNew) {
 		RemoveEventElement(m.newPtr)
 	}
 	m.newPtr = MakeEventDataPtr(fn)
-	schemeHandlerFactoryImportAPI().SysCallN(1, m.Instance(), m.newPtr)
+	schemeHandlerFactoryImportAPI().SysCallN(2, m.Instance(), m.newPtr)
 }
 
 var (
 	schemeHandlerFactoryImport       *imports.Imports = nil
 	schemeHandlerFactoryImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("SchemeHandlerFactory_Create", 0),
-		/*1*/ imports.NewTable("SchemeHandlerFactory_SetOnNew", 0),
+		/*0*/ imports.NewTable("SchemeHandlerFactory_AsInterface", 0),
+		/*1*/ imports.NewTable("SchemeHandlerFactory_Create", 0),
+		/*2*/ imports.NewTable("SchemeHandlerFactory_SetOnNew", 0),
 	}
 )
 

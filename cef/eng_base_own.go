@@ -8,13 +8,13 @@
 
 package cef
 
-// ICEFAccessibilityHandler Parent: ICefBaseRefCountedOwn
-type ICEFAccessibilityHandler interface {
+// ICefAccessibilityHandler Parent: ICefBaseRefCountedOwn
+type ICefAccessibilityHandler interface {
 	ICefBaseRefCountedOwn
 }
 
-// TCEFAccessibilityHandler Parent: TCefBaseRefCountedOwn
-type TCEFAccessibilityHandler struct {
+// TCefAccessibilityHandler Parent: TCefBaseRefCountedOwn
+type TCefAccessibilityHandler struct {
 	TCefBaseRefCountedOwn
 }
 
@@ -666,22 +666,22 @@ type TCefWriteHandler struct {
 	TCefBaseRefCountedOwn
 }
 
-// ICefv8ArrayBufferReleaseCallback Parent: ICefBaseRefCountedOwn
-type ICefv8ArrayBufferReleaseCallback interface {
+// ICefV8ArrayBufferReleaseCallback Parent: ICefBaseRefCountedOwn
+type ICefV8ArrayBufferReleaseCallback interface {
 	ICefBaseRefCountedOwn
 }
 
-// TCefv8ArrayBufferReleaseCallback Parent: TCefBaseRefCountedOwn
-type TCefv8ArrayBufferReleaseCallback struct {
+// TCefV8ArrayBufferReleaseCallback Parent: TCefBaseRefCountedOwn
+type TCefV8ArrayBufferReleaseCallback struct {
 	TCefBaseRefCountedOwn
 }
 
-// ICefv8Handler Parent: ICefBaseRefCountedOwn
-type ICefv8Handler interface {
+// ICefV8Handler Parent: ICefBaseRefCountedOwn
+type ICefV8Handler interface {
 	ICefBaseRefCountedOwn
 }
 
-// TCefv8Handler Parent: TCefBaseRefCountedOwn
-type TCefv8Handler struct {
+// TCefV8Handler Parent: TCefBaseRefCountedOwn
+type TCefV8Handler struct {
 	TCefBaseRefCountedOwn
 }
