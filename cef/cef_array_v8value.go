@@ -37,7 +37,7 @@ type v8ValueArray uintptr
 
 // New 创建一个 ICefV8Value 数组引用维护
 //
-//	count: 默认大小
+//	count: 初始默认大小
 //	instance:  默认 nil(0)
 func (*v8ValueArray) New(count int, instance uintptr) ICefV8ValueArray {
 	return &TCefV8ValueArray{
