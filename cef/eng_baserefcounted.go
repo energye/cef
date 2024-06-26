@@ -16,6 +16,7 @@ import (
 // ICefBaseRefCounted Parent: IObject
 type ICefBaseRefCounted interface {
 	IObject
+	FreeAndNil()
 	HasOneRef() bool                                 // function
 	HasAtLeastOneRef() bool                          // function
 	SameAs(aData uintptr) bool                       // function
