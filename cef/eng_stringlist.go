@@ -13,7 +13,7 @@ import (
 	"github.com/energye/lcl/api/imports"
 )
 
-// ICefStringList Parent: TObject
+// ICefStringList Parent: IObject
 //
 //	Custom interface used to handle all the CEF functions related to CefStringList.
 type ICefStringList interface {
