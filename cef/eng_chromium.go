@@ -19,6 +19,7 @@ import (
 //	It has all you need to create, modify and destroy a web browser.
 type IChromium interface {
 	IChromiumCore
+	AsChromiumEvents() IChromiumEvents
 	// CreateBrowserByWinControl
 	//  Used to create the browser after the global request context has been
 	//  initialized. You need to set all properties and events before calling

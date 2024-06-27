@@ -8,7 +8,12 @@
 
 package cef
 
-import "github.com/energye/lcl/api"
+import (
+	"github.com/energye/lcl/api"
+	"github.com/energye/lcl/api/imports"
+)
+
+type IChromiumEvents = IChromium
 
 // IMESetComposition
 //
@@ -44,4 +49,26 @@ func (m *TChromiumCore) SetCookie(url string, aSetImmediately bool, aID int32, c
 	inCookie := cookie.Pointer()
 	r1 := predefImportAPI().SysCallN(9, m.Instance(), api.PascalStr(url), api.PascalBool(aSetImmediately), uintptr(aID), uintptr(unsafePointer(inCookie)))
 	return api.GoBool(r1)
+}
+
+func (m *TChromiumCore) AsChromiumEvents() IChromiumEvents {
+	var result uintptr
+	predefChromiumImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&result)))
+	return AsChromium(result)
+}
+
+var (
+	predefChromiumImport       *imports.Imports = nil
+	predefChromiumImportTables                  = []*imports.Table{
+		imports.NewTable("ChromiumCore_AsChromiumEvents", 0),
+	}
+)
+
+func predefChromiumImportAPI() *imports.Imports {
+	if predefChromiumImport == nil {
+		predefChromiumImport = api.NewDefaultImports()
+		predefChromiumImport.SetImportTable(predefChromiumImportTables)
+		predefChromiumImportTables = nil
+	}
+	return predefChromiumImport
 }
