@@ -25,7 +25,9 @@ import (
 //	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_task_capi.h">CEF source file: /include/capi/cef_task_capi.h (cef_task_t)</a>
 type ITask interface {
 	ICefTask
-	AsInterface() ICefTask                                       // function
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefTask                                       // procedure
 	OnlyPostTask(threadId TCefThreadId) bool                     // function
 	OnlyPostDelayedTask(threadId TCefThreadId, delay int64) bool // function
 	// SetOnExecute

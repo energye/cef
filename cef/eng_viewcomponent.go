@@ -16,6 +16,9 @@ import (
 // ICEFViewComponent Parent: IComponent
 type ICEFViewComponent interface {
 	IComponent
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefViewDelegateEvents // procedure
 	// Initialized
 	//  Returns true when the control is fully initialized.
 	Initialized() bool // property
@@ -278,18 +281,24 @@ type TCEFViewComponent struct {
 }
 
 func NewCEFViewComponent(aOwner IComponent) ICEFViewComponent {
-	r1 := viewComponentImportAPI().SysCallN(17, GetObjectUintptr(aOwner))
+	r1 := viewComponentImportAPI().SysCallN(18, GetObjectUintptr(aOwner))
 	return AsCEFViewComponent(r1)
 }
 
+func (m *TCEFViewComponent) AsInterface() ICefViewDelegateEvents {
+	var resultCefViewDelegateEvents uintptr
+	viewComponentImportAPI().SysCallN(3, m.Instance(), uintptr(unsafePointer(&resultCefViewDelegateEvents)))
+	return AsCefViewDelegateEvents(resultCefViewDelegateEvents)
+}
+
 func (m *TCEFViewComponent) Initialized() bool {
-	r1 := viewComponentImportAPI().SysCallN(25, m.Instance())
+	r1 := viewComponentImportAPI().SysCallN(26, m.Instance())
 	return GoBool(r1)
 }
 
 func (m *TCEFViewComponent) AsView() ICefView {
 	var resultCefView uintptr
-	viewComponentImportAPI().SysCallN(6, m.Instance(), uintptr(unsafePointer(&resultCefView)))
+	viewComponentImportAPI().SysCallN(7, m.Instance(), uintptr(unsafePointer(&resultCefView)))
 	return AsCefView(resultCefView)
 }
 
@@ -307,106 +316,106 @@ func (m *TCEFViewComponent) AsButton() ICefButton {
 
 func (m *TCEFViewComponent) AsPanel() ICefPanel {
 	var resultCefPanel uintptr
-	viewComponentImportAPI().SysCallN(3, m.Instance(), uintptr(unsafePointer(&resultCefPanel)))
+	viewComponentImportAPI().SysCallN(4, m.Instance(), uintptr(unsafePointer(&resultCefPanel)))
 	return AsCefPanel(resultCefPanel)
 }
 
 func (m *TCEFViewComponent) AsScrollView() ICefScrollView {
 	var resultCefScrollView uintptr
-	viewComponentImportAPI().SysCallN(4, m.Instance(), uintptr(unsafePointer(&resultCefScrollView)))
+	viewComponentImportAPI().SysCallN(5, m.Instance(), uintptr(unsafePointer(&resultCefScrollView)))
 	return AsCefScrollView(resultCefScrollView)
 }
 
 func (m *TCEFViewComponent) AsTextfield() ICefTextfield {
 	var resultCefTextfield uintptr
-	viewComponentImportAPI().SysCallN(5, m.Instance(), uintptr(unsafePointer(&resultCefTextfield)))
+	viewComponentImportAPI().SysCallN(6, m.Instance(), uintptr(unsafePointer(&resultCefTextfield)))
 	return AsCefTextfield(resultCefTextfield)
 }
 
 func (m *TCEFViewComponent) ViewForID(id int32) ICefView {
 	var resultCefView uintptr
-	viewComponentImportAPI().SysCallN(50, m.Instance(), uintptr(id), uintptr(unsafePointer(&resultCefView)))
+	viewComponentImportAPI().SysCallN(51, m.Instance(), uintptr(id), uintptr(unsafePointer(&resultCefView)))
 	return AsCefView(resultCefView)
 }
 
 func (m *TCEFViewComponent) Valid() bool {
-	r1 := viewComponentImportAPI().SysCallN(49, m.Instance())
+	r1 := viewComponentImportAPI().SysCallN(50, m.Instance())
 	return GoBool(r1)
 }
 
 func (m *TCEFViewComponent) Attached() bool {
-	r1 := viewComponentImportAPI().SysCallN(7, m.Instance())
+	r1 := viewComponentImportAPI().SysCallN(8, m.Instance())
 	return GoBool(r1)
 }
 
 func (m *TCEFViewComponent) Delegate() ICefViewDelegate {
 	var resultCefViewDelegate uintptr
-	viewComponentImportAPI().SysCallN(18, m.Instance(), uintptr(unsafePointer(&resultCefViewDelegate)))
+	viewComponentImportAPI().SysCallN(19, m.Instance(), uintptr(unsafePointer(&resultCefViewDelegate)))
 	return AsCefViewDelegate(resultCefViewDelegate)
 }
 
 func (m *TCEFViewComponent) Window() ICefWindow {
 	var resultCefWindow uintptr
-	viewComponentImportAPI().SysCallN(52, m.Instance(), uintptr(unsafePointer(&resultCefWindow)))
+	viewComponentImportAPI().SysCallN(53, m.Instance(), uintptr(unsafePointer(&resultCefWindow)))
 	return AsCefWindow(resultCefWindow)
 }
 
 func (m *TCEFViewComponent) ParentView() ICefView {
 	var resultCefView uintptr
-	viewComponentImportAPI().SysCallN(31, m.Instance(), uintptr(unsafePointer(&resultCefView)))
+	viewComponentImportAPI().SysCallN(32, m.Instance(), uintptr(unsafePointer(&resultCefView)))
 	return AsCefView(resultCefView)
 }
 
 func (m *TCEFViewComponent) BoundsInScreen() (resultCefRect TCefRect) {
-	viewComponentImportAPI().SysCallN(10, m.Instance(), uintptr(unsafePointer(&resultCefRect)))
+	viewComponentImportAPI().SysCallN(11, m.Instance(), uintptr(unsafePointer(&resultCefRect)))
 	return
 }
 
 func (m *TCEFViewComponent) PreferredSize() (resultCefSize TCefSize) {
-	viewComponentImportAPI().SysCallN(33, m.Instance(), uintptr(unsafePointer(&resultCefSize)))
+	viewComponentImportAPI().SysCallN(34, m.Instance(), uintptr(unsafePointer(&resultCefSize)))
 	return
 }
 
 func (m *TCEFViewComponent) MinimumSize() (resultCefSize TCefSize) {
-	viewComponentImportAPI().SysCallN(30, m.Instance(), uintptr(unsafePointer(&resultCefSize)))
+	viewComponentImportAPI().SysCallN(31, m.Instance(), uintptr(unsafePointer(&resultCefSize)))
 	return
 }
 
 func (m *TCEFViewComponent) MaximumSize() (resultCefSize TCefSize) {
-	viewComponentImportAPI().SysCallN(29, m.Instance(), uintptr(unsafePointer(&resultCefSize)))
+	viewComponentImportAPI().SysCallN(30, m.Instance(), uintptr(unsafePointer(&resultCefSize)))
 	return
 }
 
 func (m *TCEFViewComponent) Visible() bool {
-	r1 := viewComponentImportAPI().SysCallN(51, 0, m.Instance(), 0)
+	r1 := viewComponentImportAPI().SysCallN(52, 0, m.Instance(), 0)
 	return GoBool(r1)
 }
 
 func (m *TCEFViewComponent) SetVisible(AValue bool) {
-	viewComponentImportAPI().SysCallN(51, 1, m.Instance(), PascalBool(AValue))
+	viewComponentImportAPI().SysCallN(52, 1, m.Instance(), PascalBool(AValue))
 }
 
 func (m *TCEFViewComponent) Drawn() bool {
-	r1 := viewComponentImportAPI().SysCallN(19, m.Instance())
+	r1 := viewComponentImportAPI().SysCallN(20, m.Instance())
 	return GoBool(r1)
 }
 
 func (m *TCEFViewComponent) Enabled() bool {
-	r1 := viewComponentImportAPI().SysCallN(20, 0, m.Instance(), 0)
-	return GoBool(r1)
-}
-
-func (m *TCEFViewComponent) SetEnabled(AValue bool) {
-	viewComponentImportAPI().SysCallN(20, 1, m.Instance(), PascalBool(AValue))
-}
-
-func (m *TCEFViewComponent) Focusable() bool {
 	r1 := viewComponentImportAPI().SysCallN(21, 0, m.Instance(), 0)
 	return GoBool(r1)
 }
 
-func (m *TCEFViewComponent) SetFocusable(AValue bool) {
+func (m *TCEFViewComponent) SetEnabled(AValue bool) {
 	viewComponentImportAPI().SysCallN(21, 1, m.Instance(), PascalBool(AValue))
+}
+
+func (m *TCEFViewComponent) Focusable() bool {
+	r1 := viewComponentImportAPI().SysCallN(22, 0, m.Instance(), 0)
+	return GoBool(r1)
+}
+
+func (m *TCEFViewComponent) SetFocusable(AValue bool) {
+	viewComponentImportAPI().SysCallN(22, 1, m.Instance(), PascalBool(AValue))
 }
 
 func (m *TCEFViewComponent) AccessibilityFocusable() bool {
@@ -415,140 +424,140 @@ func (m *TCEFViewComponent) AccessibilityFocusable() bool {
 }
 
 func (m *TCEFViewComponent) BackgroundColor() TCefColor {
-	r1 := viewComponentImportAPI().SysCallN(8, 0, m.Instance(), 0)
+	r1 := viewComponentImportAPI().SysCallN(9, 0, m.Instance(), 0)
 	return TCefColor(r1)
 }
 
 func (m *TCEFViewComponent) SetBackgroundColor(AValue TCefColor) {
-	viewComponentImportAPI().SysCallN(8, 1, m.Instance(), uintptr(AValue))
+	viewComponentImportAPI().SysCallN(9, 1, m.Instance(), uintptr(AValue))
 }
 
 func (m *TCEFViewComponent) ID() int32 {
-	r1 := viewComponentImportAPI().SysCallN(24, 0, m.Instance(), 0)
+	r1 := viewComponentImportAPI().SysCallN(25, 0, m.Instance(), 0)
 	return int32(r1)
 }
 
 func (m *TCEFViewComponent) SetID(AValue int32) {
-	viewComponentImportAPI().SysCallN(24, 1, m.Instance(), uintptr(AValue))
+	viewComponentImportAPI().SysCallN(25, 1, m.Instance(), uintptr(AValue))
 }
 
 func (m *TCEFViewComponent) GroupID() int32 {
-	r1 := viewComponentImportAPI().SysCallN(22, 0, m.Instance(), 0)
+	r1 := viewComponentImportAPI().SysCallN(23, 0, m.Instance(), 0)
 	return int32(r1)
 }
 
 func (m *TCEFViewComponent) SetGroupID(AValue int32) {
-	viewComponentImportAPI().SysCallN(22, 1, m.Instance(), uintptr(AValue))
+	viewComponentImportAPI().SysCallN(23, 1, m.Instance(), uintptr(AValue))
 }
 
 func (m *TCEFViewComponent) Bounds() (resultCefRect TCefRect) {
-	viewComponentImportAPI().SysCallN(9, 0, m.Instance(), uintptr(unsafePointer(&resultCefRect)), uintptr(unsafePointer(&resultCefRect)))
+	viewComponentImportAPI().SysCallN(10, 0, m.Instance(), uintptr(unsafePointer(&resultCefRect)), uintptr(unsafePointer(&resultCefRect)))
 	return
 }
 
 func (m *TCEFViewComponent) SetBounds(AValue *TCefRect) {
-	viewComponentImportAPI().SysCallN(9, 1, m.Instance(), uintptr(unsafePointer(AValue)), uintptr(unsafePointer(AValue)))
+	viewComponentImportAPI().SysCallN(10, 1, m.Instance(), uintptr(unsafePointer(AValue)), uintptr(unsafePointer(AValue)))
 }
 
 func (m *TCEFViewComponent) Size() (resultCefSize TCefSize) {
-	viewComponentImportAPI().SysCallN(45, 0, m.Instance(), uintptr(unsafePointer(&resultCefSize)), uintptr(unsafePointer(&resultCefSize)))
+	viewComponentImportAPI().SysCallN(46, 0, m.Instance(), uintptr(unsafePointer(&resultCefSize)), uintptr(unsafePointer(&resultCefSize)))
 	return
 }
 
 func (m *TCEFViewComponent) SetSize(AValue *TCefSize) {
-	viewComponentImportAPI().SysCallN(45, 1, m.Instance(), uintptr(unsafePointer(AValue)), uintptr(unsafePointer(AValue)))
+	viewComponentImportAPI().SysCallN(46, 1, m.Instance(), uintptr(unsafePointer(AValue)), uintptr(unsafePointer(AValue)))
 }
 
 func (m *TCEFViewComponent) Position() (resultCefPoint TCefPoint) {
-	viewComponentImportAPI().SysCallN(32, 0, m.Instance(), uintptr(unsafePointer(&resultCefPoint)), uintptr(unsafePointer(&resultCefPoint)))
+	viewComponentImportAPI().SysCallN(33, 0, m.Instance(), uintptr(unsafePointer(&resultCefPoint)), uintptr(unsafePointer(&resultCefPoint)))
 	return
 }
 
 func (m *TCEFViewComponent) SetPosition(AValue *TCefPoint) {
-	viewComponentImportAPI().SysCallN(32, 1, m.Instance(), uintptr(unsafePointer(AValue)), uintptr(unsafePointer(AValue)))
+	viewComponentImportAPI().SysCallN(33, 1, m.Instance(), uintptr(unsafePointer(AValue)), uintptr(unsafePointer(AValue)))
 }
 
 func (m *TCEFViewComponent) Insets() (resultCefInsets TCefInsets) {
-	viewComponentImportAPI().SysCallN(26, 0, m.Instance(), uintptr(unsafePointer(&resultCefInsets)), uintptr(unsafePointer(&resultCefInsets)))
+	viewComponentImportAPI().SysCallN(27, 0, m.Instance(), uintptr(unsafePointer(&resultCefInsets)), uintptr(unsafePointer(&resultCefInsets)))
 	return
 }
 
 func (m *TCEFViewComponent) SetInsets(AValue *TCefInsets) {
-	viewComponentImportAPI().SysCallN(26, 1, m.Instance(), uintptr(unsafePointer(AValue)), uintptr(unsafePointer(AValue)))
+	viewComponentImportAPI().SysCallN(27, 1, m.Instance(), uintptr(unsafePointer(AValue)), uintptr(unsafePointer(AValue)))
 }
 
 func (m *TCEFViewComponent) TypeString() string {
-	r1 := viewComponentImportAPI().SysCallN(48, m.Instance())
+	r1 := viewComponentImportAPI().SysCallN(49, m.Instance())
 	return GoStr(r1)
 }
 
 func (m *TCEFViewComponent) HeightForWidth(width int32) int32 {
-	r1 := viewComponentImportAPI().SysCallN(23, m.Instance(), uintptr(width))
+	r1 := viewComponentImportAPI().SysCallN(24, m.Instance(), uintptr(width))
 	return int32(r1)
 }
 
 func (m *TCEFViewComponent) ToStringEx(includechildren bool) string {
-	r1 := viewComponentImportAPI().SysCallN(47, m.Instance(), PascalBool(includechildren))
+	r1 := viewComponentImportAPI().SysCallN(48, m.Instance(), PascalBool(includechildren))
 	return GoStr(r1)
 }
 
 func (m *TCEFViewComponent) IsSame(that ICefView) bool {
-	r1 := viewComponentImportAPI().SysCallN(28, m.Instance(), GetObjectUintptr(that))
+	r1 := viewComponentImportAPI().SysCallN(29, m.Instance(), GetObjectUintptr(that))
 	return GoBool(r1)
 }
 
 func (m *TCEFViewComponent) ConvertPointToScreen(point *TCefPoint) bool {
 	var result0 uintptr
-	r1 := viewComponentImportAPI().SysCallN(14, m.Instance(), uintptr(unsafePointer(&result0)))
+	r1 := viewComponentImportAPI().SysCallN(15, m.Instance(), uintptr(unsafePointer(&result0)))
 	*point = *(*TCefPoint)(unsafePointer(result0))
 	return GoBool(r1)
 }
 
 func (m *TCEFViewComponent) ConvertPointFromScreen(point *TCefPoint) bool {
 	var result0 uintptr
-	r1 := viewComponentImportAPI().SysCallN(11, m.Instance(), uintptr(unsafePointer(&result0)))
+	r1 := viewComponentImportAPI().SysCallN(12, m.Instance(), uintptr(unsafePointer(&result0)))
 	*point = *(*TCefPoint)(unsafePointer(result0))
 	return GoBool(r1)
 }
 
 func (m *TCEFViewComponent) ConvertPointToWindow(point *TCefPoint) bool {
 	var result0 uintptr
-	r1 := viewComponentImportAPI().SysCallN(16, m.Instance(), uintptr(unsafePointer(&result0)))
+	r1 := viewComponentImportAPI().SysCallN(17, m.Instance(), uintptr(unsafePointer(&result0)))
 	*point = *(*TCefPoint)(unsafePointer(result0))
 	return GoBool(r1)
 }
 
 func (m *TCEFViewComponent) ConvertPointFromWindow(point *TCefPoint) bool {
 	var result0 uintptr
-	r1 := viewComponentImportAPI().SysCallN(13, m.Instance(), uintptr(unsafePointer(&result0)))
+	r1 := viewComponentImportAPI().SysCallN(14, m.Instance(), uintptr(unsafePointer(&result0)))
 	*point = *(*TCefPoint)(unsafePointer(result0))
 	return GoBool(r1)
 }
 
 func (m *TCEFViewComponent) ConvertPointToView(view ICefView, point *TCefPoint) bool {
 	var result1 uintptr
-	r1 := viewComponentImportAPI().SysCallN(15, m.Instance(), GetObjectUintptr(view), uintptr(unsafePointer(&result1)))
+	r1 := viewComponentImportAPI().SysCallN(16, m.Instance(), GetObjectUintptr(view), uintptr(unsafePointer(&result1)))
 	*point = *(*TCefPoint)(unsafePointer(result1))
 	return GoBool(r1)
 }
 
 func (m *TCEFViewComponent) ConvertPointFromView(view ICefView, point *TCefPoint) bool {
 	var result1 uintptr
-	r1 := viewComponentImportAPI().SysCallN(12, m.Instance(), GetObjectUintptr(view), uintptr(unsafePointer(&result1)))
+	r1 := viewComponentImportAPI().SysCallN(13, m.Instance(), GetObjectUintptr(view), uintptr(unsafePointer(&result1)))
 	*point = *(*TCefPoint)(unsafePointer(result1))
 	return GoBool(r1)
 }
 
 func (m *TCEFViewComponent) SizeToPreferredSize() {
-	viewComponentImportAPI().SysCallN(46, m.Instance())
+	viewComponentImportAPI().SysCallN(47, m.Instance())
 }
 
 func (m *TCEFViewComponent) InvalidateLayout() {
-	viewComponentImportAPI().SysCallN(27, m.Instance())
+	viewComponentImportAPI().SysCallN(28, m.Instance())
 }
 
 func (m *TCEFViewComponent) RequestFocus() {
-	viewComponentImportAPI().SysCallN(34, m.Instance())
+	viewComponentImportAPI().SysCallN(35, m.Instance())
 }
 
 func (m *TCEFViewComponent) SetOnGetPreferredSize(fn TOnGetPreferredSize) {
@@ -556,7 +565,7 @@ func (m *TCEFViewComponent) SetOnGetPreferredSize(fn TOnGetPreferredSize) {
 		RemoveEventElement(m.getPreferredSizePtr)
 	}
 	m.getPreferredSizePtr = MakeEventDataPtr(fn)
-	viewComponentImportAPI().SysCallN(41, m.Instance(), m.getPreferredSizePtr)
+	viewComponentImportAPI().SysCallN(42, m.Instance(), m.getPreferredSizePtr)
 }
 
 func (m *TCEFViewComponent) SetOnGetMinimumSize(fn TOnGetMinimumSize) {
@@ -564,7 +573,7 @@ func (m *TCEFViewComponent) SetOnGetMinimumSize(fn TOnGetMinimumSize) {
 		RemoveEventElement(m.getMinimumSizePtr)
 	}
 	m.getMinimumSizePtr = MakeEventDataPtr(fn)
-	viewComponentImportAPI().SysCallN(40, m.Instance(), m.getMinimumSizePtr)
+	viewComponentImportAPI().SysCallN(41, m.Instance(), m.getMinimumSizePtr)
 }
 
 func (m *TCEFViewComponent) SetOnGetMaximumSize(fn TOnGetMaximumSize) {
@@ -572,7 +581,7 @@ func (m *TCEFViewComponent) SetOnGetMaximumSize(fn TOnGetMaximumSize) {
 		RemoveEventElement(m.getMaximumSizePtr)
 	}
 	m.getMaximumSizePtr = MakeEventDataPtr(fn)
-	viewComponentImportAPI().SysCallN(39, m.Instance(), m.getMaximumSizePtr)
+	viewComponentImportAPI().SysCallN(40, m.Instance(), m.getMaximumSizePtr)
 }
 
 func (m *TCEFViewComponent) SetOnGetHeightForWidth(fn TOnGetHeightForWidth) {
@@ -580,7 +589,7 @@ func (m *TCEFViewComponent) SetOnGetHeightForWidth(fn TOnGetHeightForWidth) {
 		RemoveEventElement(m.getHeightForWidthPtr)
 	}
 	m.getHeightForWidthPtr = MakeEventDataPtr(fn)
-	viewComponentImportAPI().SysCallN(38, m.Instance(), m.getHeightForWidthPtr)
+	viewComponentImportAPI().SysCallN(39, m.Instance(), m.getHeightForWidthPtr)
 }
 
 func (m *TCEFViewComponent) SetOnParentViewChanged(fn TOnParentViewChanged) {
@@ -588,7 +597,7 @@ func (m *TCEFViewComponent) SetOnParentViewChanged(fn TOnParentViewChanged) {
 		RemoveEventElement(m.parentViewChangedPtr)
 	}
 	m.parentViewChangedPtr = MakeEventDataPtr(fn)
-	viewComponentImportAPI().SysCallN(43, m.Instance(), m.parentViewChangedPtr)
+	viewComponentImportAPI().SysCallN(44, m.Instance(), m.parentViewChangedPtr)
 }
 
 func (m *TCEFViewComponent) SetOnChildViewChanged(fn TOnChildViewChanged) {
@@ -596,7 +605,7 @@ func (m *TCEFViewComponent) SetOnChildViewChanged(fn TOnChildViewChanged) {
 		RemoveEventElement(m.childViewChangedPtr)
 	}
 	m.childViewChangedPtr = MakeEventDataPtr(fn)
-	viewComponentImportAPI().SysCallN(36, m.Instance(), m.childViewChangedPtr)
+	viewComponentImportAPI().SysCallN(37, m.Instance(), m.childViewChangedPtr)
 }
 
 func (m *TCEFViewComponent) SetOnWindowChanged(fn TOnWindowChanged) {
@@ -604,7 +613,7 @@ func (m *TCEFViewComponent) SetOnWindowChanged(fn TOnWindowChanged) {
 		RemoveEventElement(m.windowChangedPtr)
 	}
 	m.windowChangedPtr = MakeEventDataPtr(fn)
-	viewComponentImportAPI().SysCallN(44, m.Instance(), m.windowChangedPtr)
+	viewComponentImportAPI().SysCallN(45, m.Instance(), m.windowChangedPtr)
 }
 
 func (m *TCEFViewComponent) SetOnLayoutChanged(fn TOnLayoutChanged) {
@@ -612,7 +621,7 @@ func (m *TCEFViewComponent) SetOnLayoutChanged(fn TOnLayoutChanged) {
 		RemoveEventElement(m.layoutChangedPtr)
 	}
 	m.layoutChangedPtr = MakeEventDataPtr(fn)
-	viewComponentImportAPI().SysCallN(42, m.Instance(), m.layoutChangedPtr)
+	viewComponentImportAPI().SysCallN(43, m.Instance(), m.layoutChangedPtr)
 }
 
 func (m *TCEFViewComponent) SetOnFocus(fn TOnFocus) {
@@ -620,7 +629,7 @@ func (m *TCEFViewComponent) SetOnFocus(fn TOnFocus) {
 		RemoveEventElement(m.focusPtr)
 	}
 	m.focusPtr = MakeEventDataPtr(fn)
-	viewComponentImportAPI().SysCallN(37, m.Instance(), m.focusPtr)
+	viewComponentImportAPI().SysCallN(38, m.Instance(), m.focusPtr)
 }
 
 func (m *TCEFViewComponent) SetOnBlur(fn TOnBlur) {
@@ -628,7 +637,7 @@ func (m *TCEFViewComponent) SetOnBlur(fn TOnBlur) {
 		RemoveEventElement(m.blurPtr)
 	}
 	m.blurPtr = MakeEventDataPtr(fn)
-	viewComponentImportAPI().SysCallN(35, m.Instance(), m.blurPtr)
+	viewComponentImportAPI().SysCallN(36, m.Instance(), m.blurPtr)
 }
 
 var (
@@ -637,56 +646,57 @@ var (
 		/*0*/ imports.NewTable("CEFViewComponent_AccessibilityFocusable", 0),
 		/*1*/ imports.NewTable("CEFViewComponent_AsBrowserView", 0),
 		/*2*/ imports.NewTable("CEFViewComponent_AsButton", 0),
-		/*3*/ imports.NewTable("CEFViewComponent_AsPanel", 0),
-		/*4*/ imports.NewTable("CEFViewComponent_AsScrollView", 0),
-		/*5*/ imports.NewTable("CEFViewComponent_AsTextfield", 0),
-		/*6*/ imports.NewTable("CEFViewComponent_AsView", 0),
-		/*7*/ imports.NewTable("CEFViewComponent_Attached", 0),
-		/*8*/ imports.NewTable("CEFViewComponent_BackgroundColor", 0),
-		/*9*/ imports.NewTable("CEFViewComponent_Bounds", 0),
-		/*10*/ imports.NewTable("CEFViewComponent_BoundsInScreen", 0),
-		/*11*/ imports.NewTable("CEFViewComponent_ConvertPointFromScreen", 0),
-		/*12*/ imports.NewTable("CEFViewComponent_ConvertPointFromView", 0),
-		/*13*/ imports.NewTable("CEFViewComponent_ConvertPointFromWindow", 0),
-		/*14*/ imports.NewTable("CEFViewComponent_ConvertPointToScreen", 0),
-		/*15*/ imports.NewTable("CEFViewComponent_ConvertPointToView", 0),
-		/*16*/ imports.NewTable("CEFViewComponent_ConvertPointToWindow", 0),
-		/*17*/ imports.NewTable("CEFViewComponent_Create", 0),
-		/*18*/ imports.NewTable("CEFViewComponent_Delegate", 0),
-		/*19*/ imports.NewTable("CEFViewComponent_Drawn", 0),
-		/*20*/ imports.NewTable("CEFViewComponent_Enabled", 0),
-		/*21*/ imports.NewTable("CEFViewComponent_Focusable", 0),
-		/*22*/ imports.NewTable("CEFViewComponent_GroupID", 0),
-		/*23*/ imports.NewTable("CEFViewComponent_HeightForWidth", 0),
-		/*24*/ imports.NewTable("CEFViewComponent_ID", 0),
-		/*25*/ imports.NewTable("CEFViewComponent_Initialized", 0),
-		/*26*/ imports.NewTable("CEFViewComponent_Insets", 0),
-		/*27*/ imports.NewTable("CEFViewComponent_InvalidateLayout", 0),
-		/*28*/ imports.NewTable("CEFViewComponent_IsSame", 0),
-		/*29*/ imports.NewTable("CEFViewComponent_MaximumSize", 0),
-		/*30*/ imports.NewTable("CEFViewComponent_MinimumSize", 0),
-		/*31*/ imports.NewTable("CEFViewComponent_ParentView", 0),
-		/*32*/ imports.NewTable("CEFViewComponent_Position", 0),
-		/*33*/ imports.NewTable("CEFViewComponent_PreferredSize", 0),
-		/*34*/ imports.NewTable("CEFViewComponent_RequestFocus", 0),
-		/*35*/ imports.NewTable("CEFViewComponent_SetOnBlur", 0),
-		/*36*/ imports.NewTable("CEFViewComponent_SetOnChildViewChanged", 0),
-		/*37*/ imports.NewTable("CEFViewComponent_SetOnFocus", 0),
-		/*38*/ imports.NewTable("CEFViewComponent_SetOnGetHeightForWidth", 0),
-		/*39*/ imports.NewTable("CEFViewComponent_SetOnGetMaximumSize", 0),
-		/*40*/ imports.NewTable("CEFViewComponent_SetOnGetMinimumSize", 0),
-		/*41*/ imports.NewTable("CEFViewComponent_SetOnGetPreferredSize", 0),
-		/*42*/ imports.NewTable("CEFViewComponent_SetOnLayoutChanged", 0),
-		/*43*/ imports.NewTable("CEFViewComponent_SetOnParentViewChanged", 0),
-		/*44*/ imports.NewTable("CEFViewComponent_SetOnWindowChanged", 0),
-		/*45*/ imports.NewTable("CEFViewComponent_Size", 0),
-		/*46*/ imports.NewTable("CEFViewComponent_SizeToPreferredSize", 0),
-		/*47*/ imports.NewTable("CEFViewComponent_ToStringEx", 0),
-		/*48*/ imports.NewTable("CEFViewComponent_TypeString", 0),
-		/*49*/ imports.NewTable("CEFViewComponent_Valid", 0),
-		/*50*/ imports.NewTable("CEFViewComponent_ViewForID", 0),
-		/*51*/ imports.NewTable("CEFViewComponent_Visible", 0),
-		/*52*/ imports.NewTable("CEFViewComponent_Window", 0),
+		/*3*/ imports.NewTable("CEFViewComponent_AsInterface", 0),
+		/*4*/ imports.NewTable("CEFViewComponent_AsPanel", 0),
+		/*5*/ imports.NewTable("CEFViewComponent_AsScrollView", 0),
+		/*6*/ imports.NewTable("CEFViewComponent_AsTextfield", 0),
+		/*7*/ imports.NewTable("CEFViewComponent_AsView", 0),
+		/*8*/ imports.NewTable("CEFViewComponent_Attached", 0),
+		/*9*/ imports.NewTable("CEFViewComponent_BackgroundColor", 0),
+		/*10*/ imports.NewTable("CEFViewComponent_Bounds", 0),
+		/*11*/ imports.NewTable("CEFViewComponent_BoundsInScreen", 0),
+		/*12*/ imports.NewTable("CEFViewComponent_ConvertPointFromScreen", 0),
+		/*13*/ imports.NewTable("CEFViewComponent_ConvertPointFromView", 0),
+		/*14*/ imports.NewTable("CEFViewComponent_ConvertPointFromWindow", 0),
+		/*15*/ imports.NewTable("CEFViewComponent_ConvertPointToScreen", 0),
+		/*16*/ imports.NewTable("CEFViewComponent_ConvertPointToView", 0),
+		/*17*/ imports.NewTable("CEFViewComponent_ConvertPointToWindow", 0),
+		/*18*/ imports.NewTable("CEFViewComponent_Create", 0),
+		/*19*/ imports.NewTable("CEFViewComponent_Delegate", 0),
+		/*20*/ imports.NewTable("CEFViewComponent_Drawn", 0),
+		/*21*/ imports.NewTable("CEFViewComponent_Enabled", 0),
+		/*22*/ imports.NewTable("CEFViewComponent_Focusable", 0),
+		/*23*/ imports.NewTable("CEFViewComponent_GroupID", 0),
+		/*24*/ imports.NewTable("CEFViewComponent_HeightForWidth", 0),
+		/*25*/ imports.NewTable("CEFViewComponent_ID", 0),
+		/*26*/ imports.NewTable("CEFViewComponent_Initialized", 0),
+		/*27*/ imports.NewTable("CEFViewComponent_Insets", 0),
+		/*28*/ imports.NewTable("CEFViewComponent_InvalidateLayout", 0),
+		/*29*/ imports.NewTable("CEFViewComponent_IsSame", 0),
+		/*30*/ imports.NewTable("CEFViewComponent_MaximumSize", 0),
+		/*31*/ imports.NewTable("CEFViewComponent_MinimumSize", 0),
+		/*32*/ imports.NewTable("CEFViewComponent_ParentView", 0),
+		/*33*/ imports.NewTable("CEFViewComponent_Position", 0),
+		/*34*/ imports.NewTable("CEFViewComponent_PreferredSize", 0),
+		/*35*/ imports.NewTable("CEFViewComponent_RequestFocus", 0),
+		/*36*/ imports.NewTable("CEFViewComponent_SetOnBlur", 0),
+		/*37*/ imports.NewTable("CEFViewComponent_SetOnChildViewChanged", 0),
+		/*38*/ imports.NewTable("CEFViewComponent_SetOnFocus", 0),
+		/*39*/ imports.NewTable("CEFViewComponent_SetOnGetHeightForWidth", 0),
+		/*40*/ imports.NewTable("CEFViewComponent_SetOnGetMaximumSize", 0),
+		/*41*/ imports.NewTable("CEFViewComponent_SetOnGetMinimumSize", 0),
+		/*42*/ imports.NewTable("CEFViewComponent_SetOnGetPreferredSize", 0),
+		/*43*/ imports.NewTable("CEFViewComponent_SetOnLayoutChanged", 0),
+		/*44*/ imports.NewTable("CEFViewComponent_SetOnParentViewChanged", 0),
+		/*45*/ imports.NewTable("CEFViewComponent_SetOnWindowChanged", 0),
+		/*46*/ imports.NewTable("CEFViewComponent_Size", 0),
+		/*47*/ imports.NewTable("CEFViewComponent_SizeToPreferredSize", 0),
+		/*48*/ imports.NewTable("CEFViewComponent_ToStringEx", 0),
+		/*49*/ imports.NewTable("CEFViewComponent_TypeString", 0),
+		/*50*/ imports.NewTable("CEFViewComponent_Valid", 0),
+		/*51*/ imports.NewTable("CEFViewComponent_ViewForID", 0),
+		/*52*/ imports.NewTable("CEFViewComponent_Visible", 0),
+		/*53*/ imports.NewTable("CEFViewComponent_Window", 0),
 	}
 )
 

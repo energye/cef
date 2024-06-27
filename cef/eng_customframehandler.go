@@ -16,6 +16,9 @@ import (
 // ICustomFrameHandler Parent: ICefFrameHandler
 type ICustomFrameHandler interface {
 	ICefFrameHandler
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefFrameHandler // procedure
 }
 
 // TCustomFrameHandler Parent: TCefFrameHandler
@@ -24,14 +27,21 @@ type TCustomFrameHandler struct {
 }
 
 func NewCustomFrameHandler(events IChromiumEvents) ICustomFrameHandler {
-	r1 := customFrameHandlerImportAPI().SysCallN(0, GetObjectUintptr(events))
+	r1 := customFrameHandlerImportAPI().SysCallN(1, GetObjectUintptr(events))
 	return AsCustomFrameHandler(r1)
+}
+
+func (m *TCustomFrameHandler) AsInterface() ICefFrameHandler {
+	var resultCefFrameHandler uintptr
+	customFrameHandlerImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefFrameHandler)))
+	return AsCefFrameHandler(resultCefFrameHandler)
 }
 
 var (
 	customFrameHandlerImport       *imports.Imports = nil
 	customFrameHandlerImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("CustomFrameHandler_Create", 0),
+		/*0*/ imports.NewTable("CustomFrameHandler_AsInterface", 0),
+		/*1*/ imports.NewTable("CustomFrameHandler_Create", 0),
 	}
 )
 

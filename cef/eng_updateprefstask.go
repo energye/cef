@@ -16,6 +16,9 @@ import (
 // ICefUpdatePrefsTask Parent: ICefTask
 type ICefUpdatePrefsTask interface {
 	ICefTask
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefTask // procedure
 }
 
 // TCefUpdatePrefsTask Parent: TCefTask
@@ -24,14 +27,21 @@ type TCefUpdatePrefsTask struct {
 }
 
 func NewCefUpdatePrefsTask(aEvents IChromiumEvents) ICefUpdatePrefsTask {
-	r1 := updatePrefsTaskImportAPI().SysCallN(0, GetObjectUintptr(aEvents))
+	r1 := updatePrefsTaskImportAPI().SysCallN(1, GetObjectUintptr(aEvents))
 	return AsCefUpdatePrefsTask(r1)
+}
+
+func (m *TCefUpdatePrefsTask) AsInterface() ICefTask {
+	var resultCefTask uintptr
+	updatePrefsTaskImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefTask)))
+	return AsCefTask(resultCefTask)
 }
 
 var (
 	updatePrefsTaskImport       *imports.Imports = nil
 	updatePrefsTaskImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("CefUpdatePrefsTask_Create", 0),
+		/*0*/ imports.NewTable("CefUpdatePrefsTask_AsInterface", 0),
+		/*1*/ imports.NewTable("CefUpdatePrefsTask_Create", 0),
 	}
 )
 

@@ -16,6 +16,9 @@ import (
 // ICefStringListRef Parent: ICefCustomStringList
 type ICefStringListRef interface {
 	ICefCustomStringList
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefStringList // procedure
 }
 
 // TCefStringListRef Parent: TCefCustomStringList
@@ -23,15 +26,22 @@ type TCefStringListRef struct {
 	TCefCustomStringList
 }
 
-func NewCefStringListRef(aHandle TCefStringList) ICefStringListRef {
-	r1 := stringListRefImportAPI().SysCallN(0, uintptr(aHandle))
+func NewCefStringListRef(aHandle TCefStringListPtr) ICefStringListRef {
+	r1 := stringListRefImportAPI().SysCallN(1, uintptr(aHandle))
 	return AsCefStringListRef(r1)
+}
+
+func (m *TCefStringListRef) AsInterface() ICefStringList {
+	var resultCefStringList uintptr
+	stringListRefImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefStringList)))
+	return AsCefStringList(resultCefStringList)
 }
 
 var (
 	stringListRefImport       *imports.Imports = nil
 	stringListRefImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("CefStringListRef_Create", 0),
+		/*0*/ imports.NewTable("CefStringListRef_AsInterface", 0),
+		/*1*/ imports.NewTable("CefStringListRef_Create", 0),
 	}
 )
 

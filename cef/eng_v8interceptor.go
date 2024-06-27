@@ -25,7 +25,9 @@ import (
 //	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_v8_capi.h">CEF source file: /include/capi/cef_v8_capi.h (cef_v8interceptor_t)</a>
 type IV8Interceptor interface {
 	ICefV8Interceptor
-	AsInterface() ICefV8Interceptor // function
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefV8Interceptor // procedure
 	// SetOnGetByName
 	//  Handle retrieval of the interceptor value identified by |name|. |object|
 	//  is the receiver('this' object) of the interceptor. If retrieval succeeds,

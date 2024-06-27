@@ -16,6 +16,9 @@ import (
 // ICefBrowserNavigationTask Parent: ICefTask
 type ICefBrowserNavigationTask interface {
 	ICefTask
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefTask // procedure
 }
 
 // TCefBrowserNavigationTask Parent: TCefTask
@@ -24,14 +27,21 @@ type TCefBrowserNavigationTask struct {
 }
 
 func NewCefBrowserNavigationTask(aEvents IChromiumEvents, aTask TCefBrowserNavigation) ICefBrowserNavigationTask {
-	r1 := browserNavigationTaskImportAPI().SysCallN(0, GetObjectUintptr(aEvents), uintptr(aTask))
+	r1 := browserNavigationTaskImportAPI().SysCallN(1, GetObjectUintptr(aEvents), uintptr(aTask))
 	return AsCefBrowserNavigationTask(r1)
+}
+
+func (m *TCefBrowserNavigationTask) AsInterface() ICefTask {
+	var resultCefTask uintptr
+	browserNavigationTaskImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefTask)))
+	return AsCefTask(resultCefTask)
 }
 
 var (
 	browserNavigationTaskImport       *imports.Imports = nil
 	browserNavigationTaskImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("CefBrowserNavigationTask_Create", 0),
+		/*0*/ imports.NewTable("CefBrowserNavigationTask_AsInterface", 0),
+		/*1*/ imports.NewTable("CefBrowserNavigationTask_Create", 0),
 	}
 )
 

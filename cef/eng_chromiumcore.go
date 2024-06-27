@@ -46,6 +46,9 @@ type IChromiumCore interface {
 	//  aID is an optional parameter to identify which SetCookie call has triggered the
 	//  OnCookieSet event.
 	SetCookie(url string, aSetImmediately bool, aID int32, cookie TCookie) bool
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() IChromiumEvents // procedure
 	// DefaultUrl
 	//  First URL loaded by the browser after its creation.
 	DefaultUrl() string // property
@@ -2724,344 +2727,350 @@ type TChromiumCore struct {
 }
 
 func NewChromiumCore(aOwner IComponent) IChromiumCore {
-	r1 := chromiumCoreImportAPI().SysCallN(40, GetObjectUintptr(aOwner))
+	r1 := chromiumCoreImportAPI().SysCallN(41, GetObjectUintptr(aOwner))
 	return AsChromiumCore(r1)
 }
 
+func (m *TChromiumCore) AsInterface() IChromiumEvents {
+	var resultChromiumEvents uintptr
+	chromiumCoreImportAPI().SysCallN(8, m.Instance(), uintptr(unsafePointer(&resultChromiumEvents)))
+	return AsChromiumEvents(resultChromiumEvents)
+}
+
 func (m *TChromiumCore) DefaultUrl() string {
-	r1 := chromiumCoreImportAPI().SysCallN(54, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(55, 0, m.Instance(), 0)
 	return GoStr(r1)
 }
 
 func (m *TChromiumCore) SetDefaultUrl(AValue string) {
-	chromiumCoreImportAPI().SysCallN(54, 1, m.Instance(), PascalStr(AValue))
+	chromiumCoreImportAPI().SysCallN(55, 1, m.Instance(), PascalStr(AValue))
 }
 
 func (m *TChromiumCore) Options() IChromiumOptions {
 	var resultChromiumOptions uintptr
-	chromiumCoreImportAPI().SysCallN(143, 0, m.Instance(), 0, uintptr(unsafePointer(&resultChromiumOptions)))
+	chromiumCoreImportAPI().SysCallN(144, 0, m.Instance(), 0, uintptr(unsafePointer(&resultChromiumOptions)))
 	return AsChromiumOptions(resultChromiumOptions)
 }
 
 func (m *TChromiumCore) SetOptions(AValue IChromiumOptions) {
-	chromiumCoreImportAPI().SysCallN(143, 1, m.Instance(), GetObjectUintptr(AValue), GetObjectUintptr(AValue))
+	chromiumCoreImportAPI().SysCallN(144, 1, m.Instance(), GetObjectUintptr(AValue), GetObjectUintptr(AValue))
 }
 
 func (m *TChromiumCore) FontOptions() IChromiumFontOptions {
-	r1 := chromiumCoreImportAPI().SysCallN(81, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(82, 0, m.Instance(), 0)
 	return AsChromiumFontOptions(r1)
 }
 
 func (m *TChromiumCore) SetFontOptions(AValue IChromiumFontOptions) {
-	chromiumCoreImportAPI().SysCallN(81, 1, m.Instance(), GetObjectUintptr(AValue))
+	chromiumCoreImportAPI().SysCallN(82, 1, m.Instance(), GetObjectUintptr(AValue))
 }
 
 func (m *TChromiumCore) PDFPrintOptions() IPDFPrintOptions {
-	r1 := chromiumCoreImportAPI().SysCallN(144, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(145, 0, m.Instance(), 0)
 	return AsPDFPrintOptions(r1)
 }
 
 func (m *TChromiumCore) SetPDFPrintOptions(AValue IPDFPrintOptions) {
-	chromiumCoreImportAPI().SysCallN(144, 1, m.Instance(), GetObjectUintptr(AValue))
+	chromiumCoreImportAPI().SysCallN(145, 1, m.Instance(), GetObjectUintptr(AValue))
 }
 
 func (m *TChromiumCore) BrowserId() int32 {
-	r1 := chromiumCoreImportAPI().SysCallN(15, m.Instance())
+	r1 := chromiumCoreImportAPI().SysCallN(16, m.Instance())
 	return int32(r1)
 }
 
 func (m *TChromiumCore) Browser() ICefBrowser {
 	var resultCefBrowser uintptr
-	chromiumCoreImportAPI().SysCallN(11, m.Instance(), uintptr(unsafePointer(&resultCefBrowser)))
+	chromiumCoreImportAPI().SysCallN(12, m.Instance(), uintptr(unsafePointer(&resultCefBrowser)))
 	return AsCefBrowser(resultCefBrowser)
 }
 
 func (m *TChromiumCore) BrowserById(id int32) ICefBrowser {
 	var resultCefBrowser uintptr
-	chromiumCoreImportAPI().SysCallN(12, m.Instance(), uintptr(id), uintptr(unsafePointer(&resultCefBrowser)))
+	chromiumCoreImportAPI().SysCallN(13, m.Instance(), uintptr(id), uintptr(unsafePointer(&resultCefBrowser)))
 	return AsCefBrowser(resultCefBrowser)
 }
 
 func (m *TChromiumCore) BrowserCount() int32 {
-	r1 := chromiumCoreImportAPI().SysCallN(13, m.Instance())
+	r1 := chromiumCoreImportAPI().SysCallN(14, m.Instance())
 	return int32(r1)
 }
 
 func (m *TChromiumCore) BrowserIdByIndex(i int32) int32 {
-	r1 := chromiumCoreImportAPI().SysCallN(16, m.Instance(), uintptr(i))
+	r1 := chromiumCoreImportAPI().SysCallN(17, m.Instance(), uintptr(i))
 	return int32(r1)
 }
 
 func (m *TChromiumCore) CefClient() ICefClient {
 	var resultCefClient uintptr
-	chromiumCoreImportAPI().SysCallN(23, m.Instance(), uintptr(unsafePointer(&resultCefClient)))
+	chromiumCoreImportAPI().SysCallN(24, m.Instance(), uintptr(unsafePointer(&resultCefClient)))
 	return AsCefClient(resultCefClient)
 }
 
 func (m *TChromiumCore) ReqContextHandler() ICefRequestContextHandler {
 	var resultCefRequestContextHandler uintptr
-	chromiumCoreImportAPI().SysCallN(162, m.Instance(), uintptr(unsafePointer(&resultCefRequestContextHandler)))
+	chromiumCoreImportAPI().SysCallN(163, m.Instance(), uintptr(unsafePointer(&resultCefRequestContextHandler)))
 	return AsCefRequestContextHandler(resultCefRequestContextHandler)
 }
 
 func (m *TChromiumCore) ResourceRequestHandler() ICefResourceRequestHandler {
 	var resultCefResourceRequestHandler uintptr
-	chromiumCoreImportAPI().SysCallN(171, m.Instance(), uintptr(unsafePointer(&resultCefResourceRequestHandler)))
+	chromiumCoreImportAPI().SysCallN(172, m.Instance(), uintptr(unsafePointer(&resultCefResourceRequestHandler)))
 	return AsCefResourceRequestHandler(resultCefResourceRequestHandler)
 }
 
 func (m *TChromiumCore) CefWindowInfo() (resultCefWindowInfo TCefWindowInfo) {
-	r1 := chromiumCoreImportAPI().SysCallN(24, m.Instance())
+	r1 := chromiumCoreImportAPI().SysCallN(25, m.Instance())
 	return *(*TCefWindowInfo)(unsafePointer(r1))
 }
 
 func (m *TChromiumCore) VisibleNavigationEntry() ICefNavigationEntry {
 	var resultCefNavigationEntry uintptr
-	chromiumCoreImportAPI().SysCallN(360, m.Instance(), uintptr(unsafePointer(&resultCefNavigationEntry)))
+	chromiumCoreImportAPI().SysCallN(361, m.Instance(), uintptr(unsafePointer(&resultCefNavigationEntry)))
 	return AsCefNavigationEntry(resultCefNavigationEntry)
 }
 
 func (m *TChromiumCore) RequestContext() ICefRequestContext {
 	var resultCefRequestContext uintptr
-	chromiumCoreImportAPI().SysCallN(163, m.Instance(), uintptr(unsafePointer(&resultCefRequestContext)))
+	chromiumCoreImportAPI().SysCallN(164, m.Instance(), uintptr(unsafePointer(&resultCefRequestContext)))
 	return AsCefRequestContext(resultCefRequestContext)
 }
 
 func (m *TChromiumCore) MediaRouter() ICefMediaRouter {
 	var resultCefMediaRouter uintptr
-	chromiumCoreImportAPI().SysCallN(134, m.Instance(), uintptr(unsafePointer(&resultCefMediaRouter)))
+	chromiumCoreImportAPI().SysCallN(135, m.Instance(), uintptr(unsafePointer(&resultCefMediaRouter)))
 	return AsCefMediaRouter(resultCefMediaRouter)
 }
 
 func (m *TChromiumCore) MediaObserver() ICefMediaObserver {
 	var resultCefMediaObserver uintptr
-	chromiumCoreImportAPI().SysCallN(132, m.Instance(), uintptr(unsafePointer(&resultCefMediaObserver)))
+	chromiumCoreImportAPI().SysCallN(133, m.Instance(), uintptr(unsafePointer(&resultCefMediaObserver)))
 	return AsCefMediaObserver(resultCefMediaObserver)
 }
 
 func (m *TChromiumCore) MediaObserverReg() ICefRegistration {
 	var resultCefRegistration uintptr
-	chromiumCoreImportAPI().SysCallN(133, m.Instance(), uintptr(unsafePointer(&resultCefRegistration)))
+	chromiumCoreImportAPI().SysCallN(134, m.Instance(), uintptr(unsafePointer(&resultCefRegistration)))
 	return AsCefRegistration(resultCefRegistration)
 }
 
 func (m *TChromiumCore) DevToolsMsgObserver() ICefDevToolsMessageObserver {
 	var resultCefDevToolsMessageObserver uintptr
-	chromiumCoreImportAPI().SysCallN(58, m.Instance(), uintptr(unsafePointer(&resultCefDevToolsMessageObserver)))
+	chromiumCoreImportAPI().SysCallN(59, m.Instance(), uintptr(unsafePointer(&resultCefDevToolsMessageObserver)))
 	return AsCefDevToolsMessageObserver(resultCefDevToolsMessageObserver)
 }
 
 func (m *TChromiumCore) DevToolsMsgObserverReg() ICefRegistration {
 	var resultCefRegistration uintptr
-	chromiumCoreImportAPI().SysCallN(59, m.Instance(), uintptr(unsafePointer(&resultCefRegistration)))
+	chromiumCoreImportAPI().SysCallN(60, m.Instance(), uintptr(unsafePointer(&resultCefRegistration)))
 	return AsCefRegistration(resultCefRegistration)
 }
 
 func (m *TChromiumCore) ExtensionHandler() ICefExtensionHandler {
 	var resultCefExtensionHandler uintptr
-	chromiumCoreImportAPI().SysCallN(78, m.Instance(), uintptr(unsafePointer(&resultCefExtensionHandler)))
+	chromiumCoreImportAPI().SysCallN(79, m.Instance(), uintptr(unsafePointer(&resultCefExtensionHandler)))
 	return AsCefExtensionHandler(resultCefExtensionHandler)
 }
 
 func (m *TChromiumCore) MultithreadApp() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(136, m.Instance())
+	r1 := chromiumCoreImportAPI().SysCallN(137, m.Instance())
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) IsLoading() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(115, m.Instance())
-	return GoBool(r1)
-}
-
-func (m *TChromiumCore) HasDocument() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(99, m.Instance())
-	return GoBool(r1)
-}
-
-func (m *TChromiumCore) HasView() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(102, m.Instance())
-	return GoBool(r1)
-}
-
-func (m *TChromiumCore) HasDevTools() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(98, m.Instance())
-	return GoBool(r1)
-}
-
-func (m *TChromiumCore) HasClientHandler() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(97, m.Instance())
-	return GoBool(r1)
-}
-
-func (m *TChromiumCore) HasBrowser() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(96, m.Instance())
-	return GoBool(r1)
-}
-
-func (m *TChromiumCore) CanGoBack() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(19, m.Instance())
-	return GoBool(r1)
-}
-
-func (m *TChromiumCore) CanGoForward() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(20, m.Instance())
-	return GoBool(r1)
-}
-
-func (m *TChromiumCore) IsPopUp() bool {
 	r1 := chromiumCoreImportAPI().SysCallN(116, m.Instance())
 	return GoBool(r1)
 }
 
-func (m *TChromiumCore) WindowHandle() TCefWindowHandle {
-	r1 := chromiumCoreImportAPI().SysCallN(369, m.Instance())
-	return TCefWindowHandle(r1)
-}
-
-func (m *TChromiumCore) OpenerWindowHandle() TCefWindowHandle {
-	r1 := chromiumCoreImportAPI().SysCallN(142, m.Instance())
-	return TCefWindowHandle(r1)
-}
-
-func (m *TChromiumCore) BrowserHandle() THandle {
-	r1 := chromiumCoreImportAPI().SysCallN(14, m.Instance())
-	return THandle(r1)
-}
-
-func (m *TChromiumCore) WidgetHandle() THandle {
-	r1 := chromiumCoreImportAPI().SysCallN(368, m.Instance())
-	return THandle(r1)
-}
-
-func (m *TChromiumCore) RenderHandle() THandle {
-	r1 := chromiumCoreImportAPI().SysCallN(160, m.Instance())
-	return THandle(r1)
-}
-
-func (m *TChromiumCore) FrameIsFocused() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(83, m.Instance())
+func (m *TChromiumCore) HasDocument() bool {
+	r1 := chromiumCoreImportAPI().SysCallN(100, m.Instance())
 	return GoBool(r1)
 }
 
-func (m *TChromiumCore) Initialized() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(113, m.Instance())
+func (m *TChromiumCore) HasView() bool {
+	r1 := chromiumCoreImportAPI().SysCallN(103, m.Instance())
 	return GoBool(r1)
 }
 
-func (m *TChromiumCore) RequestContextCache() string {
-	r1 := chromiumCoreImportAPI().SysCallN(164, m.Instance())
-	return GoStr(r1)
-}
-
-func (m *TChromiumCore) RequestContextIsGlobal() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(165, m.Instance())
+func (m *TChromiumCore) HasDevTools() bool {
+	r1 := chromiumCoreImportAPI().SysCallN(99, m.Instance())
 	return GoBool(r1)
 }
 
-func (m *TChromiumCore) DocumentURL() string {
-	r1 := chromiumCoreImportAPI().SysCallN(62, m.Instance())
-	return GoStr(r1)
+func (m *TChromiumCore) HasClientHandler() bool {
+	r1 := chromiumCoreImportAPI().SysCallN(98, m.Instance())
+	return GoBool(r1)
 }
 
-func (m *TChromiumCore) ZoomLevel() (resultFloat64 float64) {
-	chromiumCoreImportAPI().SysCallN(372, 0, m.Instance(), uintptr(unsafePointer(&resultFloat64)), uintptr(unsafePointer(&resultFloat64)))
-	return
+func (m *TChromiumCore) HasBrowser() bool {
+	r1 := chromiumCoreImportAPI().SysCallN(97, m.Instance())
+	return GoBool(r1)
 }
 
-func (m *TChromiumCore) SetZoomLevel(AValue float64) {
-	chromiumCoreImportAPI().SysCallN(372, 1, m.Instance(), uintptr(unsafePointer(&AValue)), uintptr(unsafePointer(&AValue)))
+func (m *TChromiumCore) CanGoBack() bool {
+	r1 := chromiumCoreImportAPI().SysCallN(20, m.Instance())
+	return GoBool(r1)
 }
 
-func (m *TChromiumCore) DefaultZoomLevel() (resultFloat64 float64) {
-	chromiumCoreImportAPI().SysCallN(56, m.Instance(), uintptr(unsafePointer(&resultFloat64)))
-	return
-}
-
-func (m *TChromiumCore) CanIncZoom() bool {
+func (m *TChromiumCore) CanGoForward() bool {
 	r1 := chromiumCoreImportAPI().SysCallN(21, m.Instance())
 	return GoBool(r1)
 }
 
-func (m *TChromiumCore) CanDecZoom() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(17, m.Instance())
+func (m *TChromiumCore) IsPopUp() bool {
+	r1 := chromiumCoreImportAPI().SysCallN(117, m.Instance())
 	return GoBool(r1)
 }
 
-func (m *TChromiumCore) CanResetZoom() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(22, m.Instance())
+func (m *TChromiumCore) WindowHandle() TCefWindowHandle {
+	r1 := chromiumCoreImportAPI().SysCallN(370, m.Instance())
+	return TCefWindowHandle(r1)
+}
+
+func (m *TChromiumCore) OpenerWindowHandle() TCefWindowHandle {
+	r1 := chromiumCoreImportAPI().SysCallN(143, m.Instance())
+	return TCefWindowHandle(r1)
+}
+
+func (m *TChromiumCore) BrowserHandle() THandle {
+	r1 := chromiumCoreImportAPI().SysCallN(15, m.Instance())
+	return THandle(r1)
+}
+
+func (m *TChromiumCore) WidgetHandle() THandle {
+	r1 := chromiumCoreImportAPI().SysCallN(369, m.Instance())
+	return THandle(r1)
+}
+
+func (m *TChromiumCore) RenderHandle() THandle {
+	r1 := chromiumCoreImportAPI().SysCallN(161, m.Instance())
+	return THandle(r1)
+}
+
+func (m *TChromiumCore) FrameIsFocused() bool {
+	r1 := chromiumCoreImportAPI().SysCallN(84, m.Instance())
 	return GoBool(r1)
 }
 
-func (m *TChromiumCore) ZoomPct() (resultFloat64 float64) {
+func (m *TChromiumCore) Initialized() bool {
+	r1 := chromiumCoreImportAPI().SysCallN(114, m.Instance())
+	return GoBool(r1)
+}
+
+func (m *TChromiumCore) RequestContextCache() string {
+	r1 := chromiumCoreImportAPI().SysCallN(165, m.Instance())
+	return GoStr(r1)
+}
+
+func (m *TChromiumCore) RequestContextIsGlobal() bool {
+	r1 := chromiumCoreImportAPI().SysCallN(166, m.Instance())
+	return GoBool(r1)
+}
+
+func (m *TChromiumCore) DocumentURL() string {
+	r1 := chromiumCoreImportAPI().SysCallN(63, m.Instance())
+	return GoStr(r1)
+}
+
+func (m *TChromiumCore) ZoomLevel() (resultFloat64 float64) {
 	chromiumCoreImportAPI().SysCallN(373, 0, m.Instance(), uintptr(unsafePointer(&resultFloat64)), uintptr(unsafePointer(&resultFloat64)))
 	return
 }
 
-func (m *TChromiumCore) SetZoomPct(AValue float64) {
+func (m *TChromiumCore) SetZoomLevel(AValue float64) {
 	chromiumCoreImportAPI().SysCallN(373, 1, m.Instance(), uintptr(unsafePointer(&AValue)), uintptr(unsafePointer(&AValue)))
 }
 
+func (m *TChromiumCore) DefaultZoomLevel() (resultFloat64 float64) {
+	chromiumCoreImportAPI().SysCallN(57, m.Instance(), uintptr(unsafePointer(&resultFloat64)))
+	return
+}
+
+func (m *TChromiumCore) CanIncZoom() bool {
+	r1 := chromiumCoreImportAPI().SysCallN(22, m.Instance())
+	return GoBool(r1)
+}
+
+func (m *TChromiumCore) CanDecZoom() bool {
+	r1 := chromiumCoreImportAPI().SysCallN(18, m.Instance())
+	return GoBool(r1)
+}
+
+func (m *TChromiumCore) CanResetZoom() bool {
+	r1 := chromiumCoreImportAPI().SysCallN(23, m.Instance())
+	return GoBool(r1)
+}
+
+func (m *TChromiumCore) ZoomPct() (resultFloat64 float64) {
+	chromiumCoreImportAPI().SysCallN(374, 0, m.Instance(), uintptr(unsafePointer(&resultFloat64)), uintptr(unsafePointer(&resultFloat64)))
+	return
+}
+
+func (m *TChromiumCore) SetZoomPct(AValue float64) {
+	chromiumCoreImportAPI().SysCallN(374, 1, m.Instance(), uintptr(unsafePointer(&AValue)), uintptr(unsafePointer(&AValue)))
+}
+
 func (m *TChromiumCore) ZoomStep() byte {
-	r1 := chromiumCoreImportAPI().SysCallN(374, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(375, 0, m.Instance(), 0)
 	return byte(r1)
 }
 
 func (m *TChromiumCore) SetZoomStep(AValue byte) {
-	chromiumCoreImportAPI().SysCallN(374, 1, m.Instance(), uintptr(AValue))
+	chromiumCoreImportAPI().SysCallN(375, 1, m.Instance(), uintptr(AValue))
 }
 
 func (m *TChromiumCore) WindowlessFrameRate() int32 {
-	r1 := chromiumCoreImportAPI().SysCallN(370, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(371, 0, m.Instance(), 0)
 	return int32(r1)
 }
 
 func (m *TChromiumCore) SetWindowlessFrameRate(AValue int32) {
-	chromiumCoreImportAPI().SysCallN(370, 1, m.Instance(), uintptr(AValue))
+	chromiumCoreImportAPI().SysCallN(371, 1, m.Instance(), uintptr(AValue))
 }
 
 func (m *TChromiumCore) CustomHeaderName() string {
-	r1 := chromiumCoreImportAPI().SysCallN(49, 0, m.Instance(), 0)
-	return GoStr(r1)
-}
-
-func (m *TChromiumCore) SetCustomHeaderName(AValue string) {
-	chromiumCoreImportAPI().SysCallN(49, 1, m.Instance(), PascalStr(AValue))
-}
-
-func (m *TChromiumCore) CustomHeaderValue() string {
 	r1 := chromiumCoreImportAPI().SysCallN(50, 0, m.Instance(), 0)
 	return GoStr(r1)
 }
 
-func (m *TChromiumCore) SetCustomHeaderValue(AValue string) {
+func (m *TChromiumCore) SetCustomHeaderName(AValue string) {
 	chromiumCoreImportAPI().SysCallN(50, 1, m.Instance(), PascalStr(AValue))
 }
 
+func (m *TChromiumCore) CustomHeaderValue() string {
+	r1 := chromiumCoreImportAPI().SysCallN(51, 0, m.Instance(), 0)
+	return GoStr(r1)
+}
+
+func (m *TChromiumCore) SetCustomHeaderValue(AValue string) {
+	chromiumCoreImportAPI().SysCallN(51, 1, m.Instance(), PascalStr(AValue))
+}
+
 func (m *TChromiumCore) DoNotTrack() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(61, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(62, 0, m.Instance(), 0)
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) SetDoNotTrack(AValue bool) {
-	chromiumCoreImportAPI().SysCallN(61, 1, m.Instance(), PascalBool(AValue))
+	chromiumCoreImportAPI().SysCallN(62, 1, m.Instance(), PascalBool(AValue))
 }
 
 func (m *TChromiumCore) SendReferrer() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(192, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(193, 0, m.Instance(), 0)
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) SetSendReferrer(AValue bool) {
-	chromiumCoreImportAPI().SysCallN(192, 1, m.Instance(), PascalBool(AValue))
+	chromiumCoreImportAPI().SysCallN(193, 1, m.Instance(), PascalBool(AValue))
 }
 
 func (m *TChromiumCore) HyperlinkAuditing() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(104, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(105, 0, m.Instance(), 0)
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) SetHyperlinkAuditing(AValue bool) {
-	chromiumCoreImportAPI().SysCallN(104, 1, m.Instance(), PascalBool(AValue))
+	chromiumCoreImportAPI().SysCallN(105, 1, m.Instance(), PascalBool(AValue))
 }
 
 func (m *TChromiumCore) AllowOutdatedPlugins() bool {
@@ -3092,81 +3101,81 @@ func (m *TChromiumCore) SetAlwaysOpenPDFExternally(AValue bool) {
 }
 
 func (m *TChromiumCore) SpellChecking() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(351, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(352, 0, m.Instance(), 0)
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) SetSpellChecking(AValue bool) {
-	chromiumCoreImportAPI().SysCallN(351, 1, m.Instance(), PascalBool(AValue))
+	chromiumCoreImportAPI().SysCallN(352, 1, m.Instance(), PascalBool(AValue))
 }
 
 func (m *TChromiumCore) SpellCheckerDicts() string {
-	r1 := chromiumCoreImportAPI().SysCallN(350, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(351, 0, m.Instance(), 0)
 	return GoStr(r1)
 }
 
 func (m *TChromiumCore) SetSpellCheckerDicts(AValue string) {
-	chromiumCoreImportAPI().SysCallN(350, 1, m.Instance(), PascalStr(AValue))
+	chromiumCoreImportAPI().SysCallN(351, 1, m.Instance(), PascalStr(AValue))
 }
 
 func (m *TChromiumCore) HasValidMainFrame() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(101, m.Instance())
+	r1 := chromiumCoreImportAPI().SysCallN(102, m.Instance())
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) FrameCount() NativeUInt {
-	r1 := chromiumCoreImportAPI().SysCallN(82, m.Instance())
+	r1 := chromiumCoreImportAPI().SysCallN(83, m.Instance())
 	return NativeUInt(r1)
 }
 
 func (m *TChromiumCore) DragOperations() TCefDragOperations {
-	r1 := chromiumCoreImportAPI().SysCallN(64, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(65, 0, m.Instance(), 0)
 	return TCefDragOperations(r1)
 }
 
 func (m *TChromiumCore) SetDragOperations(AValue TCefDragOperations) {
-	chromiumCoreImportAPI().SysCallN(64, 1, m.Instance(), uintptr(AValue))
+	chromiumCoreImportAPI().SysCallN(65, 1, m.Instance(), uintptr(AValue))
 }
 
 func (m *TChromiumCore) AudioMuted() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(8, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(9, 0, m.Instance(), 0)
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) SetAudioMuted(AValue bool) {
-	chromiumCoreImportAPI().SysCallN(8, 1, m.Instance(), PascalBool(AValue))
+	chromiumCoreImportAPI().SysCallN(9, 1, m.Instance(), PascalBool(AValue))
 }
 
 func (m *TChromiumCore) Fullscreen() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(84, m.Instance())
+	r1 := chromiumCoreImportAPI().SysCallN(85, m.Instance())
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) SafeSearch() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(178, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(179, 0, m.Instance(), 0)
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) SetSafeSearch(AValue bool) {
-	chromiumCoreImportAPI().SysCallN(178, 1, m.Instance(), PascalBool(AValue))
+	chromiumCoreImportAPI().SysCallN(179, 1, m.Instance(), PascalBool(AValue))
 }
 
 func (m *TChromiumCore) YouTubeRestrict() int32 {
-	r1 := chromiumCoreImportAPI().SysCallN(371, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(372, 0, m.Instance(), 0)
 	return int32(r1)
 }
 
 func (m *TChromiumCore) SetYouTubeRestrict(AValue int32) {
-	chromiumCoreImportAPI().SysCallN(371, 1, m.Instance(), uintptr(AValue))
+	chromiumCoreImportAPI().SysCallN(372, 1, m.Instance(), uintptr(AValue))
 }
 
 func (m *TChromiumCore) PrintingEnabled() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(147, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(148, 0, m.Instance(), 0)
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) SetPrintingEnabled(AValue bool) {
-	chromiumCoreImportAPI().SysCallN(147, 1, m.Instance(), PascalBool(AValue))
+	chromiumCoreImportAPI().SysCallN(148, 1, m.Instance(), PascalBool(AValue))
 }
 
 func (m *TChromiumCore) AcceptLanguageList() string {
@@ -3188,275 +3197,275 @@ func (m *TChromiumCore) SetAcceptCookies(AValue TCefCookiePref) {
 }
 
 func (m *TChromiumCore) Block3rdPartyCookies() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(10, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(11, 0, m.Instance(), 0)
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) SetBlock3rdPartyCookies(AValue bool) {
-	chromiumCoreImportAPI().SysCallN(10, 1, m.Instance(), PascalBool(AValue))
+	chromiumCoreImportAPI().SysCallN(11, 1, m.Instance(), PascalBool(AValue))
 }
 
 func (m *TChromiumCore) MultiBrowserMode() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(135, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(136, 0, m.Instance(), 0)
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) SetMultiBrowserMode(AValue bool) {
-	chromiumCoreImportAPI().SysCallN(135, 1, m.Instance(), PascalBool(AValue))
+	chromiumCoreImportAPI().SysCallN(136, 1, m.Instance(), PascalBool(AValue))
 }
 
 func (m *TChromiumCore) DefaultWindowInfoExStyle() DWORD {
-	r1 := chromiumCoreImportAPI().SysCallN(55, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(56, 0, m.Instance(), 0)
 	return DWORD(r1)
 }
 
 func (m *TChromiumCore) SetDefaultWindowInfoExStyle(AValue DWORD) {
-	chromiumCoreImportAPI().SysCallN(55, 1, m.Instance(), uintptr(AValue))
+	chromiumCoreImportAPI().SysCallN(56, 1, m.Instance(), uintptr(AValue))
 }
 
 func (m *TChromiumCore) Offline() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(141, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(142, 0, m.Instance(), 0)
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) SetOffline(AValue bool) {
-	chromiumCoreImportAPI().SysCallN(141, 1, m.Instance(), PascalBool(AValue))
+	chromiumCoreImportAPI().SysCallN(142, 1, m.Instance(), PascalBool(AValue))
 }
 
 func (m *TChromiumCore) QuicAllowed() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(156, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(157, 0, m.Instance(), 0)
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) SetQuicAllowed(AValue bool) {
-	chromiumCoreImportAPI().SysCallN(156, 1, m.Instance(), PascalBool(AValue))
+	chromiumCoreImportAPI().SysCallN(157, 1, m.Instance(), PascalBool(AValue))
 }
 
 func (m *TChromiumCore) JavascriptEnabled() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(118, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(119, 0, m.Instance(), 0)
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) SetJavascriptEnabled(AValue bool) {
-	chromiumCoreImportAPI().SysCallN(118, 1, m.Instance(), PascalBool(AValue))
+	chromiumCoreImportAPI().SysCallN(119, 1, m.Instance(), PascalBool(AValue))
 }
 
 func (m *TChromiumCore) LoadImagesAutomatically() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(120, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(121, 0, m.Instance(), 0)
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) SetLoadImagesAutomatically(AValue bool) {
-	chromiumCoreImportAPI().SysCallN(120, 1, m.Instance(), PascalBool(AValue))
+	chromiumCoreImportAPI().SysCallN(121, 1, m.Instance(), PascalBool(AValue))
 }
 
 func (m *TChromiumCore) BatterySaverModeState() TCefBatterySaverModeState {
-	r1 := chromiumCoreImportAPI().SysCallN(9, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(10, 0, m.Instance(), 0)
 	return TCefBatterySaverModeState(r1)
 }
 
 func (m *TChromiumCore) SetBatterySaverModeState(AValue TCefBatterySaverModeState) {
-	chromiumCoreImportAPI().SysCallN(9, 1, m.Instance(), uintptr(AValue))
+	chromiumCoreImportAPI().SysCallN(10, 1, m.Instance(), uintptr(AValue))
 }
 
 func (m *TChromiumCore) HighEfficiencyModeState() TCefHighEfficiencyModeState {
-	r1 := chromiumCoreImportAPI().SysCallN(103, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(104, 0, m.Instance(), 0)
 	return TCefHighEfficiencyModeState(r1)
 }
 
 func (m *TChromiumCore) SetHighEfficiencyModeState(AValue TCefHighEfficiencyModeState) {
-	chromiumCoreImportAPI().SysCallN(103, 1, m.Instance(), uintptr(AValue))
+	chromiumCoreImportAPI().SysCallN(104, 1, m.Instance(), uintptr(AValue))
 }
 
 func (m *TChromiumCore) CanFocus() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(18, m.Instance())
+	r1 := chromiumCoreImportAPI().SysCallN(19, m.Instance())
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) EnableFocusDelayMs() uint32 {
-	r1 := chromiumCoreImportAPI().SysCallN(71, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(72, 0, m.Instance(), 0)
 	return uint32(r1)
 }
 
 func (m *TChromiumCore) SetEnableFocusDelayMs(AValue uint32) {
-	chromiumCoreImportAPI().SysCallN(71, 1, m.Instance(), uintptr(AValue))
+	chromiumCoreImportAPI().SysCallN(72, 1, m.Instance(), uintptr(AValue))
 }
 
 func (m *TChromiumCore) WebRTCIPHandlingPolicy() TCefWebRTCHandlingPolicy {
-	r1 := chromiumCoreImportAPI().SysCallN(365, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(366, 0, m.Instance(), 0)
 	return TCefWebRTCHandlingPolicy(r1)
 }
 
 func (m *TChromiumCore) SetWebRTCIPHandlingPolicy(AValue TCefWebRTCHandlingPolicy) {
-	chromiumCoreImportAPI().SysCallN(365, 1, m.Instance(), uintptr(AValue))
-}
-
-func (m *TChromiumCore) WebRTCMultipleRoutes() TCefState {
-	r1 := chromiumCoreImportAPI().SysCallN(366, 0, m.Instance(), 0)
-	return TCefState(r1)
-}
-
-func (m *TChromiumCore) SetWebRTCMultipleRoutes(AValue TCefState) {
 	chromiumCoreImportAPI().SysCallN(366, 1, m.Instance(), uintptr(AValue))
 }
 
-func (m *TChromiumCore) WebRTCNonproxiedUDP() TCefState {
+func (m *TChromiumCore) WebRTCMultipleRoutes() TCefState {
 	r1 := chromiumCoreImportAPI().SysCallN(367, 0, m.Instance(), 0)
 	return TCefState(r1)
 }
 
-func (m *TChromiumCore) SetWebRTCNonproxiedUDP(AValue TCefState) {
+func (m *TChromiumCore) SetWebRTCMultipleRoutes(AValue TCefState) {
 	chromiumCoreImportAPI().SysCallN(367, 1, m.Instance(), uintptr(AValue))
 }
 
+func (m *TChromiumCore) WebRTCNonproxiedUDP() TCefState {
+	r1 := chromiumCoreImportAPI().SysCallN(368, 0, m.Instance(), 0)
+	return TCefState(r1)
+}
+
+func (m *TChromiumCore) SetWebRTCNonproxiedUDP(AValue TCefState) {
+	chromiumCoreImportAPI().SysCallN(368, 1, m.Instance(), uintptr(AValue))
+}
+
 func (m *TChromiumCore) ProxyType() int32 {
-	r1 := chromiumCoreImportAPI().SysCallN(154, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(155, 0, m.Instance(), 0)
 	return int32(r1)
 }
 
 func (m *TChromiumCore) SetProxyType(AValue int32) {
-	chromiumCoreImportAPI().SysCallN(154, 1, m.Instance(), uintptr(AValue))
+	chromiumCoreImportAPI().SysCallN(155, 1, m.Instance(), uintptr(AValue))
 }
 
 func (m *TChromiumCore) ProxyScheme() TCefProxyScheme {
-	r1 := chromiumCoreImportAPI().SysCallN(151, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(152, 0, m.Instance(), 0)
 	return TCefProxyScheme(r1)
 }
 
 func (m *TChromiumCore) SetProxyScheme(AValue TCefProxyScheme) {
-	chromiumCoreImportAPI().SysCallN(151, 1, m.Instance(), uintptr(AValue))
+	chromiumCoreImportAPI().SysCallN(152, 1, m.Instance(), uintptr(AValue))
 }
 
 func (m *TChromiumCore) ProxyServer() string {
-	r1 := chromiumCoreImportAPI().SysCallN(153, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(154, 0, m.Instance(), 0)
 	return GoStr(r1)
 }
 
 func (m *TChromiumCore) SetProxyServer(AValue string) {
-	chromiumCoreImportAPI().SysCallN(153, 1, m.Instance(), PascalStr(AValue))
+	chromiumCoreImportAPI().SysCallN(154, 1, m.Instance(), PascalStr(AValue))
 }
 
 func (m *TChromiumCore) ProxyPort() int32 {
-	r1 := chromiumCoreImportAPI().SysCallN(150, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(151, 0, m.Instance(), 0)
 	return int32(r1)
 }
 
 func (m *TChromiumCore) SetProxyPort(AValue int32) {
-	chromiumCoreImportAPI().SysCallN(150, 1, m.Instance(), uintptr(AValue))
+	chromiumCoreImportAPI().SysCallN(151, 1, m.Instance(), uintptr(AValue))
 }
 
 func (m *TChromiumCore) ProxyUsername() string {
-	r1 := chromiumCoreImportAPI().SysCallN(155, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(156, 0, m.Instance(), 0)
 	return GoStr(r1)
 }
 
 func (m *TChromiumCore) SetProxyUsername(AValue string) {
-	chromiumCoreImportAPI().SysCallN(155, 1, m.Instance(), PascalStr(AValue))
+	chromiumCoreImportAPI().SysCallN(156, 1, m.Instance(), PascalStr(AValue))
 }
 
 func (m *TChromiumCore) ProxyPassword() string {
-	r1 := chromiumCoreImportAPI().SysCallN(149, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(150, 0, m.Instance(), 0)
 	return GoStr(r1)
 }
 
 func (m *TChromiumCore) SetProxyPassword(AValue string) {
-	chromiumCoreImportAPI().SysCallN(149, 1, m.Instance(), PascalStr(AValue))
+	chromiumCoreImportAPI().SysCallN(150, 1, m.Instance(), PascalStr(AValue))
 }
 
 func (m *TChromiumCore) ProxyScriptURL() string {
-	r1 := chromiumCoreImportAPI().SysCallN(152, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(153, 0, m.Instance(), 0)
 	return GoStr(r1)
 }
 
 func (m *TChromiumCore) SetProxyScriptURL(AValue string) {
-	chromiumCoreImportAPI().SysCallN(152, 1, m.Instance(), PascalStr(AValue))
+	chromiumCoreImportAPI().SysCallN(153, 1, m.Instance(), PascalStr(AValue))
 }
 
 func (m *TChromiumCore) ProxyByPassList() string {
-	r1 := chromiumCoreImportAPI().SysCallN(148, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(149, 0, m.Instance(), 0)
 	return GoStr(r1)
 }
 
 func (m *TChromiumCore) SetProxyByPassList(AValue string) {
-	chromiumCoreImportAPI().SysCallN(148, 1, m.Instance(), PascalStr(AValue))
+	chromiumCoreImportAPI().SysCallN(149, 1, m.Instance(), PascalStr(AValue))
 }
 
 func (m *TChromiumCore) MaxConnectionsPerProxy() int32 {
-	r1 := chromiumCoreImportAPI().SysCallN(131, 0, m.Instance(), 0)
+	r1 := chromiumCoreImportAPI().SysCallN(132, 0, m.Instance(), 0)
 	return int32(r1)
 }
 
 func (m *TChromiumCore) SetMaxConnectionsPerProxy(AValue int32) {
-	chromiumCoreImportAPI().SysCallN(131, 1, m.Instance(), uintptr(AValue))
+	chromiumCoreImportAPI().SysCallN(132, 1, m.Instance(), uintptr(AValue))
 }
 
 func (m *TChromiumCore) CreateClientHandler(aIsOSR bool) bool {
-	r1 := chromiumCoreImportAPI().SysCallN(43, m.Instance(), PascalBool(aIsOSR))
+	r1 := chromiumCoreImportAPI().SysCallN(44, m.Instance(), PascalBool(aIsOSR))
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) CreateClientHandler1(aClient *ICefClient, aIsOSR bool) bool {
 	var result0 uintptr
-	r1 := chromiumCoreImportAPI().SysCallN(44, m.Instance(), uintptr(unsafePointer(&result0)), PascalBool(aIsOSR))
+	r1 := chromiumCoreImportAPI().SysCallN(45, m.Instance(), uintptr(unsafePointer(&result0)), PascalBool(aIsOSR))
 	*aClient = AsCefClient(result0)
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) TryCloseBrowser() bool {
-	r1 := chromiumCoreImportAPI().SysCallN(356, m.Instance())
+	r1 := chromiumCoreImportAPI().SysCallN(357, m.Instance())
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) SelectBrowser(aID int32) bool {
-	r1 := chromiumCoreImportAPI().SysCallN(181, m.Instance(), uintptr(aID))
+	r1 := chromiumCoreImportAPI().SysCallN(182, m.Instance(), uintptr(aID))
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) IndexOfBrowserID(aID int32) int32 {
-	r1 := chromiumCoreImportAPI().SysCallN(111, m.Instance(), uintptr(aID))
+	r1 := chromiumCoreImportAPI().SysCallN(112, m.Instance(), uintptr(aID))
 	return int32(r1)
 }
 
 func (m *TChromiumCore) ShareRequestContext(aContext *ICefRequestContext, aHandler ICefRequestContextHandler) bool {
 	var result0 uintptr
-	r1 := chromiumCoreImportAPI().SysCallN(346, m.Instance(), uintptr(unsafePointer(&result0)), GetObjectUintptr(aHandler))
+	r1 := chromiumCoreImportAPI().SysCallN(347, m.Instance(), uintptr(unsafePointer(&result0)), GetObjectUintptr(aHandler))
 	*aContext = AsCefRequestContext(result0)
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) SetNewBrowserParent(aNewParentHwnd HWND) bool {
-	r1 := chromiumCoreImportAPI().SysCallN(197, m.Instance(), uintptr(aNewParentHwnd))
+	r1 := chromiumCoreImportAPI().SysCallN(198, m.Instance(), uintptr(aNewParentHwnd))
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) CreateBrowserByWindowHandle(aParentHandle TCefWindowHandle, aParentRect *TRect, aWindowName string, aContext ICefRequestContext, aExtraInfo ICefDictionaryValue, aForceAsPopup bool) bool {
-	r1 := chromiumCoreImportAPI().SysCallN(42, m.Instance(), uintptr(aParentHandle), uintptr(unsafePointer(aParentRect)), PascalStr(aWindowName), GetObjectUintptr(aContext), GetObjectUintptr(aExtraInfo), PascalBool(aForceAsPopup))
+	r1 := chromiumCoreImportAPI().SysCallN(43, m.Instance(), uintptr(aParentHandle), uintptr(unsafePointer(aParentRect)), PascalStr(aWindowName), GetObjectUintptr(aContext), GetObjectUintptr(aExtraInfo), PascalBool(aForceAsPopup))
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) CreateBrowserByBrowserViewComponent(aURL string, aBrowserViewComp ICEFBrowserViewComponent, aContext ICefRequestContext, aExtraInfo ICefDictionaryValue) bool {
-	r1 := chromiumCoreImportAPI().SysCallN(41, m.Instance(), PascalStr(aURL), GetObjectUintptr(aBrowserViewComp), GetObjectUintptr(aContext), GetObjectUintptr(aExtraInfo))
+	r1 := chromiumCoreImportAPI().SysCallN(42, m.Instance(), PascalStr(aURL), GetObjectUintptr(aBrowserViewComp), GetObjectUintptr(aContext), GetObjectUintptr(aExtraInfo))
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) ClearCertificateExceptions(aClearImmediately bool) bool {
-	r1 := chromiumCoreImportAPI().SysCallN(26, m.Instance(), PascalBool(aClearImmediately))
+	r1 := chromiumCoreImportAPI().SysCallN(27, m.Instance(), PascalBool(aClearImmediately))
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) ClearHttpAuthCredentials(aClearImmediately bool) bool {
-	r1 := chromiumCoreImportAPI().SysCallN(28, m.Instance(), PascalBool(aClearImmediately))
+	r1 := chromiumCoreImportAPI().SysCallN(29, m.Instance(), PascalBool(aClearImmediately))
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) CloseAllConnections(aCloseImmediately bool) bool {
-	r1 := chromiumCoreImportAPI().SysCallN(36, m.Instance(), PascalBool(aCloseImmediately))
+	r1 := chromiumCoreImportAPI().SysCallN(37, m.Instance(), PascalBool(aCloseImmediately))
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) GetFrameNames(aFrameNames *IStrings) bool {
 	var result0 uintptr
-	r1 := chromiumCoreImportAPI().SysCallN(90, m.Instance(), uintptr(unsafePointer(&result0)))
+	r1 := chromiumCoreImportAPI().SysCallN(91, m.Instance(), uintptr(unsafePointer(&result0)))
 	*aFrameNames = AsStrings(result0)
 	return GoBool(r1)
 }
@@ -3464,49 +3473,49 @@ func (m *TChromiumCore) GetFrameNames(aFrameNames *IStrings) bool {
 func (m *TChromiumCore) GetFrameIdentifiers(aFrameCount *NativeUInt, aFrameIdentifierArray *ICefFrameIdentifierArray) bool {
 	var result0 uintptr
 	var result1 uintptr
-	r1 := chromiumCoreImportAPI().SysCallN(89, m.Instance(), uintptr(unsafePointer(&result0)), uintptr(unsafePointer(&result1)))
+	r1 := chromiumCoreImportAPI().SysCallN(90, m.Instance(), uintptr(unsafePointer(&result0)), uintptr(unsafePointer(&result1)))
 	*aFrameCount = NativeUInt(result0)
 	*aFrameIdentifierArray = FrameIdentifierArrayRef.New(int(*aFrameCount), result1)
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) IsSameBrowser(aBrowser ICefBrowser) bool {
-	r1 := chromiumCoreImportAPI().SysCallN(117, m.Instance(), GetObjectUintptr(aBrowser))
+	r1 := chromiumCoreImportAPI().SysCallN(118, m.Instance(), GetObjectUintptr(aBrowser))
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) ExecuteTaskOnCefThread(aCefThreadId TCefThreadId, aTaskID uint32, aDelayMs int64) bool {
-	r1 := chromiumCoreImportAPI().SysCallN(76, m.Instance(), uintptr(aCefThreadId), uintptr(aTaskID), uintptr(unsafePointer(&aDelayMs)))
+	r1 := chromiumCoreImportAPI().SysCallN(77, m.Instance(), uintptr(aCefThreadId), uintptr(aTaskID), uintptr(unsafePointer(&aDelayMs)))
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) DeleteCookies(url string, cookieName string, aDeleteImmediately bool) bool {
-	r1 := chromiumCoreImportAPI().SysCallN(57, m.Instance(), PascalStr(url), PascalStr(cookieName), PascalBool(aDeleteImmediately))
+	r1 := chromiumCoreImportAPI().SysCallN(58, m.Instance(), PascalStr(url), PascalStr(cookieName), PascalBool(aDeleteImmediately))
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) VisitAllCookies(aID int32) bool {
-	r1 := chromiumCoreImportAPI().SysCallN(361, m.Instance(), uintptr(aID))
+	r1 := chromiumCoreImportAPI().SysCallN(362, m.Instance(), uintptr(aID))
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) VisitURLCookies(url string, includeHttpOnly bool, aID int32) bool {
-	r1 := chromiumCoreImportAPI().SysCallN(362, m.Instance(), PascalStr(url), PascalBool(includeHttpOnly), uintptr(aID))
+	r1 := chromiumCoreImportAPI().SysCallN(363, m.Instance(), PascalStr(url), PascalBool(includeHttpOnly), uintptr(aID))
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) FlushCookieStore(aFlushImmediately bool) bool {
-	r1 := chromiumCoreImportAPI().SysCallN(80, m.Instance(), PascalBool(aFlushImmediately))
+	r1 := chromiumCoreImportAPI().SysCallN(81, m.Instance(), PascalBool(aFlushImmediately))
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) SendDevToolsMessage(message string) bool {
-	r1 := chromiumCoreImportAPI().SysCallN(183, m.Instance(), PascalStr(message))
+	r1 := chromiumCoreImportAPI().SysCallN(184, m.Instance(), PascalStr(message))
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) ExecuteDevToolsMethod(messageid int32, method string, params ICefDictionaryValue) int32 {
-	r1 := chromiumCoreImportAPI().SysCallN(72, m.Instance(), uintptr(messageid), PascalStr(method), GetObjectUintptr(params))
+	r1 := chromiumCoreImportAPI().SysCallN(73, m.Instance(), uintptr(messageid), PascalStr(method), GetObjectUintptr(params))
 	return int32(r1)
 }
 
@@ -3518,19 +3527,19 @@ func (m *TChromiumCore) AddDevToolsMessageObserver(observer ICefDevToolsMessageO
 
 func (m *TChromiumCore) CreateUrlRequest(request ICefRequest, client ICefUrlRequestClient, aFrameName string) ICefUrlRequest {
 	var resultCefUrlRequest uintptr
-	chromiumCoreImportAPI().SysCallN(46, m.Instance(), GetObjectUintptr(request), GetObjectUintptr(client), PascalStr(aFrameName), uintptr(unsafePointer(&resultCefUrlRequest)))
+	chromiumCoreImportAPI().SysCallN(47, m.Instance(), GetObjectUintptr(request), GetObjectUintptr(client), PascalStr(aFrameName), uintptr(unsafePointer(&resultCefUrlRequest)))
 	return AsCefUrlRequest(resultCefUrlRequest)
 }
 
 func (m *TChromiumCore) CreateUrlRequest1(request ICefRequest, client ICefUrlRequestClient, aFrame ICefFrame) ICefUrlRequest {
 	var resultCefUrlRequest uintptr
-	chromiumCoreImportAPI().SysCallN(47, m.Instance(), GetObjectUintptr(request), GetObjectUintptr(client), GetObjectUintptr(aFrame), uintptr(unsafePointer(&resultCefUrlRequest)))
+	chromiumCoreImportAPI().SysCallN(48, m.Instance(), GetObjectUintptr(request), GetObjectUintptr(client), GetObjectUintptr(aFrame), uintptr(unsafePointer(&resultCefUrlRequest)))
 	return AsCefUrlRequest(resultCefUrlRequest)
 }
 
 func (m *TChromiumCore) CreateUrlRequest2(request ICefRequest, client ICefUrlRequestClient, aFrameIdentifier int64) ICefUrlRequest {
 	var resultCefUrlRequest uintptr
-	chromiumCoreImportAPI().SysCallN(48, m.Instance(), GetObjectUintptr(request), GetObjectUintptr(client), uintptr(unsafePointer(&aFrameIdentifier)), uintptr(unsafePointer(&resultCefUrlRequest)))
+	chromiumCoreImportAPI().SysCallN(49, m.Instance(), GetObjectUintptr(request), GetObjectUintptr(client), uintptr(unsafePointer(&aFrameIdentifier)), uintptr(unsafePointer(&resultCefUrlRequest)))
 	return AsCefUrlRequest(resultCefUrlRequest)
 }
 
@@ -3542,414 +3551,414 @@ func (m *TChromiumCore) AddObserver(observer ICefMediaObserver) ICefRegistration
 
 func (m *TChromiumCore) GetSource(urn string) ICefMediaSource {
 	var resultCefMediaSource uintptr
-	chromiumCoreImportAPI().SysCallN(92, m.Instance(), PascalStr(urn), uintptr(unsafePointer(&resultCefMediaSource)))
+	chromiumCoreImportAPI().SysCallN(93, m.Instance(), PascalStr(urn), uintptr(unsafePointer(&resultCefMediaSource)))
 	return AsCefMediaSource(resultCefMediaSource)
 }
 
 func (m *TChromiumCore) LoadExtension(rootdirectory string, manifest ICefDictionaryValue, handler ICefExtensionHandler, requestContext ICefRequestContext) bool {
-	r1 := chromiumCoreImportAPI().SysCallN(119, m.Instance(), PascalStr(rootdirectory), GetObjectUintptr(manifest), GetObjectUintptr(handler), GetObjectUintptr(requestContext))
+	r1 := chromiumCoreImportAPI().SysCallN(120, m.Instance(), PascalStr(rootdirectory), GetObjectUintptr(manifest), GetObjectUintptr(handler), GetObjectUintptr(requestContext))
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) DidLoadExtension(extensionid string) bool {
-	r1 := chromiumCoreImportAPI().SysCallN(60, m.Instance(), PascalStr(extensionid))
+	r1 := chromiumCoreImportAPI().SysCallN(61, m.Instance(), PascalStr(extensionid))
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) HasExtension(extensionid string) bool {
-	r1 := chromiumCoreImportAPI().SysCallN(100, m.Instance(), PascalStr(extensionid))
+	r1 := chromiumCoreImportAPI().SysCallN(101, m.Instance(), PascalStr(extensionid))
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) GetExtensions(extensionids IStringList) bool {
-	r1 := chromiumCoreImportAPI().SysCallN(88, m.Instance(), GetObjectUintptr(extensionids))
+	r1 := chromiumCoreImportAPI().SysCallN(89, m.Instance(), GetObjectUintptr(extensionids))
 	return GoBool(r1)
 }
 
 func (m *TChromiumCore) GetExtension(extensionid string) ICefExtension {
 	var resultCefExtension uintptr
-	chromiumCoreImportAPI().SysCallN(87, m.Instance(), PascalStr(extensionid), uintptr(unsafePointer(&resultCefExtension)))
+	chromiumCoreImportAPI().SysCallN(88, m.Instance(), PascalStr(extensionid), uintptr(unsafePointer(&resultCefExtension)))
 	return AsCefExtension(resultCefExtension)
 }
 
 func (m *TChromiumCore) GetWebsiteSetting(requestingurl, toplevelurl string, contenttype TCefContentSettingTypes) ICefValue {
 	var resultCefValue uintptr
-	chromiumCoreImportAPI().SysCallN(93, m.Instance(), PascalStr(requestingurl), PascalStr(toplevelurl), uintptr(contenttype), uintptr(unsafePointer(&resultCefValue)))
+	chromiumCoreImportAPI().SysCallN(94, m.Instance(), PascalStr(requestingurl), PascalStr(toplevelurl), uintptr(contenttype), uintptr(unsafePointer(&resultCefValue)))
 	return AsCefValue(resultCefValue)
 }
 
 func (m *TChromiumCore) GetContentSetting(requestingurl, toplevelurl string, contenttype TCefContentSettingTypes) TCefContentSettingValues {
-	r1 := chromiumCoreImportAPI().SysCallN(85, m.Instance(), PascalStr(requestingurl), PascalStr(toplevelurl), uintptr(contenttype))
+	r1 := chromiumCoreImportAPI().SysCallN(86, m.Instance(), PascalStr(requestingurl), PascalStr(toplevelurl), uintptr(contenttype))
 	return TCefContentSettingValues(r1)
 }
 
 func (m *TChromiumCore) CloseBrowser(aForceClose bool) {
-	chromiumCoreImportAPI().SysCallN(37, m.Instance(), PascalBool(aForceClose))
+	chromiumCoreImportAPI().SysCallN(38, m.Instance(), PascalBool(aForceClose))
 }
 
 func (m *TChromiumCore) CloseAllBrowsers() {
-	chromiumCoreImportAPI().SysCallN(35, m.Instance())
+	chromiumCoreImportAPI().SysCallN(36, m.Instance())
 }
 
 func (m *TChromiumCore) InitializeDragAndDrop(aDropTargetWnd HWND) {
-	chromiumCoreImportAPI().SysCallN(112, m.Instance(), uintptr(aDropTargetWnd))
+	chromiumCoreImportAPI().SysCallN(113, m.Instance(), uintptr(aDropTargetWnd))
 }
 
 func (m *TChromiumCore) ShutdownDragAndDrop() {
-	chromiumCoreImportAPI().SysCallN(348, m.Instance())
+	chromiumCoreImportAPI().SysCallN(349, m.Instance())
 }
 
 func (m *TChromiumCore) LoadURL(aURL string, aFrameName string) {
-	chromiumCoreImportAPI().SysCallN(128, m.Instance(), PascalStr(aURL), PascalStr(aFrameName))
+	chromiumCoreImportAPI().SysCallN(129, m.Instance(), PascalStr(aURL), PascalStr(aFrameName))
 }
 
 func (m *TChromiumCore) LoadURL1(aURL string, aFrame ICefFrame) {
-	chromiumCoreImportAPI().SysCallN(129, m.Instance(), PascalStr(aURL), GetObjectUintptr(aFrame))
+	chromiumCoreImportAPI().SysCallN(130, m.Instance(), PascalStr(aURL), GetObjectUintptr(aFrame))
 }
 
 func (m *TChromiumCore) LoadURL2(aURL string, aFrameIdentifier int64) {
-	chromiumCoreImportAPI().SysCallN(130, m.Instance(), PascalStr(aURL), uintptr(unsafePointer(&aFrameIdentifier)))
+	chromiumCoreImportAPI().SysCallN(131, m.Instance(), PascalStr(aURL), uintptr(unsafePointer(&aFrameIdentifier)))
 }
 
 func (m *TChromiumCore) LoadString(aHTML string, aFrameName string) {
-	chromiumCoreImportAPI().SysCallN(125, m.Instance(), PascalStr(aHTML), PascalStr(aFrameName))
+	chromiumCoreImportAPI().SysCallN(126, m.Instance(), PascalStr(aHTML), PascalStr(aFrameName))
 }
 
 func (m *TChromiumCore) LoadString1(aHTML string, aFrame ICefFrame) {
-	chromiumCoreImportAPI().SysCallN(126, m.Instance(), PascalStr(aHTML), GetObjectUintptr(aFrame))
+	chromiumCoreImportAPI().SysCallN(127, m.Instance(), PascalStr(aHTML), GetObjectUintptr(aFrame))
 }
 
 func (m *TChromiumCore) LoadString2(aHTML string, aFrameIdentifier int64) {
-	chromiumCoreImportAPI().SysCallN(127, m.Instance(), PascalStr(aHTML), uintptr(unsafePointer(&aFrameIdentifier)))
+	chromiumCoreImportAPI().SysCallN(128, m.Instance(), PascalStr(aHTML), uintptr(unsafePointer(&aFrameIdentifier)))
 }
 
 func (m *TChromiumCore) LoadResource(aStream ICustomMemoryStream, aMimeType, aCharset string, aFrameName string) {
-	chromiumCoreImportAPI().SysCallN(122, m.Instance(), GetObjectUintptr(aStream), PascalStr(aMimeType), PascalStr(aCharset), PascalStr(aFrameName))
+	chromiumCoreImportAPI().SysCallN(123, m.Instance(), GetObjectUintptr(aStream), PascalStr(aMimeType), PascalStr(aCharset), PascalStr(aFrameName))
 }
 
 func (m *TChromiumCore) LoadResource1(aStream ICustomMemoryStream, aMimeType, aCharset string, aFrame ICefFrame) {
-	chromiumCoreImportAPI().SysCallN(123, m.Instance(), GetObjectUintptr(aStream), PascalStr(aMimeType), PascalStr(aCharset), GetObjectUintptr(aFrame))
+	chromiumCoreImportAPI().SysCallN(124, m.Instance(), GetObjectUintptr(aStream), PascalStr(aMimeType), PascalStr(aCharset), GetObjectUintptr(aFrame))
 }
 
 func (m *TChromiumCore) LoadResource2(aStream ICustomMemoryStream, aMimeType, aCharset string, aFrameIdentifier int64) {
-	chromiumCoreImportAPI().SysCallN(124, m.Instance(), GetObjectUintptr(aStream), PascalStr(aMimeType), PascalStr(aCharset), uintptr(unsafePointer(&aFrameIdentifier)))
+	chromiumCoreImportAPI().SysCallN(125, m.Instance(), GetObjectUintptr(aStream), PascalStr(aMimeType), PascalStr(aCharset), uintptr(unsafePointer(&aFrameIdentifier)))
 }
 
 func (m *TChromiumCore) LoadRequest(aRequest ICefRequest) {
-	chromiumCoreImportAPI().SysCallN(121, m.Instance(), GetObjectUintptr(aRequest))
+	chromiumCoreImportAPI().SysCallN(122, m.Instance(), GetObjectUintptr(aRequest))
 }
 
 func (m *TChromiumCore) GoBack() {
-	chromiumCoreImportAPI().SysCallN(94, m.Instance())
-}
-
-func (m *TChromiumCore) GoForward() {
 	chromiumCoreImportAPI().SysCallN(95, m.Instance())
 }
 
-func (m *TChromiumCore) Reload() {
-	chromiumCoreImportAPI().SysCallN(158, m.Instance())
+func (m *TChromiumCore) GoForward() {
+	chromiumCoreImportAPI().SysCallN(96, m.Instance())
 }
 
-func (m *TChromiumCore) ReloadIgnoreCache() {
+func (m *TChromiumCore) Reload() {
 	chromiumCoreImportAPI().SysCallN(159, m.Instance())
 }
 
+func (m *TChromiumCore) ReloadIgnoreCache() {
+	chromiumCoreImportAPI().SysCallN(160, m.Instance())
+}
+
 func (m *TChromiumCore) StopLoad() {
-	chromiumCoreImportAPI().SysCallN(354, m.Instance())
+	chromiumCoreImportAPI().SysCallN(355, m.Instance())
 }
 
 func (m *TChromiumCore) StartDownload(aURL string) {
-	chromiumCoreImportAPI().SysCallN(352, m.Instance(), PascalStr(aURL))
+	chromiumCoreImportAPI().SysCallN(353, m.Instance(), PascalStr(aURL))
 }
 
 func (m *TChromiumCore) DownloadImage(imageUrl string, isFavicon bool, maxImageSize uint32, bypassCache bool) {
-	chromiumCoreImportAPI().SysCallN(63, m.Instance(), PascalStr(imageUrl), PascalBool(isFavicon), uintptr(maxImageSize), PascalBool(bypassCache))
+	chromiumCoreImportAPI().SysCallN(64, m.Instance(), PascalStr(imageUrl), PascalBool(isFavicon), uintptr(maxImageSize), PascalBool(bypassCache))
 }
 
 func (m *TChromiumCore) SimulateMouseWheel(aDeltaX, aDeltaY int32) {
-	chromiumCoreImportAPI().SysCallN(349, m.Instance(), uintptr(aDeltaX), uintptr(aDeltaY))
+	chromiumCoreImportAPI().SysCallN(350, m.Instance(), uintptr(aDeltaX), uintptr(aDeltaY))
 }
 
 func (m *TChromiumCore) RetrieveHTML(aFrameName string) {
-	chromiumCoreImportAPI().SysCallN(172, m.Instance(), PascalStr(aFrameName))
+	chromiumCoreImportAPI().SysCallN(173, m.Instance(), PascalStr(aFrameName))
 }
 
 func (m *TChromiumCore) RetrieveHTML1(aFrame ICefFrame) {
-	chromiumCoreImportAPI().SysCallN(173, m.Instance(), GetObjectUintptr(aFrame))
+	chromiumCoreImportAPI().SysCallN(174, m.Instance(), GetObjectUintptr(aFrame))
 }
 
 func (m *TChromiumCore) RetrieveHTML2(aFrameIdentifier int64) {
-	chromiumCoreImportAPI().SysCallN(174, m.Instance(), uintptr(unsafePointer(&aFrameIdentifier)))
+	chromiumCoreImportAPI().SysCallN(175, m.Instance(), uintptr(unsafePointer(&aFrameIdentifier)))
 }
 
 func (m *TChromiumCore) RetrieveText(aFrameName string) {
-	chromiumCoreImportAPI().SysCallN(175, m.Instance(), PascalStr(aFrameName))
+	chromiumCoreImportAPI().SysCallN(176, m.Instance(), PascalStr(aFrameName))
 }
 
 func (m *TChromiumCore) RetrieveText1(aFrame ICefFrame) {
-	chromiumCoreImportAPI().SysCallN(176, m.Instance(), GetObjectUintptr(aFrame))
+	chromiumCoreImportAPI().SysCallN(177, m.Instance(), GetObjectUintptr(aFrame))
 }
 
 func (m *TChromiumCore) RetrieveText2(aFrameIdentifier int64) {
-	chromiumCoreImportAPI().SysCallN(177, m.Instance(), uintptr(unsafePointer(&aFrameIdentifier)))
+	chromiumCoreImportAPI().SysCallN(178, m.Instance(), uintptr(unsafePointer(&aFrameIdentifier)))
 }
 
 func (m *TChromiumCore) GetNavigationEntries(currentOnly bool) {
-	chromiumCoreImportAPI().SysCallN(91, m.Instance(), PascalBool(currentOnly))
+	chromiumCoreImportAPI().SysCallN(92, m.Instance(), PascalBool(currentOnly))
 }
 
 func (m *TChromiumCore) ExecuteJavaScript(aCode, aScriptURL string, aFrameName string, aStartLine int32) {
-	chromiumCoreImportAPI().SysCallN(73, m.Instance(), PascalStr(aCode), PascalStr(aScriptURL), PascalStr(aFrameName), uintptr(aStartLine))
+	chromiumCoreImportAPI().SysCallN(74, m.Instance(), PascalStr(aCode), PascalStr(aScriptURL), PascalStr(aFrameName), uintptr(aStartLine))
 }
 
 func (m *TChromiumCore) ExecuteJavaScript1(aCode, aScriptURL string, aFrame ICefFrame, aStartLine int32) {
-	chromiumCoreImportAPI().SysCallN(74, m.Instance(), PascalStr(aCode), PascalStr(aScriptURL), GetObjectUintptr(aFrame), uintptr(aStartLine))
+	chromiumCoreImportAPI().SysCallN(75, m.Instance(), PascalStr(aCode), PascalStr(aScriptURL), GetObjectUintptr(aFrame), uintptr(aStartLine))
 }
 
 func (m *TChromiumCore) ExecuteJavaScript2(aCode, aScriptURL string, aFrameIdentifier int64, aStartLine int32) {
-	chromiumCoreImportAPI().SysCallN(75, m.Instance(), PascalStr(aCode), PascalStr(aScriptURL), uintptr(unsafePointer(&aFrameIdentifier)), uintptr(aStartLine))
+	chromiumCoreImportAPI().SysCallN(76, m.Instance(), PascalStr(aCode), PascalStr(aScriptURL), uintptr(unsafePointer(&aFrameIdentifier)), uintptr(aStartLine))
 }
 
 func (m *TChromiumCore) UpdatePreferences() {
-	chromiumCoreImportAPI().SysCallN(358, m.Instance())
+	chromiumCoreImportAPI().SysCallN(359, m.Instance())
 }
 
 func (m *TChromiumCore) SavePreferences(aFileName string) {
-	chromiumCoreImportAPI().SysCallN(179, m.Instance(), PascalStr(aFileName))
+	chromiumCoreImportAPI().SysCallN(180, m.Instance(), PascalStr(aFileName))
 }
 
 func (m *TChromiumCore) ResolveHost(aURL string) {
-	chromiumCoreImportAPI().SysCallN(170, m.Instance(), PascalStr(aURL))
+	chromiumCoreImportAPI().SysCallN(171, m.Instance(), PascalStr(aURL))
 }
 
 func (m *TChromiumCore) SetUserAgentOverride(aUserAgent string, aAcceptLanguage string, aPlatform string) {
-	chromiumCoreImportAPI().SysCallN(344, m.Instance(), PascalStr(aUserAgent), PascalStr(aAcceptLanguage), PascalStr(aPlatform))
+	chromiumCoreImportAPI().SysCallN(345, m.Instance(), PascalStr(aUserAgent), PascalStr(aAcceptLanguage), PascalStr(aPlatform))
 }
 
 func (m *TChromiumCore) ClearDataForOrigin(aOrigin string, aStorageTypes TCefClearDataStorageTypes) {
-	chromiumCoreImportAPI().SysCallN(27, m.Instance(), PascalStr(aOrigin), uintptr(aStorageTypes))
+	chromiumCoreImportAPI().SysCallN(28, m.Instance(), PascalStr(aOrigin), uintptr(aStorageTypes))
 }
 
 func (m *TChromiumCore) ClearCache() {
-	chromiumCoreImportAPI().SysCallN(25, m.Instance())
+	chromiumCoreImportAPI().SysCallN(26, m.Instance())
 }
 
 func (m *TChromiumCore) ToggleAudioMuted() {
-	chromiumCoreImportAPI().SysCallN(355, m.Instance())
+	chromiumCoreImportAPI().SysCallN(356, m.Instance())
 }
 
 func (m *TChromiumCore) ShowDevTools(inspectElementAt *TPoint, aWindowInfo *TCefWindowInfo) {
 	inArgs1 := aWindowInfo.Pointer()
-	chromiumCoreImportAPI().SysCallN(347, m.Instance(), uintptr(unsafePointer(inspectElementAt)), uintptr(unsafePointer(inArgs1)))
+	chromiumCoreImportAPI().SysCallN(348, m.Instance(), uintptr(unsafePointer(inspectElementAt)), uintptr(unsafePointer(inArgs1)))
 }
 
 func (m *TChromiumCore) CloseDevTools() {
-	chromiumCoreImportAPI().SysCallN(38, m.Instance())
+	chromiumCoreImportAPI().SysCallN(39, m.Instance())
 }
 
 func (m *TChromiumCore) CloseDevTools1(aDevToolsWnd TCefWindowHandle) {
-	chromiumCoreImportAPI().SysCallN(39, m.Instance(), uintptr(aDevToolsWnd))
+	chromiumCoreImportAPI().SysCallN(40, m.Instance(), uintptr(aDevToolsWnd))
 }
 
 func (m *TChromiumCore) Find(aSearchText string, aForward, aMatchCase, aFindNext bool) {
-	chromiumCoreImportAPI().SysCallN(79, m.Instance(), PascalStr(aSearchText), PascalBool(aForward), PascalBool(aMatchCase), PascalBool(aFindNext))
+	chromiumCoreImportAPI().SysCallN(80, m.Instance(), PascalStr(aSearchText), PascalBool(aForward), PascalBool(aMatchCase), PascalBool(aFindNext))
 }
 
 func (m *TChromiumCore) StopFinding(aClearSelection bool) {
-	chromiumCoreImportAPI().SysCallN(353, m.Instance(), PascalBool(aClearSelection))
+	chromiumCoreImportAPI().SysCallN(354, m.Instance(), PascalBool(aClearSelection))
 }
 
 func (m *TChromiumCore) Print() {
-	chromiumCoreImportAPI().SysCallN(145, m.Instance())
+	chromiumCoreImportAPI().SysCallN(146, m.Instance())
 }
 
 func (m *TChromiumCore) PrintToPDF(aFilePath string) {
-	chromiumCoreImportAPI().SysCallN(146, m.Instance(), PascalStr(aFilePath))
+	chromiumCoreImportAPI().SysCallN(147, m.Instance(), PascalStr(aFilePath))
 }
 
 func (m *TChromiumCore) ClipboardCopy() {
-	chromiumCoreImportAPI().SysCallN(29, m.Instance())
-}
-
-func (m *TChromiumCore) ClipboardPaste() {
-	chromiumCoreImportAPI().SysCallN(32, m.Instance())
-}
-
-func (m *TChromiumCore) ClipboardCut() {
 	chromiumCoreImportAPI().SysCallN(30, m.Instance())
 }
 
-func (m *TChromiumCore) ClipboardUndo() {
-	chromiumCoreImportAPI().SysCallN(34, m.Instance())
-}
-
-func (m *TChromiumCore) ClipboardRedo() {
+func (m *TChromiumCore) ClipboardPaste() {
 	chromiumCoreImportAPI().SysCallN(33, m.Instance())
 }
 
-func (m *TChromiumCore) ClipboardDel() {
+func (m *TChromiumCore) ClipboardCut() {
 	chromiumCoreImportAPI().SysCallN(31, m.Instance())
 }
 
+func (m *TChromiumCore) ClipboardUndo() {
+	chromiumCoreImportAPI().SysCallN(35, m.Instance())
+}
+
+func (m *TChromiumCore) ClipboardRedo() {
+	chromiumCoreImportAPI().SysCallN(34, m.Instance())
+}
+
+func (m *TChromiumCore) ClipboardDel() {
+	chromiumCoreImportAPI().SysCallN(32, m.Instance())
+}
+
 func (m *TChromiumCore) SelectAll() {
-	chromiumCoreImportAPI().SysCallN(180, m.Instance())
+	chromiumCoreImportAPI().SysCallN(181, m.Instance())
 }
 
 func (m *TChromiumCore) IncZoomStep() {
-	chromiumCoreImportAPI().SysCallN(110, m.Instance())
+	chromiumCoreImportAPI().SysCallN(111, m.Instance())
 }
 
 func (m *TChromiumCore) DecZoomStep() {
-	chromiumCoreImportAPI().SysCallN(53, m.Instance())
+	chromiumCoreImportAPI().SysCallN(54, m.Instance())
 }
 
 func (m *TChromiumCore) IncZoomPct() {
-	chromiumCoreImportAPI().SysCallN(109, m.Instance())
+	chromiumCoreImportAPI().SysCallN(110, m.Instance())
 }
 
 func (m *TChromiumCore) DecZoomPct() {
-	chromiumCoreImportAPI().SysCallN(52, m.Instance())
+	chromiumCoreImportAPI().SysCallN(53, m.Instance())
 }
 
 func (m *TChromiumCore) ResetZoomStep() {
-	chromiumCoreImportAPI().SysCallN(169, m.Instance())
+	chromiumCoreImportAPI().SysCallN(170, m.Instance())
 }
 
 func (m *TChromiumCore) ResetZoomLevel() {
-	chromiumCoreImportAPI().SysCallN(167, m.Instance())
-}
-
-func (m *TChromiumCore) ResetZoomPct() {
 	chromiumCoreImportAPI().SysCallN(168, m.Instance())
 }
 
+func (m *TChromiumCore) ResetZoomPct() {
+	chromiumCoreImportAPI().SysCallN(169, m.Instance())
+}
+
 func (m *TChromiumCore) ReadZoom() {
-	chromiumCoreImportAPI().SysCallN(157, m.Instance())
+	chromiumCoreImportAPI().SysCallN(158, m.Instance())
 }
 
 func (m *TChromiumCore) IncZoomCommand() {
-	chromiumCoreImportAPI().SysCallN(108, m.Instance())
+	chromiumCoreImportAPI().SysCallN(109, m.Instance())
 }
 
 func (m *TChromiumCore) DecZoomCommand() {
-	chromiumCoreImportAPI().SysCallN(51, m.Instance())
+	chromiumCoreImportAPI().SysCallN(52, m.Instance())
 }
 
 func (m *TChromiumCore) ResetZoomCommand() {
-	chromiumCoreImportAPI().SysCallN(166, m.Instance())
+	chromiumCoreImportAPI().SysCallN(167, m.Instance())
 }
 
 func (m *TChromiumCore) WasResized() {
-	chromiumCoreImportAPI().SysCallN(364, m.Instance())
+	chromiumCoreImportAPI().SysCallN(365, m.Instance())
 }
 
 func (m *TChromiumCore) WasHidden(hidden bool) {
-	chromiumCoreImportAPI().SysCallN(363, m.Instance(), PascalBool(hidden))
+	chromiumCoreImportAPI().SysCallN(364, m.Instance(), PascalBool(hidden))
 }
 
 func (m *TChromiumCore) NotifyScreenInfoChanged() {
-	chromiumCoreImportAPI().SysCallN(140, m.Instance())
+	chromiumCoreImportAPI().SysCallN(141, m.Instance())
 }
 
 func (m *TChromiumCore) NotifyMoveOrResizeStarted() {
-	chromiumCoreImportAPI().SysCallN(139, m.Instance())
+	chromiumCoreImportAPI().SysCallN(140, m.Instance())
 }
 
 func (m *TChromiumCore) Invalidate(type_ TCefPaintElementType) {
-	chromiumCoreImportAPI().SysCallN(114, m.Instance(), uintptr(type_))
+	chromiumCoreImportAPI().SysCallN(115, m.Instance(), uintptr(type_))
 }
 
 func (m *TChromiumCore) ExitFullscreen(willcauseresize bool) {
-	chromiumCoreImportAPI().SysCallN(77, m.Instance(), PascalBool(willcauseresize))
+	chromiumCoreImportAPI().SysCallN(78, m.Instance(), PascalBool(willcauseresize))
 }
 
 func (m *TChromiumCore) SendExternalBeginFrame() {
-	chromiumCoreImportAPI().SysCallN(184, m.Instance())
+	chromiumCoreImportAPI().SysCallN(185, m.Instance())
 }
 
 func (m *TChromiumCore) SendKeyEvent(event *TCefKeyEvent) {
-	chromiumCoreImportAPI().SysCallN(185, m.Instance(), uintptr(unsafePointer(event)))
+	chromiumCoreImportAPI().SysCallN(186, m.Instance(), uintptr(unsafePointer(event)))
 }
 
 func (m *TChromiumCore) SendMouseClickEvent(event *TCefMouseEvent, type_ TCefMouseButtonType, mouseUp bool, clickCount int32) {
-	chromiumCoreImportAPI().SysCallN(186, m.Instance(), uintptr(unsafePointer(event)), uintptr(type_), PascalBool(mouseUp), uintptr(clickCount))
+	chromiumCoreImportAPI().SysCallN(187, m.Instance(), uintptr(unsafePointer(event)), uintptr(type_), PascalBool(mouseUp), uintptr(clickCount))
 }
 
 func (m *TChromiumCore) SendMouseMoveEvent(event *TCefMouseEvent, mouseLeave bool) {
-	chromiumCoreImportAPI().SysCallN(187, m.Instance(), uintptr(unsafePointer(event)), PascalBool(mouseLeave))
+	chromiumCoreImportAPI().SysCallN(188, m.Instance(), uintptr(unsafePointer(event)), PascalBool(mouseLeave))
 }
 
 func (m *TChromiumCore) SendMouseWheelEvent(event *TCefMouseEvent, deltaX, deltaY int32) {
-	chromiumCoreImportAPI().SysCallN(188, m.Instance(), uintptr(unsafePointer(event)), uintptr(deltaX), uintptr(deltaY))
+	chromiumCoreImportAPI().SysCallN(189, m.Instance(), uintptr(unsafePointer(event)), uintptr(deltaX), uintptr(deltaY))
 }
 
 func (m *TChromiumCore) SendTouchEvent(event *TCefTouchEvent) {
-	chromiumCoreImportAPI().SysCallN(193, m.Instance(), uintptr(unsafePointer(event)))
+	chromiumCoreImportAPI().SysCallN(194, m.Instance(), uintptr(unsafePointer(event)))
 }
 
 func (m *TChromiumCore) SendCaptureLostEvent() {
-	chromiumCoreImportAPI().SysCallN(182, m.Instance())
+	chromiumCoreImportAPI().SysCallN(183, m.Instance())
 }
 
 func (m *TChromiumCore) SendProcessMessage(targetProcess TCefProcessId, procMessage ICefProcessMessage, aFrameName string) {
-	chromiumCoreImportAPI().SysCallN(189, m.Instance(), uintptr(targetProcess), GetObjectUintptr(procMessage), PascalStr(aFrameName))
+	chromiumCoreImportAPI().SysCallN(190, m.Instance(), uintptr(targetProcess), GetObjectUintptr(procMessage), PascalStr(aFrameName))
 }
 
 func (m *TChromiumCore) SendProcessMessage1(targetProcess TCefProcessId, procMessage ICefProcessMessage, aFrame ICefFrame) {
-	chromiumCoreImportAPI().SysCallN(190, m.Instance(), uintptr(targetProcess), GetObjectUintptr(procMessage), GetObjectUintptr(aFrame))
+	chromiumCoreImportAPI().SysCallN(191, m.Instance(), uintptr(targetProcess), GetObjectUintptr(procMessage), GetObjectUintptr(aFrame))
 }
 
 func (m *TChromiumCore) SendProcessMessage2(targetProcess TCefProcessId, procMessage ICefProcessMessage, aFrameIdentifier int64) {
-	chromiumCoreImportAPI().SysCallN(191, m.Instance(), uintptr(targetProcess), GetObjectUintptr(procMessage), uintptr(unsafePointer(&aFrameIdentifier)))
+	chromiumCoreImportAPI().SysCallN(192, m.Instance(), uintptr(targetProcess), GetObjectUintptr(procMessage), uintptr(unsafePointer(&aFrameIdentifier)))
 }
 
 func (m *TChromiumCore) SetFocus(focus bool) {
-	chromiumCoreImportAPI().SysCallN(196, m.Instance(), PascalBool(focus))
+	chromiumCoreImportAPI().SysCallN(197, m.Instance(), PascalBool(focus))
 }
 
 func (m *TChromiumCore) SetAccessibilityState(accessibilityState TCefState) {
-	chromiumCoreImportAPI().SysCallN(194, m.Instance(), uintptr(accessibilityState))
+	chromiumCoreImportAPI().SysCallN(195, m.Instance(), uintptr(accessibilityState))
 }
 
 func (m *TChromiumCore) DragTargetDragEnter(dragData ICefDragData, event *TCefMouseEvent, allowedOps TCefDragOperations) {
-	chromiumCoreImportAPI().SysCallN(67, m.Instance(), GetObjectUintptr(dragData), uintptr(unsafePointer(event)), uintptr(allowedOps))
+	chromiumCoreImportAPI().SysCallN(68, m.Instance(), GetObjectUintptr(dragData), uintptr(unsafePointer(event)), uintptr(allowedOps))
 }
 
 func (m *TChromiumCore) DragTargetDragOver(event *TCefMouseEvent, allowedOps TCefDragOperations) {
-	chromiumCoreImportAPI().SysCallN(69, m.Instance(), uintptr(unsafePointer(event)), uintptr(allowedOps))
+	chromiumCoreImportAPI().SysCallN(70, m.Instance(), uintptr(unsafePointer(event)), uintptr(allowedOps))
 }
 
 func (m *TChromiumCore) DragTargetDragLeave() {
-	chromiumCoreImportAPI().SysCallN(68, m.Instance())
+	chromiumCoreImportAPI().SysCallN(69, m.Instance())
 }
 
 func (m *TChromiumCore) DragTargetDrop(event *TCefMouseEvent) {
-	chromiumCoreImportAPI().SysCallN(70, m.Instance(), uintptr(unsafePointer(event)))
+	chromiumCoreImportAPI().SysCallN(71, m.Instance(), uintptr(unsafePointer(event)))
 }
 
 func (m *TChromiumCore) DragSourceEndedAt(x, y int32, op TCefDragOperation) {
-	chromiumCoreImportAPI().SysCallN(65, m.Instance(), uintptr(x), uintptr(y), uintptr(op))
+	chromiumCoreImportAPI().SysCallN(66, m.Instance(), uintptr(x), uintptr(y), uintptr(op))
 }
 
 func (m *TChromiumCore) DragSourceSystemDragEnded() {
-	chromiumCoreImportAPI().SysCallN(66, m.Instance())
+	chromiumCoreImportAPI().SysCallN(67, m.Instance())
 }
 
 func (m *TChromiumCore) IMECommitText(text string, replacementrange *TCefRange, relativecursorpos int32) {
-	chromiumCoreImportAPI().SysCallN(106, m.Instance(), PascalStr(text), uintptr(unsafePointer(replacementrange)), uintptr(relativecursorpos))
+	chromiumCoreImportAPI().SysCallN(107, m.Instance(), PascalStr(text), uintptr(unsafePointer(replacementrange)), uintptr(relativecursorpos))
 }
 
 func (m *TChromiumCore) IMEFinishComposingText(keepselection bool) {
-	chromiumCoreImportAPI().SysCallN(107, m.Instance(), PascalBool(keepselection))
+	chromiumCoreImportAPI().SysCallN(108, m.Instance(), PascalBool(keepselection))
 }
 
 func (m *TChromiumCore) IMECancelComposition() {
-	chromiumCoreImportAPI().SysCallN(105, m.Instance())
+	chromiumCoreImportAPI().SysCallN(106, m.Instance())
 }
 
 func (m *TChromiumCore) ReplaceMisspelling(aWord string) {
-	chromiumCoreImportAPI().SysCallN(161, m.Instance(), PascalStr(aWord))
+	chromiumCoreImportAPI().SysCallN(162, m.Instance(), PascalStr(aWord))
 }
 
 func (m *TChromiumCore) AddWordToDictionary(aWord string) {
@@ -3957,35 +3966,35 @@ func (m *TChromiumCore) AddWordToDictionary(aWord string) {
 }
 
 func (m *TChromiumCore) UpdateBrowserSize(aLeft, aTop, aWidth, aHeight int32) {
-	chromiumCoreImportAPI().SysCallN(357, m.Instance(), uintptr(aLeft), uintptr(aTop), uintptr(aWidth), uintptr(aHeight))
+	chromiumCoreImportAPI().SysCallN(358, m.Instance(), uintptr(aLeft), uintptr(aTop), uintptr(aWidth), uintptr(aHeight))
 }
 
 func (m *TChromiumCore) UpdateXWindowVisibility(aVisible bool) {
-	chromiumCoreImportAPI().SysCallN(359, m.Instance(), PascalBool(aVisible))
+	chromiumCoreImportAPI().SysCallN(360, m.Instance(), PascalBool(aVisible))
 }
 
 func (m *TChromiumCore) NotifyCurrentSinks() {
-	chromiumCoreImportAPI().SysCallN(138, m.Instance())
+	chromiumCoreImportAPI().SysCallN(139, m.Instance())
 }
 
 func (m *TChromiumCore) NotifyCurrentRoutes() {
-	chromiumCoreImportAPI().SysCallN(137, m.Instance())
+	chromiumCoreImportAPI().SysCallN(138, m.Instance())
 }
 
 func (m *TChromiumCore) CreateRoute(source ICefMediaSource, sink ICefMediaSink) {
-	chromiumCoreImportAPI().SysCallN(45, m.Instance(), GetObjectUintptr(source), GetObjectUintptr(sink))
+	chromiumCoreImportAPI().SysCallN(46, m.Instance(), GetObjectUintptr(source), GetObjectUintptr(sink))
 }
 
 func (m *TChromiumCore) GetDeviceInfo(aMediaSink ICefMediaSink) {
-	chromiumCoreImportAPI().SysCallN(86, m.Instance(), GetObjectUintptr(aMediaSink))
+	chromiumCoreImportAPI().SysCallN(87, m.Instance(), GetObjectUintptr(aMediaSink))
 }
 
 func (m *TChromiumCore) SetWebsiteSetting(requestingurl, toplevelurl string, contenttype TCefContentSettingTypes, value ICefValue) {
-	chromiumCoreImportAPI().SysCallN(345, m.Instance(), PascalStr(requestingurl), PascalStr(toplevelurl), uintptr(contenttype), GetObjectUintptr(value))
+	chromiumCoreImportAPI().SysCallN(346, m.Instance(), PascalStr(requestingurl), PascalStr(toplevelurl), uintptr(contenttype), GetObjectUintptr(value))
 }
 
 func (m *TChromiumCore) SetContentSetting(requestingurl, toplevelurl string, contenttype TCefContentSettingTypes, value TCefContentSettingValues) {
-	chromiumCoreImportAPI().SysCallN(195, m.Instance(), PascalStr(requestingurl), PascalStr(toplevelurl), uintptr(contenttype), uintptr(value))
+	chromiumCoreImportAPI().SysCallN(196, m.Instance(), PascalStr(requestingurl), PascalStr(toplevelurl), uintptr(contenttype), uintptr(value))
 }
 
 func (m *TChromiumCore) SetOnTextResultAvailable(fn TOnTextResultAvailable) {
@@ -3993,7 +4002,7 @@ func (m *TChromiumCore) SetOnTextResultAvailable(fn TOnTextResultAvailable) {
 		RemoveEventElement(m.textResultAvailablePtr)
 	}
 	m.textResultAvailablePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(335, m.Instance(), m.textResultAvailablePtr)
+	chromiumCoreImportAPI().SysCallN(336, m.Instance(), m.textResultAvailablePtr)
 }
 
 func (m *TChromiumCore) SetOnPdfPrintFinished(fn TOnPdfPrintFinished) {
@@ -4001,7 +4010,7 @@ func (m *TChromiumCore) SetOnPdfPrintFinished(fn TOnPdfPrintFinished) {
 		RemoveEventElement(m.pdfPrintFinishedPtr)
 	}
 	m.pdfPrintFinishedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(297, m.Instance(), m.pdfPrintFinishedPtr)
+	chromiumCoreImportAPI().SysCallN(298, m.Instance(), m.pdfPrintFinishedPtr)
 }
 
 func (m *TChromiumCore) SetOnPrefsAvailable(fn TOnPrefsAvailable) {
@@ -4009,7 +4018,7 @@ func (m *TChromiumCore) SetOnPrefsAvailable(fn TOnPrefsAvailable) {
 		RemoveEventElement(m.prefsAvailablePtr)
 	}
 	m.prefsAvailablePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(301, m.Instance(), m.prefsAvailablePtr)
+	chromiumCoreImportAPI().SysCallN(302, m.Instance(), m.prefsAvailablePtr)
 }
 
 func (m *TChromiumCore) SetOnPrefsUpdated(fn TNotify) {
@@ -4017,7 +4026,7 @@ func (m *TChromiumCore) SetOnPrefsUpdated(fn TNotify) {
 		RemoveEventElement(m.prefsUpdatedPtr)
 	}
 	m.prefsUpdatedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(302, m.Instance(), m.prefsUpdatedPtr)
+	chromiumCoreImportAPI().SysCallN(303, m.Instance(), m.prefsUpdatedPtr)
 }
 
 func (m *TChromiumCore) SetOnCookiesDeleted(fn TOnCookiesDeleted) {
@@ -4025,7 +4034,7 @@ func (m *TChromiumCore) SetOnCookiesDeleted(fn TOnCookiesDeleted) {
 		RemoveEventElement(m.cookiesDeletedPtr)
 	}
 	m.cookiesDeletedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(228, m.Instance(), m.cookiesDeletedPtr)
+	chromiumCoreImportAPI().SysCallN(229, m.Instance(), m.cookiesDeletedPtr)
 }
 
 func (m *TChromiumCore) SetOnResolvedHostAvailable(fn TOnResolvedIPsAvailable) {
@@ -4033,7 +4042,7 @@ func (m *TChromiumCore) SetOnResolvedHostAvailable(fn TOnResolvedIPsAvailable) {
 		RemoveEventElement(m.resolvedHostAvailablePtr)
 	}
 	m.resolvedHostAvailablePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(318, m.Instance(), m.resolvedHostAvailablePtr)
+	chromiumCoreImportAPI().SysCallN(319, m.Instance(), m.resolvedHostAvailablePtr)
 }
 
 func (m *TChromiumCore) SetOnNavigationVisitorResultAvailable(fn TOnNavigationVisitorResultAvailable) {
@@ -4041,7 +4050,7 @@ func (m *TChromiumCore) SetOnNavigationVisitorResultAvailable(fn TOnNavigationVi
 		RemoveEventElement(m.navigationVisitorResultAvailablePtr)
 	}
 	m.navigationVisitorResultAvailablePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(294, m.Instance(), m.navigationVisitorResultAvailablePtr)
+	chromiumCoreImportAPI().SysCallN(295, m.Instance(), m.navigationVisitorResultAvailablePtr)
 }
 
 func (m *TChromiumCore) SetOnDownloadImageFinished(fn TOnDownloadImageFinished) {
@@ -4049,7 +4058,7 @@ func (m *TChromiumCore) SetOnDownloadImageFinished(fn TOnDownloadImageFinished) 
 		RemoveEventElement(m.downloadImageFinishedPtr)
 	}
 	m.downloadImageFinishedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(243, m.Instance(), m.downloadImageFinishedPtr)
+	chromiumCoreImportAPI().SysCallN(244, m.Instance(), m.downloadImageFinishedPtr)
 }
 
 func (m *TChromiumCore) SetOnCookiesFlushed(fn TNotify) {
@@ -4057,7 +4066,7 @@ func (m *TChromiumCore) SetOnCookiesFlushed(fn TNotify) {
 		RemoveEventElement(m.cookiesFlushedPtr)
 	}
 	m.cookiesFlushedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(229, m.Instance(), m.cookiesFlushedPtr)
+	chromiumCoreImportAPI().SysCallN(230, m.Instance(), m.cookiesFlushedPtr)
 }
 
 func (m *TChromiumCore) SetOnCertificateExceptionsCleared(fn TNotify) {
@@ -4065,7 +4074,7 @@ func (m *TChromiumCore) SetOnCertificateExceptionsCleared(fn TNotify) {
 		RemoveEventElement(m.certificateExceptionsClearedPtr)
 	}
 	m.certificateExceptionsClearedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(220, m.Instance(), m.certificateExceptionsClearedPtr)
+	chromiumCoreImportAPI().SysCallN(221, m.Instance(), m.certificateExceptionsClearedPtr)
 }
 
 func (m *TChromiumCore) SetOnHttpAuthCredentialsCleared(fn TNotify) {
@@ -4073,7 +4082,7 @@ func (m *TChromiumCore) SetOnHttpAuthCredentialsCleared(fn TNotify) {
 		RemoveEventElement(m.httpAuthCredentialsClearedPtr)
 	}
 	m.httpAuthCredentialsClearedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(277, m.Instance(), m.httpAuthCredentialsClearedPtr)
+	chromiumCoreImportAPI().SysCallN(278, m.Instance(), m.httpAuthCredentialsClearedPtr)
 }
 
 func (m *TChromiumCore) SetOnAllConnectionsClosed(fn TNotify) {
@@ -4081,7 +4090,7 @@ func (m *TChromiumCore) SetOnAllConnectionsClosed(fn TNotify) {
 		RemoveEventElement(m.allConnectionsClosedPtr)
 	}
 	m.allConnectionsClosedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(201, m.Instance(), m.allConnectionsClosedPtr)
+	chromiumCoreImportAPI().SysCallN(202, m.Instance(), m.allConnectionsClosedPtr)
 }
 
 func (m *TChromiumCore) SetOnExecuteTaskOnCefThread(fn TOnExecuteTaskOnCefThread) {
@@ -4089,7 +4098,7 @@ func (m *TChromiumCore) SetOnExecuteTaskOnCefThread(fn TOnExecuteTaskOnCefThread
 		RemoveEventElement(m.executeTaskOnCefThreadPtr)
 	}
 	m.executeTaskOnCefThreadPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(247, m.Instance(), m.executeTaskOnCefThreadPtr)
+	chromiumCoreImportAPI().SysCallN(248, m.Instance(), m.executeTaskOnCefThreadPtr)
 }
 
 func (m *TChromiumCore) SetOnCookiesVisited(fn TOnCookiesVisited) {
@@ -4097,7 +4106,7 @@ func (m *TChromiumCore) SetOnCookiesVisited(fn TOnCookiesVisited) {
 		RemoveEventElement(m.cookiesVisitedPtr)
 	}
 	m.cookiesVisitedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(230, m.Instance(), m.cookiesVisitedPtr)
+	chromiumCoreImportAPI().SysCallN(231, m.Instance(), m.cookiesVisitedPtr)
 }
 
 func (m *TChromiumCore) SetOnCookieVisitorDestroyed(fn TOnCookieVisitorDestroyed) {
@@ -4105,7 +4114,7 @@ func (m *TChromiumCore) SetOnCookieVisitorDestroyed(fn TOnCookieVisitorDestroyed
 		RemoveEventElement(m.cookieVisitorDestroyedPtr)
 	}
 	m.cookieVisitorDestroyedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(227, m.Instance(), m.cookieVisitorDestroyedPtr)
+	chromiumCoreImportAPI().SysCallN(228, m.Instance(), m.cookieVisitorDestroyedPtr)
 }
 
 func (m *TChromiumCore) SetOnCookieSet(fn TOnCookieSet) {
@@ -4113,7 +4122,7 @@ func (m *TChromiumCore) SetOnCookieSet(fn TOnCookieSet) {
 		RemoveEventElement(m.cookieSetPtr)
 	}
 	m.cookieSetPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(226, m.Instance(), m.cookieSetPtr)
+	chromiumCoreImportAPI().SysCallN(227, m.Instance(), m.cookieSetPtr)
 }
 
 func (m *TChromiumCore) SetOnZoomPctAvailable(fn TOnZoomPctAvailable) {
@@ -4121,7 +4130,7 @@ func (m *TChromiumCore) SetOnZoomPctAvailable(fn TOnZoomPctAvailable) {
 		RemoveEventElement(m.zoomPctAvailablePtr)
 	}
 	m.zoomPctAvailablePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(343, m.Instance(), m.zoomPctAvailablePtr)
+	chromiumCoreImportAPI().SysCallN(344, m.Instance(), m.zoomPctAvailablePtr)
 }
 
 func (m *TChromiumCore) SetOnMediaRouteCreateFinished(fn TOnMediaRouteCreateFinished) {
@@ -4129,7 +4138,7 @@ func (m *TChromiumCore) SetOnMediaRouteCreateFinished(fn TOnMediaRouteCreateFini
 		RemoveEventElement(m.mediaRouteCreateFinishedPtr)
 	}
 	m.mediaRouteCreateFinishedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(292, m.Instance(), m.mediaRouteCreateFinishedPtr)
+	chromiumCoreImportAPI().SysCallN(293, m.Instance(), m.mediaRouteCreateFinishedPtr)
 }
 
 func (m *TChromiumCore) SetOnMediaSinkDeviceInfo(fn TOnMediaSinkDeviceInfo) {
@@ -4137,7 +4146,7 @@ func (m *TChromiumCore) SetOnMediaSinkDeviceInfo(fn TOnMediaSinkDeviceInfo) {
 		RemoveEventElement(m.mediaSinkDeviceInfoPtr)
 	}
 	m.mediaSinkDeviceInfoPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(293, m.Instance(), m.mediaSinkDeviceInfoPtr)
+	chromiumCoreImportAPI().SysCallN(294, m.Instance(), m.mediaSinkDeviceInfoPtr)
 }
 
 func (m *TChromiumCore) SetOnCanFocus(fn TNotify) {
@@ -4145,7 +4154,7 @@ func (m *TChromiumCore) SetOnCanFocus(fn TNotify) {
 		RemoveEventElement(m.canFocusPtr)
 	}
 	m.canFocusPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(216, m.Instance(), m.canFocusPtr)
+	chromiumCoreImportAPI().SysCallN(217, m.Instance(), m.canFocusPtr)
 }
 
 func (m *TChromiumCore) SetOnBrowserCompMsg(fn TOnCompMsg) {
@@ -4153,7 +4162,7 @@ func (m *TChromiumCore) SetOnBrowserCompMsg(fn TOnCompMsg) {
 		RemoveEventElement(m.browserCompMsgPtr)
 	}
 	m.browserCompMsgPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(214, m.Instance(), m.browserCompMsgPtr)
+	chromiumCoreImportAPI().SysCallN(215, m.Instance(), m.browserCompMsgPtr)
 }
 
 func (m *TChromiumCore) SetOnWidgetCompMsg(fn TOnCompMsg) {
@@ -4161,7 +4170,7 @@ func (m *TChromiumCore) SetOnWidgetCompMsg(fn TOnCompMsg) {
 		RemoveEventElement(m.widgetCompMsgPtr)
 	}
 	m.widgetCompMsgPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(342, m.Instance(), m.widgetCompMsgPtr)
+	chromiumCoreImportAPI().SysCallN(343, m.Instance(), m.widgetCompMsgPtr)
 }
 
 func (m *TChromiumCore) SetOnRenderCompMsg(fn TOnCompMsg) {
@@ -4169,7 +4178,7 @@ func (m *TChromiumCore) SetOnRenderCompMsg(fn TOnCompMsg) {
 		RemoveEventElement(m.renderCompMsgPtr)
 	}
 	m.renderCompMsgPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(312, m.Instance(), m.renderCompMsgPtr)
+	chromiumCoreImportAPI().SysCallN(313, m.Instance(), m.renderCompMsgPtr)
 }
 
 func (m *TChromiumCore) SetOnProcessMessageReceived(fn TOnProcessMessageReceived) {
@@ -4177,7 +4186,7 @@ func (m *TChromiumCore) SetOnProcessMessageReceived(fn TOnProcessMessageReceived
 		RemoveEventElement(m.processMessageReceivedPtr)
 	}
 	m.processMessageReceivedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(308, m.Instance(), m.processMessageReceivedPtr)
+	chromiumCoreImportAPI().SysCallN(309, m.Instance(), m.processMessageReceivedPtr)
 }
 
 func (m *TChromiumCore) SetOnLoadStart(fn TOnLoadStart) {
@@ -4185,7 +4194,7 @@ func (m *TChromiumCore) SetOnLoadStart(fn TOnLoadStart) {
 		RemoveEventElement(m.loadStartPtr)
 	}
 	m.loadStartPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(287, m.Instance(), m.loadStartPtr)
+	chromiumCoreImportAPI().SysCallN(288, m.Instance(), m.loadStartPtr)
 }
 
 func (m *TChromiumCore) SetOnLoadEnd(fn TOnLoadEnd) {
@@ -4193,7 +4202,7 @@ func (m *TChromiumCore) SetOnLoadEnd(fn TOnLoadEnd) {
 		RemoveEventElement(m.loadEndPtr)
 	}
 	m.loadEndPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(285, m.Instance(), m.loadEndPtr)
+	chromiumCoreImportAPI().SysCallN(286, m.Instance(), m.loadEndPtr)
 }
 
 func (m *TChromiumCore) SetOnLoadError(fn TOnLoadError) {
@@ -4201,7 +4210,7 @@ func (m *TChromiumCore) SetOnLoadError(fn TOnLoadError) {
 		RemoveEventElement(m.loadErrorPtr)
 	}
 	m.loadErrorPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(286, m.Instance(), m.loadErrorPtr)
+	chromiumCoreImportAPI().SysCallN(287, m.Instance(), m.loadErrorPtr)
 }
 
 func (m *TChromiumCore) SetOnLoadingStateChange(fn TOnLoadingStateChange) {
@@ -4209,7 +4218,7 @@ func (m *TChromiumCore) SetOnLoadingStateChange(fn TOnLoadingStateChange) {
 		RemoveEventElement(m.loadingStateChangePtr)
 	}
 	m.loadingStateChangePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(289, m.Instance(), m.loadingStateChangePtr)
+	chromiumCoreImportAPI().SysCallN(290, m.Instance(), m.loadingStateChangePtr)
 }
 
 func (m *TChromiumCore) SetOnTakeFocus(fn TOnTakeFocus) {
@@ -4217,7 +4226,7 @@ func (m *TChromiumCore) SetOnTakeFocus(fn TOnTakeFocus) {
 		RemoveEventElement(m.takeFocusPtr)
 	}
 	m.takeFocusPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(334, m.Instance(), m.takeFocusPtr)
+	chromiumCoreImportAPI().SysCallN(335, m.Instance(), m.takeFocusPtr)
 }
 
 func (m *TChromiumCore) SetOnSetFocus(fn TOnSetFocus) {
@@ -4225,7 +4234,7 @@ func (m *TChromiumCore) SetOnSetFocus(fn TOnSetFocus) {
 		RemoveEventElement(m.setFocusPtr)
 	}
 	m.setFocusPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(329, m.Instance(), m.setFocusPtr)
+	chromiumCoreImportAPI().SysCallN(330, m.Instance(), m.setFocusPtr)
 }
 
 func (m *TChromiumCore) SetOnGotFocus(fn TOnGotFocus) {
@@ -4233,7 +4242,7 @@ func (m *TChromiumCore) SetOnGotFocus(fn TOnGotFocus) {
 		RemoveEventElement(m.gotFocusPtr)
 	}
 	m.gotFocusPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(276, m.Instance(), m.gotFocusPtr)
+	chromiumCoreImportAPI().SysCallN(277, m.Instance(), m.gotFocusPtr)
 }
 
 func (m *TChromiumCore) SetOnBeforeContextMenu(fn TOnBeforeContextMenu) {
@@ -4241,7 +4250,7 @@ func (m *TChromiumCore) SetOnBeforeContextMenu(fn TOnBeforeContextMenu) {
 		RemoveEventElement(m.beforeContextMenuPtr)
 	}
 	m.beforeContextMenuPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(209, m.Instance(), m.beforeContextMenuPtr)
+	chromiumCoreImportAPI().SysCallN(210, m.Instance(), m.beforeContextMenuPtr)
 }
 
 func (m *TChromiumCore) SetOnRunContextMenu(fn TOnRunContextMenu) {
@@ -4249,7 +4258,7 @@ func (m *TChromiumCore) SetOnRunContextMenu(fn TOnRunContextMenu) {
 		RemoveEventElement(m.runContextMenuPtr)
 	}
 	m.runContextMenuPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(325, m.Instance(), m.runContextMenuPtr)
+	chromiumCoreImportAPI().SysCallN(326, m.Instance(), m.runContextMenuPtr)
 }
 
 func (m *TChromiumCore) SetOnContextMenuCommand(fn TOnContextMenuCommand) {
@@ -4257,7 +4266,7 @@ func (m *TChromiumCore) SetOnContextMenuCommand(fn TOnContextMenuCommand) {
 		RemoveEventElement(m.contextMenuCommandPtr)
 	}
 	m.contextMenuCommandPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(224, m.Instance(), m.contextMenuCommandPtr)
+	chromiumCoreImportAPI().SysCallN(225, m.Instance(), m.contextMenuCommandPtr)
 }
 
 func (m *TChromiumCore) SetOnContextMenuDismissed(fn TOnContextMenuDismissed) {
@@ -4265,7 +4274,7 @@ func (m *TChromiumCore) SetOnContextMenuDismissed(fn TOnContextMenuDismissed) {
 		RemoveEventElement(m.contextMenuDismissedPtr)
 	}
 	m.contextMenuDismissedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(225, m.Instance(), m.contextMenuDismissedPtr)
+	chromiumCoreImportAPI().SysCallN(226, m.Instance(), m.contextMenuDismissedPtr)
 }
 
 func (m *TChromiumCore) SetOnRunQuickMenu(fn TOnRunQuickMenu) {
@@ -4273,7 +4282,7 @@ func (m *TChromiumCore) SetOnRunQuickMenu(fn TOnRunQuickMenu) {
 		RemoveEventElement(m.runQuickMenuPtr)
 	}
 	m.runQuickMenuPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(326, m.Instance(), m.runQuickMenuPtr)
+	chromiumCoreImportAPI().SysCallN(327, m.Instance(), m.runQuickMenuPtr)
 }
 
 func (m *TChromiumCore) SetOnQuickMenuCommand(fn TOnQuickMenuCommand) {
@@ -4281,7 +4290,7 @@ func (m *TChromiumCore) SetOnQuickMenuCommand(fn TOnQuickMenuCommand) {
 		RemoveEventElement(m.quickMenuCommandPtr)
 	}
 	m.quickMenuCommandPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(310, m.Instance(), m.quickMenuCommandPtr)
+	chromiumCoreImportAPI().SysCallN(311, m.Instance(), m.quickMenuCommandPtr)
 }
 
 func (m *TChromiumCore) SetOnQuickMenuDismissed(fn TOnQuickMenuDismissed) {
@@ -4289,7 +4298,7 @@ func (m *TChromiumCore) SetOnQuickMenuDismissed(fn TOnQuickMenuDismissed) {
 		RemoveEventElement(m.quickMenuDismissedPtr)
 	}
 	m.quickMenuDismissedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(311, m.Instance(), m.quickMenuDismissedPtr)
+	chromiumCoreImportAPI().SysCallN(312, m.Instance(), m.quickMenuDismissedPtr)
 }
 
 func (m *TChromiumCore) SetOnPreKeyEvent(fn TOnPreKey) {
@@ -4297,7 +4306,7 @@ func (m *TChromiumCore) SetOnPreKeyEvent(fn TOnPreKey) {
 		RemoveEventElement(m.preKeyEventPtr)
 	}
 	m.preKeyEventPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(300, m.Instance(), m.preKeyEventPtr)
+	chromiumCoreImportAPI().SysCallN(301, m.Instance(), m.preKeyEventPtr)
 }
 
 func (m *TChromiumCore) SetOnKeyEvent(fn TOnKey) {
@@ -4305,7 +4314,7 @@ func (m *TChromiumCore) SetOnKeyEvent(fn TOnKey) {
 		RemoveEventElement(m.keyEventPtr)
 	}
 	m.keyEventPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(284, m.Instance(), m.keyEventPtr)
+	chromiumCoreImportAPI().SysCallN(285, m.Instance(), m.keyEventPtr)
 }
 
 func (m *TChromiumCore) SetOnAddressChange(fn TOnAddressChange) {
@@ -4313,7 +4322,7 @@ func (m *TChromiumCore) SetOnAddressChange(fn TOnAddressChange) {
 		RemoveEventElement(m.addressChangePtr)
 	}
 	m.addressChangePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(199, m.Instance(), m.addressChangePtr)
+	chromiumCoreImportAPI().SysCallN(200, m.Instance(), m.addressChangePtr)
 }
 
 func (m *TChromiumCore) SetOnTitleChange(fn TOnTitleChange) {
@@ -4321,7 +4330,7 @@ func (m *TChromiumCore) SetOnTitleChange(fn TOnTitleChange) {
 		RemoveEventElement(m.titleChangePtr)
 	}
 	m.titleChangePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(337, m.Instance(), m.titleChangePtr)
+	chromiumCoreImportAPI().SysCallN(338, m.Instance(), m.titleChangePtr)
 }
 
 func (m *TChromiumCore) SetOnFavIconUrlChange(fn TOnFavIconUrlChange) {
@@ -4329,7 +4338,7 @@ func (m *TChromiumCore) SetOnFavIconUrlChange(fn TOnFavIconUrlChange) {
 		RemoveEventElement(m.favIconUrlChangePtr)
 	}
 	m.favIconUrlChangePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(256, m.Instance(), m.favIconUrlChangePtr)
+	chromiumCoreImportAPI().SysCallN(257, m.Instance(), m.favIconUrlChangePtr)
 }
 
 func (m *TChromiumCore) SetOnFullScreenModeChange(fn TOnFullScreenModeChange) {
@@ -4337,7 +4346,7 @@ func (m *TChromiumCore) SetOnFullScreenModeChange(fn TOnFullScreenModeChange) {
 		RemoveEventElement(m.fullScreenModeChangePtr)
 	}
 	m.fullScreenModeChangePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(262, m.Instance(), m.fullScreenModeChangePtr)
+	chromiumCoreImportAPI().SysCallN(263, m.Instance(), m.fullScreenModeChangePtr)
 }
 
 func (m *TChromiumCore) SetOnTooltip(fn TOnTooltip) {
@@ -4345,7 +4354,7 @@ func (m *TChromiumCore) SetOnTooltip(fn TOnTooltip) {
 		RemoveEventElement(m.tooltipPtr)
 	}
 	m.tooltipPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(338, m.Instance(), m.tooltipPtr)
+	chromiumCoreImportAPI().SysCallN(339, m.Instance(), m.tooltipPtr)
 }
 
 func (m *TChromiumCore) SetOnStatusMessage(fn TOnStatusMessage) {
@@ -4353,7 +4362,7 @@ func (m *TChromiumCore) SetOnStatusMessage(fn TOnStatusMessage) {
 		RemoveEventElement(m.statusMessagePtr)
 	}
 	m.statusMessagePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(333, m.Instance(), m.statusMessagePtr)
+	chromiumCoreImportAPI().SysCallN(334, m.Instance(), m.statusMessagePtr)
 }
 
 func (m *TChromiumCore) SetOnConsoleMessage(fn TOnConsoleMessage) {
@@ -4361,7 +4370,7 @@ func (m *TChromiumCore) SetOnConsoleMessage(fn TOnConsoleMessage) {
 		RemoveEventElement(m.consoleMessagePtr)
 	}
 	m.consoleMessagePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(223, m.Instance(), m.consoleMessagePtr)
+	chromiumCoreImportAPI().SysCallN(224, m.Instance(), m.consoleMessagePtr)
 }
 
 func (m *TChromiumCore) SetOnAutoResize(fn TOnAutoResize) {
@@ -4369,7 +4378,7 @@ func (m *TChromiumCore) SetOnAutoResize(fn TOnAutoResize) {
 		RemoveEventElement(m.autoResizePtr)
 	}
 	m.autoResizePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(206, m.Instance(), m.autoResizePtr)
+	chromiumCoreImportAPI().SysCallN(207, m.Instance(), m.autoResizePtr)
 }
 
 func (m *TChromiumCore) SetOnLoadingProgressChange(fn TOnLoadingProgressChange) {
@@ -4377,7 +4386,7 @@ func (m *TChromiumCore) SetOnLoadingProgressChange(fn TOnLoadingProgressChange) 
 		RemoveEventElement(m.loadingProgressChangePtr)
 	}
 	m.loadingProgressChangePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(288, m.Instance(), m.loadingProgressChangePtr)
+	chromiumCoreImportAPI().SysCallN(289, m.Instance(), m.loadingProgressChangePtr)
 }
 
 func (m *TChromiumCore) SetOnCursorChange(fn TOnCursorChange) {
@@ -4385,7 +4394,7 @@ func (m *TChromiumCore) SetOnCursorChange(fn TOnCursorChange) {
 		RemoveEventElement(m.cursorChangePtr)
 	}
 	m.cursorChangePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(231, m.Instance(), m.cursorChangePtr)
+	chromiumCoreImportAPI().SysCallN(232, m.Instance(), m.cursorChangePtr)
 }
 
 func (m *TChromiumCore) SetOnMediaAccessChange(fn TOnMediaAccessChange) {
@@ -4393,7 +4402,7 @@ func (m *TChromiumCore) SetOnMediaAccessChange(fn TOnMediaAccessChange) {
 		RemoveEventElement(m.mediaAccessChangePtr)
 	}
 	m.mediaAccessChangePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(291, m.Instance(), m.mediaAccessChangePtr)
+	chromiumCoreImportAPI().SysCallN(292, m.Instance(), m.mediaAccessChangePtr)
 }
 
 func (m *TChromiumCore) SetOnCanDownload(fn TOnCanDownload) {
@@ -4401,7 +4410,7 @@ func (m *TChromiumCore) SetOnCanDownload(fn TOnCanDownload) {
 		RemoveEventElement(m.canDownloadPtr)
 	}
 	m.canDownloadPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(215, m.Instance(), m.canDownloadPtr)
+	chromiumCoreImportAPI().SysCallN(216, m.Instance(), m.canDownloadPtr)
 }
 
 func (m *TChromiumCore) SetOnBeforeDownload(fn TOnBeforeDownload) {
@@ -4409,7 +4418,7 @@ func (m *TChromiumCore) SetOnBeforeDownload(fn TOnBeforeDownload) {
 		RemoveEventElement(m.beforeDownloadPtr)
 	}
 	m.beforeDownloadPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(210, m.Instance(), m.beforeDownloadPtr)
+	chromiumCoreImportAPI().SysCallN(211, m.Instance(), m.beforeDownloadPtr)
 }
 
 func (m *TChromiumCore) SetOnDownloadUpdated(fn TOnDownloadUpdated) {
@@ -4417,7 +4426,7 @@ func (m *TChromiumCore) SetOnDownloadUpdated(fn TOnDownloadUpdated) {
 		RemoveEventElement(m.downloadUpdatedPtr)
 	}
 	m.downloadUpdatedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(244, m.Instance(), m.downloadUpdatedPtr)
+	chromiumCoreImportAPI().SysCallN(245, m.Instance(), m.downloadUpdatedPtr)
 }
 
 func (m *TChromiumCore) SetOnJsdialog(fn TOnJsdialog) {
@@ -4425,7 +4434,7 @@ func (m *TChromiumCore) SetOnJsdialog(fn TOnJsdialog) {
 		RemoveEventElement(m.jsdialogPtr)
 	}
 	m.jsdialogPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(283, m.Instance(), m.jsdialogPtr)
+	chromiumCoreImportAPI().SysCallN(284, m.Instance(), m.jsdialogPtr)
 }
 
 func (m *TChromiumCore) SetOnBeforeUnloadDialog(fn TOnBeforeUnloadDialog) {
@@ -4433,7 +4442,7 @@ func (m *TChromiumCore) SetOnBeforeUnloadDialog(fn TOnBeforeUnloadDialog) {
 		RemoveEventElement(m.beforeUnloadDialogPtr)
 	}
 	m.beforeUnloadDialogPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(213, m.Instance(), m.beforeUnloadDialogPtr)
+	chromiumCoreImportAPI().SysCallN(214, m.Instance(), m.beforeUnloadDialogPtr)
 }
 
 func (m *TChromiumCore) SetOnResetDialogState(fn TOnResetDialogState) {
@@ -4441,7 +4450,7 @@ func (m *TChromiumCore) SetOnResetDialogState(fn TOnResetDialogState) {
 		RemoveEventElement(m.resetDialogStatePtr)
 	}
 	m.resetDialogStatePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(317, m.Instance(), m.resetDialogStatePtr)
+	chromiumCoreImportAPI().SysCallN(318, m.Instance(), m.resetDialogStatePtr)
 }
 
 func (m *TChromiumCore) SetOnDialogClosed(fn TOnDialogClosed) {
@@ -4449,7 +4458,7 @@ func (m *TChromiumCore) SetOnDialogClosed(fn TOnDialogClosed) {
 		RemoveEventElement(m.dialogClosedPtr)
 	}
 	m.dialogClosedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(240, m.Instance(), m.dialogClosedPtr)
+	chromiumCoreImportAPI().SysCallN(241, m.Instance(), m.dialogClosedPtr)
 }
 
 func (m *TChromiumCore) SetOnBeforePopup(fn TOnBeforePopup) {
@@ -4457,7 +4466,7 @@ func (m *TChromiumCore) SetOnBeforePopup(fn TOnBeforePopup) {
 		RemoveEventElement(m.beforePopupPtr)
 	}
 	m.beforePopupPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(211, m.Instance(), m.beforePopupPtr)
+	chromiumCoreImportAPI().SysCallN(212, m.Instance(), m.beforePopupPtr)
 }
 
 func (m *TChromiumCore) SetOnAfterCreated(fn TOnAfterCreated) {
@@ -4465,7 +4474,7 @@ func (m *TChromiumCore) SetOnAfterCreated(fn TOnAfterCreated) {
 		RemoveEventElement(m.afterCreatedPtr)
 	}
 	m.afterCreatedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(200, m.Instance(), m.afterCreatedPtr)
+	chromiumCoreImportAPI().SysCallN(201, m.Instance(), m.afterCreatedPtr)
 }
 
 func (m *TChromiumCore) SetOnBeforeClose(fn TOnBeforeClose) {
@@ -4473,7 +4482,7 @@ func (m *TChromiumCore) SetOnBeforeClose(fn TOnBeforeClose) {
 		RemoveEventElement(m.beforeClosePtr)
 	}
 	m.beforeClosePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(208, m.Instance(), m.beforeClosePtr)
+	chromiumCoreImportAPI().SysCallN(209, m.Instance(), m.beforeClosePtr)
 }
 
 func (m *TChromiumCore) SetOnClose(fn TOnClose) {
@@ -4481,7 +4490,7 @@ func (m *TChromiumCore) SetOnClose(fn TOnClose) {
 		RemoveEventElement(m.closePtr)
 	}
 	m.closePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(222, m.Instance(), m.closePtr)
+	chromiumCoreImportAPI().SysCallN(223, m.Instance(), m.closePtr)
 }
 
 func (m *TChromiumCore) SetOnBeforeBrowse(fn TOnBeforeBrowse) {
@@ -4489,7 +4498,7 @@ func (m *TChromiumCore) SetOnBeforeBrowse(fn TOnBeforeBrowse) {
 		RemoveEventElement(m.beforeBrowsePtr)
 	}
 	m.beforeBrowsePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(207, m.Instance(), m.beforeBrowsePtr)
+	chromiumCoreImportAPI().SysCallN(208, m.Instance(), m.beforeBrowsePtr)
 }
 
 func (m *TChromiumCore) SetOnOpenUrlFromTab(fn TOnOpenUrlFromTab) {
@@ -4497,7 +4506,7 @@ func (m *TChromiumCore) SetOnOpenUrlFromTab(fn TOnOpenUrlFromTab) {
 		RemoveEventElement(m.openUrlFromTabPtr)
 	}
 	m.openUrlFromTabPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(295, m.Instance(), m.openUrlFromTabPtr)
+	chromiumCoreImportAPI().SysCallN(296, m.Instance(), m.openUrlFromTabPtr)
 }
 
 func (m *TChromiumCore) SetOnGetAuthCredentials(fn TOnGetAuthCredentials) {
@@ -4505,7 +4514,7 @@ func (m *TChromiumCore) SetOnGetAuthCredentials(fn TOnGetAuthCredentials) {
 		RemoveEventElement(m.getAuthCredentialsPtr)
 	}
 	m.getAuthCredentialsPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(265, m.Instance(), m.getAuthCredentialsPtr)
+	chromiumCoreImportAPI().SysCallN(266, m.Instance(), m.getAuthCredentialsPtr)
 }
 
 func (m *TChromiumCore) SetOnCertificateError(fn TOnCertificateError) {
@@ -4513,7 +4522,7 @@ func (m *TChromiumCore) SetOnCertificateError(fn TOnCertificateError) {
 		RemoveEventElement(m.certificateErrorPtr)
 	}
 	m.certificateErrorPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(219, m.Instance(), m.certificateErrorPtr)
+	chromiumCoreImportAPI().SysCallN(220, m.Instance(), m.certificateErrorPtr)
 }
 
 func (m *TChromiumCore) SetOnSelectClientCertificate(fn TOnSelectClientCertificate) {
@@ -4521,7 +4530,7 @@ func (m *TChromiumCore) SetOnSelectClientCertificate(fn TOnSelectClientCertifica
 		RemoveEventElement(m.selectClientCertificatePtr)
 	}
 	m.selectClientCertificatePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(328, m.Instance(), m.selectClientCertificatePtr)
+	chromiumCoreImportAPI().SysCallN(329, m.Instance(), m.selectClientCertificatePtr)
 }
 
 func (m *TChromiumCore) SetOnRenderViewReady(fn TOnRenderViewReady) {
@@ -4529,7 +4538,7 @@ func (m *TChromiumCore) SetOnRenderViewReady(fn TOnRenderViewReady) {
 		RemoveEventElement(m.renderViewReadyPtr)
 	}
 	m.renderViewReadyPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(314, m.Instance(), m.renderViewReadyPtr)
+	chromiumCoreImportAPI().SysCallN(315, m.Instance(), m.renderViewReadyPtr)
 }
 
 func (m *TChromiumCore) SetOnRenderProcessTerminated(fn TOnRenderProcessTerminated) {
@@ -4537,7 +4546,7 @@ func (m *TChromiumCore) SetOnRenderProcessTerminated(fn TOnRenderProcessTerminat
 		RemoveEventElement(m.renderProcessTerminatedPtr)
 	}
 	m.renderProcessTerminatedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(313, m.Instance(), m.renderProcessTerminatedPtr)
+	chromiumCoreImportAPI().SysCallN(314, m.Instance(), m.renderProcessTerminatedPtr)
 }
 
 func (m *TChromiumCore) SetOnGetResourceRequestHandler_ReqHdlr(fn TOnGetResourceRequestHandler) {
@@ -4545,7 +4554,7 @@ func (m *TChromiumCore) SetOnGetResourceRequestHandler_ReqHdlr(fn TOnGetResource
 		RemoveEventElement(m.getResourceRequestHandler_ReqHdlrPtr)
 	}
 	m.getResourceRequestHandler_ReqHdlrPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(269, m.Instance(), m.getResourceRequestHandler_ReqHdlrPtr)
+	chromiumCoreImportAPI().SysCallN(270, m.Instance(), m.getResourceRequestHandler_ReqHdlrPtr)
 }
 
 func (m *TChromiumCore) SetOnDocumentAvailableInMainFrame(fn TOnDocumentAvailableInMainFrame) {
@@ -4553,7 +4562,7 @@ func (m *TChromiumCore) SetOnDocumentAvailableInMainFrame(fn TOnDocumentAvailabl
 		RemoveEventElement(m.documentAvailableInMainFramePtr)
 	}
 	m.documentAvailableInMainFramePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(242, m.Instance(), m.documentAvailableInMainFramePtr)
+	chromiumCoreImportAPI().SysCallN(243, m.Instance(), m.documentAvailableInMainFramePtr)
 }
 
 func (m *TChromiumCore) SetOnBeforeResourceLoad(fn TOnBeforeResourceLoad) {
@@ -4561,7 +4570,7 @@ func (m *TChromiumCore) SetOnBeforeResourceLoad(fn TOnBeforeResourceLoad) {
 		RemoveEventElement(m.beforeResourceLoadPtr)
 	}
 	m.beforeResourceLoadPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(212, m.Instance(), m.beforeResourceLoadPtr)
+	chromiumCoreImportAPI().SysCallN(213, m.Instance(), m.beforeResourceLoadPtr)
 }
 
 func (m *TChromiumCore) SetOnGetResourceHandler(fn TOnGetResourceHandler) {
@@ -4569,7 +4578,7 @@ func (m *TChromiumCore) SetOnGetResourceHandler(fn TOnGetResourceHandler) {
 		RemoveEventElement(m.getResourceHandlerPtr)
 	}
 	m.getResourceHandlerPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(267, m.Instance(), m.getResourceHandlerPtr)
+	chromiumCoreImportAPI().SysCallN(268, m.Instance(), m.getResourceHandlerPtr)
 }
 
 func (m *TChromiumCore) SetOnResourceRedirect(fn TOnResourceRedirect) {
@@ -4577,7 +4586,7 @@ func (m *TChromiumCore) SetOnResourceRedirect(fn TOnResourceRedirect) {
 		RemoveEventElement(m.resourceRedirectPtr)
 	}
 	m.resourceRedirectPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(320, m.Instance(), m.resourceRedirectPtr)
+	chromiumCoreImportAPI().SysCallN(321, m.Instance(), m.resourceRedirectPtr)
 }
 
 func (m *TChromiumCore) SetOnResourceResponse(fn TOnResourceResponse) {
@@ -4585,7 +4594,7 @@ func (m *TChromiumCore) SetOnResourceResponse(fn TOnResourceResponse) {
 		RemoveEventElement(m.resourceResponsePtr)
 	}
 	m.resourceResponsePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(321, m.Instance(), m.resourceResponsePtr)
+	chromiumCoreImportAPI().SysCallN(322, m.Instance(), m.resourceResponsePtr)
 }
 
 func (m *TChromiumCore) SetOnGetResourceResponseFilter(fn TOnGetResourceResponseFilter) {
@@ -4593,7 +4602,7 @@ func (m *TChromiumCore) SetOnGetResourceResponseFilter(fn TOnGetResourceResponse
 		RemoveEventElement(m.getResourceResponseFilterPtr)
 	}
 	m.getResourceResponseFilterPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(270, m.Instance(), m.getResourceResponseFilterPtr)
+	chromiumCoreImportAPI().SysCallN(271, m.Instance(), m.getResourceResponseFilterPtr)
 }
 
 func (m *TChromiumCore) SetOnResourceLoadComplete(fn TOnResourceLoadComplete) {
@@ -4601,7 +4610,7 @@ func (m *TChromiumCore) SetOnResourceLoadComplete(fn TOnResourceLoadComplete) {
 		RemoveEventElement(m.resourceLoadCompletePtr)
 	}
 	m.resourceLoadCompletePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(319, m.Instance(), m.resourceLoadCompletePtr)
+	chromiumCoreImportAPI().SysCallN(320, m.Instance(), m.resourceLoadCompletePtr)
 }
 
 func (m *TChromiumCore) SetOnProtocolExecution(fn TOnProtocolExecution) {
@@ -4609,7 +4618,7 @@ func (m *TChromiumCore) SetOnProtocolExecution(fn TOnProtocolExecution) {
 		RemoveEventElement(m.protocolExecutionPtr)
 	}
 	m.protocolExecutionPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(309, m.Instance(), m.protocolExecutionPtr)
+	chromiumCoreImportAPI().SysCallN(310, m.Instance(), m.protocolExecutionPtr)
 }
 
 func (m *TChromiumCore) SetOnCanSendCookie(fn TOnCanSendCookie) {
@@ -4617,7 +4626,7 @@ func (m *TChromiumCore) SetOnCanSendCookie(fn TOnCanSendCookie) {
 		RemoveEventElement(m.canSendCookiePtr)
 	}
 	m.canSendCookiePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(218, m.Instance(), m.canSendCookiePtr)
+	chromiumCoreImportAPI().SysCallN(219, m.Instance(), m.canSendCookiePtr)
 }
 
 func (m *TChromiumCore) SetOnCanSaveCookie(fn TOnCanSaveCookie) {
@@ -4625,7 +4634,7 @@ func (m *TChromiumCore) SetOnCanSaveCookie(fn TOnCanSaveCookie) {
 		RemoveEventElement(m.canSaveCookiePtr)
 	}
 	m.canSaveCookiePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(217, m.Instance(), m.canSaveCookiePtr)
+	chromiumCoreImportAPI().SysCallN(218, m.Instance(), m.canSaveCookiePtr)
 }
 
 func (m *TChromiumCore) SetOnFileDialog(fn TOnFileDialog) {
@@ -4633,7 +4642,7 @@ func (m *TChromiumCore) SetOnFileDialog(fn TOnFileDialog) {
 		RemoveEventElement(m.fileDialogPtr)
 	}
 	m.fileDialogPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(257, m.Instance(), m.fileDialogPtr)
+	chromiumCoreImportAPI().SysCallN(258, m.Instance(), m.fileDialogPtr)
 }
 
 func (m *TChromiumCore) SetOnGetAccessibilityHandler(fn TOnGetAccessibilityHandler) {
@@ -4641,7 +4650,7 @@ func (m *TChromiumCore) SetOnGetAccessibilityHandler(fn TOnGetAccessibilityHandl
 		RemoveEventElement(m.getAccessibilityHandlerPtr)
 	}
 	m.getAccessibilityHandlerPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(263, m.Instance(), m.getAccessibilityHandlerPtr)
+	chromiumCoreImportAPI().SysCallN(264, m.Instance(), m.getAccessibilityHandlerPtr)
 }
 
 func (m *TChromiumCore) SetOnGetRootScreenRect(fn TOnGetRootScreenRect) {
@@ -4649,7 +4658,7 @@ func (m *TChromiumCore) SetOnGetRootScreenRect(fn TOnGetRootScreenRect) {
 		RemoveEventElement(m.getRootScreenRectPtr)
 	}
 	m.getRootScreenRectPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(271, m.Instance(), m.getRootScreenRectPtr)
+	chromiumCoreImportAPI().SysCallN(272, m.Instance(), m.getRootScreenRectPtr)
 }
 
 func (m *TChromiumCore) SetOnGetViewRect(fn TOnGetViewRect) {
@@ -4657,7 +4666,7 @@ func (m *TChromiumCore) SetOnGetViewRect(fn TOnGetViewRect) {
 		RemoveEventElement(m.getViewRectPtr)
 	}
 	m.getViewRectPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(275, m.Instance(), m.getViewRectPtr)
+	chromiumCoreImportAPI().SysCallN(276, m.Instance(), m.getViewRectPtr)
 }
 
 func (m *TChromiumCore) SetOnGetScreenPoint(fn TOnGetScreenPoint) {
@@ -4665,7 +4674,7 @@ func (m *TChromiumCore) SetOnGetScreenPoint(fn TOnGetScreenPoint) {
 		RemoveEventElement(m.getScreenPointPtr)
 	}
 	m.getScreenPointPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(273, m.Instance(), m.getScreenPointPtr)
+	chromiumCoreImportAPI().SysCallN(274, m.Instance(), m.getScreenPointPtr)
 }
 
 func (m *TChromiumCore) SetOnGetScreenInfo(fn TOnGetScreenInfo) {
@@ -4673,7 +4682,7 @@ func (m *TChromiumCore) SetOnGetScreenInfo(fn TOnGetScreenInfo) {
 		RemoveEventElement(m.getScreenInfoPtr)
 	}
 	m.getScreenInfoPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(272, m.Instance(), m.getScreenInfoPtr)
+	chromiumCoreImportAPI().SysCallN(273, m.Instance(), m.getScreenInfoPtr)
 }
 
 func (m *TChromiumCore) SetOnPopupShow(fn TOnPopupShow) {
@@ -4681,7 +4690,7 @@ func (m *TChromiumCore) SetOnPopupShow(fn TOnPopupShow) {
 		RemoveEventElement(m.popupShowPtr)
 	}
 	m.popupShowPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(298, m.Instance(), m.popupShowPtr)
+	chromiumCoreImportAPI().SysCallN(299, m.Instance(), m.popupShowPtr)
 }
 
 func (m *TChromiumCore) SetOnPopupSize(fn TOnPopupSize) {
@@ -4689,7 +4698,7 @@ func (m *TChromiumCore) SetOnPopupSize(fn TOnPopupSize) {
 		RemoveEventElement(m.popupSizePtr)
 	}
 	m.popupSizePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(299, m.Instance(), m.popupSizePtr)
+	chromiumCoreImportAPI().SysCallN(300, m.Instance(), m.popupSizePtr)
 }
 
 func (m *TChromiumCore) SetOnPaint(fn TOnPaint) {
@@ -4697,7 +4706,7 @@ func (m *TChromiumCore) SetOnPaint(fn TOnPaint) {
 		RemoveEventElement(m.paintPtr)
 	}
 	m.paintPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(296, m.Instance(), m.paintPtr)
+	chromiumCoreImportAPI().SysCallN(297, m.Instance(), m.paintPtr)
 }
 
 func (m *TChromiumCore) SetOnAcceleratedPaint(fn TOnAcceleratedPaint) {
@@ -4705,7 +4714,7 @@ func (m *TChromiumCore) SetOnAcceleratedPaint(fn TOnAcceleratedPaint) {
 		RemoveEventElement(m.acceleratedPaintPtr)
 	}
 	m.acceleratedPaintPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(198, m.Instance(), m.acceleratedPaintPtr)
+	chromiumCoreImportAPI().SysCallN(199, m.Instance(), m.acceleratedPaintPtr)
 }
 
 func (m *TChromiumCore) SetOnGetTouchHandleSize(fn TOnGetTouchHandleSize) {
@@ -4713,7 +4722,7 @@ func (m *TChromiumCore) SetOnGetTouchHandleSize(fn TOnGetTouchHandleSize) {
 		RemoveEventElement(m.getTouchHandleSizePtr)
 	}
 	m.getTouchHandleSizePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(274, m.Instance(), m.getTouchHandleSizePtr)
+	chromiumCoreImportAPI().SysCallN(275, m.Instance(), m.getTouchHandleSizePtr)
 }
 
 func (m *TChromiumCore) SetOnTouchHandleStateChanged(fn TOnTouchHandleStateChanged) {
@@ -4721,7 +4730,7 @@ func (m *TChromiumCore) SetOnTouchHandleStateChanged(fn TOnTouchHandleStateChang
 		RemoveEventElement(m.touchHandleStateChangedPtr)
 	}
 	m.touchHandleStateChangedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(339, m.Instance(), m.touchHandleStateChangedPtr)
+	chromiumCoreImportAPI().SysCallN(340, m.Instance(), m.touchHandleStateChangedPtr)
 }
 
 func (m *TChromiumCore) SetOnStartDragging(fn TOnStartDragging) {
@@ -4729,7 +4738,7 @@ func (m *TChromiumCore) SetOnStartDragging(fn TOnStartDragging) {
 		RemoveEventElement(m.startDraggingPtr)
 	}
 	m.startDraggingPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(332, m.Instance(), m.startDraggingPtr)
+	chromiumCoreImportAPI().SysCallN(333, m.Instance(), m.startDraggingPtr)
 }
 
 func (m *TChromiumCore) SetOnUpdateDragCursor(fn TOnUpdateDragCursor) {
@@ -4737,7 +4746,7 @@ func (m *TChromiumCore) SetOnUpdateDragCursor(fn TOnUpdateDragCursor) {
 		RemoveEventElement(m.updateDragCursorPtr)
 	}
 	m.updateDragCursorPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(340, m.Instance(), m.updateDragCursorPtr)
+	chromiumCoreImportAPI().SysCallN(341, m.Instance(), m.updateDragCursorPtr)
 }
 
 func (m *TChromiumCore) SetOnScrollOffsetChanged(fn TOnScrollOffsetChanged) {
@@ -4745,7 +4754,7 @@ func (m *TChromiumCore) SetOnScrollOffsetChanged(fn TOnScrollOffsetChanged) {
 		RemoveEventElement(m.scrollOffsetChangedPtr)
 	}
 	m.scrollOffsetChangedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(327, m.Instance(), m.scrollOffsetChangedPtr)
+	chromiumCoreImportAPI().SysCallN(328, m.Instance(), m.scrollOffsetChangedPtr)
 }
 
 func (m *TChromiumCore) SetOnIMECompositionRangeChanged(fn TOnIMECompositionRangeChanged) {
@@ -4753,7 +4762,7 @@ func (m *TChromiumCore) SetOnIMECompositionRangeChanged(fn TOnIMECompositionRang
 		RemoveEventElement(m.iMECompositionRangeChangedPtr)
 	}
 	m.iMECompositionRangeChangedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(278, m.Instance(), m.iMECompositionRangeChangedPtr)
+	chromiumCoreImportAPI().SysCallN(279, m.Instance(), m.iMECompositionRangeChangedPtr)
 }
 
 func (m *TChromiumCore) SetOnTextSelectionChanged(fn TOnTextSelectionChanged) {
@@ -4761,7 +4770,7 @@ func (m *TChromiumCore) SetOnTextSelectionChanged(fn TOnTextSelectionChanged) {
 		RemoveEventElement(m.textSelectionChangedPtr)
 	}
 	m.textSelectionChangedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(336, m.Instance(), m.textSelectionChangedPtr)
+	chromiumCoreImportAPI().SysCallN(337, m.Instance(), m.textSelectionChangedPtr)
 }
 
 func (m *TChromiumCore) SetOnVirtualKeyboardRequested(fn TOnVirtualKeyboardRequested) {
@@ -4769,7 +4778,7 @@ func (m *TChromiumCore) SetOnVirtualKeyboardRequested(fn TOnVirtualKeyboardReque
 		RemoveEventElement(m.virtualKeyboardRequestedPtr)
 	}
 	m.virtualKeyboardRequestedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(341, m.Instance(), m.virtualKeyboardRequestedPtr)
+	chromiumCoreImportAPI().SysCallN(342, m.Instance(), m.virtualKeyboardRequestedPtr)
 }
 
 func (m *TChromiumCore) SetOnDragEnter(fn TOnDragEnter) {
@@ -4777,7 +4786,7 @@ func (m *TChromiumCore) SetOnDragEnter(fn TOnDragEnter) {
 		RemoveEventElement(m.dragEnterPtr)
 	}
 	m.dragEnterPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(245, m.Instance(), m.dragEnterPtr)
+	chromiumCoreImportAPI().SysCallN(246, m.Instance(), m.dragEnterPtr)
 }
 
 func (m *TChromiumCore) SetOnDraggableRegionsChanged(fn TOnDraggableRegionsChanged) {
@@ -4785,7 +4794,7 @@ func (m *TChromiumCore) SetOnDraggableRegionsChanged(fn TOnDraggableRegionsChang
 		RemoveEventElement(m.draggableRegionsChangedPtr)
 	}
 	m.draggableRegionsChangedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(246, m.Instance(), m.draggableRegionsChangedPtr)
+	chromiumCoreImportAPI().SysCallN(247, m.Instance(), m.draggableRegionsChangedPtr)
 }
 
 func (m *TChromiumCore) SetOnFindResult(fn TOnFindResult) {
@@ -4793,7 +4802,7 @@ func (m *TChromiumCore) SetOnFindResult(fn TOnFindResult) {
 		RemoveEventElement(m.findResultPtr)
 	}
 	m.findResultPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(258, m.Instance(), m.findResultPtr)
+	chromiumCoreImportAPI().SysCallN(259, m.Instance(), m.findResultPtr)
 }
 
 func (m *TChromiumCore) SetOnRequestContextInitialized(fn TOnRequestContextInitialized) {
@@ -4801,7 +4810,7 @@ func (m *TChromiumCore) SetOnRequestContextInitialized(fn TOnRequestContextIniti
 		RemoveEventElement(m.requestContextInitializedPtr)
 	}
 	m.requestContextInitializedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(315, m.Instance(), m.requestContextInitializedPtr)
+	chromiumCoreImportAPI().SysCallN(316, m.Instance(), m.requestContextInitializedPtr)
 }
 
 func (m *TChromiumCore) SetOnGetResourceRequestHandler_ReqCtxHdlr(fn TOnGetResourceRequestHandler) {
@@ -4809,7 +4818,7 @@ func (m *TChromiumCore) SetOnGetResourceRequestHandler_ReqCtxHdlr(fn TOnGetResou
 		RemoveEventElement(m.getResourceRequestHandler_ReqCtxHdlrPtr)
 	}
 	m.getResourceRequestHandler_ReqCtxHdlrPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(268, m.Instance(), m.getResourceRequestHandler_ReqCtxHdlrPtr)
+	chromiumCoreImportAPI().SysCallN(269, m.Instance(), m.getResourceRequestHandler_ReqCtxHdlrPtr)
 }
 
 func (m *TChromiumCore) SetOnSinks(fn TOnSinks) {
@@ -4817,7 +4826,7 @@ func (m *TChromiumCore) SetOnSinks(fn TOnSinks) {
 		RemoveEventElement(m.sinksPtr)
 	}
 	m.sinksPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(331, m.Instance(), m.sinksPtr)
+	chromiumCoreImportAPI().SysCallN(332, m.Instance(), m.sinksPtr)
 }
 
 func (m *TChromiumCore) SetOnRoutes(fn TOnRoutes) {
@@ -4825,7 +4834,7 @@ func (m *TChromiumCore) SetOnRoutes(fn TOnRoutes) {
 		RemoveEventElement(m.routesPtr)
 	}
 	m.routesPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(324, m.Instance(), m.routesPtr)
+	chromiumCoreImportAPI().SysCallN(325, m.Instance(), m.routesPtr)
 }
 
 func (m *TChromiumCore) SetOnRouteStateChanged(fn TOnRouteStateChanged) {
@@ -4833,7 +4842,7 @@ func (m *TChromiumCore) SetOnRouteStateChanged(fn TOnRouteStateChanged) {
 		RemoveEventElement(m.routeStateChangedPtr)
 	}
 	m.routeStateChangedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(323, m.Instance(), m.routeStateChangedPtr)
+	chromiumCoreImportAPI().SysCallN(324, m.Instance(), m.routeStateChangedPtr)
 }
 
 func (m *TChromiumCore) SetOnRouteMessageReceived(fn TOnRouteMessageReceived) {
@@ -4841,7 +4850,7 @@ func (m *TChromiumCore) SetOnRouteMessageReceived(fn TOnRouteMessageReceived) {
 		RemoveEventElement(m.routeMessageReceivedPtr)
 	}
 	m.routeMessageReceivedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(322, m.Instance(), m.routeMessageReceivedPtr)
+	chromiumCoreImportAPI().SysCallN(323, m.Instance(), m.routeMessageReceivedPtr)
 }
 
 func (m *TChromiumCore) SetOnGetAudioParameters(fn TOnGetAudioParameters) {
@@ -4849,7 +4858,7 @@ func (m *TChromiumCore) SetOnGetAudioParameters(fn TOnGetAudioParameters) {
 		RemoveEventElement(m.getAudioParametersPtr)
 	}
 	m.getAudioParametersPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(264, m.Instance(), m.getAudioParametersPtr)
+	chromiumCoreImportAPI().SysCallN(265, m.Instance(), m.getAudioParametersPtr)
 }
 
 func (m *TChromiumCore) SetOnAudioStreamStarted(fn TOnAudioStreamStarted) {
@@ -4857,7 +4866,7 @@ func (m *TChromiumCore) SetOnAudioStreamStarted(fn TOnAudioStreamStarted) {
 		RemoveEventElement(m.audioStreamStartedPtr)
 	}
 	m.audioStreamStartedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(204, m.Instance(), m.audioStreamStartedPtr)
+	chromiumCoreImportAPI().SysCallN(205, m.Instance(), m.audioStreamStartedPtr)
 }
 
 func (m *TChromiumCore) SetOnAudioStreamPacket(fn TOnAudioStreamPacket) {
@@ -4865,7 +4874,7 @@ func (m *TChromiumCore) SetOnAudioStreamPacket(fn TOnAudioStreamPacket) {
 		RemoveEventElement(m.audioStreamPacketPtr)
 	}
 	m.audioStreamPacketPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(203, m.Instance(), m.audioStreamPacketPtr)
+	chromiumCoreImportAPI().SysCallN(204, m.Instance(), m.audioStreamPacketPtr)
 }
 
 func (m *TChromiumCore) SetOnAudioStreamStopped(fn TOnAudioStreamStopped) {
@@ -4873,7 +4882,7 @@ func (m *TChromiumCore) SetOnAudioStreamStopped(fn TOnAudioStreamStopped) {
 		RemoveEventElement(m.audioStreamStoppedPtr)
 	}
 	m.audioStreamStoppedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(205, m.Instance(), m.audioStreamStoppedPtr)
+	chromiumCoreImportAPI().SysCallN(206, m.Instance(), m.audioStreamStoppedPtr)
 }
 
 func (m *TChromiumCore) SetOnAudioStreamError(fn TOnAudioStreamError) {
@@ -4881,7 +4890,7 @@ func (m *TChromiumCore) SetOnAudioStreamError(fn TOnAudioStreamError) {
 		RemoveEventElement(m.audioStreamErrorPtr)
 	}
 	m.audioStreamErrorPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(202, m.Instance(), m.audioStreamErrorPtr)
+	chromiumCoreImportAPI().SysCallN(203, m.Instance(), m.audioStreamErrorPtr)
 }
 
 func (m *TChromiumCore) SetOnDevToolsMessage(fn TOnDevToolsMessage) {
@@ -4889,7 +4898,7 @@ func (m *TChromiumCore) SetOnDevToolsMessage(fn TOnDevToolsMessage) {
 		RemoveEventElement(m.devToolsMessagePtr)
 	}
 	m.devToolsMessagePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(235, m.Instance(), m.devToolsMessagePtr)
+	chromiumCoreImportAPI().SysCallN(236, m.Instance(), m.devToolsMessagePtr)
 }
 
 func (m *TChromiumCore) SetOnDevToolsRawMessage(fn TOnDevToolsRawMessage) {
@@ -4897,7 +4906,7 @@ func (m *TChromiumCore) SetOnDevToolsRawMessage(fn TOnDevToolsRawMessage) {
 		RemoveEventElement(m.devToolsRawMessagePtr)
 	}
 	m.devToolsRawMessagePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(239, m.Instance(), m.devToolsRawMessagePtr)
+	chromiumCoreImportAPI().SysCallN(240, m.Instance(), m.devToolsRawMessagePtr)
 }
 
 func (m *TChromiumCore) SetOnDevToolsMethodResult(fn TOnDevToolsMethodResult) {
@@ -4905,7 +4914,7 @@ func (m *TChromiumCore) SetOnDevToolsMethodResult(fn TOnDevToolsMethodResult) {
 		RemoveEventElement(m.devToolsMethodResultPtr)
 	}
 	m.devToolsMethodResultPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(237, m.Instance(), m.devToolsMethodResultPtr)
+	chromiumCoreImportAPI().SysCallN(238, m.Instance(), m.devToolsMethodResultPtr)
 }
 
 func (m *TChromiumCore) SetOnDevToolsMethodRawResult(fn TOnDevToolsMethodRawResult) {
@@ -4913,7 +4922,7 @@ func (m *TChromiumCore) SetOnDevToolsMethodRawResult(fn TOnDevToolsMethodRawResu
 		RemoveEventElement(m.devToolsMethodRawResultPtr)
 	}
 	m.devToolsMethodRawResultPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(236, m.Instance(), m.devToolsMethodRawResultPtr)
+	chromiumCoreImportAPI().SysCallN(237, m.Instance(), m.devToolsMethodRawResultPtr)
 }
 
 func (m *TChromiumCore) SetOnDevToolsEvent(fn TOnDevToolsEvent) {
@@ -4921,7 +4930,7 @@ func (m *TChromiumCore) SetOnDevToolsEvent(fn TOnDevToolsEvent) {
 		RemoveEventElement(m.devToolsEventPtr)
 	}
 	m.devToolsEventPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(234, m.Instance(), m.devToolsEventPtr)
+	chromiumCoreImportAPI().SysCallN(235, m.Instance(), m.devToolsEventPtr)
 }
 
 func (m *TChromiumCore) SetOnDevToolsRawEvent(fn TOnDevToolsRawEvent) {
@@ -4929,7 +4938,7 @@ func (m *TChromiumCore) SetOnDevToolsRawEvent(fn TOnDevToolsRawEvent) {
 		RemoveEventElement(m.devToolsRawEventPtr)
 	}
 	m.devToolsRawEventPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(238, m.Instance(), m.devToolsRawEventPtr)
+	chromiumCoreImportAPI().SysCallN(239, m.Instance(), m.devToolsRawEventPtr)
 }
 
 func (m *TChromiumCore) SetOnDevToolsAgentAttached(fn TOnDevToolsAgentAttached) {
@@ -4937,7 +4946,7 @@ func (m *TChromiumCore) SetOnDevToolsAgentAttached(fn TOnDevToolsAgentAttached) 
 		RemoveEventElement(m.devToolsAgentAttachedPtr)
 	}
 	m.devToolsAgentAttachedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(232, m.Instance(), m.devToolsAgentAttachedPtr)
+	chromiumCoreImportAPI().SysCallN(233, m.Instance(), m.devToolsAgentAttachedPtr)
 }
 
 func (m *TChromiumCore) SetOnDevToolsAgentDetached(fn TOnDevToolsAgentDetached) {
@@ -4945,7 +4954,7 @@ func (m *TChromiumCore) SetOnDevToolsAgentDetached(fn TOnDevToolsAgentDetached) 
 		RemoveEventElement(m.devToolsAgentDetachedPtr)
 	}
 	m.devToolsAgentDetachedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(233, m.Instance(), m.devToolsAgentDetachedPtr)
+	chromiumCoreImportAPI().SysCallN(234, m.Instance(), m.devToolsAgentDetachedPtr)
 }
 
 func (m *TChromiumCore) SetOnExtensionLoadFailed(fn TOnExtensionLoadFailed) {
@@ -4953,7 +4962,7 @@ func (m *TChromiumCore) SetOnExtensionLoadFailed(fn TOnExtensionLoadFailed) {
 		RemoveEventElement(m.extensionLoadFailedPtr)
 	}
 	m.extensionLoadFailedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(253, m.Instance(), m.extensionLoadFailedPtr)
+	chromiumCoreImportAPI().SysCallN(254, m.Instance(), m.extensionLoadFailedPtr)
 }
 
 func (m *TChromiumCore) SetOnExtensionLoaded(fn TOnExtensionLoaded) {
@@ -4961,7 +4970,7 @@ func (m *TChromiumCore) SetOnExtensionLoaded(fn TOnExtensionLoaded) {
 		RemoveEventElement(m.extensionLoadedPtr)
 	}
 	m.extensionLoadedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(254, m.Instance(), m.extensionLoadedPtr)
+	chromiumCoreImportAPI().SysCallN(255, m.Instance(), m.extensionLoadedPtr)
 }
 
 func (m *TChromiumCore) SetOnExtensionUnloaded(fn TOnExtensionUnloaded) {
@@ -4969,7 +4978,7 @@ func (m *TChromiumCore) SetOnExtensionUnloaded(fn TOnExtensionUnloaded) {
 		RemoveEventElement(m.extensionUnloadedPtr)
 	}
 	m.extensionUnloadedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(255, m.Instance(), m.extensionUnloadedPtr)
+	chromiumCoreImportAPI().SysCallN(256, m.Instance(), m.extensionUnloadedPtr)
 }
 
 func (m *TChromiumCore) SetOnExtensionBeforeBackgroundBrowser(fn TOnBeforeBackgroundBrowser) {
@@ -4977,7 +4986,7 @@ func (m *TChromiumCore) SetOnExtensionBeforeBackgroundBrowser(fn TOnBeforeBackgr
 		RemoveEventElement(m.extensionBeforeBackgroundBrowserPtr)
 	}
 	m.extensionBeforeBackgroundBrowserPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(248, m.Instance(), m.extensionBeforeBackgroundBrowserPtr)
+	chromiumCoreImportAPI().SysCallN(249, m.Instance(), m.extensionBeforeBackgroundBrowserPtr)
 }
 
 func (m *TChromiumCore) SetOnExtensionBeforeBrowser(fn TOnBeforeBrowser) {
@@ -4985,7 +4994,7 @@ func (m *TChromiumCore) SetOnExtensionBeforeBrowser(fn TOnBeforeBrowser) {
 		RemoveEventElement(m.extensionBeforeBrowserPtr)
 	}
 	m.extensionBeforeBrowserPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(249, m.Instance(), m.extensionBeforeBrowserPtr)
+	chromiumCoreImportAPI().SysCallN(250, m.Instance(), m.extensionBeforeBrowserPtr)
 }
 
 func (m *TChromiumCore) SetOnExtensionGetActiveBrowser(fn TOnGetActiveBrowser) {
@@ -4993,7 +5002,7 @@ func (m *TChromiumCore) SetOnExtensionGetActiveBrowser(fn TOnGetActiveBrowser) {
 		RemoveEventElement(m.extensionGetActiveBrowserPtr)
 	}
 	m.extensionGetActiveBrowserPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(251, m.Instance(), m.extensionGetActiveBrowserPtr)
+	chromiumCoreImportAPI().SysCallN(252, m.Instance(), m.extensionGetActiveBrowserPtr)
 }
 
 func (m *TChromiumCore) SetOnExtensionCanAccessBrowser(fn TOnCanAccessBrowser) {
@@ -5001,7 +5010,7 @@ func (m *TChromiumCore) SetOnExtensionCanAccessBrowser(fn TOnCanAccessBrowser) {
 		RemoveEventElement(m.extensionCanAccessBrowserPtr)
 	}
 	m.extensionCanAccessBrowserPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(250, m.Instance(), m.extensionCanAccessBrowserPtr)
+	chromiumCoreImportAPI().SysCallN(251, m.Instance(), m.extensionCanAccessBrowserPtr)
 }
 
 func (m *TChromiumCore) SetOnExtensionGetExtensionResource(fn TOnGetExtensionResource) {
@@ -5009,7 +5018,7 @@ func (m *TChromiumCore) SetOnExtensionGetExtensionResource(fn TOnGetExtensionRes
 		RemoveEventElement(m.extensionGetExtensionResourcePtr)
 	}
 	m.extensionGetExtensionResourcePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(252, m.Instance(), m.extensionGetExtensionResourcePtr)
+	chromiumCoreImportAPI().SysCallN(253, m.Instance(), m.extensionGetExtensionResourcePtr)
 }
 
 func (m *TChromiumCore) SetOnPrintStart(fn TOnPrintStart) {
@@ -5017,7 +5026,7 @@ func (m *TChromiumCore) SetOnPrintStart(fn TOnPrintStart) {
 		RemoveEventElement(m.printStartPtr)
 	}
 	m.printStartPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(307, m.Instance(), m.printStartPtr)
+	chromiumCoreImportAPI().SysCallN(308, m.Instance(), m.printStartPtr)
 }
 
 func (m *TChromiumCore) SetOnPrintSettings(fn TOnPrintSettings) {
@@ -5025,7 +5034,7 @@ func (m *TChromiumCore) SetOnPrintSettings(fn TOnPrintSettings) {
 		RemoveEventElement(m.printSettingsPtr)
 	}
 	m.printSettingsPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(306, m.Instance(), m.printSettingsPtr)
+	chromiumCoreImportAPI().SysCallN(307, m.Instance(), m.printSettingsPtr)
 }
 
 func (m *TChromiumCore) SetOnPrintDialog(fn TOnPrintDialog) {
@@ -5033,7 +5042,7 @@ func (m *TChromiumCore) SetOnPrintDialog(fn TOnPrintDialog) {
 		RemoveEventElement(m.printDialogPtr)
 	}
 	m.printDialogPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(303, m.Instance(), m.printDialogPtr)
+	chromiumCoreImportAPI().SysCallN(304, m.Instance(), m.printDialogPtr)
 }
 
 func (m *TChromiumCore) SetOnPrintJob(fn TOnPrintJob) {
@@ -5041,7 +5050,7 @@ func (m *TChromiumCore) SetOnPrintJob(fn TOnPrintJob) {
 		RemoveEventElement(m.printJobPtr)
 	}
 	m.printJobPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(304, m.Instance(), m.printJobPtr)
+	chromiumCoreImportAPI().SysCallN(305, m.Instance(), m.printJobPtr)
 }
 
 func (m *TChromiumCore) SetOnPrintReset(fn TOnPrintReset) {
@@ -5049,7 +5058,7 @@ func (m *TChromiumCore) SetOnPrintReset(fn TOnPrintReset) {
 		RemoveEventElement(m.printResetPtr)
 	}
 	m.printResetPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(305, m.Instance(), m.printResetPtr)
+	chromiumCoreImportAPI().SysCallN(306, m.Instance(), m.printResetPtr)
 }
 
 func (m *TChromiumCore) SetOnGetPDFPaperSize(fn TOnGetPDFPaperSize) {
@@ -5057,7 +5066,7 @@ func (m *TChromiumCore) SetOnGetPDFPaperSize(fn TOnGetPDFPaperSize) {
 		RemoveEventElement(m.getPDFPaperSizePtr)
 	}
 	m.getPDFPaperSizePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(266, m.Instance(), m.getPDFPaperSizePtr)
+	chromiumCoreImportAPI().SysCallN(267, m.Instance(), m.getPDFPaperSizePtr)
 }
 
 func (m *TChromiumCore) SetOnFrameCreated(fn TOnFrameCreated) {
@@ -5065,7 +5074,7 @@ func (m *TChromiumCore) SetOnFrameCreated(fn TOnFrameCreated) {
 		RemoveEventElement(m.frameCreatedPtr)
 	}
 	m.frameCreatedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(260, m.Instance(), m.frameCreatedPtr)
+	chromiumCoreImportAPI().SysCallN(261, m.Instance(), m.frameCreatedPtr)
 }
 
 func (m *TChromiumCore) SetOnFrameAttached(fn TOnFrameAttached) {
@@ -5073,7 +5082,7 @@ func (m *TChromiumCore) SetOnFrameAttached(fn TOnFrameAttached) {
 		RemoveEventElement(m.frameAttachedPtr)
 	}
 	m.frameAttachedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(259, m.Instance(), m.frameAttachedPtr)
+	chromiumCoreImportAPI().SysCallN(260, m.Instance(), m.frameAttachedPtr)
 }
 
 func (m *TChromiumCore) SetOnFrameDetached(fn TOnFrameDetached) {
@@ -5081,7 +5090,7 @@ func (m *TChromiumCore) SetOnFrameDetached(fn TOnFrameDetached) {
 		RemoveEventElement(m.frameDetachedPtr)
 	}
 	m.frameDetachedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(261, m.Instance(), m.frameDetachedPtr)
+	chromiumCoreImportAPI().SysCallN(262, m.Instance(), m.frameDetachedPtr)
 }
 
 func (m *TChromiumCore) SetOnMainFrameChanged(fn TOnMainFrameChanged) {
@@ -5089,7 +5098,7 @@ func (m *TChromiumCore) SetOnMainFrameChanged(fn TOnMainFrameChanged) {
 		RemoveEventElement(m.mainFrameChangedPtr)
 	}
 	m.mainFrameChangedPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(290, m.Instance(), m.mainFrameChangedPtr)
+	chromiumCoreImportAPI().SysCallN(291, m.Instance(), m.mainFrameChangedPtr)
 }
 
 func (m *TChromiumCore) SetOnChromeCommand(fn TOnChromeCommand) {
@@ -5097,7 +5106,7 @@ func (m *TChromiumCore) SetOnChromeCommand(fn TOnChromeCommand) {
 		RemoveEventElement(m.chromeCommandPtr)
 	}
 	m.chromeCommandPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(221, m.Instance(), m.chromeCommandPtr)
+	chromiumCoreImportAPI().SysCallN(222, m.Instance(), m.chromeCommandPtr)
 }
 
 func (m *TChromiumCore) SetOnIsChromeAppMenuItemVisible(fn TOnIsChromeAppMenuItemVisible) {
@@ -5105,7 +5114,7 @@ func (m *TChromiumCore) SetOnIsChromeAppMenuItemVisible(fn TOnIsChromeAppMenuIte
 		RemoveEventElement(m.isChromeAppMenuItemVisiblePtr)
 	}
 	m.isChromeAppMenuItemVisiblePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(280, m.Instance(), m.isChromeAppMenuItemVisiblePtr)
+	chromiumCoreImportAPI().SysCallN(281, m.Instance(), m.isChromeAppMenuItemVisiblePtr)
 }
 
 func (m *TChromiumCore) SetOnIsChromeAppMenuItemEnabled(fn TOnIsChromeAppMenuItemEnabled) {
@@ -5113,7 +5122,7 @@ func (m *TChromiumCore) SetOnIsChromeAppMenuItemEnabled(fn TOnIsChromeAppMenuIte
 		RemoveEventElement(m.isChromeAppMenuItemEnabledPtr)
 	}
 	m.isChromeAppMenuItemEnabledPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(279, m.Instance(), m.isChromeAppMenuItemEnabledPtr)
+	chromiumCoreImportAPI().SysCallN(280, m.Instance(), m.isChromeAppMenuItemEnabledPtr)
 }
 
 func (m *TChromiumCore) SetOnIsChromePageActionIconVisible(fn TOnIsChromePageActionIconVisible) {
@@ -5121,7 +5130,7 @@ func (m *TChromiumCore) SetOnIsChromePageActionIconVisible(fn TOnIsChromePageAct
 		RemoveEventElement(m.isChromePageActionIconVisiblePtr)
 	}
 	m.isChromePageActionIconVisiblePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(281, m.Instance(), m.isChromePageActionIconVisiblePtr)
+	chromiumCoreImportAPI().SysCallN(282, m.Instance(), m.isChromePageActionIconVisiblePtr)
 }
 
 func (m *TChromiumCore) SetOnIsChromeToolbarButtonVisible(fn TOnIsChromeToolbarButtonVisible) {
@@ -5129,7 +5138,7 @@ func (m *TChromiumCore) SetOnIsChromeToolbarButtonVisible(fn TOnIsChromeToolbarB
 		RemoveEventElement(m.isChromeToolbarButtonVisiblePtr)
 	}
 	m.isChromeToolbarButtonVisiblePtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(282, m.Instance(), m.isChromeToolbarButtonVisiblePtr)
+	chromiumCoreImportAPI().SysCallN(283, m.Instance(), m.isChromeToolbarButtonVisiblePtr)
 }
 
 func (m *TChromiumCore) SetOnRequestMediaAccessPermission(fn TOnRequestMediaAccessPermission) {
@@ -5137,7 +5146,7 @@ func (m *TChromiumCore) SetOnRequestMediaAccessPermission(fn TOnRequestMediaAcce
 		RemoveEventElement(m.requestMediaAccessPermissionPtr)
 	}
 	m.requestMediaAccessPermissionPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(316, m.Instance(), m.requestMediaAccessPermissionPtr)
+	chromiumCoreImportAPI().SysCallN(317, m.Instance(), m.requestMediaAccessPermissionPtr)
 }
 
 func (m *TChromiumCore) SetOnShowPermissionPrompt(fn TOnShowPermissionPrompt) {
@@ -5145,7 +5154,7 @@ func (m *TChromiumCore) SetOnShowPermissionPrompt(fn TOnShowPermissionPrompt) {
 		RemoveEventElement(m.showPermissionPromptPtr)
 	}
 	m.showPermissionPromptPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(330, m.Instance(), m.showPermissionPromptPtr)
+	chromiumCoreImportAPI().SysCallN(331, m.Instance(), m.showPermissionPromptPtr)
 }
 
 func (m *TChromiumCore) SetOnDismissPermissionPrompt(fn TOnDismissPermissionPrompt) {
@@ -5153,7 +5162,7 @@ func (m *TChromiumCore) SetOnDismissPermissionPrompt(fn TOnDismissPermissionProm
 		RemoveEventElement(m.dismissPermissionPromptPtr)
 	}
 	m.dismissPermissionPromptPtr = MakeEventDataPtr(fn)
-	chromiumCoreImportAPI().SysCallN(241, m.Instance(), m.dismissPermissionPromptPtr)
+	chromiumCoreImportAPI().SysCallN(242, m.Instance(), m.dismissPermissionPromptPtr)
 }
 
 var (
@@ -5167,373 +5176,374 @@ var (
 		/*5*/ imports.NewTable("ChromiumCore_AllowOutdatedPlugins", 0),
 		/*6*/ imports.NewTable("ChromiumCore_AlwaysAuthorizePlugins", 0),
 		/*7*/ imports.NewTable("ChromiumCore_AlwaysOpenPDFExternally", 0),
-		/*8*/ imports.NewTable("ChromiumCore_AudioMuted", 0),
-		/*9*/ imports.NewTable("ChromiumCore_BatterySaverModeState", 0),
-		/*10*/ imports.NewTable("ChromiumCore_Block3rdPartyCookies", 0),
-		/*11*/ imports.NewTable("ChromiumCore_Browser", 0),
-		/*12*/ imports.NewTable("ChromiumCore_BrowserById", 0),
-		/*13*/ imports.NewTable("ChromiumCore_BrowserCount", 0),
-		/*14*/ imports.NewTable("ChromiumCore_BrowserHandle", 0),
-		/*15*/ imports.NewTable("ChromiumCore_BrowserId", 0),
-		/*16*/ imports.NewTable("ChromiumCore_BrowserIdByIndex", 0),
-		/*17*/ imports.NewTable("ChromiumCore_CanDecZoom", 0),
-		/*18*/ imports.NewTable("ChromiumCore_CanFocus", 0),
-		/*19*/ imports.NewTable("ChromiumCore_CanGoBack", 0),
-		/*20*/ imports.NewTable("ChromiumCore_CanGoForward", 0),
-		/*21*/ imports.NewTable("ChromiumCore_CanIncZoom", 0),
-		/*22*/ imports.NewTable("ChromiumCore_CanResetZoom", 0),
-		/*23*/ imports.NewTable("ChromiumCore_CefClient", 0),
-		/*24*/ imports.NewTable("ChromiumCore_CefWindowInfo", 0),
-		/*25*/ imports.NewTable("ChromiumCore_ClearCache", 0),
-		/*26*/ imports.NewTable("ChromiumCore_ClearCertificateExceptions", 0),
-		/*27*/ imports.NewTable("ChromiumCore_ClearDataForOrigin", 0),
-		/*28*/ imports.NewTable("ChromiumCore_ClearHttpAuthCredentials", 0),
-		/*29*/ imports.NewTable("ChromiumCore_ClipboardCopy", 0),
-		/*30*/ imports.NewTable("ChromiumCore_ClipboardCut", 0),
-		/*31*/ imports.NewTable("ChromiumCore_ClipboardDel", 0),
-		/*32*/ imports.NewTable("ChromiumCore_ClipboardPaste", 0),
-		/*33*/ imports.NewTable("ChromiumCore_ClipboardRedo", 0),
-		/*34*/ imports.NewTable("ChromiumCore_ClipboardUndo", 0),
-		/*35*/ imports.NewTable("ChromiumCore_CloseAllBrowsers", 0),
-		/*36*/ imports.NewTable("ChromiumCore_CloseAllConnections", 0),
-		/*37*/ imports.NewTable("ChromiumCore_CloseBrowser", 0),
-		/*38*/ imports.NewTable("ChromiumCore_CloseDevTools", 0),
-		/*39*/ imports.NewTable("ChromiumCore_CloseDevTools1", 0),
-		/*40*/ imports.NewTable("ChromiumCore_Create", 0),
-		/*41*/ imports.NewTable("ChromiumCore_CreateBrowserByBrowserViewComponent", 0),
-		/*42*/ imports.NewTable("ChromiumCore_CreateBrowserByWindowHandle", 0),
-		/*43*/ imports.NewTable("ChromiumCore_CreateClientHandler", 0),
-		/*44*/ imports.NewTable("ChromiumCore_CreateClientHandler1", 0),
-		/*45*/ imports.NewTable("ChromiumCore_CreateRoute", 0),
-		/*46*/ imports.NewTable("ChromiumCore_CreateUrlRequest", 0),
-		/*47*/ imports.NewTable("ChromiumCore_CreateUrlRequest1", 0),
-		/*48*/ imports.NewTable("ChromiumCore_CreateUrlRequest2", 0),
-		/*49*/ imports.NewTable("ChromiumCore_CustomHeaderName", 0),
-		/*50*/ imports.NewTable("ChromiumCore_CustomHeaderValue", 0),
-		/*51*/ imports.NewTable("ChromiumCore_DecZoomCommand", 0),
-		/*52*/ imports.NewTable("ChromiumCore_DecZoomPct", 0),
-		/*53*/ imports.NewTable("ChromiumCore_DecZoomStep", 0),
-		/*54*/ imports.NewTable("ChromiumCore_DefaultUrl", 0),
-		/*55*/ imports.NewTable("ChromiumCore_DefaultWindowInfoExStyle", 0),
-		/*56*/ imports.NewTable("ChromiumCore_DefaultZoomLevel", 0),
-		/*57*/ imports.NewTable("ChromiumCore_DeleteCookies", 0),
-		/*58*/ imports.NewTable("ChromiumCore_DevToolsMsgObserver", 0),
-		/*59*/ imports.NewTable("ChromiumCore_DevToolsMsgObserverReg", 0),
-		/*60*/ imports.NewTable("ChromiumCore_DidLoadExtension", 0),
-		/*61*/ imports.NewTable("ChromiumCore_DoNotTrack", 0),
-		/*62*/ imports.NewTable("ChromiumCore_DocumentURL", 0),
-		/*63*/ imports.NewTable("ChromiumCore_DownloadImage", 0),
-		/*64*/ imports.NewTable("ChromiumCore_DragOperations", 0),
-		/*65*/ imports.NewTable("ChromiumCore_DragSourceEndedAt", 0),
-		/*66*/ imports.NewTable("ChromiumCore_DragSourceSystemDragEnded", 0),
-		/*67*/ imports.NewTable("ChromiumCore_DragTargetDragEnter", 0),
-		/*68*/ imports.NewTable("ChromiumCore_DragTargetDragLeave", 0),
-		/*69*/ imports.NewTable("ChromiumCore_DragTargetDragOver", 0),
-		/*70*/ imports.NewTable("ChromiumCore_DragTargetDrop", 0),
-		/*71*/ imports.NewTable("ChromiumCore_EnableFocusDelayMs", 0),
-		/*72*/ imports.NewTable("ChromiumCore_ExecuteDevToolsMethod", 0),
-		/*73*/ imports.NewTable("ChromiumCore_ExecuteJavaScript", 0),
-		/*74*/ imports.NewTable("ChromiumCore_ExecuteJavaScript1", 0),
-		/*75*/ imports.NewTable("ChromiumCore_ExecuteJavaScript2", 0),
-		/*76*/ imports.NewTable("ChromiumCore_ExecuteTaskOnCefThread", 0),
-		/*77*/ imports.NewTable("ChromiumCore_ExitFullscreen", 0),
-		/*78*/ imports.NewTable("ChromiumCore_ExtensionHandler", 0),
-		/*79*/ imports.NewTable("ChromiumCore_Find", 0),
-		/*80*/ imports.NewTable("ChromiumCore_FlushCookieStore", 0),
-		/*81*/ imports.NewTable("ChromiumCore_FontOptions", 0),
-		/*82*/ imports.NewTable("ChromiumCore_FrameCount", 0),
-		/*83*/ imports.NewTable("ChromiumCore_FrameIsFocused", 0),
-		/*84*/ imports.NewTable("ChromiumCore_Fullscreen", 0),
-		/*85*/ imports.NewTable("ChromiumCore_GetContentSetting", 0),
-		/*86*/ imports.NewTable("ChromiumCore_GetDeviceInfo", 0),
-		/*87*/ imports.NewTable("ChromiumCore_GetExtension", 0),
-		/*88*/ imports.NewTable("ChromiumCore_GetExtensions", 0),
-		/*89*/ imports.NewTable("ChromiumCore_GetFrameIdentifiers", 0),
-		/*90*/ imports.NewTable("ChromiumCore_GetFrameNames", 0),
-		/*91*/ imports.NewTable("ChromiumCore_GetNavigationEntries", 0),
-		/*92*/ imports.NewTable("ChromiumCore_GetSource", 0),
-		/*93*/ imports.NewTable("ChromiumCore_GetWebsiteSetting", 0),
-		/*94*/ imports.NewTable("ChromiumCore_GoBack", 0),
-		/*95*/ imports.NewTable("ChromiumCore_GoForward", 0),
-		/*96*/ imports.NewTable("ChromiumCore_HasBrowser", 0),
-		/*97*/ imports.NewTable("ChromiumCore_HasClientHandler", 0),
-		/*98*/ imports.NewTable("ChromiumCore_HasDevTools", 0),
-		/*99*/ imports.NewTable("ChromiumCore_HasDocument", 0),
-		/*100*/ imports.NewTable("ChromiumCore_HasExtension", 0),
-		/*101*/ imports.NewTable("ChromiumCore_HasValidMainFrame", 0),
-		/*102*/ imports.NewTable("ChromiumCore_HasView", 0),
-		/*103*/ imports.NewTable("ChromiumCore_HighEfficiencyModeState", 0),
-		/*104*/ imports.NewTable("ChromiumCore_HyperlinkAuditing", 0),
-		/*105*/ imports.NewTable("ChromiumCore_IMECancelComposition", 0),
-		/*106*/ imports.NewTable("ChromiumCore_IMECommitText", 0),
-		/*107*/ imports.NewTable("ChromiumCore_IMEFinishComposingText", 0),
-		/*108*/ imports.NewTable("ChromiumCore_IncZoomCommand", 0),
-		/*109*/ imports.NewTable("ChromiumCore_IncZoomPct", 0),
-		/*110*/ imports.NewTable("ChromiumCore_IncZoomStep", 0),
-		/*111*/ imports.NewTable("ChromiumCore_IndexOfBrowserID", 0),
-		/*112*/ imports.NewTable("ChromiumCore_InitializeDragAndDrop", 0),
-		/*113*/ imports.NewTable("ChromiumCore_Initialized", 0),
-		/*114*/ imports.NewTable("ChromiumCore_Invalidate", 0),
-		/*115*/ imports.NewTable("ChromiumCore_IsLoading", 0),
-		/*116*/ imports.NewTable("ChromiumCore_IsPopUp", 0),
-		/*117*/ imports.NewTable("ChromiumCore_IsSameBrowser", 0),
-		/*118*/ imports.NewTable("ChromiumCore_JavascriptEnabled", 0),
-		/*119*/ imports.NewTable("ChromiumCore_LoadExtension", 0),
-		/*120*/ imports.NewTable("ChromiumCore_LoadImagesAutomatically", 0),
-		/*121*/ imports.NewTable("ChromiumCore_LoadRequest", 0),
-		/*122*/ imports.NewTable("ChromiumCore_LoadResource", 0),
-		/*123*/ imports.NewTable("ChromiumCore_LoadResource1", 0),
-		/*124*/ imports.NewTable("ChromiumCore_LoadResource2", 0),
-		/*125*/ imports.NewTable("ChromiumCore_LoadString", 0),
-		/*126*/ imports.NewTable("ChromiumCore_LoadString1", 0),
-		/*127*/ imports.NewTable("ChromiumCore_LoadString2", 0),
-		/*128*/ imports.NewTable("ChromiumCore_LoadURL", 0),
-		/*129*/ imports.NewTable("ChromiumCore_LoadURL1", 0),
-		/*130*/ imports.NewTable("ChromiumCore_LoadURL2", 0),
-		/*131*/ imports.NewTable("ChromiumCore_MaxConnectionsPerProxy", 0),
-		/*132*/ imports.NewTable("ChromiumCore_MediaObserver", 0),
-		/*133*/ imports.NewTable("ChromiumCore_MediaObserverReg", 0),
-		/*134*/ imports.NewTable("ChromiumCore_MediaRouter", 0),
-		/*135*/ imports.NewTable("ChromiumCore_MultiBrowserMode", 0),
-		/*136*/ imports.NewTable("ChromiumCore_MultithreadApp", 0),
-		/*137*/ imports.NewTable("ChromiumCore_NotifyCurrentRoutes", 0),
-		/*138*/ imports.NewTable("ChromiumCore_NotifyCurrentSinks", 0),
-		/*139*/ imports.NewTable("ChromiumCore_NotifyMoveOrResizeStarted", 0),
-		/*140*/ imports.NewTable("ChromiumCore_NotifyScreenInfoChanged", 0),
-		/*141*/ imports.NewTable("ChromiumCore_Offline", 0),
-		/*142*/ imports.NewTable("ChromiumCore_OpenerWindowHandle", 0),
-		/*143*/ imports.NewTable("ChromiumCore_Options", 0),
-		/*144*/ imports.NewTable("ChromiumCore_PDFPrintOptions", 0),
-		/*145*/ imports.NewTable("ChromiumCore_Print", 0),
-		/*146*/ imports.NewTable("ChromiumCore_PrintToPDF", 0),
-		/*147*/ imports.NewTable("ChromiumCore_PrintingEnabled", 0),
-		/*148*/ imports.NewTable("ChromiumCore_ProxyByPassList", 0),
-		/*149*/ imports.NewTable("ChromiumCore_ProxyPassword", 0),
-		/*150*/ imports.NewTable("ChromiumCore_ProxyPort", 0),
-		/*151*/ imports.NewTable("ChromiumCore_ProxyScheme", 0),
-		/*152*/ imports.NewTable("ChromiumCore_ProxyScriptURL", 0),
-		/*153*/ imports.NewTable("ChromiumCore_ProxyServer", 0),
-		/*154*/ imports.NewTable("ChromiumCore_ProxyType", 0),
-		/*155*/ imports.NewTable("ChromiumCore_ProxyUsername", 0),
-		/*156*/ imports.NewTable("ChromiumCore_QuicAllowed", 0),
-		/*157*/ imports.NewTable("ChromiumCore_ReadZoom", 0),
-		/*158*/ imports.NewTable("ChromiumCore_Reload", 0),
-		/*159*/ imports.NewTable("ChromiumCore_ReloadIgnoreCache", 0),
-		/*160*/ imports.NewTable("ChromiumCore_RenderHandle", 0),
-		/*161*/ imports.NewTable("ChromiumCore_ReplaceMisspelling", 0),
-		/*162*/ imports.NewTable("ChromiumCore_ReqContextHandler", 0),
-		/*163*/ imports.NewTable("ChromiumCore_RequestContext", 0),
-		/*164*/ imports.NewTable("ChromiumCore_RequestContextCache", 0),
-		/*165*/ imports.NewTable("ChromiumCore_RequestContextIsGlobal", 0),
-		/*166*/ imports.NewTable("ChromiumCore_ResetZoomCommand", 0),
-		/*167*/ imports.NewTable("ChromiumCore_ResetZoomLevel", 0),
-		/*168*/ imports.NewTable("ChromiumCore_ResetZoomPct", 0),
-		/*169*/ imports.NewTable("ChromiumCore_ResetZoomStep", 0),
-		/*170*/ imports.NewTable("ChromiumCore_ResolveHost", 0),
-		/*171*/ imports.NewTable("ChromiumCore_ResourceRequestHandler", 0),
-		/*172*/ imports.NewTable("ChromiumCore_RetrieveHTML", 0),
-		/*173*/ imports.NewTable("ChromiumCore_RetrieveHTML1", 0),
-		/*174*/ imports.NewTable("ChromiumCore_RetrieveHTML2", 0),
-		/*175*/ imports.NewTable("ChromiumCore_RetrieveText", 0),
-		/*176*/ imports.NewTable("ChromiumCore_RetrieveText1", 0),
-		/*177*/ imports.NewTable("ChromiumCore_RetrieveText2", 0),
-		/*178*/ imports.NewTable("ChromiumCore_SafeSearch", 0),
-		/*179*/ imports.NewTable("ChromiumCore_SavePreferences", 0),
-		/*180*/ imports.NewTable("ChromiumCore_SelectAll", 0),
-		/*181*/ imports.NewTable("ChromiumCore_SelectBrowser", 0),
-		/*182*/ imports.NewTable("ChromiumCore_SendCaptureLostEvent", 0),
-		/*183*/ imports.NewTable("ChromiumCore_SendDevToolsMessage", 0),
-		/*184*/ imports.NewTable("ChromiumCore_SendExternalBeginFrame", 0),
-		/*185*/ imports.NewTable("ChromiumCore_SendKeyEvent", 0),
-		/*186*/ imports.NewTable("ChromiumCore_SendMouseClickEvent", 0),
-		/*187*/ imports.NewTable("ChromiumCore_SendMouseMoveEvent", 0),
-		/*188*/ imports.NewTable("ChromiumCore_SendMouseWheelEvent", 0),
-		/*189*/ imports.NewTable("ChromiumCore_SendProcessMessage", 0),
-		/*190*/ imports.NewTable("ChromiumCore_SendProcessMessage1", 0),
-		/*191*/ imports.NewTable("ChromiumCore_SendProcessMessage2", 0),
-		/*192*/ imports.NewTable("ChromiumCore_SendReferrer", 0),
-		/*193*/ imports.NewTable("ChromiumCore_SendTouchEvent", 0),
-		/*194*/ imports.NewTable("ChromiumCore_SetAccessibilityState", 0),
-		/*195*/ imports.NewTable("ChromiumCore_SetContentSetting", 0),
-		/*196*/ imports.NewTable("ChromiumCore_SetFocus", 0),
-		/*197*/ imports.NewTable("ChromiumCore_SetNewBrowserParent", 0),
-		/*198*/ imports.NewTable("ChromiumCore_SetOnAcceleratedPaint", 0),
-		/*199*/ imports.NewTable("ChromiumCore_SetOnAddressChange", 0),
-		/*200*/ imports.NewTable("ChromiumCore_SetOnAfterCreated", 0),
-		/*201*/ imports.NewTable("ChromiumCore_SetOnAllConnectionsClosed", 0),
-		/*202*/ imports.NewTable("ChromiumCore_SetOnAudioStreamError", 0),
-		/*203*/ imports.NewTable("ChromiumCore_SetOnAudioStreamPacket", 0),
-		/*204*/ imports.NewTable("ChromiumCore_SetOnAudioStreamStarted", 0),
-		/*205*/ imports.NewTable("ChromiumCore_SetOnAudioStreamStopped", 0),
-		/*206*/ imports.NewTable("ChromiumCore_SetOnAutoResize", 0),
-		/*207*/ imports.NewTable("ChromiumCore_SetOnBeforeBrowse", 0),
-		/*208*/ imports.NewTable("ChromiumCore_SetOnBeforeClose", 0),
-		/*209*/ imports.NewTable("ChromiumCore_SetOnBeforeContextMenu", 0),
-		/*210*/ imports.NewTable("ChromiumCore_SetOnBeforeDownload", 0),
-		/*211*/ imports.NewTable("ChromiumCore_SetOnBeforePopup", 0),
-		/*212*/ imports.NewTable("ChromiumCore_SetOnBeforeResourceLoad", 0),
-		/*213*/ imports.NewTable("ChromiumCore_SetOnBeforeUnloadDialog", 0),
-		/*214*/ imports.NewTable("ChromiumCore_SetOnBrowserCompMsg", 0),
-		/*215*/ imports.NewTable("ChromiumCore_SetOnCanDownload", 0),
-		/*216*/ imports.NewTable("ChromiumCore_SetOnCanFocus", 0),
-		/*217*/ imports.NewTable("ChromiumCore_SetOnCanSaveCookie", 0),
-		/*218*/ imports.NewTable("ChromiumCore_SetOnCanSendCookie", 0),
-		/*219*/ imports.NewTable("ChromiumCore_SetOnCertificateError", 0),
-		/*220*/ imports.NewTable("ChromiumCore_SetOnCertificateExceptionsCleared", 0),
-		/*221*/ imports.NewTable("ChromiumCore_SetOnChromeCommand", 0),
-		/*222*/ imports.NewTable("ChromiumCore_SetOnClose", 0),
-		/*223*/ imports.NewTable("ChromiumCore_SetOnConsoleMessage", 0),
-		/*224*/ imports.NewTable("ChromiumCore_SetOnContextMenuCommand", 0),
-		/*225*/ imports.NewTable("ChromiumCore_SetOnContextMenuDismissed", 0),
-		/*226*/ imports.NewTable("ChromiumCore_SetOnCookieSet", 0),
-		/*227*/ imports.NewTable("ChromiumCore_SetOnCookieVisitorDestroyed", 0),
-		/*228*/ imports.NewTable("ChromiumCore_SetOnCookiesDeleted", 0),
-		/*229*/ imports.NewTable("ChromiumCore_SetOnCookiesFlushed", 0),
-		/*230*/ imports.NewTable("ChromiumCore_SetOnCookiesVisited", 0),
-		/*231*/ imports.NewTable("ChromiumCore_SetOnCursorChange", 0),
-		/*232*/ imports.NewTable("ChromiumCore_SetOnDevToolsAgentAttached", 0),
-		/*233*/ imports.NewTable("ChromiumCore_SetOnDevToolsAgentDetached", 0),
-		/*234*/ imports.NewTable("ChromiumCore_SetOnDevToolsEvent", 0),
-		/*235*/ imports.NewTable("ChromiumCore_SetOnDevToolsMessage", 0),
-		/*236*/ imports.NewTable("ChromiumCore_SetOnDevToolsMethodRawResult", 0),
-		/*237*/ imports.NewTable("ChromiumCore_SetOnDevToolsMethodResult", 0),
-		/*238*/ imports.NewTable("ChromiumCore_SetOnDevToolsRawEvent", 0),
-		/*239*/ imports.NewTable("ChromiumCore_SetOnDevToolsRawMessage", 0),
-		/*240*/ imports.NewTable("ChromiumCore_SetOnDialogClosed", 0),
-		/*241*/ imports.NewTable("ChromiumCore_SetOnDismissPermissionPrompt", 0),
-		/*242*/ imports.NewTable("ChromiumCore_SetOnDocumentAvailableInMainFrame", 0),
-		/*243*/ imports.NewTable("ChromiumCore_SetOnDownloadImageFinished", 0),
-		/*244*/ imports.NewTable("ChromiumCore_SetOnDownloadUpdated", 0),
-		/*245*/ imports.NewTable("ChromiumCore_SetOnDragEnter", 0),
-		/*246*/ imports.NewTable("ChromiumCore_SetOnDraggableRegionsChanged", 0),
-		/*247*/ imports.NewTable("ChromiumCore_SetOnExecuteTaskOnCefThread", 0),
-		/*248*/ imports.NewTable("ChromiumCore_SetOnExtensionBeforeBackgroundBrowser", 0),
-		/*249*/ imports.NewTable("ChromiumCore_SetOnExtensionBeforeBrowser", 0),
-		/*250*/ imports.NewTable("ChromiumCore_SetOnExtensionCanAccessBrowser", 0),
-		/*251*/ imports.NewTable("ChromiumCore_SetOnExtensionGetActiveBrowser", 0),
-		/*252*/ imports.NewTable("ChromiumCore_SetOnExtensionGetExtensionResource", 0),
-		/*253*/ imports.NewTable("ChromiumCore_SetOnExtensionLoadFailed", 0),
-		/*254*/ imports.NewTable("ChromiumCore_SetOnExtensionLoaded", 0),
-		/*255*/ imports.NewTable("ChromiumCore_SetOnExtensionUnloaded", 0),
-		/*256*/ imports.NewTable("ChromiumCore_SetOnFavIconUrlChange", 0),
-		/*257*/ imports.NewTable("ChromiumCore_SetOnFileDialog", 0),
-		/*258*/ imports.NewTable("ChromiumCore_SetOnFindResult", 0),
-		/*259*/ imports.NewTable("ChromiumCore_SetOnFrameAttached", 0),
-		/*260*/ imports.NewTable("ChromiumCore_SetOnFrameCreated", 0),
-		/*261*/ imports.NewTable("ChromiumCore_SetOnFrameDetached", 0),
-		/*262*/ imports.NewTable("ChromiumCore_SetOnFullScreenModeChange", 0),
-		/*263*/ imports.NewTable("ChromiumCore_SetOnGetAccessibilityHandler", 0),
-		/*264*/ imports.NewTable("ChromiumCore_SetOnGetAudioParameters", 0),
-		/*265*/ imports.NewTable("ChromiumCore_SetOnGetAuthCredentials", 0),
-		/*266*/ imports.NewTable("ChromiumCore_SetOnGetPDFPaperSize", 0),
-		/*267*/ imports.NewTable("ChromiumCore_SetOnGetResourceHandler", 0),
-		/*268*/ imports.NewTable("ChromiumCore_SetOnGetResourceRequestHandler_ReqCtxHdlr", 0),
-		/*269*/ imports.NewTable("ChromiumCore_SetOnGetResourceRequestHandler_ReqHdlr", 0),
-		/*270*/ imports.NewTable("ChromiumCore_SetOnGetResourceResponseFilter", 0),
-		/*271*/ imports.NewTable("ChromiumCore_SetOnGetRootScreenRect", 0),
-		/*272*/ imports.NewTable("ChromiumCore_SetOnGetScreenInfo", 0),
-		/*273*/ imports.NewTable("ChromiumCore_SetOnGetScreenPoint", 0),
-		/*274*/ imports.NewTable("ChromiumCore_SetOnGetTouchHandleSize", 0),
-		/*275*/ imports.NewTable("ChromiumCore_SetOnGetViewRect", 0),
-		/*276*/ imports.NewTable("ChromiumCore_SetOnGotFocus", 0),
-		/*277*/ imports.NewTable("ChromiumCore_SetOnHttpAuthCredentialsCleared", 0),
-		/*278*/ imports.NewTable("ChromiumCore_SetOnIMECompositionRangeChanged", 0),
-		/*279*/ imports.NewTable("ChromiumCore_SetOnIsChromeAppMenuItemEnabled", 0),
-		/*280*/ imports.NewTable("ChromiumCore_SetOnIsChromeAppMenuItemVisible", 0),
-		/*281*/ imports.NewTable("ChromiumCore_SetOnIsChromePageActionIconVisible", 0),
-		/*282*/ imports.NewTable("ChromiumCore_SetOnIsChromeToolbarButtonVisible", 0),
-		/*283*/ imports.NewTable("ChromiumCore_SetOnJsdialog", 0),
-		/*284*/ imports.NewTable("ChromiumCore_SetOnKeyEvent", 0),
-		/*285*/ imports.NewTable("ChromiumCore_SetOnLoadEnd", 0),
-		/*286*/ imports.NewTable("ChromiumCore_SetOnLoadError", 0),
-		/*287*/ imports.NewTable("ChromiumCore_SetOnLoadStart", 0),
-		/*288*/ imports.NewTable("ChromiumCore_SetOnLoadingProgressChange", 0),
-		/*289*/ imports.NewTable("ChromiumCore_SetOnLoadingStateChange", 0),
-		/*290*/ imports.NewTable("ChromiumCore_SetOnMainFrameChanged", 0),
-		/*291*/ imports.NewTable("ChromiumCore_SetOnMediaAccessChange", 0),
-		/*292*/ imports.NewTable("ChromiumCore_SetOnMediaRouteCreateFinished", 0),
-		/*293*/ imports.NewTable("ChromiumCore_SetOnMediaSinkDeviceInfo", 0),
-		/*294*/ imports.NewTable("ChromiumCore_SetOnNavigationVisitorResultAvailable", 0),
-		/*295*/ imports.NewTable("ChromiumCore_SetOnOpenUrlFromTab", 0),
-		/*296*/ imports.NewTable("ChromiumCore_SetOnPaint", 0),
-		/*297*/ imports.NewTable("ChromiumCore_SetOnPdfPrintFinished", 0),
-		/*298*/ imports.NewTable("ChromiumCore_SetOnPopupShow", 0),
-		/*299*/ imports.NewTable("ChromiumCore_SetOnPopupSize", 0),
-		/*300*/ imports.NewTable("ChromiumCore_SetOnPreKeyEvent", 0),
-		/*301*/ imports.NewTable("ChromiumCore_SetOnPrefsAvailable", 0),
-		/*302*/ imports.NewTable("ChromiumCore_SetOnPrefsUpdated", 0),
-		/*303*/ imports.NewTable("ChromiumCore_SetOnPrintDialog", 0),
-		/*304*/ imports.NewTable("ChromiumCore_SetOnPrintJob", 0),
-		/*305*/ imports.NewTable("ChromiumCore_SetOnPrintReset", 0),
-		/*306*/ imports.NewTable("ChromiumCore_SetOnPrintSettings", 0),
-		/*307*/ imports.NewTable("ChromiumCore_SetOnPrintStart", 0),
-		/*308*/ imports.NewTable("ChromiumCore_SetOnProcessMessageReceived", 0),
-		/*309*/ imports.NewTable("ChromiumCore_SetOnProtocolExecution", 0),
-		/*310*/ imports.NewTable("ChromiumCore_SetOnQuickMenuCommand", 0),
-		/*311*/ imports.NewTable("ChromiumCore_SetOnQuickMenuDismissed", 0),
-		/*312*/ imports.NewTable("ChromiumCore_SetOnRenderCompMsg", 0),
-		/*313*/ imports.NewTable("ChromiumCore_SetOnRenderProcessTerminated", 0),
-		/*314*/ imports.NewTable("ChromiumCore_SetOnRenderViewReady", 0),
-		/*315*/ imports.NewTable("ChromiumCore_SetOnRequestContextInitialized", 0),
-		/*316*/ imports.NewTable("ChromiumCore_SetOnRequestMediaAccessPermission", 0),
-		/*317*/ imports.NewTable("ChromiumCore_SetOnResetDialogState", 0),
-		/*318*/ imports.NewTable("ChromiumCore_SetOnResolvedHostAvailable", 0),
-		/*319*/ imports.NewTable("ChromiumCore_SetOnResourceLoadComplete", 0),
-		/*320*/ imports.NewTable("ChromiumCore_SetOnResourceRedirect", 0),
-		/*321*/ imports.NewTable("ChromiumCore_SetOnResourceResponse", 0),
-		/*322*/ imports.NewTable("ChromiumCore_SetOnRouteMessageReceived", 0),
-		/*323*/ imports.NewTable("ChromiumCore_SetOnRouteStateChanged", 0),
-		/*324*/ imports.NewTable("ChromiumCore_SetOnRoutes", 0),
-		/*325*/ imports.NewTable("ChromiumCore_SetOnRunContextMenu", 0),
-		/*326*/ imports.NewTable("ChromiumCore_SetOnRunQuickMenu", 0),
-		/*327*/ imports.NewTable("ChromiumCore_SetOnScrollOffsetChanged", 0),
-		/*328*/ imports.NewTable("ChromiumCore_SetOnSelectClientCertificate", 0),
-		/*329*/ imports.NewTable("ChromiumCore_SetOnSetFocus", 0),
-		/*330*/ imports.NewTable("ChromiumCore_SetOnShowPermissionPrompt", 0),
-		/*331*/ imports.NewTable("ChromiumCore_SetOnSinks", 0),
-		/*332*/ imports.NewTable("ChromiumCore_SetOnStartDragging", 0),
-		/*333*/ imports.NewTable("ChromiumCore_SetOnStatusMessage", 0),
-		/*334*/ imports.NewTable("ChromiumCore_SetOnTakeFocus", 0),
-		/*335*/ imports.NewTable("ChromiumCore_SetOnTextResultAvailable", 0),
-		/*336*/ imports.NewTable("ChromiumCore_SetOnTextSelectionChanged", 0),
-		/*337*/ imports.NewTable("ChromiumCore_SetOnTitleChange", 0),
-		/*338*/ imports.NewTable("ChromiumCore_SetOnTooltip", 0),
-		/*339*/ imports.NewTable("ChromiumCore_SetOnTouchHandleStateChanged", 0),
-		/*340*/ imports.NewTable("ChromiumCore_SetOnUpdateDragCursor", 0),
-		/*341*/ imports.NewTable("ChromiumCore_SetOnVirtualKeyboardRequested", 0),
-		/*342*/ imports.NewTable("ChromiumCore_SetOnWidgetCompMsg", 0),
-		/*343*/ imports.NewTable("ChromiumCore_SetOnZoomPctAvailable", 0),
-		/*344*/ imports.NewTable("ChromiumCore_SetUserAgentOverride", 0),
-		/*345*/ imports.NewTable("ChromiumCore_SetWebsiteSetting", 0),
-		/*346*/ imports.NewTable("ChromiumCore_ShareRequestContext", 0),
-		/*347*/ imports.NewTable("ChromiumCore_ShowDevTools", 0),
-		/*348*/ imports.NewTable("ChromiumCore_ShutdownDragAndDrop", 0),
-		/*349*/ imports.NewTable("ChromiumCore_SimulateMouseWheel", 0),
-		/*350*/ imports.NewTable("ChromiumCore_SpellCheckerDicts", 0),
-		/*351*/ imports.NewTable("ChromiumCore_SpellChecking", 0),
-		/*352*/ imports.NewTable("ChromiumCore_StartDownload", 0),
-		/*353*/ imports.NewTable("ChromiumCore_StopFinding", 0),
-		/*354*/ imports.NewTable("ChromiumCore_StopLoad", 0),
-		/*355*/ imports.NewTable("ChromiumCore_ToggleAudioMuted", 0),
-		/*356*/ imports.NewTable("ChromiumCore_TryCloseBrowser", 0),
-		/*357*/ imports.NewTable("ChromiumCore_UpdateBrowserSize", 0),
-		/*358*/ imports.NewTable("ChromiumCore_UpdatePreferences", 0),
-		/*359*/ imports.NewTable("ChromiumCore_UpdateXWindowVisibility", 0),
-		/*360*/ imports.NewTable("ChromiumCore_VisibleNavigationEntry", 0),
-		/*361*/ imports.NewTable("ChromiumCore_VisitAllCookies", 0),
-		/*362*/ imports.NewTable("ChromiumCore_VisitURLCookies", 0),
-		/*363*/ imports.NewTable("ChromiumCore_WasHidden", 0),
-		/*364*/ imports.NewTable("ChromiumCore_WasResized", 0),
-		/*365*/ imports.NewTable("ChromiumCore_WebRTCIPHandlingPolicy", 0),
-		/*366*/ imports.NewTable("ChromiumCore_WebRTCMultipleRoutes", 0),
-		/*367*/ imports.NewTable("ChromiumCore_WebRTCNonproxiedUDP", 0),
-		/*368*/ imports.NewTable("ChromiumCore_WidgetHandle", 0),
-		/*369*/ imports.NewTable("ChromiumCore_WindowHandle", 0),
-		/*370*/ imports.NewTable("ChromiumCore_WindowlessFrameRate", 0),
-		/*371*/ imports.NewTable("ChromiumCore_YouTubeRestrict", 0),
-		/*372*/ imports.NewTable("ChromiumCore_ZoomLevel", 0),
-		/*373*/ imports.NewTable("ChromiumCore_ZoomPct", 0),
-		/*374*/ imports.NewTable("ChromiumCore_ZoomStep", 0),
+		/*8*/ imports.NewTable("ChromiumCore_AsInterface", 0),
+		/*9*/ imports.NewTable("ChromiumCore_AudioMuted", 0),
+		/*10*/ imports.NewTable("ChromiumCore_BatterySaverModeState", 0),
+		/*11*/ imports.NewTable("ChromiumCore_Block3rdPartyCookies", 0),
+		/*12*/ imports.NewTable("ChromiumCore_Browser", 0),
+		/*13*/ imports.NewTable("ChromiumCore_BrowserById", 0),
+		/*14*/ imports.NewTable("ChromiumCore_BrowserCount", 0),
+		/*15*/ imports.NewTable("ChromiumCore_BrowserHandle", 0),
+		/*16*/ imports.NewTable("ChromiumCore_BrowserId", 0),
+		/*17*/ imports.NewTable("ChromiumCore_BrowserIdByIndex", 0),
+		/*18*/ imports.NewTable("ChromiumCore_CanDecZoom", 0),
+		/*19*/ imports.NewTable("ChromiumCore_CanFocus", 0),
+		/*20*/ imports.NewTable("ChromiumCore_CanGoBack", 0),
+		/*21*/ imports.NewTable("ChromiumCore_CanGoForward", 0),
+		/*22*/ imports.NewTable("ChromiumCore_CanIncZoom", 0),
+		/*23*/ imports.NewTable("ChromiumCore_CanResetZoom", 0),
+		/*24*/ imports.NewTable("ChromiumCore_CefClient", 0),
+		/*25*/ imports.NewTable("ChromiumCore_CefWindowInfo", 0),
+		/*26*/ imports.NewTable("ChromiumCore_ClearCache", 0),
+		/*27*/ imports.NewTable("ChromiumCore_ClearCertificateExceptions", 0),
+		/*28*/ imports.NewTable("ChromiumCore_ClearDataForOrigin", 0),
+		/*29*/ imports.NewTable("ChromiumCore_ClearHttpAuthCredentials", 0),
+		/*30*/ imports.NewTable("ChromiumCore_ClipboardCopy", 0),
+		/*31*/ imports.NewTable("ChromiumCore_ClipboardCut", 0),
+		/*32*/ imports.NewTable("ChromiumCore_ClipboardDel", 0),
+		/*33*/ imports.NewTable("ChromiumCore_ClipboardPaste", 0),
+		/*34*/ imports.NewTable("ChromiumCore_ClipboardRedo", 0),
+		/*35*/ imports.NewTable("ChromiumCore_ClipboardUndo", 0),
+		/*36*/ imports.NewTable("ChromiumCore_CloseAllBrowsers", 0),
+		/*37*/ imports.NewTable("ChromiumCore_CloseAllConnections", 0),
+		/*38*/ imports.NewTable("ChromiumCore_CloseBrowser", 0),
+		/*39*/ imports.NewTable("ChromiumCore_CloseDevTools", 0),
+		/*40*/ imports.NewTable("ChromiumCore_CloseDevTools1", 0),
+		/*41*/ imports.NewTable("ChromiumCore_Create", 0),
+		/*42*/ imports.NewTable("ChromiumCore_CreateBrowserByBrowserViewComponent", 0),
+		/*43*/ imports.NewTable("ChromiumCore_CreateBrowserByWindowHandle", 0),
+		/*44*/ imports.NewTable("ChromiumCore_CreateClientHandler", 0),
+		/*45*/ imports.NewTable("ChromiumCore_CreateClientHandler1", 0),
+		/*46*/ imports.NewTable("ChromiumCore_CreateRoute", 0),
+		/*47*/ imports.NewTable("ChromiumCore_CreateUrlRequest", 0),
+		/*48*/ imports.NewTable("ChromiumCore_CreateUrlRequest1", 0),
+		/*49*/ imports.NewTable("ChromiumCore_CreateUrlRequest2", 0),
+		/*50*/ imports.NewTable("ChromiumCore_CustomHeaderName", 0),
+		/*51*/ imports.NewTable("ChromiumCore_CustomHeaderValue", 0),
+		/*52*/ imports.NewTable("ChromiumCore_DecZoomCommand", 0),
+		/*53*/ imports.NewTable("ChromiumCore_DecZoomPct", 0),
+		/*54*/ imports.NewTable("ChromiumCore_DecZoomStep", 0),
+		/*55*/ imports.NewTable("ChromiumCore_DefaultUrl", 0),
+		/*56*/ imports.NewTable("ChromiumCore_DefaultWindowInfoExStyle", 0),
+		/*57*/ imports.NewTable("ChromiumCore_DefaultZoomLevel", 0),
+		/*58*/ imports.NewTable("ChromiumCore_DeleteCookies", 0),
+		/*59*/ imports.NewTable("ChromiumCore_DevToolsMsgObserver", 0),
+		/*60*/ imports.NewTable("ChromiumCore_DevToolsMsgObserverReg", 0),
+		/*61*/ imports.NewTable("ChromiumCore_DidLoadExtension", 0),
+		/*62*/ imports.NewTable("ChromiumCore_DoNotTrack", 0),
+		/*63*/ imports.NewTable("ChromiumCore_DocumentURL", 0),
+		/*64*/ imports.NewTable("ChromiumCore_DownloadImage", 0),
+		/*65*/ imports.NewTable("ChromiumCore_DragOperations", 0),
+		/*66*/ imports.NewTable("ChromiumCore_DragSourceEndedAt", 0),
+		/*67*/ imports.NewTable("ChromiumCore_DragSourceSystemDragEnded", 0),
+		/*68*/ imports.NewTable("ChromiumCore_DragTargetDragEnter", 0),
+		/*69*/ imports.NewTable("ChromiumCore_DragTargetDragLeave", 0),
+		/*70*/ imports.NewTable("ChromiumCore_DragTargetDragOver", 0),
+		/*71*/ imports.NewTable("ChromiumCore_DragTargetDrop", 0),
+		/*72*/ imports.NewTable("ChromiumCore_EnableFocusDelayMs", 0),
+		/*73*/ imports.NewTable("ChromiumCore_ExecuteDevToolsMethod", 0),
+		/*74*/ imports.NewTable("ChromiumCore_ExecuteJavaScript", 0),
+		/*75*/ imports.NewTable("ChromiumCore_ExecuteJavaScript1", 0),
+		/*76*/ imports.NewTable("ChromiumCore_ExecuteJavaScript2", 0),
+		/*77*/ imports.NewTable("ChromiumCore_ExecuteTaskOnCefThread", 0),
+		/*78*/ imports.NewTable("ChromiumCore_ExitFullscreen", 0),
+		/*79*/ imports.NewTable("ChromiumCore_ExtensionHandler", 0),
+		/*80*/ imports.NewTable("ChromiumCore_Find", 0),
+		/*81*/ imports.NewTable("ChromiumCore_FlushCookieStore", 0),
+		/*82*/ imports.NewTable("ChromiumCore_FontOptions", 0),
+		/*83*/ imports.NewTable("ChromiumCore_FrameCount", 0),
+		/*84*/ imports.NewTable("ChromiumCore_FrameIsFocused", 0),
+		/*85*/ imports.NewTable("ChromiumCore_Fullscreen", 0),
+		/*86*/ imports.NewTable("ChromiumCore_GetContentSetting", 0),
+		/*87*/ imports.NewTable("ChromiumCore_GetDeviceInfo", 0),
+		/*88*/ imports.NewTable("ChromiumCore_GetExtension", 0),
+		/*89*/ imports.NewTable("ChromiumCore_GetExtensions", 0),
+		/*90*/ imports.NewTable("ChromiumCore_GetFrameIdentifiers", 0),
+		/*91*/ imports.NewTable("ChromiumCore_GetFrameNames", 0),
+		/*92*/ imports.NewTable("ChromiumCore_GetNavigationEntries", 0),
+		/*93*/ imports.NewTable("ChromiumCore_GetSource", 0),
+		/*94*/ imports.NewTable("ChromiumCore_GetWebsiteSetting", 0),
+		/*95*/ imports.NewTable("ChromiumCore_GoBack", 0),
+		/*96*/ imports.NewTable("ChromiumCore_GoForward", 0),
+		/*97*/ imports.NewTable("ChromiumCore_HasBrowser", 0),
+		/*98*/ imports.NewTable("ChromiumCore_HasClientHandler", 0),
+		/*99*/ imports.NewTable("ChromiumCore_HasDevTools", 0),
+		/*100*/ imports.NewTable("ChromiumCore_HasDocument", 0),
+		/*101*/ imports.NewTable("ChromiumCore_HasExtension", 0),
+		/*102*/ imports.NewTable("ChromiumCore_HasValidMainFrame", 0),
+		/*103*/ imports.NewTable("ChromiumCore_HasView", 0),
+		/*104*/ imports.NewTable("ChromiumCore_HighEfficiencyModeState", 0),
+		/*105*/ imports.NewTable("ChromiumCore_HyperlinkAuditing", 0),
+		/*106*/ imports.NewTable("ChromiumCore_IMECancelComposition", 0),
+		/*107*/ imports.NewTable("ChromiumCore_IMECommitText", 0),
+		/*108*/ imports.NewTable("ChromiumCore_IMEFinishComposingText", 0),
+		/*109*/ imports.NewTable("ChromiumCore_IncZoomCommand", 0),
+		/*110*/ imports.NewTable("ChromiumCore_IncZoomPct", 0),
+		/*111*/ imports.NewTable("ChromiumCore_IncZoomStep", 0),
+		/*112*/ imports.NewTable("ChromiumCore_IndexOfBrowserID", 0),
+		/*113*/ imports.NewTable("ChromiumCore_InitializeDragAndDrop", 0),
+		/*114*/ imports.NewTable("ChromiumCore_Initialized", 0),
+		/*115*/ imports.NewTable("ChromiumCore_Invalidate", 0),
+		/*116*/ imports.NewTable("ChromiumCore_IsLoading", 0),
+		/*117*/ imports.NewTable("ChromiumCore_IsPopUp", 0),
+		/*118*/ imports.NewTable("ChromiumCore_IsSameBrowser", 0),
+		/*119*/ imports.NewTable("ChromiumCore_JavascriptEnabled", 0),
+		/*120*/ imports.NewTable("ChromiumCore_LoadExtension", 0),
+		/*121*/ imports.NewTable("ChromiumCore_LoadImagesAutomatically", 0),
+		/*122*/ imports.NewTable("ChromiumCore_LoadRequest", 0),
+		/*123*/ imports.NewTable("ChromiumCore_LoadResource", 0),
+		/*124*/ imports.NewTable("ChromiumCore_LoadResource1", 0),
+		/*125*/ imports.NewTable("ChromiumCore_LoadResource2", 0),
+		/*126*/ imports.NewTable("ChromiumCore_LoadString", 0),
+		/*127*/ imports.NewTable("ChromiumCore_LoadString1", 0),
+		/*128*/ imports.NewTable("ChromiumCore_LoadString2", 0),
+		/*129*/ imports.NewTable("ChromiumCore_LoadURL", 0),
+		/*130*/ imports.NewTable("ChromiumCore_LoadURL1", 0),
+		/*131*/ imports.NewTable("ChromiumCore_LoadURL2", 0),
+		/*132*/ imports.NewTable("ChromiumCore_MaxConnectionsPerProxy", 0),
+		/*133*/ imports.NewTable("ChromiumCore_MediaObserver", 0),
+		/*134*/ imports.NewTable("ChromiumCore_MediaObserverReg", 0),
+		/*135*/ imports.NewTable("ChromiumCore_MediaRouter", 0),
+		/*136*/ imports.NewTable("ChromiumCore_MultiBrowserMode", 0),
+		/*137*/ imports.NewTable("ChromiumCore_MultithreadApp", 0),
+		/*138*/ imports.NewTable("ChromiumCore_NotifyCurrentRoutes", 0),
+		/*139*/ imports.NewTable("ChromiumCore_NotifyCurrentSinks", 0),
+		/*140*/ imports.NewTable("ChromiumCore_NotifyMoveOrResizeStarted", 0),
+		/*141*/ imports.NewTable("ChromiumCore_NotifyScreenInfoChanged", 0),
+		/*142*/ imports.NewTable("ChromiumCore_Offline", 0),
+		/*143*/ imports.NewTable("ChromiumCore_OpenerWindowHandle", 0),
+		/*144*/ imports.NewTable("ChromiumCore_Options", 0),
+		/*145*/ imports.NewTable("ChromiumCore_PDFPrintOptions", 0),
+		/*146*/ imports.NewTable("ChromiumCore_Print", 0),
+		/*147*/ imports.NewTable("ChromiumCore_PrintToPDF", 0),
+		/*148*/ imports.NewTable("ChromiumCore_PrintingEnabled", 0),
+		/*149*/ imports.NewTable("ChromiumCore_ProxyByPassList", 0),
+		/*150*/ imports.NewTable("ChromiumCore_ProxyPassword", 0),
+		/*151*/ imports.NewTable("ChromiumCore_ProxyPort", 0),
+		/*152*/ imports.NewTable("ChromiumCore_ProxyScheme", 0),
+		/*153*/ imports.NewTable("ChromiumCore_ProxyScriptURL", 0),
+		/*154*/ imports.NewTable("ChromiumCore_ProxyServer", 0),
+		/*155*/ imports.NewTable("ChromiumCore_ProxyType", 0),
+		/*156*/ imports.NewTable("ChromiumCore_ProxyUsername", 0),
+		/*157*/ imports.NewTable("ChromiumCore_QuicAllowed", 0),
+		/*158*/ imports.NewTable("ChromiumCore_ReadZoom", 0),
+		/*159*/ imports.NewTable("ChromiumCore_Reload", 0),
+		/*160*/ imports.NewTable("ChromiumCore_ReloadIgnoreCache", 0),
+		/*161*/ imports.NewTable("ChromiumCore_RenderHandle", 0),
+		/*162*/ imports.NewTable("ChromiumCore_ReplaceMisspelling", 0),
+		/*163*/ imports.NewTable("ChromiumCore_ReqContextHandler", 0),
+		/*164*/ imports.NewTable("ChromiumCore_RequestContext", 0),
+		/*165*/ imports.NewTable("ChromiumCore_RequestContextCache", 0),
+		/*166*/ imports.NewTable("ChromiumCore_RequestContextIsGlobal", 0),
+		/*167*/ imports.NewTable("ChromiumCore_ResetZoomCommand", 0),
+		/*168*/ imports.NewTable("ChromiumCore_ResetZoomLevel", 0),
+		/*169*/ imports.NewTable("ChromiumCore_ResetZoomPct", 0),
+		/*170*/ imports.NewTable("ChromiumCore_ResetZoomStep", 0),
+		/*171*/ imports.NewTable("ChromiumCore_ResolveHost", 0),
+		/*172*/ imports.NewTable("ChromiumCore_ResourceRequestHandler", 0),
+		/*173*/ imports.NewTable("ChromiumCore_RetrieveHTML", 0),
+		/*174*/ imports.NewTable("ChromiumCore_RetrieveHTML1", 0),
+		/*175*/ imports.NewTable("ChromiumCore_RetrieveHTML2", 0),
+		/*176*/ imports.NewTable("ChromiumCore_RetrieveText", 0),
+		/*177*/ imports.NewTable("ChromiumCore_RetrieveText1", 0),
+		/*178*/ imports.NewTable("ChromiumCore_RetrieveText2", 0),
+		/*179*/ imports.NewTable("ChromiumCore_SafeSearch", 0),
+		/*180*/ imports.NewTable("ChromiumCore_SavePreferences", 0),
+		/*181*/ imports.NewTable("ChromiumCore_SelectAll", 0),
+		/*182*/ imports.NewTable("ChromiumCore_SelectBrowser", 0),
+		/*183*/ imports.NewTable("ChromiumCore_SendCaptureLostEvent", 0),
+		/*184*/ imports.NewTable("ChromiumCore_SendDevToolsMessage", 0),
+		/*185*/ imports.NewTable("ChromiumCore_SendExternalBeginFrame", 0),
+		/*186*/ imports.NewTable("ChromiumCore_SendKeyEvent", 0),
+		/*187*/ imports.NewTable("ChromiumCore_SendMouseClickEvent", 0),
+		/*188*/ imports.NewTable("ChromiumCore_SendMouseMoveEvent", 0),
+		/*189*/ imports.NewTable("ChromiumCore_SendMouseWheelEvent", 0),
+		/*190*/ imports.NewTable("ChromiumCore_SendProcessMessage", 0),
+		/*191*/ imports.NewTable("ChromiumCore_SendProcessMessage1", 0),
+		/*192*/ imports.NewTable("ChromiumCore_SendProcessMessage2", 0),
+		/*193*/ imports.NewTable("ChromiumCore_SendReferrer", 0),
+		/*194*/ imports.NewTable("ChromiumCore_SendTouchEvent", 0),
+		/*195*/ imports.NewTable("ChromiumCore_SetAccessibilityState", 0),
+		/*196*/ imports.NewTable("ChromiumCore_SetContentSetting", 0),
+		/*197*/ imports.NewTable("ChromiumCore_SetFocus", 0),
+		/*198*/ imports.NewTable("ChromiumCore_SetNewBrowserParent", 0),
+		/*199*/ imports.NewTable("ChromiumCore_SetOnAcceleratedPaint", 0),
+		/*200*/ imports.NewTable("ChromiumCore_SetOnAddressChange", 0),
+		/*201*/ imports.NewTable("ChromiumCore_SetOnAfterCreated", 0),
+		/*202*/ imports.NewTable("ChromiumCore_SetOnAllConnectionsClosed", 0),
+		/*203*/ imports.NewTable("ChromiumCore_SetOnAudioStreamError", 0),
+		/*204*/ imports.NewTable("ChromiumCore_SetOnAudioStreamPacket", 0),
+		/*205*/ imports.NewTable("ChromiumCore_SetOnAudioStreamStarted", 0),
+		/*206*/ imports.NewTable("ChromiumCore_SetOnAudioStreamStopped", 0),
+		/*207*/ imports.NewTable("ChromiumCore_SetOnAutoResize", 0),
+		/*208*/ imports.NewTable("ChromiumCore_SetOnBeforeBrowse", 0),
+		/*209*/ imports.NewTable("ChromiumCore_SetOnBeforeClose", 0),
+		/*210*/ imports.NewTable("ChromiumCore_SetOnBeforeContextMenu", 0),
+		/*211*/ imports.NewTable("ChromiumCore_SetOnBeforeDownload", 0),
+		/*212*/ imports.NewTable("ChromiumCore_SetOnBeforePopup", 0),
+		/*213*/ imports.NewTable("ChromiumCore_SetOnBeforeResourceLoad", 0),
+		/*214*/ imports.NewTable("ChromiumCore_SetOnBeforeUnloadDialog", 0),
+		/*215*/ imports.NewTable("ChromiumCore_SetOnBrowserCompMsg", 0),
+		/*216*/ imports.NewTable("ChromiumCore_SetOnCanDownload", 0),
+		/*217*/ imports.NewTable("ChromiumCore_SetOnCanFocus", 0),
+		/*218*/ imports.NewTable("ChromiumCore_SetOnCanSaveCookie", 0),
+		/*219*/ imports.NewTable("ChromiumCore_SetOnCanSendCookie", 0),
+		/*220*/ imports.NewTable("ChromiumCore_SetOnCertificateError", 0),
+		/*221*/ imports.NewTable("ChromiumCore_SetOnCertificateExceptionsCleared", 0),
+		/*222*/ imports.NewTable("ChromiumCore_SetOnChromeCommand", 0),
+		/*223*/ imports.NewTable("ChromiumCore_SetOnClose", 0),
+		/*224*/ imports.NewTable("ChromiumCore_SetOnConsoleMessage", 0),
+		/*225*/ imports.NewTable("ChromiumCore_SetOnContextMenuCommand", 0),
+		/*226*/ imports.NewTable("ChromiumCore_SetOnContextMenuDismissed", 0),
+		/*227*/ imports.NewTable("ChromiumCore_SetOnCookieSet", 0),
+		/*228*/ imports.NewTable("ChromiumCore_SetOnCookieVisitorDestroyed", 0),
+		/*229*/ imports.NewTable("ChromiumCore_SetOnCookiesDeleted", 0),
+		/*230*/ imports.NewTable("ChromiumCore_SetOnCookiesFlushed", 0),
+		/*231*/ imports.NewTable("ChromiumCore_SetOnCookiesVisited", 0),
+		/*232*/ imports.NewTable("ChromiumCore_SetOnCursorChange", 0),
+		/*233*/ imports.NewTable("ChromiumCore_SetOnDevToolsAgentAttached", 0),
+		/*234*/ imports.NewTable("ChromiumCore_SetOnDevToolsAgentDetached", 0),
+		/*235*/ imports.NewTable("ChromiumCore_SetOnDevToolsEvent", 0),
+		/*236*/ imports.NewTable("ChromiumCore_SetOnDevToolsMessage", 0),
+		/*237*/ imports.NewTable("ChromiumCore_SetOnDevToolsMethodRawResult", 0),
+		/*238*/ imports.NewTable("ChromiumCore_SetOnDevToolsMethodResult", 0),
+		/*239*/ imports.NewTable("ChromiumCore_SetOnDevToolsRawEvent", 0),
+		/*240*/ imports.NewTable("ChromiumCore_SetOnDevToolsRawMessage", 0),
+		/*241*/ imports.NewTable("ChromiumCore_SetOnDialogClosed", 0),
+		/*242*/ imports.NewTable("ChromiumCore_SetOnDismissPermissionPrompt", 0),
+		/*243*/ imports.NewTable("ChromiumCore_SetOnDocumentAvailableInMainFrame", 0),
+		/*244*/ imports.NewTable("ChromiumCore_SetOnDownloadImageFinished", 0),
+		/*245*/ imports.NewTable("ChromiumCore_SetOnDownloadUpdated", 0),
+		/*246*/ imports.NewTable("ChromiumCore_SetOnDragEnter", 0),
+		/*247*/ imports.NewTable("ChromiumCore_SetOnDraggableRegionsChanged", 0),
+		/*248*/ imports.NewTable("ChromiumCore_SetOnExecuteTaskOnCefThread", 0),
+		/*249*/ imports.NewTable("ChromiumCore_SetOnExtensionBeforeBackgroundBrowser", 0),
+		/*250*/ imports.NewTable("ChromiumCore_SetOnExtensionBeforeBrowser", 0),
+		/*251*/ imports.NewTable("ChromiumCore_SetOnExtensionCanAccessBrowser", 0),
+		/*252*/ imports.NewTable("ChromiumCore_SetOnExtensionGetActiveBrowser", 0),
+		/*253*/ imports.NewTable("ChromiumCore_SetOnExtensionGetExtensionResource", 0),
+		/*254*/ imports.NewTable("ChromiumCore_SetOnExtensionLoadFailed", 0),
+		/*255*/ imports.NewTable("ChromiumCore_SetOnExtensionLoaded", 0),
+		/*256*/ imports.NewTable("ChromiumCore_SetOnExtensionUnloaded", 0),
+		/*257*/ imports.NewTable("ChromiumCore_SetOnFavIconUrlChange", 0),
+		/*258*/ imports.NewTable("ChromiumCore_SetOnFileDialog", 0),
+		/*259*/ imports.NewTable("ChromiumCore_SetOnFindResult", 0),
+		/*260*/ imports.NewTable("ChromiumCore_SetOnFrameAttached", 0),
+		/*261*/ imports.NewTable("ChromiumCore_SetOnFrameCreated", 0),
+		/*262*/ imports.NewTable("ChromiumCore_SetOnFrameDetached", 0),
+		/*263*/ imports.NewTable("ChromiumCore_SetOnFullScreenModeChange", 0),
+		/*264*/ imports.NewTable("ChromiumCore_SetOnGetAccessibilityHandler", 0),
+		/*265*/ imports.NewTable("ChromiumCore_SetOnGetAudioParameters", 0),
+		/*266*/ imports.NewTable("ChromiumCore_SetOnGetAuthCredentials", 0),
+		/*267*/ imports.NewTable("ChromiumCore_SetOnGetPDFPaperSize", 0),
+		/*268*/ imports.NewTable("ChromiumCore_SetOnGetResourceHandler", 0),
+		/*269*/ imports.NewTable("ChromiumCore_SetOnGetResourceRequestHandler_ReqCtxHdlr", 0),
+		/*270*/ imports.NewTable("ChromiumCore_SetOnGetResourceRequestHandler_ReqHdlr", 0),
+		/*271*/ imports.NewTable("ChromiumCore_SetOnGetResourceResponseFilter", 0),
+		/*272*/ imports.NewTable("ChromiumCore_SetOnGetRootScreenRect", 0),
+		/*273*/ imports.NewTable("ChromiumCore_SetOnGetScreenInfo", 0),
+		/*274*/ imports.NewTable("ChromiumCore_SetOnGetScreenPoint", 0),
+		/*275*/ imports.NewTable("ChromiumCore_SetOnGetTouchHandleSize", 0),
+		/*276*/ imports.NewTable("ChromiumCore_SetOnGetViewRect", 0),
+		/*277*/ imports.NewTable("ChromiumCore_SetOnGotFocus", 0),
+		/*278*/ imports.NewTable("ChromiumCore_SetOnHttpAuthCredentialsCleared", 0),
+		/*279*/ imports.NewTable("ChromiumCore_SetOnIMECompositionRangeChanged", 0),
+		/*280*/ imports.NewTable("ChromiumCore_SetOnIsChromeAppMenuItemEnabled", 0),
+		/*281*/ imports.NewTable("ChromiumCore_SetOnIsChromeAppMenuItemVisible", 0),
+		/*282*/ imports.NewTable("ChromiumCore_SetOnIsChromePageActionIconVisible", 0),
+		/*283*/ imports.NewTable("ChromiumCore_SetOnIsChromeToolbarButtonVisible", 0),
+		/*284*/ imports.NewTable("ChromiumCore_SetOnJsdialog", 0),
+		/*285*/ imports.NewTable("ChromiumCore_SetOnKeyEvent", 0),
+		/*286*/ imports.NewTable("ChromiumCore_SetOnLoadEnd", 0),
+		/*287*/ imports.NewTable("ChromiumCore_SetOnLoadError", 0),
+		/*288*/ imports.NewTable("ChromiumCore_SetOnLoadStart", 0),
+		/*289*/ imports.NewTable("ChromiumCore_SetOnLoadingProgressChange", 0),
+		/*290*/ imports.NewTable("ChromiumCore_SetOnLoadingStateChange", 0),
+		/*291*/ imports.NewTable("ChromiumCore_SetOnMainFrameChanged", 0),
+		/*292*/ imports.NewTable("ChromiumCore_SetOnMediaAccessChange", 0),
+		/*293*/ imports.NewTable("ChromiumCore_SetOnMediaRouteCreateFinished", 0),
+		/*294*/ imports.NewTable("ChromiumCore_SetOnMediaSinkDeviceInfo", 0),
+		/*295*/ imports.NewTable("ChromiumCore_SetOnNavigationVisitorResultAvailable", 0),
+		/*296*/ imports.NewTable("ChromiumCore_SetOnOpenUrlFromTab", 0),
+		/*297*/ imports.NewTable("ChromiumCore_SetOnPaint", 0),
+		/*298*/ imports.NewTable("ChromiumCore_SetOnPdfPrintFinished", 0),
+		/*299*/ imports.NewTable("ChromiumCore_SetOnPopupShow", 0),
+		/*300*/ imports.NewTable("ChromiumCore_SetOnPopupSize", 0),
+		/*301*/ imports.NewTable("ChromiumCore_SetOnPreKeyEvent", 0),
+		/*302*/ imports.NewTable("ChromiumCore_SetOnPrefsAvailable", 0),
+		/*303*/ imports.NewTable("ChromiumCore_SetOnPrefsUpdated", 0),
+		/*304*/ imports.NewTable("ChromiumCore_SetOnPrintDialog", 0),
+		/*305*/ imports.NewTable("ChromiumCore_SetOnPrintJob", 0),
+		/*306*/ imports.NewTable("ChromiumCore_SetOnPrintReset", 0),
+		/*307*/ imports.NewTable("ChromiumCore_SetOnPrintSettings", 0),
+		/*308*/ imports.NewTable("ChromiumCore_SetOnPrintStart", 0),
+		/*309*/ imports.NewTable("ChromiumCore_SetOnProcessMessageReceived", 0),
+		/*310*/ imports.NewTable("ChromiumCore_SetOnProtocolExecution", 0),
+		/*311*/ imports.NewTable("ChromiumCore_SetOnQuickMenuCommand", 0),
+		/*312*/ imports.NewTable("ChromiumCore_SetOnQuickMenuDismissed", 0),
+		/*313*/ imports.NewTable("ChromiumCore_SetOnRenderCompMsg", 0),
+		/*314*/ imports.NewTable("ChromiumCore_SetOnRenderProcessTerminated", 0),
+		/*315*/ imports.NewTable("ChromiumCore_SetOnRenderViewReady", 0),
+		/*316*/ imports.NewTable("ChromiumCore_SetOnRequestContextInitialized", 0),
+		/*317*/ imports.NewTable("ChromiumCore_SetOnRequestMediaAccessPermission", 0),
+		/*318*/ imports.NewTable("ChromiumCore_SetOnResetDialogState", 0),
+		/*319*/ imports.NewTable("ChromiumCore_SetOnResolvedHostAvailable", 0),
+		/*320*/ imports.NewTable("ChromiumCore_SetOnResourceLoadComplete", 0),
+		/*321*/ imports.NewTable("ChromiumCore_SetOnResourceRedirect", 0),
+		/*322*/ imports.NewTable("ChromiumCore_SetOnResourceResponse", 0),
+		/*323*/ imports.NewTable("ChromiumCore_SetOnRouteMessageReceived", 0),
+		/*324*/ imports.NewTable("ChromiumCore_SetOnRouteStateChanged", 0),
+		/*325*/ imports.NewTable("ChromiumCore_SetOnRoutes", 0),
+		/*326*/ imports.NewTable("ChromiumCore_SetOnRunContextMenu", 0),
+		/*327*/ imports.NewTable("ChromiumCore_SetOnRunQuickMenu", 0),
+		/*328*/ imports.NewTable("ChromiumCore_SetOnScrollOffsetChanged", 0),
+		/*329*/ imports.NewTable("ChromiumCore_SetOnSelectClientCertificate", 0),
+		/*330*/ imports.NewTable("ChromiumCore_SetOnSetFocus", 0),
+		/*331*/ imports.NewTable("ChromiumCore_SetOnShowPermissionPrompt", 0),
+		/*332*/ imports.NewTable("ChromiumCore_SetOnSinks", 0),
+		/*333*/ imports.NewTable("ChromiumCore_SetOnStartDragging", 0),
+		/*334*/ imports.NewTable("ChromiumCore_SetOnStatusMessage", 0),
+		/*335*/ imports.NewTable("ChromiumCore_SetOnTakeFocus", 0),
+		/*336*/ imports.NewTable("ChromiumCore_SetOnTextResultAvailable", 0),
+		/*337*/ imports.NewTable("ChromiumCore_SetOnTextSelectionChanged", 0),
+		/*338*/ imports.NewTable("ChromiumCore_SetOnTitleChange", 0),
+		/*339*/ imports.NewTable("ChromiumCore_SetOnTooltip", 0),
+		/*340*/ imports.NewTable("ChromiumCore_SetOnTouchHandleStateChanged", 0),
+		/*341*/ imports.NewTable("ChromiumCore_SetOnUpdateDragCursor", 0),
+		/*342*/ imports.NewTable("ChromiumCore_SetOnVirtualKeyboardRequested", 0),
+		/*343*/ imports.NewTable("ChromiumCore_SetOnWidgetCompMsg", 0),
+		/*344*/ imports.NewTable("ChromiumCore_SetOnZoomPctAvailable", 0),
+		/*345*/ imports.NewTable("ChromiumCore_SetUserAgentOverride", 0),
+		/*346*/ imports.NewTable("ChromiumCore_SetWebsiteSetting", 0),
+		/*347*/ imports.NewTable("ChromiumCore_ShareRequestContext", 0),
+		/*348*/ imports.NewTable("ChromiumCore_ShowDevTools", 0),
+		/*349*/ imports.NewTable("ChromiumCore_ShutdownDragAndDrop", 0),
+		/*350*/ imports.NewTable("ChromiumCore_SimulateMouseWheel", 0),
+		/*351*/ imports.NewTable("ChromiumCore_SpellCheckerDicts", 0),
+		/*352*/ imports.NewTable("ChromiumCore_SpellChecking", 0),
+		/*353*/ imports.NewTable("ChromiumCore_StartDownload", 0),
+		/*354*/ imports.NewTable("ChromiumCore_StopFinding", 0),
+		/*355*/ imports.NewTable("ChromiumCore_StopLoad", 0),
+		/*356*/ imports.NewTable("ChromiumCore_ToggleAudioMuted", 0),
+		/*357*/ imports.NewTable("ChromiumCore_TryCloseBrowser", 0),
+		/*358*/ imports.NewTable("ChromiumCore_UpdateBrowserSize", 0),
+		/*359*/ imports.NewTable("ChromiumCore_UpdatePreferences", 0),
+		/*360*/ imports.NewTable("ChromiumCore_UpdateXWindowVisibility", 0),
+		/*361*/ imports.NewTable("ChromiumCore_VisibleNavigationEntry", 0),
+		/*362*/ imports.NewTable("ChromiumCore_VisitAllCookies", 0),
+		/*363*/ imports.NewTable("ChromiumCore_VisitURLCookies", 0),
+		/*364*/ imports.NewTable("ChromiumCore_WasHidden", 0),
+		/*365*/ imports.NewTable("ChromiumCore_WasResized", 0),
+		/*366*/ imports.NewTable("ChromiumCore_WebRTCIPHandlingPolicy", 0),
+		/*367*/ imports.NewTable("ChromiumCore_WebRTCMultipleRoutes", 0),
+		/*368*/ imports.NewTable("ChromiumCore_WebRTCNonproxiedUDP", 0),
+		/*369*/ imports.NewTable("ChromiumCore_WidgetHandle", 0),
+		/*370*/ imports.NewTable("ChromiumCore_WindowHandle", 0),
+		/*371*/ imports.NewTable("ChromiumCore_WindowlessFrameRate", 0),
+		/*372*/ imports.NewTable("ChromiumCore_YouTubeRestrict", 0),
+		/*373*/ imports.NewTable("ChromiumCore_ZoomLevel", 0),
+		/*374*/ imports.NewTable("ChromiumCore_ZoomPct", 0),
+		/*375*/ imports.NewTable("ChromiumCore_ZoomStep", 0),
 	}
 )
 

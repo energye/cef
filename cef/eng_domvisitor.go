@@ -21,7 +21,9 @@ import (
 //	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_dom_capi.h">CEF source file: /include/capi/cef_dom_capi.h (cef_domvisitor_t)</a>
 type IDomVisitor interface {
 	ICefDomVisitor
-	AsInterface() ICefDomVisitor // function
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefDomVisitor // procedure
 	// SetOnDomVisitor
 	//  Method executed for visiting the DOM. The document object passed to this
 	//  function represents a snapshot of the DOM at the time this function is

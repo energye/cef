@@ -16,6 +16,9 @@ import (
 // ICustomMediaObserver Parent: ICefMediaObserver
 type ICustomMediaObserver interface {
 	ICefMediaObserver
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefMediaObserver // procedure
 }
 
 // TCustomMediaObserver Parent: TCefMediaObserver
@@ -24,14 +27,21 @@ type TCustomMediaObserver struct {
 }
 
 func NewCustomMediaObserver(events IChromiumEvents) ICustomMediaObserver {
-	r1 := customMediaObserverImportAPI().SysCallN(0, GetObjectUintptr(events))
+	r1 := customMediaObserverImportAPI().SysCallN(1, GetObjectUintptr(events))
 	return AsCustomMediaObserver(r1)
+}
+
+func (m *TCustomMediaObserver) AsInterface() ICefMediaObserver {
+	var resultCefMediaObserver uintptr
+	customMediaObserverImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefMediaObserver)))
+	return AsCefMediaObserver(resultCefMediaObserver)
 }
 
 var (
 	customMediaObserverImport       *imports.Imports = nil
 	customMediaObserverImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("CustomMediaObserver_Create", 0),
+		/*0*/ imports.NewTable("CustomMediaObserver_AsInterface", 0),
+		/*1*/ imports.NewTable("CustomMediaObserver_Create", 0),
 	}
 )
 

@@ -16,6 +16,9 @@ import (
 // ICefCreateCustomViewTask Parent: ICefTask
 type ICefCreateCustomViewTask interface {
 	ICefTask
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefTask // procedure
 }
 
 // TCefCreateCustomViewTask Parent: TCefTask
@@ -24,14 +27,21 @@ type TCefCreateCustomViewTask struct {
 }
 
 func NewCefCreateCustomViewTask(aEvents ICefViewDelegateEvents) ICefCreateCustomViewTask {
-	r1 := createCustomViewTaskImportAPI().SysCallN(0, GetObjectUintptr(aEvents))
+	r1 := createCustomViewTaskImportAPI().SysCallN(1, GetObjectUintptr(aEvents))
 	return AsCefCreateCustomViewTask(r1)
+}
+
+func (m *TCefCreateCustomViewTask) AsInterface() ICefTask {
+	var resultCefTask uintptr
+	createCustomViewTaskImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefTask)))
+	return AsCefTask(resultCefTask)
 }
 
 var (
 	createCustomViewTaskImport       *imports.Imports = nil
 	createCustomViewTaskImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("CefCreateCustomViewTask_Create", 0),
+		/*0*/ imports.NewTable("CefCreateCustomViewTask_AsInterface", 0),
+		/*1*/ imports.NewTable("CefCreateCustomViewTask_Create", 0),
 	}
 )
 

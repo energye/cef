@@ -16,6 +16,9 @@ import (
 // ICustomFindHandler Parent: ICefFindHandler
 type ICustomFindHandler interface {
 	ICefFindHandler
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefFindHandler // procedure
 }
 
 // TCustomFindHandler Parent: TCefFindHandler
@@ -24,14 +27,21 @@ type TCustomFindHandler struct {
 }
 
 func NewCustomFindHandler(events IChromiumEvents) ICustomFindHandler {
-	r1 := customFindHandlerImportAPI().SysCallN(0, GetObjectUintptr(events))
+	r1 := customFindHandlerImportAPI().SysCallN(1, GetObjectUintptr(events))
 	return AsCustomFindHandler(r1)
+}
+
+func (m *TCustomFindHandler) AsInterface() ICefFindHandler {
+	var resultCefFindHandler uintptr
+	customFindHandlerImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefFindHandler)))
+	return AsCefFindHandler(resultCefFindHandler)
 }
 
 var (
 	customFindHandlerImport       *imports.Imports = nil
 	customFindHandlerImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("CustomFindHandler_Create", 0),
+		/*0*/ imports.NewTable("CustomFindHandler_AsInterface", 0),
+		/*1*/ imports.NewTable("CustomFindHandler_Create", 0),
 	}
 )
 

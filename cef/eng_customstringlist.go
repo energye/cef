@@ -18,6 +18,9 @@ import (
 //	CEF string maps are a set of key/value string pairs.
 type ICefCustomStringList interface {
 	IObject
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefStringList // procedure
 }
 
 // TCefCustomStringList Parent: TObject
@@ -28,14 +31,21 @@ type TCefCustomStringList struct {
 }
 
 func NewCefCustomStringList() ICefCustomStringList {
-	r1 := customStringListImportAPI().SysCallN(0)
+	r1 := customStringListImportAPI().SysCallN(1)
 	return AsCefCustomStringList(r1)
+}
+
+func (m *TCefCustomStringList) AsInterface() ICefStringList {
+	var resultCefStringList uintptr
+	customStringListImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefStringList)))
+	return AsCefStringList(resultCefStringList)
 }
 
 var (
 	customStringListImport       *imports.Imports = nil
 	customStringListImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("CefCustomStringList_Create", 0),
+		/*0*/ imports.NewTable("CefCustomStringList_AsInterface", 0),
+		/*1*/ imports.NewTable("CefCustomStringList_Create", 0),
 	}
 )
 

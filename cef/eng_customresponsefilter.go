@@ -16,6 +16,9 @@ import (
 // ICustomResponseFilter Parent: ICefResponseFilter
 type ICustomResponseFilter interface {
 	ICefResponseFilter
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefResponseFilter  // procedure
 	SetOnFilter(fn TOnFilter)         // property event
 	SetOnInitFilter(fn TOnInitFilter) // property event
 }
@@ -28,8 +31,14 @@ type TCustomResponseFilter struct {
 }
 
 func NewCustomResponseFilter() ICustomResponseFilter {
-	r1 := customResponseFilterImportAPI().SysCallN(0)
+	r1 := customResponseFilterImportAPI().SysCallN(1)
 	return AsCustomResponseFilter(r1)
+}
+
+func (m *TCustomResponseFilter) AsInterface() ICefResponseFilter {
+	var resultCefResponseFilter uintptr
+	customResponseFilterImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefResponseFilter)))
+	return AsCefResponseFilter(resultCefResponseFilter)
 }
 
 func (m *TCustomResponseFilter) SetOnFilter(fn TOnFilter) {
@@ -37,7 +46,7 @@ func (m *TCustomResponseFilter) SetOnFilter(fn TOnFilter) {
 		RemoveEventElement(m.filterPtr)
 	}
 	m.filterPtr = MakeEventDataPtr(fn)
-	customResponseFilterImportAPI().SysCallN(1, m.Instance(), m.filterPtr)
+	customResponseFilterImportAPI().SysCallN(2, m.Instance(), m.filterPtr)
 }
 
 func (m *TCustomResponseFilter) SetOnInitFilter(fn TOnInitFilter) {
@@ -45,15 +54,16 @@ func (m *TCustomResponseFilter) SetOnInitFilter(fn TOnInitFilter) {
 		RemoveEventElement(m.initFilterPtr)
 	}
 	m.initFilterPtr = MakeEventDataPtr(fn)
-	customResponseFilterImportAPI().SysCallN(2, m.Instance(), m.initFilterPtr)
+	customResponseFilterImportAPI().SysCallN(3, m.Instance(), m.initFilterPtr)
 }
 
 var (
 	customResponseFilterImport       *imports.Imports = nil
 	customResponseFilterImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("CustomResponseFilter_Create", 0),
-		/*1*/ imports.NewTable("CustomResponseFilter_SetOnFilter", 0),
-		/*2*/ imports.NewTable("CustomResponseFilter_SetOnInitFilter", 0),
+		/*0*/ imports.NewTable("CustomResponseFilter_AsInterface", 0),
+		/*1*/ imports.NewTable("CustomResponseFilter_Create", 0),
+		/*2*/ imports.NewTable("CustomResponseFilter_SetOnFilter", 0),
+		/*3*/ imports.NewTable("CustomResponseFilter_SetOnInitFilter", 0),
 	}
 )
 

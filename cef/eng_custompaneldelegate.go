@@ -19,6 +19,9 @@ import (
 //	ICefPanelDelegateEvents will be implemented by the control receiving the ICefPanelDelegate events.
 type ICustomPanelDelegate interface {
 	ICefPanelDelegate
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefPanelDelegate // procedure
 }
 
 // TCustomPanelDelegate Parent: TCefPanelDelegate
@@ -30,14 +33,21 @@ type TCustomPanelDelegate struct {
 }
 
 func NewCustomPanelDelegate(events ICefPanelDelegateEvents) ICustomPanelDelegate {
-	r1 := customPanelDelegateImportAPI().SysCallN(0, GetObjectUintptr(events))
+	r1 := customPanelDelegateImportAPI().SysCallN(1, GetObjectUintptr(events))
 	return AsCustomPanelDelegate(r1)
+}
+
+func (m *TCustomPanelDelegate) AsInterface() ICefPanelDelegate {
+	var resultCefPanelDelegate uintptr
+	customPanelDelegateImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefPanelDelegate)))
+	return AsCefPanelDelegate(resultCefPanelDelegate)
 }
 
 var (
 	customPanelDelegateImport       *imports.Imports = nil
 	customPanelDelegateImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("CustomPanelDelegate_Create", 0),
+		/*0*/ imports.NewTable("CustomPanelDelegate_AsInterface", 0),
+		/*1*/ imports.NewTable("CustomPanelDelegate_Create", 0),
 	}
 )
 

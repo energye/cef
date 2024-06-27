@@ -19,6 +19,9 @@ import (
 //	ICefBrowserViewDelegateEvents will be implemented by the control receiving the ICefBrowserViewDelegate events.
 type ICustomBrowserViewDelegate interface {
 	ICefBrowserViewDelegate
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefBrowserViewDelegate // procedure
 }
 
 // TCustomBrowserViewDelegate Parent: TCefBrowserViewDelegate
@@ -30,14 +33,21 @@ type TCustomBrowserViewDelegate struct {
 }
 
 func NewCustomBrowserViewDelegate(events ICefBrowserViewDelegateEvents) ICustomBrowserViewDelegate {
-	r1 := customBrowserViewDelegateImportAPI().SysCallN(0, GetObjectUintptr(events))
+	r1 := customBrowserViewDelegateImportAPI().SysCallN(1, GetObjectUintptr(events))
 	return AsCustomBrowserViewDelegate(r1)
+}
+
+func (m *TCustomBrowserViewDelegate) AsInterface() ICefBrowserViewDelegate {
+	var resultCefBrowserViewDelegate uintptr
+	customBrowserViewDelegateImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefBrowserViewDelegate)))
+	return AsCefBrowserViewDelegate(resultCefBrowserViewDelegate)
 }
 
 var (
 	customBrowserViewDelegateImport       *imports.Imports = nil
 	customBrowserViewDelegateImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("CustomBrowserViewDelegate_Create", 0),
+		/*0*/ imports.NewTable("CustomBrowserViewDelegate_AsInterface", 0),
+		/*1*/ imports.NewTable("CustomBrowserViewDelegate_Create", 0),
 	}
 )
 

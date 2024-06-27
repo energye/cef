@@ -21,7 +21,9 @@ import (
 //	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_browser_capi.h">CEF source file: /include/capi/cef_browser_capi.h (cef_run_file_dialog_callback_t)</a>
 type IRunFileDialogCallback interface {
 	ICefRunFileDialogCallback
-	AsInterface() ICefRunFileDialogCallback // function
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefRunFileDialogCallback // procedure
 	// SetOnRunFileDialogDismissed
 	//  Called asynchronously after the file dialog is dismissed. |file_paths|
 	//  will be a single value or a list of values depending on the dialog mode.

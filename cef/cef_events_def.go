@@ -20,6 +20,8 @@ import (
 
 // ==== Events 代理对象接口 ====
 
+type IApplicationCoreEvents = ICefApplication
+type IChromiumEvents = IChromiumCore
 type ICefViewDelegateEvents = ICEFViewComponent
 type ICefBrowserViewDelegateEvents = ICEFBrowserViewComponent
 type ICefButtonDelegateEvents = ICEFButtonComponent

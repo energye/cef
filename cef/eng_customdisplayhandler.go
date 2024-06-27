@@ -16,6 +16,9 @@ import (
 // ICustomDisplayHandler Parent: ICefDisplayHandler
 type ICustomDisplayHandler interface {
 	ICefDisplayHandler
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefDisplayHandler // procedure
 }
 
 // TCustomDisplayHandler Parent: TCefDisplayHandler
@@ -24,14 +27,21 @@ type TCustomDisplayHandler struct {
 }
 
 func NewCustomDisplayHandler(events IChromiumEvents) ICustomDisplayHandler {
-	r1 := customDisplayHandlerImportAPI().SysCallN(0, GetObjectUintptr(events))
+	r1 := customDisplayHandlerImportAPI().SysCallN(1, GetObjectUintptr(events))
 	return AsCustomDisplayHandler(r1)
+}
+
+func (m *TCustomDisplayHandler) AsInterface() ICefDisplayHandler {
+	var resultCefDisplayHandler uintptr
+	customDisplayHandlerImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefDisplayHandler)))
+	return AsCefDisplayHandler(resultCefDisplayHandler)
 }
 
 var (
 	customDisplayHandlerImport       *imports.Imports = nil
 	customDisplayHandlerImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("CustomDisplayHandler_Create", 0),
+		/*0*/ imports.NewTable("CustomDisplayHandler_AsInterface", 0),
+		/*1*/ imports.NewTable("CustomDisplayHandler_Create", 0),
 	}
 )
 

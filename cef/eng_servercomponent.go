@@ -18,6 +18,9 @@ import (
 //	The TCEFServerComponent class puts together all CEF server procedures, functions, properties and events in one place.
 type ICEFServerComponent interface {
 	IComponent
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() IServerEvents // procedure
 	// Initialized
 	//  Returns true when the server and the handler are initialized.
 	Initialized() bool // property
@@ -202,17 +205,23 @@ type TCEFServerComponent struct {
 }
 
 func NewCEFServerComponent(aOwner IComponent) ICEFServerComponent {
-	r1 := serverComponentImportAPI().SysCallN(2, GetObjectUintptr(aOwner))
+	r1 := serverComponentImportAPI().SysCallN(3, GetObjectUintptr(aOwner))
 	return AsCEFServerComponent(r1)
 }
 
+func (m *TCEFServerComponent) AsInterface() IServerEvents {
+	var resultServerEvents uintptr
+	serverComponentImportAPI().SysCallN(1, m.Instance(), uintptr(unsafePointer(&resultServerEvents)))
+	return AsServerEvents(resultServerEvents)
+}
+
 func (m *TCEFServerComponent) Initialized() bool {
-	r1 := serverComponentImportAPI().SysCallN(5, m.Instance())
+	r1 := serverComponentImportAPI().SysCallN(6, m.Instance())
 	return GoBool(r1)
 }
 
 func (m *TCEFServerComponent) IsRunning() bool {
-	r1 := serverComponentImportAPI().SysCallN(6, m.Instance())
+	r1 := serverComponentImportAPI().SysCallN(7, m.Instance())
 	return GoBool(r1)
 }
 
@@ -222,49 +231,49 @@ func (m *TCEFServerComponent) Address() string {
 }
 
 func (m *TCEFServerComponent) HasConnection() bool {
-	r1 := serverComponentImportAPI().SysCallN(4, m.Instance())
+	r1 := serverComponentImportAPI().SysCallN(5, m.Instance())
 	return GoBool(r1)
 }
 
 func (m *TCEFServerComponent) IsValidConnection(connectionid int32) bool {
-	r1 := serverComponentImportAPI().SysCallN(7, m.Instance(), uintptr(connectionid))
+	r1 := serverComponentImportAPI().SysCallN(8, m.Instance(), uintptr(connectionid))
 	return GoBool(r1)
 }
 
 func (m *TCEFServerComponent) CreateServer(address string, port uint16, backlog int32) {
-	serverComponentImportAPI().SysCallN(3, m.Instance(), PascalStr(address), uintptr(port), uintptr(backlog))
+	serverComponentImportAPI().SysCallN(4, m.Instance(), PascalStr(address), uintptr(port), uintptr(backlog))
 }
 
 func (m *TCEFServerComponent) Shutdown() {
-	serverComponentImportAPI().SysCallN(22, m.Instance())
+	serverComponentImportAPI().SysCallN(23, m.Instance())
 }
 
 func (m *TCEFServerComponent) SendHttp200response(connectionid int32, contenttype string, data uintptr, datasize NativeUInt) {
-	serverComponentImportAPI().SysCallN(8, m.Instance(), uintptr(connectionid), PascalStr(contenttype), uintptr(data), uintptr(datasize))
+	serverComponentImportAPI().SysCallN(9, m.Instance(), uintptr(connectionid), PascalStr(contenttype), uintptr(data), uintptr(datasize))
 }
 
 func (m *TCEFServerComponent) SendHttp404response(connectionid int32) {
-	serverComponentImportAPI().SysCallN(9, m.Instance(), uintptr(connectionid))
+	serverComponentImportAPI().SysCallN(10, m.Instance(), uintptr(connectionid))
 }
 
 func (m *TCEFServerComponent) SendHttp500response(connectionid int32, errormessage string) {
-	serverComponentImportAPI().SysCallN(10, m.Instance(), uintptr(connectionid), PascalStr(errormessage))
+	serverComponentImportAPI().SysCallN(11, m.Instance(), uintptr(connectionid), PascalStr(errormessage))
 }
 
 func (m *TCEFServerComponent) SendHttpResponse(connectionid, responsecode int32, contenttype string, contentlength int64, extraheaders ICefStringMultimap) {
-	serverComponentImportAPI().SysCallN(11, m.Instance(), uintptr(connectionid), uintptr(responsecode), PascalStr(contenttype), uintptr(unsafePointer(&contentlength)), GetObjectUintptr(extraheaders))
+	serverComponentImportAPI().SysCallN(12, m.Instance(), uintptr(connectionid), uintptr(responsecode), PascalStr(contenttype), uintptr(unsafePointer(&contentlength)), GetObjectUintptr(extraheaders))
 }
 
 func (m *TCEFServerComponent) SendRawData(connectionid int32, data uintptr, datasize NativeUInt) {
-	serverComponentImportAPI().SysCallN(12, m.Instance(), uintptr(connectionid), uintptr(data), uintptr(datasize))
+	serverComponentImportAPI().SysCallN(13, m.Instance(), uintptr(connectionid), uintptr(data), uintptr(datasize))
 }
 
 func (m *TCEFServerComponent) CloseConnection(connectionid int32) {
-	serverComponentImportAPI().SysCallN(1, m.Instance(), uintptr(connectionid))
+	serverComponentImportAPI().SysCallN(2, m.Instance(), uintptr(connectionid))
 }
 
 func (m *TCEFServerComponent) SendWebSocketMessage(connectionid int32, data uintptr, datasize NativeUInt) {
-	serverComponentImportAPI().SysCallN(13, m.Instance(), uintptr(connectionid), uintptr(data), uintptr(datasize))
+	serverComponentImportAPI().SysCallN(14, m.Instance(), uintptr(connectionid), uintptr(data), uintptr(datasize))
 }
 
 func (m *TCEFServerComponent) SetOnServerCreated(fn TOnServerCreated) {
@@ -272,7 +281,7 @@ func (m *TCEFServerComponent) SetOnServerCreated(fn TOnServerCreated) {
 		RemoveEventElement(m.serverCreatedPtr)
 	}
 	m.serverCreatedPtr = MakeEventDataPtr(fn)
-	serverComponentImportAPI().SysCallN(17, m.Instance(), m.serverCreatedPtr)
+	serverComponentImportAPI().SysCallN(18, m.Instance(), m.serverCreatedPtr)
 }
 
 func (m *TCEFServerComponent) SetOnServerDestroyed(fn TOnServerDestroyed) {
@@ -280,7 +289,7 @@ func (m *TCEFServerComponent) SetOnServerDestroyed(fn TOnServerDestroyed) {
 		RemoveEventElement(m.serverDestroyedPtr)
 	}
 	m.serverDestroyedPtr = MakeEventDataPtr(fn)
-	serverComponentImportAPI().SysCallN(18, m.Instance(), m.serverDestroyedPtr)
+	serverComponentImportAPI().SysCallN(19, m.Instance(), m.serverDestroyedPtr)
 }
 
 func (m *TCEFServerComponent) SetOnClientConnected(fn TOnClientConnected) {
@@ -288,7 +297,7 @@ func (m *TCEFServerComponent) SetOnClientConnected(fn TOnClientConnected) {
 		RemoveEventElement(m.clientConnectedPtr)
 	}
 	m.clientConnectedPtr = MakeEventDataPtr(fn)
-	serverComponentImportAPI().SysCallN(14, m.Instance(), m.clientConnectedPtr)
+	serverComponentImportAPI().SysCallN(15, m.Instance(), m.clientConnectedPtr)
 }
 
 func (m *TCEFServerComponent) SetOnClientDisconnected(fn TOnClientDisconnected) {
@@ -296,7 +305,7 @@ func (m *TCEFServerComponent) SetOnClientDisconnected(fn TOnClientDisconnected) 
 		RemoveEventElement(m.clientDisconnectedPtr)
 	}
 	m.clientDisconnectedPtr = MakeEventDataPtr(fn)
-	serverComponentImportAPI().SysCallN(15, m.Instance(), m.clientDisconnectedPtr)
+	serverComponentImportAPI().SysCallN(16, m.Instance(), m.clientDisconnectedPtr)
 }
 
 func (m *TCEFServerComponent) SetOnHttpRequest(fn TOnHttpRequest) {
@@ -304,7 +313,7 @@ func (m *TCEFServerComponent) SetOnHttpRequest(fn TOnHttpRequest) {
 		RemoveEventElement(m.httpRequestPtr)
 	}
 	m.httpRequestPtr = MakeEventDataPtr(fn)
-	serverComponentImportAPI().SysCallN(16, m.Instance(), m.httpRequestPtr)
+	serverComponentImportAPI().SysCallN(17, m.Instance(), m.httpRequestPtr)
 }
 
 func (m *TCEFServerComponent) SetOnWebSocketRequest(fn TOnWebSocketRequest) {
@@ -312,7 +321,7 @@ func (m *TCEFServerComponent) SetOnWebSocketRequest(fn TOnWebSocketRequest) {
 		RemoveEventElement(m.webSocketRequestPtr)
 	}
 	m.webSocketRequestPtr = MakeEventDataPtr(fn)
-	serverComponentImportAPI().SysCallN(21, m.Instance(), m.webSocketRequestPtr)
+	serverComponentImportAPI().SysCallN(22, m.Instance(), m.webSocketRequestPtr)
 }
 
 func (m *TCEFServerComponent) SetOnWebSocketConnected(fn TOnWebSocketConnected) {
@@ -320,7 +329,7 @@ func (m *TCEFServerComponent) SetOnWebSocketConnected(fn TOnWebSocketConnected) 
 		RemoveEventElement(m.webSocketConnectedPtr)
 	}
 	m.webSocketConnectedPtr = MakeEventDataPtr(fn)
-	serverComponentImportAPI().SysCallN(19, m.Instance(), m.webSocketConnectedPtr)
+	serverComponentImportAPI().SysCallN(20, m.Instance(), m.webSocketConnectedPtr)
 }
 
 func (m *TCEFServerComponent) SetOnWebSocketMessage(fn TOnWebSocketMessage) {
@@ -328,35 +337,36 @@ func (m *TCEFServerComponent) SetOnWebSocketMessage(fn TOnWebSocketMessage) {
 		RemoveEventElement(m.webSocketMessagePtr)
 	}
 	m.webSocketMessagePtr = MakeEventDataPtr(fn)
-	serverComponentImportAPI().SysCallN(20, m.Instance(), m.webSocketMessagePtr)
+	serverComponentImportAPI().SysCallN(21, m.Instance(), m.webSocketMessagePtr)
 }
 
 var (
 	serverComponentImport       *imports.Imports = nil
 	serverComponentImportTables                  = []*imports.Table{
 		/*0*/ imports.NewTable("CEFServerComponent_Address", 0),
-		/*1*/ imports.NewTable("CEFServerComponent_CloseConnection", 0),
-		/*2*/ imports.NewTable("CEFServerComponent_Create", 0),
-		/*3*/ imports.NewTable("CEFServerComponent_CreateServer", 0),
-		/*4*/ imports.NewTable("CEFServerComponent_HasConnection", 0),
-		/*5*/ imports.NewTable("CEFServerComponent_Initialized", 0),
-		/*6*/ imports.NewTable("CEFServerComponent_IsRunning", 0),
-		/*7*/ imports.NewTable("CEFServerComponent_IsValidConnection", 0),
-		/*8*/ imports.NewTable("CEFServerComponent_SendHttp200response", 0),
-		/*9*/ imports.NewTable("CEFServerComponent_SendHttp404response", 0),
-		/*10*/ imports.NewTable("CEFServerComponent_SendHttp500response", 0),
-		/*11*/ imports.NewTable("CEFServerComponent_SendHttpResponse", 0),
-		/*12*/ imports.NewTable("CEFServerComponent_SendRawData", 0),
-		/*13*/ imports.NewTable("CEFServerComponent_SendWebSocketMessage", 0),
-		/*14*/ imports.NewTable("CEFServerComponent_SetOnClientConnected", 0),
-		/*15*/ imports.NewTable("CEFServerComponent_SetOnClientDisconnected", 0),
-		/*16*/ imports.NewTable("CEFServerComponent_SetOnHttpRequest", 0),
-		/*17*/ imports.NewTable("CEFServerComponent_SetOnServerCreated", 0),
-		/*18*/ imports.NewTable("CEFServerComponent_SetOnServerDestroyed", 0),
-		/*19*/ imports.NewTable("CEFServerComponent_SetOnWebSocketConnected", 0),
-		/*20*/ imports.NewTable("CEFServerComponent_SetOnWebSocketMessage", 0),
-		/*21*/ imports.NewTable("CEFServerComponent_SetOnWebSocketRequest", 0),
-		/*22*/ imports.NewTable("CEFServerComponent_Shutdown", 0),
+		/*1*/ imports.NewTable("CEFServerComponent_AsInterface", 0),
+		/*2*/ imports.NewTable("CEFServerComponent_CloseConnection", 0),
+		/*3*/ imports.NewTable("CEFServerComponent_Create", 0),
+		/*4*/ imports.NewTable("CEFServerComponent_CreateServer", 0),
+		/*5*/ imports.NewTable("CEFServerComponent_HasConnection", 0),
+		/*6*/ imports.NewTable("CEFServerComponent_Initialized", 0),
+		/*7*/ imports.NewTable("CEFServerComponent_IsRunning", 0),
+		/*8*/ imports.NewTable("CEFServerComponent_IsValidConnection", 0),
+		/*9*/ imports.NewTable("CEFServerComponent_SendHttp200response", 0),
+		/*10*/ imports.NewTable("CEFServerComponent_SendHttp404response", 0),
+		/*11*/ imports.NewTable("CEFServerComponent_SendHttp500response", 0),
+		/*12*/ imports.NewTable("CEFServerComponent_SendHttpResponse", 0),
+		/*13*/ imports.NewTable("CEFServerComponent_SendRawData", 0),
+		/*14*/ imports.NewTable("CEFServerComponent_SendWebSocketMessage", 0),
+		/*15*/ imports.NewTable("CEFServerComponent_SetOnClientConnected", 0),
+		/*16*/ imports.NewTable("CEFServerComponent_SetOnClientDisconnected", 0),
+		/*17*/ imports.NewTable("CEFServerComponent_SetOnHttpRequest", 0),
+		/*18*/ imports.NewTable("CEFServerComponent_SetOnServerCreated", 0),
+		/*19*/ imports.NewTable("CEFServerComponent_SetOnServerDestroyed", 0),
+		/*20*/ imports.NewTable("CEFServerComponent_SetOnWebSocketConnected", 0),
+		/*21*/ imports.NewTable("CEFServerComponent_SetOnWebSocketMessage", 0),
+		/*22*/ imports.NewTable("CEFServerComponent_SetOnWebSocketRequest", 0),
+		/*23*/ imports.NewTable("CEFServerComponent_Shutdown", 0),
 	}
 )
 

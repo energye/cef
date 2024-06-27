@@ -23,7 +23,9 @@ import (
 //	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_v8_capi.h">CEF source file: /include/capi/cef_v8_capi.h (cef_v8accessor_t)</a>
 type IV8Accessor interface {
 	ICefV8Accessor
-	AsInterface() ICefV8Accessor // function
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefV8Accessor // procedure
 	// SetOnGet
 	//  Handle retrieval the accessor value identified by |name|. |object| is the
 	//  receiver('this' object) of the accessor. If retrieval succeeds set

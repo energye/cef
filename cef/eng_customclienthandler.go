@@ -16,7 +16,10 @@ import (
 // ICustomClientHandler Parent: ICefClient
 type ICustomClientHandler interface {
 	ICefClient
-	RemoveReferences() // procedure
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefClient // procedure
+	RemoveReferences()       // procedure
 }
 
 // TCustomClientHandler Parent: TCefClient
@@ -25,19 +28,26 @@ type TCustomClientHandler struct {
 }
 
 func NewCustomClientHandler(events IChromiumEvents, aDevToolsClient bool) ICustomClientHandler {
-	r1 := customClientHandlerImportAPI().SysCallN(0, GetObjectUintptr(events), PascalBool(aDevToolsClient))
+	r1 := customClientHandlerImportAPI().SysCallN(1, GetObjectUintptr(events), PascalBool(aDevToolsClient))
 	return AsCustomClientHandler(r1)
 }
 
+func (m *TCustomClientHandler) AsInterface() ICefClient {
+	var resultCefClient uintptr
+	customClientHandlerImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefClient)))
+	return AsCefClient(resultCefClient)
+}
+
 func (m *TCustomClientHandler) RemoveReferences() {
-	customClientHandlerImportAPI().SysCallN(1, m.Instance())
+	customClientHandlerImportAPI().SysCallN(2, m.Instance())
 }
 
 var (
 	customClientHandlerImport       *imports.Imports = nil
 	customClientHandlerImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("CustomClientHandler_Create", 0),
-		/*1*/ imports.NewTable("CustomClientHandler_RemoveReferences", 0),
+		/*0*/ imports.NewTable("CustomClientHandler_AsInterface", 0),
+		/*1*/ imports.NewTable("CustomClientHandler_Create", 0),
+		/*2*/ imports.NewTable("CustomClientHandler_RemoveReferences", 0),
 	}
 )
 

@@ -22,7 +22,9 @@ import (
 //	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_resource_handler_capi.h">CEF source file: /include/capi/cef_resource_handler_capi.h (cef_resource_handler_t)</a>
 type IResourceHandler interface {
 	ICefResourceHandler
-	AsInterface() ICefResourceHandler // function
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefResourceHandler // procedure
 	// SetOnOpen
 	//  Open the response stream. To handle the request immediately set
 	//  |handle_request| to true(1) and return true(1). To decide at a later

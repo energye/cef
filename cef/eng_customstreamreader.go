@@ -16,6 +16,9 @@ import (
 // ICefCustomStreamReader Parent: ICefBaseRefCountedOwn
 type ICefCustomStreamReader interface {
 	ICefBaseRefCountedOwn
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefCustomStreamReader // procedure
 }
 
 // TCefCustomStreamReader Parent: TCefBaseRefCountedOwn
@@ -24,20 +27,27 @@ type TCefCustomStreamReader struct {
 }
 
 func NewCefCustomStreamReader(stream IStream, owned bool) ICefCustomStreamReader {
-	r1 := customStreamReaderImportAPI().SysCallN(0, GetObjectUintptr(stream), PascalBool(owned))
+	r1 := customStreamReaderImportAPI().SysCallN(1, GetObjectUintptr(stream), PascalBool(owned))
 	return AsCefCustomStreamReader(r1)
 }
 
 func NewCefCustomStreamReader1(filename string) ICefCustomStreamReader {
-	r1 := customStreamReaderImportAPI().SysCallN(1, PascalStr(filename))
+	r1 := customStreamReaderImportAPI().SysCallN(2, PascalStr(filename))
 	return AsCefCustomStreamReader(r1)
+}
+
+func (m *TCefCustomStreamReader) AsInterface() ICefCustomStreamReader {
+	var resultCefCustomStreamReader uintptr
+	customStreamReaderImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefCustomStreamReader)))
+	return AsCefCustomStreamReader(resultCefCustomStreamReader)
 }
 
 var (
 	customStreamReaderImport       *imports.Imports = nil
 	customStreamReaderImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("CefCustomStreamReader_Create", 0),
-		/*1*/ imports.NewTable("CefCustomStreamReader_Create1", 0),
+		/*0*/ imports.NewTable("CefCustomStreamReader_AsInterface", 0),
+		/*1*/ imports.NewTable("CefCustomStreamReader_Create", 0),
+		/*2*/ imports.NewTable("CefCustomStreamReader_Create1", 0),
 	}
 )
 

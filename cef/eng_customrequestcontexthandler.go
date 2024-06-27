@@ -16,7 +16,10 @@ import (
 // ICustomRequestContextHandler Parent: ICefRequestContextHandler
 type ICustomRequestContextHandler interface {
 	ICefRequestContextHandler
-	RemoveReferences() // procedure
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefRequestContextHandler // procedure
+	RemoveReferences()                      // procedure
 }
 
 // TCustomRequestContextHandler Parent: TCefRequestContextHandler
@@ -25,19 +28,26 @@ type TCustomRequestContextHandler struct {
 }
 
 func NewCustomRequestContextHandler(events IChromiumEvents) ICustomRequestContextHandler {
-	r1 := customRequestContextHandlerImportAPI().SysCallN(0, GetObjectUintptr(events))
+	r1 := customRequestContextHandlerImportAPI().SysCallN(1, GetObjectUintptr(events))
 	return AsCustomRequestContextHandler(r1)
 }
 
+func (m *TCustomRequestContextHandler) AsInterface() ICefRequestContextHandler {
+	var resultCefRequestContextHandler uintptr
+	customRequestContextHandlerImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefRequestContextHandler)))
+	return AsCefRequestContextHandler(resultCefRequestContextHandler)
+}
+
 func (m *TCustomRequestContextHandler) RemoveReferences() {
-	customRequestContextHandlerImportAPI().SysCallN(1, m.Instance())
+	customRequestContextHandlerImportAPI().SysCallN(2, m.Instance())
 }
 
 var (
 	customRequestContextHandlerImport       *imports.Imports = nil
 	customRequestContextHandlerImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("CustomRequestContextHandler_Create", 0),
-		/*1*/ imports.NewTable("CustomRequestContextHandler_RemoveReferences", 0),
+		/*0*/ imports.NewTable("CustomRequestContextHandler_AsInterface", 0),
+		/*1*/ imports.NewTable("CustomRequestContextHandler_Create", 0),
+		/*2*/ imports.NewTable("CustomRequestContextHandler_RemoveReferences", 0),
 	}
 )
 

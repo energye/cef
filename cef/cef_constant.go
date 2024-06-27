@@ -66,11 +66,11 @@ type TCefCertStatus = Integer
 //	<a href="https://source.chromium.org/chromium/chromium/src/+/main:net/ssl/ssl_connection_status_flags.h">See net/ssl/ssl_connection_status_flags.h for more information.)</a>
 type TCefSSLVersion = integer
 
-// TCefStringList
+// TCefStringListPtr
 //
 //	CEF string maps are a set of key/value string pairs.
 //	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_string_list.h">CEF source file: /include/internal/cef_string_list.h (cef_string_list_t))</a>
-type TCefStringList = Pointer
+type TCefStringListPtr = Pointer
 
 // TCefStringMapHandle
 //

@@ -18,6 +18,9 @@ import (
 //	The TCEFUrlRequestClientComponent class puts together all CEF URL request procedures, functions, properties and events in one place.
 type ICEFUrlRequestClientComponent interface {
 	IComponent
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICEFUrlRequestClientEvents // procedure
 	// Client
 	//  Returns the client.
 	Client() ICefUrlRequestClient // property
@@ -91,23 +94,29 @@ type TCEFUrlRequestClientComponent struct {
 }
 
 func NewCEFUrlRequestClientComponent(aOwner IComponent) ICEFUrlRequestClientComponent {
-	r1 := urlRequestClientComponentImportAPI().SysCallN(2, GetObjectUintptr(aOwner))
+	r1 := urlRequestClientComponentImportAPI().SysCallN(3, GetObjectUintptr(aOwner))
 	return AsCEFUrlRequestClientComponent(r1)
+}
+
+func (m *TCEFUrlRequestClientComponent) AsInterface() ICEFUrlRequestClientEvents {
+	var resultCEFUrlRequestClientEvents uintptr
+	urlRequestClientComponentImportAPI().SysCallN(1, m.Instance(), uintptr(unsafePointer(&resultCEFUrlRequestClientEvents)))
+	return AsCEFUrlRequestClientEvents(resultCEFUrlRequestClientEvents)
 }
 
 func (m *TCEFUrlRequestClientComponent) Client() ICefUrlRequestClient {
 	var resultCefUrlRequestClient uintptr
-	urlRequestClientComponentImportAPI().SysCallN(1, m.Instance(), uintptr(unsafePointer(&resultCefUrlRequestClient)))
+	urlRequestClientComponentImportAPI().SysCallN(2, m.Instance(), uintptr(unsafePointer(&resultCefUrlRequestClient)))
 	return AsCefUrlRequestClient(resultCefUrlRequestClient)
 }
 
 func (m *TCEFUrlRequestClientComponent) ThreadID() TCefThreadId {
-	r1 := urlRequestClientComponentImportAPI().SysCallN(9, 0, m.Instance(), 0)
+	r1 := urlRequestClientComponentImportAPI().SysCallN(10, 0, m.Instance(), 0)
 	return TCefThreadId(r1)
 }
 
 func (m *TCEFUrlRequestClientComponent) SetThreadID(AValue TCefThreadId) {
-	urlRequestClientComponentImportAPI().SysCallN(9, 1, m.Instance(), uintptr(AValue))
+	urlRequestClientComponentImportAPI().SysCallN(10, 1, m.Instance(), uintptr(AValue))
 }
 
 func (m *TCEFUrlRequestClientComponent) AddURLRequest() {
@@ -119,7 +128,7 @@ func (m *TCEFUrlRequestClientComponent) SetOnRequestComplete(fn TOnRequestComple
 		RemoveEventElement(m.requestCompletePtr)
 	}
 	m.requestCompletePtr = MakeEventDataPtr(fn)
-	urlRequestClientComponentImportAPI().SysCallN(7, m.Instance(), m.requestCompletePtr)
+	urlRequestClientComponentImportAPI().SysCallN(8, m.Instance(), m.requestCompletePtr)
 }
 
 func (m *TCEFUrlRequestClientComponent) SetOnUploadProgress(fn TOnUploadProgressRcc) {
@@ -127,7 +136,7 @@ func (m *TCEFUrlRequestClientComponent) SetOnUploadProgress(fn TOnUploadProgress
 		RemoveEventElement(m.uploadProgressPtr)
 	}
 	m.uploadProgressPtr = MakeEventDataPtr(fn)
-	urlRequestClientComponentImportAPI().SysCallN(8, m.Instance(), m.uploadProgressPtr)
+	urlRequestClientComponentImportAPI().SysCallN(9, m.Instance(), m.uploadProgressPtr)
 }
 
 func (m *TCEFUrlRequestClientComponent) SetOnDownloadProgress(fn TOnDownloadProgressRcc) {
@@ -135,7 +144,7 @@ func (m *TCEFUrlRequestClientComponent) SetOnDownloadProgress(fn TOnDownloadProg
 		RemoveEventElement(m.downloadProgressPtr)
 	}
 	m.downloadProgressPtr = MakeEventDataPtr(fn)
-	urlRequestClientComponentImportAPI().SysCallN(5, m.Instance(), m.downloadProgressPtr)
+	urlRequestClientComponentImportAPI().SysCallN(6, m.Instance(), m.downloadProgressPtr)
 }
 
 func (m *TCEFUrlRequestClientComponent) SetOnDownloadData(fn TOnDownloadDataRcc) {
@@ -143,7 +152,7 @@ func (m *TCEFUrlRequestClientComponent) SetOnDownloadData(fn TOnDownloadDataRcc)
 		RemoveEventElement(m.downloadDataPtr)
 	}
 	m.downloadDataPtr = MakeEventDataPtr(fn)
-	urlRequestClientComponentImportAPI().SysCallN(4, m.Instance(), m.downloadDataPtr)
+	urlRequestClientComponentImportAPI().SysCallN(5, m.Instance(), m.downloadDataPtr)
 }
 
 func (m *TCEFUrlRequestClientComponent) SetOnGetAuthCredentials(fn TOnGetAuthCredentialsRcc) {
@@ -151,7 +160,7 @@ func (m *TCEFUrlRequestClientComponent) SetOnGetAuthCredentials(fn TOnGetAuthCre
 		RemoveEventElement(m.getAuthCredentialsPtr)
 	}
 	m.getAuthCredentialsPtr = MakeEventDataPtr(fn)
-	urlRequestClientComponentImportAPI().SysCallN(6, m.Instance(), m.getAuthCredentialsPtr)
+	urlRequestClientComponentImportAPI().SysCallN(7, m.Instance(), m.getAuthCredentialsPtr)
 }
 
 func (m *TCEFUrlRequestClientComponent) SetOnCreateURLRequest(fn TNotifyRcc) {
@@ -159,22 +168,23 @@ func (m *TCEFUrlRequestClientComponent) SetOnCreateURLRequest(fn TNotifyRcc) {
 		RemoveEventElement(m.createURLRequestPtr)
 	}
 	m.createURLRequestPtr = MakeEventDataPtr(fn)
-	urlRequestClientComponentImportAPI().SysCallN(3, m.Instance(), m.createURLRequestPtr)
+	urlRequestClientComponentImportAPI().SysCallN(4, m.Instance(), m.createURLRequestPtr)
 }
 
 var (
 	urlRequestClientComponentImport       *imports.Imports = nil
 	urlRequestClientComponentImportTables                  = []*imports.Table{
 		/*0*/ imports.NewTable("CEFUrlRequestClientComponent_AddURLRequest", 0),
-		/*1*/ imports.NewTable("CEFUrlRequestClientComponent_Client", 0),
-		/*2*/ imports.NewTable("CEFUrlRequestClientComponent_Create", 0),
-		/*3*/ imports.NewTable("CEFUrlRequestClientComponent_SetOnCreateURLRequest", 0),
-		/*4*/ imports.NewTable("CEFUrlRequestClientComponent_SetOnDownloadData", 0),
-		/*5*/ imports.NewTable("CEFUrlRequestClientComponent_SetOnDownloadProgress", 0),
-		/*6*/ imports.NewTable("CEFUrlRequestClientComponent_SetOnGetAuthCredentials", 0),
-		/*7*/ imports.NewTable("CEFUrlRequestClientComponent_SetOnRequestComplete", 0),
-		/*8*/ imports.NewTable("CEFUrlRequestClientComponent_SetOnUploadProgress", 0),
-		/*9*/ imports.NewTable("CEFUrlRequestClientComponent_ThreadID", 0),
+		/*1*/ imports.NewTable("CEFUrlRequestClientComponent_AsInterface", 0),
+		/*2*/ imports.NewTable("CEFUrlRequestClientComponent_Client", 0),
+		/*3*/ imports.NewTable("CEFUrlRequestClientComponent_Create", 0),
+		/*4*/ imports.NewTable("CEFUrlRequestClientComponent_SetOnCreateURLRequest", 0),
+		/*5*/ imports.NewTable("CEFUrlRequestClientComponent_SetOnDownloadData", 0),
+		/*6*/ imports.NewTable("CEFUrlRequestClientComponent_SetOnDownloadProgress", 0),
+		/*7*/ imports.NewTable("CEFUrlRequestClientComponent_SetOnGetAuthCredentials", 0),
+		/*8*/ imports.NewTable("CEFUrlRequestClientComponent_SetOnRequestComplete", 0),
+		/*9*/ imports.NewTable("CEFUrlRequestClientComponent_SetOnUploadProgress", 0),
+		/*10*/ imports.NewTable("CEFUrlRequestClientComponent_ThreadID", 0),
 	}
 )
 

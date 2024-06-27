@@ -16,6 +16,9 @@ import (
 // ICustomKeyboardHandler Parent: ICefKeyboardHandler
 type ICustomKeyboardHandler interface {
 	ICefKeyboardHandler
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefKeyboardHandler // procedure
 }
 
 // TCustomKeyboardHandler Parent: TCefKeyboardHandler
@@ -24,14 +27,21 @@ type TCustomKeyboardHandler struct {
 }
 
 func NewCustomKeyboardHandler(events IChromiumEvents) ICustomKeyboardHandler {
-	r1 := customKeyboardHandlerImportAPI().SysCallN(0, GetObjectUintptr(events))
+	r1 := customKeyboardHandlerImportAPI().SysCallN(1, GetObjectUintptr(events))
 	return AsCustomKeyboardHandler(r1)
+}
+
+func (m *TCustomKeyboardHandler) AsInterface() ICefKeyboardHandler {
+	var resultCefKeyboardHandler uintptr
+	customKeyboardHandlerImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefKeyboardHandler)))
+	return AsCefKeyboardHandler(resultCefKeyboardHandler)
 }
 
 var (
 	customKeyboardHandlerImport       *imports.Imports = nil
 	customKeyboardHandlerImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("CustomKeyboardHandler_Create", 0),
+		/*0*/ imports.NewTable("CustomKeyboardHandler_AsInterface", 0),
+		/*1*/ imports.NewTable("CustomKeyboardHandler_Create", 0),
 	}
 )
 

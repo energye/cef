@@ -16,6 +16,9 @@ import (
 // ICustomRenderHandler Parent: ICefRenderHandler
 type ICustomRenderHandler interface {
 	ICefRenderHandler
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefRenderHandler // procedure
 }
 
 // TCustomRenderHandler Parent: TCefRenderHandler
@@ -24,14 +27,21 @@ type TCustomRenderHandler struct {
 }
 
 func NewCustomRenderHandler(events IChromiumEvents) ICustomRenderHandler {
-	r1 := customRenderHandlerImportAPI().SysCallN(0, GetObjectUintptr(events))
+	r1 := customRenderHandlerImportAPI().SysCallN(1, GetObjectUintptr(events))
 	return AsCustomRenderHandler(r1)
+}
+
+func (m *TCustomRenderHandler) AsInterface() ICefRenderHandler {
+	var resultCefRenderHandler uintptr
+	customRenderHandlerImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefRenderHandler)))
+	return AsCefRenderHandler(resultCefRenderHandler)
 }
 
 var (
 	customRenderHandlerImport       *imports.Imports = nil
 	customRenderHandlerImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("CustomRenderHandler_Create", 0),
+		/*0*/ imports.NewTable("CustomRenderHandler_AsInterface", 0),
+		/*1*/ imports.NewTable("CustomRenderHandler_Create", 0),
 	}
 )
 

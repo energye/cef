@@ -22,7 +22,9 @@ import (
 //	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_v8_capi.h">CEF source file: /include/capi/cef_v8_capi.h (cef_v8handler_t)</a>
 type IV8Handler interface {
 	ICefV8Handler
-	AsInterface() ICefV8Handler // function
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefV8Handler // procedure
 	// SetOnExecute
 	//  Handle execution of the function identified by |name|. |object| is the
 	//  receiver('this' object) of the function. |arguments| is the list of

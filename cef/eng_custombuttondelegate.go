@@ -19,6 +19,9 @@ import (
 //	ICefButtonDelegateEvents will be implemented by the control receiving the ICefButtonDelegate events.
 type ICustomButtonDelegate interface {
 	ICefButtonDelegate
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefButtonDelegate // procedure
 }
 
 // TCustomButtonDelegate Parent: TCefButtonDelegate
@@ -30,14 +33,21 @@ type TCustomButtonDelegate struct {
 }
 
 func NewCustomButtonDelegate(events ICefButtonDelegateEvents) ICustomButtonDelegate {
-	r1 := customButtonDelegateImportAPI().SysCallN(0, GetObjectUintptr(events))
+	r1 := customButtonDelegateImportAPI().SysCallN(1, GetObjectUintptr(events))
 	return AsCustomButtonDelegate(r1)
+}
+
+func (m *TCustomButtonDelegate) AsInterface() ICefButtonDelegate {
+	var resultCefButtonDelegate uintptr
+	customButtonDelegateImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefButtonDelegate)))
+	return AsCefButtonDelegate(resultCefButtonDelegate)
 }
 
 var (
 	customButtonDelegateImport       *imports.Imports = nil
 	customButtonDelegateImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("CustomButtonDelegate_Create", 0),
+		/*0*/ imports.NewTable("CustomButtonDelegate_AsInterface", 0),
+		/*1*/ imports.NewTable("CustomButtonDelegate_Create", 0),
 	}
 )
 

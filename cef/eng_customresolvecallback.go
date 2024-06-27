@@ -16,6 +16,9 @@ import (
 // ICefCustomResolveCallback Parent: ICefResolveCallback
 type ICefCustomResolveCallback interface {
 	ICefResolveCallback
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefResolveCallback // procedure
 }
 
 // TCefCustomResolveCallback Parent: TCefResolveCallback
@@ -24,14 +27,21 @@ type TCefCustomResolveCallback struct {
 }
 
 func NewCefCustomResolveCallback(aEvents IChromiumEvents) ICefCustomResolveCallback {
-	r1 := customResolveCallbackImportAPI().SysCallN(0, GetObjectUintptr(aEvents))
+	r1 := customResolveCallbackImportAPI().SysCallN(1, GetObjectUintptr(aEvents))
 	return AsCefCustomResolveCallback(r1)
+}
+
+func (m *TCefCustomResolveCallback) AsInterface() ICefResolveCallback {
+	var resultCefResolveCallback uintptr
+	customResolveCallbackImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefResolveCallback)))
+	return AsCefResolveCallback(resultCefResolveCallback)
 }
 
 var (
 	customResolveCallbackImport       *imports.Imports = nil
 	customResolveCallbackImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("CefCustomResolveCallback_Create", 0),
+		/*0*/ imports.NewTable("CefCustomResolveCallback_AsInterface", 0),
+		/*1*/ imports.NewTable("CefCustomResolveCallback_Create", 0),
 	}
 )
 

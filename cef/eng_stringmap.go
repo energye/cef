@@ -18,6 +18,9 @@ import (
 //	CEF string maps are a set of key/value string pairs.
 type ICefStringMap interface {
 	IObject
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefStringMap     // procedure
 	GetHandle() TCefStringMapHandle // function
 	// GetSize
 	//  Return the number of elements in the string map.
@@ -48,32 +51,38 @@ type TCefStringMap struct {
 }
 
 func NewCefStringMap() ICefStringMap {
-	r1 := stringMapImportAPI().SysCallN(2)
+	r1 := stringMapImportAPI().SysCallN(3)
 	return AsCefStringMap(r1)
 }
 
+func (m *TCefStringMap) AsInterface() ICefStringMap {
+	var resultCefStringMap uintptr
+	stringMapImportAPI().SysCallN(1, m.Instance(), uintptr(unsafePointer(&resultCefStringMap)))
+	return AsCefStringMap(resultCefStringMap)
+}
+
 func (m *TCefStringMap) GetHandle() TCefStringMapHandle {
-	r1 := stringMapImportAPI().SysCallN(4, m.Instance())
+	r1 := stringMapImportAPI().SysCallN(5, m.Instance())
 	return TCefStringMapHandle(r1)
 }
 
 func (m *TCefStringMap) GetSize() NativeUInt {
-	r1 := stringMapImportAPI().SysCallN(6, m.Instance())
+	r1 := stringMapImportAPI().SysCallN(7, m.Instance())
 	return NativeUInt(r1)
 }
 
 func (m *TCefStringMap) Find(key string) string {
-	r1 := stringMapImportAPI().SysCallN(3, m.Instance(), PascalStr(key))
+	r1 := stringMapImportAPI().SysCallN(4, m.Instance(), PascalStr(key))
 	return GoStr(r1)
 }
 
 func (m *TCefStringMap) GetKey(index NativeUInt) string {
-	r1 := stringMapImportAPI().SysCallN(5, m.Instance(), uintptr(index))
+	r1 := stringMapImportAPI().SysCallN(6, m.Instance(), uintptr(index))
 	return GoStr(r1)
 }
 
 func (m *TCefStringMap) GetValue(index NativeUInt) string {
-	r1 := stringMapImportAPI().SysCallN(7, m.Instance(), uintptr(index))
+	r1 := stringMapImportAPI().SysCallN(8, m.Instance(), uintptr(index))
 	return GoStr(r1)
 }
 
@@ -83,20 +92,21 @@ func (m *TCefStringMap) Append(key, value string) bool {
 }
 
 func (m *TCefStringMap) Clear() {
-	stringMapImportAPI().SysCallN(1, m.Instance())
+	stringMapImportAPI().SysCallN(2, m.Instance())
 }
 
 var (
 	stringMapImport       *imports.Imports = nil
 	stringMapImportTables                  = []*imports.Table{
 		/*0*/ imports.NewTable("CefStringMap_Append", 0),
-		/*1*/ imports.NewTable("CefStringMap_Clear", 0),
-		/*2*/ imports.NewTable("CefStringMap_Create", 0),
-		/*3*/ imports.NewTable("CefStringMap_Find", 0),
-		/*4*/ imports.NewTable("CefStringMap_GetHandle", 0),
-		/*5*/ imports.NewTable("CefStringMap_GetKey", 0),
-		/*6*/ imports.NewTable("CefStringMap_GetSize", 0),
-		/*7*/ imports.NewTable("CefStringMap_GetValue", 0),
+		/*1*/ imports.NewTable("CefStringMap_AsInterface", 0),
+		/*2*/ imports.NewTable("CefStringMap_Clear", 0),
+		/*3*/ imports.NewTable("CefStringMap_Create", 0),
+		/*4*/ imports.NewTable("CefStringMap_Find", 0),
+		/*5*/ imports.NewTable("CefStringMap_GetHandle", 0),
+		/*6*/ imports.NewTable("CefStringMap_GetKey", 0),
+		/*7*/ imports.NewTable("CefStringMap_GetSize", 0),
+		/*8*/ imports.NewTable("CefStringMap_GetValue", 0),
 	}
 )
 

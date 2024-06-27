@@ -20,7 +20,9 @@ import (
 //	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_scheme_capi.h">CEF source file: /include/capi/cef_scheme_capi.h (cef_scheme_handler_factory_t)</a>
 type ISchemeHandlerFactory interface {
 	ICefSchemeHandlerFactory
-	AsInterface() ICefSchemeHandlerFactory // function
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefSchemeHandlerFactory // procedure
 	// SetOnNew
 	//  Return a new resource handler instance to handle the request or an NULL
 	//  reference to allow default handling of the request. |browser| and |frame|

@@ -8,6 +8,17 @@
 
 package cef
 
+// AsCefStringList Convert a pointer object to an existing class object
+func AsCefStringList(obj interface{}) ICefStringList {
+	instance := GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	cefStringList := new(TCefStringList)
+	SetObjectInstance(cefStringList, instance)
+	return cefStringList
+}
+
 // AsAccessibilityHandler Convert a pointer object to an existing class object
 func AsAccessibilityHandler(obj interface{}) IAccessibilityHandler {
 	instance := GetInstance(obj)

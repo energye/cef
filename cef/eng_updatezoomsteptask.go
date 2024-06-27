@@ -16,6 +16,9 @@ import (
 // ICefUpdateZoomStepTask Parent: ICefTask
 type ICefUpdateZoomStepTask interface {
 	ICefTask
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefTask // procedure
 }
 
 // TCefUpdateZoomStepTask Parent: TCefTask
@@ -24,14 +27,21 @@ type TCefUpdateZoomStepTask struct {
 }
 
 func NewCefUpdateZoomStepTask(aEvents IChromiumEvents, aInc bool) ICefUpdateZoomStepTask {
-	r1 := updateZoomStepTaskImportAPI().SysCallN(0, GetObjectUintptr(aEvents), PascalBool(aInc))
+	r1 := updateZoomStepTaskImportAPI().SysCallN(1, GetObjectUintptr(aEvents), PascalBool(aInc))
 	return AsCefUpdateZoomStepTask(r1)
+}
+
+func (m *TCefUpdateZoomStepTask) AsInterface() ICefTask {
+	var resultCefTask uintptr
+	updateZoomStepTaskImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefTask)))
+	return AsCefTask(resultCefTask)
 }
 
 var (
 	updateZoomStepTaskImport       *imports.Imports = nil
 	updateZoomStepTaskImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("CefUpdateZoomStepTask_Create", 0),
+		/*0*/ imports.NewTable("CefUpdateZoomStepTask_AsInterface", 0),
+		/*1*/ imports.NewTable("CefUpdateZoomStepTask_Create", 0),
 	}
 )
 

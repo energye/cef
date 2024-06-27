@@ -16,6 +16,9 @@ import (
 // ICustomJsDialogHandler Parent: ICefJsDialogHandler
 type ICustomJsDialogHandler interface {
 	ICefJsDialogHandler
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefJsDialogHandler // procedure
 }
 
 // TCustomJsDialogHandler Parent: TCefJsDialogHandler
@@ -24,14 +27,21 @@ type TCustomJsDialogHandler struct {
 }
 
 func NewCustomJsDialogHandler(events IChromiumEvents) ICustomJsDialogHandler {
-	r1 := customJsDialogHandlerImportAPI().SysCallN(0, GetObjectUintptr(events))
+	r1 := customJsDialogHandlerImportAPI().SysCallN(1, GetObjectUintptr(events))
 	return AsCustomJsDialogHandler(r1)
+}
+
+func (m *TCustomJsDialogHandler) AsInterface() ICefJsDialogHandler {
+	var resultCefJsDialogHandler uintptr
+	customJsDialogHandlerImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefJsDialogHandler)))
+	return AsCefJsDialogHandler(resultCefJsDialogHandler)
 }
 
 var (
 	customJsDialogHandlerImport       *imports.Imports = nil
 	customJsDialogHandlerImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("CustomJsDialogHandler_Create", 0),
+		/*0*/ imports.NewTable("CustomJsDialogHandler_AsInterface", 0),
+		/*1*/ imports.NewTable("CustomJsDialogHandler_Create", 0),
 	}
 )
 

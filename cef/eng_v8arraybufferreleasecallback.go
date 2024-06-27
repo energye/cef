@@ -20,7 +20,9 @@ import (
 //	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_v8_capi.h">CEF source file: /include/capi/cef_v8_capi.h (cef_v8array_buffer_release_callback_t)</a>
 type IV8ArrayBufferReleaseCallback interface {
 	ICefV8ArrayBufferReleaseCallback
-	AsInterface() ICefV8ArrayBufferReleaseCallback // function
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefV8ArrayBufferReleaseCallback // procedure
 	// SetOnReleaseBuffer
 	//  Called to release |buffer| when the ArrayBuffer JS object is garbage
 	//  collected. |buffer| is the value that was passed to CreateArrayBuffer

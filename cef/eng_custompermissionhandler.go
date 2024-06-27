@@ -16,6 +16,9 @@ import (
 // ICustomPermissionHandler Parent: ICefPermissionHandler
 type ICustomPermissionHandler interface {
 	ICefPermissionHandler
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefPermissionHandler // procedure
 }
 
 // TCustomPermissionHandler Parent: TCefPermissionHandler
@@ -24,14 +27,21 @@ type TCustomPermissionHandler struct {
 }
 
 func NewCustomPermissionHandler(events IChromiumEvents) ICustomPermissionHandler {
-	r1 := customPermissionHandlerImportAPI().SysCallN(0, GetObjectUintptr(events))
+	r1 := customPermissionHandlerImportAPI().SysCallN(1, GetObjectUintptr(events))
 	return AsCustomPermissionHandler(r1)
+}
+
+func (m *TCustomPermissionHandler) AsInterface() ICefPermissionHandler {
+	var resultCefPermissionHandler uintptr
+	customPermissionHandlerImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefPermissionHandler)))
+	return AsCefPermissionHandler(resultCefPermissionHandler)
 }
 
 var (
 	customPermissionHandlerImport       *imports.Imports = nil
 	customPermissionHandlerImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("CustomPermissionHandler_Create", 0),
+		/*0*/ imports.NewTable("CustomPermissionHandler_AsInterface", 0),
+		/*1*/ imports.NewTable("CustomPermissionHandler_Create", 0),
 	}
 )
 

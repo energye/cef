@@ -16,6 +16,9 @@ import (
 // ICefStringMultimapRef Parent: ICefStringMultimap
 type ICefStringMultimapRef interface {
 	ICefStringMultimap
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefStringMultimap // procedure
 }
 
 // TCefStringMultimapRef Parent: TCefStringMultimap
@@ -24,14 +27,21 @@ type TCefStringMultimapRef struct {
 }
 
 func NewCefStringMultimapRef(aHandle TCefStringMultimapHandle) ICefStringMultimapRef {
-	r1 := stringMultimapRefImportAPI().SysCallN(0, uintptr(aHandle))
+	r1 := stringMultimapRefImportAPI().SysCallN(1, uintptr(aHandle))
 	return AsCefStringMultimapRef(r1)
+}
+
+func (m *TCefStringMultimapRef) AsInterface() ICefStringMultimap {
+	var resultCefStringMultimap uintptr
+	stringMultimapRefImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefStringMultimap)))
+	return AsCefStringMultimap(resultCefStringMultimap)
 }
 
 var (
 	stringMultimapRefImport       *imports.Imports = nil
 	stringMultimapRefImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("CefStringMultimapRef_Create", 0),
+		/*0*/ imports.NewTable("CefStringMultimapRef_AsInterface", 0),
+		/*1*/ imports.NewTable("CefStringMultimapRef_Create", 0),
 	}
 )
 

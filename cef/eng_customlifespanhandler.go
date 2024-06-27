@@ -16,6 +16,9 @@ import (
 // ICustomLifeSpanHandler Parent: ICefLifeSpanHandler
 type ICustomLifeSpanHandler interface {
 	ICefLifeSpanHandler
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefLifeSpanHandler // procedure
 }
 
 // TCustomLifeSpanHandler Parent: TCefLifeSpanHandler
@@ -24,14 +27,21 @@ type TCustomLifeSpanHandler struct {
 }
 
 func NewCustomLifeSpanHandler(events IChromiumEvents) ICustomLifeSpanHandler {
-	r1 := customLifeSpanHandlerImportAPI().SysCallN(0, GetObjectUintptr(events))
+	r1 := customLifeSpanHandlerImportAPI().SysCallN(1, GetObjectUintptr(events))
 	return AsCustomLifeSpanHandler(r1)
+}
+
+func (m *TCustomLifeSpanHandler) AsInterface() ICefLifeSpanHandler {
+	var resultCefLifeSpanHandler uintptr
+	customLifeSpanHandlerImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&resultCefLifeSpanHandler)))
+	return AsCefLifeSpanHandler(resultCefLifeSpanHandler)
 }
 
 var (
 	customLifeSpanHandlerImport       *imports.Imports = nil
 	customLifeSpanHandlerImportTables                  = []*imports.Table{
-		/*0*/ imports.NewTable("CustomLifeSpanHandler_Create", 0),
+		/*0*/ imports.NewTable("CustomLifeSpanHandler_AsInterface", 0),
+		/*1*/ imports.NewTable("CustomLifeSpanHandler_Create", 0),
 	}
 )
 

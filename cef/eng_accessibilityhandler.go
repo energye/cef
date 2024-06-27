@@ -22,7 +22,9 @@ import (
 //	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_accessibility_handler_capi.h">CEF source file: /include/capi/cef_accessibility_handler_capi.h (cef_accessibility_handler_t)</a>
 type IAccessibilityHandler interface {
 	ICefAccessibilityHandler
-	AsInterface() ICefAccessibilityHandler // function
+	// AsInterface
+	//  Class instance to interface instance
+	AsInterface() ICefAccessibilityHandler // procedure
 	// SetOnTreeChange
 	//  Called after renderer process sends accessibility tree changes to the
 	//  browser process.
