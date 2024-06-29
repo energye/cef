@@ -139,7 +139,7 @@ func eventCallbackProc(f uintptr, args uintptr, _ int) uintptr {
 		case TOnPaint:
 			browser := AsCefBrowser(getVal(1))
 			kind := TCefPaintElementType(getVal(2))
-			dirtyRectsCount := int(getVal(3))
+			dirtyRectsCount := int(uint32(getVal(3)))
 			dirtyRectsPtr := getVal(4)
 			buffer := getVal(5)
 			width, height := int32(getVal(6)), int32(getVal(7))
@@ -148,7 +148,7 @@ func eventCallbackProc(f uintptr, args uintptr, _ int) uintptr {
 		case TOnAcceleratedPaint:
 			browser := AsCefBrowser(getVal(1))
 			kind := TCefPaintElementType(getVal(2))
-			dirtyRectsCount := int(getVal(3))
+			dirtyRectsCount := int(uint32(getVal(3)))
 			dirtyRectsPtr := getVal(4)
 			sharedHandle := getVal(5)
 			fn.(TOnAcceleratedPaint)(lcl.AsObject(getPtr(0)), browser, kind, NewCefRectArray(dirtyRectsCount, dirtyRectsPtr), sharedHandle)
@@ -213,7 +213,7 @@ func eventCallbackProc(f uintptr, args uintptr, _ int) uintptr {
 			sender := getPtr(0)
 			browser := AsCefBrowser(getVal(1))
 			frame := AsCefFrame(getPtr(2))
-			regions := NewCefDraggableRegions(int(getVal(3)), getVal(4))
+			regions := NewCefDraggableRegions(int(uint32(getVal(3))), getVal(4))
 			fn.(TOnDraggableRegionsChanged)(lcl.AsObject(sender), browser, frame, regions)
 
 		// ===========  ICefFindHandler  ===========
@@ -883,7 +883,7 @@ func eventCallbackProc(f uintptr, args uintptr, _ int) uintptr {
 			isProxy := GoBool(getVal(2))
 			host := GoStr(getVal(3))
 			port := int32(getVal(4))
-			certificatesCount := int(int32(getVal(5)))
+			certificatesCount := int(uint32(getVal(5)))
 			certificatesPtr := getVal(6)
 			certificates := X509CertificateArrayRef.New(certificatesCount, certificatesPtr)
 			callback := AsCefSelectClientCertificateCallback(getPtr(7))
