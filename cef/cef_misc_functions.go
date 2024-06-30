@@ -8,7 +8,7 @@
 //
 //----------------------------------------
 
-// 函数工具
+// cef misc functions
 
 package cef
 
@@ -19,29 +19,31 @@ import (
 	"unsafe"
 )
 
-// WindowInfoAsChild BrowserWindow 设置到指定窗口做为子窗口
+// WindowInfoAsChild  Set to the specified window as a child window
 func WindowInfoAsChild(windowInfo, windowHandle uintptr, windowName string) {
 	miscFunctionsImportAPI().Proc(misc_WindowInfoAsChild).Call(windowInfo, windowHandle, api.PascalStr(windowName))
 }
 
-// WindowInfoAsPopUp BrowserWindow 设置到做为弹出窗口
+// WindowInfoAsPopUp  Set to as a pop-up window
 func WindowInfoAsPopUp(windowInfo, windowParent uintptr, windowName string) {
 	miscFunctionsImportAPI().Proc(misc_WindowInfoAsPopUp).Call(windowInfo, windowParent, api.PascalStr(windowName))
 }
 
-// WindowInfoAsWindowless BrowserWindow 设置到做为无窗口
+// WindowInfoAsWindowless  Set to as no window
 func WindowInfoAsWindowless(windowInfo, windowParent uintptr, windowName string) {
 	miscFunctionsImportAPI().Proc(misc_WindowInfoAsWindowless).Call(windowInfo, windowParent, api.PascalStr(windowName))
 }
 
-// RegisterExtension 注册JS扩展
+// RegisterExtension registers the JS extension
 //
-//	 将自定义JS代码植入到当前浏览器
-//		在 WebKitInitialized 回调函数中使用
-//		参数:
-//			name: 根对象名, 不允许使用默认的内部名称, 参阅 isInternalBind 函数
-//			code: js code
-//			handler: 处理器, 根据本地函数名回调该处理器
+// Insert custom JS code into the current browser
+// Used in the WebKitInitialized callback function
+//
+// Parameter:
+//
+//	name: name of the root object
+//	code: js code
+//	handler: handler, which is called back according to the local function name
 func RegisterExtension(name, code string, handler ICefV8Handler) {
 	miscFunctionsImportAPI().Proc(misc_CefRegisterExtension).Call(api.PascalStr(name), api.PascalStr(code), handler.Instance())
 }
