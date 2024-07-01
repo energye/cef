@@ -14,6 +14,7 @@ import (
 	"github.com/energye/lcl/inits"
 	"github.com/energye/lcl/lcl"
 	"github.com/energye/lcl/pkgs/macapp"
+	"github.com/energye/lcl/process"
 	"github.com/energye/lcl/tools"
 	"github.com/energye/lcl/types"
 	"os"
@@ -1717,18 +1718,21 @@ func eventCallbackProc(f uintptr, args uintptr, _ int) uintptr {
 	return 0
 }
 
-// GlobalInit
+// Init 全局初始化, 需手动调用的函数
 //
-//	初始化
-func GlobalInit(libs emfs.IEmbedFS, resources emfs.IEmbedFS) {
+//	参数:
+//	   libs 内置到应用程序的类库
+//	   resources 内置到应用程序的资源文件
+func Init(libs emfs.IEmbedFS, resources emfs.IEmbedFS) {
 	if tools.IsDarwin() {
 		macapp.MacApp.IsCEF(true)
+		//MacOSX环境, 命令行或ide开发环境需命令行参数[env=dev]以保证开发时应用正常运行
+		env := process.Args.Args("env")
+		if env != "" {
+			macapp.MacApp.SetEnergyEnv(env)
+		}
 	}
 	inits.Init(libs, resources)
-	SetCEFEventCallback(eventCallback)
-	SetCEFRemoveEventCallback(removeEventCallback)
-
-	// macos command line
 	if tools.IsDarwin() {
 		argsList := lcl.NewStringList()
 		for _, v := range os.Args {
@@ -1738,4 +1742,6 @@ func GlobalInit(libs emfs.IEmbedFS, resources emfs.IEmbedFS) {
 		SetCommandLine(argsList)
 		argsList.Free()
 	}
+	SetCEFEventCallback(eventCallback)
+	SetCEFRemoveEventCallback(removeEventCallback)
 }
