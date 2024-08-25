@@ -167,8 +167,6 @@ func SetObjectInstance(object interface{}, instance unsafePointer) {
 	switch object.(type) {
 	case IObject:
 		lcl.SetObjectInstance(object.(IObject), instance)
-	case IUnknown:
-		lcl.SetUnknownInstance(object.(IUnknown), instance)
 	}
 }
 
@@ -180,8 +178,6 @@ func GetObjectUintptr(object interface{}) uintptr {
 	switch object.(type) {
 	case IObject:
 		return lcl.GetObjectUintptr(object.(IObject))
-	case IUnknown:
-		return lcl.GetUnknownUintptr(object.(IUnknown))
 	}
 	return 0
 }
