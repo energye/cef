@@ -44,9 +44,9 @@
 
 ### 特点
 
-> - 依赖 `microsoft-edge` 运行时环境
-> - 具有完整的 Webview2 API 和 LCL 系统原生控件
-> - 开发环境简单, 编译速度快, 仅需Go和Webview2所需的动态链接库
+> - 依赖 `CEF二进制框架` 环境
+> - 具有完整的 CEF API 和 LCL 系统原生控件
+> - 开发环境简单, 编译速度快
 > - 前端技术: 支持主流前端框架。例如：Vue、React、Angular 和 原生HTML+CSS+JS等
 > - 事件驱动: 高性能事件驱动, 基于IPC通信，实现Go和Web端快速调用及数据交互
 > - 资源加载: 可无需http服务支撑，直接读取本地资源或内置到执行文件的资源, 也支持http服务加载资源
@@ -59,7 +59,7 @@
 #### 基本需求
 
 > - Golang >= 1.20
-> - 动态链接库 `WebView2Loader.dll` `liblcl.dll`
+> - 动态链接库 `CEF二进制框架` `liblcl.dll`
 
 #### [示例](https://github.com/energye/examples/tree/main/cef)
 
