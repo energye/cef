@@ -138,6 +138,8 @@ type TDragState = int32
 
 type Single = types.Single
 
+type TString = lcl.TString
+
 // TDateTime => Double
 //
 //	DateTimeToUnix 转换 float64 => int64
@@ -213,4 +215,11 @@ func SetCommandLine(argsList lcl.IStringList) {
 // AddCrDelegate 针对 MacOS
 func AddCrDelegate() {
 	predefImportAPI().SysCallN(11)
+}
+
+// NewTString
+//
+//	Create TString pointer reference
+func NewTString() *TString {
+	return lcl.NewTString()
 }
