@@ -370,8 +370,10 @@ func (m *TCefV8Value) GetDateValue() (resultDateTime TDateTime) {
 }
 
 func (m *TCefV8Value) GetStringValue() string {
-	r1 := v8ValueImportAPI().SysCallN(15, m.Instance())
-	return GoStr(r1)
+	value := NewTString()
+	defer value.Free()
+	v8ValueImportAPI().SysCallN(15, m.Instance(), value.Instance())
+	return value.Value()
 }
 
 func (m *TCefV8Value) IsUserCreated() bool {
@@ -495,8 +497,10 @@ func (m *TCefV8Value) NeuterArrayBuffer() bool {
 }
 
 func (m *TCefV8Value) GetFunctionName() string {
-	r1 := v8ValueImportAPI().SysCallN(12, m.Instance())
-	return GoStr(r1)
+	value := NewTString()
+	defer value.Free()
+	v8ValueImportAPI().SysCallN(12, m.Instance(), value.Instance())
+	return value.Value()
 }
 
 func (m *TCefV8Value) GetFunctionHandler() ICefV8Handler {

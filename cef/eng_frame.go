@@ -132,8 +132,10 @@ func (m *TCefFrame) IsFocused() bool {
 }
 
 func (m *TCefFrame) GetName() string {
-	r1 := frameImportAPI().SysCallN(7, m.Instance())
-	return GoStr(r1)
+	value := NewTString()
+	defer value.Free()
+	frameImportAPI().SysCallN(7, m.Instance(), value.Instance())
+	return value.Value()
 }
 
 func (m *TCefFrame) GetIdentifier() (resultInt64 int64) {
@@ -148,8 +150,10 @@ func (m *TCefFrame) GetParent() ICefFrame {
 }
 
 func (m *TCefFrame) GetUrl() string {
-	r1 := frameImportAPI().SysCallN(11, m.Instance())
-	return GoStr(r1)
+	value := NewTString()
+	defer value.Free()
+	frameImportAPI().SysCallN(11, m.Instance(), value.Instance())
+	return value.Value()
 }
 
 func (m *TCefFrame) GetBrowser() ICefBrowser {

@@ -86,13 +86,17 @@ func (m *TCefStringMultimap) GetEnumerate(key string, valueIndex NativeUInt) str
 }
 
 func (m *TCefStringMultimap) GetKey(index NativeUInt) string {
-	r1 := stringMultimapImportAPI().SysCallN(7, m.Instance(), uintptr(index))
-	return GoStr(r1)
+	value := NewTString()
+	defer value.Free()
+	stringMultimapImportAPI().SysCallN(7, m.Instance(), uintptr(index), value.Instance())
+	return value.Value()
 }
 
 func (m *TCefStringMultimap) GetValue(index NativeUInt) string {
-	r1 := stringMultimapImportAPI().SysCallN(9, m.Instance(), uintptr(index))
-	return GoStr(r1)
+	value := NewTString()
+	defer value.Free()
+	stringMultimapImportAPI().SysCallN(9, m.Instance(), uintptr(index), value.Instance())
+	return value.Value()
 }
 
 func (m *TCefStringMultimap) Append(key, value string) bool {

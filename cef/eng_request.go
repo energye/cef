@@ -119,13 +119,17 @@ func (m *TCefRequest) IsReadOnly() bool {
 }
 
 func (m *TCefRequest) GetUrl() string {
-	r1 := requestImportAPI().SysCallN(11, m.Instance())
-	return GoStr(r1)
+	value := NewTString()
+	defer value.Free()
+	requestImportAPI().SysCallN(11, m.Instance(), value.Instance())
+	return value.Value()
 }
 
 func (m *TCefRequest) GetMethod() string {
-	r1 := requestImportAPI().SysCallN(5, m.Instance())
-	return GoStr(r1)
+	value := NewTString()
+	defer value.Free()
+	requestImportAPI().SysCallN(5, m.Instance(), value.Instance())
+	return value.Value()
 }
 
 func (m *TCefRequest) GetPostData() ICefPostData {
@@ -135,8 +139,10 @@ func (m *TCefRequest) GetPostData() ICefPostData {
 }
 
 func (m *TCefRequest) GetReferrerUrl() string {
-	r1 := requestImportAPI().SysCallN(8, m.Instance())
-	return GoStr(r1)
+	value := NewTString()
+	defer value.Free()
+	requestImportAPI().SysCallN(8, m.Instance(), value.Instance())
+	return value.Value()
 }
 
 func (m *TCefRequest) GetReferrerPolicy() TCefReferrerPolicy {
@@ -145,8 +151,10 @@ func (m *TCefRequest) GetReferrerPolicy() TCefReferrerPolicy {
 }
 
 func (m *TCefRequest) GetHeaderByName(name string) string {
-	r1 := requestImportAPI().SysCallN(3, m.Instance(), PascalStr(name))
-	return GoStr(r1)
+	value := NewTString()
+	defer value.Free()
+	requestImportAPI().SysCallN(3, m.Instance(), PascalStr(name), value.Instance())
+	return value.Value()
 }
 
 func (m *TCefRequest) GetFlags() TCefUrlRequestFlags {
@@ -155,8 +163,10 @@ func (m *TCefRequest) GetFlags() TCefUrlRequestFlags {
 }
 
 func (m *TCefRequest) GetFirstPartyForCookies() string {
-	r1 := requestImportAPI().SysCallN(1, m.Instance())
-	return GoStr(r1)
+	value := NewTString()
+	defer value.Free()
+	requestImportAPI().SysCallN(1, m.Instance(), value.Instance())
+	return value.Value()
 }
 
 func (m *TCefRequest) GetResourceType() TCefResourceType {

@@ -209,8 +209,10 @@ func (m *TCefListValue) GetDouble(index NativeUInt) (resultFloat64 float64) {
 }
 
 func (m *TCefListValue) GetString(index NativeUInt) string {
-	r1 := listValueImportAPI().SysCallN(9, m.Instance(), uintptr(index))
-	return GoStr(r1)
+	value := NewTString()
+	defer value.Free()
+	listValueImportAPI().SysCallN(9, m.Instance(), uintptr(index), value.Instance())
+	return value.Value()
 }
 
 func (m *TCefListValue) GetBinary(index NativeUInt) ICefBinaryValue {

@@ -77,13 +77,17 @@ func (m *TCefStringMap) Find(key string) string {
 }
 
 func (m *TCefStringMap) GetKey(index NativeUInt) string {
-	r1 := stringMapImportAPI().SysCallN(6, m.Instance(), uintptr(index))
-	return GoStr(r1)
+	value := NewTString()
+	defer value.Free()
+	stringMapImportAPI().SysCallN(6, m.Instance(), uintptr(index), value.Instance())
+	return value.Value()
 }
 
 func (m *TCefStringMap) GetValue(index NativeUInt) string {
-	r1 := stringMapImportAPI().SysCallN(8, m.Instance(), uintptr(index))
-	return GoStr(r1)
+	value := NewTString()
+	defer value.Free()
+	stringMapImportAPI().SysCallN(8, m.Instance(), uintptr(index), value.Instance())
+	return value.Value()
 }
 
 func (m *TCefStringMap) Append(key, value string) bool {

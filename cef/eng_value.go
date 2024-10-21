@@ -165,8 +165,10 @@ func (m *TCefValue) GetDouble() (resultFloat64 float64) {
 }
 
 func (m *TCefValue) GetString() string {
-	r1 := valueImportAPI().SysCallN(7, m.Instance())
-	return GoStr(r1)
+	value := NewTString()
+	defer value.Free()
+	valueImportAPI().SysCallN(7, m.Instance(), value.Instance())
+	return value.Value()
 }
 
 func (m *TCefValue) GetBinary() ICefBinaryValue {
