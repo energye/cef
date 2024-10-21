@@ -14,16 +14,32 @@ import (
 )
 
 // ICefMediaRoute Parent: ICefBaseRefCounted
+//
+//	Represents the route between a media source and sink. Instances of this object are created via ICefMediaRouter.CreateRoute and retrieved via ICefMediaObserver.OnRoutes. Contains the status and metadata of a routing operation. The functions of this interface may be called on any browser process thread unless otherwise indicated.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_media_router_capi.h">CEF source file: /include/capi/cef_media_router_capi.h (cef_media_route_t))</a>
 type ICefMediaRoute interface {
 	ICefBaseRefCounted
-	GetId() string                   // function
-	GetSource() ICefMediaSource      // function
-	GetSink() ICefMediaSink          // function
+	// GetId
+	//  Returns the ID for this route.
+	GetId() string // function
+	// GetSource
+	//  Returns the source associated with this route.
+	GetSource() ICefMediaSource // function
+	// GetSink
+	//  Returns the sink associated with this route.
+	GetSink() ICefMediaSink // function
+	// SendRouteMessage
+	//  Send a message over this route. |message_| will be copied if necessary.
 	SendRouteMessage(message string) // procedure
-	Terminate()                      // procedure
+	// Terminate
+	//  Terminate this route. Will result in an asynchronous call to ICefMediaObserver.OnRoutes on all registered observers.
+	Terminate() // procedure
 }
 
 // TCefMediaRoute Parent: TCefBaseRefCounted
+//
+//	Represents the route between a media source and sink. Instances of this object are created via ICefMediaRouter.CreateRoute and retrieved via ICefMediaObserver.OnRoutes. Contains the status and metadata of a routing operation. The functions of this interface may be called on any browser process thread unless otherwise indicated.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_media_router_capi.h">CEF source file: /include/capi/cef_media_router_capi.h (cef_media_route_t))</a>
 type TCefMediaRoute struct {
 	TCefBaseRefCounted
 }

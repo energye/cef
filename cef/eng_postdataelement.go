@@ -14,19 +14,41 @@ import (
 )
 
 // ICefPostDataElement Parent: ICefBaseRefCounted
+//
+//	Interface used to represent a single element in the request post data. The functions of this interface may be called on any thread.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_request_capi.h">CEF source file: /include/capi/cef_request_capi.h (cef_post_data_element_t))</a>
 type ICefPostDataElement interface {
 	ICefBaseRefCounted
-	IsReadOnly() bool                                   // function
-	GetType() TCefPostDataElementType                   // function
-	GetFile() string                                    // function
-	GetBytesCount() NativeUInt                          // function
+	// IsReadOnly
+	//  Returns true (1) if this object is read-only.
+	IsReadOnly() bool // function
+	// GetType
+	//  Return the type of this post data element.
+	GetType() TCefPostDataElementType // function
+	// GetFile
+	//  Return the file name.
+	GetFile() string // function
+	// GetBytesCount
+	//  Return the number of bytes.
+	GetBytesCount() NativeUInt // function
+	// GetBytes
+	//  Read up to |size| bytes into |bytes| and return the number of bytes actually read.
 	GetBytes(size NativeUInt, bytes uintptr) NativeUInt // function
-	SetToEmpty()                                        // procedure
-	SetToFile(fileName string)                          // procedure
-	SetToBytes(size NativeUInt, bytes uintptr)          // procedure
+	// SetToEmpty
+	//  Remove all contents from the post data element.
+	SetToEmpty() // procedure
+	// SetToFile
+	//  The post data element will represent a file.
+	SetToFile(fileName string) // procedure
+	// SetToBytes
+	//  The post data element will represent bytes. The bytes passed in will be copied.
+	SetToBytes(size NativeUInt, bytes uintptr) // procedure
 }
 
 // TCefPostDataElement Parent: TCefBaseRefCounted
+//
+//	Interface used to represent a single element in the request post data. The functions of this interface may be called on any thread.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_request_capi.h">CEF source file: /include/capi/cef_request_capi.h (cef_post_data_element_t))</a>
 type TCefPostDataElement struct {
 	TCefBaseRefCounted
 }

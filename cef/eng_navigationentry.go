@@ -14,21 +14,47 @@ import (
 )
 
 // ICefNavigationEntry Parent: ICefBaseRefCounted
+//
+//	Interface used to represent an entry in navigation history.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_navigation_entry_capi.h">CEF source file: /include/capi/cef_navigation_entry_capi.h (cef_navigation_entry_t))</a>
 type ICefNavigationEntry interface {
 	ICefBaseRefCounted
-	IsValid() bool                                 // function
-	GetUrl() string                                // function
-	GetDisplayUrl() string                         // function
-	GetOriginalUrl() string                        // function
-	GetTitle() string                              // function
-	GetTransitionType() TCefTransitionType         // function
-	HasPostData() bool                             // function
+	// IsValid
+	//  Returns true (1) if this object is valid. Do not call any other functions if this function returns false (0).
+	IsValid() bool // function
+	// GetUrl
+	//  Returns the actual URL of the page. For some pages this may be data: URL or similar. Use get_display_url() to return a display-friendly version.
+	GetUrl() string // function
+	// GetDisplayUrl
+	//  Returns a display-friendly version of the URL.
+	GetDisplayUrl() string // function
+	// GetOriginalUrl
+	//  Returns the original URL that was entered by the user before any redirects.
+	GetOriginalUrl() string // function
+	// GetTitle
+	//  Returns the title set by the page. This value may be NULL.
+	GetTitle() string // function
+	// GetTransitionType
+	//  Returns the transition type which indicates what the user did to move to this page from the previous page.
+	GetTransitionType() TCefTransitionType // function
+	// HasPostData
+	//  Returns true (1) if this navigation includes post data.
+	HasPostData() bool // function
+	// GetCompletionTime
+	//  Returns the time for the last known successful navigation completion. A navigation may be completed more than once if the page is reloaded. May be 0 if the navigation has not yet completed.
 	GetCompletionTime() (resultDateTime TDateTime) // function
-	GetHttpStatusCode() int32                      // function
-	GetSSLStatus() ICefSSLStatus                   // function
+	// GetHttpStatusCode
+	//  Returns the HTTP status code for the last known successful navigation response. May be 0 if the response has not yet been received or if the navigation has not yet completed.
+	GetHttpStatusCode() int32 // function
+	// GetSSLStatus
+	//  Returns the SSL information for this navigation entry.
+	GetSSLStatus() ICefSSLStatus // function
 }
 
 // TCefNavigationEntry Parent: TCefBaseRefCounted
+//
+//	Interface used to represent an entry in navigation history.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_navigation_entry_capi.h">CEF source file: /include/capi/cef_navigation_entry_capi.h (cef_navigation_entry_t))</a>
 type TCefNavigationEntry struct {
 	TCefBaseRefCounted
 }

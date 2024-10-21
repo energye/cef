@@ -85,12 +85,9 @@ func (m *TCefStringMultimap) GetEnumerate(key string, valueIndex NativeUInt) str
 	return GoStr(r1)
 }
 
-func (m *TCefStringMultimap) GetKey(index NativeUInt) (r string) {
-	value := NewTString()
-	stringMultimapImportAPI().SysCallN(7, m.Instance(), uintptr(index), value.Instance())
-	r = value.Value()
-	value.Free()
-	return
+func (m *TCefStringMultimap) GetKey(index NativeUInt) string {
+	r1 := stringMultimapImportAPI().SysCallN(7, m.Instance(), uintptr(index))
+	return GoStr(r1)
 }
 
 func (m *TCefStringMultimap) GetValue(index NativeUInt) string {

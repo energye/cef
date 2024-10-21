@@ -14,16 +14,32 @@ import (
 )
 
 // ICefStreamReader Parent: ICefBaseRefCounted
+//
+//	Interface used to read data from a stream. The functions of this interface may be called on any thread.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_stream_capi.h">CEF source file: /include/capi/cef_stream_capi.h (cef_stream_reader_t))</a>
 type ICefStreamReader interface {
 	ICefBaseRefCounted
+	// Read
+	//  Read raw binary data.
 	Read(ptr uintptr, size, n NativeUInt) NativeUInt // function
-	Seek(offset int64, whence int32) int32           // function
-	Tell() (resultInt64 int64)                       // function
-	Eof() bool                                       // function
-	MayBlock() bool                                  // function
+	// Seek
+	//  Seek to the specified offset position. |whence| may be any one of SEEK_CUR, SEEK_END or SEEK_SET. Return zero on success and non-zero on failure.
+	Seek(offset int64, whence int32) int32 // function
+	// Tell
+	//  Return the current offset position.
+	Tell() (resultInt64 int64) // function
+	// Eof
+	//  Return non-zero if at end of file.
+	Eof() bool // function
+	// MayBlock
+	//  Return true (1) if this handler performs work like accessing the file system which may block. Used as a hint for determining the thread to access the handler from.
+	MayBlock() bool // function
 }
 
 // TCefStreamReader Parent: TCefBaseRefCounted
+//
+//	Interface used to read data from a stream. The functions of this interface may be called on any thread.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_stream_capi.h">CEF source file: /include/capi/cef_stream_capi.h (cef_stream_reader_t))</a>
 type TCefStreamReader struct {
 	TCefBaseRefCounted
 }

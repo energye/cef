@@ -14,33 +14,83 @@ import (
 )
 
 // ICefPrintSettings Parent: ICefBaseRefCounted
+//
+//	Interface representing print settings.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_print_settings_capi.h">CEF source file: /include/capi/cef_print_settings_capi.h (cef_print_settings_t))</a>
 type ICefPrintSettings interface {
 	ICefBaseRefCounted
+	// SetPageRanges
+	//  Set the page ranges.
 	SetPageRanges(ranges TRangeArray)
+	// GetPageRanges
+	//  Retrieve the page ranges.
 	GetPageRanges() TRangeArray
-	IsValid() bool                                                                                                          // function
-	IsReadOnly() bool                                                                                                       // function
-	IsLandscape() bool                                                                                                      // function
-	GetDeviceName() string                                                                                                  // function
-	GetDpi() int32                                                                                                          // function
-	GetPageRangesCount() NativeUInt                                                                                         // function
-	IsSelectionOnly() bool                                                                                                  // function
-	WillCollate() bool                                                                                                      // function
-	GetColorModel() TCefColorModel                                                                                          // function
-	GetCopies() int32                                                                                                       // function
-	GetDuplexMode() TCefDuplexMode                                                                                          // function
-	SetOrientation(landscape bool)                                                                                          // procedure
+	// IsValid
+	//  Returns true (1) if this object is valid. Do not call any other functions if this function returns false (0).
+	IsValid() bool // function
+	// IsReadOnly
+	//  Returns true (1) if the values of this object are read-only. Some APIs may expose read-only objects.
+	IsReadOnly() bool // function
+	// IsLandscape
+	//  Returns true (1) if the orientation is landscape.
+	IsLandscape() bool // function
+	// GetDeviceName
+	//  Get the device name.
+	GetDeviceName() string // function
+	// GetDpi
+	//  Get the DPI (dots per inch).
+	GetDpi() int32 // function
+	// GetPageRangesCount
+	//  Returns the number of page ranges that currently exist.
+	GetPageRangesCount() NativeUInt // function
+	// IsSelectionOnly
+	//  Returns true (1) if only the selection will be printed.
+	IsSelectionOnly() bool // function
+	// WillCollate
+	//  Returns true (1) if pages will be collated.
+	WillCollate() bool // function
+	// GetColorModel
+	//  Get the color model.
+	GetColorModel() TCefColorModel // function
+	// GetCopies
+	//  Get the number of copies.
+	GetCopies() int32 // function
+	// GetDuplexMode
+	//  Get the duplex mode.
+	GetDuplexMode() TCefDuplexMode // function
+	// SetOrientation
+	//  Set the page orientation.
+	SetOrientation(landscape bool) // procedure
+	// SetPrinterPrintableArea
+	//  Set the printer printable area in device units. Some platforms already provide flipped area. Set |landscape_needs_flip| to false (0) on those platforms to avoid double flipping.
 	SetPrinterPrintableArea(physicalSizeDeviceUnits *TCefSize, printableAreaDeviceUnits *TCefRect, landscapeNeedsFlip bool) // procedure
-	SetDeviceName(name string)                                                                                              // procedure
-	SetDpi(dpi int32)                                                                                                       // procedure
-	SetSelectionOnly(selectionOnly bool)                                                                                    // procedure
-	SetCollate(collate bool)                                                                                                // procedure
-	SetColorModel(model TCefColorModel)                                                                                     // procedure
-	SetCopies(copies int32)                                                                                                 // procedure
-	SetDuplexMode(mode TCefDuplexMode)                                                                                      // procedure
+	// SetDeviceName
+	//  Set the device name.
+	SetDeviceName(name string) // procedure
+	// SetDpi
+	//  Set the DPI (dots per inch).
+	SetDpi(dpi int32) // procedure
+	// SetSelectionOnly
+	//  Set whether only the selection will be printed.
+	SetSelectionOnly(selectionOnly bool) // procedure
+	// SetCollate
+	//  Set whether pages will be collated.
+	SetCollate(collate bool) // procedure
+	// SetColorModel
+	//  Set the color model.
+	SetColorModel(model TCefColorModel) // procedure
+	// SetCopies
+	//  Set the number of copies.
+	SetCopies(copies int32) // procedure
+	// SetDuplexMode
+	//  Set the duplex mode.
+	SetDuplexMode(mode TCefDuplexMode) // procedure
 }
 
 // TCefPrintSettings Parent: TCefBaseRefCounted
+//
+//	Interface representing print settings.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_print_settings_capi.h">CEF source file: /include/capi/cef_print_settings_capi.h (cef_print_settings_t))</a>
 type TCefPrintSettings struct {
 	TCefBaseRefCounted
 }

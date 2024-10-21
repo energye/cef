@@ -14,18 +14,38 @@ import (
 )
 
 // ICefMediaSink Parent: ICefBaseRefCounted
+//
+//	Represents a sink to which media can be routed. Instances of this object are retrieved via ICefMediaObserver.OnSinks. The functions of this interface may be called on any browser process thread unless otherwise indicated.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_media_router_capi.h">CEF source file: /include/capi/cef_media_router_capi.h (cef_media_sink_t))</a>
 type ICefMediaSink interface {
 	ICefBaseRefCounted
-	GetId() string                                          // function
-	GetName() string                                        // function
-	GetIconType() TCefMediaSinkIconType                     // function
-	IsCastSink() bool                                       // function
-	IsDialSink() bool                                       // function
-	IsCompatibleWith(source ICefMediaSource) bool           // function
+	// GetId
+	//  Returns the ID for this sink.
+	GetId() string // function
+	// GetName
+	//  Returns the name of this sink.
+	GetName() string // function
+	// GetIconType
+	//  Returns the icon type for this sink.
+	GetIconType() TCefMediaSinkIconType // function
+	// IsCastSink
+	//  Returns true (1) if this sink accepts content via Cast.
+	IsCastSink() bool // function
+	// IsDialSink
+	//  Returns true (1) if this sink accepts content via DIAL.
+	IsDialSink() bool // function
+	// IsCompatibleWith
+	//  Returns true (1) if this sink is compatible with |source|.
+	IsCompatibleWith(source ICefMediaSource) bool // function
+	// GetDeviceInfo
+	//  Asynchronously retrieves device info.
 	GetDeviceInfo(callback ICefMediaSinkDeviceInfoCallback) // procedure
 }
 
 // TCefMediaSink Parent: TCefBaseRefCounted
+//
+//	Represents a sink to which media can be routed. Instances of this object are retrieved via ICefMediaObserver.OnSinks. The functions of this interface may be called on any browser process thread unless otherwise indicated.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_media_router_capi.h">CEF source file: /include/capi/cef_media_router_capi.h (cef_media_sink_t))</a>
 type TCefMediaSink struct {
 	TCefBaseRefCounted
 }

@@ -14,23 +14,53 @@ import (
 )
 
 // ICefX509Certificate Parent: ICefBaseRefCounted
+//
+//	Interface representing a X.509 certificate.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_x509_certificate_capi.h">CEF source file: /include/capi/cef_x509_certificate_capi.h (cef_x509certificate_t))</a>
 type ICefX509Certificate interface {
 	ICefBaseRefCounted
+	// GetDEREncodedIssuerChain
+	//  Returns the DER encoded data for the certificate issuer chain. If we failed to encode a certificate in the chain it is still present in the array but is an NULL string.
 	GetDEREncodedIssuerChain(chainCount *NativeUInt, chain *ICefBinaryValueArray)
+	// GetPEMEncodedIssuerChain
+	//  Returns the PEM encoded data for the certificate issuer chain. If we failed to encode a certificate in the chain it is still present in the array but is an NULL string.
 	GetPEMEncodedIssuerChain(chainCount *NativeUInt, chain *ICefBinaryValueArray)
-	GetSubject() ICefX509CertPrincipal                    // function
-	GetIssuer() ICefX509CertPrincipal                     // function
-	GetSerialNumber() ICefBinaryValue                     // function
-	GetValidStart() TCefBaseTime                          // function
-	GetValidExpiry() TCefBaseTime                         // function
-	GetValidStartAsDateTime() (resultDateTime TDateTime)  // function
+	// GetSubject
+	//  Returns the subject of the X.509 certificate. For HTTPS server certificates this represents the web server. The common name of the subject should match the host name of the web server.
+	GetSubject() ICefX509CertPrincipal // function
+	// GetIssuer
+	//  Returns the issuer of the X.509 certificate.
+	GetIssuer() ICefX509CertPrincipal // function
+	// GetSerialNumber
+	//  Returns the DER encoded serial number for the X.509 certificate. The value possibly includes a leading 00 byte.
+	GetSerialNumber() ICefBinaryValue // function
+	// GetValidStart
+	//  Returns the date before which the X.509 certificate is invalid. CefBaseTime.GetTimeT() will return 0 if no date was specified.
+	GetValidStart() TCefBaseTime // function
+	// GetValidExpiry
+	//  Returns the date after which the X.509 certificate is invalid. CefBaseTime.GetTimeT() will return 0 if no date was specified.
+	GetValidExpiry() TCefBaseTime // function
+	// GetValidStartAsDateTime
+	//  Returns the date before which the X.509 certificate is invalid. CefBaseTime.GetTimeT() will return 0 if no date was specified.
+	GetValidStartAsDateTime() (resultDateTime TDateTime) // function
+	// GetValidExpiryAsDateTime
+	//  Returns the date after which the X.509 certificate is invalid. CefBaseTime.GetTimeT() will return 0 if no date was specified.
 	GetValidExpiryAsDateTime() (resultDateTime TDateTime) // function
-	GetDerEncoded() ICefBinaryValue                       // function
-	GetPemEncoded() ICefBinaryValue                       // function
-	GetIssuerChainSize() NativeUInt                       // function
+	// GetDerEncoded
+	//  Returns the DER encoded data for the X.509 certificate.
+	GetDerEncoded() ICefBinaryValue // function
+	// GetPemEncoded
+	//  Returns the PEM encoded data for the X.509 certificate.
+	GetPemEncoded() ICefBinaryValue // function
+	// GetIssuerChainSize
+	//  Returns the number of certificates in the issuer chain. If 0, the certificate is self-signed.
+	GetIssuerChainSize() NativeUInt // function
 }
 
 // TCefX509Certificate Parent: TCefBaseRefCounted
+//
+//	Interface representing a X.509 certificate.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_x509_certificate_capi.h">CEF source file: /include/capi/cef_x509_certificate_capi.h (cef_x509certificate_t))</a>
 type TCefX509Certificate struct {
 	TCefBaseRefCounted
 }

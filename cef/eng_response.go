@@ -14,28 +14,68 @@ import (
 )
 
 // ICefResponse Parent: ICefBaseRefCounted
+//
+//	Interface used to represent a web response. The functions of this interface may be called on any thread.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_response_capi.h">CEF source file: /include/capi/cef_response_capi.h (cef_response_t))</a>
 type ICefResponse interface {
 	ICefBaseRefCounted
+	// GetHeaderMap
+	//  Get all response header fields.
 	GetHeaderMap() ICefStringMultimap
-	IsReadOnly() bool                                   // function
-	GetError() TCefErrorCode                            // function
-	GetStatus() int32                                   // function
-	GetStatusText() string                              // function
-	GetMimeType() string                                // function
-	GetCharset() string                                 // function
-	GetHeaderByName(name string) string                 // function
-	GetURL() string                                     // function
-	SetError(error TCefErrorCode)                       // procedure
-	SetStatus(status int32)                             // procedure
-	SetStatusText(statusText string)                    // procedure
-	SetMimeType(mimetype string)                        // procedure
-	SetCharset(charset string)                          // procedure
+	// IsReadOnly
+	//  Returns true (1) if this object is read-only.
+	IsReadOnly() bool // function
+	// GetError
+	//  Get the response error code. Returns ERR_NONE if there was no error.
+	GetError() TCefErrorCode // function
+	// GetStatus
+	//  Get the response status code.
+	GetStatus() int32 // function
+	// GetStatusText
+	//  Get the response status text.
+	GetStatusText() string // function
+	// GetMimeType
+	//  Get the response mime type.
+	GetMimeType() string // function
+	// GetCharset
+	//  Get the response charset.
+	GetCharset() string // function
+	// GetHeaderByName
+	//  Get the value for the specified response header field.
+	GetHeaderByName(name string) string // function
+	// GetURL
+	//  Get the resolved URL after redirects or changed as a result of HSTS.
+	GetURL() string // function
+	// SetError
+	//  Set the response error code. This can be used by custom scheme handlers to return errors during initial request processing.
+	SetError(error TCefErrorCode) // procedure
+	// SetStatus
+	//  Set the response status code.
+	SetStatus(status int32) // procedure
+	// SetStatusText
+	//  Set the response status text.
+	SetStatusText(statusText string) // procedure
+	// SetMimeType
+	//  Set the response mime type.
+	SetMimeType(mimetype string) // procedure
+	// SetCharset
+	//  Set the response charset.
+	SetCharset(charset string) // procedure
+	// SetHeaderByName
+	//  Set the header |name| to |value|. If |overwrite| is true (1) any existing values will be replaced with the new value. If |overwrite| is false (0) any existing values will not be overwritten.
 	SetHeaderByName(name, value string, overwrite bool) // procedure
-	SetHeaderMap(headerMap ICefStringMultimap)          // procedure
-	SetURL(url string)                                  // procedure
+	// SetHeaderMap
+	//  Set all response header fields.
+	SetHeaderMap(headerMap ICefStringMultimap) // procedure
+	// SetURL
+	//  Set the resolved URL after redirects or changed as a result of HSTS.
+	SetURL(url string) // procedure
 }
 
 // TCefResponse Parent: TCefBaseRefCounted
+//
+//	Interface used to represent a web response. The functions of this interface may be called on any thread.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_response_capi.h">CEF source file: /include/capi/cef_response_capi.h (cef_response_t))</a>
 type TCefResponse struct {
 	TCefBaseRefCounted
 }

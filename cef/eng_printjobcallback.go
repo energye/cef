@@ -14,12 +14,20 @@ import (
 )
 
 // ICefPrintJobCallback Parent: ICefBaseRefCounted
+//
+//	Callback interface for asynchronous continuation of print job requests.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_print_handler_capi.h">CEF source file: /include/capi/cef_print_handler_capi.h (cef_print_job_callback_t))</a>
 type ICefPrintJobCallback interface {
 	ICefBaseRefCounted
+	// Cont
+	//  Indicate completion of the print job.
 	Cont() // procedure
 }
 
 // TCefPrintJobCallback Parent: TCefBaseRefCounted
+//
+//	Callback interface for asynchronous continuation of print job requests.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_print_handler_capi.h">CEF source file: /include/capi/cef_print_handler_capi.h (cef_print_job_callback_t))</a>
 type TCefPrintJobCallback struct {
 	TCefBaseRefCounted
 }

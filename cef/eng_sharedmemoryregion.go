@@ -14,14 +14,26 @@ import (
 )
 
 // ICefSharedMemoryRegion Parent: ICefBaseRefCounted
+//
+//	Interface that wraps platform-dependent share memory region mapping.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_shared_memory_region_capi.h">CEF source file: /include/capi/cef_shared_memory_region_capi.h (cef_shared_memory_region_t))</a>
 type ICefSharedMemoryRegion interface {
 	ICefBaseRefCounted
-	IsValid() bool    // function
+	// IsValid
+	//  Returns true (1) if the mapping is valid.
+	IsValid() bool // function
+	// Size
+	//  Returns the size of the mapping in bytes. Returns 0 for invalid instances.
 	Size() NativeUInt // function
-	Memory() uintptr  // function
+	// Memory
+	//  Returns the pointer to the memory. Returns nullptr for invalid instances. The returned pointer is only valid for the life span of this object.
+	Memory() uintptr // function
 }
 
 // TCefSharedMemoryRegion Parent: TCefBaseRefCounted
+//
+//	Interface that wraps platform-dependent share memory region mapping.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_shared_memory_region_capi.h">CEF source file: /include/capi/cef_shared_memory_region_capi.h (cef_shared_memory_region_t))</a>
 type TCefSharedMemoryRegion struct {
 	TCefBaseRefCounted
 }

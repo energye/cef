@@ -75,8 +75,9 @@ func (m *browserView) UnWrap(data uintptr) ICefBrowserView {
 //	the created browser that will be passed to
 //	cef_render_process_handler_t::on_browser_created() in the render process.
 func (m *browserView) CreateBrowserView(client ICefClient, url string, settings *TCefBrowserSettings, extrainfo ICefDictionaryValue, requestcontext ICefRequestContext, delegate ICefBrowserViewDelegate) ICefBrowserView {
+	inArgs2 := settings.Pointer()
 	var resultCefBrowserView uintptr
-	browserViewImportAPI().SysCallN(0, GetObjectUintptr(client), PascalStr(url), uintptr(unsafePointer(settings)), GetObjectUintptr(extrainfo), GetObjectUintptr(requestcontext), GetObjectUintptr(delegate), uintptr(unsafePointer(&resultCefBrowserView)))
+	browserViewImportAPI().SysCallN(0, GetObjectUintptr(client), PascalStr(url), uintptr(unsafePointer(inArgs2)), GetObjectUintptr(extrainfo), GetObjectUintptr(requestcontext), GetObjectUintptr(delegate), uintptr(unsafePointer(&resultCefBrowserView)))
 	return AsCefBrowserView(resultCefBrowserView)
 }
 

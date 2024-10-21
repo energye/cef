@@ -14,13 +14,23 @@ import (
 )
 
 // ICefCallback Parent: ICefBaseRefCounted
+//
+//	Generic callback interface used for asynchronous continuation.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_callback_capi.h">CEF source file: /include/capi/cef_callback_capi.h (cef_callback_t))</a>
 type ICefCallback interface {
 	ICefBaseRefCounted
-	Cont()   // procedure
+	// Cont
+	//  Continue processing.
+	Cont() // procedure
+	// Cancel
+	//  Cancel processing.
 	Cancel() // procedure
 }
 
 // TCefCallback Parent: TCefBaseRefCounted
+//
+//	Generic callback interface used for asynchronous continuation.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_callback_capi.h">CEF source file: /include/capi/cef_callback_capi.h (cef_callback_t))</a>
 type TCefCallback struct {
 	TCefBaseRefCounted
 }

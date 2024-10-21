@@ -251,8 +251,9 @@ func (m *requestContext) Global() ICefRequestContext {
 //	Creates a new context object with the specified |settings| and optional
 //	|handler|.
 func (m *requestContext) New(settings *TCefRequestContextSettings, handler ICefRequestContextHandler) ICefRequestContext {
+	inArgs0 := settings.Pointer()
 	var resultCefRequestContext uintptr
-	requestContextImportAPI().SysCallN(19, uintptr(unsafePointer(settings)), GetObjectUintptr(handler), uintptr(unsafePointer(&resultCefRequestContext)))
+	requestContextImportAPI().SysCallN(19, uintptr(unsafePointer(inArgs0)), GetObjectUintptr(handler), uintptr(unsafePointer(&resultCefRequestContext)))
 	return AsCefRequestContext(resultCefRequestContext)
 }
 

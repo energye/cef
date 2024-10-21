@@ -14,30 +14,74 @@ import (
 )
 
 // ICefDownloadItem Parent: ICefBaseRefCounted
+//
+//	Interface used to represent a download item.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_download_item_capi.h">CEF source file: /include/capi/cef_download_item_capi.h (cef_download_item_t))</a>
 type ICefDownloadItem interface {
 	ICefBaseRefCounted
-	IsValid() bool                                   // function
-	IsInProgress() bool                              // function
-	IsComplete() bool                                // function
-	IsCanceled() bool                                // function
-	IsInterrupted() bool                             // function
+	// IsValid
+	//  Returns true (1) if this object is valid. Do not call any other functions if this function returns false (0).
+	IsValid() bool // function
+	// IsInProgress
+	//  Returns true (1) if the download is in progress.
+	IsInProgress() bool // function
+	// IsComplete
+	//  Returns true (1) if the download is complete.
+	IsComplete() bool // function
+	// IsCanceled
+	//  Returns true (1) if the download has been canceled.
+	IsCanceled() bool // function
+	// IsInterrupted
+	//  Returns true (1) if the download has been interrupted.
+	IsInterrupted() bool // function
+	// GetInterruptReason
+	//  Returns the most recent interrupt reason.
 	GetInterruptReason() TCefDownloadInterruptReason // function
-	GetCurrentSpeed() (resultInt64 int64)            // function
-	GetPercentComplete() int32                       // function
-	GetTotalBytes() (resultInt64 int64)              // function
-	GetReceivedBytes() (resultInt64 int64)           // function
-	GetStartTime() (resultDateTime TDateTime)        // function
-	GetEndTime() (resultDateTime TDateTime)          // function
-	GetFullPath() string                             // function
-	GetId() uint32                                   // function
-	GetUrl() string                                  // function
-	GetOriginalUrl() string                          // function
-	GetSuggestedFileName() string                    // function
-	GetContentDisposition() string                   // function
-	GetMimeType() string                             // function
+	// GetCurrentSpeed
+	//  Returns a simple speed estimate in bytes/s.
+	GetCurrentSpeed() (resultInt64 int64) // function
+	// GetPercentComplete
+	//  Returns the rough percent complete or -1 if the receive total size is unknown.
+	GetPercentComplete() int32 // function
+	// GetTotalBytes
+	//  Returns the total number of bytes.
+	GetTotalBytes() (resultInt64 int64) // function
+	// GetReceivedBytes
+	//  Returns the number of received bytes.
+	GetReceivedBytes() (resultInt64 int64) // function
+	// GetStartTime
+	//  Returns the time that the download started.
+	GetStartTime() (resultDateTime TDateTime) // function
+	// GetEndTime
+	//  Returns the time that the download ended.
+	GetEndTime() (resultDateTime TDateTime) // function
+	// GetFullPath
+	//  Returns the full path to the downloaded or downloading file.
+	GetFullPath() string // function
+	// GetId
+	//  Returns the unique identifier for this download.
+	GetId() uint32 // function
+	// GetUrl
+	//  Returns the URL.
+	GetUrl() string // function
+	// GetOriginalUrl
+	//  Returns the original URL before any redirections.
+	GetOriginalUrl() string // function
+	// GetSuggestedFileName
+	//  Returns the suggested file name.
+	GetSuggestedFileName() string // function
+	// GetContentDisposition
+	//  Returns the content disposition.
+	GetContentDisposition() string // function
+	// GetMimeType
+	//  Returns the mime type.
+	GetMimeType() string // function
 }
 
 // TCefDownloadItem Parent: TCefBaseRefCounted
+//
+//	Interface used to represent a download item.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_download_item_capi.h">CEF source file: /include/capi/cef_download_item_capi.h (cef_download_item_t))</a>
 type TCefDownloadItem struct {
 	TCefBaseRefCounted
 }

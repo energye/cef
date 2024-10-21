@@ -14,27 +14,49 @@ import (
 )
 
 // ICefExtension Parent: ICefBaseRefCounted
+//
+//	Object representing an extension. Methods may be called on any thread unless otherwise indicated.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_extension_capi.h">CEF source file: /include/capi/cef_extension_capi.h (cef_extension_t))</a>
 type ICefExtension interface {
 	ICefBaseRefCounted
-	GetIdentifier() string                // function
-	GetPath() string                      // function
-	GetManifest() ICefDictionaryValue     // function
-	IsSame(that ICefExtension) bool       // function
-	GetHandler() ICefExtensionHandler     // function
+	// GetIdentifier
+	//  Returns the unique extension identifier. This is calculated based on the extension public key, if available, or on the extension path. See https://developer.chrome.com/extensions/manifest/key for details.
+	GetIdentifier() string // function
+	// GetPath
+	//  Returns the absolute path to the extension directory on disk. This value will be prefixed with PK_DIR_RESOURCES if a relative path was passed to ICefRequestContext.LoadExtension.
+	GetPath() string // function
+	// GetManifest
+	//  Returns the extension manifest contents as a ICefDictionaryValue object. See https://developer.chrome.com/extensions/manifest for details.
+	GetManifest() ICefDictionaryValue // function
+	// IsSame
+	//  Returns true (1) if this object is the same extension as |that| object. Extensions are considered the same if identifier, path and loader context match.
+	IsSame(that ICefExtension) bool // function
+	// GetHandler
+	//  Returns the handler for this extension. Will return NULL for internal extensions or if no handler was passed to ICefRequestContext.LoadExtension.
+	GetHandler() ICefExtensionHandler // function
+	// GetLoaderContext
+	//  Returns the request context that loaded this extension. Will return NULL for internal extensions or if the extension has been unloaded. See the ICefRequestContext.LoadExtension documentation for more information about loader contexts. Must be called on the browser process UI thread.
 	GetLoaderContext() ICefRequestContext // function
-	IsLoaded() bool                       // function
-	GetBrowserActionPopup() string        // function
-	GetBrowserActionIcon() string         // function
-	GetPageActionPopup() string           // function
-	GetPageActionIcon() string            // function
-	GetOptionsPage() string               // function
-	GetOptionsUIPage() string             // function
-	GetBackgroundPage() string            // function
-	GetURL() string                       // function
-	Unload()                              // procedure
+	// IsLoaded
+	//  Returns true (1) if this extension is currently loaded. Must be called on the browser process UI thread.
+	IsLoaded() bool                // function
+	GetBrowserActionPopup() string // function
+	GetBrowserActionIcon() string  // function
+	GetPageActionPopup() string    // function
+	GetPageActionIcon() string     // function
+	GetOptionsPage() string        // function
+	GetOptionsUIPage() string      // function
+	GetBackgroundPage() string     // function
+	GetURL() string                // function
+	// Unload
+	//  Unload this extension if it is not an internal extension and is currently loaded. Will result in a call to ICefExtensionHandler.OnExtensionUnloaded on success.
+	Unload() // procedure
 }
 
 // TCefExtension Parent: TCefBaseRefCounted
+//
+//	Object representing an extension. Methods may be called on any thread unless otherwise indicated.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_extension_capi.h">CEF source file: /include/capi/cef_extension_capi.h (cef_extension_t))</a>
 type TCefExtension struct {
 	TCefBaseRefCounted
 }

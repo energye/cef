@@ -14,14 +14,26 @@ import (
 )
 
 // ICefV8StackTrace Parent: ICefBaseRefCounted
+//
+//	Interface representing a V8 stack trace handle. V8 handles can only be accessed from the thread on which they are created. Valid threads for creating a V8 handle include the render process main thread (TID_RENDERER) and WebWorker threads. A task runner for posting tasks on the associated thread can be retrieved via the ICefv8context.GetTaskRunner() function.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_v8_capi.h">CEF source file: /include/capi/cef_v8_capi.h (cef_v8stack_trace_t))</a>
 type ICefV8StackTrace interface {
 	ICefBaseRefCounted
-	IsValid() bool                         // function
-	GetFrameCount() int32                  // function
+	// IsValid
+	//  Returns true (1) if the underlying handle is valid and it can be accessed on the current thread. Do not call any other functions if this function returns false (0).
+	IsValid() bool // function
+	// GetFrameCount
+	//  Returns the number of stack frames.
+	GetFrameCount() int32 // function
+	// GetFrame
+	//  Returns the stack frame at the specified 0-based index.
 	GetFrame(index int32) ICefV8StackFrame // function
 }
 
 // TCefV8StackTrace Parent: TCefBaseRefCounted
+//
+//	Interface representing a V8 stack trace handle. V8 handles can only be accessed from the thread on which they are created. Valid threads for creating a V8 handle include the render process main thread (TID_RENDERER) and WebWorker threads. A task runner for posting tasks on the associated thread can be retrieved via the ICefv8context.GetTaskRunner() function.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_v8_capi.h">CEF source file: /include/capi/cef_v8_capi.h (cef_v8stack_trace_t))</a>
 type TCefV8StackTrace struct {
 	TCefBaseRefCounted
 }

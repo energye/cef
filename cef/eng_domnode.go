@@ -14,38 +14,98 @@ import (
 )
 
 // ICefDomNode Parent: ICefBaseRefCounted
+//
+//	Interface used to represent a DOM node. The functions of this interface should only be called on the render process main thread.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_dom_capi.h">CEF source file: /include/capi/cef_dom_capi.h (cef_domnode_t))</a>
 type ICefDomNode interface {
 	ICefBaseRefCounted
-	GetType() TCefDomNodeType                        // function
-	IsText() bool                                    // function
-	IsElement() bool                                 // function
-	IsEditable() bool                                // function
-	IsFormControlElement() bool                      // function
-	GetFormControlElementType() string               // function
-	IsSame(that ICefDomNode) bool                    // function
-	GetName() string                                 // function
-	GetValue() string                                // function
-	SetValue(value string) bool                      // function
-	GetAsMarkup() string                             // function
-	GetDocument() ICefDomDocument                    // function
-	GetParent() ICefDomNode                          // function
-	GetPreviousSibling() ICefDomNode                 // function
-	GetNextSibling() ICefDomNode                     // function
-	HasChildren() bool                               // function
-	GetFirstChild() ICefDomNode                      // function
-	GetLastChild() ICefDomNode                       // function
-	GetElementTagName() string                       // function
-	HasElementAttributes() bool                      // function
-	HasElementAttribute(attrName string) bool        // function
-	GetElementAttribute(attrName string) string      // function
+	// GetType
+	//  Returns the type for this node.
+	GetType() TCefDomNodeType // function
+	// IsText
+	//  Returns true (1) if this is a text node.
+	IsText() bool // function
+	// IsElement
+	//  Returns true (1) if this is an element node.
+	IsElement() bool // function
+	// IsEditable
+	//  Returns true (1) if this is an editable node.
+	IsEditable() bool // function
+	// IsFormControlElement
+	//  Returns true (1) if this is a form control element node.
+	IsFormControlElement() bool // function
+	// GetFormControlElementType
+	//  Returns the type of this form control element node.
+	GetFormControlElementType() string // function
+	// IsSame
+	//  Returns true (1) if this object is pointing to the same handle as |that| object.
+	IsSame(that ICefDomNode) bool // function
+	// GetName
+	//  Returns the name of this node.
+	GetName() string // function
+	// GetValue
+	//  Returns the value of this node.
+	GetValue() string // function
+	// SetValue
+	//  Set the value of this node. Returns true (1) on success.
+	SetValue(value string) bool // function
+	// GetAsMarkup
+	//  Returns the contents of this node as markup.
+	GetAsMarkup() string // function
+	// GetDocument
+	//  Returns the document associated with this node.
+	GetDocument() ICefDomDocument // function
+	// GetParent
+	//  Returns the parent node.
+	GetParent() ICefDomNode // function
+	// GetPreviousSibling
+	//  Returns the previous sibling node.
+	GetPreviousSibling() ICefDomNode // function
+	// GetNextSibling
+	//  Returns the next sibling node.
+	GetNextSibling() ICefDomNode // function
+	// HasChildren
+	//  Returns true (1) if this node has child nodes.
+	HasChildren() bool // function
+	// GetFirstChild
+	//  Return the first child node.
+	GetFirstChild() ICefDomNode // function
+	// GetLastChild
+	//  Returns the last child node.
+	GetLastChild() ICefDomNode // function
+	// GetElementTagName
+	//  Returns the tag name of this element.
+	GetElementTagName() string // function
+	// HasElementAttributes
+	//  Returns true (1) if this element has attributes.
+	HasElementAttributes() bool // function
+	// HasElementAttribute
+	//  Returns true (1) if this element has an attribute named |attrName|.
+	HasElementAttribute(attrName string) bool // function
+	// GetElementAttribute
+	//  Returns the element attribute named |attrName|.
+	GetElementAttribute(attrName string) string // function
+	// SetElementAttribute
+	//  Set the value for the element attribute named |attrName|. Returns true (1) on success.
 	SetElementAttribute(attrName, value string) bool // function
-	GetElementInnerText() string                     // function
-	GetElementBounds() (resultCefRect TCefRect)      // function
-	GetElementAttributes(attrMap ICefStringMap)      // procedure
-	GetElementAttributes1(attrList *IStrings)        // procedure
+	// GetElementInnerText
+	//  Returns the inner text of the element.
+	GetElementInnerText() string // function
+	// GetElementBounds
+	//  Returns the bounds of the element in device pixels. Use "window.devicePixelRatio" to convert to/from CSS pixels.
+	GetElementBounds() (resultCefRect TCefRect) // function
+	// GetElementAttributes
+	//  Returns a ICefStringMap of all element attributes.
+	GetElementAttributes(attrMap ICefStringMap) // procedure
+	// GetElementAttributes1
+	//  Returns a ICefStringMap of all element attributes.
+	GetElementAttributes1(attrList *IStrings) // procedure
 }
 
 // TCefDomNode Parent: TCefBaseRefCounted
+//
+//	Interface used to represent a DOM node. The functions of this interface should only be called on the render process main thread.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_dom_capi.h">CEF source file: /include/capi/cef_dom_capi.h (cef_domnode_t))</a>
 type TCefDomNode struct {
 	TCefBaseRefCounted
 }

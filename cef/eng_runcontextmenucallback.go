@@ -14,13 +14,23 @@ import (
 )
 
 // ICefRunContextMenuCallback Parent: ICefBaseRefCounted
+//
+//	Callback interface used for continuation of custom context menu display.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_context_menu_handler_capi.h">CEF source file: /include/capi/cef_context_menu_handler_capi.h (cef_run_context_menu_callback_t))</a>
 type ICefRunContextMenuCallback interface {
 	ICefBaseRefCounted
+	// Cont
+	//  Complete context menu display by selecting the specified |command_id| and |event_flags|.
 	Cont(commandId int32, eventFlags TCefEventFlags) // procedure
-	Cancel()                                         // procedure
+	// Cancel
+	//  Cancel context menu display.
+	Cancel() // procedure
 }
 
 // TCefRunContextMenuCallback Parent: TCefBaseRefCounted
+//
+//	Callback interface used for continuation of custom context menu display.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_context_menu_handler_capi.h">CEF source file: /include/capi/cef_context_menu_handler_capi.h (cef_run_context_menu_callback_t))</a>
 type TCefRunContextMenuCallback struct {
 	TCefBaseRefCounted
 }

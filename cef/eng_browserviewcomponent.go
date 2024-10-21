@@ -122,7 +122,8 @@ func (m *TCEFBrowserViewComponent) BrowserView() ICefBrowserView {
 }
 
 func (m *TCEFBrowserViewComponent) CreateBrowserView(client ICefClient, url string, settings *TCefBrowserSettings, extrainfo ICefDictionaryValue, requestcontext ICefRequestContext) bool {
-	r1 := browserViewComponentImportAPI().SysCallN(3, m.Instance(), GetObjectUintptr(client), PascalStr(url), uintptr(unsafePointer(settings)), GetObjectUintptr(extrainfo), GetObjectUintptr(requestcontext))
+	inArgs2 := settings.Pointer()
+	r1 := browserViewComponentImportAPI().SysCallN(3, m.Instance(), GetObjectUintptr(client), PascalStr(url), uintptr(unsafePointer(inArgs2)), GetObjectUintptr(extrainfo), GetObjectUintptr(requestcontext))
 	return GoBool(r1)
 }
 

@@ -14,12 +14,20 @@ import (
 )
 
 // ICefPermissionPromptCallback Parent: ICefBaseRefCounted
+//
+//	Callback interface used for asynchronous continuation of permission prompts.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_permission_handler_capi.h">CEF source file: /include/capi/cef_permission_handler_capi.h (cef_permission_prompt_callback_t))</a>
 type ICefPermissionPromptCallback interface {
 	ICefBaseRefCounted
+	// Cont
+	//  Complete the permissions request with the specified |result|.
 	Cont(result TCefPermissionRequestResult) // procedure
 }
 
 // TCefPermissionPromptCallback Parent: TCefBaseRefCounted
+//
+//	Callback interface used for asynchronous continuation of permission prompts.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_permission_handler_capi.h">CEF source file: /include/capi/cef_permission_handler_capi.h (cef_permission_prompt_callback_t))</a>
 type TCefPermissionPromptCallback struct {
 	TCefBaseRefCounted
 }

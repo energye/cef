@@ -14,12 +14,20 @@ import (
 )
 
 // ICefSelectClientCertificateCallback Parent: ICefBaseRefCounted
+//
+//	Callback interface used to select a client certificate for authentication.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_request_handler_capi.h">CEF source file: /include/capi/cef_request_handler_capi.h (cef_select_client_certificate_callback_t))</a>
 type ICefSelectClientCertificateCallback interface {
 	ICefBaseRefCounted
+	// Select
+	//  Chooses the specified certificate for client certificate authentication. NULL value means that no client certificate should be used.
 	Select(cert ICefX509Certificate) // procedure
 }
 
 // TCefSelectClientCertificateCallback Parent: TCefBaseRefCounted
+//
+//	Callback interface used to select a client certificate for authentication.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_request_handler_capi.h">CEF source file: /include/capi/cef_request_handler_capi.h (cef_select_client_certificate_callback_t))</a>
 type TCefSelectClientCertificateCallback struct {
 	TCefBaseRefCounted
 }

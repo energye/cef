@@ -14,18 +14,36 @@ import (
 )
 
 // ICefBaseRefCounted Parent: IObject
+//
+//	All ref-counted framework interfaces must inherit from this interface.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_base_capi.h">CEF source file: /include/capi/cef_base_capi.h (cef_base_ref_counted_t))</a>
 type ICefBaseRefCounted interface {
 	IObject
 	FreeAndNil()
-	HasOneRef() bool                                 // function
-	HasAtLeastOneRef() bool                          // function
-	SameAs(aData uintptr) bool                       // function
+	// HasOneRef
+	//  Returns true (1) if the current reference count is 1.
+	HasOneRef() bool // function
+	// HasAtLeastOneRef
+	//  Returns true (1) if the current reference count is at least 1.
+	HasAtLeastOneRef() bool // function
+	// SameAs
+	//  Compares the aData pointer with the FData field if the current instance.
+	SameAs(aData uintptr) bool // function
+	// SameAs1
+	//  Compares the aData pointer with the FData field if the current instance.
 	SameAs1(aBaseRefCounted ICefBaseRefCounted) bool // function
-	Wrap() uintptr                                   // function
-	DestroyOtherRefs()                               // procedure
+	// Wrap
+	//  Called to increment the reference count for the object. Should be called for every new copy of a pointer to a given object.
+	Wrap() uintptr // function
+	// DestroyOtherRefs
+	//  Releases all other instances.
+	DestroyOtherRefs() // procedure
 }
 
 // TCefBaseRefCounted Parent: TObject
+//
+//	All ref-counted framework interfaces must inherit from this interface.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_base_capi.h">CEF source file: /include/capi/cef_base_capi.h (cef_base_ref_counted_t))</a>
 type TCefBaseRefCounted struct {
 	TObject
 }

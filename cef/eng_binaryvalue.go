@@ -14,18 +14,38 @@ import (
 )
 
 // ICefBinaryValue Parent: ICefBaseRefCounted
+//
+//	Interface representing a binary value. Can be used on any process and thread.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_values_capi.h">CEF source file: /include/capi/cef_values_capi.h (cef_binary_value_t))</a>
 type ICefBinaryValue interface {
 	ICefBaseRefCounted
-	IsValid() bool                                                        // function
-	IsOwned() bool                                                        // function
-	IsSame(that ICefBinaryValue) bool                                     // function
-	IsEqual(that ICefBinaryValue) bool                                    // function
-	Copy() ICefBinaryValue                                                // function
-	GetSize() NativeUInt                                                  // function
+	// IsValid
+	//  Returns true (1) if this object is valid. This object may become invalid if the underlying data is owned by another object (e.g. list or dictionary) and that other object is then modified or destroyed. Do not call any other functions if this function returns false (0).
+	IsValid() bool // function
+	// IsOwned
+	//  Returns true (1) if this object is currently owned by another object.
+	IsOwned() bool // function
+	// IsSame
+	//  Returns true (1) if this object and |that| object have the same underlying data.
+	IsSame(that ICefBinaryValue) bool // function
+	// IsEqual
+	//  Returns true (1) if this object and |that| object have an equivalent underlying value but are not necessarily the same object.
+	IsEqual(that ICefBinaryValue) bool // function
+	// Copy
+	//  Returns a copy of this object. The data in this object will also be copied.
+	Copy() ICefBinaryValue // function
+	// GetSize
+	//  Returns the data size.
+	GetSize() NativeUInt // function
+	// GetData
+	//  Read up to |buffer_size| number of bytes into |buffer|. Reading begins at the specified byte |data_offset|. Returns the number of bytes read.
 	GetData(buffer uintptr, bufferSize, dataOffset NativeUInt) NativeUInt // function
 }
 
 // TCefBinaryValue Parent: TCefBaseRefCounted
+//
+//	Interface representing a binary value. Can be used on any process and thread.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_values_capi.h">CEF source file: /include/capi/cef_values_capi.h (cef_binary_value_t))</a>
 type TCefBinaryValue struct {
 	TCefBaseRefCounted
 }

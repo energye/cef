@@ -14,6 +14,9 @@ import (
 )
 
 // ICefCustomStreamReader Parent: ICefBaseRefCountedOwn
+//
+//	Interface used to read data from a stream. The functions of this interface may be called on any thread.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_stream_capi.h">CEF source file: /include/capi/cef_stream_capi.h (cef_stream_reader_t))</a>
 type ICefCustomStreamReader interface {
 	ICefBaseRefCountedOwn
 	// AsInterface
@@ -22,6 +25,9 @@ type ICefCustomStreamReader interface {
 }
 
 // TCefCustomStreamReader Parent: TCefBaseRefCountedOwn
+//
+//	Interface used to read data from a stream. The functions of this interface may be called on any thread.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_stream_capi.h">CEF source file: /include/capi/cef_stream_capi.h (cef_stream_reader_t))</a>
 type TCefCustomStreamReader struct {
 	TCefBaseRefCountedOwn
 }

@@ -14,18 +14,38 @@ import (
 )
 
 // ICefX509CertPrincipal Parent: ICefBaseRefCounted
+//
+//	Interface representing the issuer or subject field of an X.509 certificate.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_x509_certificate_capi.h">CEF source file: /include/capi/cef_x509_certificate_capi.h (cef_x509cert_principal_t))</a>
 type ICefX509CertPrincipal interface {
 	ICefBaseRefCounted
-	GetDisplayName() string                  // function
-	GetCommonName() string                   // function
-	GetLocalityName() string                 // function
-	GetStateOrProvinceName() string          // function
-	GetCountryName() string                  // function
-	GetOrganizationNames(names IStrings)     // procedure
+	// GetDisplayName
+	//  Returns a name that can be used to represent the issuer. It tries in this order: Common Name (CN), Organization Name (O) and Organizational Unit Name (OU) and returns the first non-NULL one found.
+	GetDisplayName() string // function
+	// GetCommonName
+	//  Returns the common name.
+	GetCommonName() string // function
+	// GetLocalityName
+	//  Returns the locality name.
+	GetLocalityName() string // function
+	// GetStateOrProvinceName
+	//  Returns the state or province name.
+	GetStateOrProvinceName() string // function
+	// GetCountryName
+	//  Returns the country name.
+	GetCountryName() string // function
+	// GetOrganizationNames
+	//  Retrieve the list of organization names.
+	GetOrganizationNames(names IStrings) // procedure
+	// GetOrganizationUnitNames
+	//  Retrieve the list of organization unit names.
 	GetOrganizationUnitNames(names IStrings) // procedure
 }
 
 // TCefX509CertPrincipal Parent: TCefBaseRefCounted
+//
+//	Interface representing the issuer or subject field of an X.509 certificate.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_x509_certificate_capi.h">CEF source file: /include/capi/cef_x509_certificate_capi.h (cef_x509cert_principal_t))</a>
 type TCefX509CertPrincipal struct {
 	TCefBaseRefCounted
 }

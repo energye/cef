@@ -14,12 +14,20 @@ import (
 )
 
 // ICefResourceSkipCallback Parent: ICefBaseRefCounted
+//
+//	Callback for asynchronous continuation of ICefResourceHandler.skip.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_resource_handler_capi.h">CEF source file: /include/capi/cef_resource_handler_capi.h (cef_resource_skip_callback_t))</a>
 type ICefResourceSkipCallback interface {
 	ICefBaseRefCounted
+	// Cont
+	//  Callback for asynchronous continuation of skip(). If |bytes_skipped| > 0 then either skip() will be called again until the requested number of bytes have been skipped or the request will proceed. If |bytes_skipped| <= 0 the request will fail with ERR_REQUEST_RANGE_NOT_SATISFIABLE.
 	Cont(bytesskipped int64) // procedure
 }
 
 // TCefResourceSkipCallback Parent: TCefBaseRefCounted
+//
+//	Callback for asynchronous continuation of ICefResourceHandler.skip.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_resource_handler_capi.h">CEF source file: /include/capi/cef_resource_handler_capi.h (cef_resource_skip_callback_t))</a>
 type TCefResourceSkipCallback struct {
 	TCefBaseRefCounted
 }

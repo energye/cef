@@ -14,39 +14,101 @@ import (
 )
 
 // ICefListValue Parent: ICefBaseRefCounted
+//
+//	Interface representing a list value. Can be used on any process and thread.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_values_capi.h">CEF source file: /include/capi/cef_values_capi.h (cef_list_value_t))</a>
 type ICefListValue interface {
 	ICefBaseRefCounted
-	IsValid() bool                                                  // function
-	IsOwned() bool                                                  // function
-	IsReadOnly() bool                                               // function
-	IsSame(that ICefListValue) bool                                 // function
-	IsEqual(that ICefListValue) bool                                // function
-	Copy() ICefListValue                                            // function
-	SetSize(size NativeUInt) bool                                   // function
-	GetSize() NativeUInt                                            // function
-	Clear() bool                                                    // function
-	Remove(index NativeUInt) bool                                   // function
-	GetType(index NativeUInt) TCefValueType                         // function
-	GetValue(index NativeUInt) ICefValue                            // function
-	GetBool(index NativeUInt) bool                                  // function
-	GetInt(index NativeUInt) int32                                  // function
-	GetDouble(index NativeUInt) (resultFloat64 float64)             // function
-	GetString(index NativeUInt) string                              // function
-	GetBinary(index NativeUInt) ICefBinaryValue                     // function
-	GetDictionary(index NativeUInt) ICefDictionaryValue             // function
-	GetList(index NativeUInt) ICefListValue                         // function
-	SetValue(index NativeUInt, value ICefValue) bool                // function
-	SetNull(index NativeUInt) bool                                  // function
-	SetBool(index NativeUInt, value bool) bool                      // function
-	SetInt(index NativeUInt, value int32) bool                      // function
-	SetDouble(index NativeUInt, value float64) bool                 // function
-	SetString(index NativeUInt, value string) bool                  // function
-	SetBinary(index NativeUInt, value ICefBinaryValue) bool         // function
+	// IsValid
+	//  Returns true (1) if this object is valid. This object may become invalid if the underlying data is owned by another object (e.g. list or dictionary) and that other object is then modified or destroyed. Do not call any other functions if this function returns false (0).
+	IsValid() bool // function
+	// IsOwned
+	//  Returns true (1) if this object is currently owned by another object.
+	IsOwned() bool // function
+	// IsReadOnly
+	//  Returns true (1) if the values of this object are read-only. Some APIs may expose read-only objects.
+	IsReadOnly() bool // function
+	// IsSame
+	//  Returns true (1) if this object and |that| object have the same underlying data. If true (1) modifications to this object will also affect |that| object and vice-versa.
+	IsSame(that ICefListValue) bool // function
+	// IsEqual
+	//  Returns true (1) if this object and |that| object have an equivalent underlying value but are not necessarily the same object.
+	IsEqual(that ICefListValue) bool // function
+	// Copy
+	//  Returns a writable copy of this object.
+	Copy() ICefListValue // function
+	// SetSize
+	//  Sets the number of values. If the number of values is expanded all new value slots will default to type null. Returns true (1) on success.
+	SetSize(size NativeUInt) bool // function
+	// GetSize
+	//  Returns the number of values.
+	GetSize() NativeUInt // function
+	// Clear
+	//  Removes all values. Returns true (1) on success.
+	Clear() bool // function
+	// Remove
+	//  Removes the value at the specified index.
+	Remove(index NativeUInt) bool // function
+	// GetType
+	//  Returns the value type at the specified index.
+	GetType(index NativeUInt) TCefValueType // function
+	// GetValue
+	//  Returns the value at the specified index. For simple types the returned value will copy existing data and modifications to the value will not modify this object. For complex types (binary, dictionary and list) the returned value will reference existing data and modifications to the value will modify this object.
+	GetValue(index NativeUInt) ICefValue // function
+	// GetBool
+	//  Returns the value at the specified index as type bool.
+	GetBool(index NativeUInt) bool // function
+	// GetInt
+	//  Returns the value at the specified index as type int.
+	GetInt(index NativeUInt) int32 // function
+	// GetDouble
+	//  Returns the value at the specified index as type double.
+	GetDouble(index NativeUInt) (resultFloat64 float64) // function
+	// GetString
+	//  Returns the value at the specified index as type string.
+	GetString(index NativeUInt) string // function
+	// GetBinary
+	//  Returns the value at the specified index as type binary. The returned value will reference existing data.
+	GetBinary(index NativeUInt) ICefBinaryValue // function
+	// GetDictionary
+	//  Returns the value at the specified index as type dictionary. The returned value will reference existing data and modifications to the value will modify this object.
+	GetDictionary(index NativeUInt) ICefDictionaryValue // function
+	// GetList
+	//  Returns the value at the specified index as type list. The returned value will reference existing data and modifications to the value will modify this object.
+	GetList(index NativeUInt) ICefListValue // function
+	// SetValue
+	//  Sets the value at the specified index. Returns true (1) if the value was set successfully. If |value| represents simple data then the underlying data will be copied and modifications to |value| will not modify this object. If |value| represents complex data (binary, dictionary or list) then the underlying data will be referenced and modifications to |value| will modify this object.
+	SetValue(index NativeUInt, value ICefValue) bool // function
+	// SetNull
+	//  Sets the value at the specified index as type null. Returns true (1) if the value was set successfully.
+	SetNull(index NativeUInt) bool // function
+	// SetBool
+	//  Sets the value at the specified index as type bool. Returns true (1) if the value was set successfully.
+	SetBool(index NativeUInt, value bool) bool // function
+	// SetInt
+	//  Sets the value at the specified index as type int. Returns true (1) if the value was set successfully.
+	SetInt(index NativeUInt, value int32) bool // function
+	// SetDouble
+	//  Sets the value at the specified index as type double. Returns true (1) if the value was set successfully.
+	SetDouble(index NativeUInt, value float64) bool // function
+	// SetString
+	//  Sets the value at the specified index as type string. Returns true (1) if the value was set successfully.
+	SetString(index NativeUInt, value string) bool // function
+	// SetBinary
+	//  Sets the value at the specified index as type binary. Returns true (1) if the value was set successfully. If |value| is currently owned by another object then the value will be copied and the |value| reference will not change. Otherwise, ownership will be transferred to this object and the |value| reference will be invalidated.
+	SetBinary(index NativeUInt, value ICefBinaryValue) bool // function
+	// SetDictionary
+	//  Sets the value at the specified index as type dict. Returns true (1) if the value was set successfully. If |value| is currently owned by another object then the value will be copied and the |value| reference will not change. Otherwise, ownership will be transferred to this object and the |value| reference will be invalidated.
 	SetDictionary(index NativeUInt, value ICefDictionaryValue) bool // function
-	SetList(index NativeUInt, value ICefListValue) bool             // function
+	// SetList
+	//  Sets the value at the specified index as type list. Returns true (1) if the value was set successfully. If |value| is currently owned by another object then the value will be copied and the |value| reference will not change. Otherwise, ownership will be transferred to this object and the |value| reference will be invalidated.
+	SetList(index NativeUInt, value ICefListValue) bool // function
 }
 
 // TCefListValue Parent: TCefBaseRefCounted
+//
+//	Interface representing a list value. Can be used on any process and thread.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_values_capi.h">CEF source file: /include/capi/cef_values_capi.h (cef_list_value_t))</a>
 type TCefListValue struct {
 	TCefBaseRefCounted
 }

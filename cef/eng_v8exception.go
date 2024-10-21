@@ -14,19 +14,41 @@ import (
 )
 
 // ICefV8Exception Parent: ICefBaseRefCounted
+//
+//	Interface representing a V8 exception. The functions of this interface may be called on any render process thread.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_v8_capi.h">CEF source file: /include/capi/cef_v8_capi.h (cef_v8exception_t))</a>
 type ICefV8Exception interface {
 	ICefBaseRefCounted
-	GetMessage() string            // function
-	GetSourceLine() string         // function
+	// GetMessage
+	//  Returns the exception message.
+	GetMessage() string // function
+	// GetSourceLine
+	//  Returns the line of source code that the exception occurred within.
+	GetSourceLine() string // function
+	// GetScriptResourceName
+	//  Returns the resource name for the script from where the function causing the error originates.
 	GetScriptResourceName() string // function
-	GetLineNumber() int32          // function
-	GetStartPosition() int32       // function
-	GetEndPosition() int32         // function
-	GetStartColumn() int32         // function
-	GetEndColumn() int32           // function
+	// GetLineNumber
+	//  Returns the 1-based number of the line where the error occurred or 0 if the line number is unknown.
+	GetLineNumber() int32 // function
+	// GetStartPosition
+	//  Returns the index within the script of the first character where the error occurred.
+	GetStartPosition() int32 // function
+	// GetEndPosition
+	//  Returns the index within the script of the last character where the error occurred.
+	GetEndPosition() int32 // function
+	// GetStartColumn
+	//  Returns the index within the line of the first character where the error occurred.
+	GetStartColumn() int32 // function
+	// GetEndColumn
+	//  Returns the index within the line of the last character where the error occurred.
+	GetEndColumn() int32 // function
 }
 
 // TCefV8Exception Parent: TCefBaseRefCounted
+//
+//	Interface representing a V8 exception. The functions of this interface may be called on any render process thread.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_v8_capi.h">CEF source file: /include/capi/cef_v8_capi.h (cef_v8exception_t))</a>
 type TCefV8Exception struct {
 	TCefBaseRefCounted
 }
