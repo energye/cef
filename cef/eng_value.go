@@ -14,33 +14,83 @@ import (
 )
 
 // ICefValue Parent: ICefBaseRefCounted
+//
+//	Interface that wraps other data value types. Complex types (binary, dictionary and list) will be referenced but not owned by this object. Can be used on any process and thread.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_values_capi.h">CEF source file: /include/capi/cef_values_capi.h (cef_value_t))</a>
 type ICefValue interface {
 	ICefBaseRefCounted
-	IsValid() bool                                // function
-	IsOwned() bool                                // function
-	IsReadOnly() bool                             // function
-	IsSame(that ICefValue) bool                   // function
-	IsEqual(that ICefValue) bool                  // function
-	Copy() ICefValue                              // function
-	GetType() TCefValueType                       // function
-	GetBool() bool                                // function
-	GetInt() int32                                // function
-	GetDouble() (resultFloat64 float64)           // function
-	GetString() string                            // function
-	GetBinary() ICefBinaryValue                   // function
-	GetDictionary() ICefDictionaryValue           // function
-	GetList() ICefListValue                       // function
-	SetNull() bool                                // function
-	SetBool(value bool) bool                      // function
-	SetInt(value int32) bool                      // function
-	SetDouble(value float64) bool                 // function
-	SetString(value string) bool                  // function
-	SetBinary(value ICefBinaryValue) bool         // function
+	// IsValid
+	//  Returns true (1) if the underlying data is valid. This will always be true (1) for simple types. For complex types (binary, dictionary and list) the underlying data may become invalid if owned by another object (e.g. list or dictionary) and that other object is then modified or destroyed. This value object can be re-used by calling Set*() even if the underlying data is invalid.
+	IsValid() bool // function
+	// IsOwned
+	//  Returns true (1) if the underlying data is owned by another object.
+	IsOwned() bool // function
+	// IsReadOnly
+	//  Returns true (1) if the underlying data is read-only. Some APIs may expose read-only objects.
+	IsReadOnly() bool // function
+	// IsSame
+	//  Returns true (1) if this object and |that| object have the same underlying data. If true (1) modifications to this object will also affect |that| object and vice-versa.
+	IsSame(that ICefValue) bool // function
+	// IsEqual
+	//  Returns true (1) if this object and |that| object have an equivalent underlying value but are not necessarily the same object.
+	IsEqual(that ICefValue) bool // function
+	// Copy
+	//  Returns a copy of this object. The underlying data will also be copied.
+	Copy() ICefValue // function
+	// GetType
+	//  Returns the underlying value type.
+	GetType() TCefValueType // function
+	// GetBool
+	//  Returns the underlying value as type bool.
+	GetBool() bool // function
+	// GetInt
+	//  Returns the underlying value as type int.
+	GetInt() int32 // function
+	// GetDouble
+	//  Returns the underlying value as type double.
+	GetDouble() (resultFloat64 float64) // function
+	// GetString
+	//  Returns the underlying value as type string.
+	GetString() string // function
+	// GetBinary
+	//  Returns the underlying value as type binary. The returned reference may become invalid if the value is owned by another object or if ownership is transferred to another object in the future. To maintain a reference to the value after assigning ownership to a dictionary or list pass this object to the set_value() function instead of passing the returned reference to set_binary().
+	GetBinary() ICefBinaryValue // function
+	// GetDictionary
+	//  Returns the underlying value as type dictionary. The returned reference may become invalid if the value is owned by another object or if ownership is transferred to another object in the future. To maintain a reference to the value after assigning ownership to a dictionary or list pass this object to the set_value() function instead of passing the returned reference to set_dictionary().
+	GetDictionary() ICefDictionaryValue // function
+	// GetList
+	//  Returns the underlying value as type list. The returned reference may become invalid if the value is owned by another object or if ownership is transferred to another object in the future. To maintain a reference to the value after assigning ownership to a dictionary or list pass this object to the set_value() function instead of passing the returned reference to set_list().
+	GetList() ICefListValue // function
+	// SetNull
+	//  Sets the underlying value as type null. Returns true (1) if the value was set successfully.
+	SetNull() bool // function
+	// SetBool
+	//  Sets the underlying value as type bool. Returns true (1) if the value was set successfully.
+	SetBool(value bool) bool // function
+	// SetInt
+	//  Sets the underlying value as type int. Returns true (1) if the value was set successfully.
+	SetInt(value int32) bool // function
+	// SetDouble
+	//  Sets the underlying value as type double. Returns true (1) if the value was set successfully.
+	SetDouble(value float64) bool // function
+	// SetString
+	//  Sets the underlying value as type string. Returns true (1) if the value was set successfully.
+	SetString(value string) bool // function
+	// SetBinary
+	//  Sets the underlying value as type binary. Returns true (1) if the value was set successfully. This object keeps a reference to |value| and ownership of the underlying data remains unchanged.
+	SetBinary(value ICefBinaryValue) bool // function
+	// SetDictionary
+	//  Sets the underlying value as type dict. Returns true (1) if the value was set successfully. This object keeps a reference to |value| and ownership of the underlying data remains unchanged.
 	SetDictionary(value ICefDictionaryValue) bool // function
-	SetList(value ICefListValue) bool             // function
+	// SetList
+	//  Sets the underlying value as type list. Returns true (1) if the value was set successfully. This object keeps a reference to |value| and ownership of the underlying data remains unchanged.
+	SetList(value ICefListValue) bool // function
 }
 
 // TCefValue Parent: TCefBaseRefCounted
+//
+//	Interface that wraps other data value types. Complex types (binary, dictionary and list) will be referenced but not owned by this object. Can be used on any process and thread.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_values_capi.h">CEF source file: /include/capi/cef_values_capi.h (cef_value_t))</a>
 type TCefValue struct {
 	TCefBaseRefCounted
 }

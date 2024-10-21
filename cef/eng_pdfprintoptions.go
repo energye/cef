@@ -389,9 +389,9 @@ func (m *TPDFPrintOptions) SetMarginLeftMM(AValue float64) {
 }
 
 func (m *TPDFPrintOptions) CopyToSettings(aSettings *TCefPdfPrintSettings) {
-	var result0 uintptr
+	var result0 tCefPdfPrintSettings
 	pDFPrintOptionsImportAPI().SysCallN(0, m.Instance(), uintptr(unsafePointer(&result0)))
-	*aSettings = *(*TCefPdfPrintSettings)(unsafePointer(result0))
+	*aSettings = *(result0.Convert())
 }
 
 var (

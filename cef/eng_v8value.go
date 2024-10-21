@@ -14,61 +14,167 @@ import (
 )
 
 // ICefV8Value Parent: ICefBaseRefCounted
+//
+//	Interface representing a V8 value handle. V8 handles can only be accessed from the thread on which they are created. Valid threads for creating a V8 handle include the render process main thread (TID_RENDERER) and WebWorker threads. A task runner for posting tasks on the associated thread can be retrieved via the ICefv8context.GetTaskRunner() function.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_v8_capi.h">CEF source file: /include/capi/cef_v8_capi.h (cef_v8value_t))</a>
 type ICefV8Value interface {
 	ICefBaseRefCounted
+	// ExecuteFunction
+	//  Execute the function using the current V8 context. This function should only be called from within the scope of a ICefv8Handler or ICefV8Accessor callback, or in combination with calling enter() and exit() on a stored ICefv8Context reference. |object| is the receiver ('this' object) of the function. If |object| is NULL the current context's global object will be used. |arguments| is the list of arguments that will be passed to the function. Returns the function return value on success. Returns NULL if this function is called incorrectly or an exception is thrown.
 	ExecuteFunction(obj ICefV8Value, arguments []ICefV8Value) ICefV8Value
+	// ExecuteFunctionWithContext
+	//  Execute the function using the specified V8 context. |object| is the receiver ('this' object) of the function. If |object| is NULL the specified context's global object will be used. |arguments| is the list of arguments that will be passed to the function. Returns the function return value on success. Returns NULL if this function is called incorrectly or an exception is thrown.
 	ExecuteFunctionWithContext(context ICefV8Context, obj ICefV8Value, arguments []ICefV8Value) ICefV8Value
-	IsValid() bool                                                                                         // function
-	IsUndefined() bool                                                                                     // function
-	IsNull() bool                                                                                          // function
-	IsBool() bool                                                                                          // function
-	IsInt() bool                                                                                           // function
-	IsUInt() bool                                                                                          // function
-	IsDouble() bool                                                                                        // function
-	IsDate() bool                                                                                          // function
-	IsString() bool                                                                                        // function
-	IsObject() bool                                                                                        // function
-	IsArray() bool                                                                                         // function
-	IsArrayBuffer() bool                                                                                   // function
-	IsFunction() bool                                                                                      // function
-	IsPromise() bool                                                                                       // function
-	IsSame(that ICefV8Value) bool                                                                          // function
-	GetBoolValue() bool                                                                                    // function
-	GetIntValue() int32                                                                                    // function
-	GetUIntValue() uint32                                                                                  // function
-	GetDoubleValue() (resultFloat64 float64)                                                               // function
-	GetDateValue() (resultDateTime TDateTime)                                                              // function
-	GetStringValue() string                                                                                // function
-	IsUserCreated() bool                                                                                   // function
-	HasException() bool                                                                                    // function
-	GetException() ICefV8Exception                                                                         // function
-	ClearException() bool                                                                                  // function
-	WillRethrowExceptions() bool                                                                           // function
-	SetRethrowExceptions(rethrow bool) bool                                                                // function
-	HasValueByKey(key string) bool                                                                         // function
-	HasValueByIndex(index int32) bool                                                                      // function
-	DeleteValueByKey(key string) bool                                                                      // function
-	DeleteValueByIndex(index int32) bool                                                                   // function
-	GetValueByKey(key string) ICefV8Value                                                                  // function
-	GetValueByIndex(index int32) ICefV8Value                                                               // function
-	SetValueByKey(key string, value ICefV8Value, attribute TCefV8PropertyAttributes) bool                  // function
-	SetValueByIndex(index int32, value ICefV8Value) bool                                                   // function
+	// IsValid
+	//  Returns true (1) if the underlying handle is valid and it can be accessed on the current thread. Do not call any other functions if this function returns false (0).
+	IsValid() bool // function
+	// IsUndefined
+	//  True if the value type is undefined.
+	IsUndefined() bool // function
+	// IsNull
+	//  True if the value type is null.
+	IsNull() bool // function
+	// IsBool
+	//  True if the value type is bool.
+	IsBool() bool // function
+	// IsInt
+	//  True if the value type is int.
+	IsInt() bool // function
+	// IsUInt
+	//  True if the value type is unsigned int.
+	IsUInt() bool // function
+	// IsDouble
+	//  True if the value type is double.
+	IsDouble() bool // function
+	// IsDate
+	//  True if the value type is Date.
+	IsDate() bool // function
+	// IsString
+	//  True if the value type is string.
+	IsString() bool // function
+	// IsObject
+	//  True if the value type is object.
+	IsObject() bool // function
+	// IsArray
+	//  True if the value type is array.
+	IsArray() bool // function
+	// IsArrayBuffer
+	//  True if the value type is an ArrayBuffer.
+	IsArrayBuffer() bool // function
+	// IsFunction
+	//  True if the value type is function.
+	IsFunction() bool // function
+	// IsPromise
+	//  True if the value type is a Promise.
+	IsPromise() bool // function
+	// IsSame
+	//  Returns true (1) if this object is pointing to the same handle as |that| object.
+	IsSame(that ICefV8Value) bool // function
+	// GetBoolValue
+	//  Return a bool value.
+	GetBoolValue() bool // function
+	// GetIntValue
+	//  Return an int value.
+	GetIntValue() int32 // function
+	// GetUIntValue
+	//  Return an unsigned int value.
+	GetUIntValue() uint32 // function
+	// GetDoubleValue
+	//  Return a double value.
+	GetDoubleValue() (resultFloat64 float64) // function
+	// GetDateValue
+	//  Return a Date value.
+	GetDateValue() (resultDateTime TDateTime) // function
+	// GetStringValue
+	//  Return a string value.
+	GetStringValue() string // function
+	// IsUserCreated
+	//  Returns true (1) if this is a user created object.
+	IsUserCreated() bool // function
+	// HasException
+	//  Returns true (1) if the last function call resulted in an exception. This attribute exists only in the scope of the current CEF value object.
+	HasException() bool // function
+	// GetException
+	//  Returns the exception resulting from the last function call. This attribute exists only in the scope of the current CEF value object.
+	GetException() ICefV8Exception // function
+	// ClearException
+	//  Clears the last exception and returns true (1) on success.
+	ClearException() bool // function
+	// WillRethrowExceptions
+	//  Returns true (1) if this object will re-throw future exceptions. This attribute exists only in the scope of the current CEF value object.
+	WillRethrowExceptions() bool // function
+	// SetRethrowExceptions
+	//  Set whether this object will re-throw future exceptions. By default exceptions are not re-thrown. If a exception is re-thrown the current context should not be accessed again until after the exception has been caught and not re-thrown. Returns true (1) on success. This attribute exists only in the scope of the current CEF value object.
+	SetRethrowExceptions(rethrow bool) bool // function
+	// HasValueByKey
+	//  Returns true (1) if the object has a value with the specified identifier.
+	HasValueByKey(key string) bool // function
+	// HasValueByIndex
+	//  Returns true (1) if the object has a value with the specified identifier.
+	HasValueByIndex(index int32) bool // function
+	// DeleteValueByKey
+	//  Deletes the value with the specified identifier and returns true (1) on success. Returns false (0) if this function is called incorrectly or an exception is thrown. For read-only and don't-delete values this function will return true (1) even though deletion failed.
+	DeleteValueByKey(key string) bool // function
+	// DeleteValueByIndex
+	//  Deletes the value with the specified identifier and returns true (1) on success. Returns false (0) if this function is called incorrectly, deletion fails or an exception is thrown. For read-only and don't-delete values this function will return true (1) even though deletion failed.
+	DeleteValueByIndex(index int32) bool // function
+	// GetValueByKey
+	//  Returns the value with the specified identifier on success. Returns NULL if this function is called incorrectly or an exception is thrown.
+	GetValueByKey(key string) ICefV8Value // function
+	// GetValueByIndex
+	//  Returns the value with the specified identifier on success. Returns NULL if this function is called incorrectly or an exception is thrown.
+	GetValueByIndex(index int32) ICefV8Value // function
+	// SetValueByKey
+	//  Associates a value with the specified identifier and returns true (1) on success. Returns false (0) if this function is called incorrectly or an exception is thrown. For read-only values this function will return true (1) even though assignment failed.
+	SetValueByKey(key string, value ICefV8Value, attribute TCefV8PropertyAttributes) bool // function
+	// SetValueByIndex
+	//  Associates a value with the specified identifier and returns true (1) on success. Returns false (0) if this function is called incorrectly or an exception is thrown. For read-only values this function will return true (1) even though assignment failed.
+	SetValueByIndex(index int32, value ICefV8Value) bool // function
+	// SetValueByAccessor
+	//  Registers an identifier and returns true (1) on success. Access to the identifier will be forwarded to the ICefV8Accessor instance passed to cef_v8value_create_object(). Returns false (0) if this function is called incorrectly or an exception is thrown. For read-only values this function will return true (1) even though assignment failed.
 	SetValueByAccessor(key string, settings TCefV8AccessControls, attribute TCefV8PropertyAttributes) bool // function
-	GetKeys(keys IStrings) int32                                                                           // function
-	SetUserData(data ICefV8Value) bool                                                                     // function
-	GetUserData() ICefV8Value                                                                              // function
-	GetExternallyAllocatedMemory() int32                                                                   // function
-	AdjustExternallyAllocatedMemory(changeInBytes int32) int32                                             // function
-	GetArrayLength() int32                                                                                 // function
-	GetArrayBufferReleaseCallback() ICefV8ArrayBufferReleaseCallback                                       // function
-	NeuterArrayBuffer() bool                                                                               // function
-	GetFunctionName() string                                                                               // function
-	GetFunctionHandler() ICefV8Handler                                                                     // function
-	ResolvePromise(arg ICefV8Value) bool                                                                   // function
-	RejectPromise(errorMsg string) bool                                                                    // function
+	// GetKeys
+	//  Read the keys for the object's values into the specified vector. Integer- based keys will also be returned as strings.
+	GetKeys(keys IStrings) int32 // function
+	// SetUserData
+	//  Sets the user data for this object and returns true (1) on success. Returns false (0) if this function is called incorrectly. This function can only be called on user created objects.
+	SetUserData(data ICefV8Value) bool // function
+	// GetUserData
+	//  Returns the user data, if any, assigned to this object.
+	GetUserData() ICefV8Value // function
+	// GetExternallyAllocatedMemory
+	//  Returns the amount of externally allocated memory registered for the object.
+	GetExternallyAllocatedMemory() int32 // function
+	// AdjustExternallyAllocatedMemory
+	//  Adjusts the amount of registered external memory for the object. Used to give V8 an indication of the amount of externally allocated memory that is kept alive by JavaScript objects. V8 uses this information to decide when to perform global garbage collection. Each ICefv8Value tracks the amount of external memory associated with it and automatically decreases the global total by the appropriate amount on its destruction. |change_in_bytes| specifies the number of bytes to adjust by. This function returns the number of bytes associated with the object after the adjustment. This function can only be called on user created objects.
+	AdjustExternallyAllocatedMemory(changeInBytes int32) int32 // function
+	// GetArrayLength
+	//  Returns the number of elements in the array.
+	GetArrayLength() int32 // function
+	// GetArrayBufferReleaseCallback
+	//  Returns the ReleaseCallback object associated with the ArrayBuffer or NULL if the ArrayBuffer was not created with CreateArrayBuffer.
+	GetArrayBufferReleaseCallback() ICefV8ArrayBufferReleaseCallback // function
+	// NeuterArrayBuffer
+	//  Prevent the ArrayBuffer from using it's memory block by setting the length to zero. This operation cannot be undone. If the ArrayBuffer was created with CreateArrayBuffer then ICefv8ArrayBufferReleaseCallback.ReleaseBuffer will be called to release the underlying buffer.
+	NeuterArrayBuffer() bool // function
+	// GetFunctionName
+	//  Returns the function name.
+	GetFunctionName() string // function
+	// GetFunctionHandler
+	//  Returns the function handler or NULL if not a CEF-created function.
+	GetFunctionHandler() ICefV8Handler // function
+	// ResolvePromise
+	//  Resolve the Promise using the current V8 context. This function should only be called from within the scope of a ICefv8Handler or ICefV8Accessor callback, or in combination with calling enter() and exit() on a stored ICefv8Context reference. |arg| is the argument passed to the resolved promise. Returns true (1) on success. Returns false (0) if this function is called incorrectly or an exception is thrown.
+	ResolvePromise(arg ICefV8Value) bool // function
+	// RejectPromise
+	//  Reject the Promise using the current V8 context. This function should only be called from within the scope of a ICefv8Handler or ICefV8Accessor callback, or in combination with calling enter() and exit() on a stored ICefv8Context reference. Returns true (1) on success. Returns false (0) if this function is called incorrectly or an exception is thrown.
+	RejectPromise(errorMsg string) bool // function
 }
 
 // TCefV8Value Parent: TCefBaseRefCounted
+//
+//	Interface representing a V8 value handle. V8 handles can only be accessed from the thread on which they are created. Valid threads for creating a V8 handle include the render process main thread (TID_RENDERER) and WebWorker threads. A task runner for posting tasks on the associated thread can be retrieved via the ICefv8context.GetTaskRunner() function.
+//	<a href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_v8_capi.h">CEF source file: /include/capi/cef_v8_capi.h (cef_v8value_t))</a>
 type TCefV8Value struct {
 	TCefBaseRefCounted
 }
