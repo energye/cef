@@ -14,7 +14,6 @@ import (
 	"github.com/energye/lcl/inits"
 	"github.com/energye/lcl/lcl"
 	"github.com/energye/lcl/pkgs/macapp"
-	"github.com/energye/lcl/process"
 	"github.com/energye/lcl/tools"
 	"github.com/energye/lcl/types"
 	"os"
@@ -1726,11 +1725,6 @@ func eventCallbackProc(f uintptr, args uintptr, _ int) uintptr {
 func Init(libs emfs.IEmbedFS, resources emfs.IEmbedFS) {
 	if tools.IsDarwin() {
 		macapp.MacApp.IsCEF(true)
-		//MacOSX环境, 命令行或ide开发环境需命令行参数[env=dev]以保证开发时应用正常运行
-		env := process.Args.Args("env")
-		if env != "" {
-			macapp.MacApp.SetEnergyEnv(env)
-		}
 	}
 	inits.Init(libs, resources)
 	if tools.IsDarwin() {
