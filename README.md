@@ -59,7 +59,7 @@
 #### 基本需求
 
 > - Golang >= 1.20
-> - 动态链接库 `CEF二进制框架` `liblcl.dll`
+> - 动态链接库 `CEF二进制框架` 和 `liblcl`
 
 #### [示例](https://github.com/energye/examples/tree/main/cef)
 
@@ -94,9 +94,8 @@
 
 ### 相关项目
 * [Go LCL](https://github.com/energye/lcl)
-* [Go Webview2](https://github.com/energye/wv)
+* [Go Webview](https://github.com/energye/wv)
 * [Go CEF](https://github.com/energye/cef)
-* [Go Webkit](https://github.com/energye/wk)
 * [WebView4Delphi](https://github.com/salvadordf/WebView4Delphi)
 * [CEF](https://github.com/chromiumembedded/cef)
 * [CEF4Delphi](https://github.com/salvadordf/CEF4Delphi)
