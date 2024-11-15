@@ -67,9 +67,29 @@
 
 1. 安装 [Golang](https://golang.google.cn/dl/), Windows版本, 仅支持intel架构 [https://golang.google.cn/dl](https://golang.google.cn/dl)
 2. 下载 `CEF` 和 `LCL` 控件库动态链接库
-  - [LCL DLL](https://github.com/energye/lcl/tree/main/bins/cef/windows)
-  - [CEF Windows64](https://cef-builds.spotifycdn.com/cef_binary_118.7.1%2Bg99817d2%2Bchromium-118.0.5993.119_windows64_client.tar.bz2)
-  - [CEF Windows32](https://cef-builds.spotifycdn.com/cef_binary_118.7.1%2Bg99817d2%2Bchromium-118.0.5993.119_windows32_client.tar.bz2)
+- LCL+CEF:
+
+  - [Windows32](https://sourceforge.net/projects/liblcl/files/v3.0.0/lcl_cef_binary_windows32.zip/download)
+  - [Windows64](https://sourceforge.net/projects/liblcl/files/v3.0.0/lcl_cef_binary_windows64.zip/download)
+  - [MacOSx64](https://sourceforge.net/projects/liblcl/files/v3.0.0/lcl_cef_binary_macosx64.zip/download)
+  - [MacOSARM64](https://sourceforge.net/projects/liblcl/files/v3.0.0/lcl_cef_binary_macosarm64.zip/download)
+  - [Linux64 GTK3](https://sourceforge.net/projects/liblcl/files/v3.0.0/lcl_cef_binary_linux64.zip/download)
+  - [LinuxARM64 GTK3](https://sourceforge.net/projects/liblcl/files/v3.0.0/lcl_cef_binary_linuxarm64.zip/download)
+
+- CEF 118.7.1:
+
+  - [Windows32](https://cef-builds.spotifycdn.com/cef_binary_118.7.1%2Bg99817d2%2Bchromium-118.0.5993.119_windows32_client.tar.bz2)
+  - [Windows64](https://cef-builds.spotifycdn.com/cef_binary_118.7.1%2Bg99817d2%2Bchromium-118.0.5993.119_windows64_client.tar.bz2)
+  - [MacOSx64](https://cef-builds.spotifycdn.com/cef_binary_118.7.1%2Bg99817d2%2Bchromium-118.0.5993.119_macosx64_minimal.tar.bz2)
+  - [MacOSARM64](https://cef-builds.spotifycdn.com/cef_binary_118.7.1%2Bg99817d2%2Bchromium-118.0.5993.119_macosarm64_minimal.tar.bz2)
+  - [Linux64](https://cef-builds.spotifycdn.com/cef_binary_118.7.1%2Bg99817d2%2Bchromium-118.0.5993.119_linux64_minimal.tar.bz2)
+  - [LinuxARM64](https://cef-builds.spotifycdn.com/cef_binary_118.7.1%2Bg99817d2%2Bchromium-118.0.5993.119_linuxarm64_minimal.tar.bz2)
+  
+  `GTK >= 3.24.24 and Glib2.0 >= 2.66`
+
+- Linux GTK2 LCL + CEF(106)
+`To be added`
+
 3. 将CEF解压到指定目录，且将liblcl放置到该目录，并配置环境变量 `ENERGY_HOME` 指向CEF目录
 4. 创建Go项目开始使用` CEF` 和 `LCL` 构建桌面应用, 参考 `Go CEF` 示例 [CEF examples](https://github.com/energye/examples/tree/main/cef)
 
