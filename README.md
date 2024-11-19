@@ -74,7 +74,9 @@
   - [MacOSx64](https://sourceforge.net/projects/liblcl/files/v3.0.0/lcl_cef_binary_macosx64.zip/download)
   - [MacOSARM64](https://sourceforge.net/projects/liblcl/files/v3.0.0/lcl_cef_binary_macosarm64.zip/download)
   - [Linux64 GTK3](https://sourceforge.net/projects/liblcl/files/v3.0.0/lcl_cef_binary_linux64.zip/download)
+  - [LinuxARM32 GTK3](https://sourceforge.net/projects/liblcl/files/v3.0.0/lcl_cef_binary_linuxarm32.zip/download)
   - [LinuxARM64 GTK3](https://sourceforge.net/projects/liblcl/files/v3.0.0/lcl_cef_binary_linuxarm64.zip/download)
+  
 
 - CEF 118.7.1:
 
@@ -83,11 +85,11 @@
   - [MacOSx64](https://cef-builds.spotifycdn.com/cef_binary_118.7.1%2Bg99817d2%2Bchromium-118.0.5993.119_macosx64_minimal.tar.bz2)
   - [MacOSARM64](https://cef-builds.spotifycdn.com/cef_binary_118.7.1%2Bg99817d2%2Bchromium-118.0.5993.119_macosarm64_minimal.tar.bz2)
   - [Linux64 GTK3](https://cef-builds.spotifycdn.com/cef_binary_118.7.1%2Bg99817d2%2Bchromium-118.0.5993.119_linux64_minimal.tar.bz2)
+  - [LinuxARM32 GTK3](https://cef-builds.spotifycdn.com/cef_binary_118.7.1%2Bg99817d2%2Bchromium-118.0.5993.119_linuxarm_minimal.tar.bz2)
   - [LinuxARM64 GTK3](https://cef-builds.spotifycdn.com/cef_binary_118.7.1%2Bg99817d2%2Bchromium-118.0.5993.119_linuxarm64_minimal.tar.bz2)
   
-  - Linux GTK3: `GTK >= 3.24.24 and Glib2.0 >= 2.66`
+Linux GTK3: `GTK >= 3.24.24 and Glib2.0 >= 2.66`
 
-  - Linux GTK2 LCL + CEF(106) `To be added`
 
 3. 将CEF解压到指定目录，且将liblcl放置到该目录，并配置环境变量 `ENERGY_HOME` 指向CEF目录
 4. 创建Go项目开始使用` CEF` 和 `LCL` 构建桌面应用, 参考 `Go CEF` 示例 [CEF examples](https://github.com/energye/examples/tree/main/cef)
