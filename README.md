@@ -76,7 +76,8 @@
   - [Linux64 GTK3](https://sourceforge.net/projects/liblcl/files/v3.0.0/lcl_cef_binary_linux64.zip/download)
   - [LinuxARM32 GTK3](https://sourceforge.net/projects/liblcl/files/v3.0.0/lcl_cef_binary_linuxarm32.zip/download)
   - [LinuxARM64 GTK3](https://sourceforge.net/projects/liblcl/files/v3.0.0/lcl_cef_binary_linuxarm64.zip/download)
-  
+
+Linux GTK3: `GTK >= 3.24.24 and Glib2.0 >= 2.66`
 
 - CEF 118.7.1:
 
@@ -93,6 +94,14 @@ Linux GTK3: `GTK >= 3.24.24 and Glib2.0 >= 2.66`
 
 3. 将CEF解压到指定目录，且将liblcl放置到该目录，并配置环境变量 `ENERGY_HOME` 指向CEF目录
 4. 创建Go项目开始使用` CEF` 和 `LCL` 构建桌面应用, 参考 `Go CEF` 示例 [CEF examples](https://github.com/energye/examples/tree/main/cef)
+
+##### 其它 CEF 版本
+
+CEF_109.1.18
+
+CEF_106.1.1
+
+CEF_101.0.18
 
 ### 相关项目
 * [Go LCL](https://github.com/energye/lcl)
