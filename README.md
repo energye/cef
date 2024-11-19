@@ -97,11 +97,30 @@ Linux GTK3: `GTK >= 3.24.24 and Glib2.0 >= 2.66`
 
 ##### 其它 CEF 版本
 
-CEF_109.1.18
+##### CEF_109.1.18
 
-CEF_106.1.1
+- [Linux64](https://sourceforge.net/projects/liblcl/files/v3.0.0/lcl_cef_109.1.18_binary_linux64.zip/download)
+- [LinuxARM32](https://sourceforge.net/projects/liblcl/files/v3.0.0/lcl_cef_109.1.18_binary_linuxarm32.zip/download)
+- [LinuxARM64](https://sourceforge.net/projects/liblcl/files/v3.0.0/lcl_cef_109.1.18_binary_linuxarm64.zip/download)
 
-CEF_101.0.18
+Linux GTK3 Build Debian 11 : `GTK >= 3.24.24 and Glib2.0 >= 2.66`
+
+##### CEF_106.1.1
+
+- [Linux64](https://sourceforge.net/projects/liblcl/files/v3.0.0/lcl_cef_106.1.1_binary_linux64.zip/download)
+- [LinuxARM32](https://sourceforge.net/projects/liblcl/files/v3.0.0/lcl_cef_106.1.1_binary_linuxarm32.zip/download)
+- [LinuxARM64](https://sourceforge.net/projects/liblcl/files/v3.0.0/lcl_cef_106.1.1_binary_linuxarm64.zip/download)
+
+Linux GTK2 Build Ubuntu 18.04
+
+##### CEF_101.0.18
+
+- [Linux32](https://sourceforge.net/projects/liblcl/files/v3.0.0/lcl_cef_101.0.18_binary_linux32.zip/download)
+- [Linux64](https://sourceforge.net/projects/liblcl/files/v3.0.0/lcl_cef_101.0.18_binary_linux64.zip/download)
+- [LinuxARM32](https://sourceforge.net/projects/liblcl/files/v3.0.0/lcl_cef_101.0.18_binary_linuxarm32.zip/download)
+- [LinuxARM64](https://sourceforge.net/projects/liblcl/files/v3.0.0/lcl_cef_101.0.18_binary_linuxarm64.zip/download)
+
+Linux GTK2 Build Ubuntu 18.04
 
 ### 相关项目
 * [Go LCL](https://github.com/energye/lcl)
