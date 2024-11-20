@@ -65,7 +65,7 @@
 
 #### 开发环境
 
-1. 安装 [Golang](https://golang.google.cn/dl/), Windows版本, 仅支持intel架构 [https://golang.google.cn/dl](https://golang.google.cn/dl)
+1. 安装 [Golang](https://golang.google.cn/dl/)
 2. 下载 `CEF` 和 `LCL` 控件库动态链接库
 - LCL+CEF:
 
