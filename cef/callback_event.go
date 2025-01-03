@@ -10,13 +10,8 @@ package cef
 
 import (
 	. "github.com/energye/lcl/api"
-	"github.com/energye/lcl/emfs"
-	"github.com/energye/lcl/inits"
 	"github.com/energye/lcl/lcl"
-	"github.com/energye/lcl/pkgs/macapp"
-	"github.com/energye/lcl/tools"
 	"github.com/energye/lcl/types"
-	"os"
 	"unsafe"
 )
 
@@ -1715,27 +1710,4 @@ func eventCallbackProc(f uintptr, args uintptr, _ int) uintptr {
 		}
 	}
 	return 0
-}
-
-// Init 全局初始化, 需手动调用的函数
-//
-//	参数:
-//	   libs 内置到应用程序的类库
-//	   resources 内置到应用程序的资源文件
-func Init(libs emfs.IEmbedFS, resources emfs.IEmbedFS) {
-	if tools.IsDarwin() {
-		macapp.MacApp.IsCEF(true)
-	}
-	inits.Init(libs, resources)
-	if tools.IsDarwin() {
-		argsList := lcl.NewStringList()
-		for _, v := range os.Args {
-			argsList.Add(v)
-		}
-		// 手动设置进程命令参数
-		SetCommandLine(argsList)
-		argsList.Free()
-	}
-	SetCEFEventCallback(eventCallback)
-	SetCEFRemoveEventCallback(removeEventCallback)
 }
