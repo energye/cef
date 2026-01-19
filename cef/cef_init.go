@@ -12,7 +12,6 @@ package cef
 
 import (
 	"github.com/energye/lcl/api"
-	"github.com/energye/lcl/config"
 	"github.com/energye/lcl/emfs"
 	"github.com/energye/lcl/lcl"
 	"github.com/energye/lcl/tool"
@@ -22,7 +21,6 @@ import (
 // Init CEF
 func Init(libs emfs.IEmbedFS, resources emfs.IEmbedFS) {
 	if tool.IsDarwin() {
-		config.Get().IsCEF = true
 	}
 	// LCL init
 	lcl.Init(libs, resources)
