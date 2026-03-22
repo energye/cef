@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefLabelButton Parent: ICefButtonRef
+// ICefLabelButton Parent: ICefButton
 type ICefLabelButton interface {
-	ICefButtonRef
+	ICefButton
 	// AsMenuButton
 	//  Returns this LabelButton as a MenuButton or NULL if this is not a
 	//  MenuButton.
@@ -68,9 +68,10 @@ type ICefLabelButton interface {
 	SetMaximumSize(size TCefSize) // procedure
 }
 
-// ICefLabelButtonRef Parent: ICefLabelButton
+// ICefLabelButtonRef Parent: ICefLabelButton ICefButtonRef
 type ICefLabelButtonRef interface {
 	ICefLabelButton
+	ICefButtonRef
 	AsIntfLabelButton() uintptr
 	AsIntfButton() uintptr
 	AsIntfView() uintptr

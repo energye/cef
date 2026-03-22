@@ -17,9 +17,9 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICefStreamReader Parent: ICefBaseRefCountedRef
+// ICefStreamReader Parent: ICefBaseRefCounted
 type ICefStreamReader interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// Read
 	//  Read raw binary data.
 	Read(ptr uintptr, size cefTypes.NativeUInt, N cefTypes.NativeUInt) cefTypes.NativeUInt // function
@@ -41,9 +41,10 @@ type ICefStreamReader interface {
 	MayBlock() bool // function
 }
 
-// ICefStreamReaderRef Parent: ICefStreamReader
+// ICefStreamReaderRef Parent: ICefStreamReader ICefBaseRefCountedRef
 type ICefStreamReaderRef interface {
 	ICefStreamReader
+	ICefBaseRefCountedRef
 	AsIntfStreamReader() uintptr
 }
 

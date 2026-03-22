@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefMenuButton Parent: ICefLabelButtonRef
+// ICefMenuButton Parent: ICefLabelButton
 type ICefMenuButton interface {
-	ICefLabelButtonRef
+	ICefLabelButton
 	// ShowMenu
 	//  Show a menu with contents |menu_model|. |screen_point| specifies the menu
 	//  position in screen coordinates. |anchor_position| specifies how the menu
@@ -30,9 +30,10 @@ type ICefMenuButton interface {
 	TriggerMenu() // procedure
 }
 
-// ICefMenuButtonRef Parent: ICefMenuButton
+// ICefMenuButtonRef Parent: ICefMenuButton ICefLabelButtonRef
 type ICefMenuButtonRef interface {
 	ICefMenuButton
+	ICefLabelButtonRef
 	AsIntfMenuButton() uintptr
 	AsIntfLabelButton() uintptr
 	AsIntfButton() uintptr

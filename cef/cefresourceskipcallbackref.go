@@ -14,9 +14,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefResourceSkipCallback Parent: ICefBaseRefCountedRef
+// ICefResourceSkipCallback Parent: ICefBaseRefCounted
 type ICefResourceSkipCallback interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// Cont
 	//  Callback for asynchronous continuation of skip(). If |bytes_skipped| > 0
 	//  then either skip() will be called again until the requested number of
@@ -25,9 +25,10 @@ type ICefResourceSkipCallback interface {
 	Cont(bytesSkipped int64) // procedure
 }
 
-// ICefResourceSkipCallbackRef Parent: ICefResourceSkipCallback
+// ICefResourceSkipCallbackRef Parent: ICefResourceSkipCallback ICefBaseRefCountedRef
 type ICefResourceSkipCallbackRef interface {
 	ICefResourceSkipCallback
+	ICefBaseRefCountedRef
 	AsIntfResourceSkipCallback() uintptr
 }
 

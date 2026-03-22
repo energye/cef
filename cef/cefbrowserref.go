@@ -17,9 +17,9 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICefBrowser Parent: ICefBaseRefCountedRef
+// ICefBrowser Parent: ICefBaseRefCounted
 type ICefBrowser interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// IsValid
 	//  True if this object is currently valid. This will return false (0) after
 	//  ICefLifeSpanHandler.OnBeforeClose is called.
@@ -95,9 +95,10 @@ type ICefBrowser interface {
 	StopLoad() // procedure
 }
 
-// ICefBrowserRef Parent: ICefBrowser
+// ICefBrowserRef Parent: ICefBrowser ICefBaseRefCountedRef
 type ICefBrowserRef interface {
 	ICefBrowser
+	ICefBaseRefCountedRef
 	AsIntfBrowser() uintptr
 }
 

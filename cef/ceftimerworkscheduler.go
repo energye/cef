@@ -12,12 +12,11 @@ import (
 	"github.com/energye/lcl/api"
 	"github.com/energye/lcl/api/imports"
 	"github.com/energye/lcl/base"
-	"github.com/energye/lcl/lcl"
 )
 
-// ICEFTimerWorkScheduler Parent: lcl.IObject
+// ICEFTimerWorkScheduler Parent: IObject
 type ICEFTimerWorkScheduler interface {
-	lcl.IObject
+	IObject
 	StopScheduler()                        // procedure
 	ScheduleMessagePumpWork(delayMs int64) // procedure
 	DepleteWorkCycles() uint32             // property DepleteWorkCycles Getter
@@ -29,7 +28,7 @@ type ICEFTimerWorkScheduler interface {
 }
 
 type TCEFTimerWorkScheduler struct {
-	lcl.TObject
+	TObject
 }
 
 func (m *TCEFTimerWorkScheduler) StopScheduler() {

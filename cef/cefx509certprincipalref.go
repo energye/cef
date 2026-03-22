@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/lcl"
 )
 
-// ICefX509CertPrincipal Parent: ICefBaseRefCountedRef
+// ICefX509CertPrincipal Parent: ICefBaseRefCounted
 type ICefX509CertPrincipal interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// GetDisplayName
 	//  Returns a name that can be used to represent the issuer. It tries in this
 	//  order: Common Name (CN), Organization Name (O) and Organizational Unit
@@ -43,9 +43,10 @@ type ICefX509CertPrincipal interface {
 	GetOrganizationUnitNames(names lcl.IStrings) // procedure
 }
 
-// ICefX509CertPrincipalRef Parent: ICefX509CertPrincipal
+// ICefX509CertPrincipalRef Parent: ICefX509CertPrincipal ICefBaseRefCountedRef
 type ICefX509CertPrincipalRef interface {
 	ICefX509CertPrincipal
+	ICefBaseRefCountedRef
 	AsIntfX509CertPrincipal() uintptr
 }
 

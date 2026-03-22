@@ -14,9 +14,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefv8Context Parent: ICefBaseRefCountedRef
+// ICefv8Context Parent: ICefBaseRefCounted
 type ICefv8Context interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// GetTaskRunner
 	//  Returns the task runner associated with this context. V8 handles can only
 	//  be accessed from the thread on which they are created. This function can
@@ -64,9 +64,10 @@ type ICefv8Context interface {
 	Eval(code string, scriptUrl string, startLine int32, retval *ICefv8Value, exception *ICefV8Exception) bool // function
 }
 
-// ICefv8ContextRef Parent: ICefv8Context
+// ICefv8ContextRef Parent: ICefv8Context ICefBaseRefCountedRef
 type ICefv8ContextRef interface {
 	ICefv8Context
+	ICefBaseRefCountedRef
 	AsIntfV8Context() uintptr
 }
 

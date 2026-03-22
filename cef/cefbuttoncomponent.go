@@ -17,8 +17,14 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICEFButtonComponent Parent: ICEFViewComponent
+// ICefButtonDelegateEvents Parent: ICefViewDelegateEvents
+type ICefButtonDelegateEvents interface {
+	ICefViewDelegateEvents
+}
+
+// ICEFButtonComponent Parent: ICefButtonDelegateEvents ICEFViewComponent
 type ICEFButtonComponent interface {
+	ICefButtonDelegateEvents
 	ICEFViewComponent
 	// SetInkDropEnabled
 	//  Sets the Button will use an ink drop effect for displaying state changes.

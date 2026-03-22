@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefMediaAccessCallback Parent: ICefBaseRefCountedRef
+// ICefMediaAccessCallback Parent: ICefBaseRefCounted
 type ICefMediaAccessCallback interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// Cont
 	//  Call to allow or deny media access. If this callback was initiated in
 	//  response to a getUserMedia (indicated by
@@ -31,9 +31,10 @@ type ICefMediaAccessCallback interface {
 	Cancel() // procedure
 }
 
-// ICefMediaAccessCallbackRef Parent: ICefMediaAccessCallback
+// ICefMediaAccessCallbackRef Parent: ICefMediaAccessCallback ICefBaseRefCountedRef
 type ICefMediaAccessCallbackRef interface {
 	ICefMediaAccessCallback
+	ICefBaseRefCountedRef
 	AsIntfMediaAccessCallback() uintptr
 }
 

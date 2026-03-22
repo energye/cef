@@ -17,9 +17,9 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICefDisplay Parent: ICefBaseRefCountedRef
+// ICefDisplay Parent: ICefBaseRefCounted
 type ICefDisplay interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// GetID
 	//  Returns the unique identifier for this Display.
 	GetID() int64 // function
@@ -50,9 +50,10 @@ type ICefDisplay interface {
 	ConvertPointFromPixels(point *TCefPoint) // procedure
 }
 
-// ICefDisplayRef Parent: ICefDisplay
+// ICefDisplayRef Parent: ICefDisplay ICefBaseRefCountedRef
 type ICefDisplayRef interface {
 	ICefDisplay
+	ICefBaseRefCountedRef
 	AsIntfDisplay() uintptr
 }
 

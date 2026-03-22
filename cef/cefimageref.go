@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefImage Parent: ICefBaseRefCountedRef
+// ICefImage Parent: ICefBaseRefCounted
 type ICefImage interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// IsEmpty
 	//  Returns true (1) if this Image is NULL.
 	IsEmpty() bool // function
@@ -89,9 +89,10 @@ type ICefImage interface {
 	GetAsJpeg(scaleFactor float32, quality int32, pixelWidth *int32, pixelHeight *int32) ICefBinaryValue // function
 }
 
-// ICefImageRef Parent: ICefImage
+// ICefImageRef Parent: ICefImage ICefBaseRefCountedRef
 type ICefImageRef interface {
 	ICefImage
+	ICefBaseRefCountedRef
 	AsIntfImage() uintptr
 }
 

@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefThread Parent: ICefBaseRefCountedRef
+// ICefThread Parent: ICefBaseRefCounted
 type ICefThread interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// GetTaskRunner
 	//  Returns the ICefTaskRunner that will execute code on this thread's
 	//  message loop. This function is safe to call from any thread.
@@ -37,9 +37,10 @@ type ICefThread interface {
 	Stop() // procedure
 }
 
-// ICefThreadRef Parent: ICefThread
+// ICefThreadRef Parent: ICefThread ICefBaseRefCountedRef
 type ICefThreadRef interface {
 	ICefThread
+	ICefBaseRefCountedRef
 	AsIntfThread() uintptr
 }
 

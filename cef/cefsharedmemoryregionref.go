@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefSharedMemoryRegion Parent: ICefBaseRefCountedRef
+// ICefSharedMemoryRegion Parent: ICefBaseRefCounted
 type ICefSharedMemoryRegion interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// IsValid
 	//  Returns true (1) if the mapping is valid.
 	IsValid() bool // function
@@ -30,9 +30,10 @@ type ICefSharedMemoryRegion interface {
 	Memory() uintptr // function
 }
 
-// ICefSharedMemoryRegionRef Parent: ICefSharedMemoryRegion
+// ICefSharedMemoryRegionRef Parent: ICefSharedMemoryRegion ICefBaseRefCountedRef
 type ICefSharedMemoryRegionRef interface {
 	ICefSharedMemoryRegion
+	ICefBaseRefCountedRef
 	AsIntfSharedMemoryRegion() uintptr
 }
 

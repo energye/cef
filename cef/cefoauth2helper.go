@@ -12,14 +12,13 @@ import (
 	"github.com/energye/lcl/api"
 	"github.com/energye/lcl/api/imports"
 	"github.com/energye/lcl/base"
-	"github.com/energye/lcl/lcl"
 
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICEFOAuth2Helper Parent: lcl.IObject
+// ICEFOAuth2Helper Parent: IObject
 type ICEFOAuth2Helper interface {
-	lcl.IObject
+	IObject
 	ParseTokenExchangeResponse(response string) bool         // function
 	ParseRefreshTokenResponse(response string) bool          // function
 	ParseCodeRequestResponse(uRL string) bool                // function
@@ -57,7 +56,7 @@ type ICEFOAuth2Helper interface {
 }
 
 type TCEFOAuth2Helper struct {
-	lcl.TObject
+	TObject
 }
 
 func (m *TCEFOAuth2Helper) ParseTokenExchangeResponse(response string) bool {

@@ -14,9 +14,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefCallback Parent: ICefBaseRefCountedRef
+// ICefCallback Parent: ICefBaseRefCounted
 type ICefCallback interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// Cont
 	//  Continue processing.
 	Cont() // procedure
@@ -25,9 +25,10 @@ type ICefCallback interface {
 	Cancel() // procedure
 }
 
-// ICefCallbackRef Parent: ICefCallback
+// ICefCallbackRef Parent: ICefCallback ICefBaseRefCountedRef
 type ICefCallbackRef interface {
 	ICefCallback
+	ICefBaseRefCountedRef
 	AsIntfCallback() uintptr
 }
 

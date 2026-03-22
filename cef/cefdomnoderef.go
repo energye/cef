@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefDomNode Parent: ICefBaseRefCountedRef
+// ICefDomNode Parent: ICefBaseRefCounted
 type ICefDomNode interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// GetType
 	//  Returns the type for this node.
 	GetType() cefTypes.TCefDomNodeType // function
@@ -101,9 +101,10 @@ type ICefDomNode interface {
 	GetElementAttributes(attrMap ICefStringMap) // procedure
 }
 
-// ICefDomNodeRef Parent: ICefDomNode
+// ICefDomNodeRef Parent: ICefDomNode ICefBaseRefCountedRef
 type ICefDomNodeRef interface {
 	ICefDomNode
+	ICefBaseRefCountedRef
 	AsIntfDomNode() uintptr
 }
 

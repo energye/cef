@@ -2148,19 +2148,19 @@ func (_MiscFuncClass) MoveFileList(fileList lcl.IStringList, srcDirectory string
 	return api.GoBool(r)
 }
 
-// CefGetDataURIWithStringX2
+// CefGetDataURIWithStrX2
 //
 //	Returns a URI with a DATA scheme using |aString| as the URI's data.
-func (_MiscFuncClass) CefGetDataURIWithStringX2(string string, mimeType string) string {
+func (_MiscFuncClass) CefGetDataURIWithStrX2(string string, mimeType string) string {
 	r := uCEFMiscFunctionsAPI().SysCallN(88, api.PasStr(string), api.PasStr(mimeType))
 	return api.GoStr(r)
 }
 
-// CefGetDataURIWithPointerIntStringX2
+// CefGetDataURIWithPointerIntStrX2
 //
 //	Returns a URI with a DATA scheme using |aString| as the URI's data.
 //	Returns a URI with a DATA scheme encoding |aData| as a base64 string.
-func (_MiscFuncClass) CefGetDataURIWithPointerIntStringX2(data uintptr, size int32, mimeType string, charset string) string {
+func (_MiscFuncClass) CefGetDataURIWithPointerIntStrX2(data uintptr, size int32, mimeType string, charset string) string {
 	r := uCEFMiscFunctionsAPI().SysCallN(89, uintptr(data), uintptr(size), api.PasStr(mimeType), api.PasStr(charset))
 	return api.GoStr(r)
 }
@@ -3063,8 +3063,8 @@ func uCEFMiscFunctionsAPI() *imports.Imports {
 			/* 85 */ imports.NewTable("uCEFMiscFunctions_DeleteDirContents", 0), // static function DeleteDirContents
 			/* 86 */ imports.NewTable("uCEFMiscFunctions_DeleteFileList", 0), // static function DeleteFileList
 			/* 87 */ imports.NewTable("uCEFMiscFunctions_MoveFileList", 0), // static function MoveFileList
-			/* 88 */ imports.NewTable("uCEFMiscFunctions_CefGetDataURIWithStringX2", 0), // static function CefGetDataURIWithStringX2
-			/* 89 */ imports.NewTable("uCEFMiscFunctions_CefGetDataURIWithPointerIntStringX2", 0), // static function CefGetDataURIWithPointerIntStringX2
+			/* 88 */ imports.NewTable("uCEFMiscFunctions_CefGetDataURIWithStrX2", 0), // static function CefGetDataURIWithStrX2
+			/* 89 */ imports.NewTable("uCEFMiscFunctions_CefGetDataURIWithPointerIntStrX2", 0), // static function CefGetDataURIWithPointerIntStrX2
 			/* 90 */ imports.NewTable("uCEFMiscFunctions_ValidCefWindowHandle", 0), // static function ValidCefWindowHandle
 			/* 91 */ imports.NewTable("uCEFMiscFunctions_GetCommandLineSwitchValue", 0), // static function GetCommandLineSwitchValue
 			/* 92 */ imports.NewTable("uCEFMiscFunctions_IsCEFSubprocess", 0), // static function IsCEFSubprocess

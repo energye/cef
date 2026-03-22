@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefSharedProcessMessageBuilder Parent: ICefBaseRefCountedRef
+// ICefSharedProcessMessageBuilder Parent: ICefBaseRefCounted
 type ICefSharedProcessMessageBuilder interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// IsValid
 	//  Returns true (1) if the builder is valid.
 	IsValid() bool // function
@@ -36,9 +36,10 @@ type ICefSharedProcessMessageBuilder interface {
 	Build() ICefProcessMessage // function
 }
 
-// ICefSharedProcessMessageBuilderRef Parent: ICefSharedProcessMessageBuilder
+// ICefSharedProcessMessageBuilderRef Parent: ICefSharedProcessMessageBuilder ICefBaseRefCountedRef
 type ICefSharedProcessMessageBuilderRef interface {
 	ICefSharedProcessMessageBuilder
+	ICefBaseRefCountedRef
 	AsIntfSharedProcessMessageBuilder() uintptr
 }
 

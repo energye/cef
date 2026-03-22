@@ -17,9 +17,9 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICefDownloadItem Parent: ICefBaseRefCountedRef
+// ICefDownloadItem Parent: ICefBaseRefCounted
 type ICefDownloadItem interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// IsValid
 	//  Returns true (1) if this object is valid. Do not call any other functions
 	//  if this function returns false (0).
@@ -81,9 +81,10 @@ type ICefDownloadItem interface {
 	GetMimeType() string // function
 }
 
-// ICefDownloadItemRef Parent: ICefDownloadItem
+// ICefDownloadItemRef Parent: ICefDownloadItem ICefBaseRefCountedRef
 type ICefDownloadItemRef interface {
 	ICefDownloadItem
+	ICefBaseRefCountedRef
 	AsIntfDownloadItem() uintptr
 }
 

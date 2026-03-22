@@ -17,8 +17,8 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICefCustomStreamReader0 Parent: ICefBaseRefCountedOwn
-type ICefCustomStreamReader0 interface {
+// ICefCustomStreamReader Parent: ICefBaseRefCountedOwn
+type ICefCustomStreamReader interface {
 	ICefBaseRefCountedOwn
 	// Read
 	//  Read raw binary data.
@@ -39,11 +39,6 @@ type ICefCustomStreamReader0 interface {
 	//  system which may block. Used as a hint for determining the thread to
 	//  access the handler from.
 	MayBlock() bool // function
-}
-
-// ICefCustomStreamReader Parent: ICefCustomStreamReader0
-type ICefCustomStreamReader interface {
-	ICefCustomStreamReader0
 	AsIntfCustomStreamReader() uintptr
 }
 
@@ -107,8 +102,8 @@ func NewCustomStreamReader(stream lcl.IStream, owned bool) ICefCustomStreamReade
 	return ret
 }
 
-// NewCustomStreamReaderWithString class constructor
-func NewCustomStreamReaderWithString(filename string) ICefCustomStreamReader {
+// NewCustomStreamReaderWithStr class constructor
+func NewCustomStreamReaderWithStr(filename string) ICefCustomStreamReader {
 	var customStreamReaderPtr uintptr // ICefCustomStreamReader
 	r := cefCustomStreamReaderAPI().SysCallN(1, api.PasStr(filename), uintptr(base.UnsafePointer(&customStreamReaderPtr)))
 	ret := AsCefCustomStreamReader(r)
@@ -129,7 +124,7 @@ func cefCustomStreamReaderAPI() *imports.Imports {
 		cefCustomStreamReaderImport = api.NewDefaultImports()
 		cefCustomStreamReaderImport.Table = []*imports.Table{
 			/* 0 */ imports.NewTable("TCefCustomStreamReader_Create", 0), // constructor NewCustomStreamReader
-			/* 1 */ imports.NewTable("TCefCustomStreamReader_CreateWithString", 0), // constructor NewCustomStreamReaderWithString
+			/* 1 */ imports.NewTable("TCefCustomStreamReader_CreateWithStr", 0), // constructor NewCustomStreamReaderWithStr
 			/* 2 */ imports.NewTable("TCefCustomStreamReader_Read", 0), // function Read
 			/* 3 */ imports.NewTable("TCefCustomStreamReader_Seek", 0), // function Seek
 			/* 4 */ imports.NewTable("TCefCustomStreamReader_Tell", 0), // function Tell

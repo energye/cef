@@ -18,9 +18,15 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// IChromiumCore Parent: lcl.IComponent
+// IChromiumEvents Parent: IObject
+type IChromiumEvents interface {
+	IObject
+}
+
+// IChromiumCore Parent: IChromiumEvents IComponent
 type IChromiumCore interface {
-	lcl.IComponent
+	IChromiumEvents
+	IComponent
 	// CreateClientHandlerWithBool
 	//  Used to create the client handler which will also create most of the browser handlers needed for the browser.
 	CreateClientHandlerWithBool(isOSR bool) bool // function
@@ -52,7 +58,7 @@ type IChromiumCore interface {
 	// SetNewBrowserParent
 	//  Used to reparent the browser to a different TCEFWindowParent.
 	SetNewBrowserParent(newParentHwnd types.HWND) bool // function
-	// CreateBrowserWithWindowHandleRectStringRequestContextDictionaryValueBool
+	// CreateBrowserWithWHandleRectStrRContextDValueBool
 	//  Used to create the browser after the global request context has been
 	//  initialized. You need to set all properties and events before calling
 	//  this function because it will only create the internal handlers needed
@@ -60,8 +66,8 @@ type IChromiumCore interface {
 	//  initialization.
 	//  The browser will be fully initialized when the TChromiumCore.OnAfterCreated
 	//  event is triggered.
-	CreateBrowserWithWindowHandleRectStringRequestContextDictionaryValueBool(parentHandle cefTypes.TCefWindowHandle, parentRect types.TRect, windowName string, context ICefRequestContext, extraInfo ICefDictionaryValue, forceAsPopup bool) bool // function
-	// CreateBrowserWithStringBrowserViewComponentRequestContextDictionaryValue
+	CreateBrowserWithWHandleRectStrRContextDValueBool(parentHandle cefTypes.TCefWindowHandle, parentRect types.TRect, windowName string, context ICefRequestContext, extraInfo ICefDictionaryValue, forceAsPopup bool) bool // function
+	// CreateBrowserWithStrBVComponentRContextDValue
 	//  Used to create the browser after the global request context has been
 	//  initialized. You need to set all properties and events before calling
 	//  this function because it will only create the internal handlers needed
@@ -69,7 +75,7 @@ type IChromiumCore interface {
 	//  initialization.
 	//  The browser will be fully initialized when the TChromiumCore.OnAfterCreated
 	//  event is triggered.
-	CreateBrowserWithStringBrowserViewComponentRequestContextDictionaryValue(uRL string, browserViewComp ICEFBrowserViewComponent, context ICefRequestContext, extraInfo ICefDictionaryValue) bool // function
+	CreateBrowserWithStrBVComponentRContextDValue(uRL string, browserViewComp ICEFBrowserViewComponent, context ICefRequestContext, extraInfo ICefDictionaryValue) bool // function
 	// ClearCertificateExceptions
 	//  Clears all certificate exceptions that were added as part of handling
 	//  OnCertificateError. If you call this it is recommended that you also call
@@ -191,7 +197,7 @@ type IChromiumCore interface {
 	//  <see cref="uCEFConstants">See the IDC_* constants in uCEFConstants.pas for all the |command_id| values.</see>
 	//  <see href="https://source.chromium.org/chromium/chromium/src/+/main:chrome/app/chrome_command_ids.h">The command_id values are also available in chrome/app/chrome_command_ids.h</see>
 	CanExecuteChromeCommand(commandId int32) bool // function
-	// CreateUrlRequestWithRequestUrlrequestClientStringX2
+	// CreateUrlRequestWithRequestUClientStrX2
 	//  Create a new URL request that will be treated as originating from this
 	//  frame and the associated browser. Use TCustomCefUrlrequestClient.Create instead if
 	//  you do not want the request to have this association, in which case it may
@@ -206,8 +212,8 @@ type IChromiumCore interface {
 	//  </code>
 	//  The |request| object will be marked as read-only after calling this
 	//  function.
-	CreateUrlRequestWithRequestUrlrequestClientStringX2(request ICefRequest, client IEngUrlrequestClient, frameName string, frameIdentifier string) ICefUrlRequest // function
-	// CreateUrlRequestWithRequestUrlrequestClientFrame
+	CreateUrlRequestWithRequestUClientStrX2(request ICefRequest, client IEngUrlrequestClient, frameName string, frameIdentifier string) ICefUrlRequest // function
+	// CreateUrlRequestWithRequestUClientFrame
 	//  Create a new URL request that will be treated as originating from this
 	//  frame and the associated browser. Use TCustomCefUrlrequestClient.Create instead if
 	//  you do not want the request to have this association, in which case it may
@@ -222,7 +228,7 @@ type IChromiumCore interface {
 	//  </code>
 	//  The |request| object will be marked as read-only after calling this
 	//  function.
-	CreateUrlRequestWithRequestUrlrequestClientFrame(request ICefRequest, client IEngUrlrequestClient, frame ICefFrame) ICefUrlRequest // function
+	CreateUrlRequestWithRequestUClientFrame(request ICefRequest, client IEngUrlrequestClient, frame ICefFrame) ICefUrlRequest // function
 	// AddObserver
 	//  Add an observer for MediaRouter events. The observer will remain
 	//  registered until the returned Registration object is destroyed.
@@ -263,26 +269,26 @@ type IChromiumCore interface {
 	// ShutdownDragAndDrop
 	//  Used with browsers in OSR mode to shutdown drag and drop in Windows.
 	ShutdownDragAndDrop() // procedure
-	// LoadURLWithStringX3
+	// LoadURLWithStrX3
 	//  Used to navigate to a URL in the specified frame or the main frame.
-	LoadURLWithStringX3(uRL string, frameName string, frameIdentifier string) // procedure
-	// LoadURLWithStringFrame
+	LoadURLWithStrX3(uRL string, frameName string, frameIdentifier string) // procedure
+	// LoadURLWithStrFrame
 	//  Used to navigate to a URL in the specified frame or the main frame.
-	LoadURLWithStringFrame(uRL string, frame ICefFrame) // procedure
-	// LoadStringWithStringX3
+	LoadURLWithStrFrame(uRL string, frame ICefFrame) // procedure
+	// LoadStringWithStrX3
 	//  Used to load a DATA URI with the HTML string contents in the specified frame or the main frame.
-	LoadStringWithStringX3(hTML string, frameName string, frameIdentifier string) // procedure
-	// LoadStringWithStringFrame
+	LoadStringWithStrX3(hTML string, frameName string, frameIdentifier string) // procedure
+	// LoadStringWithStrFrame
 	//  Used to load a DATA URI with the HTML string contents in the specified frame or the main frame.
-	LoadStringWithStringFrame(hTML string, frame ICefFrame) // procedure
-	// LoadResourceWithCustomMemoryStreamStringX4
+	LoadStringWithStrFrame(hTML string, frame ICefFrame) // procedure
+	// LoadResourceWithCMStreamStrX4
 	//  Used to load a DATA URI with the stream contents in the specified frame or the main frame.
 	//  The DATA URI will be configured with the mime type and charset specified in the parameters.
-	LoadResourceWithCustomMemoryStreamStringX4(stream lcl.ICustomMemoryStream, mimeType string, charset string, frameName string, frameIdentifier string) // procedure
-	// LoadResourceWithCustomMemoryStreamStringX2Frame
+	LoadResourceWithCMStreamStrX4(stream lcl.ICustomMemoryStream, mimeType string, charset string, frameName string, frameIdentifier string) // procedure
+	// LoadResourceWithCMStreamStrX2Frame
 	//  Used to load a DATA URI with the stream contents in the specified frame or the main frame.
 	//  The DATA URI will be configured with the mime type and charset specified in the parameters.
-	LoadResourceWithCustomMemoryStreamStringX2Frame(stream lcl.ICustomMemoryStream, mimeType string, charset string, frame ICefFrame) // procedure
+	LoadResourceWithCMStreamStrX2Frame(stream lcl.ICustomMemoryStream, mimeType string, charset string, frame ICefFrame) // procedure
 	// LoadRequest
 	//  Load the request represented by the aRequest object.
 	//  WARNING: This function will fail with bad IPC message reason
@@ -363,24 +369,24 @@ type IChromiumCore interface {
 	//  <see href="https://chromedevtools.github.io/devtools-protocol/1-3/Input/#method-dispatchKeyEvent">See the "Input.dispatchKeyEvent" DevTools method.</see>
 	//  <see href="https://source.chromium.org/chromium/chromium/src/+/master:third_party/blink/renderer/core/editing/commands/editor_command_names.h">See the Chromium sources.</see>
 	SimulateEditingCommand(command cefTypes.TCefEditingCommand) // procedure
-	// RetrieveHTMLWithStringX2
+	// RetrieveHTMLWithStrX2
 	//  Retrieve all the HTML content from the specified frame or the main frame.
 	//  Leave aFrameName empty to get the HTML source from the main frame.
 	//  It uses a CefStringVisitor to get the HTML content asynchronously and the
 	//  result will be received in the TChromiumCore.OnTextResultAvailable event.
-	RetrieveHTMLWithStringX2(frameName string, frameIdentifier string) // procedure
+	RetrieveHTMLWithStrX2(frameName string, frameIdentifier string) // procedure
 	// RetrieveHTMLWithFrame
 	//  Retrieve all the HTML content from the specified frame or the main frame.
 	//  Set aFrame to nil to get the HTML source from the main frame.
 	//  It uses a CefStringVisitor to get the HTML content asynchronously and the
 	//  result will be received in the TChromiumCore.OnTextResultAvailable event.
 	RetrieveHTMLWithFrame(frame ICefFrame) // procedure
-	// RetrieveTextWithStringX2
+	// RetrieveTextWithStrX2
 	//  Retrieve all the text content from the specified frame or the main frame.
 	//  Leave aFrameName empty to get the text from the main frame.
 	//  It uses a CefStringVisitor to get the text asynchronously and the
 	//  result will be received in the TChromiumCore.OnTextResultAvailable event.
-	RetrieveTextWithStringX2(frameName string, frameIdentifier string) // procedure
+	RetrieveTextWithStrX2(frameName string, frameIdentifier string) // procedure
 	// RetrieveTextWithFrame
 	//  Retrieve all the text content from the specified frame or the main frame.
 	//  Set aFrame to nil to get the text from the main frame.
@@ -392,21 +398,21 @@ type IChromiumCore interface {
 	//  TChromiumCore.OnNavigationVisitorResultAvailable event will be triggered
 	//  for each navigation entry.
 	GetNavigationEntries(currentOnly bool) // procedure
-	// ExecuteJavaScriptWithStringX4Int
+	// ExecuteJavaScriptWithStrX4Int
 	//  Execute a string of JavaScript code in the specified frame or the main frame.
 	//  <param name="aCode">JavaScript code.</param>
 	//  <param name="aScriptURL">The URL where the script in question can be found, if any. The renderer may request this URL to show the developer the source of the error.</param>
 	//  <param name="aFrameName">Name of the frame where the JavaScript code will be executed. This name is generated automatically by Chromium. See ICefBrowser.GetFrameNames.</param>
 	//  <param name="aFrameIdentifier">Identifier of the frame where the JavaScript code will be executed.</param>
 	//  <param name="aStartLine">The base line number to use for error reporting.</param>
-	ExecuteJavaScriptWithStringX4Int(code string, scriptURL string, frameName string, frameIdentifier string, startLine int32) // procedure
-	// ExecuteJavaScriptWithStringX2FrameInt
+	ExecuteJavaScriptWithStrX4Int(code string, scriptURL string, frameName string, frameIdentifier string, startLine int32) // procedure
+	// ExecuteJavaScriptWithStrX2FrameInt
 	//  Execute a string of JavaScript code in the specified frame or the main frame.
 	//  <param name="aCode">JavaScript code.</param>
 	//  <param name="aScriptURL">The URL where the script in question can be found, if any. The renderer may request this URL to show the developer the source of the error.</param>
 	//  <param name="aFrame">Frame where the JavaScript code will be executed.</param>
 	//  <param name="aStartLine">The base line number to use for error reporting.</param>
-	ExecuteJavaScriptWithStringX2FrameInt(code string, scriptURL string, frame ICefFrame, startLine int32) // procedure
+	ExecuteJavaScriptWithStrX2FrameInt(code string, scriptURL string, frame ICefFrame, startLine int32) // procedure
 	// UpdatePreferences
 	//  Used to update the browser preferences using the TChromiumCore property values asynchronously.
 	UpdatePreferences() // procedure
@@ -598,22 +604,22 @@ type IChromiumCore interface {
 	// SendCaptureLostEvent
 	//  Send a capture lost event to the browser.
 	SendCaptureLostEvent() // procedure
-	// SendProcessMessageWithProcessIdProcessMessageStringX2
+	// SendProcessMessageWithPIdPMessageStrX2
 	//  Send a message to the specified |targetProcess|. Ownership of the message
 	//  contents will be transferred and the |ProcMessage| reference will be
 	//  invalidated. Message delivery is not guaranteed in all cases (for example,
 	//  if the browser is closing, navigating, or if the target process crashes).
 	//  Send an ACK message back from the target process if confirmation is
 	//  required.
-	SendProcessMessageWithProcessIdProcessMessageStringX2(targetProcess cefTypes.TCefProcessId, procMessage ICefProcessMessage, frameName string, frameIdentifier string) // procedure
-	// SendProcessMessageWithProcessIdProcessMessageFrame
+	SendProcessMessageWithPIdPMessageStrX2(targetProcess cefTypes.TCefProcessId, procMessage ICefProcessMessage, frameName string, frameIdentifier string) // procedure
+	// SendProcessMessageWithPIdPMessageFrame
 	//  Send a message to the specified |targetProcess|. Ownership of the message
 	//  contents will be transferred and the |ProcMessage| reference will be
 	//  invalidated. Message delivery is not guaranteed in all cases (for example,
 	//  if the browser is closing, navigating, or if the target process crashes).
 	//  Send an ACK message back from the target process if confirmation is
 	//  required.
-	SendProcessMessageWithProcessIdProcessMessageFrame(targetProcess cefTypes.TCefProcessId, procMessage ICefProcessMessage, frame ICefFrame) // procedure
+	SendProcessMessageWithPIdPMessageFrame(targetProcess cefTypes.TCefProcessId, procMessage ICefProcessMessage, frame ICefFrame) // procedure
 	// SetFocus
 	//  Set whether the browser is focused.
 	SetFocus(focus bool) // procedure
@@ -1328,7 +1334,7 @@ type IChromiumCore interface {
 }
 
 type TChromiumCore struct {
-	lcl.TComponent
+	TComponent
 }
 
 func (m *TChromiumCore) CreateClientHandlerWithBool(isOSR bool) bool {
@@ -1391,7 +1397,7 @@ func (m *TChromiumCore) SetNewBrowserParent(newParentHwnd types.HWND) bool {
 	return api.GoBool(r)
 }
 
-func (m *TChromiumCore) CreateBrowserWithWindowHandleRectStringRequestContextDictionaryValueBool(parentHandle cefTypes.TCefWindowHandle, parentRect types.TRect, windowName string, context ICefRequestContext, extraInfo ICefDictionaryValue, forceAsPopup bool) bool {
+func (m *TChromiumCore) CreateBrowserWithWHandleRectStrRContextDValueBool(parentHandle cefTypes.TCefWindowHandle, parentRect types.TRect, windowName string, context ICefRequestContext, extraInfo ICefDictionaryValue, forceAsPopup bool) bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -1399,7 +1405,7 @@ func (m *TChromiumCore) CreateBrowserWithWindowHandleRectStringRequestContextDic
 	return api.GoBool(r)
 }
 
-func (m *TChromiumCore) CreateBrowserWithStringBrowserViewComponentRequestContextDictionaryValue(uRL string, browserViewComp ICEFBrowserViewComponent, context ICefRequestContext, extraInfo ICefDictionaryValue) bool {
+func (m *TChromiumCore) CreateBrowserWithStrBVComponentRContextDValue(uRL string, browserViewComp ICEFBrowserViewComponent, context ICefRequestContext, extraInfo ICefDictionaryValue) bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -1541,7 +1547,7 @@ func (m *TChromiumCore) CanExecuteChromeCommand(commandId int32) bool {
 	return api.GoBool(r)
 }
 
-func (m *TChromiumCore) CreateUrlRequestWithRequestUrlrequestClientStringX2(request ICefRequest, client IEngUrlrequestClient, frameName string, frameIdentifier string) (result ICefUrlRequest) {
+func (m *TChromiumCore) CreateUrlRequestWithRequestUClientStrX2(request ICefRequest, client IEngUrlrequestClient, frameName string, frameIdentifier string) (result ICefUrlRequest) {
 	if !m.IsValid() {
 		return
 	}
@@ -1551,7 +1557,7 @@ func (m *TChromiumCore) CreateUrlRequestWithRequestUrlrequestClientStringX2(requ
 	return
 }
 
-func (m *TChromiumCore) CreateUrlRequestWithRequestUrlrequestClientFrame(request ICefRequest, client IEngUrlrequestClient, frame ICefFrame) (result ICefUrlRequest) {
+func (m *TChromiumCore) CreateUrlRequestWithRequestUClientFrame(request ICefRequest, client IEngUrlrequestClient, frame ICefFrame) (result ICefUrlRequest) {
 	if !m.IsValid() {
 		return
 	}
@@ -1627,42 +1633,42 @@ func (m *TChromiumCore) ShutdownDragAndDrop() {
 	chromiumCoreAPI().SysCallN(35, m.Instance())
 }
 
-func (m *TChromiumCore) LoadURLWithStringX3(uRL string, frameName string, frameIdentifier string) {
+func (m *TChromiumCore) LoadURLWithStrX3(uRL string, frameName string, frameIdentifier string) {
 	if !m.IsValid() {
 		return
 	}
 	chromiumCoreAPI().SysCallN(36, m.Instance(), api.PasStr(uRL), api.PasStr(frameName), api.PasStr(frameIdentifier))
 }
 
-func (m *TChromiumCore) LoadURLWithStringFrame(uRL string, frame ICefFrame) {
+func (m *TChromiumCore) LoadURLWithStrFrame(uRL string, frame ICefFrame) {
 	if !m.IsValid() {
 		return
 	}
 	chromiumCoreAPI().SysCallN(37, m.Instance(), api.PasStr(uRL), base.GetObjectUintptr(frame))
 }
 
-func (m *TChromiumCore) LoadStringWithStringX3(hTML string, frameName string, frameIdentifier string) {
+func (m *TChromiumCore) LoadStringWithStrX3(hTML string, frameName string, frameIdentifier string) {
 	if !m.IsValid() {
 		return
 	}
 	chromiumCoreAPI().SysCallN(38, m.Instance(), api.PasStr(hTML), api.PasStr(frameName), api.PasStr(frameIdentifier))
 }
 
-func (m *TChromiumCore) LoadStringWithStringFrame(hTML string, frame ICefFrame) {
+func (m *TChromiumCore) LoadStringWithStrFrame(hTML string, frame ICefFrame) {
 	if !m.IsValid() {
 		return
 	}
 	chromiumCoreAPI().SysCallN(39, m.Instance(), api.PasStr(hTML), base.GetObjectUintptr(frame))
 }
 
-func (m *TChromiumCore) LoadResourceWithCustomMemoryStreamStringX4(stream lcl.ICustomMemoryStream, mimeType string, charset string, frameName string, frameIdentifier string) {
+func (m *TChromiumCore) LoadResourceWithCMStreamStrX4(stream lcl.ICustomMemoryStream, mimeType string, charset string, frameName string, frameIdentifier string) {
 	if !m.IsValid() {
 		return
 	}
 	chromiumCoreAPI().SysCallN(40, m.Instance(), base.GetObjectUintptr(stream), api.PasStr(mimeType), api.PasStr(charset), api.PasStr(frameName), api.PasStr(frameIdentifier))
 }
 
-func (m *TChromiumCore) LoadResourceWithCustomMemoryStreamStringX2Frame(stream lcl.ICustomMemoryStream, mimeType string, charset string, frame ICefFrame) {
+func (m *TChromiumCore) LoadResourceWithCMStreamStrX2Frame(stream lcl.ICustomMemoryStream, mimeType string, charset string, frame ICefFrame) {
 	if !m.IsValid() {
 		return
 	}
@@ -1753,7 +1759,7 @@ func (m *TChromiumCore) SimulateEditingCommand(command cefTypes.TCefEditingComma
 	chromiumCoreAPI().SysCallN(53, m.Instance(), uintptr(command))
 }
 
-func (m *TChromiumCore) RetrieveHTMLWithStringX2(frameName string, frameIdentifier string) {
+func (m *TChromiumCore) RetrieveHTMLWithStrX2(frameName string, frameIdentifier string) {
 	if !m.IsValid() {
 		return
 	}
@@ -1767,7 +1773,7 @@ func (m *TChromiumCore) RetrieveHTMLWithFrame(frame ICefFrame) {
 	chromiumCoreAPI().SysCallN(55, m.Instance(), base.GetObjectUintptr(frame))
 }
 
-func (m *TChromiumCore) RetrieveTextWithStringX2(frameName string, frameIdentifier string) {
+func (m *TChromiumCore) RetrieveTextWithStrX2(frameName string, frameIdentifier string) {
 	if !m.IsValid() {
 		return
 	}
@@ -1788,14 +1794,14 @@ func (m *TChromiumCore) GetNavigationEntries(currentOnly bool) {
 	chromiumCoreAPI().SysCallN(58, m.Instance(), api.PasBool(currentOnly))
 }
 
-func (m *TChromiumCore) ExecuteJavaScriptWithStringX4Int(code string, scriptURL string, frameName string, frameIdentifier string, startLine int32) {
+func (m *TChromiumCore) ExecuteJavaScriptWithStrX4Int(code string, scriptURL string, frameName string, frameIdentifier string, startLine int32) {
 	if !m.IsValid() {
 		return
 	}
 	chromiumCoreAPI().SysCallN(59, m.Instance(), api.PasStr(code), api.PasStr(scriptURL), api.PasStr(frameName), api.PasStr(frameIdentifier), uintptr(startLine))
 }
 
-func (m *TChromiumCore) ExecuteJavaScriptWithStringX2FrameInt(code string, scriptURL string, frame ICefFrame, startLine int32) {
+func (m *TChromiumCore) ExecuteJavaScriptWithStrX2FrameInt(code string, scriptURL string, frame ICefFrame, startLine int32) {
 	if !m.IsValid() {
 		return
 	}
@@ -2125,14 +2131,14 @@ func (m *TChromiumCore) SendCaptureLostEvent() {
 	chromiumCoreAPI().SysCallN(106, m.Instance())
 }
 
-func (m *TChromiumCore) SendProcessMessageWithProcessIdProcessMessageStringX2(targetProcess cefTypes.TCefProcessId, procMessage ICefProcessMessage, frameName string, frameIdentifier string) {
+func (m *TChromiumCore) SendProcessMessageWithPIdPMessageStrX2(targetProcess cefTypes.TCefProcessId, procMessage ICefProcessMessage, frameName string, frameIdentifier string) {
 	if !m.IsValid() {
 		return
 	}
 	chromiumCoreAPI().SysCallN(107, m.Instance(), uintptr(targetProcess), base.GetObjectUintptr(procMessage), api.PasStr(frameName), api.PasStr(frameIdentifier))
 }
 
-func (m *TChromiumCore) SendProcessMessageWithProcessIdProcessMessageFrame(targetProcess cefTypes.TCefProcessId, procMessage ICefProcessMessage, frame ICefFrame) {
+func (m *TChromiumCore) SendProcessMessageWithPIdPMessageFrame(targetProcess cefTypes.TCefProcessId, procMessage ICefProcessMessage, frame ICefFrame) {
 	if !m.IsValid() {
 		return
 	}
@@ -4733,8 +4739,8 @@ func chromiumCoreAPI() *imports.Imports {
 			/* 5 */ imports.NewTable("TChromiumCore_IndexOfBrowserID", 0), // function IndexOfBrowserID
 			/* 6 */ imports.NewTable("TChromiumCore_ShareRequestContext", 0), // function ShareRequestContext
 			/* 7 */ imports.NewTable("TChromiumCore_SetNewBrowserParent", 0), // function SetNewBrowserParent
-			/* 8 */ imports.NewTable("TChromiumCore_CreateBrowserWithWindowHandleRectStringRequestContextDictionaryValueBool", 0), // function CreateBrowserWithWindowHandleRectStringRequestContextDictionaryValueBool
-			/* 9 */ imports.NewTable("TChromiumCore_CreateBrowserWithStringBrowserViewComponentRequestContextDictionaryValue", 0), // function CreateBrowserWithStringBrowserViewComponentRequestContextDictionaryValue
+			/* 8 */ imports.NewTable("TChromiumCore_CreateBrowserWithWHandleRectStrRContextDValueBool", 0), // function CreateBrowserWithWHandleRectStrRContextDValueBool
+			/* 9 */ imports.NewTable("TChromiumCore_CreateBrowserWithStrBVComponentRContextDValue", 0), // function CreateBrowserWithStrBVComponentRContextDValue
 			/* 10 */ imports.NewTable("TChromiumCore_ClearCertificateExceptions", 0), // function ClearCertificateExceptions
 			/* 11 */ imports.NewTable("TChromiumCore_ClearHttpAuthCredentials", 0), // function ClearHttpAuthCredentials
 			/* 12 */ imports.NewTable("TChromiumCore_CloseAllConnections", 0), // function CloseAllConnections
@@ -4751,8 +4757,8 @@ func chromiumCoreAPI() *imports.Imports {
 			/* 23 */ imports.NewTable("TChromiumCore_ExecuteDevToolsMethod", 0), // function ExecuteDevToolsMethod
 			/* 24 */ imports.NewTable("TChromiumCore_AddDevToolsMessageObserver", 0), // function AddDevToolsMessageObserver
 			/* 25 */ imports.NewTable("TChromiumCore_CanExecuteChromeCommand", 0), // function CanExecuteChromeCommand
-			/* 26 */ imports.NewTable("TChromiumCore_CreateUrlRequestWithRequestUrlrequestClientStringX2", 0), // function CreateUrlRequestWithRequestUrlrequestClientStringX2
-			/* 27 */ imports.NewTable("TChromiumCore_CreateUrlRequestWithRequestUrlrequestClientFrame", 0), // function CreateUrlRequestWithRequestUrlrequestClientFrame
+			/* 26 */ imports.NewTable("TChromiumCore_CreateUrlRequestWithRequestUClientStrX2", 0), // function CreateUrlRequestWithRequestUClientStrX2
+			/* 27 */ imports.NewTable("TChromiumCore_CreateUrlRequestWithRequestUClientFrame", 0), // function CreateUrlRequestWithRequestUClientFrame
 			/* 28 */ imports.NewTable("TChromiumCore_AddObserver", 0), // function AddObserver
 			/* 29 */ imports.NewTable("TChromiumCore_GetSource", 0), // function GetSource
 			/* 30 */ imports.NewTable("TChromiumCore_GetWebsiteSetting", 0), // function GetWebsiteSetting
@@ -4761,12 +4767,12 @@ func chromiumCoreAPI() *imports.Imports {
 			/* 33 */ imports.NewTable("TChromiumCore_CloseAllBrowsers", 0), // procedure CloseAllBrowsers
 			/* 34 */ imports.NewTable("TChromiumCore_InitializeDragAndDrop", 0), // procedure InitializeDragAndDrop
 			/* 35 */ imports.NewTable("TChromiumCore_ShutdownDragAndDrop", 0), // procedure ShutdownDragAndDrop
-			/* 36 */ imports.NewTable("TChromiumCore_LoadURLWithStringX3", 0), // procedure LoadURLWithStringX3
-			/* 37 */ imports.NewTable("TChromiumCore_LoadURLWithStringFrame", 0), // procedure LoadURLWithStringFrame
-			/* 38 */ imports.NewTable("TChromiumCore_LoadStringWithStringX3", 0), // procedure LoadStringWithStringX3
-			/* 39 */ imports.NewTable("TChromiumCore_LoadStringWithStringFrame", 0), // procedure LoadStringWithStringFrame
-			/* 40 */ imports.NewTable("TChromiumCore_LoadResourceWithCustomMemoryStreamStringX4", 0), // procedure LoadResourceWithCustomMemoryStreamStringX4
-			/* 41 */ imports.NewTable("TChromiumCore_LoadResourceWithCustomMemoryStreamStringX2Frame", 0), // procedure LoadResourceWithCustomMemoryStreamStringX2Frame
+			/* 36 */ imports.NewTable("TChromiumCore_LoadURLWithStrX3", 0), // procedure LoadURLWithStrX3
+			/* 37 */ imports.NewTable("TChromiumCore_LoadURLWithStrFrame", 0), // procedure LoadURLWithStrFrame
+			/* 38 */ imports.NewTable("TChromiumCore_LoadStringWithStrX3", 0), // procedure LoadStringWithStrX3
+			/* 39 */ imports.NewTable("TChromiumCore_LoadStringWithStrFrame", 0), // procedure LoadStringWithStrFrame
+			/* 40 */ imports.NewTable("TChromiumCore_LoadResourceWithCMStreamStrX4", 0), // procedure LoadResourceWithCMStreamStrX4
+			/* 41 */ imports.NewTable("TChromiumCore_LoadResourceWithCMStreamStrX2Frame", 0), // procedure LoadResourceWithCMStreamStrX2Frame
 			/* 42 */ imports.NewTable("TChromiumCore_LoadRequest", 0), // procedure LoadRequest
 			/* 43 */ imports.NewTable("TChromiumCore_GoBack", 0), // procedure GoBack
 			/* 44 */ imports.NewTable("TChromiumCore_GoForward", 0), // procedure GoForward
@@ -4779,13 +4785,13 @@ func chromiumCoreAPI() *imports.Imports {
 			/* 51 */ imports.NewTable("TChromiumCore_SimulateKeyEvent", 0), // procedure SimulateKeyEvent
 			/* 52 */ imports.NewTable("TChromiumCore_SimulateMouseEvent", 0), // procedure SimulateMouseEvent
 			/* 53 */ imports.NewTable("TChromiumCore_SimulateEditingCommand", 0), // procedure SimulateEditingCommand
-			/* 54 */ imports.NewTable("TChromiumCore_RetrieveHTMLWithStringX2", 0), // procedure RetrieveHTMLWithStringX2
+			/* 54 */ imports.NewTable("TChromiumCore_RetrieveHTMLWithStrX2", 0), // procedure RetrieveHTMLWithStrX2
 			/* 55 */ imports.NewTable("TChromiumCore_RetrieveHTMLWithFrame", 0), // procedure RetrieveHTMLWithFrame
-			/* 56 */ imports.NewTable("TChromiumCore_RetrieveTextWithStringX2", 0), // procedure RetrieveTextWithStringX2
+			/* 56 */ imports.NewTable("TChromiumCore_RetrieveTextWithStrX2", 0), // procedure RetrieveTextWithStrX2
 			/* 57 */ imports.NewTable("TChromiumCore_RetrieveTextWithFrame", 0), // procedure RetrieveTextWithFrame
 			/* 58 */ imports.NewTable("TChromiumCore_GetNavigationEntries", 0), // procedure GetNavigationEntries
-			/* 59 */ imports.NewTable("TChromiumCore_ExecuteJavaScriptWithStringX4Int", 0), // procedure ExecuteJavaScriptWithStringX4Int
-			/* 60 */ imports.NewTable("TChromiumCore_ExecuteJavaScriptWithStringX2FrameInt", 0), // procedure ExecuteJavaScriptWithStringX2FrameInt
+			/* 59 */ imports.NewTable("TChromiumCore_ExecuteJavaScriptWithStrX4Int", 0), // procedure ExecuteJavaScriptWithStrX4Int
+			/* 60 */ imports.NewTable("TChromiumCore_ExecuteJavaScriptWithStrX2FrameInt", 0), // procedure ExecuteJavaScriptWithStrX2FrameInt
 			/* 61 */ imports.NewTable("TChromiumCore_UpdatePreferences", 0), // procedure UpdatePreferences
 			/* 62 */ imports.NewTable("TChromiumCore_SavePreferences", 0), // procedure SavePreferences
 			/* 63 */ imports.NewTable("TChromiumCore_ResolveHost", 0), // procedure ResolveHost
@@ -4832,8 +4838,8 @@ func chromiumCoreAPI() *imports.Imports {
 			/* 104 */ imports.NewTable("TChromiumCore_SendMouseWheelEvent", 0), // procedure SendMouseWheelEvent
 			/* 105 */ imports.NewTable("TChromiumCore_SendTouchEvent", 0), // procedure SendTouchEvent
 			/* 106 */ imports.NewTable("TChromiumCore_SendCaptureLostEvent", 0), // procedure SendCaptureLostEvent
-			/* 107 */ imports.NewTable("TChromiumCore_SendProcessMessageWithProcessIdProcessMessageStringX2", 0), // procedure SendProcessMessageWithProcessIdProcessMessageStringX2
-			/* 108 */ imports.NewTable("TChromiumCore_SendProcessMessageWithProcessIdProcessMessageFrame", 0), // procedure SendProcessMessageWithProcessIdProcessMessageFrame
+			/* 107 */ imports.NewTable("TChromiumCore_SendProcessMessageWithPIdPMessageStrX2", 0), // procedure SendProcessMessageWithPIdPMessageStrX2
+			/* 108 */ imports.NewTable("TChromiumCore_SendProcessMessageWithPIdPMessageFrame", 0), // procedure SendProcessMessageWithPIdPMessageFrame
 			/* 109 */ imports.NewTable("TChromiumCore_SetFocus", 0), // procedure SetFocus
 			/* 110 */ imports.NewTable("TChromiumCore_SetAccessibilityState", 0), // procedure SetAccessibilityState
 			/* 111 */ imports.NewTable("TChromiumCore_DragTargetDragEnter", 0), // procedure DragTargetDragEnter

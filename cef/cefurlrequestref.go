@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefUrlRequest Parent: ICefBaseRefCountedRef
+// ICefUrlRequest Parent: ICefBaseRefCounted
 type ICefUrlRequest interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// GetRequest
 	//  Returns the request object used to create this URL request. The returned
 	//  object is read-only and should not be modified.
@@ -46,9 +46,10 @@ type ICefUrlRequest interface {
 	Cancel() // procedure
 }
 
-// ICefUrlRequestRef Parent: ICefUrlRequest
+// ICefUrlRequestRef Parent: ICefUrlRequest ICefBaseRefCountedRef
 type ICefUrlRequestRef interface {
 	ICefUrlRequest
+	ICefBaseRefCountedRef
 	AsIntfUrlRequest() uintptr
 }
 

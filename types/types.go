@@ -8,15 +8,6 @@
 
 package types
 
-// TBrowserUTF8KeyPressEvent ENUM
-//
-//	TBrowserKeyPressEvent = procedure(Sender: TObject; var Key: char; var AHandled: Boolean) of Object;
-type TBrowserUTF8KeyPressEvent = int32
-
-const (
-	THiddenPropertyEditor TBrowserUTF8KeyPressEvent = iota
-)
-
 // TCefAlphaType ENUM
 //
 //	Describes how to interpret the alpha component of a pixel.

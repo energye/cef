@@ -14,14 +14,15 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefMenuButtonPressedLock Parent: ICefBaseRefCountedRef
+// ICefMenuButtonPressedLock Parent: ICefBaseRefCounted
 type ICefMenuButtonPressedLock interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 }
 
-// ICefMenuButtonPressedLockRef Parent: ICefMenuButtonPressedLock
+// ICefMenuButtonPressedLockRef Parent: ICefMenuButtonPressedLock ICefBaseRefCountedRef
 type ICefMenuButtonPressedLockRef interface {
 	ICefMenuButtonPressedLock
+	ICefBaseRefCountedRef
 	AsIntfMenuButtonPressedLock() uintptr
 }
 

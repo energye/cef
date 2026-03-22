@@ -14,8 +14,14 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefButtonDelegateRef Parent: ICefViewDelegateRef
+// ICefButtonDelegate Parent: ICefViewDelegate
+type ICefButtonDelegate interface {
+	ICefViewDelegate
+}
+
+// ICefButtonDelegateRef Parent: ICefButtonDelegate ICefViewDelegateRef
 type ICefButtonDelegateRef interface {
+	ICefButtonDelegate
 	ICefViewDelegateRef
 	AsIntfButtonDelegate() uintptr
 	AsIntfViewDelegate() uintptr

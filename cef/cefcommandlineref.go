@@ -16,9 +16,9 @@ import (
 	"github.com/energye/lcl/types"
 )
 
-// ICefCommandLine Parent: ICefBaseRefCountedRef
+// ICefCommandLine Parent: ICefBaseRefCounted
 type ICefCommandLine interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// IsValid
 	//  Returns true (1) if this object is valid. Do not call any other functions
 	//  if this function returns false (0).
@@ -93,9 +93,10 @@ type ICefCommandLine interface {
 	PrependWrapper(wrapper string) // procedure
 }
 
-// ICefCommandLineRef Parent: ICefCommandLine
+// ICefCommandLineRef Parent: ICefCommandLine ICefBaseRefCountedRef
 type ICefCommandLineRef interface {
 	ICefCommandLine
+	ICefBaseRefCountedRef
 	AsIntfCommandLine() uintptr
 }
 

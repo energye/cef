@@ -17,9 +17,9 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICefDictionaryValue Parent: ICefBaseRefCountedRef
+// ICefDictionaryValue Parent: ICefBaseRefCounted
 type ICefDictionaryValue interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// IsValid
 	//  Returns true (1) if this object is valid. This object may become invalid
 	//  if the underlying data is owned by another object (e.g. list or
@@ -149,9 +149,10 @@ type ICefDictionaryValue interface {
 	SetList(key string, value ICefListValue) bool // function
 }
 
-// ICefDictionaryValueRef Parent: ICefDictionaryValue
+// ICefDictionaryValueRef Parent: ICefDictionaryValue ICefBaseRefCountedRef
 type ICefDictionaryValueRef interface {
 	ICefDictionaryValue
+	ICefBaseRefCountedRef
 	AsIntfDictionaryValue() uintptr
 }
 

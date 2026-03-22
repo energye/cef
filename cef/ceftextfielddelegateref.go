@@ -14,8 +14,14 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefTextfieldDelegateRef Parent: ICefViewDelegateRef
+// ICefTextfieldDelegate Parent: ICefViewDelegate
+type ICefTextfieldDelegate interface {
+	ICefViewDelegate
+}
+
+// ICefTextfieldDelegateRef Parent: ICefTextfieldDelegate ICefViewDelegateRef
 type ICefTextfieldDelegateRef interface {
+	ICefTextfieldDelegate
 	ICefViewDelegateRef
 	AsIntfTextfieldDelegate() uintptr
 	AsIntfViewDelegate() uintptr

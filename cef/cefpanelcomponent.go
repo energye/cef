@@ -17,8 +17,14 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICEFPanelComponent Parent: ICEFViewComponent
+// ICefPanelDelegateEvents Parent: ICefViewDelegateEvents
+type ICefPanelDelegateEvents interface {
+	ICefViewDelegateEvents
+}
+
+// ICEFPanelComponent Parent: ICefPanelDelegateEvents ICEFViewComponent
 type ICEFPanelComponent interface {
+	ICefPanelDelegateEvents
 	ICEFViewComponent
 	// SetToFillLayout
 	//  Set this Panel's Layout to FillLayout and return the FillLayout object.

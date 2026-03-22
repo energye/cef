@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefSSLStatus Parent: ICefBaseRefCountedRef
+// ICefSSLStatus Parent: ICefBaseRefCounted
 type ICefSSLStatus interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// IsSecureConnection
 	//  Returns true (1) if the status is related to a secure SSL/TLS connection.
 	IsSecureConnection() bool // function
@@ -36,9 +36,10 @@ type ICefSSLStatus interface {
 	GetX509Certificate() ICefX509Certificate // function
 }
 
-// ICefSSLStatusRef Parent: ICefSSLStatus
+// ICefSSLStatusRef Parent: ICefSSLStatus ICefBaseRefCountedRef
 type ICefSSLStatusRef interface {
 	ICefSSLStatus
+	ICefBaseRefCountedRef
 	AsIntfSSLStatus() uintptr
 }
 

@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefRunQuickMenuCallback Parent: ICefBaseRefCountedRef
+// ICefRunQuickMenuCallback Parent: ICefBaseRefCounted
 type ICefRunQuickMenuCallback interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// Cont
 	//  Complete quick menu display by selecting the specified |command_id| and
 	//  |event_flags|.
@@ -27,9 +27,10 @@ type ICefRunQuickMenuCallback interface {
 	Cancel() // procedure
 }
 
-// ICefRunQuickMenuCallbackRef Parent: ICefRunQuickMenuCallback
+// ICefRunQuickMenuCallbackRef Parent: ICefRunQuickMenuCallback ICefBaseRefCountedRef
 type ICefRunQuickMenuCallbackRef interface {
 	ICefRunQuickMenuCallback
+	ICefBaseRefCountedRef
 	AsIntfRunQuickMenuCallback() uintptr
 }
 

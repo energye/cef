@@ -17,8 +17,14 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICEFTextfieldComponent Parent: ICEFViewComponent
+// ICefTextfieldDelegateEvents Parent: ICefViewDelegateEvents
+type ICefTextfieldDelegateEvents interface {
+	ICefViewDelegateEvents
+}
+
+// ICEFTextfieldComponent Parent: ICefTextfieldDelegateEvents ICEFViewComponent
 type ICEFTextfieldComponent interface {
+	ICefTextfieldDelegateEvents
 	ICEFViewComponent
 	// IsCommandEnabled
 	//  Returns true (1) if the action associated with the specified command id is

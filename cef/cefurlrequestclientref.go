@@ -14,8 +14,14 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefUrlrequestClientRef Parent: ICefBaseRefCountedRef
+// ICefUrlrequestClient Parent: ICefBaseRefCounted
+type ICefUrlrequestClient interface {
+	ICefBaseRefCounted
+}
+
+// ICefUrlrequestClientRef Parent: ICefUrlrequestClient ICefBaseRefCountedRef
 type ICefUrlrequestClientRef interface {
+	ICefUrlrequestClient
 	ICefBaseRefCountedRef
 	AsIntfUrlrequestClient() uintptr
 }

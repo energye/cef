@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefDomDocument Parent: ICefBaseRefCountedRef
+// ICefDomDocument Parent: ICefBaseRefCounted
 type ICefDomDocument interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// GetType
 	//  Returns the document type.
 	GetType() cefTypes.TCefDomDocumentType // function
@@ -63,9 +63,10 @@ type ICefDomDocument interface {
 	GetCompleteUrl(partialURL string) string // function
 }
 
-// ICefDomDocumentRef Parent: ICefDomDocument
+// ICefDomDocumentRef Parent: ICefDomDocument ICefBaseRefCountedRef
 type ICefDomDocumentRef interface {
 	ICefDomDocument
+	ICefBaseRefCountedRef
 	AsIntfDomDocument() uintptr
 }
 

@@ -14,8 +14,14 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefResourceHandlerRef Parent: ICefBaseRefCountedRef
+// ICefResourceHandler Parent: ICefBaseRefCounted
+type ICefResourceHandler interface {
+	ICefBaseRefCounted
+}
+
+// ICefResourceHandlerRef Parent: ICefResourceHandler ICefBaseRefCountedRef
 type ICefResourceHandlerRef interface {
+	ICefResourceHandler
 	ICefBaseRefCountedRef
 	AsIntfResourceHandler() uintptr
 }

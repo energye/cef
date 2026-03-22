@@ -12,13 +12,12 @@ import (
 	"github.com/energye/lcl/api"
 	"github.com/energye/lcl/api/imports"
 	"github.com/energye/lcl/base"
-	"github.com/energye/lcl/lcl"
 	"github.com/energye/lcl/types"
 )
 
-// ICEFBitmapBitBuffer Parent: lcl.IObject
+// ICEFBitmapBitBuffer Parent: IObject
 type ICEFBitmapBitBuffer interface {
-	lcl.IObject
+	IObject
 	// UpdateSize
 	//  Updates the image size.
 	UpdateSize(width int32, height int32) // procedure
@@ -49,7 +48,7 @@ type ICEFBitmapBitBuffer interface {
 }
 
 type TCEFBitmapBitBuffer struct {
-	lcl.TObject
+	TObject
 }
 
 func (m *TCEFBitmapBitBuffer) UpdateSize(width int32, height int32) {

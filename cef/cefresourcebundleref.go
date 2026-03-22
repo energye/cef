@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefResourceBundle Parent: ICefBaseRefCountedRef
+// ICefResourceBundle Parent: ICefBaseRefCounted
 type ICefResourceBundle interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// GetLocalizedString
 	//  Returns the localized string for the specified |string_id| or an NULL
 	//  string if the value is not found. Include cef_pack_strings.h for a listing
@@ -37,9 +37,10 @@ type ICefResourceBundle interface {
 	GetDataResourceForScale(resourceId int32, scaleFactor cefTypes.TCefScaleFactor) ICefBinaryValue // function
 }
 
-// ICefResourceBundleRef Parent: ICefResourceBundle
+// ICefResourceBundleRef Parent: ICefResourceBundle ICefBaseRefCountedRef
 type ICefResourceBundleRef interface {
 	ICefResourceBundle
+	ICefBaseRefCountedRef
 	AsIntfResourceBundle() uintptr
 }
 

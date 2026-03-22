@@ -16,9 +16,9 @@ import (
 	"github.com/energye/lcl/lcl"
 )
 
-// ICefListValue Parent: ICefBaseRefCountedRef
+// ICefListValue Parent: ICefBaseRefCounted
 type ICefListValue interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// IsValid
 	//  Returns true (1) if this object is valid. This object may become invalid
 	//  if the underlying data is owned by another object (e.g. list or
@@ -144,9 +144,10 @@ type ICefListValue interface {
 	SetList(index cefTypes.NativeUInt, value ICefListValue) bool // function
 }
 
-// ICefListValueRef Parent: ICefListValue
+// ICefListValueRef Parent: ICefListValue ICefBaseRefCountedRef
 type ICefListValueRef interface {
 	ICefListValue
+	ICefBaseRefCountedRef
 	AsIntfListValue() uintptr
 }
 

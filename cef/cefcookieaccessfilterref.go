@@ -14,8 +14,14 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefCookieAccessFilterRef Parent: ICefBaseRefCountedRef
+// ICefCookieAccessFilter Parent: ICefBaseRefCounted
+type ICefCookieAccessFilter interface {
+	ICefBaseRefCounted
+}
+
+// ICefCookieAccessFilterRef Parent: ICefCookieAccessFilter ICefBaseRefCountedRef
 type ICefCookieAccessFilterRef interface {
+	ICefCookieAccessFilter
 	ICefBaseRefCountedRef
 	AsIntfCookieAccessFilter() uintptr
 }

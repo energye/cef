@@ -12,15 +12,20 @@ import (
 	"github.com/energye/lcl/api"
 	"github.com/energye/lcl/api/imports"
 	"github.com/energye/lcl/base"
-	"github.com/energye/lcl/lcl"
 	"github.com/energye/lcl/types"
 
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICefApplicationCore Parent: lcl.IInterfacedObject
+// IApplicationCoreEvents Parent: IObject
+type IApplicationCoreEvents interface {
+	IObject
+}
+
+// ICefApplicationCore Parent: IApplicationCoreEvents IInterfacedObject
 type ICefApplicationCore interface {
-	lcl.IInterfacedObject
+	IApplicationCoreEvents
+	IInterfacedObject
 	// CheckCEFLibrary
 	//  Used to check the CEF binaries manually.
 	CheckCEFLibrary() bool // function
@@ -920,7 +925,7 @@ type ICefApplicationCore interface {
 }
 
 type TCefApplicationCore struct {
-	lcl.TInterfacedObject
+	TInterfacedObject
 }
 
 func (m *TCefApplicationCore) CheckCEFLibrary() bool {

@@ -14,9 +14,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefResourceReadCallback Parent: ICefBaseRefCountedRef
+// ICefResourceReadCallback Parent: ICefBaseRefCounted
 type ICefResourceReadCallback interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// Cont
 	//  Callback for asynchronous continuation of read(). If |bytes_read| == 0 the
 	//  response will be considered complete. If |bytes_read| > 0 then read() will
@@ -26,9 +26,10 @@ type ICefResourceReadCallback interface {
 	Cont(bytesRead int64) // procedure
 }
 
-// ICefResourceReadCallbackRef Parent: ICefResourceReadCallback
+// ICefResourceReadCallbackRef Parent: ICefResourceReadCallback ICefBaseRefCountedRef
 type ICefResourceReadCallbackRef interface {
 	ICefResourceReadCallback
+	ICefBaseRefCountedRef
 	AsIntfResourceReadCallback() uintptr
 }
 

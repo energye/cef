@@ -14,9 +14,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefScrollView Parent: ICefViewRef
+// ICefScrollView Parent: ICefView
 type ICefScrollView interface {
-	ICefViewRef
+	ICefView
 	// GetContentView
 	//  Returns the content View.
 	GetContentView() ICefView // function
@@ -41,9 +41,10 @@ type ICefScrollView interface {
 	SetContentView(view ICefView) // procedure
 }
 
-// ICefScrollViewRef Parent: ICefScrollView
+// ICefScrollViewRef Parent: ICefScrollView ICefViewRef
 type ICefScrollViewRef interface {
 	ICefScrollView
+	ICefViewRef
 	AsIntfScrollView() uintptr
 	AsIntfView() uintptr
 }

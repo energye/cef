@@ -17,9 +17,9 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICefContextMenuParams Parent: ICefBaseRefCountedRef
+// ICefContextMenuParams Parent: ICefBaseRefCounted
 type ICefContextMenuParams interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// GetXCoord
 	//  Returns the X coordinate of the mouse where the context menu was invoked.
 	//  Coords are relative to the associated RenderView's origin.
@@ -101,9 +101,10 @@ type ICefContextMenuParams interface {
 	IsCustomMenu() bool // function
 }
 
-// ICefContextMenuParamsRef Parent: ICefContextMenuParams
+// ICefContextMenuParamsRef Parent: ICefContextMenuParams ICefBaseRefCountedRef
 type ICefContextMenuParamsRef interface {
 	ICefContextMenuParams
+	ICefBaseRefCountedRef
 	AsIntfContextMenuParams() uintptr
 }
 

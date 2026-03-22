@@ -19,7 +19,7 @@ import (
 // IChromium Parent: IChromiumCore
 type IChromium interface {
 	IChromiumCore
-	// CreateBrowserWithWinControlStringRequestContextDictionaryValue
+	// CreateBrowserWithWControlStrRContextDValue
 	//  Used to create the browser after the global request context has been
 	//  initialized. You need to set all properties and events before calling
 	//  this function because it will only create the internal handlers needed
@@ -27,7 +27,7 @@ type IChromium interface {
 	//  initialization.
 	//  The browser will be fully initialized when the TChromiumCore.OnAfterCreated
 	//  event is triggered.
-	CreateBrowserWithWinControlStringRequestContextDictionaryValue(browserParent lcl.IWinControl, windowName string, context ICefRequestContext, extraInfo ICefDictionaryValue) bool // function
+	CreateBrowserWithWControlStrRContextDValue(browserParent lcl.IWinControl, windowName string, context ICefRequestContext, extraInfo ICefDictionaryValue) bool // function
 	// SaveAsBitmapStream
 	//  Copy the DC to a bitmap stream. Only works on Windows with browsers without GPU acceleration.
 	//  It's recommended to use the "Page.captureScreenshot" DevTools method instead.
@@ -72,7 +72,7 @@ type TChromium struct {
 	TChromiumCore
 }
 
-func (m *TChromium) CreateBrowserWithWinControlStringRequestContextDictionaryValue(browserParent lcl.IWinControl, windowName string, context ICefRequestContext, extraInfo ICefDictionaryValue) bool {
+func (m *TChromium) CreateBrowserWithWControlStrRContextDValue(browserParent lcl.IWinControl, windowName string, context ICefRequestContext, extraInfo ICefDictionaryValue) bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -187,7 +187,7 @@ func chromiumAPI() *imports.Imports {
 		chromiumImport = api.NewDefaultImports()
 		chromiumImport.Table = []*imports.Table{
 			/* 0 */ imports.NewTable("TChromium_Create", 0), // constructor NewChromium
-			/* 1 */ imports.NewTable("TChromium_CreateBrowserWithWinControlStringRequestContextDictionaryValue", 0), // function CreateBrowserWithWinControlStringRequestContextDictionaryValue
+			/* 1 */ imports.NewTable("TChromium_CreateBrowserWithWControlStrRContextDValue", 0), // function CreateBrowserWithWControlStrRContextDValue
 			/* 2 */ imports.NewTable("TChromium_SaveAsBitmapStream", 0), // function SaveAsBitmapStream
 			/* 3 */ imports.NewTable("TChromium_TakeSnapshot", 0), // function TakeSnapshot
 			/* 4 */ imports.NewTable("TChromium_InitializeDragAndDropWithWinControl", 0), // procedure InitializeDragAndDropWithWinControl

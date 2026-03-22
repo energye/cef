@@ -14,9 +14,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefDownloadItemCallback Parent: ICefBaseRefCountedRef
+// ICefDownloadItemCallback Parent: ICefBaseRefCounted
 type ICefDownloadItemCallback interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// Cancel
 	//  Call to cancel the download.
 	Cancel() // procedure
@@ -28,9 +28,10 @@ type ICefDownloadItemCallback interface {
 	Resume() // procedure
 }
 
-// ICefDownloadItemCallbackRef Parent: ICefDownloadItemCallback
+// ICefDownloadItemCallbackRef Parent: ICefDownloadItemCallback ICefBaseRefCountedRef
 type ICefDownloadItemCallbackRef interface {
 	ICefDownloadItemCallback
+	ICefBaseRefCountedRef
 	AsIntfDownloadItemCallback() uintptr
 }
 

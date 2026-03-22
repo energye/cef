@@ -17,9 +17,9 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICefX509Certificate Parent: ICefBaseRefCountedRef
+// ICefX509Certificate Parent: ICefBaseRefCounted
 type ICefX509Certificate interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// GetSubject
 	//  Returns the subject of the X.509 certificate. For HTTPS server
 	//  certificates this represents the web server. The common name of the
@@ -70,9 +70,10 @@ type ICefX509Certificate interface {
 	GetPEMEncodedIssuerChain(chainCount cefTypes.NativeUInt, chain *ICefBinaryValueArray) // procedure
 }
 
-// ICEFX509CertificateRef Parent: ICefX509Certificate
+// ICEFX509CertificateRef Parent: ICefX509Certificate ICefBaseRefCountedRef
 type ICEFX509CertificateRef interface {
 	ICefX509Certificate
+	ICefBaseRefCountedRef
 	AsIntfX509Certificate() uintptr
 }
 

@@ -14,9 +14,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefMediaSource Parent: ICefBaseRefCountedRef
+// ICefMediaSource Parent: ICefBaseRefCounted
 type ICefMediaSource interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// GetId
 	//  Returns the ID (media source URN or URL) for this source.
 	GetId() string // function
@@ -28,9 +28,10 @@ type ICefMediaSource interface {
 	IsDialSource() bool // function
 }
 
-// ICefMediaSourceRef Parent: ICefMediaSource
+// ICefMediaSourceRef Parent: ICefMediaSource ICefBaseRefCountedRef
 type ICefMediaSourceRef interface {
 	ICefMediaSource
+	ICefBaseRefCountedRef
 	AsIntfMediaSource() uintptr
 }
 

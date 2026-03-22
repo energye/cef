@@ -14,9 +14,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefUnresponsiveProcessCallback Parent: ICefBaseRefCountedRef
+// ICefUnresponsiveProcessCallback Parent: ICefBaseRefCounted
 type ICefUnresponsiveProcessCallback interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// Wait
 	//  Reset the timeout for the unresponsive process.
 	Wait() // procedure
@@ -25,9 +25,10 @@ type ICefUnresponsiveProcessCallback interface {
 	Terminate() // procedure
 }
 
-// ICefUnresponsiveProcessCallbackRef Parent: ICefUnresponsiveProcessCallback
+// ICefUnresponsiveProcessCallbackRef Parent: ICefUnresponsiveProcessCallback ICefBaseRefCountedRef
 type ICefUnresponsiveProcessCallbackRef interface {
 	ICefUnresponsiveProcessCallback
+	ICefBaseRefCountedRef
 	AsIntfUnresponsiveProcessCallback() uintptr
 }
 

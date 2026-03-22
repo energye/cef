@@ -18,9 +18,9 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// IBufferPanel Parent: lcl.ICustomPanel
+// IBufferPanel Parent: ICustomPanel
 type IBufferPanel interface {
-	lcl.ICustomPanel
+	ICustomPanel
 	// SaveToFile
 	//  Save the visible web contents as a bitmap file.
 	SaveToFile(filename string) bool // function
@@ -180,7 +180,7 @@ type IBufferPanel interface {
 }
 
 type TBufferPanel struct {
-	lcl.TCustomPanel
+	TCustomPanel
 }
 
 func (m *TBufferPanel) SaveToFile(filename string) bool {

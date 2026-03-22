@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefButton Parent: ICefViewRef
+// ICefButton Parent: ICefView
 type ICefButton interface {
-	ICefViewRef
+	ICefView
 	// AsLabelButton
 	//  Returns this Button as a LabelButton or NULL if this is not a LabelButton.
 	AsLabelButton() ICefLabelButton // function
@@ -40,9 +40,10 @@ type ICefButton interface {
 	SetAccessibleName(name string) // procedure
 }
 
-// ICefButtonRef Parent: ICefButton
+// ICefButtonRef Parent: ICefButton ICefViewRef
 type ICefButtonRef interface {
 	ICefButton
+	ICefViewRef
 	AsIntfButton() uintptr
 	AsIntfView() uintptr
 }

@@ -16,9 +16,9 @@ import (
 	"github.com/energye/lcl/lcl"
 )
 
-// ICefValue Parent: ICefBaseRefCountedRef
+// ICefValue Parent: ICefBaseRefCounted
 type ICefValue interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// IsValid
 	//  Returns true (1) if the underlying data is valid. This will always be true
 	//  (1) for simple types. For complex types (binary, dictionary and list) the
@@ -122,9 +122,10 @@ type ICefValue interface {
 	SetList(value ICefListValue) bool // function
 }
 
-// ICefValueRef Parent: ICefValue
+// ICefValueRef Parent: ICefValue ICefBaseRefCountedRef
 type ICefValueRef interface {
 	ICefValue
+	ICefBaseRefCountedRef
 	AsIntfValue() uintptr
 }
 

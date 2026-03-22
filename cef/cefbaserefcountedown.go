@@ -12,16 +12,16 @@ import (
 	"github.com/energye/lcl/api"
 	"github.com/energye/lcl/api/imports"
 	"github.com/energye/lcl/base"
-	"github.com/energye/lcl/lcl"
 )
 
-// ICefBaseRefCountedOwn Parent: ICefBaseRefCounted
+// ICefBaseRefCountedOwn Parent: ICefBaseRefCounted IInterfacedObject
 type ICefBaseRefCountedOwn interface {
 	ICefBaseRefCounted
+	IInterfacedObject
 }
 
 type TCefBaseRefCountedOwn struct {
-	lcl.TInterfacedObject
+	TInterfacedObject
 }
 
 func (m *TCefBaseRefCountedOwn) HasOneRef() bool {

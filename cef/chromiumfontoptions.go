@@ -12,14 +12,13 @@ import (
 	"github.com/energye/lcl/api"
 	"github.com/energye/lcl/api/imports"
 	"github.com/energye/lcl/base"
-	"github.com/energye/lcl/lcl"
 
 	cefTypes "github.com/energye/cef/types"
 )
 
-// IChromiumFontOptions Parent: lcl.IPersistent
+// IChromiumFontOptions Parent: IPersistent
 type IChromiumFontOptions interface {
-	lcl.IPersistent
+	IPersistent
 	// StandardFontFamily
 	//  Standard font family name.
 	StandardFontFamily() string         // property StandardFontFamily Getter
@@ -68,7 +67,7 @@ type IChromiumFontOptions interface {
 }
 
 type TChromiumFontOptions struct {
-	lcl.TPersistent
+	TPersistent
 }
 
 func (m *TChromiumFontOptions) StandardFontFamily() string {

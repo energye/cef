@@ -14,9 +14,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefProcessMessage Parent: ICefBaseRefCountedRef
+// ICefProcessMessage Parent: ICefBaseRefCounted
 type ICefProcessMessage interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// IsValid
 	//  Returns true (1) if this object is valid. Do not call any other functions
 	//  if this function returns false (0).
@@ -42,9 +42,10 @@ type ICefProcessMessage interface {
 	GetSharedMemoryRegion() ICefSharedMemoryRegion // function
 }
 
-// ICefProcessMessageRef Parent: ICefProcessMessage
+// ICefProcessMessageRef Parent: ICefProcessMessage ICefBaseRefCountedRef
 type ICefProcessMessageRef interface {
 	ICefProcessMessage
+	ICefBaseRefCountedRef
 	AsIntfProcessMessage() uintptr
 }
 

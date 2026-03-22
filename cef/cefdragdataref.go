@@ -17,9 +17,9 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICefDragData Parent: ICefBaseRefCountedRef
+// ICefDragData Parent: ICefBaseRefCounted
 type ICefDragData interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// Clone
 	//  Returns a copy of the current object.
 	Clone() ICefDragData // function
@@ -112,9 +112,10 @@ type ICefDragData interface {
 	ClearFilenames() // procedure
 }
 
-// ICefDragDataRef Parent: ICefDragData
+// ICefDragDataRef Parent: ICefDragData ICefBaseRefCountedRef
 type ICefDragDataRef interface {
 	ICefDragData
+	ICefBaseRefCountedRef
 	AsIntfDragData() uintptr
 }
 

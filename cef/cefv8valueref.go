@@ -18,9 +18,9 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICefv8Value Parent: ICefBaseRefCountedRef
+// ICefv8Value Parent: ICefBaseRefCounted
 type ICefv8Value interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// IsValid
 	//  Returns true (1) if the underlying handle is valid and it can be accessed
 	//  on the current thread. Do not call any other functions if this function
@@ -248,9 +248,10 @@ type ICefv8Value interface {
 	RejectPromise(errorMsg string) bool // function
 }
 
-// ICefv8ValueRef Parent: ICefv8Value
+// ICefv8ValueRef Parent: ICefv8Value ICefBaseRefCountedRef
 type ICefv8ValueRef interface {
 	ICefv8Value
+	ICefBaseRefCountedRef
 	AsIntfV8Value() uintptr
 }
 

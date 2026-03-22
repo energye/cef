@@ -14,9 +14,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefJsDialogCallback Parent: ICefBaseRefCountedRef
+// ICefJsDialogCallback Parent: ICefBaseRefCounted
 type ICefJsDialogCallback interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// Cont
 	//  Continue the JS dialog request. Set |success| to true (1) if the OK button
 	//  was pressed. The |user_input| value should be specified for prompt
@@ -24,9 +24,10 @@ type ICefJsDialogCallback interface {
 	Cont(success bool, userInput string) // procedure
 }
 
-// ICefJsDialogCallbackRef Parent: ICefJsDialogCallback
+// ICefJsDialogCallbackRef Parent: ICefJsDialogCallback ICefBaseRefCountedRef
 type ICefJsDialogCallbackRef interface {
 	ICefJsDialogCallback
+	ICefBaseRefCountedRef
 	AsIntfJsDialogCallback() uintptr
 }
 

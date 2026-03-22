@@ -17,9 +17,9 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICEFSentinel Parent: lcl.IComponent
+// ICEFSentinel Parent: IComponent
 type ICEFSentinel interface {
-	lcl.IComponent
+	IComponent
 	// Start
 	//  Start checking all the CEF subprocesses.
 	Start() // procedure
@@ -53,7 +53,7 @@ type ICEFSentinel interface {
 }
 
 type TCEFSentinel struct {
-	lcl.TComponent
+	TComponent
 }
 
 func (m *TCEFSentinel) Start() {

@@ -17,9 +17,15 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICEFServerComponent Parent: lcl.IComponent
+// IServerEvents Parent: IObject
+type IServerEvents interface {
+	IObject
+}
+
+// ICEFServerComponent Parent: IServerEvents IComponent
 type ICEFServerComponent interface {
-	lcl.IComponent
+	IServerEvents
+	IComponent
 	// IsValidConnection
 	//  Returns true (1) if |connection_id| represents a valid connection. This
 	//  function must be called on the dedicated server thread.
@@ -121,7 +127,7 @@ type ICEFServerComponent interface {
 }
 
 type TCEFServerComponent struct {
-	lcl.TComponent
+	TComponent
 }
 
 func (m *TCEFServerComponent) IsValidConnection(connectionId int32) bool {

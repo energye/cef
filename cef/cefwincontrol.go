@@ -16,9 +16,9 @@ import (
 	"github.com/energye/lcl/types"
 )
 
-// ICEFWinControl Parent: lcl.IWinControl
+// ICEFWinControl Parent: IWinControl
 type ICEFWinControl interface {
-	lcl.IWinControl
+	IWinControl
 	// TakeSnapshot
 	//  Take a snapshot of the browser contents into aBitmap. This function only works in Windows without hardware acceleration.
 	TakeSnapshot(bitmap *lcl.IBitmap) bool // function
@@ -50,7 +50,7 @@ type ICEFWinControl interface {
 }
 
 type TCEFWinControl struct {
-	lcl.TWinControl
+	TWinControl
 }
 
 func (m *TCEFWinControl) TakeSnapshot(bitmap *lcl.IBitmap) bool {

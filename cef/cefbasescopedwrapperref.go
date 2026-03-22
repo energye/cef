@@ -12,17 +12,16 @@ import (
 	"github.com/energye/lcl/api"
 	"github.com/energye/lcl/api/imports"
 	"github.com/energye/lcl/base"
-	"github.com/energye/lcl/lcl"
 )
 
-// ICEFBaseScopedWrapperRef Parent: lcl.IObject
+// ICEFBaseScopedWrapperRef Parent: IObject
 type ICEFBaseScopedWrapperRef interface {
-	lcl.IObject
+	IObject
 	Wrap() uintptr // function
 }
 
 type TCEFBaseScopedWrapperRef struct {
-	lcl.TObject
+	TObject
 }
 
 func (m *TCEFBaseScopedWrapperRef) Wrap() uintptr {

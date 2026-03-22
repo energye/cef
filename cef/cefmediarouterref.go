@@ -14,9 +14,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefMediaRouter Parent: ICefBaseRefCountedRef
+// ICefMediaRouter Parent: ICefBaseRefCounted
 type ICefMediaRouter interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// AddObserver
 	//  Add an observer for MediaRouter events. The observer will remain
 	//  registered until the returned Registration object is destroyed.
@@ -44,9 +44,10 @@ type ICefMediaRouter interface {
 	NotifyCurrentRoutes() // procedure
 }
 
-// ICefMediaRouterRef Parent: ICefMediaRouter
+// ICefMediaRouterRef Parent: ICefMediaRouter ICefBaseRefCountedRef
 type ICefMediaRouterRef interface {
 	ICefMediaRouter
+	ICefBaseRefCountedRef
 	AsIntfMediaRouter() uintptr
 }
 

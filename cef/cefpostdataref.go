@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefPostData Parent: ICefBaseRefCountedRef
+// ICefPostData Parent: ICefBaseRefCounted
 type ICefPostData interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// IsReadOnly
 	//  Returns true (1) if this object is read-only.
 	IsReadOnly() bool // function
@@ -46,9 +46,10 @@ type ICefPostData interface {
 	RemoveElements() // procedure
 }
 
-// ICefPostDataRef Parent: ICefPostData
+// ICefPostDataRef Parent: ICefPostData ICefBaseRefCountedRef
 type ICefPostDataRef interface {
 	ICefPostData
+	ICefBaseRefCountedRef
 	AsIntfPostData() uintptr
 }
 

@@ -12,12 +12,12 @@ import (
 	"github.com/energye/lcl/api"
 	"github.com/energye/lcl/api/imports"
 	"github.com/energye/lcl/base"
-	"github.com/energye/lcl/lcl"
 )
 
-// ICefBaseRefCounted Parent: lcl.IInterfacedObject
+// ICefBaseRefCounted Parent: IInterfacedObject
 type ICefBaseRefCounted interface {
-	lcl.IInterfacedObject
+	IInterfacedObject
+
 	// HasOneRef
 	//  Returns true (1) if the current reference count is 1.
 	HasOneRef() bool // function
@@ -36,13 +36,14 @@ type ICefBaseRefCounted interface {
 	DestroyOtherRefs() // procedure
 }
 
-// ICefBaseRefCountedRef Parent: ICefBaseRefCounted
+// ICefBaseRefCountedRef Parent: ICefBaseRefCounted IInterfacedObject
 type ICefBaseRefCountedRef interface {
 	ICefBaseRefCounted
+	IInterfacedObject
 }
 
 type TCefBaseRefCountedRef struct {
-	lcl.TInterfacedObject
+	TInterfacedObject
 }
 
 func (m *TCefBaseRefCountedRef) HasOneRef() bool {

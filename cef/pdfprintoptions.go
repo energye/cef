@@ -12,14 +12,13 @@ import (
 	"github.com/energye/lcl/api"
 	"github.com/energye/lcl/api/imports"
 	"github.com/energye/lcl/base"
-	"github.com/energye/lcl/lcl"
 
 	cefTypes "github.com/energye/cef/types"
 )
 
-// IPDFPrintOptions Parent: lcl.IObject
+// IPDFPrintOptions Parent: IObject
 type IPDFPrintOptions interface {
-	lcl.IObject
+	IObject
 	CopyToSettings(settings *TCefPdfPrintSettings) // procedure
 	// Landscape
 	//  Set to true for landscape mode or false for portrait mode.
@@ -151,7 +150,7 @@ type IPDFPrintOptions interface {
 }
 
 type TPDFPrintOptions struct {
-	lcl.TObject
+	TObject
 }
 
 func (m *TPDFPrintOptions) CopyToSettings(settings *TCefPdfPrintSettings) {

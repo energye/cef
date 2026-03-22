@@ -17,9 +17,9 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICefRequestContext Parent: ICefPreferenceManagerRef
+// ICefRequestContext Parent: ICefPreferenceManager
 type ICefRequestContext interface {
-	ICefPreferenceManagerRef
+	ICefPreferenceManager
 	// IsSame
 	//  Returns true (1) if this object is pointing to the same context as |that|
 	//  object.
@@ -232,9 +232,10 @@ type ICefRequestContext interface {
 	SetChromeColorScheme(variant cefTypes.TCefColorVariant, userColor cefTypes.TCefColor) // procedure
 }
 
-// ICefRequestContextRef Parent: ICefRequestContext
+// ICefRequestContextRef Parent: ICefRequestContext ICefPreferenceManagerRef
 type ICefRequestContextRef interface {
 	ICefRequestContext
+	ICefPreferenceManagerRef
 	AsIntfRequestContext() uintptr
 	AsIntfPreferenceManager() uintptr
 }
@@ -497,7 +498,7 @@ func (_RequestContextRefClass) NewWithPCefRequestContextSettingsRequestContextHa
 	return
 }
 
-// NewWithStringX3BoolX3RequestContextHandler
+// NewWithStrX3BoolX3RCHandler
 //
 //	Creates a new context object with the specified settings and optional
 //	|handler|.
@@ -508,7 +509,7 @@ func (_RequestContextRefClass) NewWithPCefRequestContextSettingsRequestContextHa
 //	<param name="aPersistSessionCookies">To persist session cookies (cookies without an expiry date or validity interval) by default when using the global cookie manager set this value to true. See TCefRequestContextSettings.persist_session_cookies for more information.</param>
 //	<param name="aPersistUserPreferences">To persist user preferences as a JSON file in the cache path directory set this value to true. See TCefRequestContextSettings.persist_user_preferences for more information.</param>
 //	<param name="handler">Optional handler for the request context.</param>
-func (_RequestContextRefClass) NewWithStringX3BoolX3RequestContextHandler(cache string, acceptLanguageList string, cookieableSchemesList string, cookieableSchemesExcludeDefaults bool, persistSessionCookies bool, persistUserPreferences bool, handler IEngRequestContextHandler) (result ICefRequestContext) {
+func (_RequestContextRefClass) NewWithStrX3BoolX3RCHandler(cache string, acceptLanguageList string, cookieableSchemesList string, cookieableSchemesExcludeDefaults bool, persistSessionCookies bool, persistUserPreferences bool, handler IEngRequestContextHandler) (result ICefRequestContext) {
 	var resultPtr uintptr
 	cefRequestContextRefAPI().SysCallN(22, api.PasStr(cache), api.PasStr(acceptLanguageList), api.PasStr(cookieableSchemesList), api.PasBool(cookieableSchemesExcludeDefaults), api.PasBool(persistSessionCookies), api.PasBool(persistUserPreferences), base.GetObjectUintptr(handler), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefRequestContextRef(resultPtr)
@@ -573,7 +574,7 @@ func cefRequestContextRefAPI() *imports.Imports {
 			/* 19 */ imports.NewTable("TCefRequestContextRef_UnWrapWithPointer", 0), // static function UnWrapWithPointer
 			/* 20 */ imports.NewTable("TCefRequestContextRef_GlobalToRequestContext", 0), // static function GlobalToRequestContext
 			/* 21 */ imports.NewTable("TCefRequestContextRef_NewWithPCefRequestContextSettingsRequestContextHandler", 0), // static function NewWithPCefRequestContextSettingsRequestContextHandler
-			/* 22 */ imports.NewTable("TCefRequestContextRef_NewWithStringX3BoolX3RequestContextHandler", 0), // static function NewWithStringX3BoolX3RequestContextHandler
+			/* 22 */ imports.NewTable("TCefRequestContextRef_NewWithStrX3BoolX3RCHandler", 0), // static function NewWithStrX3BoolX3RCHandler
 			/* 23 */ imports.NewTable("TCefRequestContextRef_Shared", 0), // static function Shared
 			/* 24 */ imports.NewTable("TCefRequestContextRef_ClearCertificateExceptions", 0), // procedure ClearCertificateExceptions
 			/* 25 */ imports.NewTable("TCefRequestContextRef_ClearHttpAuthCredentials", 0), // procedure ClearHttpAuthCredentials

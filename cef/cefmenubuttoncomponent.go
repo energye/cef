@@ -17,8 +17,14 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICEFMenuButtonComponent Parent: ICEFLabelButtonComponent
+// ICefMenuButtonDelegateEvents Parent: ICefButtonDelegateEvents
+type ICefMenuButtonDelegateEvents interface {
+	ICefButtonDelegateEvents
+}
+
+// ICEFMenuButtonComponent Parent: ICefMenuButtonDelegateEvents ICEFLabelButtonComponent
 type ICEFMenuButtonComponent interface {
+	ICefMenuButtonDelegateEvents
 	ICEFLabelButtonComponent
 	// CreateMenuButton
 	//  Create a new MenuButton.

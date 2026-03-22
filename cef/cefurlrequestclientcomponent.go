@@ -17,9 +17,15 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICEFUrlRequestClientComponent Parent: lcl.IComponent
+// ICEFUrlRequestClientEvents Parent: IObject
+type ICEFUrlRequestClientEvents interface {
+	IObject
+}
+
+// ICEFUrlRequestClientComponent Parent: ICEFUrlRequestClientEvents IComponent
 type ICEFUrlRequestClientComponent interface {
-	lcl.IComponent
+	ICEFUrlRequestClientEvents
+	IComponent
 	// AddURLRequest
 	//  Create the URLRequest in the context of TCEFUrlRequestClientComponent.ThreadId, which is the CEF UI thread by default.
 	AddURLRequest() // procedure
@@ -40,7 +46,7 @@ type ICEFUrlRequestClientComponent interface {
 }
 
 type TCEFUrlRequestClientComponent struct {
-	lcl.TComponent
+	TComponent
 }
 
 func (m *TCEFUrlRequestClientComponent) AddURLRequest() {

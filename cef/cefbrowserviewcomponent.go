@@ -17,8 +17,14 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICEFBrowserViewComponent Parent: ICEFViewComponent
+// ICefBrowserViewDelegateEvents Parent: ICefViewDelegateEvents
+type ICefBrowserViewDelegateEvents interface {
+	ICefViewDelegateEvents
+}
+
+// ICEFBrowserViewComponent Parent: ICefBrowserViewDelegateEvents ICEFViewComponent
 type ICEFBrowserViewComponent interface {
+	ICefBrowserViewDelegateEvents
 	ICEFViewComponent
 	// CreateBrowserView
 	//  Create a new ICefBrowserView. The underlying ICefBrowser will not be created

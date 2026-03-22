@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefMenuModel Parent: ICefBaseRefCountedRef
+// ICefMenuModel Parent: ICefBaseRefCounted
 type ICefMenuModel interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// IsSubMenu
 	//  Returns true (1) if this menu is a submenu.
 	IsSubMenu() bool // function
@@ -250,9 +250,10 @@ type ICefMenuModel interface {
 	SetFontListAt(index int32, fontList string) bool // function
 }
 
-// ICefMenuModelRef Parent: ICefMenuModel
+// ICefMenuModelRef Parent: ICefMenuModel ICefBaseRefCountedRef
 type ICefMenuModelRef interface {
 	ICefMenuModel
+	ICefBaseRefCountedRef
 	AsIntfMenuModel() uintptr
 }
 

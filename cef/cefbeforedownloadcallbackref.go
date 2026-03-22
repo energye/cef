@@ -14,9 +14,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefBeforeDownloadCallback Parent: ICefBaseRefCountedRef
+// ICefBeforeDownloadCallback Parent: ICefBaseRefCounted
 type ICefBeforeDownloadCallback interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// Cont
 	//  Call to continue the download. Set |download_path| to the full file path
 	//  for the download including the file name or leave blank to use the
@@ -25,9 +25,10 @@ type ICefBeforeDownloadCallback interface {
 	Cont(downloadPath string, showDialog bool) // procedure
 }
 
-// ICefBeforeDownloadCallbackRef Parent: ICefBeforeDownloadCallback
+// ICefBeforeDownloadCallbackRef Parent: ICefBeforeDownloadCallback ICefBaseRefCountedRef
 type ICefBeforeDownloadCallbackRef interface {
 	ICefBeforeDownloadCallback
+	ICefBaseRefCountedRef
 	AsIntfBeforeDownloadCallback() uintptr
 }
 

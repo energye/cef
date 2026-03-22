@@ -483,17 +483,6 @@ func AsCustomCefStringVisitor(obj any) ICustomCefStringVisitor {
 	return result
 }
 
-// AsCefTaskRef Convert a pointer object to an existing class object
-func AsCefTaskRef(obj any) ICefTaskRef {
-	instance := base.GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	result := new(TCefTaskRef)
-	base.SetObjectInstance(result, instance)
-	return result
-}
-
 // AsCefManagedTask Convert a pointer object to an existing class object
 func AsCefManagedTask(obj any) ICefManagedTask {
 	instance := base.GetInstance(obj)
@@ -802,28 +791,6 @@ func AsCefCustomMediaRouteCreateCallback(obj any) ICefCustomMediaRouteCreateCall
 	return result
 }
 
-// AsCefPanelDelegateOwn Convert a pointer object to an existing class object
-func AsCefPanelDelegateOwn(obj any) ICefPanelDelegateOwn {
-	instance := base.GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	result := new(TCefPanelDelegateOwn)
-	base.SetObjectInstance(result, instance)
-	return result
-}
-
-// AsCefWindowDelegateOwn Convert a pointer object to an existing class object
-func AsCefWindowDelegateOwn(obj any) ICefWindowDelegateOwn {
-	instance := base.GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	result := new(TCefWindowDelegateOwn)
-	base.SetObjectInstance(result, instance)
-	return result
-}
-
 // AsCustomWindowDelegate Convert a pointer object to an existing class object
 func AsCustomWindowDelegate(obj any) ICustomWindowDelegate {
 	instance := base.GetInstance(obj)
@@ -864,28 +831,6 @@ func AsCefWindowDelegateRef(obj any) ICefWindowDelegateRef {
 		return nil
 	}
 	result := new(TCefWindowDelegateRef)
-	base.SetObjectInstance(result, instance)
-	return result
-}
-
-// AsCefButtonDelegateOwn Convert a pointer object to an existing class object
-func AsCefButtonDelegateOwn(obj any) ICefButtonDelegateOwn {
-	instance := base.GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	result := new(TCefButtonDelegateOwn)
-	base.SetObjectInstance(result, instance)
-	return result
-}
-
-// AsCefMenuButtonDelegateOwn Convert a pointer object to an existing class object
-func AsCefMenuButtonDelegateOwn(obj any) ICefMenuButtonDelegateOwn {
-	instance := base.GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	result := new(TCefMenuButtonDelegateOwn)
 	base.SetObjectInstance(result, instance)
 	return result
 }
@@ -934,17 +879,6 @@ func AsCustomButtonDelegate(obj any) ICustomButtonDelegate {
 	return result
 }
 
-// AsCefBrowserViewDelegateOwn Convert a pointer object to an existing class object
-func AsCefBrowserViewDelegateOwn(obj any) ICefBrowserViewDelegateOwn {
-	instance := base.GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	result := new(TCefBrowserViewDelegateOwn)
-	base.SetObjectInstance(result, instance)
-	return result
-}
-
 // AsCustomBrowserViewDelegate Convert a pointer object to an existing class object
 func AsCustomBrowserViewDelegate(obj any) ICustomBrowserViewDelegate {
 	instance := base.GetInstance(obj)
@@ -974,17 +908,6 @@ func AsCustomPanelDelegate(obj any) ICustomPanelDelegate {
 		return nil
 	}
 	result := new(TCustomPanelDelegate)
-	base.SetObjectInstance(result, instance)
-	return result
-}
-
-// AsCefTextfieldDelegateOwn Convert a pointer object to an existing class object
-func AsCefTextfieldDelegateOwn(obj any) ICefTextfieldDelegateOwn {
-	instance := base.GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	result := new(TCefTextfieldDelegateOwn)
 	base.SetObjectInstance(result, instance)
 	return result
 }
@@ -1975,6 +1898,39 @@ func AsEngExtensionHandler(obj any) IEngExtensionHandler {
 		return nil
 	}
 	result := new(TEngExtensionHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngAccessibilityHandler Convert a pointer object to an existing class object
+func AsEngAccessibilityHandler(obj any) IEngAccessibilityHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngAccessibilityHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngWriteHandler Convert a pointer object to an existing class object
+func AsEngWriteHandler(obj any) IEngWriteHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngWriteHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngApp Convert a pointer object to an existing class object
+func AsEngApp(obj any) IEngApp {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngApp)
 	base.SetObjectInstance(result, instance)
 	return result
 }

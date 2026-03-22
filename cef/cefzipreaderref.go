@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefZipReader Parent: ICefBaseRefCountedRef
+// ICefZipReader Parent: ICefBaseRefCounted
 type ICefZipReader interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// MoveToFirstFile
 	//  Moves the cursor to the first file in the archive. Returns true (1) if the
 	//  cursor position was set successfully.
@@ -63,9 +63,10 @@ type ICefZipReader interface {
 	Eof() bool // function
 }
 
-// ICefZipReaderRef Parent: ICefZipReader
+// ICefZipReaderRef Parent: ICefZipReader ICefBaseRefCountedRef
 type ICefZipReaderRef interface {
 	ICefZipReader
+	ICefBaseRefCountedRef
 	AsIntfZipReader() uintptr
 }
 

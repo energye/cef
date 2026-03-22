@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefBrowserView Parent: ICefViewRef
+// ICefBrowserView Parent: ICefView
 type ICefBrowserView interface {
-	ICefViewRef
+	ICefView
 	// GetBrowser
 	//  Returns the ICefBrowser hosted by this BrowserView. Will return NULL if
 	//  the browser has not yet been created or has already been destroyed.
@@ -50,9 +50,10 @@ type ICefBrowserView interface {
 	SetPreferAccelerators(preferAccelerators bool) // procedure
 }
 
-// ICefBrowserViewRef Parent: ICefBrowserView
+// ICefBrowserViewRef Parent: ICefBrowserView ICefViewRef
 type ICefBrowserViewRef interface {
 	ICefBrowserView
+	ICefViewRef
 	AsIntfBrowserView() uintptr
 	AsIntfView() uintptr
 }

@@ -17,9 +17,9 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICEFFileDialogInfo Parent: lcl.IObject
+// ICEFFileDialogInfo Parent: IObject
 type ICEFFileDialogInfo interface {
-	lcl.IObject
+	IObject
 	Clear()                                   // procedure
 	Mode() uint32                             // property Mode Getter
 	SetMode(value uint32)                     // property Mode Setter
@@ -49,7 +49,7 @@ type ICEFFileDialogInfo interface {
 }
 
 type TCEFFileDialogInfo struct {
-	lcl.TObject
+	TObject
 }
 
 func (m *TCEFFileDialogInfo) Clear() {

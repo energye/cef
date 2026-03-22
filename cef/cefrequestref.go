@@ -16,9 +16,9 @@ import (
 	"github.com/energye/lcl/lcl"
 )
 
-// ICefRequest Parent: ICefBaseRefCountedRef
+// ICefRequest Parent: ICefBaseRefCounted
 type ICefRequest interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// IsReadOnly
 	//  Returns true (1) if this object is read-only.
 	IsReadOnly() bool // function
@@ -106,9 +106,10 @@ type ICefRequest interface {
 	Assign(url string, method string, postData ICefPostData, headerMap ICefStringMultimap) // procedure
 }
 
-// ICefRequestRef Parent: ICefRequest
+// ICefRequestRef Parent: ICefRequest ICefBaseRefCountedRef
 type ICefRequestRef interface {
 	ICefRequest
+	ICefBaseRefCountedRef
 	AsIntfRequest() uintptr
 }
 

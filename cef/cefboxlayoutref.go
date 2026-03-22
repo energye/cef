@@ -14,9 +14,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefBoxLayout Parent: ICefLayoutRef
+// ICefBoxLayout Parent: ICefLayout
 type ICefBoxLayout interface {
-	ICefLayoutRef
+	ICefLayout
 	// SetFlexForView
 	//  Set the flex weight for the given |view|. Using the preferred size as the
 	//  basis, free space along the main axis is distributed to views in the ratio
@@ -30,9 +30,10 @@ type ICefBoxLayout interface {
 	ClearFlexForView(view ICefView) // procedure
 }
 
-// ICefBoxLayoutRef Parent: ICefBoxLayout
+// ICefBoxLayoutRef Parent: ICefBoxLayout ICefLayoutRef
 type ICefBoxLayoutRef interface {
 	ICefBoxLayout
+	ICefLayoutRef
 	AsIntfBoxLayout() uintptr
 	AsIntfLayout() uintptr
 }

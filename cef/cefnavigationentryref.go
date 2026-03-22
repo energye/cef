@@ -17,9 +17,9 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICefNavigationEntry Parent: ICefBaseRefCountedRef
+// ICefNavigationEntry Parent: ICefBaseRefCounted
 type ICefNavigationEntry interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// IsValid
 	//  Returns true (1) if this object is valid. Do not call any other functions
 	//  if this function returns false (0).
@@ -60,9 +60,10 @@ type ICefNavigationEntry interface {
 	GetSSLStatus() ICefSSLStatus // function
 }
 
-// ICefNavigationEntryRef Parent: ICefNavigationEntry
+// ICefNavigationEntryRef Parent: ICefNavigationEntry ICefBaseRefCountedRef
 type ICefNavigationEntryRef interface {
 	ICefNavigationEntry
+	ICefBaseRefCountedRef
 	AsIntfNavigationEntry() uintptr
 }
 

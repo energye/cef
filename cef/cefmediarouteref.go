@@ -14,9 +14,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefMediaRoute Parent: ICefBaseRefCountedRef
+// ICefMediaRoute Parent: ICefBaseRefCounted
 type ICefMediaRoute interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// GetId
 	//  Returns the ID for this route.
 	GetId() string // function
@@ -35,9 +35,10 @@ type ICefMediaRoute interface {
 	Terminate() // procedure
 }
 
-// ICefMediaRouteRef Parent: ICefMediaRoute
+// ICefMediaRouteRef Parent: ICefMediaRoute ICefBaseRefCountedRef
 type ICefMediaRouteRef interface {
 	ICefMediaRoute
+	ICefBaseRefCountedRef
 	AsIntfMediaRoute() uintptr
 }
 

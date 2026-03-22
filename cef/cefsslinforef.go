@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefSslInfo Parent: ICefBaseRefCountedRef
+// ICefSslInfo Parent: ICefBaseRefCounted
 type ICefSslInfo interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// GetCertStatus
 	//  Returns a bitmask containing any and all problems verifying the server
 	//  certificate.
@@ -27,9 +27,10 @@ type ICefSslInfo interface {
 	GetX509Certificate() ICefX509Certificate // function
 }
 
-// ICefSslInfoRef Parent: ICefSslInfo
+// ICefSslInfoRef Parent: ICefSslInfo ICefBaseRefCountedRef
 type ICefSslInfoRef interface {
 	ICefSslInfo
+	ICefBaseRefCountedRef
 	AsIntfSslInfo() uintptr
 }
 

@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefXmlReader Parent: ICefBaseRefCountedRef
+// ICefXmlReader Parent: ICefBaseRefCounted
 type ICefXmlReader interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// MoveToNextNode
 	//  Moves the cursor to the next node in the document. This function must be
 	//  called at least once to set the current cursor position. Returns true (1)
@@ -125,9 +125,10 @@ type ICefXmlReader interface {
 	MoveToCarryingElement() bool // function
 }
 
-// ICefXmlReaderRef Parent: ICefXmlReader
+// ICefXmlReaderRef Parent: ICefXmlReader ICefBaseRefCountedRef
 type ICefXmlReaderRef interface {
 	ICefXmlReader
+	ICefBaseRefCountedRef
 	AsIntfXmlReader() uintptr
 }
 

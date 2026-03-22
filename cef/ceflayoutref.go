@@ -14,9 +14,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefLayout Parent: ICefBaseRefCountedRef
+// ICefLayout Parent: ICefBaseRefCounted
 type ICefLayout interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// AsBoxLayout
 	//  Returns this Layout as a BoxLayout or NULL if this is not a BoxLayout.
 	AsBoxLayout() ICefBoxLayout // function
@@ -28,9 +28,10 @@ type ICefLayout interface {
 	IsValid() bool // function
 }
 
-// ICefLayoutRef Parent: ICefLayout
+// ICefLayoutRef Parent: ICefLayout ICefBaseRefCountedRef
 type ICefLayoutRef interface {
 	ICefLayout
+	ICefBaseRefCountedRef
 	AsIntfLayout() uintptr
 }
 

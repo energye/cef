@@ -17,8 +17,14 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICEFWindowComponent Parent: ICEFPanelComponent
+// ICefWindowDelegateEvents Parent: ICefPanelDelegateEvents
+type ICefWindowDelegateEvents interface {
+	ICefPanelDelegateEvents
+}
+
+// ICEFWindowComponent Parent: ICefWindowDelegateEvents ICEFPanelComponent
 type ICEFWindowComponent interface {
+	ICefWindowDelegateEvents
 	ICEFPanelComponent
 	// AddOverlayView
 	//  Add a View that will be overlayed on the Window contents with absolute

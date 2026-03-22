@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefPrintSettings Parent: ICefBaseRefCountedRef
+// ICefPrintSettings Parent: ICefBaseRefCounted
 type ICefPrintSettings interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// IsValid
 	//  Returns true (1) if this object is valid. Do not call any other functions
 	//  if this function returns false (0).
@@ -90,9 +90,10 @@ type ICefPrintSettings interface {
 	SetDuplexMode(mode cefTypes.TCefDuplexMode) // procedure
 }
 
-// ICefPrintSettingsRef Parent: ICefPrintSettings
+// ICefPrintSettingsRef Parent: ICefPrintSettings ICefBaseRefCountedRef
 type ICefPrintSettingsRef interface {
 	ICefPrintSettings
+	ICefBaseRefCountedRef
 	AsIntfPrintSettings() uintptr
 }
 

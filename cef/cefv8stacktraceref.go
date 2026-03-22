@@ -14,9 +14,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefV8StackTrace Parent: ICefBaseRefCountedRef
+// ICefV8StackTrace Parent: ICefBaseRefCounted
 type ICefV8StackTrace interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// IsValid
 	//  Returns true (1) if the underlying handle is valid and it can be accessed
 	//  on the current thread. Do not call any other functions if this function
@@ -30,9 +30,10 @@ type ICefV8StackTrace interface {
 	GetFrame(index int32) ICefV8StackFrame // function
 }
 
-// ICefV8StackTraceRef Parent: ICefV8StackTrace
+// ICefV8StackTraceRef Parent: ICefV8StackTrace ICefBaseRefCountedRef
 type ICefV8StackTraceRef interface {
 	ICefV8StackTrace
+	ICefBaseRefCountedRef
 	AsIntfV8StackTrace() uintptr
 }
 

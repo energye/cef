@@ -9,17 +9,17 @@
 package cef
 
 import (
+	cefTypes "github.com/energye/cef/types"
 	"github.com/energye/lcl/api"
 	"github.com/energye/lcl/api/imports"
 	"github.com/energye/lcl/base"
 	"github.com/energye/lcl/lcl"
-
-	cefTypes "github.com/energye/cef/types"
 )
 
-// ICefStringMultimap Parent: lcl.IInterfacedObject
+// ICefStringMultimap Parent: IObject
 type ICefStringMultimap interface {
-	lcl.IInterfacedObject
+	IObject
+
 	GetHandle() cefTypes.TCefStringMultimap                         // function
 	GetSize() cefTypes.NativeUInt                                   // function
 	FindCount(key string) cefTypes.NativeUInt                       // function
@@ -30,14 +30,15 @@ type ICefStringMultimap interface {
 	Clear()                                                         // procedure
 }
 
-// ICefCustomStringMultimap Parent: ICefStringMultimap
+// ICefCustomStringMultimap Parent: ICefStringMultimap IInterfacedObject
 type ICefCustomStringMultimap interface {
 	ICefStringMultimap
+	IInterfacedObject
 	AsIntfStringMultimap() uintptr
 }
 
 type TCefCustomStringMultimap struct {
-	lcl.TInterfacedObject
+	TInterfacedObject
 }
 
 func (m *TCefCustomStringMultimap) GetHandle() cefTypes.TCefStringMultimap {

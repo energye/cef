@@ -11,11 +11,12 @@
 package cef
 
 import (
+	"os"
+
 	"github.com/energye/lcl/api"
 	"github.com/energye/lcl/emfs"
 	"github.com/energye/lcl/lcl"
 	"github.com/energye/lcl/tool"
-	"os"
 )
 
 // Init CEF

@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefPostDataElement Parent: ICefBaseRefCountedRef
+// ICefPostDataElement Parent: ICefBaseRefCounted
 type ICefPostDataElement interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// IsReadOnly
 	//  Returns true (1) if this object is read-only.
 	IsReadOnly() bool // function
@@ -46,9 +46,10 @@ type ICefPostDataElement interface {
 	SetToBytes(size cefTypes.NativeUInt, bytes uintptr) // procedure
 }
 
-// ICefPostDataElementRef Parent: ICefPostDataElement
+// ICefPostDataElementRef Parent: ICefPostDataElement ICefBaseRefCountedRef
 type ICefPostDataElementRef interface {
 	ICefPostDataElement
+	ICefBaseRefCountedRef
 	AsIntfPostDataElement() uintptr
 }
 

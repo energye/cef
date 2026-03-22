@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefOverlayController Parent: ICefBaseRefCountedRef
+// ICefOverlayController Parent: ICefBaseRefCounted
 type ICefOverlayController interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// IsValid
 	//  Returns true (1) if this object is valid.
 	IsValid() bool // function
@@ -116,9 +116,10 @@ type ICefOverlayController interface {
 	SetVisible(visible bool) // procedure
 }
 
-// ICefOverlayControllerRef Parent: ICefOverlayController
+// ICefOverlayControllerRef Parent: ICefOverlayController ICefBaseRefCountedRef
 type ICefOverlayControllerRef interface {
 	ICefOverlayController
+	ICefBaseRefCountedRef
 	AsIntfOverlayController() uintptr
 }
 

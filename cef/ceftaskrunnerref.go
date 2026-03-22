@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefTaskRunner Parent: ICefBaseRefCountedRef
+// ICefTaskRunner Parent: ICefBaseRefCounted
 type ICefTaskRunner interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// IsSame
 	//  Returns true (1) if this object is pointing to the same task runner as
 	//  |that| object.
@@ -40,9 +40,10 @@ type ICefTaskRunner interface {
 	PostDelayedTask(task IEngTask, delayMs int64) bool // function
 }
 
-// ICefTaskRunnerRef Parent: ICefTaskRunner
+// ICefTaskRunnerRef Parent: ICefTaskRunner ICefBaseRefCountedRef
 type ICefTaskRunnerRef interface {
 	ICefTaskRunner
+	ICefBaseRefCountedRef
 	AsIntfTaskRunner() uintptr
 }
 

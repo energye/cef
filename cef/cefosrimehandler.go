@@ -12,13 +12,12 @@ import (
 	"github.com/energye/lcl/api"
 	"github.com/energye/lcl/api/imports"
 	"github.com/energye/lcl/base"
-	"github.com/energye/lcl/lcl"
 	"github.com/energye/lcl/types"
 )
 
-// ICEFOSRIMEHandler Parent: lcl.IObject
+// ICEFOSRIMEHandler Parent: IObject
 type ICEFOSRIMEHandler interface {
-	lcl.IObject
+	IObject
 	// GetResult
 	//  Retrieve a composition result of the ongoing composition if it exists.
 	GetResult(param types.LParam, result *string) bool // function
@@ -95,7 +94,7 @@ type ICEFOSRIMEHandler interface {
 }
 
 type TCEFOSRIMEHandler struct {
-	lcl.TObject
+	TObject
 }
 
 func (m *TCEFOSRIMEHandler) GetResult(param types.LParam, result *string) bool {

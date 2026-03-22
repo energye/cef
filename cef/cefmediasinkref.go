@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefMediaSink Parent: ICefBaseRefCountedRef
+// ICefMediaSink Parent: ICefBaseRefCounted
 type ICefMediaSink interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// GetId
 	//  Returns the ID for this sink.
 	GetId() string // function
@@ -41,9 +41,10 @@ type ICefMediaSink interface {
 	GetDeviceInfo(callback IEngMediaSinkDeviceInfoCallback) // procedure
 }
 
-// ICefMediaSinkRef Parent: ICefMediaSink
+// ICefMediaSinkRef Parent: ICefMediaSink ICefBaseRefCountedRef
 type ICefMediaSinkRef interface {
 	ICefMediaSink
+	ICefBaseRefCountedRef
 	AsIntfMediaSink() uintptr
 }
 

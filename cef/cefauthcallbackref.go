@@ -14,9 +14,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefAuthCallback Parent: ICefBaseRefCountedRef
+// ICefAuthCallback Parent: ICefBaseRefCounted
 type ICefAuthCallback interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// Cont
 	//  Continue the authentication request.
 	Cont(username string, password string) // procedure
@@ -25,9 +25,10 @@ type ICefAuthCallback interface {
 	Cancel() // procedure
 }
 
-// ICefAuthCallbackRef Parent: ICefAuthCallback
+// ICefAuthCallbackRef Parent: ICefAuthCallback ICefBaseRefCountedRef
 type ICefAuthCallbackRef interface {
 	ICefAuthCallback
+	ICefBaseRefCountedRef
 	AsIntfAuthCallback() uintptr
 }
 

@@ -14,9 +14,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefGetExtensionResourceCallback Parent: ICefBaseRefCountedRef
+// ICefGetExtensionResourceCallback Parent: ICefBaseRefCounted
 type ICefGetExtensionResourceCallback interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// Cont
 	//  Continue the request. Read the resource contents from |stream|.
 	Cont(stream ICefStreamReader) // procedure
@@ -25,9 +25,10 @@ type ICefGetExtensionResourceCallback interface {
 	Cancel() // procedure
 }
 
-// ICefGetExtensionResourceCallbackRef Parent: ICefGetExtensionResourceCallback
+// ICefGetExtensionResourceCallbackRef Parent: ICefGetExtensionResourceCallback ICefBaseRefCountedRef
 type ICefGetExtensionResourceCallbackRef interface {
 	ICefGetExtensionResourceCallback
+	ICefBaseRefCountedRef
 	AsIntfGetExtensionResourceCallback() uintptr
 }
 

@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefTextfield Parent: ICefViewRef
+// ICefTextfield Parent: ICefView
 type ICefTextfield interface {
-	ICefViewRef
+	ICefView
 	// IsPasswordInput
 	//  Returns true (1) if the text will be displayed as asterisks.
 	IsPasswordInput() bool // function
@@ -133,9 +133,10 @@ type ICefTextfield interface {
 	SetAccessibleName(name string) // procedure
 }
 
-// ICefTextfieldRef Parent: ICefTextfield
+// ICefTextfieldRef Parent: ICefTextfield ICefViewRef
 type ICefTextfieldRef interface {
 	ICefTextfield
+	ICefViewRef
 	AsIntfTextfield() uintptr
 	AsIntfView() uintptr
 }

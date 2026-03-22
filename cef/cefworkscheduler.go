@@ -16,9 +16,9 @@ import (
 	"github.com/energye/lcl/types"
 )
 
-// ICEFWorkScheduler Parent: lcl.IComponent
+// ICEFWorkScheduler Parent: IComponent
 type ICEFWorkScheduler interface {
-	lcl.IComponent
+	IComponent
 	ScheduleMessagePumpWork(delayMs int64) // procedure
 	// StopScheduler
 	//  Stop the scheduler. This function must be called after the destruction of all the forms in the application.
@@ -49,7 +49,7 @@ type ICEFWorkScheduler interface {
 }
 
 type TCEFWorkScheduler struct {
-	lcl.TComponent
+	TComponent
 }
 
 func (m *TCEFWorkScheduler) ScheduleMessagePumpWork(delayMs int64) {

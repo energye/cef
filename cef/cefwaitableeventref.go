@@ -14,9 +14,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefWaitableEvent Parent: ICefBaseRefCountedRef
+// ICefWaitableEvent Parent: ICefBaseRefCounted
 type ICefWaitableEvent interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// IsSignaled
 	//  Returns true (1) if the event is in the signaled state, else false (0). If
 	//  the event was created with |automatic_reset| set to true (1) then calling
@@ -43,9 +43,10 @@ type ICefWaitableEvent interface {
 	Wait() // procedure
 }
 
-// ICefWaitableEventRef Parent: ICefWaitableEvent
+// ICefWaitableEventRef Parent: ICefWaitableEvent ICefBaseRefCountedRef
 type ICefWaitableEventRef interface {
 	ICefWaitableEvent
+	ICefBaseRefCountedRef
 	AsIntfWaitableEvent() uintptr
 }
 

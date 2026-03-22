@@ -17,9 +17,15 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICEFViewComponent Parent: lcl.IComponent
+// ICefViewDelegateEvents Parent: IObject
+type ICefViewDelegateEvents interface {
+	IObject
+}
+
+// ICEFViewComponent Parent: ICefViewDelegateEvents IComponent
 type ICEFViewComponent interface {
-	lcl.IComponent
+	ICefViewDelegateEvents
+	IComponent
 	// ToStringEx
 	//  Returns a string representation of this View which includes the type and
 	//  various type-specific identifying attributes. If |include_children| is
@@ -236,7 +242,7 @@ type ICEFViewComponent interface {
 }
 
 type TCEFViewComponent struct {
-	lcl.TComponent
+	TComponent
 }
 
 func (m *TCEFViewComponent) ToStringEx(includeChildren bool) string {

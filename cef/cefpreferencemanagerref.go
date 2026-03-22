@@ -14,9 +14,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefPreferenceManager Parent: ICefBaseRefCountedRef
+// ICefPreferenceManager Parent: ICefBaseRefCounted
 type ICefPreferenceManager interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// HasPreference
 	//  Returns true (1) if a preference with the specified |name| exists. This
 	//  function must be called on the browser process UI thread.
@@ -52,9 +52,10 @@ type ICefPreferenceManager interface {
 	SetPreference(name string, value ICefValue, outError_ *string) bool // function
 }
 
-// ICefPreferenceManagerRef Parent: ICefPreferenceManager
+// ICefPreferenceManagerRef Parent: ICefPreferenceManager ICefBaseRefCountedRef
 type ICefPreferenceManagerRef interface {
 	ICefPreferenceManager
+	ICefBaseRefCountedRef
 	AsIntfPreferenceManager() uintptr
 }
 

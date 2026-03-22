@@ -14,8 +14,14 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefv8ArrayBufferReleaseCallbackRef Parent: ICefBaseRefCountedRef
+// ICefv8ArrayBufferReleaseCallback Parent: ICefBaseRefCounted
+type ICefv8ArrayBufferReleaseCallback interface {
+	ICefBaseRefCounted
+}
+
+// ICefv8ArrayBufferReleaseCallbackRef Parent: ICefv8ArrayBufferReleaseCallback ICefBaseRefCountedRef
 type ICefv8ArrayBufferReleaseCallbackRef interface {
+	ICefv8ArrayBufferReleaseCallback
 	ICefBaseRefCountedRef
 	AsIntfV8ArrayBufferReleaseCallback() uintptr
 }

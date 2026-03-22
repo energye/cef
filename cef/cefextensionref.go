@@ -14,9 +14,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefExtension Parent: ICefBaseRefCountedRef
+// ICefExtension Parent: ICefBaseRefCounted
 type ICefExtension interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// GetIdentifier
 	//  Returns the unique extension identifier. This is calculated based on the
 	//  extension public key, if available, or on the extension path. See
@@ -66,9 +66,10 @@ type ICefExtension interface {
 	Unload() // procedure
 }
 
-// ICefExtensionRef Parent: ICefExtension
+// ICefExtensionRef Parent: ICefExtension ICefBaseRefCountedRef
 type ICefExtensionRef interface {
 	ICefExtension
+	ICefBaseRefCountedRef
 	AsIntfExtension() uintptr
 }
 

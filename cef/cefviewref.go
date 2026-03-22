@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefView Parent: ICefBaseRefCountedRef
+// ICefView Parent: ICefBaseRefCounted
 type ICefView interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// AsBrowserView
 	//  Returns this View as a BrowserView or NULL if this is not a BrowserView.
 	AsBrowserView() ICefBrowserView // function
@@ -248,9 +248,10 @@ type ICefView interface {
 	SetBackgroundColor(color cefTypes.TCefColor) // procedure
 }
 
-// ICefViewRef Parent: ICefView
+// ICefViewRef Parent: ICefView ICefBaseRefCountedRef
 type ICefViewRef interface {
 	ICefView
+	ICefBaseRefCountedRef
 	AsIntfView() uintptr
 }
 

@@ -14,14 +14,15 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefRegistration Parent: ICefBaseRefCountedRef
+// ICefRegistration Parent: ICefBaseRefCounted
 type ICefRegistration interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 }
 
-// ICefRegistrationRef Parent: ICefRegistration
+// ICefRegistrationRef Parent: ICefRegistration ICefBaseRefCountedRef
 type ICefRegistrationRef interface {
 	ICefRegistration
+	ICefBaseRefCountedRef
 	AsIntfRegistration() uintptr
 }
 

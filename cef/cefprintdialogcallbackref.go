@@ -14,9 +14,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefPrintDialogCallback Parent: ICefBaseRefCountedRef
+// ICefPrintDialogCallback Parent: ICefBaseRefCounted
 type ICefPrintDialogCallback interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// Cont
 	//  Continue printing with the specified |settings|.
 	Cont(settings ICefPrintSettings) // procedure
@@ -25,9 +25,10 @@ type ICefPrintDialogCallback interface {
 	Cancel() // procedure
 }
 
-// ICefPrintDialogCallbackRef Parent: ICefPrintDialogCallback
+// ICefPrintDialogCallbackRef Parent: ICefPrintDialogCallback ICefBaseRefCountedRef
 type ICefPrintDialogCallbackRef interface {
 	ICefPrintDialogCallback
+	ICefBaseRefCountedRef
 	AsIntfPrintDialogCallback() uintptr
 }
 

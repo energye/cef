@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefBinaryValue Parent: ICefBaseRefCountedRef
+// ICefBinaryValue Parent: ICefBaseRefCounted
 type ICefBinaryValue interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// IsValid
 	//  Returns true (1) if this object is valid. This object may become invalid
 	//  if the underlying data is owned by another object (e.g. list or
@@ -52,9 +52,10 @@ type ICefBinaryValue interface {
 	GetData(buffer uintptr, bufferSize cefTypes.NativeUInt, dataOffset cefTypes.NativeUInt) cefTypes.NativeUInt // function
 }
 
-// ICefBinaryValueRef Parent: ICefBinaryValue
+// ICefBinaryValueRef Parent: ICefBinaryValue ICefBaseRefCountedRef
 type ICefBinaryValueRef interface {
 	ICefBinaryValue
+	ICefBaseRefCountedRef
 	AsIntfBinaryValue() uintptr
 }
 

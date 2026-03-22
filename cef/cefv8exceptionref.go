@@ -14,9 +14,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefV8Exception Parent: ICefBaseRefCountedRef
+// ICefV8Exception Parent: ICefBaseRefCounted
 type ICefV8Exception interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// GetMessage
 	//  Returns the exception message.
 	GetMessage() string // function
@@ -49,9 +49,10 @@ type ICefV8Exception interface {
 	GetEndColumn() int32 // function
 }
 
-// ICefV8ExceptionRef Parent: ICefV8Exception
+// ICefV8ExceptionRef Parent: ICefV8Exception ICefBaseRefCountedRef
 type ICefV8ExceptionRef interface {
 	ICefV8Exception
+	ICefBaseRefCountedRef
 	AsIntfV8Exception() uintptr
 }
 

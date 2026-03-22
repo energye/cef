@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefStreamWriter Parent: ICefBaseRefCountedRef
+// ICefStreamWriter Parent: ICefBaseRefCounted
 type ICefStreamWriter interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// Write
 	//  Write raw binary data.
 	Write(ptr uintptr, size cefTypes.NativeUInt, N cefTypes.NativeUInt) cefTypes.NativeUInt // function
@@ -39,9 +39,10 @@ type ICefStreamWriter interface {
 	MayBlock() bool // function
 }
 
-// ICefStreamWriterRef Parent: ICefStreamWriter
+// ICefStreamWriterRef Parent: ICefStreamWriter ICefBaseRefCountedRef
 type ICefStreamWriterRef interface {
 	ICefStreamWriter
+	ICefBaseRefCountedRef
 	AsIntfStreamWriter() uintptr
 }
 

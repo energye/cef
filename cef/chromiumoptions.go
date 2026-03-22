@@ -12,14 +12,13 @@ import (
 	"github.com/energye/lcl/api"
 	"github.com/energye/lcl/api/imports"
 	"github.com/energye/lcl/base"
-	"github.com/energye/lcl/lcl"
 
 	cefTypes "github.com/energye/cef/types"
 )
 
-// IChromiumOptions Parent: lcl.IPersistent
+// IChromiumOptions Parent: IPersistent
 type IChromiumOptions interface {
-	lcl.IPersistent
+	IPersistent
 	// Javascript
 	//  Controls whether JavaScript can be executed. Also configurable using the
 	//  "disable-javascript" command-line switch.
@@ -118,7 +117,7 @@ type IChromiumOptions interface {
 }
 
 type TChromiumOptions struct {
-	lcl.TPersistent
+	TPersistent
 }
 
 func (m *TChromiumOptions) Javascript() cefTypes.TCefState {

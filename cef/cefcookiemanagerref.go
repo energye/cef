@@ -17,9 +17,9 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICefCookieManager Parent: ICefBaseRefCountedRef
+// ICefCookieManager Parent: ICefBaseRefCounted
 type ICefCookieManager interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// VisitAllCookies
 	//  Visit all cookies on the UI thread. The returned cookies are ordered by
 	//  longest path, then by earliest creation date. Returns false (0) if cookies
@@ -59,9 +59,10 @@ type ICefCookieManager interface {
 	FlushStore(callback IEngCompletionCallback) bool // function
 }
 
-// ICefCookieManagerRef Parent: ICefCookieManager
+// ICefCookieManagerRef Parent: ICefCookieManager ICefBaseRefCountedRef
 type ICefCookieManagerRef interface {
 	ICefCookieManager
+	ICefBaseRefCountedRef
 	AsIntfCookieManager() uintptr
 }
 

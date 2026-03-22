@@ -14,8 +14,14 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefBrowserViewDelegateRef Parent: ICefViewDelegateRef
+// ICefBrowserViewDelegate Parent: ICefViewDelegate
+type ICefBrowserViewDelegate interface {
+	ICefViewDelegate
+}
+
+// ICefBrowserViewDelegateRef Parent: ICefBrowserViewDelegate ICefViewDelegateRef
 type ICefBrowserViewDelegateRef interface {
+	ICefBrowserViewDelegate
 	ICefViewDelegateRef
 	AsIntfBrowserViewDelegate() uintptr
 	AsIntfViewDelegate() uintptr

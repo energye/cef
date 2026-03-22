@@ -16,9 +16,9 @@ import (
 	"github.com/energye/lcl/lcl"
 )
 
-// ICefFrame Parent: ICefBaseRefCountedRef
+// ICefFrame Parent: ICefBaseRefCounted
 type ICefFrame interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// IsValid
 	//  True if this object is currently attached to a valid frame.
 	IsValid() bool // function
@@ -133,9 +133,10 @@ type ICefFrame interface {
 	SendProcessMessage(targetProcess cefTypes.TCefProcessId, message ICefProcessMessage) // procedure
 }
 
-// ICefFrameRef Parent: ICefFrame
+// ICefFrameRef Parent: ICefFrame ICefBaseRefCountedRef
 type ICefFrameRef interface {
 	ICefFrame
+	ICefBaseRefCountedRef
 	AsIntfFrame() uintptr
 }
 

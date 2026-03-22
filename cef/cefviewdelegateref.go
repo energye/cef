@@ -14,8 +14,14 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefViewDelegateRef Parent: ICefBaseRefCountedRef
+// ICefViewDelegate Parent: ICefBaseRefCounted
+type ICefViewDelegate interface {
+	ICefBaseRefCounted
+}
+
+// ICefViewDelegateRef Parent: ICefViewDelegate ICefBaseRefCountedRef
 type ICefViewDelegateRef interface {
+	ICefViewDelegate
 	ICefBaseRefCountedRef
 	AsIntfViewDelegate() uintptr
 }

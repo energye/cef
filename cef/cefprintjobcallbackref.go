@@ -14,17 +14,18 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefPrintJobCallback Parent: ICefBaseRefCountedRef
+// ICefPrintJobCallback Parent: ICefBaseRefCounted
 type ICefPrintJobCallback interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// Cont
 	//  Indicate completion of the print job.
 	Cont() // procedure
 }
 
-// ICefPrintJobCallbackRef Parent: ICefPrintJobCallback
+// ICefPrintJobCallbackRef Parent: ICefPrintJobCallback ICefBaseRefCountedRef
 type ICefPrintJobCallbackRef interface {
 	ICefPrintJobCallback
+	ICefBaseRefCountedRef
 	AsIntfPrintJobCallback() uintptr
 }
 

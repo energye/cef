@@ -14,8 +14,14 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefResponseFilterRef Parent: ICefBaseRefCountedRef
+// ICefResponseFilter Parent: ICefBaseRefCounted
+type ICefResponseFilter interface {
+	ICefBaseRefCounted
+}
+
+// ICefResponseFilterRef Parent: ICefResponseFilter ICefBaseRefCountedRef
 type ICefResponseFilterRef interface {
+	ICefResponseFilter
 	ICefBaseRefCountedRef
 	AsIntfResponseFilter() uintptr
 }

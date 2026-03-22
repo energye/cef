@@ -211,7 +211,8 @@ func makeTOnAcceleratedPaint(cb TOnAcceleratedPaint) *callback {
 			dirtyRectsCount := cefTypes.NativeUInt(getVal(3))
 			dirtyRectsPtr := getVal(4)
 			dirtyRects := NewCefRectArray(int(dirtyRectsCount), dirtyRectsPtr)
-			info := *(*TCefAcceleratedPaintInfo)(getPtr(getVal(5)))
+			infoPtr := (*tCefAcceleratedPaintInfo)(getPtr(getVal(5)))
+			info := infoPtr.ToGo()
 			cb(sender, browser, type_, dirtyRectsCount, dirtyRects, info)
 		},
 	}
@@ -246,6 +247,34 @@ func makeTOnAcceptsFirstMouseEvent(cb TOnAcceptsFirstMouseEvent) *callback {
 			window := AsCefWindowRef(getVal(1))
 			result := (*cefTypes.TCefState)(getPtr(getVal(2)))
 			cb(sender, window, result)
+		},
+	}
+}
+
+func makeTOnAccessibilityAccessibilityLocationChangeEvent(cb TOnAccessibilityAccessibilityLocationChangeEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnAccessibilityAccessibilityLocationChangeEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 1 : procedure(const value: ICefValue);
+			value := AsCefValueRef(getVal(0))
+			cb(value)
+		},
+	}
+}
+
+func makeTOnAccessibilityAccessibilityTreeChangeEvent(cb TOnAccessibilityAccessibilityTreeChangeEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnAccessibilityAccessibilityTreeChangeEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 1 : procedure(const value: ICefValue);
+			value := AsCefValueRef(getVal(0))
+			cb(value)
 		},
 	}
 }
@@ -339,6 +368,89 @@ func makeTOnAlreadyRunningAppRelaunchEvent(cb TOnAlreadyRunningAppRelaunchEvent)
 			currentDirectory := api.GoStr(getVal(1))
 			result := (*bool)(getPtr(getVal(2)))
 			cb(commandLine, currentDirectory, result)
+		},
+	}
+}
+
+func makeTOnAppBeforeCommandLineProcessingEvent(cb TOnAppBeforeCommandLineProcessingEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnAppBeforeCommandLineProcessingEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 2 : procedure(const processType: ustring; const commandLine: ICefCommandLine);
+			processType := api.GoStr(getVal(0))
+			commandLine := AsCefCommandLineRef(getVal(1))
+			cb(processType, commandLine)
+		},
+	}
+}
+
+func makeTOnAppGetBrowserProcessHandlerEvent(cb TOnAppGetBrowserProcessHandlerEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnAppGetBrowserProcessHandlerEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 1 : procedure(var aHandler: ICefBrowserProcessHandler);
+			var handler IEngBrowserProcessHandler
+			handler = AsEngBrowserProcessHandler(*(*uintptr)(getPtr(getVal(0))))
+			cb(&handler)
+			if handler != nil {
+				*(*uintptr)(getPtr(getVal(0))) = handler.Instance()
+			}
+		},
+	}
+}
+
+func makeTOnAppGetRenderProcessHandlerEvent(cb TOnAppGetRenderProcessHandlerEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnAppGetRenderProcessHandlerEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 1 : procedure(var aHandler: ICefRenderProcessHandler);
+			var handler IEngRenderProcessHandler
+			handler = AsEngRenderProcessHandler(*(*uintptr)(getPtr(getVal(0))))
+			cb(&handler)
+			if handler != nil {
+				*(*uintptr)(getPtr(getVal(0))) = handler.Instance()
+			}
+		},
+	}
+}
+
+func makeTOnAppGetResourceBundleHandlerEvent(cb TOnAppGetResourceBundleHandlerEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnAppGetResourceBundleHandlerEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 1 : procedure(var aHandler: ICefResourceBundleHandler);
+			var handler IEngResourceBundleHandler
+			handler = AsEngResourceBundleHandler(*(*uintptr)(getPtr(getVal(0))))
+			cb(&handler)
+			if handler != nil {
+				*(*uintptr)(getPtr(getVal(0))) = handler.Instance()
+			}
+		},
+	}
+}
+
+func makeTOnAppRegisterCustomSchemesEvent(cb TOnAppRegisterCustomSchemesEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnAppRegisterCustomSchemesEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 1 : procedure(const registrar: TCefSchemeRegistrarRef);
+			registrar := AsCefSchemeRegistrarRef(getVal(0))
+			cb(registrar)
 		},
 	}
 }
@@ -1005,7 +1117,8 @@ func makeTOnBrowserViewGetDelegateForPopupBrowserViewEvent(cb TOnBrowserViewGetD
 		cb: func(getVal func(i int) uintptr) {
 			// 5 : procedure(const browser_view: ICefBrowserView; const settings: TCefBrowserSettings; const client: ICefClient; is_devtools: boolean; var aResult: ICefBrowserViewDelegate);
 			browserView := AsCefBrowserViewRef(getVal(0))
-			settings := *(*TCefBrowserSettings)(getPtr(getVal(1)))
+			settingsPtr := (*tCefBrowserSettings)(getPtr(getVal(1)))
+			settings := settingsPtr.ToGo()
 			client := AsEngClient(getVal(2))
 			isDevtools := api.GoBool(getVal(3))
 			var result IEngBrowserViewDelegate
@@ -1222,7 +1335,8 @@ func makeTOnCanSaveCookie(cb TOnCanSaveCookie) *callback {
 			frame := AsCefFrameRef(getVal(2))
 			request := AsCefRequestRef(getVal(3))
 			response := AsCefResponseRef(getVal(4))
-			cookie := *(*TCefCookie)(getPtr(getVal(5)))
+			cookiePtr := (*tCefCookie)(getPtr(getVal(5)))
+			cookie := cookiePtr.ToGo()
 			result := (*bool)(getPtr(getVal(6)))
 			cb(sender, browser, frame, request, response, cookie, result)
 		},
@@ -1241,7 +1355,8 @@ func makeTOnCanSendCookie(cb TOnCanSendCookie) *callback {
 			browser := AsCefBrowserRef(getVal(1))
 			frame := AsCefFrameRef(getVal(2))
 			request := AsCefRequestRef(getVal(3))
-			cookie := *(*TCefCookie)(getPtr(getVal(4)))
+			cookiePtr := (*tCefCookie)(getPtr(getVal(4)))
+			cookie := cookiePtr.ToGo()
 			result := (*bool)(getPtr(getVal(5)))
 			cb(sender, browser, frame, request, cookie, result)
 		},
@@ -2037,7 +2152,8 @@ func makeTOnCookieAccessFilterCanSaveCookieEvent(cb TOnCookieAccessFilterCanSave
 			frame := AsCefFrameRef(getVal(1))
 			request := AsCefRequestRef(getVal(2))
 			response := AsCefResponseRef(getVal(3))
-			cookie := *(*TCefCookie)(getPtr(getVal(4)))
+			cookiePtr := (*tCefCookie)(getPtr(getVal(4)))
+			cookie := cookiePtr.ToGo()
 			ret := cb(browser, frame, request, response, cookie)
 			*(*bool)(getPtr(getVal(5))) = ret
 		},
@@ -2055,7 +2171,8 @@ func makeTOnCookieAccessFilterCanSendCookieEvent(cb TOnCookieAccessFilterCanSend
 			browser := AsCefBrowserRef(getVal(0))
 			frame := AsCefFrameRef(getVal(1))
 			request := AsCefRequestRef(getVal(2))
-			cookie := *(*TCefCookie)(getPtr(getVal(3)))
+			cookiePtr := (*tCefCookie)(getPtr(getVal(3)))
+			cookie := cookiePtr.ToGo()
 			ret := cb(browser, frame, request, cookie)
 			*(*bool)(getPtr(getVal(4))) = ret
 		},
@@ -3446,8 +3563,8 @@ func makeTOnGetAccessibilityHandler(cb TOnGetAccessibilityHandler) *callback {
 		cb: func(getVal func(i int) uintptr) {
 			// 2 : procedure(Sender: TObject; var aAccessibilityHandler : ICefAccessibilityHandler);
 			sender := lcl.AsObject(getVal(0))
-			var accessibilityHandler ICustomAccessibilityHandler
-			accessibilityHandler = AsCustomAccessibilityHandler(*(*uintptr)(getPtr(getVal(1))))
+			var accessibilityHandler IEngAccessibilityHandler
+			accessibilityHandler = AsEngAccessibilityHandler(*(*uintptr)(getPtr(getVal(1))))
 			cb(sender, &accessibilityHandler)
 			if accessibilityHandler != nil {
 				*(*uintptr)(getPtr(getVal(1))) = accessibilityHandler.Instance()
@@ -3630,7 +3747,8 @@ func makeTOnGetDelegateForPopupBrowserViewEvent(cb TOnGetDelegateForPopupBrowser
 			// 6 : procedure(const Sender: TObject; const browser_view: ICefBrowserView; const settings: TCefBrowserSettings; const client: ICefClient; is_devtools: boolean; var aResult : ICefBrowserViewDelegate);
 			sender := lcl.AsObject(getVal(0))
 			browserView := AsCefBrowserViewRef(getVal(1))
-			settings := *(*TCefBrowserSettings)(getPtr(getVal(2)))
+			settingsPtr := (*tCefBrowserSettings)(getPtr(getVal(2)))
+			settings := settingsPtr.ToGo()
 			client := AsEngClient(getVal(3))
 			isDevtools := api.GoBool(getVal(4))
 			var result IEngBrowserViewDelegate
@@ -5555,7 +5673,8 @@ func makeTOnRenderAcceleratedPaintEvent(cb TOnRenderAcceleratedPaintEvent) *call
 			dirtyRectsCount := cefTypes.NativeUInt(getVal(2))
 			dirtyRectsPtr := getVal(3)
 			dirtyRects := NewCefRectArray(int(dirtyRectsCount), dirtyRectsPtr)
-			info := *(*TCefAcceleratedPaintInfo)(getPtr(getVal(4)))
+			infoPtr := (*tCefAcceleratedPaintInfo)(getPtr(getVal(4)))
+			info := infoPtr.ToGo()
 			cb(browser, kind, dirtyRectsCount, dirtyRects, info)
 		},
 	}
@@ -5569,8 +5688,8 @@ func makeTOnRenderGetAccessibilityHandlerEvent(cb TOnRenderGetAccessibilityHandl
 		name: "TOnRenderGetAccessibilityHandlerEvent",
 		cb: func(getVal func(i int) uintptr) {
 			// 1 : procedure(var aAccessibilityHandler: ICefAccessibilityHandler);
-			var accessibilityHandler ICustomAccessibilityHandler
-			accessibilityHandler = AsCustomAccessibilityHandler(*(*uintptr)(getPtr(getVal(0))))
+			var accessibilityHandler IEngAccessibilityHandler
+			accessibilityHandler = AsEngAccessibilityHandler(*(*uintptr)(getPtr(getVal(0))))
 			cb(&accessibilityHandler)
 			if accessibilityHandler != nil {
 				*(*uintptr)(getPtr(getVal(0))) = accessibilityHandler.Instance()
@@ -8530,6 +8649,81 @@ func makeTOnWithStandardWindowButtonsEvent(cb TOnWithStandardWindowButtonsEvent)
 			window := AsCefWindowRef(getVal(1))
 			result := (*bool)(getPtr(getVal(2)))
 			cb(sender, window, result)
+		},
+	}
+}
+
+func makeTOnWriteEllEvent(cb TOnWriteEllEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnWriteEllEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 0 : function(): Int64;
+			ret := cb()
+			*(*int64)(getPtr(getVal(0))) = ret
+		},
+	}
+}
+
+func makeTOnWriteFlushEvent(cb TOnWriteFlushEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnWriteFlushEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 0 : function(): Integer;
+			ret := cb()
+			*(*int32)(getPtr(getVal(0))) = ret
+		},
+	}
+}
+
+func makeTOnWriteMayBlockEvent(cb TOnWriteMayBlockEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnWriteMayBlockEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 0 : function(): Boolean;
+			ret := cb()
+			*(*bool)(getPtr(getVal(0))) = ret
+		},
+	}
+}
+
+func makeTOnWriteSeekEvent(cb TOnWriteSeekEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnWriteSeekEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 2 : function(offset: Int64; whence: Integer): Integer;
+			offset := *(*int64)(getPtr(getVal(0)))
+			whence := int32(getVal(1))
+			ret := cb(offset, whence)
+			*(*int32)(getPtr(getVal(2))) = ret
+		},
+	}
+}
+
+func makeTOnWriteWriteEvent(cb TOnWriteWriteEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnWriteWriteEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 3 : function(const ptr: Pointer; size: NativeUInt; n: NativeUInt): NativeUInt;
+			ptr := uintptr(getVal(0))
+			size := cefTypes.NativeUInt(getVal(1))
+			N := cefTypes.NativeUInt(getVal(2))
+			ret := cb(ptr, size, N)
+			*(*cefTypes.NativeUInt)(getPtr(getVal(3))) = ret
 		},
 	}
 }

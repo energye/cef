@@ -9,17 +9,16 @@
 package cef
 
 import (
+	cefTypes "github.com/energye/cef/types"
 	"github.com/energye/lcl/api"
 	"github.com/energye/lcl/api/imports"
 	"github.com/energye/lcl/base"
-	"github.com/energye/lcl/lcl"
-
-	cefTypes "github.com/energye/cef/types"
 )
 
-// ICefStringMap Parent: lcl.IInterfacedObject
+// ICefStringMap Parent: IObject
 type ICefStringMap interface {
-	lcl.IInterfacedObject
+	IObject
+
 	GetHandle() cefTypes.TCefStringMap         // function
 	GetSize() cefTypes.NativeUInt              // function
 	Find(key string) string                    // function
@@ -29,14 +28,15 @@ type ICefStringMap interface {
 	Clear()                                    // procedure
 }
 
-// ICefCustomStringMap Parent: ICefStringMap
+// ICefCustomStringMap Parent: ICefStringMap IInterfacedObject
 type ICefCustomStringMap interface {
 	ICefStringMap
+	IInterfacedObject
 	AsIntfStringMap() uintptr
 }
 
 type TCefCustomStringMap struct {
-	lcl.TInterfacedObject
+	TInterfacedObject
 }
 
 func (m *TCefCustomStringMap) GetHandle() cefTypes.TCefStringMap {

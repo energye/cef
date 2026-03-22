@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefPanel Parent: ICefViewRef
+// ICefPanel Parent: ICefView
 type ICefPanel interface {
-	ICefViewRef
+	ICefView
 	// GetAsWindow
 	//  Returns this Panel as a Window or NULL if this is not a Window.
 	GetAsWindow() ICefWindow // function
@@ -60,9 +60,10 @@ type ICefPanel interface {
 	RemoveAllChildViews() // procedure
 }
 
-// ICefPanelRef Parent: ICefPanel
+// ICefPanelRef Parent: ICefPanel ICefViewRef
 type ICefPanelRef interface {
 	ICefPanel
+	ICefViewRef
 	AsIntfPanel() uintptr
 	AsIntfView() uintptr
 }

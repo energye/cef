@@ -14,18 +14,19 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefSelectClientCertificateCallback Parent: ICefBaseRefCountedRef
+// ICefSelectClientCertificateCallback Parent: ICefBaseRefCounted
 type ICefSelectClientCertificateCallback interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// Select
 	//  Chooses the specified certificate for client certificate authentication.
 	//  NULL value means that no client certificate should be used.
 	Select(cert ICefX509Certificate) // procedure
 }
 
-// ICefSelectClientCertificateCallbackRef Parent: ICefSelectClientCertificateCallback
+// ICefSelectClientCertificateCallbackRef Parent: ICefSelectClientCertificateCallback ICefBaseRefCountedRef
 type ICefSelectClientCertificateCallbackRef interface {
 	ICefSelectClientCertificateCallback
+	ICefBaseRefCountedRef
 	AsIntfSelectClientCertificateCallback() uintptr
 }
 

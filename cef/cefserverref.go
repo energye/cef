@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefServer Parent: ICefBaseRefCountedRef
+// ICefServer Parent: ICefBaseRefCounted
 type ICefServer interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// GetTaskRunner
 	//  Returns the task runner for the dedicated server thread.
 	GetTaskRunner() ICefTaskRunner // function
@@ -95,9 +95,10 @@ type ICefServer interface {
 	SendWebSocketMessage(connectionId int32, data uintptr, dataSize cefTypes.NativeUInt) // procedure
 }
 
-// ICEFServerRef Parent: ICefServer
+// ICEFServerRef Parent: ICefServer ICefBaseRefCountedRef
 type ICEFServerRef interface {
 	ICefServer
+	ICefBaseRefCountedRef
 	AsIntfServer() uintptr
 }
 

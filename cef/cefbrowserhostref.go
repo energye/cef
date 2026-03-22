@@ -17,9 +17,9 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICefBrowserHost Parent: ICefBaseRefCountedRef
+// ICefBrowserHost Parent: ICefBaseRefCounted
 type ICefBrowserHost interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// GetBrowser
 	//  Returns the hosted browser object.
 	GetBrowser() ICefBrowser // function
@@ -485,9 +485,10 @@ type ICefBrowserHost interface {
 	ExecuteChromeCommand(commandId int32, disposition cefTypes.TCefWindowOpenDisposition) // procedure
 }
 
-// ICefBrowserHostRef Parent: ICefBrowserHost
+// ICefBrowserHostRef Parent: ICefBrowserHost ICefBaseRefCountedRef
 type ICefBrowserHostRef interface {
 	ICefBrowserHost
+	ICefBaseRefCountedRef
 	AsIntfBrowserHost() uintptr
 }
 

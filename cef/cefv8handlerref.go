@@ -14,8 +14,14 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefv8HandlerRef Parent: ICefBaseRefCountedRef
+// ICefv8Handler Parent: ICefBaseRefCounted
+type ICefv8Handler interface {
+	ICefBaseRefCounted
+}
+
+// ICefv8HandlerRef Parent: ICefv8Handler ICefBaseRefCountedRef
 type ICefv8HandlerRef interface {
+	ICefv8Handler
 	ICefBaseRefCountedRef
 	AsIntfV8Handler() uintptr
 }

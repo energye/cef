@@ -14,14 +14,15 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefFillLayout Parent: ICefLayoutRef
+// ICefFillLayout Parent: ICefLayout
 type ICefFillLayout interface {
-	ICefLayoutRef
+	ICefLayout
 }
 
-// ICefFillLayoutRef Parent: ICefFillLayout
+// ICefFillLayoutRef Parent: ICefFillLayout ICefLayoutRef
 type ICefFillLayoutRef interface {
 	ICefFillLayout
+	ICefLayoutRef
 	AsIntfFillLayout() uintptr
 	AsIntfLayout() uintptr
 }

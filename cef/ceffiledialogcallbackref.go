@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/lcl"
 )
 
-// ICefFileDialogCallback Parent: ICefBaseRefCountedRef
+// ICefFileDialogCallback Parent: ICefBaseRefCounted
 type ICefFileDialogCallback interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// Cont
 	//  Continue the file selection. |file_paths| should be a single value or a
 	//  list of values depending on the dialog mode. An NULL |file_paths| value is
@@ -28,9 +28,10 @@ type ICefFileDialogCallback interface {
 	Cancel() // procedure
 }
 
-// ICefFileDialogCallbackRef Parent: ICefFileDialogCallback
+// ICefFileDialogCallbackRef Parent: ICefFileDialogCallback ICefBaseRefCountedRef
 type ICefFileDialogCallbackRef interface {
 	ICefFileDialogCallback
+	ICefBaseRefCountedRef
 	AsIntfFileDialogCallback() uintptr
 }
 

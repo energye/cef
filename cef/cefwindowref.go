@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefWindow Parent: ICefPanelRef
+// ICefWindow Parent: ICefPanel
 type ICefWindow interface {
-	ICefPanelRef
+	ICefPanel
 	// IsClosed
 	//  Returns true (1) if the Window has been closed.
 	IsClosed() bool // function
@@ -239,9 +239,10 @@ type ICefWindow interface {
 	ThemeChanged() // procedure
 }
 
-// ICefWindowRef Parent: ICefWindow
+// ICefWindowRef Parent: ICefWindow ICefPanelRef
 type ICefWindowRef interface {
 	ICefWindow
+	ICefPanelRef
 	AsIntfWindow() uintptr
 	AsIntfPanel() uintptr
 	AsIntfView() uintptr

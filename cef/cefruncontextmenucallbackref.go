@@ -15,9 +15,9 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefRunContextMenuCallback Parent: ICefBaseRefCountedRef
+// ICefRunContextMenuCallback Parent: ICefBaseRefCounted
 type ICefRunContextMenuCallback interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// Cont
 	//  Complete context menu display by selecting the specified |command_id| and
 	//  |event_flags|.
@@ -27,9 +27,10 @@ type ICefRunContextMenuCallback interface {
 	Cancel() // procedure
 }
 
-// ICefRunContextMenuCallbackRef Parent: ICefRunContextMenuCallback
+// ICefRunContextMenuCallbackRef Parent: ICefRunContextMenuCallback ICefBaseRefCountedRef
 type ICefRunContextMenuCallbackRef interface {
 	ICefRunContextMenuCallback
+	ICefBaseRefCountedRef
 	AsIntfRunContextMenuCallback() uintptr
 }
 

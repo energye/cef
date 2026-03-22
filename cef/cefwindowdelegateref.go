@@ -14,8 +14,14 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefWindowDelegateRef Parent: ICefPanelDelegateRef
+// ICefWindowDelegate Parent: ICefPanelDelegate
+type ICefWindowDelegate interface {
+	ICefPanelDelegate
+}
+
+// ICefWindowDelegateRef Parent: ICefWindowDelegate ICefPanelDelegateRef
 type ICefWindowDelegateRef interface {
+	ICefWindowDelegate
 	ICefPanelDelegateRef
 	AsIntfWindowDelegate() uintptr
 	AsIntfPanelDelegate() uintptr

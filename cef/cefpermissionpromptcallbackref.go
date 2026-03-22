@@ -15,17 +15,18 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefPermissionPromptCallback Parent: ICefBaseRefCountedRef
+// ICefPermissionPromptCallback Parent: ICefBaseRefCounted
 type ICefPermissionPromptCallback interface {
-	ICefBaseRefCountedRef
+	ICefBaseRefCounted
 	// Cont
 	//  Complete the permissions request with the specified |result|.
 	Cont(result cefTypes.TCefPermissionRequestResult) // procedure
 }
 
-// ICefPermissionPromptCallbackRef Parent: ICefPermissionPromptCallback
+// ICefPermissionPromptCallbackRef Parent: ICefPermissionPromptCallback ICefBaseRefCountedRef
 type ICefPermissionPromptCallbackRef interface {
 	ICefPermissionPromptCallback
+	ICefBaseRefCountedRef
 	AsIntfPermissionPromptCallback() uintptr
 }
 

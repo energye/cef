@@ -17,13 +17,13 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICEFJson Parent: lcl.IObject
+// ICEFJson Parent: IObject
 type ICEFJson interface {
-	lcl.IObject
+	IObject
 }
 
 type TCEFJson struct {
-	lcl.TObject
+	TObject
 }
 
 // Json  is static instance
@@ -110,23 +110,23 @@ func (_JsonClass) ReadList(dictionary ICefDictionaryValue, key string, value *IC
 	return api.GoBool(r)
 }
 
-// ParseWithStringJsonParserOptions
+// ParseWithStrJsonParserOptions
 //
 //	Parses the specified |json_string| and returns a dictionary or list
 //	representation. If JSON parsing fails this function returns NULL.
-func (_JsonClass) ParseWithStringJsonParserOptions(jsonString string, options cefTypes.TCefJsonParserOptions) (result ICefValue) {
+func (_JsonClass) ParseWithStrJsonParserOptions(jsonString string, options cefTypes.TCefJsonParserOptions) (result ICefValue) {
 	var resultPtr uintptr
 	cEFJsonAPI().SysCallN(8, api.PasStr(jsonString), uintptr(options), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefValueRef(resultPtr)
 	return
 }
 
-// ParseWithPointerNativeUIntJsonParserOptions
+// ParseWithPointerNUIntJPOptions
 //
 //	Parses the specified UTF8-encoded |json| buffer of size |json_size| and
 //	returns a dictionary or list representation. If JSON parsing fails this
 //	function returns NULL.
-func (_JsonClass) ParseWithPointerNativeUIntJsonParserOptions(json uintptr, jsonSize cefTypes.NativeUInt, options cefTypes.TCefJsonParserOptions) (result ICefValue) {
+func (_JsonClass) ParseWithPointerNUIntJPOptions(json uintptr, jsonSize cefTypes.NativeUInt, options cefTypes.TCefJsonParserOptions) (result ICefValue) {
 	var resultPtr uintptr
 	cEFJsonAPI().SysCallN(9, uintptr(json), uintptr(jsonSize), uintptr(options), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefValueRef(resultPtr)
@@ -191,18 +191,18 @@ func (_JsonClass) WriteWithDictionaryValueStringList(node ICefDictionaryValue, r
 	return api.GoBool(r)
 }
 
-// SaveToFileWithValueString
+// SaveToFileWithValueStr
 //
 //	Saves the JSON data in |node| to a file in aFileName.
-func (_JsonClass) SaveToFileWithValueString(node ICefValue, fileName string) bool {
+func (_JsonClass) SaveToFileWithValueStr(node ICefValue, fileName string) bool {
 	r := cEFJsonAPI().SysCallN(15, base.GetObjectUintptr(node), api.PasStr(fileName))
 	return api.GoBool(r)
 }
 
-// SaveToFileWithDictionaryValueString
+// SaveToFileWithDictionaryValueStr
 //
 //	Saves the JSON data in |node| to a file in aFileName.
-func (_JsonClass) SaveToFileWithDictionaryValueString(node ICefDictionaryValue, fileName string) bool {
+func (_JsonClass) SaveToFileWithDictionaryValueStr(node ICefDictionaryValue, fileName string) bool {
 	r := cEFJsonAPI().SysCallN(16, base.GetObjectUintptr(node), api.PasStr(fileName))
 	return api.GoBool(r)
 }
@@ -234,15 +234,15 @@ func cEFJsonAPI() *imports.Imports {
 			/* 5 */ imports.NewTable("TCEFJson_ReadBinary", 0), // static function ReadBinary
 			/* 6 */ imports.NewTable("TCEFJson_ReadDictionary", 0), // static function ReadDictionary
 			/* 7 */ imports.NewTable("TCEFJson_ReadList", 0), // static function ReadList
-			/* 8 */ imports.NewTable("TCEFJson_ParseWithStringJsonParserOptions", 0), // static function ParseWithStringJsonParserOptions
-			/* 9 */ imports.NewTable("TCEFJson_ParseWithPointerNativeUIntJsonParserOptions", 0), // static function ParseWithPointerNativeUIntJsonParserOptions
+			/* 8 */ imports.NewTable("TCEFJson_ParseWithStrJsonParserOptions", 0), // static function ParseWithStrJsonParserOptions
+			/* 9 */ imports.NewTable("TCEFJson_ParseWithPointerNUIntJPOptions", 0), // static function ParseWithPointerNUIntJPOptions
 			/* 10 */ imports.NewTable("TCEFJson_ParseAndReturnError", 0), // static function ParseAndReturnError
 			/* 11 */ imports.NewTable("TCEFJson_WriteWithValueJsonWriterOptions", 0), // static function WriteWithValueJsonWriterOptions
 			/* 12 */ imports.NewTable("TCEFJson_WriteWithDictionaryValueJsonWriterOptions", 0), // static function WriteWithDictionaryValueJsonWriterOptions
 			/* 13 */ imports.NewTable("TCEFJson_WriteWithValueStringList", 0), // static function WriteWithValueStringList
 			/* 14 */ imports.NewTable("TCEFJson_WriteWithDictionaryValueStringList", 0), // static function WriteWithDictionaryValueStringList
-			/* 15 */ imports.NewTable("TCEFJson_SaveToFileWithValueString", 0), // static function SaveToFileWithValueString
-			/* 16 */ imports.NewTable("TCEFJson_SaveToFileWithDictionaryValueString", 0), // static function SaveToFileWithDictionaryValueString
+			/* 15 */ imports.NewTable("TCEFJson_SaveToFileWithValueStr", 0), // static function SaveToFileWithValueStr
+			/* 16 */ imports.NewTable("TCEFJson_SaveToFileWithDictionaryValueStr", 0), // static function SaveToFileWithDictionaryValueStr
 			/* 17 */ imports.NewTable("TCEFJson_LoadFromFile", 0), // static function LoadFromFile
 		}
 	})

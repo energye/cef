@@ -17,9 +17,10 @@ import (
 	cefTypes "github.com/energye/cef/types"
 )
 
-// ICefStringList Parent: lcl.IInterfacedObject
+// ICefStringList Parent: IObject
 type ICefStringList interface {
-	lcl.IInterfacedObject
+	IObject
+
 	GetHandle() cefTypes.TCefStringList        // function
 	GetSize() cefTypes.NativeUInt              // function
 	GetValue(index cefTypes.NativeUInt) string // function
@@ -30,14 +31,15 @@ type ICefStringList interface {
 	AddStrings(strings lcl.IStrings)           // procedure
 }
 
-// ICefCustomStringList Parent: ICefStringList
+// ICefCustomStringList Parent: ICefStringList IInterfacedObject
 type ICefCustomStringList interface {
 	ICefStringList
+	IInterfacedObject
 	AsIntfStringList() uintptr
 }
 
 type TCefCustomStringList struct {
-	lcl.TInterfacedObject
+	TInterfacedObject
 }
 
 func (m *TCefCustomStringList) GetHandle() cefTypes.TCefStringList {
