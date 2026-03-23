@@ -1,4 +1,5 @@
-module github.com/energye/cef/v3
+module github.com/energye/cef
 
 go 1.20
 
+require github.com/energye/lcl v1.0.1
