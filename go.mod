@@ -1,4 +1,4 @@
-module github.com/energye/cef
+module github.com/energye/cef/v3
 
 go 1.20
 
