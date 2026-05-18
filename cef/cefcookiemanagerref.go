@@ -1,0 +1,169 @@
+//----------------------------------------
+//
+// Copyright © yanghy. All Rights Reserved.
+//
+// Licensed under Apache License 2.0
+//
+//----------------------------------------
+
+package cef
+
+import (
+	"github.com/energye/lcl/api"
+	"github.com/energye/lcl/api/imports"
+	"github.com/energye/lcl/base"
+	"github.com/energye/lcl/types"
+
+	cefTypes "github.com/energye/cef/types"
+)
+
+// ICefCookieManager Parent: ICefBaseRefCounted
+type ICefCookieManager interface {
+	ICefBaseRefCounted
+	// VisitAllCookies
+	//  Visit all cookies on the UI thread. The returned cookies are ordered by
+	//  longest path, then by earliest creation date. Returns false (0) if cookies
+	//  cannot be accessed.
+	VisitAllCookies(visitor IEngCookieVisitor) bool // function
+	// VisitUrlCookies
+	//  Visit a subset of cookies on the UI thread. The results are filtered by
+	//  the given url scheme, host, domain and path. If |includeHttpOnly| is true
+	//  (1) HTTP-only cookies will also be included in the results. The returned
+	//  cookies are ordered by longest path, then by earliest creation date.
+	//  Returns false (0) if cookies cannot be accessed.
+	VisitUrlCookies(url string, includeHttpOnly bool, visitor IEngCookieVisitor) bool // function
+	// SetCookie
+	//  Sets a cookie given a valid URL and explicit user-provided cookie
+	//  attributes. This function expects each attribute to be well-formed. It
+	//  will check for disallowed characters (e.g. the ';' character is disallowed
+	//  within the cookie value attribute) and fail without setting the cookie if
+	//  such characters are found. If |callback| is non-NULL it will be executed
+	//  asnychronously on the UI thread after the cookie has been set. Returns
+	//  false (0) if an invalid URL is specified or if cookies cannot be accessed.
+	SetCookie(url string, name string, value string, domain string, path string, secure bool, httponly bool, hasExpires bool, creation types.TDateTime, lastAccess types.TDateTime, expires types.TDateTime, sameSite cefTypes.TCefCookieSameSite, priority cefTypes.TCefCookiePriority, callback IEngSetCookieCallback) bool // function
+	// DeleteCookies
+	//  Delete all cookies that match the specified parameters. If both |url| and
+	//  |cookie_name| values are specified all host and domain cookies matching
+	//  both will be deleted. If only |url| is specified all host cookies (but not
+	//  domain cookies) irrespective of path will be deleted. If |url| is NULL all
+	//  cookies for all hosts and domains will be deleted. If |callback| is non-
+	//  NULL it will be executed asnychronously on the UI thread after the cookies
+	//  have been deleted. Returns false (0) if a non-NULL invalid URL is
+	//  specified or if cookies cannot be accessed. Cookies can alternately be
+	//  deleted using the Visit*Cookies() functions.
+	DeleteCookies(url string, cookieName string, callback IEngDeleteCookiesCallback) bool // function
+	// FlushStore
+	//  Flush the backing store (if any) to disk. If |callback| is non-NULL it
+	//  will be executed asnychronously on the UI thread after the flush is
+	//  complete. Returns false (0) if cookies cannot be accessed.
+	FlushStore(callback IEngCompletionCallback) bool // function
+}
+
+// ICefCookieManagerRef Parent: ICefCookieManager ICefBaseRefCountedRef
+type ICefCookieManagerRef interface {
+	ICefCookieManager
+	ICefBaseRefCountedRef
+	AsIntfCookieManager() uintptr
+}
+
+type TCefCookieManagerRef struct {
+	TCefBaseRefCountedRef
+}
+
+func (m *TCefCookieManagerRef) VisitAllCookies(visitor IEngCookieVisitor) bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefCookieManagerRefAPI().SysCallN(1, m.Instance(), base.GetObjectUintptr(visitor))
+	return api.GoBool(r)
+}
+
+func (m *TCefCookieManagerRef) VisitUrlCookies(url string, includeHttpOnly bool, visitor IEngCookieVisitor) bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefCookieManagerRefAPI().SysCallN(2, m.Instance(), api.PasStr(url), api.PasBool(includeHttpOnly), base.GetObjectUintptr(visitor))
+	return api.GoBool(r)
+}
+
+func (m *TCefCookieManagerRef) SetCookie(url string, name string, value string, domain string, path string, secure bool, httponly bool, hasExpires bool, creation types.TDateTime, lastAccess types.TDateTime, expires types.TDateTime, sameSite cefTypes.TCefCookieSameSite, priority cefTypes.TCefCookiePriority, callback IEngSetCookieCallback) bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefCookieManagerRefAPI().SysCallN(3, m.Instance(), api.PasStr(url), api.PasStr(name), api.PasStr(value), api.PasStr(domain), api.PasStr(path), api.PasBool(secure), api.PasBool(httponly), api.PasBool(hasExpires), uintptr(base.UnsafePointer(&creation)), uintptr(base.UnsafePointer(&lastAccess)), uintptr(base.UnsafePointer(&expires)), uintptr(sameSite), uintptr(priority), base.GetObjectUintptr(callback))
+	return api.GoBool(r)
+}
+
+func (m *TCefCookieManagerRef) DeleteCookies(url string, cookieName string, callback IEngDeleteCookiesCallback) bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefCookieManagerRefAPI().SysCallN(4, m.Instance(), api.PasStr(url), api.PasStr(cookieName), base.GetObjectUintptr(callback))
+	return api.GoBool(r)
+}
+
+func (m *TCefCookieManagerRef) FlushStore(callback IEngCompletionCallback) bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefCookieManagerRefAPI().SysCallN(5, m.Instance(), base.GetObjectUintptr(callback))
+	return api.GoBool(r)
+}
+
+func (m *TCefCookieManagerRef) AsIntfCookieManager() uintptr {
+	return m.GetIntfPointer(0)
+}
+
+// CookieManagerRef  is static instance
+var CookieManagerRef _CookieManagerRefClass
+
+// _CookieManagerRefClass is class type defined by TCefCookieManagerRef
+type _CookieManagerRefClass uintptr
+
+func (_CookieManagerRefClass) UnWrap(data uintptr) (result ICefCookieManager) {
+	var resultPtr uintptr
+	cefCookieManagerRefAPI().SysCallN(6, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))
+	result = AsCefCookieManagerRef(resultPtr)
+	return
+}
+
+func (_CookieManagerRefClass) Global(callback IEngCompletionCallback) (result ICefCookieManager) {
+	var resultPtr uintptr
+	cefCookieManagerRefAPI().SysCallN(7, base.GetObjectUintptr(callback), uintptr(base.UnsafePointer(&resultPtr)))
+	result = AsCefCookieManagerRef(resultPtr)
+	return
+}
+
+// NewCookieManagerRef class constructor
+func NewCookieManagerRef(data uintptr) ICefCookieManagerRef {
+	var cookieManagerPtr uintptr // ICefCookieManager
+	r := cefCookieManagerRefAPI().SysCallN(0, uintptr(data), uintptr(base.UnsafePointer(&cookieManagerPtr)))
+	ret := AsCefCookieManagerRef(r)
+	if intf, ok := ret.(base.IIntfs); ok {
+		intf.Create(1)
+		intf.SetIntfPointer(0, cookieManagerPtr)
+	}
+	return ret
+}
+
+var (
+	cefCookieManagerRefOnce   base.Once
+	cefCookieManagerRefImport *imports.Imports = nil
+)
+
+func cefCookieManagerRefAPI() *imports.Imports {
+	cefCookieManagerRefOnce.Do(func() {
+		cefCookieManagerRefImport = api.NewDefaultImports()
+		cefCookieManagerRefImport.Table = []*imports.Table{
+			/* 0 */ imports.NewTable("TCefCookieManagerRef_Create", 0), // constructor NewCookieManagerRef
+			/* 1 */ imports.NewTable("TCefCookieManagerRef_VisitAllCookies", 0), // function VisitAllCookies
+			/* 2 */ imports.NewTable("TCefCookieManagerRef_VisitUrlCookies", 0), // function VisitUrlCookies
+			/* 3 */ imports.NewTable("TCefCookieManagerRef_SetCookie", 0), // function SetCookie
+			/* 4 */ imports.NewTable("TCefCookieManagerRef_DeleteCookies", 0), // function DeleteCookies
+			/* 5 */ imports.NewTable("TCefCookieManagerRef_FlushStore", 0), // function FlushStore
+			/* 6 */ imports.NewTable("TCefCookieManagerRef_UnWrap", 0), // static function UnWrap
+			/* 7 */ imports.NewTable("TCefCookieManagerRef_Global", 0), // static function Global
+		}
+	})
+	return cefCookieManagerRefImport
+}

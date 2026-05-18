@@ -6,6 +6,10 @@
 //
 //----------------------------------------
 
+// :predefine:
+
+//go:build windows
+
 package cef
 
 import (

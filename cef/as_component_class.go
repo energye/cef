@@ -8,2796 +8,2930 @@
 
 package cef
 
-// AsCefStringList Convert a pointer object to an existing class object
-func AsCefStringList(obj interface{}) ICefStringList {
-	instance := GetInstance(obj)
+import "github.com/energye/lcl/base"
+
+// AsCustomAccessibilityHandler Convert a pointer object to an existing class object
+func AsCustomAccessibilityHandler(obj any) ICustomAccessibilityHandler {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	cefStringList := new(TCefStringList)
-	SetObjectInstance(cefStringList, instance)
-	return cefStringList
+	result := new(TCustomAccessibilityHandler)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
-// AsAccessibilityHandler Convert a pointer object to an existing class object
-func AsAccessibilityHandler(obj interface{}) IAccessibilityHandler {
-	instance := GetInstance(obj)
+// AsCustomCefApp Convert a pointer object to an existing class object
+func AsCustomCefApp(obj any) ICustomCefApp {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	accessibilityHandler := new(TAccessibilityHandler)
-	SetObjectInstance(accessibilityHandler, instance)
-	return accessibilityHandler
-}
-
-// AsBufferPanel Convert a pointer object to an existing class object
-func AsBufferPanel(obj interface{}) IBufferPanel {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	bufferPanel := new(TBufferPanel)
-	SetObjectInstance(bufferPanel, instance)
-	return bufferPanel
-}
-
-// AsCefAccessibilityHandler Convert a pointer object to an existing class object
-func AsCefAccessibilityHandler(obj interface{}) ICefAccessibilityHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefAccessibilityHandler := new(TCefAccessibilityHandler)
-	SetObjectInstance(cefAccessibilityHandler, instance)
-	return cefAccessibilityHandler
-}
-
-// AsCEFBaseScopedWrapperRef Convert a pointer object to an existing class object
-func AsCEFBaseScopedWrapperRef(obj interface{}) ICEFBaseScopedWrapperRef {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cEFBaseScopedWrapperRef := new(TCEFBaseScopedWrapperRef)
-	SetObjectInstance(cEFBaseScopedWrapperRef, instance)
-	return cEFBaseScopedWrapperRef
-}
-
-// AsCEFBitmapBitBuffer Convert a pointer object to an existing class object
-func AsCEFBitmapBitBuffer(obj interface{}) ICEFBitmapBitBuffer {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cEFBitmapBitBuffer := new(TCEFBitmapBitBuffer)
-	SetObjectInstance(cEFBitmapBitBuffer, instance)
-	return cEFBitmapBitBuffer
-}
-
-// AsCEFBrowserViewComponent Convert a pointer object to an existing class object
-func AsCEFBrowserViewComponent(obj interface{}) ICEFBrowserViewComponent {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cEFBrowserViewComponent := new(TCEFBrowserViewComponent)
-	SetObjectInstance(cEFBrowserViewComponent, instance)
-	return cEFBrowserViewComponent
-}
-
-// AsCEFButtonComponent Convert a pointer object to an existing class object
-func AsCEFButtonComponent(obj interface{}) ICEFButtonComponent {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cEFButtonComponent := new(TCEFButtonComponent)
-	SetObjectInstance(cEFButtonComponent, instance)
-	return cEFButtonComponent
-}
-
-// AsCefDevToolsMessageObserver Convert a pointer object to an existing class object
-func AsCefDevToolsMessageObserver(obj interface{}) ICefDevToolsMessageObserver {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefDevToolsMessageObserver := new(TCefDevToolsMessageObserver)
-	SetObjectInstance(cefDevToolsMessageObserver, instance)
-	return cefDevToolsMessageObserver
-}
-
-// AsCEFFileDialogInfo Convert a pointer object to an existing class object
-func AsCEFFileDialogInfo(obj interface{}) ICEFFileDialogInfo {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cEFFileDialogInfo := new(TCEFFileDialogInfo)
-	SetObjectInstance(cEFFileDialogInfo, instance)
-	return cEFFileDialogInfo
-}
-
-// AsCEFJson Convert a pointer object to an existing class object
-func AsCEFJson(obj interface{}) ICEFJson {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cEFJson := new(TCEFJson)
-	SetObjectInstance(cEFJson, instance)
-	return cEFJson
-}
-
-// AsCEFLabelButtonComponent Convert a pointer object to an existing class object
-func AsCEFLabelButtonComponent(obj interface{}) ICEFLabelButtonComponent {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cEFLabelButtonComponent := new(TCEFLabelButtonComponent)
-	SetObjectInstance(cEFLabelButtonComponent, instance)
-	return cEFLabelButtonComponent
-}
-
-// AsCEFLinkedWinControlBase Convert a pointer object to an existing class object
-func AsCEFLinkedWinControlBase(obj interface{}) ICEFLinkedWinControlBase {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cEFLinkedWinControlBase := new(TCEFLinkedWinControlBase)
-	SetObjectInstance(cEFLinkedWinControlBase, instance)
-	return cEFLinkedWinControlBase
-}
-
-// AsCEFLinkedWindowParent Convert a pointer object to an existing class object
-func AsCEFLinkedWindowParent(obj interface{}) ICEFLinkedWindowParent {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cEFLinkedWindowParent := new(TCEFLinkedWindowParent)
-	SetObjectInstance(cEFLinkedWindowParent, instance)
-	return cEFLinkedWindowParent
-}
-
-// AsCEFMenuButtonComponent Convert a pointer object to an existing class object
-func AsCEFMenuButtonComponent(obj interface{}) ICEFMenuButtonComponent {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cEFMenuButtonComponent := new(TCEFMenuButtonComponent)
-	SetObjectInstance(cEFMenuButtonComponent, instance)
-	return cEFMenuButtonComponent
-}
-
-// AsCEFPanelComponent Convert a pointer object to an existing class object
-func AsCEFPanelComponent(obj interface{}) ICEFPanelComponent {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cEFPanelComponent := new(TCEFPanelComponent)
-	SetObjectInstance(cEFPanelComponent, instance)
-	return cEFPanelComponent
-}
-
-// AsCEFScrollViewComponent Convert a pointer object to an existing class object
-func AsCEFScrollViewComponent(obj interface{}) ICEFScrollViewComponent {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cEFScrollViewComponent := new(TCEFScrollViewComponent)
-	SetObjectInstance(cEFScrollViewComponent, instance)
-	return cEFScrollViewComponent
-}
-
-// AsCEFSentinel Convert a pointer object to an existing class object
-func AsCEFSentinel(obj interface{}) ICEFSentinel {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cEFSentinel := new(TCEFSentinel)
-	SetObjectInstance(cEFSentinel, instance)
-	return cEFSentinel
-}
-
-// AsCEFServerComponent Convert a pointer object to an existing class object
-func AsCEFServerComponent(obj interface{}) ICEFServerComponent {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cEFServerComponent := new(TCEFServerComponent)
-	SetObjectInstance(cEFServerComponent, instance)
-	return cEFServerComponent
-}
-
-// AsCEFServerHandler Convert a pointer object to an existing class object
-func AsCEFServerHandler(obj interface{}) ICEFServerHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cEFServerHandler := new(TCEFServerHandler)
-	SetObjectInstance(cEFServerHandler, instance)
-	return cEFServerHandler
-}
-
-// AsCEFServer Convert a pointer object to an existing class object
-func AsCEFServer(obj interface{}) ICEFServer {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cEFServer := new(TCEFServer)
-	SetObjectInstance(cEFServer, instance)
-	return cEFServer
-}
-
-// AsCEFTextfieldComponent Convert a pointer object to an existing class object
-func AsCEFTextfieldComponent(obj interface{}) ICEFTextfieldComponent {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cEFTextfieldComponent := new(TCEFTextfieldComponent)
-	SetObjectInstance(cEFTextfieldComponent, instance)
-	return cEFTextfieldComponent
-}
-
-// AsCEFUrlRequestClientComponent Convert a pointer object to an existing class object
-func AsCEFUrlRequestClientComponent(obj interface{}) ICEFUrlRequestClientComponent {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cEFUrlRequestClientComponent := new(TCEFUrlRequestClientComponent)
-	SetObjectInstance(cEFUrlRequestClientComponent, instance)
-	return cEFUrlRequestClientComponent
-}
-
-// AsCEFViewComponent Convert a pointer object to an existing class object
-func AsCEFViewComponent(obj interface{}) ICEFViewComponent {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cEFViewComponent := new(TCEFViewComponent)
-	SetObjectInstance(cEFViewComponent, instance)
-	return cEFViewComponent
-}
-
-// AsCEFWinControl Convert a pointer object to an existing class object
-func AsCEFWinControl(obj interface{}) ICEFWinControl {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cEFWinControl := new(TCEFWinControl)
-	SetObjectInstance(cEFWinControl, instance)
-	return cEFWinControl
-}
-
-// AsCEFWindowComponent Convert a pointer object to an existing class object
-func AsCEFWindowComponent(obj interface{}) ICEFWindowComponent {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cEFWindowComponent := new(TCEFWindowComponent)
-	SetObjectInstance(cEFWindowComponent, instance)
-	return cEFWindowComponent
-}
-
-// AsCEFWindowParent Convert a pointer object to an existing class object
-func AsCEFWindowParent(obj interface{}) ICEFWindowParent {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cEFWindowParent := new(TCEFWindowParent)
-	SetObjectInstance(cEFWindowParent, instance)
-	return cEFWindowParent
-}
-
-// AsCEFWorkScheduler Convert a pointer object to an existing class object
-func AsCEFWorkScheduler(obj interface{}) ICEFWorkScheduler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cEFWorkScheduler := new(TCEFWorkScheduler)
-	SetObjectInstance(cEFWorkScheduler, instance)
-	return cEFWorkScheduler
-}
-
-// AsCefX509Certificate Convert a pointer object to an existing class object
-func AsCefX509Certificate(obj interface{}) ICefX509Certificate {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefX509Certificate := new(TCefX509Certificate)
-	SetObjectInstance(cefX509Certificate, instance)
-	return cefX509Certificate
-}
-
-// AsCefApplication Convert a pointer object to an existing class object
-func AsCefApplication(obj interface{}) ICefApplication {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefApplication := new(TCefApplication)
-	SetObjectInstance(cefApplication, instance)
-	return cefApplication
+	result := new(TCustomCefApp)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
 // AsCefApplicationCore Convert a pointer object to an existing class object
-func AsCefApplicationCore(obj interface{}) ICefApplicationCore {
-	instance := GetInstance(obj)
+func AsCefApplicationCore(obj any) ICefApplicationCore {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	cefApplicationCore := new(TCefApplicationCore)
-	SetObjectInstance(cefApplicationCore, instance)
-	return cefApplicationCore
+	result := new(TCefApplicationCore)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
-// AsCefAudioHandler Convert a pointer object to an existing class object
-func AsCefAudioHandler(obj interface{}) ICefAudioHandler {
-	instance := GetInstance(obj)
+// AsCefApplication Convert a pointer object to an existing class object
+func AsCefApplication(obj any) ICefApplication {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	cefAudioHandler := new(TCefAudioHandler)
-	SetObjectInstance(cefAudioHandler, instance)
-	return cefAudioHandler
+	result := new(TCefApplication)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
-// AsCefAuthCallback Convert a pointer object to an existing class object
-func AsCefAuthCallback(obj interface{}) ICefAuthCallback {
-	instance := GetInstance(obj)
+// AsCefCustomBrowserProcessHandler Convert a pointer object to an existing class object
+func AsCefCustomBrowserProcessHandler(obj any) ICefCustomBrowserProcessHandler {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	cefAuthCallback := new(TCefAuthCallback)
-	SetObjectInstance(cefAuthCallback, instance)
-	return cefAuthCallback
-}
-
-// AsCefBaseRefCountedOwn Convert a pointer object to an existing class object
-func AsCefBaseRefCountedOwn(obj interface{}) ICefBaseRefCountedOwn {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefBaseRefCountedOwn := new(TCefBaseRefCountedOwn)
-	SetObjectInstance(cefBaseRefCountedOwn, instance)
-	return cefBaseRefCountedOwn
-}
-
-// AsCefBaseRefCounted Convert a pointer object to an existing class object
-func AsCefBaseRefCounted(obj interface{}) ICefBaseRefCounted {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefBaseRefCounted := new(TCefBaseRefCounted)
-	SetObjectInstance(cefBaseRefCounted, instance)
-	return cefBaseRefCounted
-}
-
-// AsCefBeforeDownloadCallback Convert a pointer object to an existing class object
-func AsCefBeforeDownloadCallback(obj interface{}) ICefBeforeDownloadCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefBeforeDownloadCallback := new(TCefBeforeDownloadCallback)
-	SetObjectInstance(cefBeforeDownloadCallback, instance)
-	return cefBeforeDownloadCallback
-}
-
-// AsCefBinaryValue Convert a pointer object to an existing class object
-func AsCefBinaryValue(obj interface{}) ICefBinaryValue {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefBinaryValue := new(TCefBinaryValue)
-	SetObjectInstance(cefBinaryValue, instance)
-	return cefBinaryValue
-}
-
-// AsCefBoxLayout Convert a pointer object to an existing class object
-func AsCefBoxLayout(obj interface{}) ICefBoxLayout {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefBoxLayout := new(TCefBoxLayout)
-	SetObjectInstance(cefBoxLayout, instance)
-	return cefBoxLayout
-}
-
-// AsCefBrowserHost Convert a pointer object to an existing class object
-func AsCefBrowserHost(obj interface{}) ICefBrowserHost {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefBrowserHost := new(TCefBrowserHost)
-	SetObjectInstance(cefBrowserHost, instance)
-	return cefBrowserHost
-}
-
-// AsCefBrowserNavigationTask Convert a pointer object to an existing class object
-func AsCefBrowserNavigationTask(obj interface{}) ICefBrowserNavigationTask {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefBrowserNavigationTask := new(TCefBrowserNavigationTask)
-	SetObjectInstance(cefBrowserNavigationTask, instance)
-	return cefBrowserNavigationTask
-}
-
-// AsCefBrowser Convert a pointer object to an existing class object
-func AsCefBrowser(obj interface{}) ICefBrowser {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefBrowser := new(TCefBrowser)
-	SetObjectInstance(cefBrowser, instance)
-	return cefBrowser
-}
-
-// AsCefBrowserViewDelegate Convert a pointer object to an existing class object
-func AsCefBrowserViewDelegate(obj interface{}) ICefBrowserViewDelegate {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefBrowserViewDelegate := new(TCefBrowserViewDelegate)
-	SetObjectInstance(cefBrowserViewDelegate, instance)
-	return cefBrowserViewDelegate
-}
-
-// AsCefBrowserView Convert a pointer object to an existing class object
-func AsCefBrowserView(obj interface{}) ICefBrowserView {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefBrowserView := new(TCefBrowserView)
-	SetObjectInstance(cefBrowserView, instance)
-	return cefBrowserView
-}
-
-// AsCefButtonDelegate Convert a pointer object to an existing class object
-func AsCefButtonDelegate(obj interface{}) ICefButtonDelegate {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefButtonDelegate := new(TCefButtonDelegate)
-	SetObjectInstance(cefButtonDelegate, instance)
-	return cefButtonDelegate
-}
-
-// AsCefButton Convert a pointer object to an existing class object
-func AsCefButton(obj interface{}) ICefButton {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefButton := new(TCefButton)
-	SetObjectInstance(cefButton, instance)
-	return cefButton
-}
-
-// AsCefBytesWriteHandler Convert a pointer object to an existing class object
-func AsCefBytesWriteHandler(obj interface{}) ICefBytesWriteHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefBytesWriteHandler := new(TCefBytesWriteHandler)
-	SetObjectInstance(cefBytesWriteHandler, instance)
-	return cefBytesWriteHandler
-}
-
-// AsCefCallback Convert a pointer object to an existing class object
-func AsCefCallback(obj interface{}) ICefCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefCallback := new(TCefCallback)
-	SetObjectInstance(cefCallback, instance)
-	return cefCallback
-}
-
-// AsCefClient Convert a pointer object to an existing class object
-func AsCefClient(obj interface{}) ICefClient {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefClient := new(TCefClient)
-	SetObjectInstance(cefClient, instance)
-	return cefClient
-}
-
-// AsCefCommandHandler Convert a pointer object to an existing class object
-func AsCefCommandHandler(obj interface{}) ICefCommandHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefCommandHandler := new(TCefCommandHandler)
-	SetObjectInstance(cefCommandHandler, instance)
-	return cefCommandHandler
-}
-
-// AsCefCommandLine Convert a pointer object to an existing class object
-func AsCefCommandLine(obj interface{}) ICefCommandLine {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefCommandLine := new(TCefCommandLine)
-	SetObjectInstance(cefCommandLine, instance)
-	return cefCommandLine
-}
-
-// AsCefCompletionCallback Convert a pointer object to an existing class object
-func AsCefCompletionCallback(obj interface{}) ICefCompletionCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefCompletionCallback := new(TCefCompletionCallback)
-	SetObjectInstance(cefCompletionCallback, instance)
-	return cefCompletionCallback
-}
-
-// AsCefContextMenuHandler Convert a pointer object to an existing class object
-func AsCefContextMenuHandler(obj interface{}) ICefContextMenuHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefContextMenuHandler := new(TCefContextMenuHandler)
-	SetObjectInstance(cefContextMenuHandler, instance)
-	return cefContextMenuHandler
-}
-
-// AsCefContextMenuParams Convert a pointer object to an existing class object
-func AsCefContextMenuParams(obj interface{}) ICefContextMenuParams {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefContextMenuParams := new(TCefContextMenuParams)
-	SetObjectInstance(cefContextMenuParams, instance)
-	return cefContextMenuParams
-}
-
-// AsCefCookieManager Convert a pointer object to an existing class object
-func AsCefCookieManager(obj interface{}) ICefCookieManager {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefCookieManager := new(TCefCookieManager)
-	SetObjectInstance(cefCookieManager, instance)
-	return cefCookieManager
-}
-
-// AsCefCookieVisitor Convert a pointer object to an existing class object
-func AsCefCookieVisitor(obj interface{}) ICefCookieVisitor {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefCookieVisitor := new(TCefCookieVisitor)
-	SetObjectInstance(cefCookieVisitor, instance)
-	return cefCookieVisitor
-}
-
-// AsCefCreateCustomViewTask Convert a pointer object to an existing class object
-func AsCefCreateCustomViewTask(obj interface{}) ICefCreateCustomViewTask {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefCreateCustomViewTask := new(TCefCreateCustomViewTask)
-	SetObjectInstance(cefCreateCustomViewTask, instance)
-	return cefCreateCustomViewTask
-}
-
-// AsCefCustomCompletionCallback Convert a pointer object to an existing class object
-func AsCefCustomCompletionCallback(obj interface{}) ICefCustomCompletionCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefCustomCompletionCallback := new(TCefCustomCompletionCallback)
-	SetObjectInstance(cefCustomCompletionCallback, instance)
-	return cefCustomCompletionCallback
-}
-
-// AsCefCustomCookieVisitor Convert a pointer object to an existing class object
-func AsCefCustomCookieVisitor(obj interface{}) ICefCustomCookieVisitor {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefCustomCookieVisitor := new(TCefCustomCookieVisitor)
-	SetObjectInstance(cefCustomCookieVisitor, instance)
-	return cefCustomCookieVisitor
-}
-
-// AsCefCustomDeleteCookiesCallback Convert a pointer object to an existing class object
-func AsCefCustomDeleteCookiesCallback(obj interface{}) ICefCustomDeleteCookiesCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefCustomDeleteCookiesCallback := new(TCefCustomDeleteCookiesCallback)
-	SetObjectInstance(cefCustomDeleteCookiesCallback, instance)
-	return cefCustomDeleteCookiesCallback
-}
-
-// AsCefCustomDownloadImageCallback Convert a pointer object to an existing class object
-func AsCefCustomDownloadImageCallback(obj interface{}) ICefCustomDownloadImageCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefCustomDownloadImageCallback := new(TCefCustomDownloadImageCallback)
-	SetObjectInstance(cefCustomDownloadImageCallback, instance)
-	return cefCustomDownloadImageCallback
-}
-
-// AsCefCustomMediaRouteCreateCallback Convert a pointer object to an existing class object
-func AsCefCustomMediaRouteCreateCallback(obj interface{}) ICefCustomMediaRouteCreateCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefCustomMediaRouteCreateCallback := new(TCefCustomMediaRouteCreateCallback)
-	SetObjectInstance(cefCustomMediaRouteCreateCallback, instance)
-	return cefCustomMediaRouteCreateCallback
-}
-
-// AsCefCustomMediaSinkDeviceInfoCallback Convert a pointer object to an existing class object
-func AsCefCustomMediaSinkDeviceInfoCallback(obj interface{}) ICefCustomMediaSinkDeviceInfoCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefCustomMediaSinkDeviceInfoCallback := new(TCefCustomMediaSinkDeviceInfoCallback)
-	SetObjectInstance(cefCustomMediaSinkDeviceInfoCallback, instance)
-	return cefCustomMediaSinkDeviceInfoCallback
-}
-
-// AsCefCustomPDFPrintCallBack Convert a pointer object to an existing class object
-func AsCefCustomPDFPrintCallBack(obj interface{}) ICefCustomPDFPrintCallBack {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefCustomPDFPrintCallBack := new(TCefCustomPDFPrintCallBack)
-	SetObjectInstance(cefCustomPDFPrintCallBack, instance)
-	return cefCustomPDFPrintCallBack
-}
-
-// AsCefCustomRenderProcessHandler Convert a pointer object to an existing class object
-func AsCefCustomRenderProcessHandler(obj interface{}) ICefCustomRenderProcessHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefCustomRenderProcessHandler := new(TCefCustomRenderProcessHandler)
-	SetObjectInstance(cefCustomRenderProcessHandler, instance)
-	return cefCustomRenderProcessHandler
-}
-
-// AsCefCustomResolveCallback Convert a pointer object to an existing class object
-func AsCefCustomResolveCallback(obj interface{}) ICefCustomResolveCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefCustomResolveCallback := new(TCefCustomResolveCallback)
-	SetObjectInstance(cefCustomResolveCallback, instance)
-	return cefCustomResolveCallback
-}
-
-// AsCefCustomSetCookieCallback Convert a pointer object to an existing class object
-func AsCefCustomSetCookieCallback(obj interface{}) ICefCustomSetCookieCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefCustomSetCookieCallback := new(TCefCustomSetCookieCallback)
-	SetObjectInstance(cefCustomSetCookieCallback, instance)
-	return cefCustomSetCookieCallback
-}
-
-// AsCefCustomStreamReader Convert a pointer object to an existing class object
-func AsCefCustomStreamReader(obj interface{}) ICefCustomStreamReader {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefCustomStreamReader := new(TCefCustomStreamReader)
-	SetObjectInstance(cefCustomStreamReader, instance)
-	return cefCustomStreamReader
-}
-
-// AsCefCustomStringList Convert a pointer object to an existing class object
-func AsCefCustomStringList(obj interface{}) ICefCustomStringList {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefCustomStringList := new(TCefCustomStringList)
-	SetObjectInstance(cefCustomStringList, instance)
-	return cefCustomStringList
-}
-
-// AsCefStringMap Convert a pointer object to an existing class object
-func AsCefStringMap(obj interface{}) ICefStringMap {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefStringMap := new(TCefStringMap)
-	SetObjectInstance(cefStringMap, instance)
-	return cefStringMap
-}
-
-// AsCefStringMultimap Convert a pointer object to an existing class object
-func AsCefStringMultimap(obj interface{}) ICefStringMultimap {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefStringMultimap := new(TCefStringMultimap)
-	SetObjectInstance(cefStringMultimap, instance)
-	return cefStringMultimap
-}
-
-// AsCefDeleteCookiesCallback Convert a pointer object to an existing class object
-func AsCefDeleteCookiesCallback(obj interface{}) ICefDeleteCookiesCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefDeleteCookiesCallback := new(TCefDeleteCookiesCallback)
-	SetObjectInstance(cefDeleteCookiesCallback, instance)
-	return cefDeleteCookiesCallback
-}
-
-// AsCefDialogHandler Convert a pointer object to an existing class object
-func AsCefDialogHandler(obj interface{}) ICefDialogHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefDialogHandler := new(TCefDialogHandler)
-	SetObjectInstance(cefDialogHandler, instance)
-	return cefDialogHandler
-}
-
-// AsCefDictionaryValue Convert a pointer object to an existing class object
-func AsCefDictionaryValue(obj interface{}) ICefDictionaryValue {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefDictionaryValue := new(TCefDictionaryValue)
-	SetObjectInstance(cefDictionaryValue, instance)
-	return cefDictionaryValue
-}
-
-// AsCefDisplayHandler Convert a pointer object to an existing class object
-func AsCefDisplayHandler(obj interface{}) ICefDisplayHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefDisplayHandler := new(TCefDisplayHandler)
-	SetObjectInstance(cefDisplayHandler, instance)
-	return cefDisplayHandler
-}
-
-// AsCefDisplay Convert a pointer object to an existing class object
-func AsCefDisplay(obj interface{}) ICefDisplay {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefDisplay := new(TCefDisplay)
-	SetObjectInstance(cefDisplay, instance)
-	return cefDisplay
-}
-
-// AsCefDomDocument Convert a pointer object to an existing class object
-func AsCefDomDocument(obj interface{}) ICefDomDocument {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefDomDocument := new(TCefDomDocument)
-	SetObjectInstance(cefDomDocument, instance)
-	return cefDomDocument
-}
-
-// AsCefDomNode Convert a pointer object to an existing class object
-func AsCefDomNode(obj interface{}) ICefDomNode {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefDomNode := new(TCefDomNode)
-	SetObjectInstance(cefDomNode, instance)
-	return cefDomNode
-}
-
-// AsCefDomVisitor Convert a pointer object to an existing class object
-func AsCefDomVisitor(obj interface{}) ICefDomVisitor {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefDomVisitor := new(TCefDomVisitor)
-	SetObjectInstance(cefDomVisitor, instance)
-	return cefDomVisitor
-}
-
-// AsCefDownloadHandler Convert a pointer object to an existing class object
-func AsCefDownloadHandler(obj interface{}) ICefDownloadHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefDownloadHandler := new(TCefDownloadHandler)
-	SetObjectInstance(cefDownloadHandler, instance)
-	return cefDownloadHandler
-}
-
-// AsCefDownloadImageCallback Convert a pointer object to an existing class object
-func AsCefDownloadImageCallback(obj interface{}) ICefDownloadImageCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefDownloadImageCallback := new(TCefDownloadImageCallback)
-	SetObjectInstance(cefDownloadImageCallback, instance)
-	return cefDownloadImageCallback
-}
-
-// AsCefDownloadItemCallback Convert a pointer object to an existing class object
-func AsCefDownloadItemCallback(obj interface{}) ICefDownloadItemCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefDownloadItemCallback := new(TCefDownloadItemCallback)
-	SetObjectInstance(cefDownloadItemCallback, instance)
-	return cefDownloadItemCallback
-}
-
-// AsCefDownloadItem Convert a pointer object to an existing class object
-func AsCefDownloadItem(obj interface{}) ICefDownloadItem {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefDownloadItem := new(TCefDownloadItem)
-	SetObjectInstance(cefDownloadItem, instance)
-	return cefDownloadItem
-}
-
-// AsCefDragData Convert a pointer object to an existing class object
-func AsCefDragData(obj interface{}) ICefDragData {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefDragData := new(TCefDragData)
-	SetObjectInstance(cefDragData, instance)
-	return cefDragData
-}
-
-// AsCefDragHandler Convert a pointer object to an existing class object
-func AsCefDragHandler(obj interface{}) ICefDragHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefDragHandler := new(TCefDragHandler)
-	SetObjectInstance(cefDragHandler, instance)
-	return cefDragHandler
-}
-
-// AsCefEnableFocusTask Convert a pointer object to an existing class object
-func AsCefEnableFocusTask(obj interface{}) ICefEnableFocusTask {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefEnableFocusTask := new(TCefEnableFocusTask)
-	SetObjectInstance(cefEnableFocusTask, instance)
-	return cefEnableFocusTask
-}
-
-// AsCefExtensionHandler Convert a pointer object to an existing class object
-func AsCefExtensionHandler(obj interface{}) ICefExtensionHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefExtensionHandler := new(TCefExtensionHandler)
-	SetObjectInstance(cefExtensionHandler, instance)
-	return cefExtensionHandler
-}
-
-// AsCefExtension Convert a pointer object to an existing class object
-func AsCefExtension(obj interface{}) ICefExtension {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefExtension := new(TCefExtension)
-	SetObjectInstance(cefExtension, instance)
-	return cefExtension
-}
-
-// AsCefFileDialogCallback Convert a pointer object to an existing class object
-func AsCefFileDialogCallback(obj interface{}) ICefFileDialogCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefFileDialogCallback := new(TCefFileDialogCallback)
-	SetObjectInstance(cefFileDialogCallback, instance)
-	return cefFileDialogCallback
-}
-
-// AsCefFillLayout Convert a pointer object to an existing class object
-func AsCefFillLayout(obj interface{}) ICefFillLayout {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefFillLayout := new(TCefFillLayout)
-	SetObjectInstance(cefFillLayout, instance)
-	return cefFillLayout
-}
-
-// AsCefFindHandler Convert a pointer object to an existing class object
-func AsCefFindHandler(obj interface{}) ICefFindHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefFindHandler := new(TCefFindHandler)
-	SetObjectInstance(cefFindHandler, instance)
-	return cefFindHandler
-}
-
-// AsCefFocusHandler Convert a pointer object to an existing class object
-func AsCefFocusHandler(obj interface{}) ICefFocusHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefFocusHandler := new(TCefFocusHandler)
-	SetObjectInstance(cefFocusHandler, instance)
-	return cefFocusHandler
-}
-
-// AsCefFrameHandler Convert a pointer object to an existing class object
-func AsCefFrameHandler(obj interface{}) ICefFrameHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefFrameHandler := new(TCefFrameHandler)
-	SetObjectInstance(cefFrameHandler, instance)
-	return cefFrameHandler
-}
-
-// AsCefFrame Convert a pointer object to an existing class object
-func AsCefFrame(obj interface{}) ICefFrame {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefFrame := new(TCefFrame)
-	SetObjectInstance(cefFrame, instance)
-	return cefFrame
-}
-
-// AsCefGenericTask Convert a pointer object to an existing class object
-func AsCefGenericTask(obj interface{}) ICefGenericTask {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefGenericTask := new(TCefGenericTask)
-	SetObjectInstance(cefGenericTask, instance)
-	return cefGenericTask
-}
-
-// AsCefGetExtensionResourceCallback Convert a pointer object to an existing class object
-func AsCefGetExtensionResourceCallback(obj interface{}) ICefGetExtensionResourceCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefGetExtensionResourceCallback := new(TCefGetExtensionResourceCallback)
-	SetObjectInstance(cefGetExtensionResourceCallback, instance)
-	return cefGetExtensionResourceCallback
-}
-
-// AsCefImage Convert a pointer object to an existing class object
-func AsCefImage(obj interface{}) ICefImage {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefImage := new(TCefImage)
-	SetObjectInstance(cefImage, instance)
-	return cefImage
-}
-
-// AsCefJsDialogCallback Convert a pointer object to an existing class object
-func AsCefJsDialogCallback(obj interface{}) ICefJsDialogCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefJsDialogCallback := new(TCefJsDialogCallback)
-	SetObjectInstance(cefJsDialogCallback, instance)
-	return cefJsDialogCallback
-}
-
-// AsCefJsDialogHandler Convert a pointer object to an existing class object
-func AsCefJsDialogHandler(obj interface{}) ICefJsDialogHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefJsDialogHandler := new(TCefJsDialogHandler)
-	SetObjectInstance(cefJsDialogHandler, instance)
-	return cefJsDialogHandler
-}
-
-// AsCefKeyboardHandler Convert a pointer object to an existing class object
-func AsCefKeyboardHandler(obj interface{}) ICefKeyboardHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefKeyboardHandler := new(TCefKeyboardHandler)
-	SetObjectInstance(cefKeyboardHandler, instance)
-	return cefKeyboardHandler
-}
-
-// AsCefLabelButton Convert a pointer object to an existing class object
-func AsCefLabelButton(obj interface{}) ICefLabelButton {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefLabelButton := new(TCefLabelButton)
-	SetObjectInstance(cefLabelButton, instance)
-	return cefLabelButton
-}
-
-// AsCefLayout Convert a pointer object to an existing class object
-func AsCefLayout(obj interface{}) ICefLayout {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefLayout := new(TCefLayout)
-	SetObjectInstance(cefLayout, instance)
-	return cefLayout
-}
-
-// AsCefLifeSpanHandler Convert a pointer object to an existing class object
-func AsCefLifeSpanHandler(obj interface{}) ICefLifeSpanHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefLifeSpanHandler := new(TCefLifeSpanHandler)
-	SetObjectInstance(cefLifeSpanHandler, instance)
-	return cefLifeSpanHandler
-}
-
-// AsCefListValue Convert a pointer object to an existing class object
-func AsCefListValue(obj interface{}) ICefListValue {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefListValue := new(TCefListValue)
-	SetObjectInstance(cefListValue, instance)
-	return cefListValue
-}
-
-// AsCefLoadHandler Convert a pointer object to an existing class object
-func AsCefLoadHandler(obj interface{}) ICefLoadHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefLoadHandler := new(TCefLoadHandler)
-	SetObjectInstance(cefLoadHandler, instance)
-	return cefLoadHandler
-}
-
-// AsCefMediaAccessCallback Convert a pointer object to an existing class object
-func AsCefMediaAccessCallback(obj interface{}) ICefMediaAccessCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefMediaAccessCallback := new(TCefMediaAccessCallback)
-	SetObjectInstance(cefMediaAccessCallback, instance)
-	return cefMediaAccessCallback
-}
-
-// AsCefMediaObserver Convert a pointer object to an existing class object
-func AsCefMediaObserver(obj interface{}) ICefMediaObserver {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefMediaObserver := new(TCefMediaObserver)
-	SetObjectInstance(cefMediaObserver, instance)
-	return cefMediaObserver
-}
-
-// AsCefMediaRouteCreateCallback Convert a pointer object to an existing class object
-func AsCefMediaRouteCreateCallback(obj interface{}) ICefMediaRouteCreateCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefMediaRouteCreateCallback := new(TCefMediaRouteCreateCallback)
-	SetObjectInstance(cefMediaRouteCreateCallback, instance)
-	return cefMediaRouteCreateCallback
-}
-
-// AsCefMediaRoute Convert a pointer object to an existing class object
-func AsCefMediaRoute(obj interface{}) ICefMediaRoute {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefMediaRoute := new(TCefMediaRoute)
-	SetObjectInstance(cefMediaRoute, instance)
-	return cefMediaRoute
-}
-
-// AsCefMediaRouter Convert a pointer object to an existing class object
-func AsCefMediaRouter(obj interface{}) ICefMediaRouter {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefMediaRouter := new(TCefMediaRouter)
-	SetObjectInstance(cefMediaRouter, instance)
-	return cefMediaRouter
-}
-
-// AsCefMediaSinkDeviceInfoCallback Convert a pointer object to an existing class object
-func AsCefMediaSinkDeviceInfoCallback(obj interface{}) ICefMediaSinkDeviceInfoCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefMediaSinkDeviceInfoCallback := new(TCefMediaSinkDeviceInfoCallback)
-	SetObjectInstance(cefMediaSinkDeviceInfoCallback, instance)
-	return cefMediaSinkDeviceInfoCallback
-}
-
-// AsCefMediaSink Convert a pointer object to an existing class object
-func AsCefMediaSink(obj interface{}) ICefMediaSink {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefMediaSink := new(TCefMediaSink)
-	SetObjectInstance(cefMediaSink, instance)
-	return cefMediaSink
-}
-
-// AsCefMediaSource Convert a pointer object to an existing class object
-func AsCefMediaSource(obj interface{}) ICefMediaSource {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefMediaSource := new(TCefMediaSource)
-	SetObjectInstance(cefMediaSource, instance)
-	return cefMediaSource
-}
-
-// AsCefMenuButtonDelegate Convert a pointer object to an existing class object
-func AsCefMenuButtonDelegate(obj interface{}) ICefMenuButtonDelegate {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefMenuButtonDelegate := new(TCefMenuButtonDelegate)
-	SetObjectInstance(cefMenuButtonDelegate, instance)
-	return cefMenuButtonDelegate
-}
-
-// AsCefMenuButtonPressedLock Convert a pointer object to an existing class object
-func AsCefMenuButtonPressedLock(obj interface{}) ICefMenuButtonPressedLock {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefMenuButtonPressedLock := new(TCefMenuButtonPressedLock)
-	SetObjectInstance(cefMenuButtonPressedLock, instance)
-	return cefMenuButtonPressedLock
-}
-
-// AsCefMenuButton Convert a pointer object to an existing class object
-func AsCefMenuButton(obj interface{}) ICefMenuButton {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefMenuButton := new(TCefMenuButton)
-	SetObjectInstance(cefMenuButton, instance)
-	return cefMenuButton
-}
-
-// AsCefMenuModelDelegate Convert a pointer object to an existing class object
-func AsCefMenuModelDelegate(obj interface{}) ICefMenuModelDelegate {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefMenuModelDelegate := new(TCefMenuModelDelegate)
-	SetObjectInstance(cefMenuModelDelegate, instance)
-	return cefMenuModelDelegate
-}
-
-// AsCefMenuModel Convert a pointer object to an existing class object
-func AsCefMenuModel(obj interface{}) ICefMenuModel {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefMenuModel := new(TCefMenuModel)
-	SetObjectInstance(cefMenuModel, instance)
-	return cefMenuModel
-}
-
-// AsCefNavigationEntry Convert a pointer object to an existing class object
-func AsCefNavigationEntry(obj interface{}) ICefNavigationEntry {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefNavigationEntry := new(TCefNavigationEntry)
-	SetObjectInstance(cefNavigationEntry, instance)
-	return cefNavigationEntry
-}
-
-// AsCefNavigationEntryVisitor Convert a pointer object to an existing class object
-func AsCefNavigationEntryVisitor(obj interface{}) ICefNavigationEntryVisitor {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefNavigationEntryVisitor := new(TCefNavigationEntryVisitor)
-	SetObjectInstance(cefNavigationEntryVisitor, instance)
-	return cefNavigationEntryVisitor
-}
-
-// AsCefOverlayController Convert a pointer object to an existing class object
-func AsCefOverlayController(obj interface{}) ICefOverlayController {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefOverlayController := new(TCefOverlayController)
-	SetObjectInstance(cefOverlayController, instance)
-	return cefOverlayController
-}
-
-// AsCefPanelDelegate Convert a pointer object to an existing class object
-func AsCefPanelDelegate(obj interface{}) ICefPanelDelegate {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefPanelDelegate := new(TCefPanelDelegate)
-	SetObjectInstance(cefPanelDelegate, instance)
-	return cefPanelDelegate
-}
-
-// AsCefPanel Convert a pointer object to an existing class object
-func AsCefPanel(obj interface{}) ICefPanel {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefPanel := new(TCefPanel)
-	SetObjectInstance(cefPanel, instance)
-	return cefPanel
-}
-
-// AsCefPdfPrintCallback Convert a pointer object to an existing class object
-func AsCefPdfPrintCallback(obj interface{}) ICefPdfPrintCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefPdfPrintCallback := new(TCefPdfPrintCallback)
-	SetObjectInstance(cefPdfPrintCallback, instance)
-	return cefPdfPrintCallback
-}
-
-// AsCefPermissionHandler Convert a pointer object to an existing class object
-func AsCefPermissionHandler(obj interface{}) ICefPermissionHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefPermissionHandler := new(TCefPermissionHandler)
-	SetObjectInstance(cefPermissionHandler, instance)
-	return cefPermissionHandler
-}
-
-// AsCefPermissionPromptCallback Convert a pointer object to an existing class object
-func AsCefPermissionPromptCallback(obj interface{}) ICefPermissionPromptCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefPermissionPromptCallback := new(TCefPermissionPromptCallback)
-	SetObjectInstance(cefPermissionPromptCallback, instance)
-	return cefPermissionPromptCallback
-}
-
-// AsCefPostDataElement Convert a pointer object to an existing class object
-func AsCefPostDataElement(obj interface{}) ICefPostDataElement {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefPostDataElement := new(TCefPostDataElement)
-	SetObjectInstance(cefPostDataElement, instance)
-	return cefPostDataElement
-}
-
-// AsCefPostData Convert a pointer object to an existing class object
-func AsCefPostData(obj interface{}) ICefPostData {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefPostData := new(TCefPostData)
-	SetObjectInstance(cefPostData, instance)
-	return cefPostData
-}
-
-// AsCefPreferenceManager Convert a pointer object to an existing class object
-func AsCefPreferenceManager(obj interface{}) ICefPreferenceManager {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefPreferenceManager := new(TCefPreferenceManager)
-	SetObjectInstance(cefPreferenceManager, instance)
-	return cefPreferenceManager
-}
-
-// AsCefPreferenceRegistrarRef Convert a pointer object to an existing class object
-func AsCefPreferenceRegistrarRef(obj interface{}) ICefPreferenceRegistrarRef {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefPreferenceRegistrarRef := new(TCefPreferenceRegistrarRef)
-	SetObjectInstance(cefPreferenceRegistrarRef, instance)
-	return cefPreferenceRegistrarRef
-}
-
-// AsCefPrintDialogCallback Convert a pointer object to an existing class object
-func AsCefPrintDialogCallback(obj interface{}) ICefPrintDialogCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefPrintDialogCallback := new(TCefPrintDialogCallback)
-	SetObjectInstance(cefPrintDialogCallback, instance)
-	return cefPrintDialogCallback
-}
-
-// AsCefPrintHandler Convert a pointer object to an existing class object
-func AsCefPrintHandler(obj interface{}) ICefPrintHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefPrintHandler := new(TCefPrintHandler)
-	SetObjectInstance(cefPrintHandler, instance)
-	return cefPrintHandler
-}
-
-// AsCefPrintJobCallback Convert a pointer object to an existing class object
-func AsCefPrintJobCallback(obj interface{}) ICefPrintJobCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefPrintJobCallback := new(TCefPrintJobCallback)
-	SetObjectInstance(cefPrintJobCallback, instance)
-	return cefPrintJobCallback
-}
-
-// AsCefPrintSettings Convert a pointer object to an existing class object
-func AsCefPrintSettings(obj interface{}) ICefPrintSettings {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefPrintSettings := new(TCefPrintSettings)
-	SetObjectInstance(cefPrintSettings, instance)
-	return cefPrintSettings
-}
-
-// AsCefProcessMessage Convert a pointer object to an existing class object
-func AsCefProcessMessage(obj interface{}) ICefProcessMessage {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefProcessMessage := new(TCefProcessMessage)
-	SetObjectInstance(cefProcessMessage, instance)
-	return cefProcessMessage
-}
-
-// AsCefReadZoomTask Convert a pointer object to an existing class object
-func AsCefReadZoomTask(obj interface{}) ICefReadZoomTask {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefReadZoomTask := new(TCefReadZoomTask)
-	SetObjectInstance(cefReadZoomTask, instance)
-	return cefReadZoomTask
-}
-
-// AsCefRegistration Convert a pointer object to an existing class object
-func AsCefRegistration(obj interface{}) ICefRegistration {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefRegistration := new(TCefRegistration)
-	SetObjectInstance(cefRegistration, instance)
-	return cefRegistration
-}
-
-// AsCefRenderHandler Convert a pointer object to an existing class object
-func AsCefRenderHandler(obj interface{}) ICefRenderHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefRenderHandler := new(TCefRenderHandler)
-	SetObjectInstance(cefRenderHandler, instance)
-	return cefRenderHandler
-}
-
-// AsCefRenderProcessHandler Convert a pointer object to an existing class object
-func AsCefRenderProcessHandler(obj interface{}) ICefRenderProcessHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefRenderProcessHandler := new(TCefRenderProcessHandler)
-	SetObjectInstance(cefRenderProcessHandler, instance)
-	return cefRenderProcessHandler
-}
-
-// AsCefRequestContextHandler Convert a pointer object to an existing class object
-func AsCefRequestContextHandler(obj interface{}) ICefRequestContextHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefRequestContextHandler := new(TCefRequestContextHandler)
-	SetObjectInstance(cefRequestContextHandler, instance)
-	return cefRequestContextHandler
-}
-
-// AsCefRequestContext Convert a pointer object to an existing class object
-func AsCefRequestContext(obj interface{}) ICefRequestContext {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefRequestContext := new(TCefRequestContext)
-	SetObjectInstance(cefRequestContext, instance)
-	return cefRequestContext
-}
-
-// AsCefRequestHandler Convert a pointer object to an existing class object
-func AsCefRequestHandler(obj interface{}) ICefRequestHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefRequestHandler := new(TCefRequestHandler)
-	SetObjectInstance(cefRequestHandler, instance)
-	return cefRequestHandler
-}
-
-// AsCefRequest Convert a pointer object to an existing class object
-func AsCefRequest(obj interface{}) ICefRequest {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefRequest := new(TCefRequest)
-	SetObjectInstance(cefRequest, instance)
-	return cefRequest
-}
-
-// AsCefResolveCallback Convert a pointer object to an existing class object
-func AsCefResolveCallback(obj interface{}) ICefResolveCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefResolveCallback := new(TCefResolveCallback)
-	SetObjectInstance(cefResolveCallback, instance)
-	return cefResolveCallback
-}
-
-// AsCefResourceHandler Convert a pointer object to an existing class object
-func AsCefResourceHandler(obj interface{}) ICefResourceHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefResourceHandler := new(TCefResourceHandler)
-	SetObjectInstance(cefResourceHandler, instance)
-	return cefResourceHandler
-}
-
-// AsCefResourceReadCallback Convert a pointer object to an existing class object
-func AsCefResourceReadCallback(obj interface{}) ICefResourceReadCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefResourceReadCallback := new(TCefResourceReadCallback)
-	SetObjectInstance(cefResourceReadCallback, instance)
-	return cefResourceReadCallback
-}
-
-// AsCefResourceRequestHandler Convert a pointer object to an existing class object
-func AsCefResourceRequestHandler(obj interface{}) ICefResourceRequestHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefResourceRequestHandler := new(TCefResourceRequestHandler)
-	SetObjectInstance(cefResourceRequestHandler, instance)
-	return cefResourceRequestHandler
-}
-
-// AsCefResourceSkipCallback Convert a pointer object to an existing class object
-func AsCefResourceSkipCallback(obj interface{}) ICefResourceSkipCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefResourceSkipCallback := new(TCefResourceSkipCallback)
-	SetObjectInstance(cefResourceSkipCallback, instance)
-	return cefResourceSkipCallback
-}
-
-// AsCefResponseFilter Convert a pointer object to an existing class object
-func AsCefResponseFilter(obj interface{}) ICefResponseFilter {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefResponseFilter := new(TCefResponseFilter)
-	SetObjectInstance(cefResponseFilter, instance)
-	return cefResponseFilter
-}
-
-// AsCefResponse Convert a pointer object to an existing class object
-func AsCefResponse(obj interface{}) ICefResponse {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefResponse := new(TCefResponse)
-	SetObjectInstance(cefResponse, instance)
-	return cefResponse
-}
-
-// AsCefRunContextMenuCallback Convert a pointer object to an existing class object
-func AsCefRunContextMenuCallback(obj interface{}) ICefRunContextMenuCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefRunContextMenuCallback := new(TCefRunContextMenuCallback)
-	SetObjectInstance(cefRunContextMenuCallback, instance)
-	return cefRunContextMenuCallback
-}
-
-// AsCefRunFileDialogCallback Convert a pointer object to an existing class object
-func AsCefRunFileDialogCallback(obj interface{}) ICefRunFileDialogCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefRunFileDialogCallback := new(TCefRunFileDialogCallback)
-	SetObjectInstance(cefRunFileDialogCallback, instance)
-	return cefRunFileDialogCallback
-}
-
-// AsCefRunQuickMenuCallback Convert a pointer object to an existing class object
-func AsCefRunQuickMenuCallback(obj interface{}) ICefRunQuickMenuCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefRunQuickMenuCallback := new(TCefRunQuickMenuCallback)
-	SetObjectInstance(cefRunQuickMenuCallback, instance)
-	return cefRunQuickMenuCallback
-}
-
-// AsCefSSLStatus Convert a pointer object to an existing class object
-func AsCefSSLStatus(obj interface{}) ICefSSLStatus {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefSSLStatus := new(TCefSSLStatus)
-	SetObjectInstance(cefSSLStatus, instance)
-	return cefSSLStatus
-}
-
-// AsCefSavePrefsTask Convert a pointer object to an existing class object
-func AsCefSavePrefsTask(obj interface{}) ICefSavePrefsTask {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefSavePrefsTask := new(TCefSavePrefsTask)
-	SetObjectInstance(cefSavePrefsTask, instance)
-	return cefSavePrefsTask
-}
-
-// AsCefSchemeHandlerFactory Convert a pointer object to an existing class object
-func AsCefSchemeHandlerFactory(obj interface{}) ICefSchemeHandlerFactory {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefSchemeHandlerFactory := new(TCefSchemeHandlerFactory)
-	SetObjectInstance(cefSchemeHandlerFactory, instance)
-	return cefSchemeHandlerFactory
-}
-
-// AsCefSchemeRegistrarRef Convert a pointer object to an existing class object
-func AsCefSchemeRegistrarRef(obj interface{}) ICefSchemeRegistrarRef {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefSchemeRegistrarRef := new(TCefSchemeRegistrarRef)
-	SetObjectInstance(cefSchemeRegistrarRef, instance)
-	return cefSchemeRegistrarRef
-}
-
-// AsCefScrollView Convert a pointer object to an existing class object
-func AsCefScrollView(obj interface{}) ICefScrollView {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefScrollView := new(TCefScrollView)
-	SetObjectInstance(cefScrollView, instance)
-	return cefScrollView
-}
-
-// AsCefSelectClientCertificateCallback Convert a pointer object to an existing class object
-func AsCefSelectClientCertificateCallback(obj interface{}) ICefSelectClientCertificateCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefSelectClientCertificateCallback := new(TCefSelectClientCertificateCallback)
-	SetObjectInstance(cefSelectClientCertificateCallback, instance)
-	return cefSelectClientCertificateCallback
-}
-
-// AsCefSetAudioMutedTask Convert a pointer object to an existing class object
-func AsCefSetAudioMutedTask(obj interface{}) ICefSetAudioMutedTask {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefSetAudioMutedTask := new(TCefSetAudioMutedTask)
-	SetObjectInstance(cefSetAudioMutedTask, instance)
-	return cefSetAudioMutedTask
-}
-
-// AsCefSetCookieCallback Convert a pointer object to an existing class object
-func AsCefSetCookieCallback(obj interface{}) ICefSetCookieCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefSetCookieCallback := new(TCefSetCookieCallback)
-	SetObjectInstance(cefSetCookieCallback, instance)
-	return cefSetCookieCallback
-}
-
-// AsCefSetZoomLevelTask Convert a pointer object to an existing class object
-func AsCefSetZoomLevelTask(obj interface{}) ICefSetZoomLevelTask {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefSetZoomLevelTask := new(TCefSetZoomLevelTask)
-	SetObjectInstance(cefSetZoomLevelTask, instance)
-	return cefSetZoomLevelTask
-}
-
-// AsCefSetZoomPctTask Convert a pointer object to an existing class object
-func AsCefSetZoomPctTask(obj interface{}) ICefSetZoomPctTask {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefSetZoomPctTask := new(TCefSetZoomPctTask)
-	SetObjectInstance(cefSetZoomPctTask, instance)
-	return cefSetZoomPctTask
-}
-
-// AsCefSetZoomStepTask Convert a pointer object to an existing class object
-func AsCefSetZoomStepTask(obj interface{}) ICefSetZoomStepTask {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefSetZoomStepTask := new(TCefSetZoomStepTask)
-	SetObjectInstance(cefSetZoomStepTask, instance)
-	return cefSetZoomStepTask
-}
-
-// AsCefSharedMemoryRegion Convert a pointer object to an existing class object
-func AsCefSharedMemoryRegion(obj interface{}) ICefSharedMemoryRegion {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefSharedMemoryRegion := new(TCefSharedMemoryRegion)
-	SetObjectInstance(cefSharedMemoryRegion, instance)
-	return cefSharedMemoryRegion
-}
-
-// AsCefSharedProcessMessageBuilder Convert a pointer object to an existing class object
-func AsCefSharedProcessMessageBuilder(obj interface{}) ICefSharedProcessMessageBuilder {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefSharedProcessMessageBuilder := new(TCefSharedProcessMessageBuilder)
-	SetObjectInstance(cefSharedProcessMessageBuilder, instance)
-	return cefSharedProcessMessageBuilder
-}
-
-// AsCefSslInfo Convert a pointer object to an existing class object
-func AsCefSslInfo(obj interface{}) ICefSslInfo {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefSslInfo := new(TCefSslInfo)
-	SetObjectInstance(cefSslInfo, instance)
-	return cefSslInfo
-}
-
-// AsCefStreamReader Convert a pointer object to an existing class object
-func AsCefStreamReader(obj interface{}) ICefStreamReader {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefStreamReader := new(TCefStreamReader)
-	SetObjectInstance(cefStreamReader, instance)
-	return cefStreamReader
-}
-
-// AsCefStreamWriter Convert a pointer object to an existing class object
-func AsCefStreamWriter(obj interface{}) ICefStreamWriter {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefStreamWriter := new(TCefStreamWriter)
-	SetObjectInstance(cefStreamWriter, instance)
-	return cefStreamWriter
-}
-
-// AsCefStringListRef Convert a pointer object to an existing class object
-func AsCefStringListRef(obj interface{}) ICefStringListRef {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefStringListRef := new(TCefStringListRef)
-	SetObjectInstance(cefStringListRef, instance)
-	return cefStringListRef
-}
-
-// AsCefStringMapRef Convert a pointer object to an existing class object
-func AsCefStringMapRef(obj interface{}) ICefStringMapRef {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefStringMapRef := new(TCefStringMapRef)
-	SetObjectInstance(cefStringMapRef, instance)
-	return cefStringMapRef
-}
-
-// AsCefStringMultimapOwn Convert a pointer object to an existing class object
-func AsCefStringMultimapOwn(obj interface{}) ICefStringMultimapOwn {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefStringMultimapOwn := new(TCefStringMultimapOwn)
-	SetObjectInstance(cefStringMultimapOwn, instance)
-	return cefStringMultimapOwn
-}
-
-// AsCefStringMultimapRef Convert a pointer object to an existing class object
-func AsCefStringMultimapRef(obj interface{}) ICefStringMultimapRef {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefStringMultimapRef := new(TCefStringMultimapRef)
-	SetObjectInstance(cefStringMultimapRef, instance)
-	return cefStringMultimapRef
-}
-
-// AsCefStringVisitor Convert a pointer object to an existing class object
-func AsCefStringVisitor(obj interface{}) ICefStringVisitor {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefStringVisitor := new(TCefStringVisitor)
-	SetObjectInstance(cefStringVisitor, instance)
-	return cefStringVisitor
-}
-
-// AsCefTask Convert a pointer object to an existing class object
-func AsCefTask(obj interface{}) ICefTask {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefTask := new(TCefTask)
-	SetObjectInstance(cefTask, instance)
-	return cefTask
-}
-
-// AsCefTaskRunner Convert a pointer object to an existing class object
-func AsCefTaskRunner(obj interface{}) ICefTaskRunner {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefTaskRunner := new(TCefTaskRunner)
-	SetObjectInstance(cefTaskRunner, instance)
-	return cefTaskRunner
-}
-
-// AsCefTextfieldDelegate Convert a pointer object to an existing class object
-func AsCefTextfieldDelegate(obj interface{}) ICefTextfieldDelegate {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefTextfieldDelegate := new(TCefTextfieldDelegate)
-	SetObjectInstance(cefTextfieldDelegate, instance)
-	return cefTextfieldDelegate
-}
-
-// AsCefTextfield Convert a pointer object to an existing class object
-func AsCefTextfield(obj interface{}) ICefTextfield {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefTextfield := new(TCefTextfield)
-	SetObjectInstance(cefTextfield, instance)
-	return cefTextfield
-}
-
-// AsCefToggleAudioMutedTask Convert a pointer object to an existing class object
-func AsCefToggleAudioMutedTask(obj interface{}) ICefToggleAudioMutedTask {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefToggleAudioMutedTask := new(TCefToggleAudioMutedTask)
-	SetObjectInstance(cefToggleAudioMutedTask, instance)
-	return cefToggleAudioMutedTask
-}
-
-// AsCefURLRequestTask Convert a pointer object to an existing class object
-func AsCefURLRequestTask(obj interface{}) ICefURLRequestTask {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefURLRequestTask := new(TCefURLRequestTask)
-	SetObjectInstance(cefURLRequestTask, instance)
-	return cefURLRequestTask
-}
-
-// AsCefUpdatePrefsTask Convert a pointer object to an existing class object
-func AsCefUpdatePrefsTask(obj interface{}) ICefUpdatePrefsTask {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefUpdatePrefsTask := new(TCefUpdatePrefsTask)
-	SetObjectInstance(cefUpdatePrefsTask, instance)
-	return cefUpdatePrefsTask
-}
-
-// AsCefUpdateZoomPctTask Convert a pointer object to an existing class object
-func AsCefUpdateZoomPctTask(obj interface{}) ICefUpdateZoomPctTask {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefUpdateZoomPctTask := new(TCefUpdateZoomPctTask)
-	SetObjectInstance(cefUpdateZoomPctTask, instance)
-	return cefUpdateZoomPctTask
-}
-
-// AsCefUpdateZoomStepTask Convert a pointer object to an existing class object
-func AsCefUpdateZoomStepTask(obj interface{}) ICefUpdateZoomStepTask {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefUpdateZoomStepTask := new(TCefUpdateZoomStepTask)
-	SetObjectInstance(cefUpdateZoomStepTask, instance)
-	return cefUpdateZoomStepTask
-}
-
-// AsCefUrlRequest Convert a pointer object to an existing class object
-func AsCefUrlRequest(obj interface{}) ICefUrlRequest {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefUrlRequest := new(TCefUrlRequest)
-	SetObjectInstance(cefUrlRequest, instance)
-	return cefUrlRequest
-}
-
-// AsCefUrlRequestClient Convert a pointer object to an existing class object
-func AsCefUrlRequestClient(obj interface{}) ICefUrlRequestClient {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefUrlRequestClient := new(TCefUrlRequestClient)
-	SetObjectInstance(cefUrlRequestClient, instance)
-	return cefUrlRequestClient
-}
-
-// AsCefV8Accessor Convert a pointer object to an existing class object
-func AsCefV8Accessor(obj interface{}) ICefV8Accessor {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefV8Accessor := new(TCefV8Accessor)
-	SetObjectInstance(cefV8Accessor, instance)
-	return cefV8Accessor
-}
-
-// AsCefV8Exception Convert a pointer object to an existing class object
-func AsCefV8Exception(obj interface{}) ICefV8Exception {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefV8Exception := new(TCefV8Exception)
-	SetObjectInstance(cefV8Exception, instance)
-	return cefV8Exception
-}
-
-// AsCefV8Interceptor Convert a pointer object to an existing class object
-func AsCefV8Interceptor(obj interface{}) ICefV8Interceptor {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefV8Interceptor := new(TCefV8Interceptor)
-	SetObjectInstance(cefV8Interceptor, instance)
-	return cefV8Interceptor
-}
-
-// AsCefV8StackFrame Convert a pointer object to an existing class object
-func AsCefV8StackFrame(obj interface{}) ICefV8StackFrame {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefV8StackFrame := new(TCefV8StackFrame)
-	SetObjectInstance(cefV8StackFrame, instance)
-	return cefV8StackFrame
-}
-
-// AsCefV8StackTrace Convert a pointer object to an existing class object
-func AsCefV8StackTrace(obj interface{}) ICefV8StackTrace {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefV8StackTrace := new(TCefV8StackTrace)
-	SetObjectInstance(cefV8StackTrace, instance)
-	return cefV8StackTrace
-}
-
-// AsCefValue Convert a pointer object to an existing class object
-func AsCefValue(obj interface{}) ICefValue {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefValue := new(TCefValue)
-	SetObjectInstance(cefValue, instance)
-	return cefValue
-}
-
-// AsCefViewDelegate Convert a pointer object to an existing class object
-func AsCefViewDelegate(obj interface{}) ICefViewDelegate {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefViewDelegate := new(TCefViewDelegate)
-	SetObjectInstance(cefViewDelegate, instance)
-	return cefViewDelegate
-}
-
-// AsCefView Convert a pointer object to an existing class object
-func AsCefView(obj interface{}) ICefView {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefView := new(TCefView)
-	SetObjectInstance(cefView, instance)
-	return cefView
-}
-
-// AsCefWindowDelegate Convert a pointer object to an existing class object
-func AsCefWindowDelegate(obj interface{}) ICefWindowDelegate {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefWindowDelegate := new(TCefWindowDelegate)
-	SetObjectInstance(cefWindowDelegate, instance)
-	return cefWindowDelegate
-}
-
-// AsCefWindow Convert a pointer object to an existing class object
-func AsCefWindow(obj interface{}) ICefWindow {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefWindow := new(TCefWindow)
-	SetObjectInstance(cefWindow, instance)
-	return cefWindow
-}
-
-// AsCefWriteHandler Convert a pointer object to an existing class object
-func AsCefWriteHandler(obj interface{}) ICefWriteHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefWriteHandler := new(TCefWriteHandler)
-	SetObjectInstance(cefWriteHandler, instance)
-	return cefWriteHandler
-}
-
-// AsCefX509CertPrincipal Convert a pointer object to an existing class object
-func AsCefX509CertPrincipal(obj interface{}) ICefX509CertPrincipal {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefX509CertPrincipal := new(TCefX509CertPrincipal)
-	SetObjectInstance(cefX509CertPrincipal, instance)
-	return cefX509CertPrincipal
-}
-
-// AsCefV8ArrayBufferReleaseCallback Convert a pointer object to an existing class object
-func AsCefV8ArrayBufferReleaseCallback(obj interface{}) ICefV8ArrayBufferReleaseCallback {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefV8ArrayBufferReleaseCallback := new(TCefV8ArrayBufferReleaseCallback)
-	SetObjectInstance(cefV8ArrayBufferReleaseCallback, instance)
-	return cefV8ArrayBufferReleaseCallback
-}
-
-// AsCefV8Context Convert a pointer object to an existing class object
-func AsCefV8Context(obj interface{}) ICefV8Context {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefV8Context := new(TCefV8Context)
-	SetObjectInstance(cefV8Context, instance)
-	return cefV8Context
-}
-
-// AsCefV8Handler Convert a pointer object to an existing class object
-func AsCefV8Handler(obj interface{}) ICefV8Handler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefV8Handler := new(TCefV8Handler)
-	SetObjectInstance(cefV8Handler, instance)
-	return cefV8Handler
-}
-
-// AsCefV8Value Convert a pointer object to an existing class object
-func AsCefV8Value(obj interface{}) ICefV8Value {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	cefV8Value := new(TCefV8Value)
-	SetObjectInstance(cefV8Value, instance)
-	return cefV8Value
-}
-
-// AsChromium Convert a pointer object to an existing class object
-func AsChromium(obj interface{}) IChromium {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	chromium := new(TChromium)
-	SetObjectInstance(chromium, instance)
-	return chromium
-}
-
-// AsChromiumCore Convert a pointer object to an existing class object
-func AsChromiumCore(obj interface{}) IChromiumCore {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	chromiumCore := new(TChromiumCore)
-	SetObjectInstance(chromiumCore, instance)
-	return chromiumCore
+	result := new(TCefCustomBrowserProcessHandler)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
 // AsChromiumFontOptions Convert a pointer object to an existing class object
-func AsChromiumFontOptions(obj interface{}) IChromiumFontOptions {
-	instance := GetInstance(obj)
+func AsChromiumFontOptions(obj any) IChromiumFontOptions {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	chromiumFontOptions := new(TChromiumFontOptions)
-	SetObjectInstance(chromiumFontOptions, instance)
-	return chromiumFontOptions
+	result := new(TChromiumFontOptions)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
 // AsChromiumOptions Convert a pointer object to an existing class object
-func AsChromiumOptions(obj interface{}) IChromiumOptions {
-	instance := GetInstance(obj)
+func AsChromiumOptions(obj any) IChromiumOptions {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	chromiumOptions := new(TChromiumOptions)
-	SetObjectInstance(chromiumOptions, instance)
-	return chromiumOptions
+	result := new(TChromiumOptions)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
-// AsCustomAudioHandler Convert a pointer object to an existing class object
-func AsCustomAudioHandler(obj interface{}) ICustomAudioHandler {
-	instance := GetInstance(obj)
+// AsCEFWinControl Convert a pointer object to an existing class object
+func AsCEFWinControl(obj any) ICEFWinControl {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	customAudioHandler := new(TCustomAudioHandler)
-	SetObjectInstance(customAudioHandler, instance)
-	return customAudioHandler
+	result := new(TCEFWinControl)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
-// AsCustomBrowserViewDelegate Convert a pointer object to an existing class object
-func AsCustomBrowserViewDelegate(obj interface{}) ICustomBrowserViewDelegate {
-	instance := GetInstance(obj)
+// AsCEFLinkedWinControlBase Convert a pointer object to an existing class object
+func AsCEFLinkedWinControlBase(obj any) ICEFLinkedWinControlBase {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	customBrowserViewDelegate := new(TCustomBrowserViewDelegate)
-	SetObjectInstance(customBrowserViewDelegate, instance)
-	return customBrowserViewDelegate
+	result := new(TCEFLinkedWinControlBase)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
-// AsCustomButtonDelegate Convert a pointer object to an existing class object
-func AsCustomButtonDelegate(obj interface{}) ICustomButtonDelegate {
-	instance := GetInstance(obj)
+// AsChromiumWindow Convert a pointer object to an existing class object
+func AsChromiumWindow(obj any) IChromiumWindow {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	customButtonDelegate := new(TCustomButtonDelegate)
-	SetObjectInstance(customButtonDelegate, instance)
-	return customButtonDelegate
+	result := new(TChromiumWindow)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
-// AsCustomCefNavigationEntryVisitor Convert a pointer object to an existing class object
-func AsCustomCefNavigationEntryVisitor(obj interface{}) ICustomCefNavigationEntryVisitor {
-	instance := GetInstance(obj)
+// AsCefCustomCompletionCallback Convert a pointer object to an existing class object
+func AsCefCustomCompletionCallback(obj any) ICefCustomCompletionCallback {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	customCefNavigationEntryVisitor := new(TCustomCefNavigationEntryVisitor)
-	SetObjectInstance(customCefNavigationEntryVisitor, instance)
-	return customCefNavigationEntryVisitor
+	result := new(TCefCustomCompletionCallback)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
-// AsCustomCefStringVisitor Convert a pointer object to an existing class object
-func AsCustomCefStringVisitor(obj interface{}) ICustomCefStringVisitor {
-	instance := GetInstance(obj)
+// AsCefEventCompletionCallback Convert a pointer object to an existing class object
+func AsCefEventCompletionCallback(obj any) ICefEventCompletionCallback {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	customCefStringVisitor := new(TCustomCefStringVisitor)
-	SetObjectInstance(customCefStringVisitor, instance)
-	return customCefStringVisitor
-}
-
-// AsCustomCefUrlrequestClient Convert a pointer object to an existing class object
-func AsCustomCefUrlrequestClient(obj interface{}) ICustomCefUrlrequestClient {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	customCefUrlrequestClient := new(TCustomCefUrlrequestClient)
-	SetObjectInstance(customCefUrlrequestClient, instance)
-	return customCefUrlrequestClient
-}
-
-// AsCustomClientHandler Convert a pointer object to an existing class object
-func AsCustomClientHandler(obj interface{}) ICustomClientHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	customClientHandler := new(TCustomClientHandler)
-	SetObjectInstance(customClientHandler, instance)
-	return customClientHandler
-}
-
-// AsCustomCommandHandler Convert a pointer object to an existing class object
-func AsCustomCommandHandler(obj interface{}) ICustomCommandHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	customCommandHandler := new(TCustomCommandHandler)
-	SetObjectInstance(customCommandHandler, instance)
-	return customCommandHandler
+	result := new(TCefEventCompletionCallback)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
 // AsCustomContextMenuHandler Convert a pointer object to an existing class object
-func AsCustomContextMenuHandler(obj interface{}) ICustomContextMenuHandler {
-	instance := GetInstance(obj)
+func AsCustomContextMenuHandler(obj any) ICustomContextMenuHandler {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	customContextMenuHandler := new(TCustomContextMenuHandler)
-	SetObjectInstance(customContextMenuHandler, instance)
-	return customContextMenuHandler
+	result := new(TCustomContextMenuHandler)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
-// AsCustomDevToolsMessageObserver Convert a pointer object to an existing class object
-func AsCustomDevToolsMessageObserver(obj interface{}) ICustomDevToolsMessageObserver {
-	instance := GetInstance(obj)
+// AsCefCustomCookieVisitor Convert a pointer object to an existing class object
+func AsCefCustomCookieVisitor(obj any) ICefCustomCookieVisitor {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	customDevToolsMessageObserver := new(TCustomDevToolsMessageObserver)
-	SetObjectInstance(customDevToolsMessageObserver, instance)
-	return customDevToolsMessageObserver
+	result := new(TCefCustomCookieVisitor)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefCustomDeleteCookiesCallback Convert a pointer object to an existing class object
+func AsCefCustomDeleteCookiesCallback(obj any) ICefCustomDeleteCookiesCallback {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefCustomDeleteCookiesCallback)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
 // AsCustomDialogHandler Convert a pointer object to an existing class object
-func AsCustomDialogHandler(obj interface{}) ICustomDialogHandler {
-	instance := GetInstance(obj)
+func AsCustomDialogHandler(obj any) ICustomDialogHandler {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	customDialogHandler := new(TCustomDialogHandler)
-	SetObjectInstance(customDialogHandler, instance)
-	return customDialogHandler
+	result := new(TCustomDialogHandler)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
 // AsCustomDisplayHandler Convert a pointer object to an existing class object
-func AsCustomDisplayHandler(obj interface{}) ICustomDisplayHandler {
-	instance := GetInstance(obj)
+func AsCustomDisplayHandler(obj any) ICustomDisplayHandler {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	customDisplayHandler := new(TCustomDisplayHandler)
-	SetObjectInstance(customDisplayHandler, instance)
-	return customDisplayHandler
+	result := new(TCustomDisplayHandler)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
 // AsCustomDownloadHandler Convert a pointer object to an existing class object
-func AsCustomDownloadHandler(obj interface{}) ICustomDownloadHandler {
-	instance := GetInstance(obj)
+func AsCustomDownloadHandler(obj any) ICustomDownloadHandler {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	customDownloadHandler := new(TCustomDownloadHandler)
-	SetObjectInstance(customDownloadHandler, instance)
-	return customDownloadHandler
+	result := new(TCustomDownloadHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefCustomDownloadImageCallback Convert a pointer object to an existing class object
+func AsCefCustomDownloadImageCallback(obj any) ICefCustomDownloadImageCallback {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefCustomDownloadImageCallback)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
 // AsCustomDragHandler Convert a pointer object to an existing class object
-func AsCustomDragHandler(obj interface{}) ICustomDragHandler {
-	instance := GetInstance(obj)
+func AsCustomDragHandler(obj any) ICustomDragHandler {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	customDragHandler := new(TCustomDragHandler)
-	SetObjectInstance(customDragHandler, instance)
-	return customDragHandler
-}
-
-// AsCustomExtensionHandler Convert a pointer object to an existing class object
-func AsCustomExtensionHandler(obj interface{}) ICustomExtensionHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	customExtensionHandler := new(TCustomExtensionHandler)
-	SetObjectInstance(customExtensionHandler, instance)
-	return customExtensionHandler
+	result := new(TCustomDragHandler)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
 // AsCustomFindHandler Convert a pointer object to an existing class object
-func AsCustomFindHandler(obj interface{}) ICustomFindHandler {
-	instance := GetInstance(obj)
+func AsCustomFindHandler(obj any) ICustomFindHandler {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	customFindHandler := new(TCustomFindHandler)
-	SetObjectInstance(customFindHandler, instance)
-	return customFindHandler
+	result := new(TCustomFindHandler)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
 // AsCustomFocusHandler Convert a pointer object to an existing class object
-func AsCustomFocusHandler(obj interface{}) ICustomFocusHandler {
-	instance := GetInstance(obj)
+func AsCustomFocusHandler(obj any) ICustomFocusHandler {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	customFocusHandler := new(TCustomFocusHandler)
-	SetObjectInstance(customFocusHandler, instance)
-	return customFocusHandler
-}
-
-// AsCustomFrameHandler Convert a pointer object to an existing class object
-func AsCustomFrameHandler(obj interface{}) ICustomFrameHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	customFrameHandler := new(TCustomFrameHandler)
-	SetObjectInstance(customFrameHandler, instance)
-	return customFrameHandler
+	result := new(TCustomFocusHandler)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
 // AsCustomJsDialogHandler Convert a pointer object to an existing class object
-func AsCustomJsDialogHandler(obj interface{}) ICustomJsDialogHandler {
-	instance := GetInstance(obj)
+func AsCustomJsDialogHandler(obj any) ICustomJsDialogHandler {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	customJsDialogHandler := new(TCustomJsDialogHandler)
-	SetObjectInstance(customJsDialogHandler, instance)
-	return customJsDialogHandler
+	result := new(TCustomJsDialogHandler)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
 // AsCustomKeyboardHandler Convert a pointer object to an existing class object
-func AsCustomKeyboardHandler(obj interface{}) ICustomKeyboardHandler {
-	instance := GetInstance(obj)
+func AsCustomKeyboardHandler(obj any) ICustomKeyboardHandler {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	customKeyboardHandler := new(TCustomKeyboardHandler)
-	SetObjectInstance(customKeyboardHandler, instance)
-	return customKeyboardHandler
+	result := new(TCustomKeyboardHandler)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
 // AsCustomLifeSpanHandler Convert a pointer object to an existing class object
-func AsCustomLifeSpanHandler(obj interface{}) ICustomLifeSpanHandler {
-	instance := GetInstance(obj)
+func AsCustomLifeSpanHandler(obj any) ICustomLifeSpanHandler {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	customLifeSpanHandler := new(TCustomLifeSpanHandler)
-	SetObjectInstance(customLifeSpanHandler, instance)
-	return customLifeSpanHandler
-}
-
-// AsCustomLoadHandler Convert a pointer object to an existing class object
-func AsCustomLoadHandler(obj interface{}) ICustomLoadHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	customLoadHandler := new(TCustomLoadHandler)
-	SetObjectInstance(customLoadHandler, instance)
-	return customLoadHandler
-}
-
-// AsCustomMediaObserver Convert a pointer object to an existing class object
-func AsCustomMediaObserver(obj interface{}) ICustomMediaObserver {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	customMediaObserver := new(TCustomMediaObserver)
-	SetObjectInstance(customMediaObserver, instance)
-	return customMediaObserver
-}
-
-// AsCustomMenuButtonDelegate Convert a pointer object to an existing class object
-func AsCustomMenuButtonDelegate(obj interface{}) ICustomMenuButtonDelegate {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	customMenuButtonDelegate := new(TCustomMenuButtonDelegate)
-	SetObjectInstance(customMenuButtonDelegate, instance)
-	return customMenuButtonDelegate
-}
-
-// AsCustomPanelDelegate Convert a pointer object to an existing class object
-func AsCustomPanelDelegate(obj interface{}) ICustomPanelDelegate {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	customPanelDelegate := new(TCustomPanelDelegate)
-	SetObjectInstance(customPanelDelegate, instance)
-	return customPanelDelegate
-}
-
-// AsCustomPermissionHandler Convert a pointer object to an existing class object
-func AsCustomPermissionHandler(obj interface{}) ICustomPermissionHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	customPermissionHandler := new(TCustomPermissionHandler)
-	SetObjectInstance(customPermissionHandler, instance)
-	return customPermissionHandler
-}
-
-// AsCustomPrintHandler Convert a pointer object to an existing class object
-func AsCustomPrintHandler(obj interface{}) ICustomPrintHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	customPrintHandler := new(TCustomPrintHandler)
-	SetObjectInstance(customPrintHandler, instance)
-	return customPrintHandler
-}
-
-// AsCustomRenderHandler Convert a pointer object to an existing class object
-func AsCustomRenderHandler(obj interface{}) ICustomRenderHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	customRenderHandler := new(TCustomRenderHandler)
-	SetObjectInstance(customRenderHandler, instance)
-	return customRenderHandler
+	result := new(TCustomLifeSpanHandler)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
 // AsCustomRenderLoadHandler Convert a pointer object to an existing class object
-func AsCustomRenderLoadHandler(obj interface{}) ICustomRenderLoadHandler {
-	instance := GetInstance(obj)
+func AsCustomRenderLoadHandler(obj any) ICustomRenderLoadHandler {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	customRenderLoadHandler := new(TCustomRenderLoadHandler)
-	SetObjectInstance(customRenderLoadHandler, instance)
-	return customRenderLoadHandler
+	result := new(TCustomRenderLoadHandler)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
-// AsCustomRequestContextHandler Convert a pointer object to an existing class object
-func AsCustomRequestContextHandler(obj interface{}) ICustomRequestContextHandler {
-	instance := GetInstance(obj)
+// AsCustomLoadHandler Convert a pointer object to an existing class object
+func AsCustomLoadHandler(obj any) ICustomLoadHandler {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	customRequestContextHandler := new(TCustomRequestContextHandler)
-	SetObjectInstance(customRequestContextHandler, instance)
-	return customRequestContextHandler
+	result := new(TCustomLoadHandler)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
-// AsCustomRequestHandler Convert a pointer object to an existing class object
-func AsCustomRequestHandler(obj interface{}) ICustomRequestHandler {
-	instance := GetInstance(obj)
+// AsCustomCefNavigationEntryVisitor Convert a pointer object to an existing class object
+func AsCustomCefNavigationEntryVisitor(obj any) ICustomCefNavigationEntryVisitor {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	customRequestHandler := new(TCustomRequestHandler)
-	SetObjectInstance(customRequestHandler, instance)
-	return customRequestHandler
+	result := new(TCustomCefNavigationEntryVisitor)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
-// AsCustomResourceRequestHandler Convert a pointer object to an existing class object
-func AsCustomResourceRequestHandler(obj interface{}) ICustomResourceRequestHandler {
-	instance := GetInstance(obj)
+// AsCefCustomPDFPrintCallBack Convert a pointer object to an existing class object
+func AsCefCustomPDFPrintCallBack(obj any) ICefCustomPDFPrintCallBack {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	customResourceRequestHandler := new(TCustomResourceRequestHandler)
-	SetObjectInstance(customResourceRequestHandler, instance)
-	return customResourceRequestHandler
-}
-
-// AsCustomResponseFilter Convert a pointer object to an existing class object
-func AsCustomResponseFilter(obj interface{}) ICustomResponseFilter {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	customResponseFilter := new(TCustomResponseFilter)
-	SetObjectInstance(customResponseFilter, instance)
-	return customResponseFilter
-}
-
-// AsCustomServerHandler Convert a pointer object to an existing class object
-func AsCustomServerHandler(obj interface{}) ICustomServerHandler {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	customServerHandler := new(TCustomServerHandler)
-	SetObjectInstance(customServerHandler, instance)
-	return customServerHandler
-}
-
-// AsCustomTextfieldDelegate Convert a pointer object to an existing class object
-func AsCustomTextfieldDelegate(obj interface{}) ICustomTextfieldDelegate {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	customTextfieldDelegate := new(TCustomTextfieldDelegate)
-	SetObjectInstance(customTextfieldDelegate, instance)
-	return customTextfieldDelegate
-}
-
-// AsCustomViewDelegate Convert a pointer object to an existing class object
-func AsCustomViewDelegate(obj interface{}) ICustomViewDelegate {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	customViewDelegate := new(TCustomViewDelegate)
-	SetObjectInstance(customViewDelegate, instance)
-	return customViewDelegate
-}
-
-// AsCustomWindowDelegate Convert a pointer object to an existing class object
-func AsCustomWindowDelegate(obj interface{}) ICustomWindowDelegate {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	customWindowDelegate := new(TCustomWindowDelegate)
-	SetObjectInstance(customWindowDelegate, instance)
-	return customWindowDelegate
-}
-
-// AsDomVisitor Convert a pointer object to an existing class object
-func AsDomVisitor(obj interface{}) IDomVisitor {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	domVisitor := new(TDomVisitor)
-	SetObjectInstance(domVisitor, instance)
-	return domVisitor
-}
-
-// AsEnergyStringList Convert a pointer object to an existing class object
-func AsEnergyStringList(obj interface{}) IEnergyStringList {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	energyStringList := new(TEnergyStringList)
-	SetObjectInstance(energyStringList, instance)
-	return energyStringList
-}
-
-// AsEnergyStringMap Convert a pointer object to an existing class object
-func AsEnergyStringMap(obj interface{}) IEnergyStringMap {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	energyStringMap := new(TEnergyStringMap)
-	SetObjectInstance(energyStringMap, instance)
-	return energyStringMap
-}
-
-// AsMenuModelDelegate Convert a pointer object to an existing class object
-func AsMenuModelDelegate(obj interface{}) IMenuModelDelegate {
-	instance := GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	menuModelDelegate := new(TMenuModelDelegate)
-	SetObjectInstance(menuModelDelegate, instance)
-	return menuModelDelegate
+	result := new(TCefCustomPDFPrintCallBack)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
 // AsPDFPrintOptions Convert a pointer object to an existing class object
-func AsPDFPrintOptions(obj interface{}) IPDFPrintOptions {
-	instance := GetInstance(obj)
+func AsPDFPrintOptions(obj any) IPDFPrintOptions {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	pDFPrintOptions := new(TPDFPrintOptions)
-	SetObjectInstance(pDFPrintOptions, instance)
-	return pDFPrintOptions
+	result := new(TPDFPrintOptions)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
-// AsResourceHandler Convert a pointer object to an existing class object
-func AsResourceHandler(obj interface{}) IResourceHandler {
-	instance := GetInstance(obj)
+// AsCustomRenderHandler Convert a pointer object to an existing class object
+func AsCustomRenderHandler(obj any) ICustomRenderHandler {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	resourceHandler := new(TResourceHandler)
-	SetObjectInstance(resourceHandler, instance)
-	return resourceHandler
+	result := new(TCustomRenderHandler)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
-// AsRunFileDialogCallback Convert a pointer object to an existing class object
-func AsRunFileDialogCallback(obj interface{}) IRunFileDialogCallback {
-	instance := GetInstance(obj)
+// AsCefCustomRenderProcessHandler Convert a pointer object to an existing class object
+func AsCefCustomRenderProcessHandler(obj any) ICefCustomRenderProcessHandler {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	runFileDialogCallback := new(TRunFileDialogCallback)
-	SetObjectInstance(runFileDialogCallback, instance)
-	return runFileDialogCallback
+	result := new(TCefCustomRenderProcessHandler)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
-// AsSchemeHandlerFactory Convert a pointer object to an existing class object
-func AsSchemeHandlerFactory(obj interface{}) ISchemeHandlerFactory {
-	instance := GetInstance(obj)
+// AsCustomRequestContextHandler Convert a pointer object to an existing class object
+func AsCustomRequestContextHandler(obj any) ICustomRequestContextHandler {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	schemeHandlerFactory := new(TSchemeHandlerFactory)
-	SetObjectInstance(schemeHandlerFactory, instance)
-	return schemeHandlerFactory
+	result := new(TCustomRequestContextHandler)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
-// AsTask Convert a pointer object to an existing class object
-func AsTask(obj interface{}) ITask {
-	instance := GetInstance(obj)
+// AsCustomRequestHandler Convert a pointer object to an existing class object
+func AsCustomRequestHandler(obj any) ICustomRequestHandler {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	task := new(TTask)
-	SetObjectInstance(task, instance)
-	return task
+	result := new(TCustomRequestHandler)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
-// AsV8Accessor Convert a pointer object to an existing class object
-func AsV8Accessor(obj interface{}) IV8Accessor {
-	instance := GetInstance(obj)
+// AsCefCustomResolveCallback Convert a pointer object to an existing class object
+func AsCefCustomResolveCallback(obj any) ICefCustomResolveCallback {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	v8Accessor := new(TV8Accessor)
-	SetObjectInstance(v8Accessor, instance)
-	return v8Accessor
+	result := new(TCefCustomResolveCallback)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
-// AsV8ArrayBufferReleaseCallback Convert a pointer object to an existing class object
-func AsV8ArrayBufferReleaseCallback(obj interface{}) IV8ArrayBufferReleaseCallback {
-	instance := GetInstance(obj)
+// AsCefCustomResourceBundleHandler Convert a pointer object to an existing class object
+func AsCefCustomResourceBundleHandler(obj any) ICefCustomResourceBundleHandler {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	v8ArrayBufferReleaseCallback := new(TV8ArrayBufferReleaseCallback)
-	SetObjectInstance(v8ArrayBufferReleaseCallback, instance)
-	return v8ArrayBufferReleaseCallback
+	result := new(TCefCustomResourceBundleHandler)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
-// AsV8Handler Convert a pointer object to an existing class object
-func AsV8Handler(obj interface{}) IV8Handler {
-	instance := GetInstance(obj)
+// AsCustomResponseFilter Convert a pointer object to an existing class object
+func AsCustomResponseFilter(obj any) ICustomResponseFilter {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	v8Handler := new(TV8Handler)
-	SetObjectInstance(v8Handler, instance)
-	return v8Handler
+	result := new(TCustomResponseFilter)
+	base.SetObjectInstance(result, instance)
+	return result
 }
 
-// AsV8Interceptor Convert a pointer object to an existing class object
-func AsV8Interceptor(obj interface{}) IV8Interceptor {
-	instance := GetInstance(obj)
+// AsCefResourceHandlerRef Convert a pointer object to an existing class object
+func AsCefResourceHandlerRef(obj any) ICefResourceHandlerRef {
+	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	v8Interceptor := new(TV8Interceptor)
-	SetObjectInstance(v8Interceptor, instance)
-	return v8Interceptor
+	result := new(TCefResourceHandlerRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefResponseFilterRef Convert a pointer object to an existing class object
+func AsCefResponseFilterRef(obj any) ICefResponseFilterRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefResponseFilterRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefCustomSetCookieCallback Convert a pointer object to an existing class object
+func AsCefCustomSetCookieCallback(obj any) ICefCustomSetCookieCallback {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefCustomSetCookieCallback)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefStringListRef Convert a pointer object to an existing class object
+func AsCefStringListRef(obj any) ICefStringListRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefStringListRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefStringMapRef Convert a pointer object to an existing class object
+func AsCefStringMapRef(obj any) ICefStringMapRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefStringMapRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCustomCefStringVisitor Convert a pointer object to an existing class object
+func AsCustomCefStringVisitor(obj any) ICustomCefStringVisitor {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCustomCefStringVisitor)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefManagedTask Convert a pointer object to an existing class object
+func AsCefManagedTask(obj any) ICefManagedTask {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefManagedTask)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefChromiumTask Convert a pointer object to an existing class object
+func AsCefChromiumTask(obj any) ICefChromiumTask {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefChromiumTask)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefViewDelegateTask Convert a pointer object to an existing class object
+func AsCefViewDelegateTask(obj any) ICefViewDelegateTask {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefViewDelegateTask)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefGenericTask Convert a pointer object to an existing class object
+func AsCefGenericTask(obj any) ICefGenericTask {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefGenericTask)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefURLRequestClientTask Convert a pointer object to an existing class object
+func AsCefURLRequestClientTask(obj any) ICefURLRequestClientTask {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefURLRequestClientTask)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefUrlrequestClientRef Convert a pointer object to an existing class object
+func AsCefUrlrequestClientRef(obj any) ICefUrlrequestClientRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefUrlrequestClientRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCustomCefUrlrequestClient Convert a pointer object to an existing class object
+func AsCustomCefUrlrequestClient(obj any) ICustomCefUrlrequestClient {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCustomCefUrlrequestClient)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefv8HandlerRef Convert a pointer object to an existing class object
+func AsCefv8HandlerRef(obj any) ICefv8HandlerRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefv8HandlerRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefv8ArrayBufferReleaseCallbackRef Convert a pointer object to an existing class object
+func AsCefv8ArrayBufferReleaseCallbackRef(obj any) ICefv8ArrayBufferReleaseCallbackRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefv8ArrayBufferReleaseCallbackRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCEFWindowParent Convert a pointer object to an existing class object
+func AsCEFWindowParent(obj any) ICEFWindowParent {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFWindowParent)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCEFWorkScheduler Convert a pointer object to an existing class object
+func AsCEFWorkScheduler(obj any) ICEFWorkScheduler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFWorkScheduler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefBytesWriteHandler Convert a pointer object to an existing class object
+func AsCefBytesWriteHandler(obj any) ICefBytesWriteHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefBytesWriteHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsChromiumCore Convert a pointer object to an existing class object
+func AsChromiumCore(obj any) IChromiumCore {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TChromiumCore)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsChromium Convert a pointer object to an existing class object
+func AsChromium(obj any) IChromium {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TChromium)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsBufferPanel Convert a pointer object to an existing class object
+func AsBufferPanel(obj any) IBufferPanel {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TBufferPanel)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCEFServerComponent Convert a pointer object to an existing class object
+func AsCEFServerComponent(obj any) ICEFServerComponent {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFServerComponent)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCustomServerHandler Convert a pointer object to an existing class object
+func AsCustomServerHandler(obj any) ICustomServerHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCustomServerHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCEFLinkedWindowParent Convert a pointer object to an existing class object
+func AsCEFLinkedWindowParent(obj any) ICEFLinkedWindowParent {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFLinkedWindowParent)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCEFUrlRequestClientComponent Convert a pointer object to an existing class object
+func AsCEFUrlRequestClientComponent(obj any) ICEFUrlRequestClientComponent {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFUrlRequestClientComponent)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCEFOSRIMEHandler Convert a pointer object to an existing class object
+func AsCEFOSRIMEHandler(obj any) ICEFOSRIMEHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFOSRIMEHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCustomCookieAccessFilter Convert a pointer object to an existing class object
+func AsCustomCookieAccessFilter(obj any) ICustomCookieAccessFilter {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCustomCookieAccessFilter)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefCookieAccessFilterRef Convert a pointer object to an existing class object
+func AsCefCookieAccessFilterRef(obj any) ICefCookieAccessFilterRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefCookieAccessFilterRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCustomResourceRequestHandler Convert a pointer object to an existing class object
+func AsCustomResourceRequestHandler(obj any) ICustomResourceRequestHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCustomResourceRequestHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefResourceRequestHandlerRef Convert a pointer object to an existing class object
+func AsCefResourceRequestHandlerRef(obj any) ICefResourceRequestHandlerRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefResourceRequestHandlerRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCEFSentinel Convert a pointer object to an existing class object
+func AsCEFSentinel(obj any) ICEFSentinel {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFSentinel)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCEFOAuth2Helper Convert a pointer object to an existing class object
+func AsCEFOAuth2Helper(obj any) ICEFOAuth2Helper {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFOAuth2Helper)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCustomMediaObserver Convert a pointer object to an existing class object
+func AsCustomMediaObserver(obj any) ICustomMediaObserver {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCustomMediaObserver)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefCustomMediaRouteCreateCallback Convert a pointer object to an existing class object
+func AsCefCustomMediaRouteCreateCallback(obj any) ICefCustomMediaRouteCreateCallback {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefCustomMediaRouteCreateCallback)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCustomWindowDelegate Convert a pointer object to an existing class object
+func AsCustomWindowDelegate(obj any) ICustomWindowDelegate {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCustomWindowDelegate)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefViewDelegateRef Convert a pointer object to an existing class object
+func AsCefViewDelegateRef(obj any) ICefViewDelegateRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefViewDelegateRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefPanelDelegateRef Convert a pointer object to an existing class object
+func AsCefPanelDelegateRef(obj any) ICefPanelDelegateRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefPanelDelegateRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefWindowDelegateRef Convert a pointer object to an existing class object
+func AsCefWindowDelegateRef(obj any) ICefWindowDelegateRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefWindowDelegateRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCustomMenuButtonDelegate Convert a pointer object to an existing class object
+func AsCustomMenuButtonDelegate(obj any) ICustomMenuButtonDelegate {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCustomMenuButtonDelegate)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefButtonDelegateRef Convert a pointer object to an existing class object
+func AsCefButtonDelegateRef(obj any) ICefButtonDelegateRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefButtonDelegateRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefMenuButtonDelegateRef Convert a pointer object to an existing class object
+func AsCefMenuButtonDelegateRef(obj any) ICefMenuButtonDelegateRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefMenuButtonDelegateRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCustomButtonDelegate Convert a pointer object to an existing class object
+func AsCustomButtonDelegate(obj any) ICustomButtonDelegate {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCustomButtonDelegate)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCustomBrowserViewDelegate Convert a pointer object to an existing class object
+func AsCustomBrowserViewDelegate(obj any) ICustomBrowserViewDelegate {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCustomBrowserViewDelegate)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefBrowserViewDelegateRef Convert a pointer object to an existing class object
+func AsCefBrowserViewDelegateRef(obj any) ICefBrowserViewDelegateRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefBrowserViewDelegateRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCustomPanelDelegate Convert a pointer object to an existing class object
+func AsCustomPanelDelegate(obj any) ICustomPanelDelegate {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCustomPanelDelegate)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCustomTextfieldDelegate Convert a pointer object to an existing class object
+func AsCustomTextfieldDelegate(obj any) ICustomTextfieldDelegate {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCustomTextfieldDelegate)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefTextfieldDelegateRef Convert a pointer object to an existing class object
+func AsCefTextfieldDelegateRef(obj any) ICefTextfieldDelegateRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefTextfieldDelegateRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCustomViewDelegate Convert a pointer object to an existing class object
+func AsCustomViewDelegate(obj any) ICustomViewDelegate {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCustomViewDelegate)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCEFViewComponent Convert a pointer object to an existing class object
+func AsCEFViewComponent(obj any) ICEFViewComponent {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFViewComponent)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCEFButtonComponent Convert a pointer object to an existing class object
+func AsCEFButtonComponent(obj any) ICEFButtonComponent {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFButtonComponent)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCEFLabelButtonComponent Convert a pointer object to an existing class object
+func AsCEFLabelButtonComponent(obj any) ICEFLabelButtonComponent {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFLabelButtonComponent)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCEFMenuButtonComponent Convert a pointer object to an existing class object
+func AsCEFMenuButtonComponent(obj any) ICEFMenuButtonComponent {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFMenuButtonComponent)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCEFBrowserViewComponent Convert a pointer object to an existing class object
+func AsCEFBrowserViewComponent(obj any) ICEFBrowserViewComponent {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFBrowserViewComponent)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCEFPanelComponent Convert a pointer object to an existing class object
+func AsCEFPanelComponent(obj any) ICEFPanelComponent {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFPanelComponent)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCEFWindowComponent Convert a pointer object to an existing class object
+func AsCEFWindowComponent(obj any) ICEFWindowComponent {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFWindowComponent)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCEFScrollViewComponent Convert a pointer object to an existing class object
+func AsCEFScrollViewComponent(obj any) ICEFScrollViewComponent {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFScrollViewComponent)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCEFTextfieldComponent Convert a pointer object to an existing class object
+func AsCEFTextfieldComponent(obj any) ICEFTextfieldComponent {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFTextfieldComponent)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCustomAudioHandler Convert a pointer object to an existing class object
+func AsCustomAudioHandler(obj any) ICustomAudioHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCustomAudioHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCustomDevToolsMessageObserver Convert a pointer object to an existing class object
+func AsCustomDevToolsMessageObserver(obj any) ICustomDevToolsMessageObserver {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCustomDevToolsMessageObserver)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefCustomMediaSinkDeviceInfoCallback Convert a pointer object to an existing class object
+func AsCefCustomMediaSinkDeviceInfoCallback(obj any) ICefCustomMediaSinkDeviceInfoCallback {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefCustomMediaSinkDeviceInfoCallback)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCEFJson Convert a pointer object to an existing class object
+func AsCEFJson(obj any) ICEFJson {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFJson)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCEFBitmapBitBuffer Convert a pointer object to an existing class object
+func AsCEFBitmapBitBuffer(obj any) ICEFBitmapBitBuffer {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFBitmapBitBuffer)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCustomPrintHandler Convert a pointer object to an existing class object
+func AsCustomPrintHandler(obj any) ICustomPrintHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCustomPrintHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCEFTimerWorkScheduler Convert a pointer object to an existing class object
+func AsCEFTimerWorkScheduler(obj any) ICEFTimerWorkScheduler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFTimerWorkScheduler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCustomFrameHandler Convert a pointer object to an existing class object
+func AsCustomFrameHandler(obj any) ICustomFrameHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCustomFrameHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCEFFileDialogInfo Convert a pointer object to an existing class object
+func AsCEFFileDialogInfo(obj any) ICEFFileDialogInfo {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFFileDialogInfo)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCustomCommandHandler Convert a pointer object to an existing class object
+func AsCustomCommandHandler(obj any) ICustomCommandHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCustomCommandHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCustomPermissionHandler Convert a pointer object to an existing class object
+func AsCustomPermissionHandler(obj any) ICustomPermissionHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCustomPermissionHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCEFBaseScopedWrapperRef Convert a pointer object to an existing class object
+func AsCEFBaseScopedWrapperRef(obj any) ICEFBaseScopedWrapperRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFBaseScopedWrapperRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefPreferenceRegistrarRef Convert a pointer object to an existing class object
+func AsCefPreferenceRegistrarRef(obj any) ICefPreferenceRegistrarRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefPreferenceRegistrarRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefSchemeRegistrarRef Convert a pointer object to an existing class object
+func AsCefSchemeRegistrarRef(obj any) ICefSchemeRegistrarRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefSchemeRegistrarRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCustomClientHandler Convert a pointer object to an existing class object
+func AsCustomClientHandler(obj any) ICustomClientHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCustomClientHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefStringListOwn Convert a pointer object to an existing class object
+func AsCefStringListOwn(obj any) ICefStringListOwn {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefStringListOwn)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefStringMapOwn Convert a pointer object to an existing class object
+func AsCefStringMapOwn(obj any) ICefStringMapOwn {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefStringMapOwn)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngBrowserProcessHandler Convert a pointer object to an existing class object
+func AsEngBrowserProcessHandler(obj any) IEngBrowserProcessHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngBrowserProcessHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngCompletionCallback Convert a pointer object to an existing class object
+func AsEngCompletionCallback(obj any) IEngCompletionCallback {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngCompletionCallback)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngContextMenuHandler Convert a pointer object to an existing class object
+func AsEngContextMenuHandler(obj any) IEngContextMenuHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngContextMenuHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngCookieVisitor Convert a pointer object to an existing class object
+func AsEngCookieVisitor(obj any) IEngCookieVisitor {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngCookieVisitor)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngDeleteCookiesCallback Convert a pointer object to an existing class object
+func AsEngDeleteCookiesCallback(obj any) IEngDeleteCookiesCallback {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngDeleteCookiesCallback)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngDialogHandler Convert a pointer object to an existing class object
+func AsEngDialogHandler(obj any) IEngDialogHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngDialogHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngDisplayHandler Convert a pointer object to an existing class object
+func AsEngDisplayHandler(obj any) IEngDisplayHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngDisplayHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngDomVisitor Convert a pointer object to an existing class object
+func AsEngDomVisitor(obj any) IEngDomVisitor {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngDomVisitor)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngDownloadHandler Convert a pointer object to an existing class object
+func AsEngDownloadHandler(obj any) IEngDownloadHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngDownloadHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngDownloadImageCallback Convert a pointer object to an existing class object
+func AsEngDownloadImageCallback(obj any) IEngDownloadImageCallback {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngDownloadImageCallback)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngDragHandler Convert a pointer object to an existing class object
+func AsEngDragHandler(obj any) IEngDragHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngDragHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngEndTracingCallback Convert a pointer object to an existing class object
+func AsEngEndTracingCallback(obj any) IEngEndTracingCallback {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngEndTracingCallback)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngFindHandler Convert a pointer object to an existing class object
+func AsEngFindHandler(obj any) IEngFindHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngFindHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngFocusHandler Convert a pointer object to an existing class object
+func AsEngFocusHandler(obj any) IEngFocusHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngFocusHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngJsDialogHandler Convert a pointer object to an existing class object
+func AsEngJsDialogHandler(obj any) IEngJsDialogHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngJsDialogHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngKeyboardHandler Convert a pointer object to an existing class object
+func AsEngKeyboardHandler(obj any) IEngKeyboardHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngKeyboardHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngLifeSpanHandler Convert a pointer object to an existing class object
+func AsEngLifeSpanHandler(obj any) IEngLifeSpanHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngLifeSpanHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngLoadHandler Convert a pointer object to an existing class object
+func AsEngLoadHandler(obj any) IEngLoadHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngLoadHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngMenuModelDelegate Convert a pointer object to an existing class object
+func AsEngMenuModelDelegate(obj any) IEngMenuModelDelegate {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngMenuModelDelegate)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngNavigationEntryVisitor Convert a pointer object to an existing class object
+func AsEngNavigationEntryVisitor(obj any) IEngNavigationEntryVisitor {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngNavigationEntryVisitor)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngPdfPrintCallback Convert a pointer object to an existing class object
+func AsEngPdfPrintCallback(obj any) IEngPdfPrintCallback {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngPdfPrintCallback)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngRenderHandler Convert a pointer object to an existing class object
+func AsEngRenderHandler(obj any) IEngRenderHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngRenderHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngRenderProcessHandler Convert a pointer object to an existing class object
+func AsEngRenderProcessHandler(obj any) IEngRenderProcessHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngRenderProcessHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngRequestContextHandler Convert a pointer object to an existing class object
+func AsEngRequestContextHandler(obj any) IEngRequestContextHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngRequestContextHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngRequestHandler Convert a pointer object to an existing class object
+func AsEngRequestHandler(obj any) IEngRequestHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngRequestHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngResolveCallback Convert a pointer object to an existing class object
+func AsEngResolveCallback(obj any) IEngResolveCallback {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngResolveCallback)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngResourceBundleHandler Convert a pointer object to an existing class object
+func AsEngResourceBundleHandler(obj any) IEngResourceBundleHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngResourceBundleHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngResourceHandler Convert a pointer object to an existing class object
+func AsEngResourceHandler(obj any) IEngResourceHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngResourceHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngResponseFilter Convert a pointer object to an existing class object
+func AsEngResponseFilter(obj any) IEngResponseFilter {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngResponseFilter)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngRunFileDialogCallback Convert a pointer object to an existing class object
+func AsEngRunFileDialogCallback(obj any) IEngRunFileDialogCallback {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngRunFileDialogCallback)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngSchemeHandlerFactory Convert a pointer object to an existing class object
+func AsEngSchemeHandlerFactory(obj any) IEngSchemeHandlerFactory {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngSchemeHandlerFactory)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngSetCookieCallback Convert a pointer object to an existing class object
+func AsEngSetCookieCallback(obj any) IEngSetCookieCallback {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngSetCookieCallback)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngStringVisitor Convert a pointer object to an existing class object
+func AsEngStringVisitor(obj any) IEngStringVisitor {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngStringVisitor)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngTask Convert a pointer object to an existing class object
+func AsEngTask(obj any) IEngTask {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngTask)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngUrlrequestClient Convert a pointer object to an existing class object
+func AsEngUrlrequestClient(obj any) IEngUrlrequestClient {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngUrlrequestClient)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngV8Accessor Convert a pointer object to an existing class object
+func AsEngV8Accessor(obj any) IEngV8Accessor {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngV8Accessor)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngV8ArrayBufferReleaseCallback Convert a pointer object to an existing class object
+func AsEngV8ArrayBufferReleaseCallback(obj any) IEngV8ArrayBufferReleaseCallback {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngV8ArrayBufferReleaseCallback)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngV8Handler Convert a pointer object to an existing class object
+func AsEngV8Handler(obj any) IEngV8Handler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngV8Handler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngV8Interceptor Convert a pointer object to an existing class object
+func AsEngV8Interceptor(obj any) IEngV8Interceptor {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngV8Interceptor)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngServerHandler Convert a pointer object to an existing class object
+func AsEngServerHandler(obj any) IEngServerHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngServerHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngCookieAccessFilter Convert a pointer object to an existing class object
+func AsEngCookieAccessFilter(obj any) IEngCookieAccessFilter {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngCookieAccessFilter)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngResourceRequestHandler Convert a pointer object to an existing class object
+func AsEngResourceRequestHandler(obj any) IEngResourceRequestHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngResourceRequestHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngMediaObserver Convert a pointer object to an existing class object
+func AsEngMediaObserver(obj any) IEngMediaObserver {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngMediaObserver)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngMediaRouteCreateCallback Convert a pointer object to an existing class object
+func AsEngMediaRouteCreateCallback(obj any) IEngMediaRouteCreateCallback {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngMediaRouteCreateCallback)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngMenuButtonDelegate Convert a pointer object to an existing class object
+func AsEngMenuButtonDelegate(obj any) IEngMenuButtonDelegate {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngMenuButtonDelegate)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngButtonDelegate Convert a pointer object to an existing class object
+func AsEngButtonDelegate(obj any) IEngButtonDelegate {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngButtonDelegate)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngBrowserViewDelegate Convert a pointer object to an existing class object
+func AsEngBrowserViewDelegate(obj any) IEngBrowserViewDelegate {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngBrowserViewDelegate)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngPanelDelegate Convert a pointer object to an existing class object
+func AsEngPanelDelegate(obj any) IEngPanelDelegate {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngPanelDelegate)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngTextfieldDelegate Convert a pointer object to an existing class object
+func AsEngTextfieldDelegate(obj any) IEngTextfieldDelegate {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngTextfieldDelegate)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngViewDelegate Convert a pointer object to an existing class object
+func AsEngViewDelegate(obj any) IEngViewDelegate {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngViewDelegate)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngAudioHandler Convert a pointer object to an existing class object
+func AsEngAudioHandler(obj any) IEngAudioHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngAudioHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngDevToolsMessageObserver Convert a pointer object to an existing class object
+func AsEngDevToolsMessageObserver(obj any) IEngDevToolsMessageObserver {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngDevToolsMessageObserver)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngMediaSinkDeviceInfoCallback Convert a pointer object to an existing class object
+func AsEngMediaSinkDeviceInfoCallback(obj any) IEngMediaSinkDeviceInfoCallback {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngMediaSinkDeviceInfoCallback)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngPrintHandler Convert a pointer object to an existing class object
+func AsEngPrintHandler(obj any) IEngPrintHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngPrintHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngFrameHandler Convert a pointer object to an existing class object
+func AsEngFrameHandler(obj any) IEngFrameHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngFrameHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngCommandHandler Convert a pointer object to an existing class object
+func AsEngCommandHandler(obj any) IEngCommandHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngCommandHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngPermissionHandler Convert a pointer object to an existing class object
+func AsEngPermissionHandler(obj any) IEngPermissionHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngPermissionHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngMediaAccessHandler Convert a pointer object to an existing class object
+func AsEngMediaAccessHandler(obj any) IEngMediaAccessHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngMediaAccessHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngClient Convert a pointer object to an existing class object
+func AsEngClient(obj any) IEngClient {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngClient)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngWindowDelegate Convert a pointer object to an existing class object
+func AsEngWindowDelegate(obj any) IEngWindowDelegate {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngWindowDelegate)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngExtensionHandler Convert a pointer object to an existing class object
+func AsEngExtensionHandler(obj any) IEngExtensionHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngExtensionHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngAccessibilityHandler Convert a pointer object to an existing class object
+func AsEngAccessibilityHandler(obj any) IEngAccessibilityHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngAccessibilityHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngWriteHandler Convert a pointer object to an existing class object
+func AsEngWriteHandler(obj any) IEngWriteHandler {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngWriteHandler)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngApp Convert a pointer object to an existing class object
+func AsEngApp(obj any) IEngApp {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngApp)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefAuthCallbackRef Convert a pointer object to an existing class object
+func AsCefAuthCallbackRef(obj any) ICefAuthCallbackRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefAuthCallbackRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefBeforeDownloadCallbackRef Convert a pointer object to an existing class object
+func AsCefBeforeDownloadCallbackRef(obj any) ICefBeforeDownloadCallbackRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefBeforeDownloadCallbackRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefBinaryValueRef Convert a pointer object to an existing class object
+func AsCefBinaryValueRef(obj any) ICefBinaryValueRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefBinaryValueRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefBrowserRef Convert a pointer object to an existing class object
+func AsCefBrowserRef(obj any) ICefBrowserRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefBrowserRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefBrowserHostRef Convert a pointer object to an existing class object
+func AsCefBrowserHostRef(obj any) ICefBrowserHostRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefBrowserHostRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefCallbackRef Convert a pointer object to an existing class object
+func AsCefCallbackRef(obj any) ICefCallbackRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefCallbackRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefCommandLineRef Convert a pointer object to an existing class object
+func AsCefCommandLineRef(obj any) ICefCommandLineRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefCommandLineRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefContextMenuParamsRef Convert a pointer object to an existing class object
+func AsCefContextMenuParamsRef(obj any) ICefContextMenuParamsRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefContextMenuParamsRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefCookieManagerRef Convert a pointer object to an existing class object
+func AsCefCookieManagerRef(obj any) ICefCookieManagerRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefCookieManagerRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefCustomStreamReader Convert a pointer object to an existing class object
+func AsCefCustomStreamReader(obj any) ICefCustomStreamReader {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefCustomStreamReader)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefDictionaryValueRef Convert a pointer object to an existing class object
+func AsCefDictionaryValueRef(obj any) ICefDictionaryValueRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefDictionaryValueRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefDomDocumentRef Convert a pointer object to an existing class object
+func AsCefDomDocumentRef(obj any) ICefDomDocumentRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefDomDocumentRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefDomNodeRef Convert a pointer object to an existing class object
+func AsCefDomNodeRef(obj any) ICefDomNodeRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefDomNodeRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefDownloadItemRef Convert a pointer object to an existing class object
+func AsCefDownloadItemRef(obj any) ICefDownloadItemRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefDownloadItemRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefDownloadItemCallbackRef Convert a pointer object to an existing class object
+func AsCefDownloadItemCallbackRef(obj any) ICefDownloadItemCallbackRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefDownloadItemCallbackRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefDragDataRef Convert a pointer object to an existing class object
+func AsCefDragDataRef(obj any) ICefDragDataRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefDragDataRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefFileDialogCallbackRef Convert a pointer object to an existing class object
+func AsCefFileDialogCallbackRef(obj any) ICefFileDialogCallbackRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefFileDialogCallbackRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefFrameRef Convert a pointer object to an existing class object
+func AsCefFrameRef(obj any) ICefFrameRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefFrameRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefImageRef Convert a pointer object to an existing class object
+func AsCefImageRef(obj any) ICefImageRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefImageRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefJsDialogCallbackRef Convert a pointer object to an existing class object
+func AsCefJsDialogCallbackRef(obj any) ICefJsDialogCallbackRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefJsDialogCallbackRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefListValueRef Convert a pointer object to an existing class object
+func AsCefListValueRef(obj any) ICefListValueRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefListValueRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefMenuModelRef Convert a pointer object to an existing class object
+func AsCefMenuModelRef(obj any) ICefMenuModelRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefMenuModelRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefNavigationEntryRef Convert a pointer object to an existing class object
+func AsCefNavigationEntryRef(obj any) ICefNavigationEntryRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefNavigationEntryRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefPostDataRef Convert a pointer object to an existing class object
+func AsCefPostDataRef(obj any) ICefPostDataRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefPostDataRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefPostDataElementRef Convert a pointer object to an existing class object
+func AsCefPostDataElementRef(obj any) ICefPostDataElementRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefPostDataElementRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefPrintSettingsRef Convert a pointer object to an existing class object
+func AsCefPrintSettingsRef(obj any) ICefPrintSettingsRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefPrintSettingsRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefProcessMessageRef Convert a pointer object to an existing class object
+func AsCefProcessMessageRef(obj any) ICefProcessMessageRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefProcessMessageRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefRequestRef Convert a pointer object to an existing class object
+func AsCefRequestRef(obj any) ICefRequestRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefRequestRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefRequestContextRef Convert a pointer object to an existing class object
+func AsCefRequestContextRef(obj any) ICefRequestContextRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefRequestContextRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefResourceBundleRef Convert a pointer object to an existing class object
+func AsCefResourceBundleRef(obj any) ICefResourceBundleRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefResourceBundleRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefResponseRef Convert a pointer object to an existing class object
+func AsCefResponseRef(obj any) ICefResponseRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefResponseRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefRunContextMenuCallbackRef Convert a pointer object to an existing class object
+func AsCefRunContextMenuCallbackRef(obj any) ICefRunContextMenuCallbackRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefRunContextMenuCallbackRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefSelectClientCertificateCallbackRef Convert a pointer object to an existing class object
+func AsCefSelectClientCertificateCallbackRef(obj any) ICefSelectClientCertificateCallbackRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefSelectClientCertificateCallbackRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefSslInfoRef Convert a pointer object to an existing class object
+func AsCefSslInfoRef(obj any) ICefSslInfoRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefSslInfoRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefSSLStatusRef Convert a pointer object to an existing class object
+func AsCefSSLStatusRef(obj any) ICefSSLStatusRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefSSLStatusRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefStreamReaderRef Convert a pointer object to an existing class object
+func AsCefStreamReaderRef(obj any) ICefStreamReaderRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefStreamReaderRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefStreamWriterRef Convert a pointer object to an existing class object
+func AsCefStreamWriterRef(obj any) ICefStreamWriterRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefStreamWriterRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefStringMultimapOwn Convert a pointer object to an existing class object
+func AsCefStringMultimapOwn(obj any) ICefStringMultimapOwn {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefStringMultimapOwn)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefCustomStringMultimap Convert a pointer object to an existing class object
+func AsCefCustomStringMultimap(obj any) ICefCustomStringMultimap {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefCustomStringMultimap)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefTaskRunnerRef Convert a pointer object to an existing class object
+func AsCefTaskRunnerRef(obj any) ICefTaskRunnerRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefTaskRunnerRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefThreadRef Convert a pointer object to an existing class object
+func AsCefThreadRef(obj any) ICefThreadRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefThreadRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefUrlRequestRef Convert a pointer object to an existing class object
+func AsCefUrlRequestRef(obj any) ICefUrlRequestRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefUrlRequestRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefv8ContextRef Convert a pointer object to an existing class object
+func AsCefv8ContextRef(obj any) ICefv8ContextRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefv8ContextRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefV8ExceptionRef Convert a pointer object to an existing class object
+func AsCefV8ExceptionRef(obj any) ICefV8ExceptionRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefV8ExceptionRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefV8StackFrameRef Convert a pointer object to an existing class object
+func AsCefV8StackFrameRef(obj any) ICefV8StackFrameRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefV8StackFrameRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefV8StackTraceRef Convert a pointer object to an existing class object
+func AsCefV8StackTraceRef(obj any) ICefV8StackTraceRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefV8StackTraceRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefv8ValueRef Convert a pointer object to an existing class object
+func AsCefv8ValueRef(obj any) ICefv8ValueRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefv8ValueRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefValueRef Convert a pointer object to an existing class object
+func AsCefValueRef(obj any) ICefValueRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefValueRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefWaitableEventRef Convert a pointer object to an existing class object
+func AsCefWaitableEventRef(obj any) ICefWaitableEventRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefWaitableEventRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCEFX509CertificateRef Convert a pointer object to an existing class object
+func AsCEFX509CertificateRef(obj any) ICEFX509CertificateRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFX509CertificateRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefX509CertPrincipalRef Convert a pointer object to an existing class object
+func AsCefX509CertPrincipalRef(obj any) ICefX509CertPrincipalRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefX509CertPrincipalRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefXmlReaderRef Convert a pointer object to an existing class object
+func AsCefXmlReaderRef(obj any) ICefXmlReaderRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefXmlReaderRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefZipReaderRef Convert a pointer object to an existing class object
+func AsCefZipReaderRef(obj any) ICefZipReaderRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefZipReaderRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCEFServerRef Convert a pointer object to an existing class object
+func AsCEFServerRef(obj any) ICEFServerRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFServerRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefResourceReadCallbackRef Convert a pointer object to an existing class object
+func AsCefResourceReadCallbackRef(obj any) ICefResourceReadCallbackRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefResourceReadCallbackRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefResourceSkipCallbackRef Convert a pointer object to an existing class object
+func AsCefResourceSkipCallbackRef(obj any) ICefResourceSkipCallbackRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefResourceSkipCallbackRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefMediaRouteRef Convert a pointer object to an existing class object
+func AsCefMediaRouteRef(obj any) ICefMediaRouteRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefMediaRouteRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefMediaRouterRef Convert a pointer object to an existing class object
+func AsCefMediaRouterRef(obj any) ICefMediaRouterRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefMediaRouterRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefMediaSinkRef Convert a pointer object to an existing class object
+func AsCefMediaSinkRef(obj any) ICefMediaSinkRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefMediaSinkRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefMediaSourceRef Convert a pointer object to an existing class object
+func AsCefMediaSourceRef(obj any) ICefMediaSourceRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefMediaSourceRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefWindowRef Convert a pointer object to an existing class object
+func AsCefWindowRef(obj any) ICefWindowRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefWindowRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefMenuButtonRef Convert a pointer object to an existing class object
+func AsCefMenuButtonRef(obj any) ICefMenuButtonRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefMenuButtonRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefLabelButtonRef Convert a pointer object to an existing class object
+func AsCefLabelButtonRef(obj any) ICefLabelButtonRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefLabelButtonRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefButtonRef Convert a pointer object to an existing class object
+func AsCefButtonRef(obj any) ICefButtonRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefButtonRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefBrowserViewRef Convert a pointer object to an existing class object
+func AsCefBrowserViewRef(obj any) ICefBrowserViewRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefBrowserViewRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefPanelRef Convert a pointer object to an existing class object
+func AsCefPanelRef(obj any) ICefPanelRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefPanelRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefScrollViewRef Convert a pointer object to an existing class object
+func AsCefScrollViewRef(obj any) ICefScrollViewRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefScrollViewRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefTextfieldRef Convert a pointer object to an existing class object
+func AsCefTextfieldRef(obj any) ICefTextfieldRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefTextfieldRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefViewRef Convert a pointer object to an existing class object
+func AsCefViewRef(obj any) ICefViewRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefViewRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefBoxLayoutRef Convert a pointer object to an existing class object
+func AsCefBoxLayoutRef(obj any) ICefBoxLayoutRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefBoxLayoutRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefLayoutRef Convert a pointer object to an existing class object
+func AsCefLayoutRef(obj any) ICefLayoutRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefLayoutRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefDisplayRef Convert a pointer object to an existing class object
+func AsCefDisplayRef(obj any) ICefDisplayRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefDisplayRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefFillLayoutRef Convert a pointer object to an existing class object
+func AsCefFillLayoutRef(obj any) ICefFillLayoutRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefFillLayoutRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefPrintDialogCallbackRef Convert a pointer object to an existing class object
+func AsCefPrintDialogCallbackRef(obj any) ICefPrintDialogCallbackRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefPrintDialogCallbackRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefPrintJobCallbackRef Convert a pointer object to an existing class object
+func AsCefPrintJobCallbackRef(obj any) ICefPrintJobCallbackRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefPrintJobCallbackRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefOverlayControllerRef Convert a pointer object to an existing class object
+func AsCefOverlayControllerRef(obj any) ICefOverlayControllerRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefOverlayControllerRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefRunQuickMenuCallbackRef Convert a pointer object to an existing class object
+func AsCefRunQuickMenuCallbackRef(obj any) ICefRunQuickMenuCallbackRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefRunQuickMenuCallbackRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefMediaAccessCallbackRef Convert a pointer object to an existing class object
+func AsCefMediaAccessCallbackRef(obj any) ICefMediaAccessCallbackRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefMediaAccessCallbackRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefPermissionPromptCallbackRef Convert a pointer object to an existing class object
+func AsCefPermissionPromptCallbackRef(obj any) ICefPermissionPromptCallbackRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefPermissionPromptCallbackRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefSharedProcessMessageBuilderRef Convert a pointer object to an existing class object
+func AsCefSharedProcessMessageBuilderRef(obj any) ICefSharedProcessMessageBuilderRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefSharedProcessMessageBuilderRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefSharedMemoryRegionRef Convert a pointer object to an existing class object
+func AsCefSharedMemoryRegionRef(obj any) ICefSharedMemoryRegionRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefSharedMemoryRegionRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefPreferenceManagerRef Convert a pointer object to an existing class object
+func AsCefPreferenceManagerRef(obj any) ICefPreferenceManagerRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefPreferenceManagerRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefRegistrationRef Convert a pointer object to an existing class object
+func AsCefRegistrationRef(obj any) ICefRegistrationRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefRegistrationRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefCustomStringMap Convert a pointer object to an existing class object
+func AsCefCustomStringMap(obj any) ICefCustomStringMap {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefCustomStringMap)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefCustomStringList Convert a pointer object to an existing class object
+func AsCefCustomStringList(obj any) ICefCustomStringList {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefCustomStringList)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefUnresponsiveProcessCallbackRef Convert a pointer object to an existing class object
+func AsCefUnresponsiveProcessCallbackRef(obj any) ICefUnresponsiveProcessCallbackRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefUnresponsiveProcessCallbackRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefMenuButtonPressedLockRef Convert a pointer object to an existing class object
+func AsCefMenuButtonPressedLockRef(obj any) ICefMenuButtonPressedLockRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefMenuButtonPressedLockRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefBaseRefCountedRef Convert a pointer object to an existing class object
+func AsCefBaseRefCountedRef(obj any) ICefBaseRefCountedRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefBaseRefCountedRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefBaseRefCountedOwn Convert a pointer object to an existing class object
+func AsCefBaseRefCountedOwn(obj any) ICefBaseRefCountedOwn {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefBaseRefCountedOwn)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefExtensionRef Convert a pointer object to an existing class object
+func AsCefExtensionRef(obj any) ICefExtensionRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefExtensionRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefGetExtensionResourceCallbackRef Convert a pointer object to an existing class object
+func AsCefGetExtensionResourceCallbackRef(obj any) ICefGetExtensionResourceCallbackRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefGetExtensionResourceCallbackRef)
+	base.SetObjectInstance(result, instance)
+	return result
 }

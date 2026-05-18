@@ -1,31 +1,51 @@
+//----------------------------------------
+//
+// Copyright © yanghy. All Rights Reserved.
+//
+// Licensed under Apache License 2.0
+//
+//----------------------------------------
+
+// :predefine:
+
 package cef
 
 import (
-	"github.com/energye/cef/cef/initialize"
-	"github.com/energye/lcl/api"
-	"github.com/energye/lcl/emfs"
-	"github.com/energye/lcl/lcl"
-	"github.com/energye/lcl/tools"
 	"os"
+
+	"github.com/energye/lcl/api"
+	"github.com/energye/lcl/lcl"
+	"github.com/energye/lcl/tool"
 )
 
-// Init 全局初始化, 需手动调用的函数
-//
-//	参数:
-//	   libs 内置到应用程序的类库
-//	   resources 内置到应用程序的资源文件
-func Init(libs emfs.IEmbedFS, resources emfs.IEmbedFS) {
-	initialize.Initialize(libs, resources)
-	// macos command line
-	if tools.IsDarwin() {
+// Init CEF
+func Init() {
+	if tool.IsDarwin() {
+	}
+	// LCL init
+	lcl.Init()
+	defer func() {
+		if err := recover(); err != nil {
+			println(err)
+			os.Exit(1)
+		}
+	}()
+	//runtime.LockOSThread()
+	//defer runtime.UnlockOSThread()
+
+	if tool.IsDarwin() {
+		// MacOS SetCommandLine
 		argsList := lcl.NewStringList()
 		for _, v := range os.Args {
 			argsList.Add(v)
 		}
-		// 手动设置进程命令参数
 		SetCommandLine(argsList)
 		argsList.Free()
 	}
-	api.SetCEFEventCallback(eventCallback)
-	api.SetCEFRemoveEventCallback(removeEventCallback)
+
+	// 注册 CEF 对象事件回调
+	api.SetEventCallback(eventCallback, api.EctCEF)
+	// 注册 CEF 对象事件回调移除
+	api.SetEventCallback(removeEventCallback, api.EctCEFRemove)
+
 }
