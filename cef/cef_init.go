@@ -30,8 +30,6 @@ func Init() {
 			os.Exit(1)
 		}
 	}()
-	//runtime.LockOSThread()
-	//defer runtime.UnlockOSThread()
 
 	if tool.IsDarwin() {
 		// MacOS SetCommandLine
@@ -43,9 +41,9 @@ func Init() {
 		argsList.Free()
 	}
 
-	// 注册 CEF 对象事件回调
+	// Register CEF object event callback
 	api.SetEventCallback(eventCallback, api.EctCEF)
-	// 注册 CEF 对象事件回调移除
+	// Unregister CEF object event callback
 	api.SetEventCallback(removeEventCallback, api.EctCEFRemove)
 
 }
