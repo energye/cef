@@ -11,6 +11,7 @@ package cef
 import (
 	cefTypes "github.com/energye/cef/types"
 	"github.com/energye/lcl/api"
+	"github.com/energye/lcl/types"
 )
 
 type TCefAudioParameters struct {
@@ -86,6 +87,23 @@ type TCefCookie struct {
 	Expires    int64                       // TCefBaseTime
 	SameSite   cefTypes.TCefCookieSameSite // TCefCookieSameSite
 	Priority   cefTypes.TCefCookiePriority // TCefCookiePriority
+}
+
+type TCefCookieManagerRefSetCookieArgs struct {
+	Url        string                      // ustring
+	Name       string                      // ustring
+	Value      string                      // ustring
+	Domain     string                      // ustring
+	Path       string                      // ustring
+	Secure     types.LongBool              // Boolean
+	Httponly   types.LongBool              // Boolean
+	HasExpires types.LongBool              // Boolean
+	Creation   types.TDateTime             // TDateTime
+	LastAccess types.TDateTime             // TDateTime
+	Expires    types.TDateTime             // TDateTime
+	SameSite   cefTypes.TCefCookieSameSite // TCefCookieSameSite
+	Priority   cefTypes.TCefCookiePriority // TCefCookiePriority
+	Callback   ICefSetCookieCallback       // ICefSetCookieCallback
 }
 
 type TCefCursorInfo struct {
@@ -234,6 +252,61 @@ type TCefTouchHandleState struct {
 	MirrorHorizontal int32                            // integer
 	Origin           TCefPoint                        // TCefPoint
 	Alpha            float32                          // single
+}
+
+type TChromiumCoreSetCookieArgs struct {
+	Url             string                      // ustring
+	Name            string                      // ustring
+	Value           string                      // ustring
+	Domain          string                      // ustring
+	Path            string                      // ustring
+	Secure          types.LongBool              // Boolean
+	Httponly        types.LongBool              // Boolean
+	HasExpires      types.LongBool              // Boolean
+	Creation        types.TDateTime             // TDateTime
+	LastAccess      types.TDateTime             // TDateTime
+	Expires         types.TDateTime             // TDateTime
+	SameSite        cefTypes.TCefCookieSameSite // TCefCookieSameSite
+	Priority        cefTypes.TCefCookiePriority // TCefCookiePriority
+	ASetImmediately types.LongBool              // boolean
+	AID             int32                       // integer
+}
+
+type TChromiumCoreSimulateKeyEventArgs struct {
+	Type                  cefTypes.TSimulatedCefKeyEventType // TSimulatedCefKeyEventType
+	Modifiers             int32                              // integer
+	Timestamp             float32                            // single
+	Text                  string                             // ustring
+	Unmodifiedtext        string                             // ustring
+	KeyIdentifier         string                             // ustring
+	Code                  string                             // ustring
+	Key                   string                             // ustring
+	WindowsVirtualKeyCode int32                              // integer
+	NativeVirtualKeyCode  int32                              // integer
+	AutoRepeat            types.LongBool                     // boolean
+	IsKeypad              types.LongBool                     // boolean
+	IsSystemKey           types.LongBool                     // boolean
+	Location              cefTypes.TCefKeyLocation           // TCefKeyLocation
+	Commands              cefTypes.TCefEditingCommand        // TCefEditingCommand
+}
+
+type TChromiumCoreSimulateMouseEventArgs struct {
+	Type               cefTypes.TCefSimulatedMouseEventType // TCefSimulatedMouseEventType
+	X                  float32                              // single
+	Y                  float32                              // single
+	Modifiers          int32                                // integer
+	Timestamp          float32                              // single
+	Button             cefTypes.TCefSimulatedMouseButton    // TCefSimulatedMouseButton
+	Buttons            int32                                // integer
+	ClickCount         int32                                // integer
+	Force              float32                              // single
+	TangentialPressure float32                              // single
+	TiltX              float32                              // single
+	TiltY              float32                              // single
+	Twist              int32                                // integer
+	DeltaX             float32                              // single
+	DeltaY             float32                              // single
+	PointerType        cefTypes.TCefSimulatedPointerType    // TCefSimulatedPointerType
 }
 
 func (m *TCefBrowserSettings) ToPas() *tCefBrowserSettings {
@@ -389,6 +462,66 @@ func (m *tCefCookie) ToGo() TCefCookie {
 		Priority:   m.Priority,
 	}
 }
+func (m *TCefCookieManagerRefSetCookieArgs) ToPas() *tCefCookieManagerRefSetCookieArgs {
+	if m == nil {
+		return nil
+	}
+	return &tCefCookieManagerRefSetCookieArgs{
+		Url:        api.PasStr(m.Url),
+		Name:       api.PasStr(m.Name),
+		Value:      api.PasStr(m.Value),
+		Domain:     api.PasStr(m.Domain),
+		Path:       api.PasStr(m.Path),
+		Secure:     m.Secure,
+		Httponly:   m.Httponly,
+		HasExpires: m.HasExpires,
+		Creation:   m.Creation,
+		LastAccess: m.LastAccess,
+		Expires:    m.Expires,
+		SameSite:   m.SameSite,
+		Priority:   m.Priority,
+		Callback:   m.Callback,
+	}
+}
+
+type tCefCookieManagerRefSetCookieArgs struct {
+	Url        uintptr                     // ustring
+	Name       uintptr                     // ustring
+	Value      uintptr                     // ustring
+	Domain     uintptr                     // ustring
+	Path       uintptr                     // ustring
+	Secure     types.LongBool              // Boolean
+	Httponly   types.LongBool              // Boolean
+	HasExpires types.LongBool              // Boolean
+	Creation   types.TDateTime             // TDateTime
+	LastAccess types.TDateTime             // TDateTime
+	Expires    types.TDateTime             // TDateTime
+	SameSite   cefTypes.TCefCookieSameSite // TCefCookieSameSite
+	Priority   cefTypes.TCefCookiePriority // TCefCookiePriority
+	Callback   ICefSetCookieCallback       // ICefSetCookieCallback
+}
+
+func (m *tCefCookieManagerRefSetCookieArgs) ToGo() TCefCookieManagerRefSetCookieArgs {
+	if m == nil {
+		return TCefCookieManagerRefSetCookieArgs{}
+	}
+	return TCefCookieManagerRefSetCookieArgs{
+		Url:        api.GoStr(m.Url),
+		Name:       api.GoStr(m.Name),
+		Value:      api.GoStr(m.Value),
+		Domain:     api.GoStr(m.Domain),
+		Path:       api.GoStr(m.Path),
+		Secure:     m.Secure,
+		Httponly:   m.Httponly,
+		HasExpires: m.HasExpires,
+		Creation:   m.Creation,
+		LastAccess: m.LastAccess,
+		Expires:    m.Expires,
+		SameSite:   m.SameSite,
+		Priority:   m.Priority,
+		Callback:   m.Callback,
+	}
+}
 func (m *TCefPdfPrintSettings) ToPas() *tCefPdfPrintSettings {
 	if m == nil {
 		return nil
@@ -492,5 +625,197 @@ func (m *tCefRequestContextSettings) ToGo() TCefRequestContextSettings {
 		AcceptLanguageList:               api.GoStr(m.AcceptLanguageList),
 		CookieableSchemesList:            api.GoStr(m.CookieableSchemesList),
 		CookieableSchemesExcludeDefaults: m.CookieableSchemesExcludeDefaults,
+	}
+}
+func (m *TChromiumCoreSetCookieArgs) ToPas() *tChromiumCoreSetCookieArgs {
+	if m == nil {
+		return nil
+	}
+	return &tChromiumCoreSetCookieArgs{
+		Url:             api.PasStr(m.Url),
+		Name:            api.PasStr(m.Name),
+		Value:           api.PasStr(m.Value),
+		Domain:          api.PasStr(m.Domain),
+		Path:            api.PasStr(m.Path),
+		Secure:          m.Secure,
+		Httponly:        m.Httponly,
+		HasExpires:      m.HasExpires,
+		Creation:        m.Creation,
+		LastAccess:      m.LastAccess,
+		Expires:         m.Expires,
+		SameSite:        m.SameSite,
+		Priority:        m.Priority,
+		ASetImmediately: m.ASetImmediately,
+		AID:             m.AID,
+	}
+}
+
+type tChromiumCoreSetCookieArgs struct {
+	Url             uintptr                     // ustring
+	Name            uintptr                     // ustring
+	Value           uintptr                     // ustring
+	Domain          uintptr                     // ustring
+	Path            uintptr                     // ustring
+	Secure          types.LongBool              // Boolean
+	Httponly        types.LongBool              // Boolean
+	HasExpires      types.LongBool              // Boolean
+	Creation        types.TDateTime             // TDateTime
+	LastAccess      types.TDateTime             // TDateTime
+	Expires         types.TDateTime             // TDateTime
+	SameSite        cefTypes.TCefCookieSameSite // TCefCookieSameSite
+	Priority        cefTypes.TCefCookiePriority // TCefCookiePriority
+	ASetImmediately types.LongBool              // boolean
+	AID             int32                       // integer
+}
+
+func (m *tChromiumCoreSetCookieArgs) ToGo() TChromiumCoreSetCookieArgs {
+	if m == nil {
+		return TChromiumCoreSetCookieArgs{}
+	}
+	return TChromiumCoreSetCookieArgs{
+		Url:             api.GoStr(m.Url),
+		Name:            api.GoStr(m.Name),
+		Value:           api.GoStr(m.Value),
+		Domain:          api.GoStr(m.Domain),
+		Path:            api.GoStr(m.Path),
+		Secure:          m.Secure,
+		Httponly:        m.Httponly,
+		HasExpires:      m.HasExpires,
+		Creation:        m.Creation,
+		LastAccess:      m.LastAccess,
+		Expires:         m.Expires,
+		SameSite:        m.SameSite,
+		Priority:        m.Priority,
+		ASetImmediately: m.ASetImmediately,
+		AID:             m.AID,
+	}
+}
+func (m *TChromiumCoreSimulateKeyEventArgs) ToPas() *tChromiumCoreSimulateKeyEventArgs {
+	if m == nil {
+		return nil
+	}
+	return &tChromiumCoreSimulateKeyEventArgs{
+		Type:                  m.Type,
+		Modifiers:             m.Modifiers,
+		Timestamp:             m.Timestamp,
+		Text:                  api.PasStr(m.Text),
+		Unmodifiedtext:        api.PasStr(m.Unmodifiedtext),
+		KeyIdentifier:         api.PasStr(m.KeyIdentifier),
+		Code:                  api.PasStr(m.Code),
+		Key:                   api.PasStr(m.Key),
+		WindowsVirtualKeyCode: m.WindowsVirtualKeyCode,
+		NativeVirtualKeyCode:  m.NativeVirtualKeyCode,
+		AutoRepeat:            m.AutoRepeat,
+		IsKeypad:              m.IsKeypad,
+		IsSystemKey:           m.IsSystemKey,
+		Location:              m.Location,
+		Commands:              m.Commands,
+	}
+}
+
+type tChromiumCoreSimulateKeyEventArgs struct {
+	Type                  cefTypes.TSimulatedCefKeyEventType // TSimulatedCefKeyEventType
+	Modifiers             int32                              // integer
+	Timestamp             float32                            // single
+	Text                  uintptr                            // ustring
+	Unmodifiedtext        uintptr                            // ustring
+	KeyIdentifier         uintptr                            // ustring
+	Code                  uintptr                            // ustring
+	Key                   uintptr                            // ustring
+	WindowsVirtualKeyCode int32                              // integer
+	NativeVirtualKeyCode  int32                              // integer
+	AutoRepeat            types.LongBool                     // boolean
+	IsKeypad              types.LongBool                     // boolean
+	IsSystemKey           types.LongBool                     // boolean
+	Location              cefTypes.TCefKeyLocation           // TCefKeyLocation
+	Commands              cefTypes.TCefEditingCommand        // TCefEditingCommand
+}
+
+func (m *tChromiumCoreSimulateKeyEventArgs) ToGo() TChromiumCoreSimulateKeyEventArgs {
+	if m == nil {
+		return TChromiumCoreSimulateKeyEventArgs{}
+	}
+	return TChromiumCoreSimulateKeyEventArgs{
+		Type:                  m.Type,
+		Modifiers:             m.Modifiers,
+		Timestamp:             m.Timestamp,
+		Text:                  api.GoStr(m.Text),
+		Unmodifiedtext:        api.GoStr(m.Unmodifiedtext),
+		KeyIdentifier:         api.GoStr(m.KeyIdentifier),
+		Code:                  api.GoStr(m.Code),
+		Key:                   api.GoStr(m.Key),
+		WindowsVirtualKeyCode: m.WindowsVirtualKeyCode,
+		NativeVirtualKeyCode:  m.NativeVirtualKeyCode,
+		AutoRepeat:            m.AutoRepeat,
+		IsKeypad:              m.IsKeypad,
+		IsSystemKey:           m.IsSystemKey,
+		Location:              m.Location,
+		Commands:              m.Commands,
+	}
+}
+func (m *TChromiumCoreSimulateMouseEventArgs) ToPas() *tChromiumCoreSimulateMouseEventArgs {
+	if m == nil {
+		return nil
+	}
+	return &tChromiumCoreSimulateMouseEventArgs{
+		Type:               m.Type,
+		X:                  m.X,
+		Y:                  m.Y,
+		Modifiers:          m.Modifiers,
+		Timestamp:          m.Timestamp,
+		Button:             m.Button,
+		Buttons:            m.Buttons,
+		ClickCount:         m.ClickCount,
+		Force:              m.Force,
+		TangentialPressure: m.TangentialPressure,
+		TiltX:              m.TiltX,
+		TiltY:              m.TiltY,
+		Twist:              m.Twist,
+		DeltaX:             m.DeltaX,
+		DeltaY:             m.DeltaY,
+		PointerType:        m.PointerType,
+	}
+}
+
+type tChromiumCoreSimulateMouseEventArgs struct {
+	Type               cefTypes.TCefSimulatedMouseEventType // TCefSimulatedMouseEventType
+	X                  float32                              // single
+	Y                  float32                              // single
+	Modifiers          int32                                // integer
+	Timestamp          float32                              // single
+	Button             cefTypes.TCefSimulatedMouseButton    // TCefSimulatedMouseButton
+	Buttons            int32                                // integer
+	ClickCount         int32                                // integer
+	Force              float32                              // single
+	TangentialPressure float32                              // single
+	TiltX              float32                              // single
+	TiltY              float32                              // single
+	Twist              int32                                // integer
+	DeltaX             float32                              // single
+	DeltaY             float32                              // single
+	PointerType        cefTypes.TCefSimulatedPointerType    // TCefSimulatedPointerType
+}
+
+func (m *tChromiumCoreSimulateMouseEventArgs) ToGo() TChromiumCoreSimulateMouseEventArgs {
+	if m == nil {
+		return TChromiumCoreSimulateMouseEventArgs{}
+	}
+	return TChromiumCoreSimulateMouseEventArgs{
+		Type:               m.Type,
+		X:                  m.X,
+		Y:                  m.Y,
+		Modifiers:          m.Modifiers,
+		Timestamp:          m.Timestamp,
+		Button:             m.Button,
+		Buttons:            m.Buttons,
+		ClickCount:         m.ClickCount,
+		Force:              m.Force,
+		TangentialPressure: m.TangentialPressure,
+		TiltX:              m.TiltX,
+		TiltY:              m.TiltY,
+		Twist:              m.Twist,
+		DeltaX:             m.DeltaX,
+		DeltaY:             m.DeltaY,
+		PointerType:        m.PointerType,
 	}
 }

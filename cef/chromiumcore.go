@@ -1497,11 +1497,12 @@ func (m *TChromiumCore) VisitURLCookies(url string, includeHttpOnly bool, iD int
 	return api.GoBool(r)
 }
 
-func (m *TChromiumCore) SetCookie(url string, name string, value string, domain string, path string, secure bool, httponly bool, hasExpires bool, creation types.TDateTime, lastAccess types.TDateTime, expires types.TDateTime, sameSite cefTypes.TCefCookieSameSite, priority cefTypes.TCefCookiePriority, setImmediately bool, iD int32) bool {
+func (m *TChromiumCore) SetCookie(args TChromiumCoreSetCookieArgs) bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := chromiumCoreAPI().SysCallN(20, m.Instance(), api.PasStr(url), api.PasStr(name), api.PasStr(value), api.PasStr(domain), api.PasStr(path), api.PasBool(secure), api.PasBool(httponly), api.PasBool(hasExpires), uintptr(base.UnsafePointer(&creation)), uintptr(base.UnsafePointer(&lastAccess)), uintptr(base.UnsafePointer(&expires)), uintptr(sameSite), uintptr(priority), api.PasBool(setImmediately), uintptr(iD))
+	argsPtr := args.ToPas()
+	r := chromiumCoreAPI().SysCallN(20, m.Instance(), uintptr(base.UnsafePointer(argsPtr)))
 	return api.GoBool(r)
 }
 
@@ -1738,18 +1739,20 @@ func (m *TChromiumCore) SimulateMouseWheel(deltaX int32, deltaY int32) {
 	chromiumCoreAPI().SysCallN(50, m.Instance(), uintptr(deltaX), uintptr(deltaY))
 }
 
-func (m *TChromiumCore) SimulateKeyEvent(type_ cefTypes.TSimulatedCefKeyEventType, modifiers int32, timestamp float32, text string, unmodifiedtext string, keyIdentifier string, code string, key string, windowsVirtualKeyCode int32, nativeVirtualKeyCode int32, autoRepeat bool, isKeypad bool, isSystemKey bool, location cefTypes.TCefKeyLocation, commands cefTypes.TCefEditingCommand) {
+func (m *TChromiumCore) SimulateKeyEvent(args TChromiumCoreSimulateKeyEventArgs) {
 	if !m.IsValid() {
 		return
 	}
-	chromiumCoreAPI().SysCallN(51, m.Instance(), uintptr(type_), uintptr(modifiers), uintptr(base.UnsafePointer(&timestamp)), api.PasStr(text), api.PasStr(unmodifiedtext), api.PasStr(keyIdentifier), api.PasStr(code), api.PasStr(key), uintptr(windowsVirtualKeyCode), uintptr(nativeVirtualKeyCode), api.PasBool(autoRepeat), api.PasBool(isKeypad), api.PasBool(isSystemKey), uintptr(location), uintptr(commands))
+	argsPtr := args.ToPas()
+	chromiumCoreAPI().SysCallN(51, m.Instance(), uintptr(base.UnsafePointer(argsPtr)))
 }
 
-func (m *TChromiumCore) SimulateMouseEvent(type_ cefTypes.TCefSimulatedMouseEventType, X float32, Y float32, modifiers int32, timestamp float32, button cefTypes.TCefSimulatedMouseButton, buttons int32, clickCount int32, force float32, tangentialPressure float32, tiltX float32, tiltY float32, twist int32, deltaX float32, deltaY float32, pointerType cefTypes.TCefSimulatedPointerType) {
+func (m *TChromiumCore) SimulateMouseEvent(args TChromiumCoreSimulateMouseEventArgs) {
 	if !m.IsValid() {
 		return
 	}
-	chromiumCoreAPI().SysCallN(52, m.Instance(), uintptr(type_), uintptr(base.UnsafePointer(&X)), uintptr(base.UnsafePointer(&Y)), uintptr(modifiers), uintptr(base.UnsafePointer(&timestamp)), uintptr(button), uintptr(buttons), uintptr(clickCount), uintptr(base.UnsafePointer(&force)), uintptr(base.UnsafePointer(&tangentialPressure)), uintptr(base.UnsafePointer(&tiltX)), uintptr(base.UnsafePointer(&tiltY)), uintptr(twist), uintptr(base.UnsafePointer(&deltaX)), uintptr(base.UnsafePointer(&deltaY)), uintptr(pointerType))
+	argsPtr := args.ToPas()
+	chromiumCoreAPI().SysCallN(52, m.Instance(), uintptr(base.UnsafePointer(argsPtr)))
 }
 
 func (m *TChromiumCore) SimulateEditingCommand(command cefTypes.TCefEditingCommand) {

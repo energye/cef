@@ -86,11 +86,12 @@ func (m *TCefCookieManagerRef) VisitUrlCookies(url string, includeHttpOnly bool,
 	return api.GoBool(r)
 }
 
-func (m *TCefCookieManagerRef) SetCookie(url string, name string, value string, domain string, path string, secure bool, httponly bool, hasExpires bool, creation types.TDateTime, lastAccess types.TDateTime, expires types.TDateTime, sameSite cefTypes.TCefCookieSameSite, priority cefTypes.TCefCookiePriority, callback IEngSetCookieCallback) bool {
+func (m *TCefCookieManagerRef) SetCookie(args TCefCookieManagerRefSetCookieArgs) bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefCookieManagerRefAPI().SysCallN(3, m.Instance(), api.PasStr(url), api.PasStr(name), api.PasStr(value), api.PasStr(domain), api.PasStr(path), api.PasBool(secure), api.PasBool(httponly), api.PasBool(hasExpires), uintptr(base.UnsafePointer(&creation)), uintptr(base.UnsafePointer(&lastAccess)), uintptr(base.UnsafePointer(&expires)), uintptr(sameSite), uintptr(priority), base.GetObjectUintptr(callback))
+	argsPtr := args.ToPas()
+	r := cefCookieManagerRefAPI().SysCallN(3, m.Instance(), uintptr(base.UnsafePointer(argsPtr)))
 	return api.GoBool(r)
 }
 
