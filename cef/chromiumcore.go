@@ -135,7 +135,7 @@ type IChromiumCore interface {
 	//  TChromiumCore.SetCookie triggers the TChromiumCore.OnCookieSet event when the cookie has been set
 	//  aID is an optional parameter to identify which SetCookie call has triggered the
 	//  OnCookieSet event.
-	SetCookie(url string, name string, value string, domain string, path string, secure bool, httponly bool, hasExpires bool, creation types.TDateTime, lastAccess types.TDateTime, expires types.TDateTime, sameSite cefTypes.TCefCookieSameSite, priority cefTypes.TCefCookiePriority, setImmediately bool, iD int32) bool // function
+	SetCookie(args TChromiumCoreSetCookieArgs) bool // function
 	// FlushCookieStore
 	//  Flush the backing store (if any) to disk.
 	//  <param name="aFlushImmediately">If aFlushImmediately is false the cookies will be flushed on the CEF UI thread and the OnCookiesFlushed event will be triggered.</param>
@@ -341,7 +341,7 @@ type IChromiumCore interface {
 	//  <param name="location">Whether the event was from the left or right side of the keyboard. 1=Left, 2=Right.(default: 0).</param>
 	//  <param name="commands">Editing commands to send with the key event (e.g., 'selectAll') (default: []). These are related to but not equal the command names used in document.execCommand and NSStandardKeyBindingResponding. See https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/editing/commands/editor_command_names.h for valid command names.</param>
 	//  <see href="https://chromedevtools.github.io/devtools-protocol/1-3/Input/#method-dispatchKeyEvent">See the "Input.dispatchKeyEvent" DevTools method.</see>
-	SimulateKeyEvent(type_ cefTypes.TSimulatedCefKeyEventType, modifiers int32, timestamp float32, text string, unmodifiedtext string, keyIdentifier string, code string, key string, windowsVirtualKeyCode int32, nativeVirtualKeyCode int32, autoRepeat bool, isKeypad bool, isSystemKey bool, location cefTypes.TCefKeyLocation, commands cefTypes.TCefEditingCommand) // procedure
+	SimulateKeyEvent(args TChromiumCoreSimulateKeyEventArgs) // procedure
 	// SimulateMouseEvent
 	//  Dispatches a key event to the page using the "Input.dispatchKeyEvent"
 	//  DevTools method. The browser has to be focused before simulating any
@@ -363,7 +363,7 @@ type IChromiumCore interface {
 	//  <param name="deltaY">Y delta in CSS pixels for mouse wheel event (default: 0).</param>
 	//  <param name="pointerType">Pointer type (default: "mouse").</param>
 	//  <see href="https://chromedevtools.github.io/devtools-protocol/1-3/Input/#method-dispatchKeyEvent">See the "Input.dispatchKeyEvent" DevTools method.</see>
-	SimulateMouseEvent(type_ cefTypes.TCefSimulatedMouseEventType, X float32, Y float32, modifiers int32, timestamp float32, button cefTypes.TCefSimulatedMouseButton, buttons int32, clickCount int32, force float32, tangentialPressure float32, tiltX float32, tiltY float32, twist int32, deltaX float32, deltaY float32, pointerType cefTypes.TCefSimulatedPointerType) // procedure
+	SimulateMouseEvent(args TChromiumCoreSimulateMouseEventArgs) // procedure
 	// SimulateEditingCommand
 	//  Simulate editing commands using the "Input.dispatchKeyEvent" DevTools method.
 	//  <see href="https://chromedevtools.github.io/devtools-protocol/1-3/Input/#method-dispatchKeyEvent">See the "Input.dispatchKeyEvent" DevTools method.</see>

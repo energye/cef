@@ -12,9 +12,6 @@ import (
 	"github.com/energye/lcl/api"
 	"github.com/energye/lcl/api/imports"
 	"github.com/energye/lcl/base"
-	"github.com/energye/lcl/types"
-
-	cefTypes "github.com/energye/cef/types"
 )
 
 // ICefCookieManager Parent: ICefBaseRefCounted
@@ -40,7 +37,7 @@ type ICefCookieManager interface {
 	//  such characters are found. If |callback| is non-NULL it will be executed
 	//  asnychronously on the UI thread after the cookie has been set. Returns
 	//  false (0) if an invalid URL is specified or if cookies cannot be accessed.
-	SetCookie(url string, name string, value string, domain string, path string, secure bool, httponly bool, hasExpires bool, creation types.TDateTime, lastAccess types.TDateTime, expires types.TDateTime, sameSite cefTypes.TCefCookieSameSite, priority cefTypes.TCefCookiePriority, callback IEngSetCookieCallback) bool // function
+	SetCookie(args TCefCookieManagerRefSetCookieArgs) bool // function
 	// DeleteCookies
 	//  Delete all cookies that match the specified parameters. If both |url| and
 	//  |cookie_name| values are specified all host and domain cookies matching
