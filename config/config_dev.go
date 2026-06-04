@@ -37,7 +37,6 @@ func init() {
 				println("[ERROR] Unmarshal .energy file Error:", err.Error())
 				return
 			}
-			return
 		}
 	}
 }
