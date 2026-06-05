@@ -11,9 +11,11 @@
 package config
 
 var (
+	// GConfig ~/.energy/config.json CEF
 	GConfig = &Config{}
 )
 
+// Config ~/.energy/config.json
 type Config struct {
 	Chromium TChromium `json:"chromium"`
 }

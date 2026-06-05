@@ -44,6 +44,7 @@ func init() {
 	}
 }
 
+// ChromiumPath returns the CEF framework directory
 func (m *Config) ChromiumPath() string {
 	if m.Chromium.Version != "" {
 		return filepath.Join(m.Chromium.Dir, m.Chromium.Version)
@@ -51,8 +52,8 @@ func (m *Config) ChromiumPath() string {
 	return resolveChromiumPath(m.Chromium.Dir)
 }
 
-// resolveChromiumPath 从 chromium 根目录中查找匹配当前系统和架构的最新版本目录
-// 目录格式: {os}_{arch}_{version}，例如 windows_amd64_127.3.5
+// resolveChromiumPath looks up the latest version directory matching the current OS and architecture from the Chromium root directory
+// Directory format: {os}_{arch}_{version}, e.g. windows_amd64_127.3.5
 func resolveChromiumPath(chromiumDir string) string {
 	if chromiumDir == "" {
 		println("[Warning] chromium directory is empty, please check the config: chromium.dir")
