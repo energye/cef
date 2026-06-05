@@ -20,6 +20,7 @@ type Config struct {
 	Chromium TChromium `json:"chromium"`
 }
 
+// TChromium CEF Framework
 type TChromium struct {
 	Dir     string `json:"dir"`
 	Version string `json:"version"`
