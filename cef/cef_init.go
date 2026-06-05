@@ -21,17 +21,6 @@ import (
 // Init CEF
 func Init() {
 	if tool.IsDarwin() {
-	}
-	// LCL init
-	lcl.Init()
-	defer func() {
-		if err := recover(); err != nil {
-			println(err)
-			os.Exit(1)
-		}
-	}()
-
-	if tool.IsDarwin() {
 		// MacOS SetCommandLine
 		argsList := lcl.NewStringList()
 		for _, v := range os.Args {
