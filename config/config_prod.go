@@ -12,6 +12,10 @@
 
 package config
 
+func init() {
+	GConfig.Chromium.Dir = "@" // default current path
+}
+
 func (m *Config) ChromiumPath() string {
 	return m.Chromium.Dir
 }
