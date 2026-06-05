@@ -19,7 +19,6 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
-	"sort"
 	"strconv"
 	"strings"
 )
@@ -69,53 +68,54 @@ func resolveChromiumPath(chromiumDir string) string {
 		println("[Warning] failed to read chromium directory:", chromiumDir, "error:", err.Error())
 		return chromiumDir
 	}
-	// 收集所有匹配当前系统架构的版本目录
-	type versionDir struct {
-		name    string
-		version []int
-	}
-	var matched []versionDir
+
+	var latestName string
+	var latestVersion []int
 	for _, entry := range entries {
-		if !entry.IsDir() {
-			continue
-		}
 		name := entry.Name()
-		if !strings.HasPrefix(name, prefix) {
+		if !entry.IsDir() || !strings.HasPrefix(name, prefix) {
 			continue
 		}
-		versionStr := strings.TrimPrefix(name, prefix)
-		parts := strings.Split(versionStr, ".")
-		if len(parts) < 2 {
+
+		version, ok := parseVersion(name[len(prefix):])
+		if !ok {
 			continue
 		}
-		var nums []int
-		valid := true
-		for _, p := range parts {
-			n, err := strconv.Atoi(p)
-			if err != nil {
-				valid = false
-				break
-			}
-			nums = append(nums, n)
+		if latestName == "" || newerVersion(version, latestVersion) {
+			latestName = name
+			latestVersion = version
 		}
-		if !valid {
-			continue
-		}
-		matched = append(matched, versionDir{name: name, version: nums})
 	}
-	if len(matched) == 0 {
+
+	if latestName == "" {
 		println("[Warning] no matching CEF version directory found, prefix:", prefix, "in:", chromiumDir)
 		return chromiumDir
 	}
-	// 按版本号降序排序，取最新版本
-	sort.Slice(matched, func(i, j int) bool {
-		a, b := matched[i].version, matched[j].version
-		for k := 0; k < len(a) && k < len(b); k++ {
-			if a[k] != b[k] {
-				return a[k] > b[k]
-			}
+	return filepath.Join(chromiumDir, latestName)
+}
+
+func parseVersion(version string) ([]int, bool) {
+	parts := strings.Split(version, ".")
+	if len(parts) < 2 {
+		return nil, false
+	}
+
+	nums := make([]int, 0, len(parts))
+	for _, part := range parts {
+		num, err := strconv.Atoi(part)
+		if err != nil {
+			return nil, false
 		}
-		return len(a) > len(b)
-	})
-	return filepath.Join(chromiumDir, matched[0].name)
+		nums = append(nums, num)
+	}
+	return nums, true
+}
+
+func newerVersion(a, b []int) bool {
+	for i := 0; i < len(a) && i < len(b); i++ {
+		if a[i] != b[i] {
+			return a[i] > b[i]
+		}
+	}
+	return len(a) > len(b)
 }
