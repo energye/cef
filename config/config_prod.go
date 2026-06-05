@@ -12,10 +12,6 @@
 
 package config
 
-func (m *Config) FrameworkPath() string {
-	return m.Framework
-}
-
 func (m *Config) ChromiumPath() string {
 	return m.Chromium.Dir
 }
