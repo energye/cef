@@ -18,7 +18,9 @@ import (
 	"sync"
 )
 
-var initOnce sync.Once
+var (
+	initOnce sync.Once
+)
 
 // Init CEF
 func Init() {
