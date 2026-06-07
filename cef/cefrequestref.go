@@ -18,90 +18,27 @@ import (
 // ICefRequest Parent: ICefBaseRefCounted
 type ICefRequest interface {
 	ICefBaseRefCounted
-	// IsReadOnly
-	//  Returns true (1) if this object is read-only.
-	IsReadOnly() bool // function
-	// GetUrl
-	//  Get the fully qualified URL.
-	GetUrl() string // function
-	// GetMethod
-	//  Get the request function type. The value will default to POST if post data
-	//  is provided and GET otherwise.
-	GetMethod() string // function
-	// GetPostData
-	//  Get the post data.
-	GetPostData() ICefPostData // function
-	// GetReferrerUrl
-	//  Get the referrer URL.
-	GetReferrerUrl() string // function
-	// GetReferrerPolicy
-	//  Get the referrer policy.
-	GetReferrerPolicy() cefTypes.TCefReferrerPolicy // function
-	// GetHeaderByName
-	//  Returns the first header value for |name| or an NULL string if not found.
-	//  Will not return the Referer value if any. Use GetHeaderMap instead if
-	//  |name| might have multiple values.
-	GetHeaderByName(name string) string // function
-	// GetFlags
-	//  Get the flags used in combination with ICefUrlRequest. See
-	//  TCefUrlRequestFlags for supported values.
-	GetFlags() cefTypes.TCefUrlRequestFlags // function
-	// GetFirstPartyForCookies
-	//  Get the URL to the first party for cookies used in combination with
-	//  ICefUrlRequest.
-	GetFirstPartyForCookies() string // function
-	// GetResourceType
-	//  Get the resource type for this request. Only available in the browser
-	//  process.
-	GetResourceType() cefTypes.TCefResourceType // function
-	// GetTransitionType
-	//  Get the transition type for this request. Only available in the browser
-	//  process and only applies to requests that represent a main frame or sub-
-	//  frame navigation.
-	GetTransitionType() cefTypes.TCefTransitionType // function
-	// GetIdentifier
-	//  Returns the globally unique identifier for this request or 0 if not
-	//  specified. Can be used by ICefResourceRequestHandler implementations
-	//  in the browser process to track a single request across multiple
-	//  callbacks.
-	GetIdentifier() uint64 // function
-	// GetHeaderMap
-	//  Get the header values. Will not include the Referer value if any.
-	GetHeaderMap(headerMap ICefStringMultimap) // procedure
-	// SetUrl
-	//  Set the fully qualified URL.
-	SetUrl(value string) // procedure
-	// SetMethod
-	//  Set the request function type.
-	SetMethod(value string) // procedure
-	// SetReferrer
-	//  Set the referrer URL and policy. If non-NULL the referrer URL must be
-	//  fully qualified with an HTTP or HTTPS scheme component. Any username,
-	//  password or ref component will be removed.
-	SetReferrer(referrerUrl string, policy cefTypes.TCefReferrerPolicy) // procedure
-	// SetPostData
-	//  Set the post data.
-	SetPostData(value ICefPostData) // procedure
-	// SetHeaderMap
-	//  Set the header values. If a Referer value exists in the header map it will
-	//  be removed and ignored.
-	SetHeaderMap(headerMap ICefStringMultimap) // procedure
-	// SetHeaderByName
-	//  Set the header |name| to |value|. If |overwrite| is true (1) any existing
-	//  values will be replaced with the new value. If |overwrite| is false (0)
-	//  any existing values will not be overwritten. The Referer value cannot be
-	//  set using this function.
-	SetHeaderByName(name string, value string, overwrite bool) // procedure
-	// SetFlags
-	//  Set the flags used in combination with ICefUrlRequest. See
-	//  TCefUrlRequestFlags for supported values.
-	SetFlags(flags cefTypes.TCefUrlRequestFlags) // procedure
-	// SetFirstPartyForCookies
-	//  Set the URL to the first party for cookies used in combination with
-	//  ICefUrlRequest.
-	SetFirstPartyForCookies(url string) // procedure
-	// Assign
-	//  Set all values at one time. This method corresponds to TCefRequest.set_ and cef_request_t.set
+	IsReadOnly() bool                                                                      // function
+	GetUrl() string                                                                        // function
+	GetMethod() string                                                                     // function
+	GetPostData() ICefPostData                                                             // function
+	GetReferrerUrl() string                                                                // function
+	GetReferrerPolicy() cefTypes.TCefReferrerPolicy                                        // function
+	GetHeaderByName(name string) string                                                    // function
+	GetFlags() cefTypes.TCefUrlRequestFlags                                                // function
+	GetFirstPartyForCookies() string                                                       // function
+	GetResourceType() cefTypes.TCefResourceType                                            // function
+	GetTransitionType() cefTypes.TCefTransitionType                                        // function
+	GetIdentifier() uint64                                                                 // function
+	GetHeaderMap(headerMap ICefStringMultimap)                                             // procedure
+	SetUrl(value string)                                                                   // procedure
+	SetMethod(value string)                                                                // procedure
+	SetReferrer(referrerUrl string, policy cefTypes.TCefReferrerPolicy)                    // procedure
+	SetPostData(value ICefPostData)                                                        // procedure
+	SetHeaderMap(headerMap ICefStringMultimap)                                             // procedure
+	SetHeaderByName(name string, value string, overwrite bool)                             // procedure
+	SetFlags(flags cefTypes.TCefUrlRequestFlags)                                           // procedure
+	SetFirstPartyForCookies(url string)                                                    // procedure
 	Assign(url string, method string, postData ICefPostData, headerMap ICefStringMultimap) // procedure
 }
 

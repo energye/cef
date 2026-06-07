@@ -24,9 +24,9 @@ type ICefRangeArray interface {
 }
 
 // ICefFrameIdentifierArray = array of int64
-//type ICefFrameIdentifierArray interface {
-//	IArraySlice[int64]
-//}
+type ICefFrameIdentifierArray interface {
+	base.IArraySlice[int64]
+}
 
 // ICefDraggableRegionArray = array[0..(High(integer) div SizeOf(TCefDraggableRegion)) - 1] of TCefDraggableRegion;
 // 内部和外部数组维护
@@ -63,9 +63,9 @@ func NewCefRangeArray(count int, instance uintptr) ICefRangeArray {
 //
 //	count: 外部数组元素个数
 //	instance: 数组首地址, 值0(nil)表示内部维护数组, 否则为外部数组首地址
-//func NewCefFrameIdentifierArray(count int, instance uintptr) ICefFrameIdentifierArray {
-//	return NewStructArraySlice[int64](count, instance)
-//}
+func NewCefFrameIdentifierArray(count int, instance uintptr) ICefFrameIdentifierArray {
+	return base.NewStructArraySlice[int64](count, instance)
+}
 
 // NewCefDraggableRegionArray 初始化 TCefDraggableRegion 数组结构
 //

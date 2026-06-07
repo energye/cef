@@ -44,9 +44,6 @@ var ButtonDelegateRef _ButtonDelegateRefClass
 // _ButtonDelegateRefClass is class type defined by TCefButtonDelegateRef
 type _ButtonDelegateRefClass uintptr
 
-// UnWrapWithPointer
-//
-//	Returns a ICefButtonDelegate instance using a PCefButtonDelegate data pointer.
 func (_ButtonDelegateRefClass) UnWrapWithPointer(data uintptr) (result IEngButtonDelegate) {
 	var resultPtr uintptr
 	cefButtonDelegateRefAPI().SysCallN(1, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))

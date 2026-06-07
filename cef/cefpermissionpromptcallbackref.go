@@ -18,8 +18,6 @@ import (
 // ICefPermissionPromptCallback Parent: ICefBaseRefCounted
 type ICefPermissionPromptCallback interface {
 	ICefBaseRefCounted
-	// Cont
-	//  Complete the permissions request with the specified |result|.
 	Cont(result cefTypes.TCefPermissionRequestResult) // procedure
 }
 

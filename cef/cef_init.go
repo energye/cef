@@ -11,33 +11,39 @@
 package cef
 
 import (
+	"os"
+
 	"github.com/energye/lcl/api"
 	"github.com/energye/lcl/lcl"
 	"github.com/energye/lcl/tool"
-	"os"
-	"sync"
-)
-
-var (
-	initOnce sync.Once
 )
 
 // Init CEF
 func Init() {
-	initOnce.Do(func() {
-		if tool.IsDarwin() {
-			// MacOS SetCommandLine
-			argsList := lcl.NewStringList()
-			for _, v := range os.Args {
-				argsList.Add(v)
-			}
-			SetCommandLine(argsList)
-			argsList.Free()
+	if tool.IsDarwin() {
+	}
+	// LCL init
+	lcl.Init()
+	defer func() {
+		if err := recover(); err != nil {
+			println(err)
+			os.Exit(1)
 		}
+	}()
 
-		// Register CEF object event callback
-		api.SetEventCallback(eventCallback, api.EctCEF)
-		// Unregister CEF object event callback
-		api.SetEventCallback(removeEventCallback, api.EctCEFRemove)
-	})
+	if tool.IsDarwin() {
+		// MacOS SetCommandLine
+		argsList := lcl.NewStringList()
+		for _, v := range os.Args {
+			argsList.Add(v)
+		}
+		SetCommandLine(argsList)
+		argsList.Free()
+	}
+
+	// Register CEF object event callback
+	api.SetEventCallback(eventCallback, api.EctCEF)
+	// Unregister CEF object event callback
+	api.SetEventCallback(removeEventCallback, api.EctCEFRemove)
+
 }

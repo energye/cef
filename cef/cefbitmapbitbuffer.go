@@ -18,33 +18,15 @@ import (
 // ICEFBitmapBitBuffer Parent: IObject
 type ICEFBitmapBitBuffer interface {
 	IObject
-	// UpdateSize
-	//  Updates the image size.
 	UpdateSize(width int32, height int32) // procedure
-	// Width
-	//  Image width.
-	Width() int32 // property Width Getter
-	// Height
-	//  Image height.
-	Height() int32 // property Height Getter
-	// BufferLength
-	//  Buffer length.
-	BufferLength() int32 // property BufferLength Getter
-	// Empty
-	//  Returns true if the buffer is empty.
-	Empty() bool // property Empty Getter
-	// Scanline
-	//  Returns a pointer to the first byte in of the Y scnaline.
-	Scanline(Y int32) types.PByte // property Scanline Getter
-	// ScanlineSize
-	//  Returns the scanline size.
-	ScanlineSize() int32 // property ScanlineSize Getter
-	// BufferScanlineSize
-	//  Returns the real buffer scanline size.
-	BufferScanlineSize() int32 // property BufferScanlineSize Getter
-	// BufferBits
-	//  Returns a pointer to the buffer that stores the image.
-	BufferBits() uintptr // property BufferBits Getter
+	Width() int32                         // property Width Getter
+	Height() int32                        // property Height Getter
+	BufferLength() int32                  // property BufferLength Getter
+	Empty() bool                          // property Empty Getter
+	Scanline(Y int32) types.PByte         // property Scanline Getter
+	ScanlineSize() int32                  // property ScanlineSize Getter
+	BufferScanlineSize() int32            // property BufferScanlineSize Getter
+	BufferBits() uintptr                  // property BufferBits Getter
 }
 
 type TCEFBitmapBitBuffer struct {

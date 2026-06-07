@@ -17,36 +17,14 @@ import (
 // ICefV8Exception Parent: ICefBaseRefCounted
 type ICefV8Exception interface {
 	ICefBaseRefCounted
-	// GetMessage
-	//  Returns the exception message.
-	GetMessage() string // function
-	// GetSourceLine
-	//  Returns the line of source code that the exception occurred within.
-	GetSourceLine() string // function
-	// GetScriptResourceName
-	//  Returns the resource name for the script from where the function causing
-	//  the error originates.
+	GetMessage() string            // function
+	GetSourceLine() string         // function
 	GetScriptResourceName() string // function
-	// GetLineNumber
-	//  Returns the 1-based number of the line where the error occurred or 0 if
-	//  the line number is unknown.
-	GetLineNumber() int32 // function
-	// GetStartPosition
-	//  Returns the index within the script of the first character where the error
-	//  occurred.
-	GetStartPosition() int32 // function
-	// GetEndPosition
-	//  Returns the index within the script of the last character where the error
-	//  occurred.
-	GetEndPosition() int32 // function
-	// GetStartColumn
-	//  Returns the index within the line of the first character where the error
-	//  occurred.
-	GetStartColumn() int32 // function
-	// GetEndColumn
-	//  Returns the index within the line of the last character where the error
-	//  occurred.
-	GetEndColumn() int32 // function
+	GetLineNumber() int32          // function
+	GetStartPosition() int32       // function
+	GetEndPosition() int32         // function
+	GetStartColumn() int32         // function
+	GetEndColumn() int32           // function
 }
 
 // ICefV8ExceptionRef Parent: ICefV8Exception ICefBaseRefCountedRef

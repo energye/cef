@@ -16,11 +16,6 @@ import (
 	"github.com/energye/lcl/api"
 )
 
-type TCefAcceleratedPaintInfo struct {
-	SharedTextureIoSurface cefTypes.TCefSharedTextureHandle // TCefSharedTextureHandle
-	Format                 cefTypes.TCefColorType           // TCefColorType
-}
-
 type TCefWindowInfo struct {
 	WindowName                 string                    // TCefString
 	Bounds                     TCefRect                  // TCefRect
@@ -30,33 +25,8 @@ type TCefWindowInfo struct {
 	SharedTextureEnabled       int32                     // Integer
 	ExternalBeginFrameEnabled  int32                     // Integer
 	View                       cefTypes.TCefWindowHandle // TCefWindowHandle
-	RuntimeStyle               cefTypes.TCefRuntimeStyle // TCefRuntimeStyle
 }
 
-func (m *TCefAcceleratedPaintInfo) ToPas() *tCefAcceleratedPaintInfo {
-	if m == nil {
-		return nil
-	}
-	return &tCefAcceleratedPaintInfo{
-		SharedTextureIoSurface: m.SharedTextureIoSurface,
-		Format:                 m.Format,
-	}
-}
-
-type tCefAcceleratedPaintInfo struct {
-	SharedTextureIoSurface cefTypes.TCefSharedTextureHandle // TCefSharedTextureHandle
-	Format                 cefTypes.TCefColorType           // TCefColorType
-}
-
-func (m *tCefAcceleratedPaintInfo) ToGo() TCefAcceleratedPaintInfo {
-	if m == nil {
-		return TCefAcceleratedPaintInfo{}
-	}
-	return TCefAcceleratedPaintInfo{
-		SharedTextureIoSurface: m.SharedTextureIoSurface,
-		Format:                 m.Format,
-	}
-}
 func (m *TCefWindowInfo) ToPas() *tCefWindowInfo {
 	if m == nil {
 		return nil
@@ -70,7 +40,6 @@ func (m *TCefWindowInfo) ToPas() *tCefWindowInfo {
 		SharedTextureEnabled:       m.SharedTextureEnabled,
 		ExternalBeginFrameEnabled:  m.ExternalBeginFrameEnabled,
 		View:                       m.View,
-		RuntimeStyle:               m.RuntimeStyle,
 	}
 }
 
@@ -83,7 +52,6 @@ type tCefWindowInfo struct {
 	SharedTextureEnabled       int32                     // Integer
 	ExternalBeginFrameEnabled  int32                     // Integer
 	View                       cefTypes.TCefWindowHandle // TCefWindowHandle
-	RuntimeStyle               cefTypes.TCefRuntimeStyle // TCefRuntimeStyle
 }
 
 func (m *tCefWindowInfo) ToGo() TCefWindowInfo {
@@ -99,6 +67,5 @@ func (m *tCefWindowInfo) ToGo() TCefWindowInfo {
 		SharedTextureEnabled:       m.SharedTextureEnabled,
 		ExternalBeginFrameEnabled:  m.ExternalBeginFrameEnabled,
 		View:                       m.View,
-		RuntimeStyle:               m.RuntimeStyle,
 	}
 }

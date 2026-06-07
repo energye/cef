@@ -17,12 +17,8 @@ import (
 // ICefPrintDialogCallback Parent: ICefBaseRefCounted
 type ICefPrintDialogCallback interface {
 	ICefBaseRefCounted
-	// Cont
-	//  Continue printing with the specified |settings|.
 	Cont(settings ICefPrintSettings) // procedure
-	// Cancel
-	//  Cancel the printing.
-	Cancel() // procedure
+	Cancel()                         // procedure
 }
 
 // ICefPrintDialogCallbackRef Parent: ICefPrintDialogCallback ICefBaseRefCountedRef

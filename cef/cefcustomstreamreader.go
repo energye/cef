@@ -20,25 +20,11 @@ import (
 // ICefCustomStreamReader Parent: ICefBaseRefCountedOwn
 type ICefCustomStreamReader interface {
 	ICefBaseRefCountedOwn
-	// Read
-	//  Read raw binary data.
 	Read(ptr uintptr, size cefTypes.NativeUInt, N cefTypes.NativeUInt) cefTypes.NativeUInt // function
-	// Seek
-	//  Seek to the specified offset position. |whence| may be any one of
-	//  SEEK_CUR, SEEK_END or SEEK_SET. Return zero on success and non-zero on
-	//  failure.
-	Seek(offset int64, whence int32) int32 // function
-	// Tell
-	//  Return the current offset position.
-	Tell() int64 // function
-	// Eof
-	//  Return non-zero if at end of file.
-	Eof() bool // function
-	// MayBlock
-	//  Return true (1) if this handler performs work like accessing the file
-	//  system which may block. Used as a hint for determining the thread to
-	//  access the handler from.
-	MayBlock() bool // function
+	Seek(offset int64, whence int32) int32                                                 // function
+	Tell() int64                                                                           // function
+	Eof() bool                                                                             // function
+	MayBlock() bool                                                                        // function
 	AsIntfCustomStreamReader() uintptr
 }
 

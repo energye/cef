@@ -18,75 +18,19 @@ import (
 // ICefImage Parent: ICefBaseRefCounted
 type ICefImage interface {
 	ICefBaseRefCounted
-	// IsEmpty
-	//  Returns true (1) if this Image is NULL.
-	IsEmpty() bool // function
-	// IsSame
-	//  Returns true (1) if this Image and |that| Image share the same underlying
-	//  storage. Will also return true (1) if both images are NULL.
-	IsSame(that ICefImage) bool // function
-	// AddBitmap
-	//  Add a bitmap image representation for |scale_factor|. Only 32-bit
-	//  RGBA/BGRA formats are supported. |pixel_width| and |pixel_height| are the
-	//  bitmap representation size in pixel coordinates. |pixel_data| is the array
-	//  of pixel data and should be |pixel_width| x |pixel_height| x 4 bytes in
-	//  size. |color_type| and |alpha_type| values specify the pixel format.
+	IsEmpty() bool                                                                                                                                                                                     // function
+	IsSame(that ICefImage) bool                                                                                                                                                                        // function
 	AddBitmap(scaleFactor float32, pixelWidth int32, pixelHeight int32, colorType cefTypes.TCefColorType, alphaType cefTypes.TCefAlphaType, pixelData uintptr, pixelDataSize cefTypes.NativeUInt) bool // function
-	// AddPng
-	//  Add a PNG image representation for |scale_factor|. |png_data| is the image
-	//  data of size |png_data_size|. Any alpha transparency in the PNG data will
-	//  be maintained.
-	AddPng(scaleFactor float32, pngData uintptr, pngDataSize cefTypes.NativeUInt) bool // function
-	// AddJpeg
-	//  Create a JPEG image representation for |scale_factor|. |jpeg_data| is the
-	//  image data of size |jpeg_data_size|. The JPEG format does not support
-	//  transparency so the alpha byte will be set to 0xFF for all pixels.
-	AddJpeg(scaleFactor float32, jpegData uintptr, jpegDataSize cefTypes.NativeUInt) bool // function
-	// GetWidth
-	//  Returns the image width in density independent pixel (DIP) units.
-	GetWidth() cefTypes.NativeUInt // function
-	// GetHeight
-	//  Returns the image height in density independent pixel (DIP) units.
-	GetHeight() cefTypes.NativeUInt // function
-	// HasRepresentation
-	//  Returns true (1) if this image contains a representation for
-	//  |scale_factor|.
-	HasRepresentation(scaleFactor float32) bool // function
-	// RemoveRepresentation
-	//  Removes the representation for |scale_factor|. Returns true (1) on
-	//  success.
-	RemoveRepresentation(scaleFactor float32) bool // function
-	// GetRepresentationInfo
-	//  Returns information for the representation that most closely matches
-	//  |scale_factor|. |actual_scale_factor| is the actual scale factor for the
-	//  representation. |pixel_width| and |pixel_height| are the representation
-	//  size in pixel coordinates. Returns true (1) on success.
-	GetRepresentationInfo(scaleFactor float32, actualScaleFactor *float32, pixelWidth *int32, pixelHeight *int32) bool // function
-	// GetAsBitmap
-	//  Returns the bitmap representation that most closely matches
-	//  |scale_factor|. Only 32-bit RGBA/BGRA formats are supported. |color_type|
-	//  and |alpha_type| values specify the desired output pixel format.
-	//  |pixel_width| and |pixel_height| are the output representation size in
-	//  pixel coordinates. Returns a ICefBinaryValue containing the pixel data
-	//  on success or NULL on failure.
-	GetAsBitmap(scaleFactor float32, colorType cefTypes.TCefColorType, alphaType cefTypes.TCefAlphaType, pixelWidth *int32, pixelHeight *int32) ICefBinaryValue // function
-	// GetAsPng
-	//  Returns the PNG representation that most closely matches |scale_factor|.
-	//  If |with_transparency| is true (1) any alpha transparency in the image
-	//  will be represented in the resulting PNG data. |pixel_width| and
-	//  |pixel_height| are the output representation size in pixel coordinates.
-	//  Returns a ICefBinaryValue containing the PNG image data on success or
-	//  NULL on failure.
-	GetAsPng(scaleFactor float32, withTransparency bool, pixelWidth *int32, pixelHeight *int32) ICefBinaryValue // function
-	// GetAsJpeg
-	//  Returns the JPEG representation that most closely matches |scale_factor|.
-	//  |quality| determines the compression level with 0 == lowest and 100 ==
-	//  highest. The JPEG format does not support alpha transparency and the alpha
-	//  channel, if any, will be discarded. |pixel_width| and |pixel_height| are
-	//  the output representation size in pixel coordinates. Returns a
-	//  ICefBinaryValue containing the JPEG image data on success or NULL on
-	//  failure.
-	GetAsJpeg(scaleFactor float32, quality int32, pixelWidth *int32, pixelHeight *int32) ICefBinaryValue // function
+	AddPng(scaleFactor float32, pngData uintptr, pngDataSize cefTypes.NativeUInt) bool                                                                                                                 // function
+	AddJpeg(scaleFactor float32, jpegData uintptr, jpegDataSize cefTypes.NativeUInt) bool                                                                                                              // function
+	GetWidth() cefTypes.NativeUInt                                                                                                                                                                     // function
+	GetHeight() cefTypes.NativeUInt                                                                                                                                                                    // function
+	HasRepresentation(scaleFactor float32) bool                                                                                                                                                        // function
+	RemoveRepresentation(scaleFactor float32) bool                                                                                                                                                     // function
+	GetRepresentationInfo(scaleFactor float32, actualScaleFactor *float32, pixelWidth *int32, pixelHeight *int32) bool                                                                                 // function
+	GetAsBitmap(scaleFactor float32, colorType cefTypes.TCefColorType, alphaType cefTypes.TCefAlphaType, pixelWidth *int32, pixelHeight *int32) ICefBinaryValue                                        // function
+	GetAsPng(scaleFactor float32, withTransparency bool, pixelWidth *int32, pixelHeight *int32) ICefBinaryValue                                                                                        // function
+	GetAsJpeg(scaleFactor float32, quality int32, pixelWidth *int32, pixelHeight *int32) ICefBinaryValue                                                                                               // function
 }
 
 // ICefImageRef Parent: ICefImage ICefBaseRefCountedRef

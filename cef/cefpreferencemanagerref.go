@@ -17,38 +17,10 @@ import (
 // ICefPreferenceManager Parent: ICefBaseRefCounted
 type ICefPreferenceManager interface {
 	ICefBaseRefCounted
-	// HasPreference
-	//  Returns true (1) if a preference with the specified |name| exists. This
-	//  function must be called on the browser process UI thread.
-	HasPreference(name string) bool // function
-	// GetPreference
-	//  Returns the value for the preference with the specified |name|. Returns
-	//  NULL if the preference does not exist. The returned object contains a copy
-	//  of the underlying preference value and modifications to the returned
-	//  object will not modify the underlying preference value. This function must
-	//  be called on the browser process UI thread.
-	GetPreference(name string) ICefValue // function
-	// GetAllPreferences
-	//  Returns all preferences as a dictionary. If |include_defaults| is true (1)
-	//  then preferences currently at their default value will be included. The
-	//  returned object contains a copy of the underlying preference values and
-	//  modifications to the returned object will not modify the underlying
-	//  preference values. This function must be called on the browser process UI
-	//  thread.
-	GetAllPreferences(includeDefaults bool) ICefDictionaryValue // function
-	// CanSetPreference
-	//  Returns true (1) if the preference with the specified |name| can be
-	//  modified using SetPreference. As one example preferences set via the
-	//  command-line usually cannot be modified. This function must be called on
-	//  the browser process UI thread.
-	CanSetPreference(name string) bool // function
-	// SetPreference
-	//  Set the |value| associated with preference |name|. Returns true (1) if the
-	//  value is set successfully and false (0) otherwise. If |value| is NULL the
-	//  preference will be restored to its default value. If setting the
-	//  preference fails then |error| will be populated with a detailed
-	//  description of the problem. This function must be called on the browser
-	//  process UI thread.
+	HasPreference(name string) bool                                     // function
+	GetPreference(name string) ICefValue                                // function
+	GetAllPreferences(includeDefaults bool) ICefDictionaryValue         // function
+	CanSetPreference(name string) bool                                  // function
 	SetPreference(name string, value ICefValue, outError_ *string) bool // function
 }
 

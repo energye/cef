@@ -44,9 +44,6 @@ var BrowserViewDelegateRef _BrowserViewDelegateRefClass
 // _BrowserViewDelegateRefClass is class type defined by TCefBrowserViewDelegateRef
 type _BrowserViewDelegateRefClass uintptr
 
-// UnWrapWithPointer
-//
-//	Returns a ICefBrowserViewDelegate instance using a PCefBrowserViewDelegate data pointer.
 func (_BrowserViewDelegateRefClass) UnWrapWithPointer(data uintptr) (result IEngBrowserViewDelegate) {
 	var resultPtr uintptr
 	cefBrowserViewDelegateRefAPI().SysCallN(1, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))

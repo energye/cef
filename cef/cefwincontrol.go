@@ -19,34 +19,22 @@ import (
 // ICEFWinControl Parent: IWinControl
 type ICEFWinControl interface {
 	IWinControl
-	// TakeSnapshot
-	//  Take a snapshot of the browser contents into aBitmap. This function only works in Windows without hardware acceleration.
 	TakeSnapshot(bitmap *lcl.IBitmap) bool // function
-	// DestroyChildWindow
-	//  Destroy the child windows created by the browser.
-	DestroyChildWindow() bool // function
-	// CreateHandle
-	//  Exposes the CreateHandle procedure to create the Handle at any time.
-	CreateHandle() // procedure
-	// InvalidateChildren
-	//  Invalidate the child windows created by the browser.
-	InvalidateChildren() // procedure
-	// UpdateSize
-	//  Updates the size of the child windows created by the browser.
-	UpdateSize() // procedure
-	// ChildWindowHandle
-	//  Handle of the first child window created by the browser.
-	ChildWindowHandle() types.THandle  // property ChildWindowHandle Getter
-	DragKind() types.TDragKind         // property DragKind Getter
-	SetDragKind(value types.TDragKind) // property DragKind Setter
-	DragCursor() types.TCursor         // property DragCursor Getter
-	SetDragCursor(value types.TCursor) // property DragCursor Setter
-	DragMode() types.TDragMode         // property DragMode Getter
-	SetDragMode(value types.TDragMode) // property DragMode Setter
-	SetOnDragDrop(fn TDragDropEvent)   // property event
-	SetOnDragOver(fn TDragOverEvent)   // property event
-	SetOnStartDrag(fn TStartDragEvent) // property event
-	SetOnEndDrag(fn TEndDragEvent)     // property event
+	DestroyChildWindow() bool              // function
+	CreateHandle()                         // procedure
+	InvalidateChildren()                   // procedure
+	UpdateSize()                           // procedure
+	ChildWindowHandle() types.THandle      // property ChildWindowHandle Getter
+	DragKind() types.TDragKind             // property DragKind Getter
+	SetDragKind(value types.TDragKind)     // property DragKind Setter
+	DragCursor() types.TCursor             // property DragCursor Getter
+	SetDragCursor(value types.TCursor)     // property DragCursor Setter
+	DragMode() types.TDragMode             // property DragMode Getter
+	SetDragMode(value types.TDragMode)     // property DragMode Setter
+	SetOnDragDrop(fn TDragDropEvent)       // property event
+	SetOnDragOver(fn TDragOverEvent)       // property event
+	SetOnStartDrag(fn TStartDragEvent)     // property event
+	SetOnEndDrag(fn TEndDragEvent)         // property event
 }
 
 type TCEFWinControl struct {

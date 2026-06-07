@@ -44,9 +44,6 @@ var PanelDelegateRef _PanelDelegateRefClass
 // _PanelDelegateRefClass is class type defined by TCefPanelDelegateRef
 type _PanelDelegateRefClass uintptr
 
-// UnWrapWithPointer
-//
-//	Returns a ICefPanelDelegate instance using a PCefPanelDelegate data pointer.
 func (_PanelDelegateRefClass) UnWrapWithPointer(data uintptr) (result IEngPanelDelegate) {
 	var resultPtr uintptr
 	cefPanelDelegateRefAPI().SysCallN(1, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))

@@ -17,12 +17,8 @@ import (
 // ICefAuthCallback Parent: ICefBaseRefCounted
 type ICefAuthCallback interface {
 	ICefBaseRefCounted
-	// Cont
-	//  Continue the authentication request.
 	Cont(username string, password string) // procedure
-	// Cancel
-	//  Cancel the authentication request.
-	Cancel() // procedure
+	Cancel()                               // procedure
 }
 
 // ICefAuthCallbackRef Parent: ICefAuthCallback ICefBaseRefCountedRef

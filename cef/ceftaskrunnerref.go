@@ -18,26 +18,11 @@ import (
 // ICefTaskRunner Parent: ICefBaseRefCounted
 type ICefTaskRunner interface {
 	ICefBaseRefCounted
-	// IsSame
-	//  Returns true (1) if this object is pointing to the same task runner as
-	//  |that| object.
-	IsSame(that ICefTaskRunner) bool // function
-	// BelongsToCurrentThread
-	//  Returns true (1) if this task runner belongs to the current thread.
-	BelongsToCurrentThread() bool // function
-	// BelongsToThread
-	//  Returns true (1) if this task runner is for the specified CEF thread.
+	IsSame(that ICefTaskRunner) bool                     // function
+	BelongsToCurrentThread() bool                        // function
 	BelongsToThread(threadId cefTypes.TCefThreadId) bool // function
-	// PostTask
-	//  Post a task for execution on the thread associated with this task runner.
-	//  Execution will occur asynchronously.
-	PostTask(task IEngTask) bool // function
-	// PostDelayedTask
-	//  Post a task for delayed execution on the thread associated with this task
-	//  runner. Execution will occur asynchronously. Delayed tasks are not
-	//  supported on V8 WebWorker threads and will be executed without the
-	//  specified delay.
-	PostDelayedTask(task IEngTask, delayMs int64) bool // function
+	PostTask(task IEngTask) bool                         // function
+	PostDelayedTask(task IEngTask, delayMs int64) bool   // function
 }
 
 // ICefTaskRunnerRef Parent: ICefTaskRunner ICefBaseRefCountedRef
@@ -101,9 +86,6 @@ var TaskRunnerRef _TaskRunnerRefClass
 // _TaskRunnerRefClass is class type defined by TCefTaskRunnerRef
 type _TaskRunnerRefClass uintptr
 
-// UnWrap
-//
-//	Returns a ICefTaskRunner instance using a PCefTaskRunner data pointer.
 func (_TaskRunnerRefClass) UnWrap(data uintptr) (result ICefTaskRunner) {
 	var resultPtr uintptr
 	cefTaskRunnerRefAPI().SysCallN(6, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))
@@ -111,11 +93,6 @@ func (_TaskRunnerRefClass) UnWrap(data uintptr) (result ICefTaskRunner) {
 	return
 }
 
-// GetForCurrentThread
-//
-//	Returns the task runner for the current thread. Only CEF threads will have
-//	task runners. An NULL reference will be returned if this function is called
-//	on an invalid thread.
 func (_TaskRunnerRefClass) GetForCurrentThread() (result ICefTaskRunner) {
 	var resultPtr uintptr
 	cefTaskRunnerRefAPI().SysCallN(7, uintptr(base.UnsafePointer(&resultPtr)))
@@ -123,9 +100,6 @@ func (_TaskRunnerRefClass) GetForCurrentThread() (result ICefTaskRunner) {
 	return
 }
 
-// GetForThread
-//
-//	Returns the task runner for the specified CEF thread.
 func (_TaskRunnerRefClass) GetForThread(threadId cefTypes.TCefThreadId) (result ICefTaskRunner) {
 	var resultPtr uintptr
 	cefTaskRunnerRefAPI().SysCallN(8, uintptr(threadId), uintptr(base.UnsafePointer(&resultPtr)))

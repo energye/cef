@@ -20,33 +20,12 @@ import (
 // ICefDisplay Parent: ICefBaseRefCounted
 type ICefDisplay interface {
 	ICefBaseRefCounted
-	// GetID
-	//  Returns the unique identifier for this Display.
-	GetID() int64 // function
-	// GetDeviceScaleFactor
-	//  Returns this Display's device pixel scale factor. This specifies how much
-	//  the UI should be scaled when the actual output has more pixels than
-	//  standard displays (which is around 100~120dpi). The potential return
-	//  values differ by platform.
-	GetDeviceScaleFactor() float32 // function
-	// GetBounds
-	//  Returns this Display's bounds in DIP screen coordinates. This is the full
-	//  size of the display.
-	GetBounds() TCefRect // function
-	// GetWorkArea
-	//  Returns this Display's work area in DIP screen coordinates. This excludes
-	//  areas of the display that are occupied with window manager toolbars, etc.
-	GetWorkArea() TCefRect // function
-	// GetRotation
-	//  Returns this Display's rotation in degrees.
-	GetRotation() int32 // function
-	// ConvertPointToPixels
-	//  Convert |point| from DIP coordinates to pixel coordinates using this
-	//  Display's device scale factor.
-	ConvertPointToPixels(point *TCefPoint) // procedure
-	// ConvertPointFromPixels
-	//  Convert |point| from pixel coordinates to DIP coordinates using this
-	//  Display's device scale factor.
+	GetID() int64                            // function
+	GetDeviceScaleFactor() float32           // function
+	GetBounds() TCefRect                     // function
+	GetWorkArea() TCefRect                   // function
+	GetRotation() int32                      // function
+	ConvertPointToPixels(point *TCefPoint)   // procedure
 	ConvertPointFromPixels(point *TCefPoint) // procedure
 }
 
@@ -125,9 +104,6 @@ var DisplayRef _DisplayRefClass
 // _DisplayRefClass is class type defined by TCefDisplayRef
 type _DisplayRefClass uintptr
 
-// UnWrap
-//
-//	Returns a ICefDisplay instance using a PCefDisplay data pointer.
 func (_DisplayRefClass) UnWrap(data uintptr) (result ICefDisplay) {
 	var resultPtr uintptr
 	cefDisplayRefAPI().SysCallN(6, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))
@@ -135,9 +111,6 @@ func (_DisplayRefClass) UnWrap(data uintptr) (result ICefDisplay) {
 	return
 }
 
-// Primary
-//
-//	Returns the primary Display.
 func (_DisplayRefClass) Primary() (result ICefDisplay) {
 	var resultPtr uintptr
 	cefDisplayRefAPI().SysCallN(7, uintptr(base.UnsafePointer(&resultPtr)))
@@ -145,10 +118,6 @@ func (_DisplayRefClass) Primary() (result ICefDisplay) {
 	return
 }
 
-// NearestPoint
-//
-//	Returns the Display nearest |point|. Set |input_pixel_coords| to true (1) if
-//	|point| is in pixel screen coordinates instead of DIP screen coordinates.
 func (_DisplayRefClass) NearestPoint(point TCefPoint, inputPixelCoords bool) (result ICefDisplay) {
 	var resultPtr uintptr
 	cefDisplayRefAPI().SysCallN(8, uintptr(base.UnsafePointer(&point)), api.PasBool(inputPixelCoords), uintptr(base.UnsafePointer(&resultPtr)))
@@ -156,11 +125,6 @@ func (_DisplayRefClass) NearestPoint(point TCefPoint, inputPixelCoords bool) (re
 	return
 }
 
-// MatchingBounds
-//
-//	Returns the Display that most closely intersects |bounds|. Set
-//	|input_pixel_coords| to true (1) if |bounds| is in pixel screen coordinates
-//	instead of DIP screen coordinates.
 func (_DisplayRefClass) MatchingBounds(bounds TCefRect, inputPixelCoords bool) (result ICefDisplay) {
 	var resultPtr uintptr
 	cefDisplayRefAPI().SysCallN(9, uintptr(base.UnsafePointer(&bounds)), api.PasBool(inputPixelCoords), uintptr(base.UnsafePointer(&resultPtr)))
@@ -168,19 +132,11 @@ func (_DisplayRefClass) MatchingBounds(bounds TCefRect, inputPixelCoords bool) (
 	return
 }
 
-// GetCount
-//
-//	Returns the total number of Displays. Mirrored displays are excluded; this
-//	function is intended to return the number of distinct, usable displays.
 func (_DisplayRefClass) GetCount() cefTypes.NativeUInt {
 	r := cefDisplayRefAPI().SysCallN(10)
 	return cefTypes.NativeUInt(r)
 }
 
-// GetAlls
-//
-//	Returns all Displays. Mirrored displays are excluded; this function is
-//	intended to return distinct, usable displays.
 func (_DisplayRefClass) GetAlls(displayArray *ICefDisplayArray) bool {
 	var displayArrayPtr uintptr
 	var displayArrayCountPtr uintptr
@@ -189,37 +145,21 @@ func (_DisplayRefClass) GetAlls(displayArray *ICefDisplayArray) bool {
 	return api.GoBool(r)
 }
 
-// ScreenPointToPixels
-//
-//	Convert |point| from DIP screen coordinates to pixel screen coordinates.
-//	This function is only used on Windows.
 func (_DisplayRefClass) ScreenPointToPixels(screenPoint types.TPoint) (result types.TPoint) {
 	cefDisplayRefAPI().SysCallN(12, uintptr(base.UnsafePointer(&screenPoint)), uintptr(base.UnsafePointer(&result)))
 	return
 }
 
-// ScreenPointFromPixels
-//
-//	Convert |point| from pixel screen coordinates to DIP screen coordinates.
-//	This function is only used on Windows.
 func (_DisplayRefClass) ScreenPointFromPixels(pixelsPoint types.TPoint) (result types.TPoint) {
 	cefDisplayRefAPI().SysCallN(13, uintptr(base.UnsafePointer(&pixelsPoint)), uintptr(base.UnsafePointer(&result)))
 	return
 }
 
-// ScreenRectToPixels
-//
-//	Convert |rect| from DIP screen coordinates to pixel screen coordinates. This
-//	function is only used on Windows.
 func (_DisplayRefClass) ScreenRectToPixels(screenRect types.TRect) (result types.TRect) {
 	cefDisplayRefAPI().SysCallN(14, uintptr(base.UnsafePointer(&screenRect)), uintptr(base.UnsafePointer(&result)))
 	return
 }
 
-// ScreenRectFromPixels
-//
-//	Convert |rect| from pixel screen coordinates to DIP screen coordinates. This
-//	function is only used on Windows.
 func (_DisplayRefClass) ScreenRectFromPixels(pixelsRect types.TRect) (result types.TRect) {
 	cefDisplayRefAPI().SysCallN(15, uintptr(base.UnsafePointer(&pixelsRect)), uintptr(base.UnsafePointer(&result)))
 	return

@@ -18,16 +18,8 @@ import (
 // ICefMenuButton Parent: ICefLabelButton
 type ICefMenuButton interface {
 	ICefLabelButton
-	// ShowMenu
-	//  Show a menu with contents |menu_model|. |screen_point| specifies the menu
-	//  position in screen coordinates. |anchor_position| specifies how the menu
-	//  will be anchored relative to |screen_point|. This function should be
-	//  called from ICefMenuButtonDelegate.OnMenuButtonPressed().
 	ShowMenu(menuModel ICefMenuModel, screenPoint TCefPoint, anchorPosition cefTypes.TCefMenuAnchorPosition) // procedure
-	// TriggerMenu
-	//  Show the menu for this button. Results in a call to
-	//  ICefMenuButtonDelegate.OnMenuButtonPressed().
-	TriggerMenu() // procedure
+	TriggerMenu()                                                                                            // procedure
 }
 
 // ICefMenuButtonRef Parent: ICefMenuButton ICefLabelButtonRef
@@ -77,9 +69,6 @@ var MenuButtonRef _MenuButtonRefClass
 // _MenuButtonRefClass is class type defined by TCefMenuButtonRef
 type _MenuButtonRefClass uintptr
 
-// UnWrapWithPointer
-//
-//	Returns a ICefMenuButton instance using a PCefMenuButton data pointer.
 func (_MenuButtonRefClass) UnWrapWithPointer(data uintptr) (result ICefMenuButton) {
 	var resultPtr uintptr
 	cefMenuButtonRefAPI().SysCallN(1, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))
@@ -87,15 +76,6 @@ func (_MenuButtonRefClass) UnWrapWithPointer(data uintptr) (result ICefMenuButto
 	return
 }
 
-// CreateMenuButton
-//
-//	Create a new MenuButton. A |delegate| must be provided to call show_menu()
-//	when the button is clicked. |text| will be shown on the MenuButton and used
-//	as the default accessible name. If |with_frame| is true (1) the button will
-//	have a visible frame at all times, center alignment, additional padding and
-//	a default minimum size of 70x33 DIP. If |with_frame| is false (0) the button
-//	will only have a visible frame on hover/press, left alignment, less padding
-//	and no default minimum size.
 func (_MenuButtonRefClass) CreateMenuButton(delegate IEngMenuButtonDelegate, text string) (result ICefMenuButton) {
 	var resultPtr uintptr
 	cefMenuButtonRefAPI().SysCallN(2, base.GetObjectUintptr(delegate), api.PasStr(text), uintptr(base.UnsafePointer(&resultPtr)))

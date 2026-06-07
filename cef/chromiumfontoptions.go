@@ -19,49 +19,26 @@ import (
 // IChromiumFontOptions Parent: IPersistent
 type IChromiumFontOptions interface {
 	IPersistent
-	// StandardFontFamily
-	//  Standard font family name.
-	StandardFontFamily() string         // property StandardFontFamily Getter
-	SetStandardFontFamily(value string) // property StandardFontFamily Setter
-	// FixedFontFamily
-	//  Fixed font family name.
-	FixedFontFamily() string         // property FixedFontFamily Getter
-	SetFixedFontFamily(value string) // property FixedFontFamily Setter
-	// SerifFontFamily
-	//  Serif font family name.
-	SerifFontFamily() string         // property SerifFontFamily Getter
-	SetSerifFontFamily(value string) // property SerifFontFamily Setter
-	// SansSerifFontFamily
-	//  SansSerif font family name.
-	SansSerifFontFamily() string         // property SansSerifFontFamily Getter
-	SetSansSerifFontFamily(value string) // property SansSerifFontFamily Setter
-	// CursiveFontFamily
-	//  Cursive font family name.
-	CursiveFontFamily() string         // property CursiveFontFamily Getter
-	SetCursiveFontFamily(value string) // property CursiveFontFamily Setter
-	// FantasyFontFamily
-	//  Fantasy font family name.
-	FantasyFontFamily() string         // property FantasyFontFamily Getter
-	SetFantasyFontFamily(value string) // property FantasyFontFamily Setter
-	// DefaultFontSize
-	//  Default font size.
-	DefaultFontSize() int32         // property DefaultFontSize Getter
-	SetDefaultFontSize(value int32) // property DefaultFontSize Setter
-	// DefaultFixedFontSize
-	//  Default fixed font size.
-	DefaultFixedFontSize() int32         // property DefaultFixedFontSize Getter
-	SetDefaultFixedFontSize(value int32) // property DefaultFixedFontSize Setter
-	// MinimumFontSize
-	//  Minimum font size.
-	MinimumFontSize() int32         // property MinimumFontSize Getter
-	SetMinimumFontSize(value int32) // property MinimumFontSize Setter
-	// MinimumLogicalFontSize
-	//  Minimum logical font size.
-	MinimumLogicalFontSize() int32         // property MinimumLogicalFontSize Getter
-	SetMinimumLogicalFontSize(value int32) // property MinimumLogicalFontSize Setter
-	// RemoteFonts
-	//  Controls the loading of fonts from remote sources. Also configurable using
-	//  the "disable-remote-fonts" command-line switch.
+	StandardFontFamily() string              // property StandardFontFamily Getter
+	SetStandardFontFamily(value string)      // property StandardFontFamily Setter
+	FixedFontFamily() string                 // property FixedFontFamily Getter
+	SetFixedFontFamily(value string)         // property FixedFontFamily Setter
+	SerifFontFamily() string                 // property SerifFontFamily Getter
+	SetSerifFontFamily(value string)         // property SerifFontFamily Setter
+	SansSerifFontFamily() string             // property SansSerifFontFamily Getter
+	SetSansSerifFontFamily(value string)     // property SansSerifFontFamily Setter
+	CursiveFontFamily() string               // property CursiveFontFamily Getter
+	SetCursiveFontFamily(value string)       // property CursiveFontFamily Setter
+	FantasyFontFamily() string               // property FantasyFontFamily Getter
+	SetFantasyFontFamily(value string)       // property FantasyFontFamily Setter
+	DefaultFontSize() int32                  // property DefaultFontSize Getter
+	SetDefaultFontSize(value int32)          // property DefaultFontSize Setter
+	DefaultFixedFontSize() int32             // property DefaultFixedFontSize Getter
+	SetDefaultFixedFontSize(value int32)     // property DefaultFixedFontSize Setter
+	MinimumFontSize() int32                  // property MinimumFontSize Getter
+	SetMinimumFontSize(value int32)          // property MinimumFontSize Setter
+	MinimumLogicalFontSize() int32           // property MinimumLogicalFontSize Getter
+	SetMinimumLogicalFontSize(value int32)   // property MinimumLogicalFontSize Setter
 	RemoteFonts() cefTypes.TCefState         // property RemoteFonts Getter
 	SetRemoteFonts(value cefTypes.TCefState) // property RemoteFonts Setter
 }

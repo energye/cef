@@ -44,9 +44,6 @@ var TextfieldDelegateRef _TextfieldDelegateRefClass
 // _TextfieldDelegateRefClass is class type defined by TCefTextfieldDelegateRef
 type _TextfieldDelegateRefClass uintptr
 
-// UnWrapWithPointer
-//
-//	Returns a ICefTextfieldDelegate instance using a PCefTextfieldDelegate data pointer.
 func (_TextfieldDelegateRefClass) UnWrapWithPointer(data uintptr) (result IEngTextfieldDelegate) {
 	var resultPtr uintptr
 	cefTextfieldDelegateRefAPI().SysCallN(1, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))

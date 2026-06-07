@@ -17,11 +17,7 @@ import (
 // ICefCallback Parent: ICefBaseRefCounted
 type ICefCallback interface {
 	ICefBaseRefCounted
-	// Cont
-	//  Continue processing.
-	Cont() // procedure
-	// Cancel
-	//  Cancel processing.
+	Cont()   // procedure
 	Cancel() // procedure
 }
 

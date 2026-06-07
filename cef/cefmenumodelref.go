@@ -18,236 +18,62 @@ import (
 // ICefMenuModel Parent: ICefBaseRefCounted
 type ICefMenuModel interface {
 	ICefBaseRefCounted
-	// IsSubMenu
-	//  Returns true (1) if this menu is a submenu.
-	IsSubMenu() bool // function
-	// Clear
-	//  Clears the menu. Returns true (1) on success.
-	Clear() bool // function
-	// GetCount
-	//  Returns the number of items in this menu.
-	GetCount() cefTypes.NativeUInt // function
-	// AddSeparator
-	//  Add a separator to the menu. Returns true (1) on success.
-	AddSeparator() bool // function
-	// AddItem
-	//  Add an item to the menu. Returns true (1) on success.
-	AddItem(commandId int32, text string) bool // function
-	// AddCheckItem
-	//  Add a check item to the menu. Returns true (1) on success.
-	AddCheckItem(commandId int32, text string) bool // function
-	// AddRadioItem
-	//  Add a radio item to the menu. Only a single item with the specified
-	//  |group_id| can be checked at a time. Returns true (1) on success.
-	AddRadioItem(commandId int32, text string, groupId int32) bool // function
-	// AddSubMenu
-	//  Add a sub-menu to the menu. The new sub-menu is returned.
-	AddSubMenu(commandId int32, text string) ICefMenuModel // function
-	// InsertSeparatorAt
-	//  Insert a separator in the menu at the specified |index|. Returns true (1)
-	//  on success.
-	InsertSeparatorAt(index cefTypes.NativeUInt) bool // function
-	// InsertItemAt
-	//  Insert an item in the menu at the specified |index|. Returns true (1) on
-	//  success.
-	InsertItemAt(index cefTypes.NativeUInt, commandId int32, text string) bool // function
-	// InsertCheckItemAt
-	//  Insert a check item in the menu at the specified |index|. Returns true (1)
-	//  on success.
-	InsertCheckItemAt(index cefTypes.NativeUInt, commandId int32, text string) bool // function
-	// InsertRadioItemAt
-	//  Insert a radio item in the menu at the specified |index|. Only a single
-	//  item with the specified |group_id| can be checked at a time. Returns true
-	//  (1) on success.
-	InsertRadioItemAt(index cefTypes.NativeUInt, commandId int32, text string, groupId int32) bool // function
-	// InsertSubMenuAt
-	//  Insert a sub-menu in the menu at the specified |index|. The new sub-menu
-	//  is returned.
-	InsertSubMenuAt(index cefTypes.NativeUInt, commandId int32, text string) ICefMenuModel // function
-	// Remove
-	//  Removes the item with the specified |command_id|. Returns true (1) on
-	//  success.
-	Remove(commandId int32) bool // function
-	// RemoveAt
-	//  Removes the item at the specified |index|. Returns true (1) on success.
-	RemoveAt(index cefTypes.NativeUInt) bool // function
-	// GetIndexOf
-	//  Returns the index associated with the specified |command_id| or -1 if not
-	//  found due to the command id not existing in the menu.
-	GetIndexOf(commandId int32) int32 // function
-	// GetCommandIdAt
-	//  Returns the command id at the specified |index| or -1 if not found due to
-	//  invalid range or the index being a separator.
-	GetCommandIdAt(index cefTypes.NativeUInt) int32 // function
-	// SetCommandIdAt
-	//  Sets the command id at the specified |index|. Returns true (1) on success.
-	SetCommandIdAt(index cefTypes.NativeUInt, commandId int32) bool // function
-	// GetLabel
-	//  Returns the label for the specified |command_id| or NULL if not found.
-	GetLabel(commandId int32) string // function
-	// GetLabelAt
-	//  Returns the label at the specified |index| or NULL if not found due to
-	//  invalid range or the index being a separator.
-	GetLabelAt(index cefTypes.NativeUInt) string // function
-	// SetLabel
-	//  Sets the label for the specified |command_id|. Returns true (1) on
-	//  success.
-	SetLabel(commandId int32, text string) bool // function
-	// SetLabelAt
-	//  Set the label at the specified |index|. Returns true (1) on success.
-	SetLabelAt(index cefTypes.NativeUInt, text string) bool // function
-	// GetType
-	//  Returns the item type for the specified |command_id|.
-	GetType(commandId int32) cefTypes.TCefMenuItemType // function
-	// GetTypeAt
-	//  Returns the item type at the specified |index|.
-	GetTypeAt(index cefTypes.NativeUInt) cefTypes.TCefMenuItemType // function
-	// GetGroupId
-	//  Returns the group id for the specified |command_id| or -1 if invalid.
-	GetGroupId(commandId int32) int32 // function
-	// GetGroupIdAt
-	//  Returns the group id at the specified |index| or -1 if invalid.
-	GetGroupIdAt(index cefTypes.NativeUInt) int32 // function
-	// SetGroupId
-	//  Sets the group id for the specified |command_id|. Returns true (1) on
-	//  success.
-	SetGroupId(commandId int32, groupId int32) bool // function
-	// SetGroupIdAt
-	//  Sets the group id at the specified |index|. Returns true (1) on success.
-	SetGroupIdAt(index cefTypes.NativeUInt, groupId int32) bool // function
-	// GetSubMenu
-	//  Returns the submenu for the specified |command_id| or NULL if invalid.
-	GetSubMenu(commandId int32) ICefMenuModel // function
-	// GetSubMenuAt
-	//  Returns the submenu at the specified |index| or NULL if invalid.
-	GetSubMenuAt(index cefTypes.NativeUInt) ICefMenuModel // function
-	// IsVisible
-	//  Returns true (1) if the specified |command_id| is visible.
-	IsVisible(commandId int32) bool // function
-	// IsVisibleAt
-	//  Returns true (1) if the specified |index| is visible.
-	IsVisibleAt(index cefTypes.NativeUInt) bool // function
-	// SetVisible
-	//  Change the visibility of the specified |command_id|. Returns true (1) on
-	//  success.
-	SetVisible(commandId int32, visible bool) bool // function
-	// SetVisibleAt
-	//  Change the visibility at the specified |index|. Returns true (1) on
-	//  success.
-	SetVisibleAt(index cefTypes.NativeUInt, visible bool) bool // function
-	// IsEnabled
-	//  Returns true (1) if the specified |command_id| is enabled.
-	IsEnabled(commandId int32) bool // function
-	// IsEnabledAt
-	//  Returns true (1) if the specified |index| is enabled.
-	IsEnabledAt(index cefTypes.NativeUInt) bool // function
-	// SetEnabled
-	//  Change the enabled status of the specified |command_id|. Returns true (1)
-	//  on success.
-	SetEnabled(commandId int32, enabled bool) bool // function
-	// SetEnabledAt
-	//  Change the enabled status at the specified |index|. Returns true (1) on
-	//  success.
-	SetEnabledAt(index cefTypes.NativeUInt, enabled bool) bool // function
-	// IsChecked
-	//  Returns true (1) if the specified |command_id| is checked. Only applies to
-	//  check and radio items.
-	IsChecked(commandId int32) bool // function
-	// IsCheckedAt
-	//  Returns true (1) if the specified |index| is checked. Only applies to
-	//  check and radio items.
-	IsCheckedAt(index cefTypes.NativeUInt) bool // function
-	// SetChecked
-	//  Check the specified |command_id|. Only applies to check and radio items.
-	//  Returns true (1) on success.
-	SetChecked(commandId int32, checked bool) bool // function
-	// SetCheckedAt
-	//  Check the specified |index|. Only applies to check and radio items.
-	//  Returns true (1) on success.
-	SetCheckedAt(index cefTypes.NativeUInt, checked bool) bool // function
-	// HasAccelerator
-	//  Returns true (1) if the specified |command_id| has a keyboard accelerator
-	//  assigned.
-	HasAccelerator(commandId int32) bool // function
-	// HasAcceleratorAt
-	//  Returns true (1) if the specified |index| has a keyboard accelerator
-	//  assigned.
-	HasAcceleratorAt(index cefTypes.NativeUInt) bool // function
-	// SetAccelerator
-	//  Set the keyboard accelerator for the specified |command_id|. |key_code|
-	//  can be any virtual key or character value. Returns true (1) on success.
-	SetAccelerator(commandId int32, keyCode int32, shiftPressed bool, ctrlPressed bool, altPressed bool) bool // function
-	// SetAcceleratorAt
-	//  Set the keyboard accelerator at the specified |index|. |key_code| can be
-	//  any virtual key or character value. Returns true (1) on success.
-	SetAcceleratorAt(index cefTypes.NativeUInt, keyCode int32, shiftPressed bool, ctrlPressed bool, altPressed bool) bool // function
-	// RemoveAccelerator
-	//  Remove the keyboard accelerator for the specified |command_id|. Returns
-	//  true (1) on success.
-	RemoveAccelerator(commandId int32) bool // function
-	// RemoveAcceleratorAt
-	//  Remove the keyboard accelerator at the specified |index|. Returns true (1)
-	//  on success.
-	RemoveAcceleratorAt(index cefTypes.NativeUInt) bool // function
-	// GetAccelerator
-	//  Retrieves the keyboard accelerator for the specified |command_id|. Returns
-	//  true (1) on success.
-	GetAccelerator(commandId int32, outKeyCode *int32, outShiftPressed *bool, outCtrlPressed *bool, outAltPressed *bool) bool // function
-	// GetAcceleratorAt
-	//  Retrieves the keyboard accelerator for the specified |index|. Returns true
-	//  (1) on success.
+	IsSubMenu() bool                                                                                                                      // function
+	Clear() bool                                                                                                                          // function
+	GetCount() cefTypes.NativeUInt                                                                                                        // function
+	AddSeparator() bool                                                                                                                   // function
+	AddItem(commandId int32, text string) bool                                                                                            // function
+	AddCheckItem(commandId int32, text string) bool                                                                                       // function
+	AddRadioItem(commandId int32, text string, groupId int32) bool                                                                        // function
+	AddSubMenu(commandId int32, text string) ICefMenuModel                                                                                // function
+	InsertSeparatorAt(index cefTypes.NativeUInt) bool                                                                                     // function
+	InsertItemAt(index cefTypes.NativeUInt, commandId int32, text string) bool                                                            // function
+	InsertCheckItemAt(index cefTypes.NativeUInt, commandId int32, text string) bool                                                       // function
+	InsertRadioItemAt(index cefTypes.NativeUInt, commandId int32, text string, groupId int32) bool                                        // function
+	InsertSubMenuAt(index cefTypes.NativeUInt, commandId int32, text string) ICefMenuModel                                                // function
+	Remove(commandId int32) bool                                                                                                          // function
+	RemoveAt(index cefTypes.NativeUInt) bool                                                                                              // function
+	GetIndexOf(commandId int32) int32                                                                                                     // function
+	GetCommandIdAt(index cefTypes.NativeUInt) int32                                                                                       // function
+	SetCommandIdAt(index cefTypes.NativeUInt, commandId int32) bool                                                                       // function
+	GetLabel(commandId int32) string                                                                                                      // function
+	GetLabelAt(index cefTypes.NativeUInt) string                                                                                          // function
+	SetLabel(commandId int32, text string) bool                                                                                           // function
+	SetLabelAt(index cefTypes.NativeUInt, text string) bool                                                                               // function
+	GetType(commandId int32) cefTypes.TCefMenuItemType                                                                                    // function
+	GetTypeAt(index cefTypes.NativeUInt) cefTypes.TCefMenuItemType                                                                        // function
+	GetGroupId(commandId int32) int32                                                                                                     // function
+	GetGroupIdAt(index cefTypes.NativeUInt) int32                                                                                         // function
+	SetGroupId(commandId int32, groupId int32) bool                                                                                       // function
+	SetGroupIdAt(index cefTypes.NativeUInt, groupId int32) bool                                                                           // function
+	GetSubMenu(commandId int32) ICefMenuModel                                                                                             // function
+	GetSubMenuAt(index cefTypes.NativeUInt) ICefMenuModel                                                                                 // function
+	IsVisible(commandId int32) bool                                                                                                       // function
+	IsVisibleAt(index cefTypes.NativeUInt) bool                                                                                           // function
+	SetVisible(commandId int32, visible bool) bool                                                                                        // function
+	SetVisibleAt(index cefTypes.NativeUInt, visible bool) bool                                                                            // function
+	IsEnabled(commandId int32) bool                                                                                                       // function
+	IsEnabledAt(index cefTypes.NativeUInt) bool                                                                                           // function
+	SetEnabled(commandId int32, enabled bool) bool                                                                                        // function
+	SetEnabledAt(index cefTypes.NativeUInt, enabled bool) bool                                                                            // function
+	IsChecked(commandId int32) bool                                                                                                       // function
+	IsCheckedAt(index cefTypes.NativeUInt) bool                                                                                           // function
+	SetChecked(commandId int32, checked bool) bool                                                                                        // function
+	SetCheckedAt(index cefTypes.NativeUInt, checked bool) bool                                                                            // function
+	HasAccelerator(commandId int32) bool                                                                                                  // function
+	HasAcceleratorAt(index cefTypes.NativeUInt) bool                                                                                      // function
+	SetAccelerator(commandId int32, keyCode int32, shiftPressed bool, ctrlPressed bool, altPressed bool) bool                             // function
+	SetAcceleratorAt(index cefTypes.NativeUInt, keyCode int32, shiftPressed bool, ctrlPressed bool, altPressed bool) bool                 // function
+	RemoveAccelerator(commandId int32) bool                                                                                               // function
+	RemoveAcceleratorAt(index cefTypes.NativeUInt) bool                                                                                   // function
+	GetAccelerator(commandId int32, outKeyCode *int32, outShiftPressed *bool, outCtrlPressed *bool, outAltPressed *bool) bool             // function
 	GetAcceleratorAt(index cefTypes.NativeUInt, outKeyCode *int32, outShiftPressed *bool, outCtrlPressed *bool, outAltPressed *bool) bool // function
-	// SetColor
-	//  Set the explicit color for |command_id| and |color_type| to |color|.
-	//  Specify a |color| value of 0 to remove the explicit color. If no explicit
-	//  color or default color is set for |color_type| then the system color will
-	//  be used. Returns true (1) on success.
-	SetColor(commandId int32, colorType cefTypes.TCefMenuColorType, color cefTypes.TCefColor) bool // function
-	// SetColorAt
-	//  Set the explicit color for |command_id| and |index| to |color|. Specify a
-	//  |color| value of 0 to remove the explicit color. Specify an |index| value
-	//  of -1 to set the default color for items that do not have an explicit
-	//  color set. If no explicit color or default color is set for |color_type|
-	//  then the system color will be used. Returns true (1) on success.
-	SetColorAt(index int32, colorType cefTypes.TCefMenuColorType, color cefTypes.TCefColor) bool // function
-	// GetColor
-	//  Returns in |color| the color that was explicitly set for |command_id| and
-	//  |color_type|. If a color was not set then 0 will be returned in |color|.
-	//  Returns true (1) on success.
-	GetColor(commandId int32, colorType cefTypes.TCefMenuColorType, outColor *cefTypes.TCefColor) bool // function
-	// GetColorAt
-	//  Returns in |color| the color that was explicitly set for |command_id| and
-	//  |color_type|. Specify an |index| value of -1 to return the default color
-	//  in |color|. If a color was not set then 0 will be returned in |color|.
-	//  Returns true (1) on success.
-	GetColorAt(index int32, colorType cefTypes.TCefMenuColorType, outColor *cefTypes.TCefColor) bool // function
-	// SetFontList
-	//  Sets the font list for the specified |command_id|. If |font_list| is NULL
-	//  the system font will be used. Returns true (1) on success. The format is
-	//  "<FONT_FAMILY_LIST>,[STYLES] <SIZE>", where:
-	//  - FONT_FAMILY_LIST is a comma-separated list of font family names,
-	//  - STYLES is an optional space-separated list of style names
-	//  (case-sensitive "Bold" and "Italic" are supported), and
-	//  - SIZE is an integer font size in pixels with the suffix "px".
-	//
-	//  Here are examples of valid font description strings:
-	//  - "Arial, Helvetica, Bold Italic 14px"
-	//  - "Arial, 14px"
-	SetFontList(commandId int32, fontList string) bool // function
-	// SetFontListAt
-	//  Sets the font list for the specified |index|. Specify an |index| value of
-	//  -1 to set the default font. If |font_list| is NULL the system font will be
-	//  used. Returns true (1) on success. The format is
-	//  "<FONT_FAMILY_LIST>,[STYLES] <SIZE>", where:
-	//  - FONT_FAMILY_LIST is a comma-separated list of font family names,
-	//  - STYLES is an optional space-separated list of style names
-	//  (case-sensitive "Bold" and "Italic" are supported), and
-	//  - SIZE is an integer font size in pixels with the suffix "px".
-	//
-	//  Here are examples of valid font description strings:
-	//  - "Arial, Helvetica, Bold Italic 14px"
-	//  - "Arial, 14px"
-	SetFontListAt(index int32, fontList string) bool // function
+	SetColor(commandId int32, colorType cefTypes.TCefMenuColorType, color cefTypes.TCefColor) bool                                        // function
+	SetColorAt(index int32, colorType cefTypes.TCefMenuColorType, color cefTypes.TCefColor) bool                                          // function
+	GetColor(commandId int32, colorType cefTypes.TCefMenuColorType, outColor *cefTypes.TCefColor) bool                                    // function
+	GetColorAt(index int32, colorType cefTypes.TCefMenuColorType, outColor *cefTypes.TCefColor) bool                                      // function
+	SetFontList(commandId int32, fontList string) bool                                                                                    // function
+	SetFontListAt(index int32, fontList string) bool                                                                                      // function
 }
 
 // ICefMenuModelRef Parent: ICefMenuModel ICefBaseRefCountedRef

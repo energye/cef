@@ -18,32 +18,13 @@ import (
 // ICefPostData Parent: ICefBaseRefCounted
 type ICefPostData interface {
 	ICefBaseRefCounted
-	// IsReadOnly
-	//  Returns true (1) if this object is read-only.
-	IsReadOnly() bool // function
-	// HasExcludedElements
-	//  Returns true (1) if the underlying POST data includes elements that are
-	//  not represented by this ICefPostData object (for example, multi-part
-	//  file upload data). Modifying ICefPostData objects with excluded
-	//  elements may result in the request failing.
-	HasExcludedElements() bool // function
-	// GetElementCount
-	//  Returns the number of existing post data elements.
-	GetElementCount() cefTypes.NativeUInt // function
-	// RemoveElement
-	//  Remove the specified post data element. Returns true (1) if the removal
-	//  succeeds.
-	RemoveElement(element ICefPostDataElement) bool // function
-	// AddElement
-	//  Add the specified post data element. Returns true (1) if the add
-	//  succeeds.
-	AddElement(element ICefPostDataElement) bool // function
-	// GetElements
-	//  Retrieve the post data elements.
+	IsReadOnly() bool                                                                  // function
+	HasExcludedElements() bool                                                         // function
+	GetElementCount() cefTypes.NativeUInt                                              // function
+	RemoveElement(element ICefPostDataElement) bool                                    // function
+	AddElement(element ICefPostDataElement) bool                                       // function
 	GetElements(elementsCount cefTypes.NativeUInt, elements *ICefPostDataElementArray) // procedure
-	// RemoveElements
-	//  Remove all existing post data elements.
-	RemoveElements() // procedure
+	RemoveElements()                                                                   // procedure
 }
 
 // ICefPostDataRef Parent: ICefPostData ICefBaseRefCountedRef

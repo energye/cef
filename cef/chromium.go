@@ -19,52 +19,18 @@ import (
 // IChromium Parent: IChromiumCore
 type IChromium interface {
 	IChromiumCore
-	// CreateBrowserWithWControlStrRContextDValue
-	//  Used to create the browser after the global request context has been
-	//  initialized. You need to set all properties and events before calling
-	//  this function because it will only create the internal handlers needed
-	//  for those events and the property values will be used in the browser
-	//  initialization.
-	//  The browser will be fully initialized when the TChromiumCore.OnAfterCreated
-	//  event is triggered.
 	CreateBrowserWithWControlStrRContextDValue(browserParent lcl.IWinControl, windowName string, context ICefRequestContext, extraInfo ICefDictionaryValue) bool // function
-	// SaveAsBitmapStream
-	//  Copy the DC to a bitmap stream. Only works on Windows with browsers without GPU acceleration.
-	//  It's recommended to use the "Page.captureScreenshot" DevTools method instead.
-	SaveAsBitmapStream(stream lcl.IStream) bool // function
-	// TakeSnapshot
-	//  Copy the DC to a TBitmap. Only works on Windows with browsers without GPU acceleration.
-	//  It's recommended to use the "Page.captureScreenshot" DevTools method instead.
-	TakeSnapshot(bitmap *lcl.IBitmap) bool // function
-	// InitializeDragAndDropWithWinControl
-	//  Used with browsers in OSR mode to initialize drag and drop in Windows.
-	InitializeDragAndDropWithWinControl(dropTargetCtrl lcl.IWinControl) // procedure
-	// ShowDevToolsWithPointWinControl
-	//  Open developer tools (DevTools) in its own browser. If inspectElementAt has a valid point
-	//  with coordinates different than low(integer) then the element at the specified location
-	//  will be inspected. If the DevTools browser is already open then it will be focused.
-	ShowDevToolsWithPointWinControl(inspectElementAt types.TPoint, devTools lcl.IWinControl) // procedure
-	// CloseDevToolsWithWinControl
-	//  Close the developer tools.
-	CloseDevToolsWithWinControl(devTools lcl.IWinControl) // procedure
-	// MoveFormTo
-	//  Move the parent form to the x and y coordinates.
-	MoveFormTo(X int32, Y int32) // procedure
-	// MoveFormBy
-	//  Move the parent form adding x and y to the coordinates.
-	MoveFormBy(X int32, Y int32) // procedure
-	// ResizeFormWidthTo
-	//  Add x to the parent form width.
-	ResizeFormWidthTo(X int32) // procedure
-	// ResizeFormHeightTo
-	//  Add y to the parent form height.
-	ResizeFormHeightTo(Y int32) // procedure
-	// SetFormLeftTo
-	//  Set the parent form left property to x.
-	SetFormLeftTo(X int32) // procedure
-	// SetFormTopTo
-	//  Set the parent form top property to y.
-	SetFormTopTo(Y int32) // procedure
+	SaveAsBitmapStream(stream lcl.IStream) bool                                                                                                                  // function
+	TakeSnapshot(bitmap *lcl.IBitmap) bool                                                                                                                       // function
+	InitializeDragAndDropWithWinControl(dropTargetCtrl lcl.IWinControl)                                                                                          // procedure
+	ShowDevToolsWithPointWinControl(inspectElementAt types.TPoint, devTools lcl.IWinControl)                                                                     // procedure
+	CloseDevToolsWithWinControl(devTools lcl.IWinControl)                                                                                                        // procedure
+	MoveFormTo(X int32, Y int32)                                                                                                                                 // procedure
+	MoveFormBy(X int32, Y int32)                                                                                                                                 // procedure
+	ResizeFormWidthTo(X int32)                                                                                                                                   // procedure
+	ResizeFormHeightTo(Y int32)                                                                                                                                  // procedure
+	SetFormLeftTo(X int32)                                                                                                                                       // procedure
+	SetFormTopTo(Y int32)                                                                                                                                        // procedure
 	AsIntfChromiumEvents() uintptr
 }
 

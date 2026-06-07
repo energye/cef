@@ -21,162 +21,78 @@ import (
 // IBufferPanel Parent: ICustomPanel
 type IBufferPanel interface {
 	ICustomPanel
-	// SaveToFile
-	//  Save the visible web contents as a bitmap file.
-	SaveToFile(filename string) bool // function
-	// InvalidatePanel
-	//  Invalidate this panel.
-	InvalidatePanel() bool // function
-	// BeginBufferDraw
-	//  Acquires the synchronization object before drawing into the background bitmap.
-	BeginBufferDraw() bool // function
-	// UpdateBufferDimensions
-	//  Update the background bitmap size.
-	UpdateBufferDimensions(width int32, height int32) bool // function
-	// UpdateOrigBufferDimensions
-	//  Update the image size of the original buffer copy.
-	UpdateOrigBufferDimensions(width int32, height int32) bool // function
-	// UpdateOrigPopupBufferDimensions
-	//  Update the popup image size of the original buffer copy.
-	UpdateOrigPopupBufferDimensions(width int32, height int32) bool // function
-	// BufferIsResized
-	//  Check if the background image buffers have the same dimensions as this panel. Returns true if they have the same size.
-	BufferIsResized(useMutex bool) bool // function
-	// EndBufferDraw
-	//  Releases the synchronization object after drawing into the background bitmap.
-	EndBufferDraw() // procedure
-	// BufferDrawWithIntX2Bitmap
-	//  Draws aBitmap into the background bitmap buffer at the specified coordinates.
-	//  <param name="x">x coordinate where the bitmap will be drawn.</param>
-	//  <param name="y">y coordinate where the bitmap will be drawn.</param>
-	//  <param name="aBitmap">Bitmap that will be drawn into the background bitmap.</param>
-	BufferDrawWithIntX2Bitmap(X int32, Y int32, bitmap lcl.IBitmap) // procedure
-	// BufferDrawWithBitmapRectX2
-	//  Draws a part of aBitmap into the background bitmap buffer at the specified rectangle.
-	//  <param name="aBitmap">Bitmap that will be drawn into the background bitmap.</param>
-	//  <param name="aSrcRect">Rectangle that defines the area of aBitmap that will be drawn into the background bitmap.</param>
-	//  <param name="aDstRect">Rectangle that defines the area of the background bitmap where aBitmap will be drawn.</param>
+	SaveToFile(filename string) bool                                                         // function
+	InvalidatePanel() bool                                                                   // function
+	BeginBufferDraw() bool                                                                   // function
+	UpdateBufferDimensions(width int32, height int32) bool                                   // function
+	UpdateOrigBufferDimensions(width int32, height int32) bool                               // function
+	UpdateOrigPopupBufferDimensions(width int32, height int32) bool                          // function
+	BufferIsResized(useMutex bool) bool                                                      // function
+	EndBufferDraw()                                                                          // procedure
+	BufferDrawWithIntX2Bitmap(X int32, Y int32, bitmap lcl.IBitmap)                          // procedure
 	BufferDrawWithBitmapRectX2(bitmap lcl.IBitmap, srcRect types.TRect, dstRect types.TRect) // procedure
-	// UpdateDeviceScaleFactor
-	//  Update the FDeviceScaleFactor value with the current scale.
-	UpdateDeviceScaleFactor() // procedure
-	// CreateIMEHandler
-	//  Creates the IME handler.
-	CreateIMEHandler() // procedure
-	// ChangeCompositionRange
-	//  Calls ChangeCompositionRange in the IME handler.
-	ChangeCompositionRange(selectionRange TCefRange, characterBounds ICefRectArray) // procedure
-	// DrawOrigPopupBuffer
-	//  Copy the contents from the original popup buffer copy to the main buffer copy.
-	DrawOrigPopupBuffer(srcRect types.TRect, dstRect types.TRect) // procedure
-	// ScanlineSize
-	//  Returns the scanline size.
-	ScanlineSize() int32 // property ScanlineSize Getter
-	// BufferWidth
-	//  Image width.
-	BufferWidth() int32 // property BufferWidth Getter
-	// BufferHeight
-	//  Image height.
-	BufferHeight() int32 // property BufferHeight Getter
-	// BufferBits
-	//  Returns a pointer to the buffer that stores the image.
-	BufferBits() uintptr // property BufferBits Getter
-	// ScreenScale
-	//  Returns the screen scale.
-	ScreenScale() float32 // property ScreenScale Getter
-	// ForcedDeviceScaleFactor
-	//  Screen scale value used instead of the real one.
-	ForcedDeviceScaleFactor() float32         // property ForcedDeviceScaleFactor Getter
-	SetForcedDeviceScaleFactor(value float32) // property ForcedDeviceScaleFactor Setter
-	// MustInitBuffer
-	//  Clear the background image before copying the original buffer contents.
-	MustInitBuffer() bool         // property MustInitBuffer Getter
-	SetMustInitBuffer(value bool) // property MustInitBuffer Setter
-	// Buffer
-	//  Background bitmap.
-	Buffer() lcl.IBitmap // property Buffer Getter
-	// OrigBuffer
-	//  Copy of the raw main bitmap buffer sent by CEF in the TChromiumCore.OnPaint event.
-	//  OrigBuffer will be transferred to the bitmap buffer before copying the bitmap buffer
-	//  to the panel.
-	OrigBuffer() ICEFBitmapBitBuffer // property OrigBuffer Getter
-	// OrigBufferWidth
-	//  Image width of the raw main bitmap buffer copy.
-	OrigBufferWidth() int32 // property OrigBufferWidth Getter
-	// OrigBufferHeight
-	//  Image height of the raw main bitmap buffer copy.
-	OrigBufferHeight() int32 // property OrigBufferHeight Getter
-	// OrigPopupBuffer
-	//  Copy of the raw popup bitmap buffer sent by CEF in the TChromiumCore.OnPaint event.
-	OrigPopupBuffer() ICEFBitmapBitBuffer // property OrigPopupBuffer Getter
-	// OrigPopupBufferWidth
-	//  Image width of the raw popup bitmap buffer copy.
-	OrigPopupBufferWidth() int32 // property OrigPopupBufferWidth Getter
-	// OrigPopupBufferHeight
-	//  Image height of the raw popup bitmap buffer copy.
-	OrigPopupBufferHeight() int32 // property OrigPopupBufferHeight Getter
-	// OrigPopupBufferBits
-	//  Returns a pointer to the raw popup bitmap buffer copye.
-	OrigPopupBufferBits() uintptr // property OrigPopupBufferBits Getter
-	// OrigPopupScanlineSize
-	//  Returns the scanline size of the raw popup bitmap buffer copy.
-	OrigPopupScanlineSize() int32 // property OrigPopupScanlineSize Getter
-	// ParentFormHandle
-	//  Returns the handle of the parent form.
-	ParentFormHandle() cefTypes.TCefWindowHandle // property ParentFormHandle Getter
-	// ParentForm
-	//  Returns the parent form.
-	ParentForm() lcl.ICustomForm // property ParentForm Getter
-	// Transparent
-	//  Set Transparent to True to use a WS_EX_TRANSPARENT window style in the panel
-	//  and to call AlphaBlend in order to transfer the web contents from the bitmap
-	//  buffer to the panel.
-	//  If this property is False then BitBlt is used to transfer the web contents
-	//  from the bitmap buffer to the panel.
-	Transparent() bool         // property Transparent Getter
-	SetTransparent(value bool) // property Transparent Setter
-	// CopyOriginalBuffer
-	//  When CopyOriginalBuffer is True then OrigBuffer will be used internally to copy of
-	//  the raw main bitmap buffer sent by CEF in the TChromiumCore.OnPaint event.
-	//  OrigBuffer will be transferred to the bitmap buffer before copying the buffer to the panel.
-	//  This is necessary in GTK applications in order to avoid handling bitmaps in background
-	//  threads.
-	CopyOriginalBuffer() bool                            // property CopyOriginalBuffer Getter
-	SetCopyOriginalBuffer(value bool)                    // property CopyOriginalBuffer Setter
-	DragCursor() types.TCursor                           // property DragCursor Getter
-	SetDragCursor(value types.TCursor)                   // property DragCursor Setter
-	DragKind() types.TDragKind                           // property DragKind Getter
-	SetDragKind(value types.TDragKind)                   // property DragKind Setter
-	DragMode() types.TDragMode                           // property DragMode Getter
-	SetDragMode(value types.TDragMode)                   // property DragMode Setter
-	ParentFont() bool                                    // property ParentFont Getter
-	SetParentFont(value bool)                            // property ParentFont Setter
-	ParentShowHint() bool                                // property ParentShowHint Getter
-	SetParentShowHint(value bool)                        // property ParentShowHint Setter
-	SetOnIMECancelComposition(fn TNotifyEvent)           // property event
-	SetOnIMECommitText(fn TOnIMECommitTextEvent)         // property event
-	SetOnIMESetComposition(fn TOnIMESetCompositionEvent) // property event
-	SetOnCustomTouch(fn TOnHandledMessageEvent)          // property event
-	SetOnPointerDown(fn TOnHandledMessageEvent)          // property event
-	SetOnPointerUp(fn TOnHandledMessageEvent)            // property event
-	SetOnPointerUpdate(fn TOnHandledMessageEvent)        // property event
-	SetOnPaintParentBkg(fn TNotifyEvent)                 // property event
-	SetOnConstrainedResize(fn TConstrainedResizeEvent)   // property event
-	SetOnContextPopup(fn TContextPopupEvent)             // property event
-	SetOnDblClick(fn TNotifyEvent)                       // property event
-	SetOnDragDrop(fn TDragDropEvent)                     // property event
-	SetOnDragOver(fn TDragOverEvent)                     // property event
-	SetOnEndDock(fn TEndDragEvent)                       // property event
-	SetOnEndDrag(fn TEndDragEvent)                       // property event
-	SetOnGetSiteInfo(fn TGetSiteInfoEvent)               // property event
-	SetOnMouseDown(fn TMouseEvent)                       // property event
-	SetOnMouseMove(fn TMouseMoveEvent)                   // property event
-	SetOnMouseUp(fn TMouseEvent)                         // property event
-	SetOnMouseWheel(fn TMouseWheelEvent)                 // property event
-	SetOnStartDock(fn TStartDockEvent)                   // property event
-	SetOnStartDrag(fn TStartDragEvent)                   // property event
-	SetOnMouseEnter(fn TNotifyEvent)                     // property event
-	SetOnMouseLeave(fn TNotifyEvent)                     // property event
+	UpdateDeviceScaleFactor()                                                                // procedure
+	CreateIMEHandler()                                                                       // procedure
+	ChangeCompositionRange(selectionRange TCefRange, characterBounds ICefRectArray)          // procedure
+	DrawOrigPopupBuffer(srcRect types.TRect, dstRect types.TRect)                            // procedure
+	ScanlineSize() int32                                                                     // property ScanlineSize Getter
+	BufferWidth() int32                                                                      // property BufferWidth Getter
+	BufferHeight() int32                                                                     // property BufferHeight Getter
+	BufferBits() uintptr                                                                     // property BufferBits Getter
+	ScreenScale() float32                                                                    // property ScreenScale Getter
+	ForcedDeviceScaleFactor() float32                                                        // property ForcedDeviceScaleFactor Getter
+	SetForcedDeviceScaleFactor(value float32)                                                // property ForcedDeviceScaleFactor Setter
+	MustInitBuffer() bool                                                                    // property MustInitBuffer Getter
+	SetMustInitBuffer(value bool)                                                            // property MustInitBuffer Setter
+	Buffer() lcl.IBitmap                                                                     // property Buffer Getter
+	OrigBuffer() ICEFBitmapBitBuffer                                                         // property OrigBuffer Getter
+	OrigBufferWidth() int32                                                                  // property OrigBufferWidth Getter
+	OrigBufferHeight() int32                                                                 // property OrigBufferHeight Getter
+	OrigPopupBuffer() ICEFBitmapBitBuffer                                                    // property OrigPopupBuffer Getter
+	OrigPopupBufferWidth() int32                                                             // property OrigPopupBufferWidth Getter
+	OrigPopupBufferHeight() int32                                                            // property OrigPopupBufferHeight Getter
+	OrigPopupBufferBits() uintptr                                                            // property OrigPopupBufferBits Getter
+	OrigPopupScanlineSize() int32                                                            // property OrigPopupScanlineSize Getter
+	ParentFormHandle() cefTypes.TCefWindowHandle                                             // property ParentFormHandle Getter
+	ParentForm() lcl.ICustomForm                                                             // property ParentForm Getter
+	Transparent() bool                                                                       // property Transparent Getter
+	SetTransparent(value bool)                                                               // property Transparent Setter
+	CopyOriginalBuffer() bool                                                                // property CopyOriginalBuffer Getter
+	SetCopyOriginalBuffer(value bool)                                                        // property CopyOriginalBuffer Setter
+	DragCursor() types.TCursor                                                               // property DragCursor Getter
+	SetDragCursor(value types.TCursor)                                                       // property DragCursor Setter
+	DragKind() types.TDragKind                                                               // property DragKind Getter
+	SetDragKind(value types.TDragKind)                                                       // property DragKind Setter
+	DragMode() types.TDragMode                                                               // property DragMode Getter
+	SetDragMode(value types.TDragMode)                                                       // property DragMode Setter
+	ParentFont() bool                                                                        // property ParentFont Getter
+	SetParentFont(value bool)                                                                // property ParentFont Setter
+	ParentShowHint() bool                                                                    // property ParentShowHint Getter
+	SetParentShowHint(value bool)                                                            // property ParentShowHint Setter
+	SetOnIMECancelComposition(fn TNotifyEvent)                                               // property event
+	SetOnIMECommitText(fn TOnIMECommitTextEvent)                                             // property event
+	SetOnIMESetComposition(fn TOnIMESetCompositionEvent)                                     // property event
+	SetOnCustomTouch(fn TOnHandledMessageEvent)                                              // property event
+	SetOnPointerDown(fn TOnHandledMessageEvent)                                              // property event
+	SetOnPointerUp(fn TOnHandledMessageEvent)                                                // property event
+	SetOnPointerUpdate(fn TOnHandledMessageEvent)                                            // property event
+	SetOnPaintParentBkg(fn TNotifyEvent)                                                     // property event
+	SetOnConstrainedResize(fn TConstrainedResizeEvent)                                       // property event
+	SetOnContextPopup(fn TContextPopupEvent)                                                 // property event
+	SetOnDblClick(fn TNotifyEvent)                                                           // property event
+	SetOnDragDrop(fn TDragDropEvent)                                                         // property event
+	SetOnDragOver(fn TDragOverEvent)                                                         // property event
+	SetOnEndDock(fn TEndDragEvent)                                                           // property event
+	SetOnEndDrag(fn TEndDragEvent)                                                           // property event
+	SetOnGetSiteInfo(fn TGetSiteInfoEvent)                                                   // property event
+	SetOnMouseDown(fn TMouseEvent)                                                           // property event
+	SetOnMouseMove(fn TMouseMoveEvent)                                                       // property event
+	SetOnMouseUp(fn TMouseEvent)                                                             // property event
+	SetOnMouseWheel(fn TMouseWheelEvent)                                                     // property event
+	SetOnStartDock(fn TStartDockEvent)                                                       // property event
+	SetOnStartDrag(fn TStartDragEvent)                                                       // property event
+	SetOnMouseEnter(fn TNotifyEvent)                                                         // property event
+	SetOnMouseLeave(fn TNotifyEvent)                                                         // property event
 }
 
 type TBufferPanel struct {

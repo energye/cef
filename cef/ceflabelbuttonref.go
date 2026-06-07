@@ -18,54 +18,17 @@ import (
 // ICefLabelButton Parent: ICefButton
 type ICefLabelButton interface {
 	ICefButton
-	// AsMenuButton
-	//  Returns this LabelButton as a MenuButton or NULL if this is not a
-	//  MenuButton.
-	AsMenuButton() ICefMenuButton // function
-	// GetText
-	//  Returns the text shown on the LabelButton.
-	GetText() string // function
-	// GetImage
-	//  Returns the image shown for |button_state|. If no image exists for that
-	//  state then the image for CEF_BUTTON_STATE_NORMAL will be returned.
-	GetImage(buttonState cefTypes.TCefButtonState) ICefImage // function
-	// SetText
-	//  Sets the text shown on the LabelButton. By default |text| will also be
-	//  used as the accessible name.
-	SetText(text string) // procedure
-	// SetImage
-	//  Sets the image shown for |button_state|. When this Button is drawn if no
-	//  image exists for the current state then the image for
-	//  CEF_BUTTON_STATE_NORMAL, if any, will be shown.
-	SetImage(buttonState cefTypes.TCefButtonState, image ICefImage) // procedure
-	// SetTextColor
-	//  Sets the text color shown for the specified button |for_state| to |color|.
+	AsMenuButton() ICefMenuButton                                             // function
+	GetText() string                                                          // function
+	GetImage(buttonState cefTypes.TCefButtonState) ICefImage                  // function
+	SetText(text string)                                                      // procedure
+	SetImage(buttonState cefTypes.TCefButtonState, image ICefImage)           // procedure
 	SetTextColor(forState cefTypes.TCefButtonState, color cefTypes.TCefColor) // procedure
-	// SetEnabledTextColors
-	//  Sets the text colors shown for the non-disabled states to |color|.
-	SetEnabledTextColors(color cefTypes.TCefColor) // procedure
-	// SetFontList
-	//  Sets the font list. The format is "<FONT_FAMILY_LIST>,[STYLES] <SIZE>",
-	//  where:
-	//  - FONT_FAMILY_LIST is a comma-separated list of font family names,
-	//  - STYLES is an optional space-separated list of style names (case-sensitive
-	//  "Bold" and "Italic" are supported), and
-	//  - SIZE is an integer font size in pixels with the suffix "px".
-	//
-	//  Here are examples of valid font description strings:
-	//  - "Arial, Helvetica, Bold Italic 14px"
-	//  - "Arial, 14px"
-	SetFontList(fontList string) // procedure
-	// SetHorizontalAlignment
-	//  Sets the horizontal alignment; reversed in RTL. Default is
-	//  CEF_HORIZONTAL_ALIGNMENT_CENTER.
-	SetHorizontalAlignment(alignment cefTypes.TCefHorizontalAlignment) // procedure
-	// SetMinimumSize
-	//  Reset the minimum size of this LabelButton to |size|.
-	SetMinimumSize(size TCefSize) // procedure
-	// SetMaximumSize
-	//  Reset the maximum size of this LabelButton to |size|.
-	SetMaximumSize(size TCefSize) // procedure
+	SetEnabledTextColors(color cefTypes.TCefColor)                            // procedure
+	SetFontList(fontList string)                                              // procedure
+	SetHorizontalAlignment(alignment cefTypes.TCefHorizontalAlignment)        // procedure
+	SetMinimumSize(size TCefSize)                                             // procedure
+	SetMaximumSize(size TCefSize)                                             // procedure
 }
 
 // ICefLabelButtonRef Parent: ICefLabelButton ICefButtonRef
@@ -184,9 +147,6 @@ var LabelButtonRef _LabelButtonRefClass
 // _LabelButtonRefClass is class type defined by TCefLabelButtonRef
 type _LabelButtonRefClass uintptr
 
-// UnWrapWithPointer
-//
-//	Returns a ICefLabelButton instance using a PCefLabelButton data pointer.
 func (_LabelButtonRefClass) UnWrapWithPointer(data uintptr) (result ICefLabelButton) {
 	var resultPtr uintptr
 	cefLabelButtonRefAPI().SysCallN(4, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))
@@ -194,11 +154,6 @@ func (_LabelButtonRefClass) UnWrapWithPointer(data uintptr) (result ICefLabelBut
 	return
 }
 
-// CreateLabelButton
-//
-//	Create a new LabelButton. A |delegate| must be provided to handle the button
-//	click. |text| will be shown on the LabelButton and used as the default
-//	accessible name.
 func (_LabelButtonRefClass) CreateLabelButton(delegate IEngButtonDelegate, text string) (result ICefLabelButton) {
 	var resultPtr uintptr
 	cefLabelButtonRefAPI().SysCallN(5, base.GetObjectUintptr(delegate), api.PasStr(text), uintptr(base.UnsafePointer(&resultPtr)))

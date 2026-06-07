@@ -13,277 +13,217 @@ import (
 	"github.com/energye/lcl/api/imports"
 	"github.com/energye/lcl/base"
 	"github.com/energye/lcl/types"
-
-	cefTypes "github.com/energye/cef/types"
 )
 
 // ICefDownloadItem Parent: ICefBaseRefCounted
 type ICefDownloadItem interface {
 	ICefBaseRefCounted
-	// IsValid
-	//  Returns true (1) if this object is valid. Do not call any other functions
-	//  if this function returns false (0).
-	IsValid() bool // function
-	// IsInProgress
-	//  Returns true (1) if the download is in progress.
-	IsInProgress() bool // function
-	// IsComplete
-	//  Returns true (1) if the download is complete.
-	IsComplete() bool // function
-	// IsCanceled
-	//  Returns true (1) if the download has been canceled.
-	IsCanceled() bool // function
-	// IsInterrupted
-	//  Returns true (1) if the download has been interrupted.
-	IsInterrupted() bool // function
-	// GetInterruptReason
-	//  Returns the most recent interrupt reason.
-	GetInterruptReason() cefTypes.TCefDownloadInterruptReason // function
-	// GetCurrentSpeed
-	//  Returns a simple speed estimate in bytes/s.
-	GetCurrentSpeed() int64 // function
-	// GetPercentComplete
-	//  Returns the rough percent complete or -1 if the receive total size is
-	//  unknown.
-	GetPercentComplete() int32 // function
-	// GetTotalBytes
-	//  Returns the total number of bytes.
-	GetTotalBytes() int64 // function
-	// GetReceivedBytes
-	//  Returns the number of received bytes.
-	GetReceivedBytes() int64 // function
-	// GetStartTime
-	//  Returns the time that the download started.
+	IsValid() bool                 // function
+	IsInProgress() bool            // function
+	IsComplete() bool              // function
+	IsCanceled() bool              // function
+	GetCurrentSpeed() int64        // function
+	GetPercentComplete() int32     // function
+	GetTotalBytes() int64          // function
+	GetReceivedBytes() int64       // function
 	GetStartTime() types.TDateTime // function
-	// GetEndTime
-	//  Returns the time that the download ended.
-	GetEndTime() types.TDateTime // function
-	// GetFullPath
-	//  Returns the full path to the downloaded or downloading file.
-	GetFullPath() string // function
-	// GetId
-	//  Returns the unique identifier for this download.
-	GetId() uint32 // function
-	// GetUrl
-	//  Returns the URL.
-	GetUrl() string // function
-	// GetOriginalUrl
-	//  Returns the original URL before any redirections.
-	GetOriginalUrl() string // function
-	// GetSuggestedFileName
-	//  Returns the suggested file name.
-	GetSuggestedFileName() string // function
-	// GetContentDisposition
-	//  Returns the content disposition.
+	GetEndTime() types.TDateTime   // function
+	GetFullPath() string           // function
+	GetId() uint32                 // function
+	GetUrl() string                // function
+	GetOriginalUrl() string        // function
+	GetSuggestedFileName() string  // function
 	GetContentDisposition() string // function
-	// GetMimeType
-	//  Returns the mime type.
-	GetMimeType() string // function
+	GetMimeType() string           // function
 }
 
-// ICefDownloadItemRef Parent: ICefDownloadItem ICefBaseRefCountedRef
-type ICefDownloadItemRef interface {
+// ICefDownLoadItemRef Parent: ICefDownloadItem ICefBaseRefCountedRef
+type ICefDownLoadItemRef interface {
 	ICefDownloadItem
 	ICefBaseRefCountedRef
 	AsIntfDownloadItem() uintptr
 }
 
-type TCefDownloadItemRef struct {
+type TCefDownLoadItemRef struct {
 	TCefBaseRefCountedRef
 }
 
-func (m *TCefDownloadItemRef) IsValid() bool {
+func (m *TCefDownLoadItemRef) IsValid() bool {
 	if !m.TBase.IsValid() {
 		return false
 	}
-	r := cefDownloadItemRefAPI().SysCallN(1, m.Instance())
+	r := cefDownLoadItemRefAPI().SysCallN(1, m.Instance())
 	return api.GoBool(r)
 }
 
-func (m *TCefDownloadItemRef) IsInProgress() bool {
+func (m *TCefDownLoadItemRef) IsInProgress() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefDownloadItemRefAPI().SysCallN(2, m.Instance())
+	r := cefDownLoadItemRefAPI().SysCallN(2, m.Instance())
 	return api.GoBool(r)
 }
 
-func (m *TCefDownloadItemRef) IsComplete() bool {
+func (m *TCefDownLoadItemRef) IsComplete() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefDownloadItemRefAPI().SysCallN(3, m.Instance())
+	r := cefDownLoadItemRefAPI().SysCallN(3, m.Instance())
 	return api.GoBool(r)
 }
 
-func (m *TCefDownloadItemRef) IsCanceled() bool {
+func (m *TCefDownLoadItemRef) IsCanceled() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefDownloadItemRefAPI().SysCallN(4, m.Instance())
+	r := cefDownLoadItemRefAPI().SysCallN(4, m.Instance())
 	return api.GoBool(r)
 }
 
-func (m *TCefDownloadItemRef) IsInterrupted() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefDownloadItemRefAPI().SysCallN(5, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefDownloadItemRef) GetInterruptReason() cefTypes.TCefDownloadInterruptReason {
-	if !m.IsValid() {
-		return 0
-	}
-	r := cefDownloadItemRefAPI().SysCallN(6, m.Instance())
-	return cefTypes.TCefDownloadInterruptReason(r)
-}
-
-func (m *TCefDownloadItemRef) GetCurrentSpeed() (result int64) {
+func (m *TCefDownLoadItemRef) GetCurrentSpeed() (result int64) {
 	if !m.IsValid() {
 		return
 	}
-	cefDownloadItemRefAPI().SysCallN(7, m.Instance(), uintptr(base.UnsafePointer(&result)))
+	cefDownLoadItemRefAPI().SysCallN(5, m.Instance(), uintptr(base.UnsafePointer(&result)))
 	return
 }
 
-func (m *TCefDownloadItemRef) GetPercentComplete() int32 {
+func (m *TCefDownLoadItemRef) GetPercentComplete() int32 {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cefDownloadItemRefAPI().SysCallN(8, m.Instance())
+	r := cefDownLoadItemRefAPI().SysCallN(6, m.Instance())
 	return int32(r)
 }
 
-func (m *TCefDownloadItemRef) GetTotalBytes() (result int64) {
+func (m *TCefDownLoadItemRef) GetTotalBytes() (result int64) {
 	if !m.IsValid() {
 		return
 	}
-	cefDownloadItemRefAPI().SysCallN(9, m.Instance(), uintptr(base.UnsafePointer(&result)))
+	cefDownLoadItemRefAPI().SysCallN(7, m.Instance(), uintptr(base.UnsafePointer(&result)))
 	return
 }
 
-func (m *TCefDownloadItemRef) GetReceivedBytes() (result int64) {
+func (m *TCefDownLoadItemRef) GetReceivedBytes() (result int64) {
 	if !m.IsValid() {
 		return
 	}
-	cefDownloadItemRefAPI().SysCallN(10, m.Instance(), uintptr(base.UnsafePointer(&result)))
+	cefDownLoadItemRefAPI().SysCallN(8, m.Instance(), uintptr(base.UnsafePointer(&result)))
 	return
 }
 
-func (m *TCefDownloadItemRef) GetStartTime() (result types.TDateTime) {
+func (m *TCefDownLoadItemRef) GetStartTime() (result types.TDateTime) {
 	if !m.IsValid() {
 		return
 	}
-	cefDownloadItemRefAPI().SysCallN(11, m.Instance(), uintptr(base.UnsafePointer(&result)))
+	cefDownLoadItemRefAPI().SysCallN(9, m.Instance(), uintptr(base.UnsafePointer(&result)))
 	return
 }
 
-func (m *TCefDownloadItemRef) GetEndTime() (result types.TDateTime) {
+func (m *TCefDownLoadItemRef) GetEndTime() (result types.TDateTime) {
 	if !m.IsValid() {
 		return
 	}
-	cefDownloadItemRefAPI().SysCallN(12, m.Instance(), uintptr(base.UnsafePointer(&result)))
+	cefDownLoadItemRefAPI().SysCallN(10, m.Instance(), uintptr(base.UnsafePointer(&result)))
 	return
 }
 
-func (m *TCefDownloadItemRef) GetFullPath() (result string) {
+func (m *TCefDownLoadItemRef) GetFullPath() (result string) {
 	if !m.IsValid() {
 		return ""
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefDownloadItemRefAPI().SysCallN(13, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefDownLoadItemRefAPI().SysCallN(11, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
 }
 
-func (m *TCefDownloadItemRef) GetId() uint32 {
+func (m *TCefDownLoadItemRef) GetId() uint32 {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cefDownloadItemRefAPI().SysCallN(14, m.Instance())
+	r := cefDownLoadItemRefAPI().SysCallN(12, m.Instance())
 	return uint32(r)
 }
 
-func (m *TCefDownloadItemRef) GetUrl() (result string) {
+func (m *TCefDownLoadItemRef) GetUrl() (result string) {
 	if !m.IsValid() {
 		return ""
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefDownloadItemRefAPI().SysCallN(15, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefDownLoadItemRefAPI().SysCallN(13, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
 }
 
-func (m *TCefDownloadItemRef) GetOriginalUrl() (result string) {
+func (m *TCefDownLoadItemRef) GetOriginalUrl() (result string) {
 	if !m.IsValid() {
 		return ""
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefDownloadItemRefAPI().SysCallN(16, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefDownLoadItemRefAPI().SysCallN(14, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
 }
 
-func (m *TCefDownloadItemRef) GetSuggestedFileName() (result string) {
+func (m *TCefDownLoadItemRef) GetSuggestedFileName() (result string) {
 	if !m.IsValid() {
 		return ""
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefDownloadItemRefAPI().SysCallN(17, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefDownLoadItemRefAPI().SysCallN(15, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
 }
 
-func (m *TCefDownloadItemRef) GetContentDisposition() (result string) {
+func (m *TCefDownLoadItemRef) GetContentDisposition() (result string) {
 	if !m.IsValid() {
 		return ""
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefDownloadItemRefAPI().SysCallN(18, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefDownLoadItemRefAPI().SysCallN(16, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
 }
 
-func (m *TCefDownloadItemRef) GetMimeType() (result string) {
+func (m *TCefDownLoadItemRef) GetMimeType() (result string) {
 	if !m.IsValid() {
 		return ""
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefDownloadItemRefAPI().SysCallN(19, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefDownLoadItemRefAPI().SysCallN(17, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
 }
 
-func (m *TCefDownloadItemRef) AsIntfDownloadItem() uintptr {
+func (m *TCefDownLoadItemRef) AsIntfDownloadItem() uintptr {
 	return m.GetIntfPointer(0)
 }
 
-// DownloadItemRef  is static instance
-var DownloadItemRef _DownloadItemRefClass
+// DownLoadItemRef  is static instance
+var DownLoadItemRef _DownLoadItemRefClass
 
-// _DownloadItemRefClass is class type defined by TCefDownloadItemRef
-type _DownloadItemRefClass uintptr
+// _DownLoadItemRefClass is class type defined by TCefDownLoadItemRef
+type _DownLoadItemRefClass uintptr
 
-func (_DownloadItemRefClass) UnWrap(data uintptr) (result ICefDownloadItem) {
+func (_DownLoadItemRefClass) UnWrap(data uintptr) (result ICefDownloadItem) {
 	var resultPtr uintptr
-	cefDownloadItemRefAPI().SysCallN(20, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))
-	result = AsCefDownloadItemRef(resultPtr)
+	cefDownLoadItemRefAPI().SysCallN(18, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))
+	result = AsCefDownLoadItemRef(resultPtr)
 	return
 }
 
-// NewDownloadItemRef class constructor
-func NewDownloadItemRef(data uintptr) ICefDownloadItemRef {
+// NewDownLoadItemRef class constructor
+func NewDownLoadItemRef(data uintptr) ICefDownLoadItemRef {
 	var downloadItemPtr uintptr // ICefDownloadItem
-	r := cefDownloadItemRefAPI().SysCallN(0, uintptr(data), uintptr(base.UnsafePointer(&downloadItemPtr)))
-	ret := AsCefDownloadItemRef(r)
+	r := cefDownLoadItemRefAPI().SysCallN(0, uintptr(data), uintptr(base.UnsafePointer(&downloadItemPtr)))
+	ret := AsCefDownLoadItemRef(r)
 	if intf, ok := ret.(base.IIntfs); ok {
 		intf.Create(1)
 		intf.SetIntfPointer(0, downloadItemPtr)
@@ -292,36 +232,34 @@ func NewDownloadItemRef(data uintptr) ICefDownloadItemRef {
 }
 
 var (
-	cefDownloadItemRefOnce   base.Once
-	cefDownloadItemRefImport *imports.Imports = nil
+	cefDownLoadItemRefOnce   base.Once
+	cefDownLoadItemRefImport *imports.Imports = nil
 )
 
-func cefDownloadItemRefAPI() *imports.Imports {
-	cefDownloadItemRefOnce.Do(func() {
-		cefDownloadItemRefImport = api.NewDefaultImports()
-		cefDownloadItemRefImport.Table = []*imports.Table{
-			/* 0 */ imports.NewTable("TCefDownloadItemRef_Create", 0), // constructor NewDownloadItemRef
-			/* 1 */ imports.NewTable("TCefDownloadItemRef_IsValid", 0), // function IsValid
-			/* 2 */ imports.NewTable("TCefDownloadItemRef_IsInProgress", 0), // function IsInProgress
-			/* 3 */ imports.NewTable("TCefDownloadItemRef_IsComplete", 0), // function IsComplete
-			/* 4 */ imports.NewTable("TCefDownloadItemRef_IsCanceled", 0), // function IsCanceled
-			/* 5 */ imports.NewTable("TCefDownloadItemRef_IsInterrupted", 0), // function IsInterrupted
-			/* 6 */ imports.NewTable("TCefDownloadItemRef_GetInterruptReason", 0), // function GetInterruptReason
-			/* 7 */ imports.NewTable("TCefDownloadItemRef_GetCurrentSpeed", 0), // function GetCurrentSpeed
-			/* 8 */ imports.NewTable("TCefDownloadItemRef_GetPercentComplete", 0), // function GetPercentComplete
-			/* 9 */ imports.NewTable("TCefDownloadItemRef_GetTotalBytes", 0), // function GetTotalBytes
-			/* 10 */ imports.NewTable("TCefDownloadItemRef_GetReceivedBytes", 0), // function GetReceivedBytes
-			/* 11 */ imports.NewTable("TCefDownloadItemRef_GetStartTime", 0), // function GetStartTime
-			/* 12 */ imports.NewTable("TCefDownloadItemRef_GetEndTime", 0), // function GetEndTime
-			/* 13 */ imports.NewTable("TCefDownloadItemRef_GetFullPath", 0), // function GetFullPath
-			/* 14 */ imports.NewTable("TCefDownloadItemRef_GetId", 0), // function GetId
-			/* 15 */ imports.NewTable("TCefDownloadItemRef_GetUrl", 0), // function GetUrl
-			/* 16 */ imports.NewTable("TCefDownloadItemRef_GetOriginalUrl", 0), // function GetOriginalUrl
-			/* 17 */ imports.NewTable("TCefDownloadItemRef_GetSuggestedFileName", 0), // function GetSuggestedFileName
-			/* 18 */ imports.NewTable("TCefDownloadItemRef_GetContentDisposition", 0), // function GetContentDisposition
-			/* 19 */ imports.NewTable("TCefDownloadItemRef_GetMimeType", 0), // function GetMimeType
-			/* 20 */ imports.NewTable("TCefDownloadItemRef_UnWrap", 0), // static function UnWrap
+func cefDownLoadItemRefAPI() *imports.Imports {
+	cefDownLoadItemRefOnce.Do(func() {
+		cefDownLoadItemRefImport = api.NewDefaultImports()
+		cefDownLoadItemRefImport.Table = []*imports.Table{
+			/* 0 */ imports.NewTable("TCefDownLoadItemRef_Create", 0), // constructor NewDownLoadItemRef
+			/* 1 */ imports.NewTable("TCefDownLoadItemRef_IsValid", 0), // function IsValid
+			/* 2 */ imports.NewTable("TCefDownLoadItemRef_IsInProgress", 0), // function IsInProgress
+			/* 3 */ imports.NewTable("TCefDownLoadItemRef_IsComplete", 0), // function IsComplete
+			/* 4 */ imports.NewTable("TCefDownLoadItemRef_IsCanceled", 0), // function IsCanceled
+			/* 5 */ imports.NewTable("TCefDownLoadItemRef_GetCurrentSpeed", 0), // function GetCurrentSpeed
+			/* 6 */ imports.NewTable("TCefDownLoadItemRef_GetPercentComplete", 0), // function GetPercentComplete
+			/* 7 */ imports.NewTable("TCefDownLoadItemRef_GetTotalBytes", 0), // function GetTotalBytes
+			/* 8 */ imports.NewTable("TCefDownLoadItemRef_GetReceivedBytes", 0), // function GetReceivedBytes
+			/* 9 */ imports.NewTable("TCefDownLoadItemRef_GetStartTime", 0), // function GetStartTime
+			/* 10 */ imports.NewTable("TCefDownLoadItemRef_GetEndTime", 0), // function GetEndTime
+			/* 11 */ imports.NewTable("TCefDownLoadItemRef_GetFullPath", 0), // function GetFullPath
+			/* 12 */ imports.NewTable("TCefDownLoadItemRef_GetId", 0), // function GetId
+			/* 13 */ imports.NewTable("TCefDownLoadItemRef_GetUrl", 0), // function GetUrl
+			/* 14 */ imports.NewTable("TCefDownLoadItemRef_GetOriginalUrl", 0), // function GetOriginalUrl
+			/* 15 */ imports.NewTable("TCefDownLoadItemRef_GetSuggestedFileName", 0), // function GetSuggestedFileName
+			/* 16 */ imports.NewTable("TCefDownLoadItemRef_GetContentDisposition", 0), // function GetContentDisposition
+			/* 17 */ imports.NewTable("TCefDownLoadItemRef_GetMimeType", 0), // function GetMimeType
+			/* 18 */ imports.NewTable("TCefDownLoadItemRef_UnWrap", 0), // static function UnWrap
 		}
 	})
-	return cefDownloadItemRefImport
+	return cefDownLoadItemRefImport
 }

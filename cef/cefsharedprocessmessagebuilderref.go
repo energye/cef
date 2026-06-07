@@ -18,21 +18,9 @@ import (
 // ICefSharedProcessMessageBuilder Parent: ICefBaseRefCounted
 type ICefSharedProcessMessageBuilder interface {
 	ICefBaseRefCounted
-	// IsValid
-	//  Returns true (1) if the builder is valid.
-	IsValid() bool // function
-	// Size
-	//  Returns the size of the shared memory region in bytes. Returns 0 for
-	//  invalid instances.
+	IsValid() bool             // function
 	Size() cefTypes.NativeUInt // function
-	// Memory
-	//  Returns the pointer to the writable memory. Returns nullptr for invalid
-	//  instances. The returned pointer is only valid for the life span of this
-	//  object.
-	Memory() uintptr // function
-	// Build
-	//  Creates a new ICefProcessMessage from the data provided to the builder.
-	//  Returns nullptr for invalid instances. Invalidates the builder instance.
+	Memory() uintptr           // function
 	Build() ICefProcessMessage // function
 }
 

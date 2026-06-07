@@ -19,78 +19,26 @@ import (
 // ICefCommandLine Parent: ICefBaseRefCounted
 type ICefCommandLine interface {
 	ICefBaseRefCounted
-	// IsValid
-	//  Returns true (1) if this object is valid. Do not call any other functions
-	//  if this function returns false (0).
-	IsValid() bool // function
-	// IsReadOnly
-	//  Returns true (1) if the values of this object are read-only. Some APIs may
-	//  expose read-only objects.
-	IsReadOnly() bool // function
-	// Copy
-	//  Returns a writable copy of this object.
-	Copy() ICefCommandLine // function
-	// GetCommandLineString
-	//  Constructs and returns the represented command line string. Use this
-	//  function cautiously because quoting behavior is unclear.
-	GetCommandLineString() string // function
-	// GetProgram
-	//  Get the program part of the command line string (the first item).
-	GetProgram() string // function
-	// HasSwitches
-	//  Returns true (1) if the command line has switches.
-	HasSwitches() bool // function
-	// HasSwitch
-	//  Returns true (1) if the command line contains the given switch.
-	HasSwitch(name string) bool // function
-	// GetSwitchValue
-	//  Returns the value associated with the given switch. If the switch has no
-	//  value or isn't present this function returns the NULL string.
-	GetSwitchValue(name string) string // function
-	// GetSwitches
-	//  Returns the map of switch names and values. If a switch has no value an
-	//  NULL string is returned.
-	GetSwitches(switches *lcl.IStrings) bool // function
-	// HasArguments
-	//  True if there are remaining command line arguments.
-	HasArguments() bool // function
-	// InitFromArgv
-	//  Initialize the command line with the specified |argc| and |argv| values.
-	//  The first argument must be the name of the program. This function is only
-	//  supported on non-Windows platforms.
-	InitFromArgv(argc int32, argv types.PPAnsiChar) // procedure
-	// InitFromString
-	//  Initialize the command line with the string returned by calling
-	//  GetCommandLineW(). This function is only supported on Windows.
-	InitFromString(commandLine string) // procedure
-	// Reset
-	//  Reset the command-line switches and arguments but leave the program
-	//  component unchanged.
-	Reset() // procedure
-	// GetArgv
-	//  Retrieve the original command line string as a vector of strings. The argv
-	//  array: `{ program, [(--|-|/)switch[=value]]*, [--], [argument]* }`
-	GetArgv(args *lcl.IStrings) // procedure
-	// SetProgram
-	//  Set the program part of the command line string (the first item).
-	SetProgram(prog string) // procedure
-	// AppendSwitch
-	//  Add a switch to the end of the command line.
-	AppendSwitch(name string) // procedure
-	// AppendSwitchWithValue
-	//  Add a switch with the specified value to the end of the command line. If
-	//  the switch has no value pass an NULL value string.
+	IsValid() bool                                   // function
+	IsReadOnly() bool                                // function
+	Copy() ICefCommandLine                           // function
+	GetCommandLineString() string                    // function
+	GetProgram() string                              // function
+	HasSwitches() bool                               // function
+	HasSwitch(name string) bool                      // function
+	GetSwitchValue(name string) string               // function
+	GetSwitches(switches *lcl.IStrings) bool         // function
+	HasArguments() bool                              // function
+	InitFromArgv(argc int32, argv types.PPAnsiChar)  // procedure
+	InitFromString(commandLine string)               // procedure
+	Reset()                                          // procedure
+	GetArgv(args *lcl.IStrings)                      // procedure
+	SetProgram(prog string)                          // procedure
+	AppendSwitch(name string)                        // procedure
 	AppendSwitchWithValue(name string, value string) // procedure
-	// GetArguments
-	//  Get the remaining command line arguments.
-	GetArguments(arguments *lcl.IStrings) // procedure
-	// AppendArgument
-	//  Add an argument to the end of the command line.
-	AppendArgument(argument string) // procedure
-	// PrependWrapper
-	//  Insert a command before the current command. Common for debuggers, like
-	//  "valgrind" or "gdb --args".
-	PrependWrapper(wrapper string) // procedure
+	GetArguments(arguments *lcl.IStrings)            // procedure
+	AppendArgument(argument string)                  // procedure
+	PrependWrapper(wrapper string)                   // procedure
 }
 
 // ICefCommandLineRef Parent: ICefCommandLine ICefBaseRefCountedRef
@@ -281,9 +229,6 @@ var CommandLineRef _CommandLineRefClass
 // _CommandLineRefClass is class type defined by TCefCommandLineRef
 type _CommandLineRefClass uintptr
 
-// UnWrap
-//
-//	Returns a ICefCommandLine instance using a PCefCommandLine data pointer.
 func (_CommandLineRefClass) UnWrap(data uintptr) (result ICefCommandLine) {
 	var resultPtr uintptr
 	cefCommandLineRefAPI().SysCallN(11, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))
@@ -291,9 +236,6 @@ func (_CommandLineRefClass) UnWrap(data uintptr) (result ICefCommandLine) {
 	return
 }
 
-// New
-//
-//	Create a new ICefCommandLine instance.
 func (_CommandLineRefClass) New() (result ICefCommandLine) {
 	var resultPtr uintptr
 	cefCommandLineRefAPI().SysCallN(12, uintptr(base.UnsafePointer(&resultPtr)))
@@ -301,10 +243,6 @@ func (_CommandLineRefClass) New() (result ICefCommandLine) {
 	return
 }
 
-// Global
-//
-//	Returns the singleton global ICefCommandLine object. The returned object
-//	will be read-only.
 func (_CommandLineRefClass) Global() (result ICefCommandLine) {
 	var resultPtr uintptr
 	cefCommandLineRefAPI().SysCallN(13, uintptr(base.UnsafePointer(&resultPtr)))

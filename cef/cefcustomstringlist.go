@@ -21,7 +21,7 @@ import (
 type ICefStringList interface {
 	IObject
 
-	GetHandle() cefTypes.TCefStringList        // function
+	GetHandle() cefTypes.TCefStringMap         // function
 	GetSize() cefTypes.NativeUInt              // function
 	GetValue(index cefTypes.NativeUInt) string // function
 	Copy() cefTypes.TCefStringList             // function
@@ -42,12 +42,12 @@ type TCefCustomStringList struct {
 	TInterfacedObject
 }
 
-func (m *TCefCustomStringList) GetHandle() cefTypes.TCefStringList {
+func (m *TCefCustomStringList) GetHandle() cefTypes.TCefStringMap {
 	if !m.IsValid() {
 		return 0
 	}
 	r := cefCustomStringListAPI().SysCallN(1, m.Instance())
-	return cefTypes.TCefStringList(r)
+	return cefTypes.TCefStringMap(r)
 }
 
 func (m *TCefCustomStringList) GetSize() cefTypes.NativeUInt {

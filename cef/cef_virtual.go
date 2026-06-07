@@ -437,6 +437,12 @@ type ICefTaskOwn interface {
 type TCefTaskOwn struct {
 	TCefBaseRefCountedOwn
 }
+
+// ICefUrlrequestClient Parent: ICefBaseRefCounted
+type ICefUrlrequestClient interface {
+	ICefBaseRefCounted
+}
+
 type ICefUrlrequestClientOwn interface {
 	ICefUrlrequestClient
 	ICefBaseRefCountedOwn

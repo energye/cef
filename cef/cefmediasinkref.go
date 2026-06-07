@@ -18,26 +18,13 @@ import (
 // ICefMediaSink Parent: ICefBaseRefCounted
 type ICefMediaSink interface {
 	ICefBaseRefCounted
-	// GetId
-	//  Returns the ID for this sink.
-	GetId() string // function
-	// GetName
-	//  Returns the name of this sink.
-	GetName() string // function
-	// GetIconType
-	//  Returns the icon type for this sink.
-	GetIconType() cefTypes.TCefMediaSinkIconType // function
-	// IsCastSink
-	//  Returns true (1) if this sink accepts content via Cast.
-	IsCastSink() bool // function
-	// IsDialSink
-	//  Returns true (1) if this sink accepts content via DIAL.
-	IsDialSink() bool // function
-	// IsCompatibleWith
-	//  Returns true (1) if this sink is compatible with |source|.
-	IsCompatibleWith(source ICefMediaSource) bool // function
-	// GetDeviceInfo
-	//  Asynchronously retrieves device info.
+	GetId() string                                          // function
+	GetName() string                                        // function
+	GetDescription() string                                 // function
+	GetIconType() cefTypes.TCefMediaSinkIconType            // function
+	IsCastSink() bool                                       // function
+	IsDialSink() bool                                       // function
+	IsCompatibleWith(source ICefMediaSource) bool           // function
 	GetDeviceInfo(callback IEngMediaSinkDeviceInfoCallback) // procedure
 }
 
@@ -74,11 +61,22 @@ func (m *TCefMediaSinkRef) GetName() (result string) {
 	return
 }
 
+func (m *TCefMediaSinkRef) GetDescription() (result string) {
+	if !m.IsValid() {
+		return ""
+	}
+	strBuf := api.NewStringBuffer(0, 0)
+	cefMediaSinkRefAPI().SysCallN(3, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	defer strBuf.Release()
+	result = strBuf.String()
+	return
+}
+
 func (m *TCefMediaSinkRef) GetIconType() cefTypes.TCefMediaSinkIconType {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cefMediaSinkRefAPI().SysCallN(3, m.Instance())
+	r := cefMediaSinkRefAPI().SysCallN(4, m.Instance())
 	return cefTypes.TCefMediaSinkIconType(r)
 }
 
@@ -86,7 +84,7 @@ func (m *TCefMediaSinkRef) IsCastSink() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefMediaSinkRefAPI().SysCallN(4, m.Instance())
+	r := cefMediaSinkRefAPI().SysCallN(5, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -94,7 +92,7 @@ func (m *TCefMediaSinkRef) IsDialSink() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefMediaSinkRefAPI().SysCallN(5, m.Instance())
+	r := cefMediaSinkRefAPI().SysCallN(6, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -102,7 +100,7 @@ func (m *TCefMediaSinkRef) IsCompatibleWith(source ICefMediaSource) bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefMediaSinkRefAPI().SysCallN(6, m.Instance(), base.GetObjectUintptr(source))
+	r := cefMediaSinkRefAPI().SysCallN(7, m.Instance(), base.GetObjectUintptr(source))
 	return api.GoBool(r)
 }
 
@@ -110,7 +108,7 @@ func (m *TCefMediaSinkRef) GetDeviceInfo(callback IEngMediaSinkDeviceInfoCallbac
 	if !m.IsValid() {
 		return
 	}
-	cefMediaSinkRefAPI().SysCallN(8, m.Instance(), base.GetObjectUintptr(callback))
+	cefMediaSinkRefAPI().SysCallN(9, m.Instance(), base.GetObjectUintptr(callback))
 }
 
 func (m *TCefMediaSinkRef) AsIntfMediaSink() uintptr {
@@ -125,7 +123,7 @@ type _MediaSinkRefClass uintptr
 
 func (_MediaSinkRefClass) UnWrap(data uintptr) (result ICefMediaSink) {
 	var resultPtr uintptr
-	cefMediaSinkRefAPI().SysCallN(7, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))
+	cefMediaSinkRefAPI().SysCallN(8, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefMediaSinkRef(resultPtr)
 	return
 }
@@ -154,12 +152,13 @@ func cefMediaSinkRefAPI() *imports.Imports {
 			/* 0 */ imports.NewTable("TCefMediaSinkRef_Create", 0), // constructor NewMediaSinkRef
 			/* 1 */ imports.NewTable("TCefMediaSinkRef_GetId", 0), // function GetId
 			/* 2 */ imports.NewTable("TCefMediaSinkRef_GetName", 0), // function GetName
-			/* 3 */ imports.NewTable("TCefMediaSinkRef_GetIconType", 0), // function GetIconType
-			/* 4 */ imports.NewTable("TCefMediaSinkRef_IsCastSink", 0), // function IsCastSink
-			/* 5 */ imports.NewTable("TCefMediaSinkRef_IsDialSink", 0), // function IsDialSink
-			/* 6 */ imports.NewTable("TCefMediaSinkRef_IsCompatibleWith", 0), // function IsCompatibleWith
-			/* 7 */ imports.NewTable("TCefMediaSinkRef_UnWrap", 0), // static function UnWrap
-			/* 8 */ imports.NewTable("TCefMediaSinkRef_GetDeviceInfo", 0), // procedure GetDeviceInfo
+			/* 3 */ imports.NewTable("TCefMediaSinkRef_GetDescription", 0), // function GetDescription
+			/* 4 */ imports.NewTable("TCefMediaSinkRef_GetIconType", 0), // function GetIconType
+			/* 5 */ imports.NewTable("TCefMediaSinkRef_IsCastSink", 0), // function IsCastSink
+			/* 6 */ imports.NewTable("TCefMediaSinkRef_IsDialSink", 0), // function IsDialSink
+			/* 7 */ imports.NewTable("TCefMediaSinkRef_IsCompatibleWith", 0), // function IsCompatibleWith
+			/* 8 */ imports.NewTable("TCefMediaSinkRef_UnWrap", 0), // static function UnWrap
+			/* 9 */ imports.NewTable("TCefMediaSinkRef_GetDeviceInfo", 0), // procedure GetDeviceInfo
 		}
 	})
 	return cefMediaSinkRefImport

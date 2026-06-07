@@ -204,16 +204,15 @@ func makeTOnAcceleratedPaint(cb TOnAcceleratedPaint) *callback {
 	return &callback{
 		name: "TOnAcceleratedPaint",
 		cb: func(getVal func(i int) uintptr) {
-			// 6 : procedure(Sender: TObject; const browser: ICefBrowser; type_: TCefPaintElementType; dirtyRectsCount: NativeUInt; const dirtyRects: PCefRectArray; const info: PCefAcceleratedPaintInfo);
+			// 6 : procedure(Sender: TObject; const browser: ICefBrowser; type_: TCefPaintElementType; dirtyRectsCount: NativeUInt; const dirtyRects: PCefRectArray; shared_handle: Pointer);
 			sender := lcl.AsObject(getVal(0))
 			browser := AsCefBrowserRef(getVal(1))
 			type_ := cefTypes.TCefPaintElementType(getVal(2))
 			dirtyRectsCount := cefTypes.NativeUInt(getVal(3))
 			dirtyRectsPtr := getVal(4)
 			dirtyRects := NewCefRectArray(int(dirtyRectsCount), dirtyRectsPtr)
-			infoPtr := (*tCefAcceleratedPaintInfo)(getPtr(getVal(5)))
-			info := infoPtr.ToGo()
-			cb(sender, browser, type_, dirtyRectsCount, dirtyRects, info)
+			sharedHandle := uintptr(getVal(5))
+			cb(sender, browser, type_, dirtyRectsCount, dirtyRects, sharedHandle)
 		},
 	}
 }
@@ -231,22 +230,6 @@ func makeTOnAcceleratorEvent(cb TOnAcceleratorEvent) *callback {
 			commandId := int32(getVal(2))
 			result := (*bool)(getPtr(getVal(3)))
 			cb(sender, window, commandId, result)
-		},
-	}
-}
-
-func makeTOnAcceptsFirstMouseEvent(cb TOnAcceptsFirstMouseEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnAcceptsFirstMouseEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 3 : procedure(const Sender: TObject; const window_: ICefWindow; var aResult : TCefState);
-			sender := lcl.AsObject(getVal(0))
-			window := AsCefWindowRef(getVal(1))
-			result := (*cefTypes.TCefState)(getPtr(getVal(2)))
-			cb(sender, window, result)
 		},
 	}
 }
@@ -352,22 +335,6 @@ func makeTOnAllowEvent(cb TOnAllowEvent) *callback {
 			sender := lcl.AsObject(getVal(0))
 			allow := (*bool)(getPtr(getVal(1)))
 			cb(sender, allow)
-		},
-	}
-}
-
-func makeTOnAlreadyRunningAppRelaunchEvent(cb TOnAlreadyRunningAppRelaunchEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnAlreadyRunningAppRelaunchEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 3 : procedure(const commandLine: ICefCommandLine; const current_directory: ustring; var aResult: boolean);
-			commandLine := AsCefCommandLineRef(getVal(0))
-			currentDirectory := api.GoStr(getVal(1))
-			result := (*bool)(getPtr(getVal(2)))
-			cb(commandLine, currentDirectory, result)
 		},
 	}
 }
@@ -747,41 +714,6 @@ func makeTOnBeforeContextMenu(cb TOnBeforeContextMenu) *callback {
 	}
 }
 
-func makeTOnBeforeDevToolsPopup(cb TOnBeforeDevToolsPopup) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnBeforeDevToolsPopup",
-		cb: func(getVal func(i int) uintptr) {
-			// 7 : procedure(Sender: TObject; const browser: ICefBrowser; var windowInfo: TCefWindowInfo; var client: ICefClient; var settings: TCefBrowserSettings; var extra_info: ICefDictionaryValue; var use_default_window: boolean);
-			sender := lcl.AsObject(getVal(0))
-			browser := AsCefBrowserRef(getVal(1))
-			windowInfoPtr := *(*tCefWindowInfo)(getPtr(getVal(2)))
-			windowInfo := windowInfoPtr.ToGo()
-			var client IEngClient
-			client = AsEngClient(*(*uintptr)(getPtr(getVal(3))))
-			settingsPtr := *(*tCefBrowserSettings)(getPtr(getVal(4)))
-			settings := settingsPtr.ToGo()
-			extraInfo := ICefDictionaryValue(AsCefDictionaryValueRef(*(*uintptr)(getPtr(getVal(5)))))
-			useDefaultWindow := (*bool)(getPtr(getVal(6)))
-			cb(sender, browser, &windowInfo, &client, &settings, &extraInfo, useDefaultWindow)
-			if r := windowInfo.ToPas(); r != nil {
-				*(*tCefWindowInfo)(getPtr(getVal(2))) = *r
-			}
-			if client != nil {
-				*(*uintptr)(getPtr(getVal(3))) = client.Instance()
-			}
-			if r := settings.ToPas(); r != nil {
-				*(*tCefBrowserSettings)(getPtr(getVal(4))) = *r
-			}
-			if extraInfo != nil {
-				*(*uintptr)(getPtr(getVal(5))) = extraInfo.Instance()
-			}
-		},
-	}
-}
-
 func makeTOnBeforeDownload(cb TOnBeforeDownload) *callback {
 	if cb == nil {
 		return nil
@@ -789,14 +721,13 @@ func makeTOnBeforeDownload(cb TOnBeforeDownload) *callback {
 	return &callback{
 		name: "TOnBeforeDownload",
 		cb: func(getVal func(i int) uintptr) {
-			// 6 : procedure(Sender: TObject; const browser: ICefBrowser; const downloadItem: ICefDownloadItem; const suggestedName: ustring; const callback: ICefBeforeDownloadCallback; var aResult : boolean);
+			// 5 : procedure(Sender: TObject; const browser: ICefBrowser; const downloadItem: ICefDownloadItem; const suggestedName: ustring; const callback: ICefBeforeDownloadCallback);
 			sender := lcl.AsObject(getVal(0))
 			browser := AsCefBrowserRef(getVal(1))
-			downloadItem := AsCefDownloadItemRef(getVal(2))
+			downloadItem := AsCefDownLoadItemRef(getVal(2))
 			suggestedName := api.GoStr(getVal(3))
 			callback := AsCefBeforeDownloadCallbackRef(getVal(4))
-			result := (*bool)(getPtr(getVal(5)))
-			cb(sender, browser, downloadItem, suggestedName, callback, result)
+			cb(sender, browser, downloadItem, suggestedName, callback)
 		},
 	}
 }
@@ -925,22 +856,6 @@ func makeTOnBrowserDestroyedEvent(cb TOnBrowserDestroyedEvent) *callback {
 	}
 }
 
-func makeTOnBrowserProcessAlreadyRunningAppRelaunchEvent(cb TOnBrowserProcessAlreadyRunningAppRelaunchEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnBrowserProcessAlreadyRunningAppRelaunchEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 3 : procedure(const commandLine: ICefCommandLine; const current_directory: ustring; var aResult: boolean);
-			commandLine := AsCefCommandLineRef(getVal(0))
-			currentDirectory := api.GoStr(getVal(1))
-			result := (*bool)(getPtr(getVal(2)))
-			cb(commandLine, currentDirectory, result)
-		},
-	}
-}
-
 func makeTOnBrowserProcessBeforeChildProcessLaunchEvent(cb TOnBrowserProcessBeforeChildProcessLaunchEvent) *callback {
 	if cb == nil {
 		return nil
@@ -981,24 +896,6 @@ func makeTOnBrowserProcessGetDefaultClientEvent(cb TOnBrowserProcessGetDefaultCl
 			cb(&client)
 			if client != nil {
 				*(*uintptr)(getPtr(getVal(0))) = client.Instance()
-			}
-		},
-	}
-}
-
-func makeTOnBrowserProcessGetDefaultRequestContextHandlerEvent(cb TOnBrowserProcessGetDefaultRequestContextHandlerEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnBrowserProcessGetDefaultRequestContextHandlerEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 1 : procedure(var aRequestContextHandler: ICefRequestContextHandler);
-			var requestContextHandler IEngRequestContextHandler
-			requestContextHandler = AsEngRequestContextHandler(*(*uintptr)(getPtr(getVal(0))))
-			cb(&requestContextHandler)
-			if requestContextHandler != nil {
-				*(*uintptr)(getPtr(getVal(0))) = requestContextHandler.Instance()
 			}
 		},
 	}
@@ -1063,36 +960,6 @@ func makeTOnBrowserViewBrowserDestroyedEvent(cb TOnBrowserViewBrowserDestroyedEv
 	}
 }
 
-func makeTOnBrowserViewGestureCommandEvent(cb TOnBrowserViewGestureCommandEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnBrowserViewGestureCommandEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 3 : procedure(const browser_view: ICefBrowserView; gesture_command: TCefGestureCommand; var aResult: boolean);
-			browserView := AsCefBrowserViewRef(getVal(0))
-			gestureCommand := cefTypes.TCefGestureCommand(getVal(1))
-			result := (*bool)(getPtr(getVal(2)))
-			cb(browserView, gestureCommand, result)
-		},
-	}
-}
-
-func makeTOnBrowserViewGetBrowserRuntimeStyleEvent(cb TOnBrowserViewGetBrowserRuntimeStyleEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnBrowserViewGetBrowserRuntimeStyleEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 1 : procedure(var aResult: TCefRuntimeStyle);
-			result := (*cefTypes.TCefRuntimeStyle)(getPtr(getVal(0)))
-			cb(result)
-		},
-	}
-}
-
 func makeTOnBrowserViewGetChromeToolbarTypeEvent(cb TOnBrowserViewGetChromeToolbarTypeEvent) *callback {
 	if cb == nil {
 		return nil
@@ -1100,10 +967,9 @@ func makeTOnBrowserViewGetChromeToolbarTypeEvent(cb TOnBrowserViewGetChromeToolb
 	return &callback{
 		name: "TOnBrowserViewGetChromeToolbarTypeEvent",
 		cb: func(getVal func(i int) uintptr) {
-			// 2 : procedure(const browser_view: ICefBrowserView; var aResult: TCefChromeToolbarType);
-			browserView := AsCefBrowserViewRef(getVal(0))
-			result := (*cefTypes.TCefChromeToolbarType)(getPtr(getVal(1)))
-			cb(browserView, result)
+			// 0 : function(): TCefChromeToolbarType;
+			ret := cb()
+			*(*TCefChromeToolbarType)(getPtr(getVal(0))) = ret
 		},
 	}
 }
@@ -1144,21 +1010,6 @@ func makeTOnBrowserViewPopupBrowserViewCreatedEvent(cb TOnBrowserViewPopupBrowse
 			isDevtools := api.GoBool(getVal(2))
 			result := (*bool)(getPtr(getVal(3)))
 			cb(browserView, popupBrowserView, isDevtools, result)
-		},
-	}
-}
-
-func makeTOnBrowserViewUseFramelessWindowForPictureInPictureEvent(cb TOnBrowserViewUseFramelessWindowForPictureInPictureEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnBrowserViewUseFramelessWindowForPictureInPictureEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 2 : procedure(const browser_view: ICefBrowserView; var aResult: boolean);
-			browserView := AsCefBrowserViewRef(getVal(0))
-			result := (*bool)(getPtr(getVal(1)))
-			cb(browserView, result)
 		},
 	}
 }
@@ -1821,68 +1672,6 @@ func makeTOnCommandChromeCommandEvent(cb TOnCommandChromeCommandEvent) *callback
 			disposition := cefTypes.TCefWindowOpenDisposition(getVal(2))
 			ret := cb(browser, commandId, disposition)
 			*(*bool)(getPtr(getVal(3))) = ret
-		},
-	}
-}
-
-func makeTOnCommandIsChromeAppMenuItemEnabledEvent(cb TOnCommandIsChromeAppMenuItemEnabledEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnCommandIsChromeAppMenuItemEnabledEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 2 : function(const browser: ICefBrowser; command_id: integer): boolean;
-			browser := AsCefBrowserRef(getVal(0))
-			commandId := int32(getVal(1))
-			ret := cb(browser, commandId)
-			*(*bool)(getPtr(getVal(2))) = ret
-		},
-	}
-}
-
-func makeTOnCommandIsChromeAppMenuItemVisibleEvent(cb TOnCommandIsChromeAppMenuItemVisibleEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnCommandIsChromeAppMenuItemVisibleEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 2 : function(const browser: ICefBrowser; command_id: integer): boolean;
-			browser := AsCefBrowserRef(getVal(0))
-			commandId := int32(getVal(1))
-			ret := cb(browser, commandId)
-			*(*bool)(getPtr(getVal(2))) = ret
-		},
-	}
-}
-
-func makeTOnCommandIsChromePageActionIconVisibleEvent(cb TOnCommandIsChromePageActionIconVisibleEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnCommandIsChromePageActionIconVisibleEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 1 : function(icon_type: TCefChromePageActionIconType): boolean;
-			iconType := cefTypes.TCefChromePageActionIconType(getVal(0))
-			ret := cb(iconType)
-			*(*bool)(getPtr(getVal(1))) = ret
-		},
-	}
-}
-
-func makeTOnCommandIsChromeToolbarButtonVisibleEvent(cb TOnCommandIsChromeToolbarButtonVisibleEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnCommandIsChromeToolbarButtonVisibleEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 1 : function(button_type: TCefChromeToolbarButtonType): boolean;
-			buttonType := cefTypes.TCefChromeToolbarButtonType(getVal(0))
-			ret := cb(buttonType)
-			*(*bool)(getPtr(getVal(1))) = ret
 		},
 	}
 }
@@ -2557,17 +2346,15 @@ func makeTOnDialogFileDialogEvent(cb TOnDialogFileDialogEvent) *callback {
 	return &callback{
 		name: "TOnDialogFileDialogEvent",
 		cb: func(getVal func(i int) uintptr) {
-			// 8 : function(const browser: ICefBrowser; mode: TCefFileDialogMode; const title: ustring; const defaultFilePath: ustring; const acceptFilters: TStrings; const accept_extensions: TStrings; const accept_descriptions: TStrings; const callback: ICefFileDialogCallback): Boolean;
+			// 6 : function(const browser: ICefBrowser; mode: TCefFileDialogMode; const title: ustring; const defaultFilePath: ustring; const acceptFilters: TStrings; const callback: ICefFileDialogCallback): Boolean;
 			browser := AsCefBrowserRef(getVal(0))
 			mode := cefTypes.TCefFileDialogMode(getVal(1))
 			title := api.GoStr(getVal(2))
 			defaultFilePath := api.GoStr(getVal(3))
 			acceptFilters := lcl.AsStrings(getVal(4))
-			acceptExtensions := lcl.AsStrings(getVal(5))
-			acceptDescriptions := lcl.AsStrings(getVal(6))
-			callback := AsCefFileDialogCallbackRef(getVal(7))
-			ret := cb(browser, mode, title, defaultFilePath, acceptFilters, acceptExtensions, acceptDescriptions, callback)
-			*(*bool)(getPtr(getVal(8))) = ret
+			callback := AsCefFileDialogCallbackRef(getVal(5))
+			ret := cb(browser, mode, title, defaultFilePath, acceptFilters, callback)
+			*(*bool)(getPtr(getVal(6))) = ret
 		},
 	}
 }
@@ -2802,13 +2589,12 @@ func makeTOnDownloadBeforeDownloadEvent(cb TOnDownloadBeforeDownloadEvent) *call
 	return &callback{
 		name: "TOnDownloadBeforeDownloadEvent",
 		cb: func(getVal func(i int) uintptr) {
-			// 4 : function(const browser: ICefBrowser; const downloadItem: ICefDownloadItem; const suggestedName: ustring; const callback: ICefBeforeDownloadCallback): boolean;
+			// 4 : procedure(const browser: ICefBrowser; const downloadItem: ICefDownloadItem; const suggestedName: ustring; const callback: ICefBeforeDownloadCallback);
 			browser := AsCefBrowserRef(getVal(0))
-			downloadItem := AsCefDownloadItemRef(getVal(1))
+			downloadItem := AsCefDownLoadItemRef(getVal(1))
 			suggestedName := api.GoStr(getVal(2))
 			callback := AsCefBeforeDownloadCallbackRef(getVal(3))
-			ret := cb(browser, downloadItem, suggestedName, callback)
-			*(*bool)(getPtr(getVal(4))) = ret
+			cb(browser, downloadItem, suggestedName, callback)
 		},
 	}
 }
@@ -2856,7 +2642,7 @@ func makeTOnDownloadDownloadUpdatedEvent(cb TOnDownloadDownloadUpdatedEvent) *ca
 		cb: func(getVal func(i int) uintptr) {
 			// 3 : procedure(const browser: ICefBrowser; const downloadItem: ICefDownloadItem; const callback: ICefDownloadItemCallback);
 			browser := AsCefBrowserRef(getVal(0))
-			downloadItem := AsCefDownloadItemRef(getVal(1))
+			downloadItem := AsCefDownLoadItemRef(getVal(1))
 			callback := AsCefDownloadItemCallbackRef(getVal(2))
 			cb(browser, downloadItem, callback)
 		},
@@ -2923,7 +2709,7 @@ func makeTOnDownloadUpdated(cb TOnDownloadUpdated) *callback {
 			// 4 : procedure(Sender: TObject; const browser: ICefBrowser; const downloadItem: ICefDownloadItem; const callback: ICefDownloadItemCallback);
 			sender := lcl.AsObject(getVal(0))
 			browser := AsCefBrowserRef(getVal(1))
-			downloadItem := AsCefDownloadItemRef(getVal(2))
+			downloadItem := AsCefDownLoadItemRef(getVal(2))
 			callback := AsCefDownloadItemCallbackRef(getVal(3))
 			cb(sender, browser, downloadItem, callback)
 		},
@@ -3258,18 +3044,16 @@ func makeTOnFileDialog(cb TOnFileDialog) *callback {
 	return &callback{
 		name: "TOnFileDialog",
 		cb: func(getVal func(i int) uintptr) {
-			// 10 : procedure(Sender: TObject; const browser: ICefBrowser; mode: TCefFileDialogMode; const title, defaultFilePath: ustring; const acceptFilters, accept_extensions, accept_descriptions: TStrings; const callback: ICefFileDialogCallback; var Result: Boolean);
+			// 8 : procedure(Sender: TObject; const browser: ICefBrowser; mode: TCefFileDialogMode; const title, defaultFilePath: ustring; const acceptFilters: TStrings; const callback: ICefFileDialogCallback; var Result: Boolean);
 			sender := lcl.AsObject(getVal(0))
 			browser := AsCefBrowserRef(getVal(1))
 			mode := cefTypes.TCefFileDialogMode(getVal(2))
 			title := api.GoStr(getVal(3))
 			defaultFilePath := api.GoStr(getVal(4))
 			acceptFilters := lcl.AsStrings(getVal(5))
-			acceptExtensions := lcl.AsStrings(getVal(6))
-			acceptDescriptions := lcl.AsStrings(getVal(7))
-			callback := AsCefFileDialogCallbackRef(getVal(8))
-			result := (*bool)(getPtr(getVal(9)))
-			cb(sender, browser, mode, title, defaultFilePath, acceptFilters, acceptExtensions, acceptDescriptions, callback, result)
+			callback := AsCefFileDialogCallbackRef(getVal(6))
+			result := (*bool)(getPtr(getVal(7)))
+			cb(sender, browser, mode, title, defaultFilePath, acceptFilters, callback, result)
 		},
 	}
 }
@@ -3537,23 +3321,6 @@ func makeTOnFullScreenModeChange(cb TOnFullScreenModeChange) *callback {
 	}
 }
 
-func makeTOnGestureCommandEvent(cb TOnGestureCommandEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnGestureCommandEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 4 : procedure(const Sender: TObject; const browser_view: ICefBrowserView; gesture_command: TCefGestureCommand; var aResult : boolean);
-			sender := lcl.AsObject(getVal(0))
-			browserView := AsCefBrowserViewRef(getVal(1))
-			gestureCommand := cefTypes.TCefGestureCommand(getVal(2))
-			result := (*bool)(getPtr(getVal(3)))
-			cb(sender, browserView, gestureCommand, result)
-		},
-	}
-}
-
 func makeTOnGetAccessibilityHandler(cb TOnGetAccessibilityHandler) *callback {
 	if cb == nil {
 		return nil
@@ -3635,21 +3402,6 @@ func makeTOnGetAuthCredentials(cb TOnGetAuthCredentials) *callback {
 	}
 }
 
-func makeTOnGetBrowserRuntimeStyleEvent(cb TOnGetBrowserRuntimeStyleEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnGetBrowserRuntimeStyleEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 2 : procedure(const Sender: TObject; var aResult : TCefRuntimeStyle);
-			sender := lcl.AsObject(getVal(0))
-			result := (*cefTypes.TCefRuntimeStyle)(getPtr(getVal(1)))
-			cb(sender, result)
-		},
-	}
-}
-
 func makeTOnGetChromeToolbarTypeEvent(cb TOnGetChromeToolbarTypeEvent) *callback {
 	if cb == nil {
 		return nil
@@ -3657,11 +3409,10 @@ func makeTOnGetChromeToolbarTypeEvent(cb TOnGetChromeToolbarTypeEvent) *callback
 	return &callback{
 		name: "TOnGetChromeToolbarTypeEvent",
 		cb: func(getVal func(i int) uintptr) {
-			// 3 : procedure(const Sender: TObject; const browser_view: ICefBrowserView; var aChromeToolbarType: TCefChromeToolbarType);
+			// 2 : procedure(const Sender: TObject; var aChromeToolbarType: TCefChromeToolbarType);
 			sender := lcl.AsObject(getVal(0))
-			browserView := AsCefBrowserViewRef(getVal(1))
-			chromeToolbarType := (*cefTypes.TCefChromeToolbarType)(getPtr(getVal(2)))
-			cb(sender, browserView, chromeToolbarType)
+			chromeToolbarType := (*TCefChromeToolbarType)(getPtr(getVal(1)))
+			cb(sender, chromeToolbarType)
 		},
 	}
 }
@@ -3714,24 +3465,6 @@ func makeTOnGetDefaultClientEvent(cb TOnGetDefaultClientEvent) *callback {
 			cb(&client)
 			if client != nil {
 				*(*uintptr)(getPtr(getVal(0))) = client.Instance()
-			}
-		},
-	}
-}
-
-func makeTOnGetDefaultRequestContextHandlerEvent(cb TOnGetDefaultRequestContextHandlerEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnGetDefaultRequestContextHandlerEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 1 : procedure(var aRequestContextHandler : ICefRequestContextHandler);
-			var requestContextHandler IEngRequestContextHandler
-			requestContextHandler = AsEngRequestContextHandler(*(*uintptr)(getPtr(getVal(0))))
-			cb(&requestContextHandler)
-			if requestContextHandler != nil {
-				*(*uintptr)(getPtr(getVal(0))) = requestContextHandler.Instance()
 			}
 		},
 	}
@@ -4063,23 +3796,6 @@ func makeTOnGetScreenPoint(cb TOnGetScreenPoint) *callback {
 	}
 }
 
-func makeTOnGetTitlebarHeightEvent(cb TOnGetTitlebarHeightEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnGetTitlebarHeightEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 4 : procedure(const Sender: TObject; const window_: ICefWindow; var titlebar_height: Single; var aResult : boolean);
-			sender := lcl.AsObject(getVal(0))
-			window := AsCefWindowRef(getVal(1))
-			titlebarHeight := (*float32)(getPtr(getVal(2)))
-			result := (*bool)(getPtr(getVal(3)))
-			cb(sender, window, titlebarHeight, result)
-		},
-	}
-}
-
 func makeTOnGetTouchHandleSize(cb TOnGetTouchHandleSize) *callback {
 	if cb == nil {
 		return nil
@@ -4111,21 +3827,6 @@ func makeTOnGetViewRect(cb TOnGetViewRect) *callback {
 			rect := (*TCefRect)(getPtr(getVal(2)))
 			cb(sender, browser, rect)
 			*(*TCefRect)(getPtr(getVal(2))) = *rect
-		},
-	}
-}
-
-func makeTOnGetWindowRuntimeStyleEvent(cb TOnGetWindowRuntimeStyleEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnGetWindowRuntimeStyleEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 2 : procedure(const Sender: TObject; var aResult : TCefRuntimeStyle);
-			sender := lcl.AsObject(getVal(0))
-			result := (*cefTypes.TCefRuntimeStyle)(getPtr(getVal(1)))
-			cb(sender, result)
 		},
 	}
 }
@@ -4249,94 +3950,12 @@ func makeTOnInitFilterEvent(cb TOnInitFilterEvent) *callback {
 	}
 }
 
-func makeTOnIsChromeAppMenuItemEnabledEvent(cb TOnIsChromeAppMenuItemEnabledEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnIsChromeAppMenuItemEnabledEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 4 : procedure(Sender: TObject; const browser: ICefBrowser; command_id: integer; var aResult: boolean);
-			sender := lcl.AsObject(getVal(0))
-			browser := AsCefBrowserRef(getVal(1))
-			commandId := int32(getVal(2))
-			result := (*bool)(getPtr(getVal(3)))
-			cb(sender, browser, commandId, result)
-		},
-	}
-}
-
-func makeTOnIsChromeAppMenuItemVisibleEvent(cb TOnIsChromeAppMenuItemVisibleEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnIsChromeAppMenuItemVisibleEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 4 : procedure(Sender: TObject; const browser: ICefBrowser; command_id: integer; var aResult: boolean);
-			sender := lcl.AsObject(getVal(0))
-			browser := AsCefBrowserRef(getVal(1))
-			commandId := int32(getVal(2))
-			result := (*bool)(getPtr(getVal(3)))
-			cb(sender, browser, commandId, result)
-		},
-	}
-}
-
-func makeTOnIsChromePageActionIconVisibleEvent(cb TOnIsChromePageActionIconVisibleEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnIsChromePageActionIconVisibleEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 3 : procedure(Sender: TObject; icon_type: TCefChromePageActionIconType; var aResult: boolean);
-			sender := lcl.AsObject(getVal(0))
-			iconType := cefTypes.TCefChromePageActionIconType(getVal(1))
-			result := (*bool)(getPtr(getVal(2)))
-			cb(sender, iconType, result)
-		},
-	}
-}
-
-func makeTOnIsChromeToolbarButtonVisibleEvent(cb TOnIsChromeToolbarButtonVisibleEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnIsChromeToolbarButtonVisibleEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 3 : procedure(Sender: TObject; button_type: TCefChromeToolbarButtonType; var aResult: boolean);
-			sender := lcl.AsObject(getVal(0))
-			buttonType := cefTypes.TCefChromeToolbarButtonType(getVal(1))
-			result := (*bool)(getPtr(getVal(2)))
-			cb(sender, buttonType, result)
-		},
-	}
-}
-
 func makeTOnIsFramelessEvent(cb TOnIsFramelessEvent) *callback {
 	if cb == nil {
 		return nil
 	}
 	return &callback{
 		name: "TOnIsFramelessEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 3 : procedure(const Sender: TObject; const window_: ICefWindow; var aResult : boolean);
-			sender := lcl.AsObject(getVal(0))
-			window := AsCefWindowRef(getVal(1))
-			result := (*bool)(getPtr(getVal(2)))
-			cb(sender, window, result)
-		},
-	}
-}
-
-func makeTOnIsWindowModalDialogEvent(cb TOnIsWindowModalDialogEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnIsWindowModalDialogEvent",
 		cb: func(getVal func(i int) uintptr) {
 			// 3 : procedure(const Sender: TObject; const window_: ICefWindow; var aResult : boolean);
 			sender := lcl.AsObject(getVal(0))
@@ -4529,40 +4148,6 @@ func makeTOnLifeSpanBeforeCloseEvent(cb TOnLifeSpanBeforeCloseEvent) *callback {
 			// 1 : procedure(const browser: ICefBrowser);
 			browser := AsCefBrowserRef(getVal(0))
 			cb(browser)
-		},
-	}
-}
-
-func makeTOnLifeSpanBeforeDevToolsPopupEvent(cb TOnLifeSpanBeforeDevToolsPopupEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnLifeSpanBeforeDevToolsPopupEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 6 : procedure(const browser: ICefBrowser; var windowInfo: TCefWindowInfo; var client: ICefClient; var settings: TCefBrowserSettings; var extra_info: ICefDictionaryValue; var use_default_window: boolean);
-			browser := AsCefBrowserRef(getVal(0))
-			windowInfoPtr := *(*tCefWindowInfo)(getPtr(getVal(1)))
-			windowInfo := windowInfoPtr.ToGo()
-			var client IEngClient
-			client = AsEngClient(*(*uintptr)(getPtr(getVal(2))))
-			settingsPtr := *(*tCefBrowserSettings)(getPtr(getVal(3)))
-			settings := settingsPtr.ToGo()
-			extraInfo := ICefDictionaryValue(AsCefDictionaryValueRef(*(*uintptr)(getPtr(getVal(4)))))
-			useDefaultWindow := (*bool)(getPtr(getVal(5)))
-			cb(browser, &windowInfo, &client, &settings, &extraInfo, useDefaultWindow)
-			if r := windowInfo.ToPas(); r != nil {
-				*(*tCefWindowInfo)(getPtr(getVal(1))) = *r
-			}
-			if client != nil {
-				*(*uintptr)(getPtr(getVal(2))) = client.Instance()
-			}
-			if r := settings.ToPas(); r != nil {
-				*(*tCefBrowserSettings)(getPtr(getVal(3))) = *r
-			}
-			if extraInfo != nil {
-				*(*uintptr)(getPtr(getVal(4))) = extraInfo.Instance()
-			}
 		},
 	}
 }
@@ -5667,15 +5252,14 @@ func makeTOnRenderAcceleratedPaintEvent(cb TOnRenderAcceleratedPaintEvent) *call
 	return &callback{
 		name: "TOnRenderAcceleratedPaintEvent",
 		cb: func(getVal func(i int) uintptr) {
-			// 5 : procedure(const browser: ICefBrowser; kind: TCefPaintElementType; dirtyRectsCount: NativeUInt; const dirtyRects: PCefRectArray; const info: PCefAcceleratedPaintInfo);
+			// 5 : procedure(const browser: ICefBrowser; kind: TCefPaintElementType; dirtyRectsCount: NativeUInt; const dirtyRects: PCefRectArray; shared_handle: Pointer);
 			browser := AsCefBrowserRef(getVal(0))
 			kind := cefTypes.TCefPaintElementType(getVal(1))
 			dirtyRectsCount := cefTypes.NativeUInt(getVal(2))
 			dirtyRectsPtr := getVal(3)
 			dirtyRects := NewCefRectArray(int(dirtyRectsCount), dirtyRectsPtr)
-			infoPtr := (*tCefAcceleratedPaintInfo)(getPtr(getVal(4)))
-			info := infoPtr.ToGo()
-			cb(browser, kind, dirtyRectsCount, dirtyRects, info)
+			sharedHandle := uintptr(getVal(4))
+			cb(browser, kind, dirtyRectsCount, dirtyRects, sharedHandle)
 		},
 	}
 }
@@ -6030,21 +5614,6 @@ func makeTOnRenderProcessProcessMessageReceivedEvent(cb TOnRenderProcessProcessM
 	}
 }
 
-func makeTOnRenderProcessResponsive(cb TOnRenderProcessResponsive) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnRenderProcessResponsive",
-		cb: func(getVal func(i int) uintptr) {
-			// 2 : procedure(Sender: Tobject; const browser: ICefBrowser);
-			sender := lcl.AsObject(getVal(0))
-			browser := AsCefBrowserRef(getVal(1))
-			cb(sender, browser)
-		},
-	}
-}
-
 func makeTOnRenderProcessTerminated(cb TOnRenderProcessTerminated) *callback {
 	if cb == nil {
 		return nil
@@ -6052,13 +5621,11 @@ func makeTOnRenderProcessTerminated(cb TOnRenderProcessTerminated) *callback {
 	return &callback{
 		name: "TOnRenderProcessTerminated",
 		cb: func(getVal func(i int) uintptr) {
-			// 5 : procedure(Sender: TObject; const browser: ICefBrowser; status: TCefTerminationStatus; error_code: integer; const error_string: ustring);
+			// 3 : procedure(Sender: TObject; const browser: ICefBrowser; status: TCefTerminationStatus);
 			sender := lcl.AsObject(getVal(0))
 			browser := AsCefBrowserRef(getVal(1))
 			status := cefTypes.TCefTerminationStatus(getVal(2))
-			errorCode := int32(getVal(3))
-			errorString := api.GoStr(getVal(4))
-			cb(sender, browser, status, errorCode, errorString)
+			cb(sender, browser, status)
 		},
 	}
 }
@@ -6077,23 +5644,6 @@ func makeTOnRenderProcessUncaughtExceptionEvent(cb TOnRenderProcessUncaughtExcep
 			v8Exception := AsCefV8ExceptionRef(getVal(3))
 			stackTrace := AsCefV8StackTraceRef(getVal(4))
 			cb(browser, frame, context, v8Exception, stackTrace)
-		},
-	}
-}
-
-func makeTOnRenderProcessUnresponsive(cb TOnRenderProcessUnresponsive) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnRenderProcessUnresponsive",
-		cb: func(getVal func(i int) uintptr) {
-			// 4 : procedure(Sender: Tobject; const browser: ICefBrowser; const callback: ICefUnresponsiveProcessCallback; var aResult: boolean);
-			sender := lcl.AsObject(getVal(0))
-			browser := AsCefBrowserRef(getVal(1))
-			callback := AsCefUnresponsiveProcessCallbackRef(getVal(2))
-			result := (*bool)(getPtr(getVal(3)))
-			cb(sender, browser, callback, result)
 		},
 	}
 }
@@ -6429,20 +5979,6 @@ func makeTOnRequestOpenUrlFromTabEvent(cb TOnRequestOpenUrlFromTabEvent) *callba
 	}
 }
 
-func makeTOnRequestRenderProcessResponsiveEvent(cb TOnRequestRenderProcessResponsiveEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnRequestRenderProcessResponsiveEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 1 : procedure(const browser: ICefBrowser);
-			browser := AsCefBrowserRef(getVal(0))
-			cb(browser)
-		},
-	}
-}
-
 func makeTOnRequestRenderProcessTerminatedEvent(cb TOnRequestRenderProcessTerminatedEvent) *callback {
 	if cb == nil {
 		return nil
@@ -6450,28 +5986,10 @@ func makeTOnRequestRenderProcessTerminatedEvent(cb TOnRequestRenderProcessTermin
 	return &callback{
 		name: "TOnRequestRenderProcessTerminatedEvent",
 		cb: func(getVal func(i int) uintptr) {
-			// 4 : procedure(const browser: ICefBrowser; status: TCefTerminationStatus; error_code: integer; const error_string: ustring);
+			// 2 : procedure(const browser: ICefBrowser; status: TCefTerminationStatus);
 			browser := AsCefBrowserRef(getVal(0))
 			status := cefTypes.TCefTerminationStatus(getVal(1))
-			errorCode := int32(getVal(2))
-			errorString := api.GoStr(getVal(3))
-			cb(browser, status, errorCode, errorString)
-		},
-	}
-}
-
-func makeTOnRequestRenderProcessUnresponsiveEvent(cb TOnRequestRenderProcessUnresponsiveEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnRequestRenderProcessUnresponsiveEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 2 : function(const browser: ICefBrowser; const callback: ICefUnresponsiveProcessCallback): boolean;
-			browser := AsCefBrowserRef(getVal(0))
-			callback := AsCefUnresponsiveProcessCallbackRef(getVal(1))
-			ret := cb(browser, callback)
-			*(*bool)(getPtr(getVal(2))) = ret
+			cb(browser, status)
 		},
 	}
 }
@@ -7534,37 +7052,6 @@ func makeTOnTextfieldKeyEventEvent(cb TOnTextfieldKeyEventEvent) *callback {
 	}
 }
 
-func makeTOnThemeChangedEvent(cb TOnThemeChangedEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnThemeChangedEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 2 : procedure(const Sender: TObject; const view: ICefView);
-			sender := lcl.AsObject(getVal(0))
-			view := AsCefViewRef(getVal(1))
-			cb(sender, view)
-		},
-	}
-}
-
-func makeTOnThemeColorsChangedEvent(cb TOnThemeColorsChangedEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnThemeColorsChangedEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 3 : procedure(const Sender: TObject; const window_: ICefWindow; chrome_theme: Integer);
-			sender := lcl.AsObject(getVal(0))
-			window := AsCefWindowRef(getVal(1))
-			chromeTheme := int32(getVal(2))
-			cb(sender, window, chromeTheme)
-		},
-	}
-}
-
 func makeTOnTitleChange(cb TOnTitleChange) *callback {
 	if cb == nil {
 		return nil
@@ -7744,22 +7231,6 @@ func makeTOnUrlrequestClientUploadProgressEvent(cb TOnUrlrequestClientUploadProg
 			current := *(*int64)(getPtr(getVal(1)))
 			total := *(*int64)(getPtr(getVal(2)))
 			cb(request, current, total)
-		},
-	}
-}
-
-func makeTOnUseFramelessWindowForPictureInPicture(cb TOnUseFramelessWindowForPictureInPicture) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnUseFramelessWindowForPictureInPicture",
-		cb: func(getVal func(i int) uintptr) {
-			// 3 : procedure(const Sender: TObject; const browser_view: ICefBrowserView; var aResult : boolean);
-			sender := lcl.AsObject(getVal(0))
-			browserView := AsCefBrowserViewRef(getVal(1))
-			result := (*bool)(getPtr(getVal(2)))
-			cb(sender, browserView, result)
 		},
 	}
 }
@@ -8065,20 +7536,6 @@ func makeTOnViewParentViewChangedEvent(cb TOnViewParentViewChangedEvent) *callba
 	}
 }
 
-func makeTOnViewThemeChangedEvent(cb TOnViewThemeChangedEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnViewThemeChangedEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 1 : procedure(const view: ICefView);
-			view := AsCefViewRef(getVal(0))
-			cb(view)
-		},
-	}
-}
-
 func makeTOnViewWindowChangedEvent(cb TOnViewWindowChangedEvent) *callback {
 	if cb == nil {
 		return nil
@@ -8188,21 +7645,6 @@ func makeTOnWindowAcceleratorEvent(cb TOnWindowAcceleratorEvent) *callback {
 			commandId := int32(getVal(1))
 			result := (*bool)(getPtr(getVal(2)))
 			cb(window, commandId, result)
-		},
-	}
-}
-
-func makeTOnWindowAcceptsFirstMouseEvent(cb TOnWindowAcceptsFirstMouseEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnWindowAcceptsFirstMouseEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 2 : procedure(const window_: ICefWindow; var aResult: TCefState);
-			window := AsCefWindowRef(getVal(0))
-			result := (*cefTypes.TCefState)(getPtr(getVal(1)))
-			cb(window, result)
 		},
 	}
 }
@@ -8360,22 +7802,6 @@ func makeTOnWindowDestroyedEvent(cb TOnWindowDestroyedEvent) *callback {
 	}
 }
 
-func makeTOnWindowFullscreenTransitionEvent(cb TOnWindowFullscreenTransitionEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnWindowFullscreenTransitionEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 3 : procedure(const Sender: TObject; const window_: ICefWindow; is_completed: boolean);
-			sender := lcl.AsObject(getVal(0))
-			window := AsCefWindowRef(getVal(1))
-			isCompleted := api.GoBool(getVal(2))
-			cb(sender, window, isCompleted)
-		},
-	}
-}
-
 func makeTOnWindowGetInitialBoundsEvent(cb TOnWindowGetInitialBoundsEvent) *callback {
 	if cb == nil {
 		return nil
@@ -8427,57 +7853,12 @@ func makeTOnWindowGetParentWindowEvent(cb TOnWindowGetParentWindowEvent) *callba
 	}
 }
 
-func makeTOnWindowGetTitlebarHeightEvent(cb TOnWindowGetTitlebarHeightEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnWindowGetTitlebarHeightEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 3 : procedure(const window_: ICefWindow; var titlebar_height: Single; var aResult: boolean);
-			window := AsCefWindowRef(getVal(0))
-			titlebarHeight := (*float32)(getPtr(getVal(1)))
-			result := (*bool)(getPtr(getVal(2)))
-			cb(window, titlebarHeight, result)
-		},
-	}
-}
-
-func makeTOnWindowGetWindowRuntimeStyleEvent(cb TOnWindowGetWindowRuntimeStyleEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnWindowGetWindowRuntimeStyleEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 1 : procedure(var aResult: TCefRuntimeStyle);
-			result := (*cefTypes.TCefRuntimeStyle)(getPtr(getVal(0)))
-			cb(result)
-		},
-	}
-}
-
 func makeTOnWindowIsFramelessEvent(cb TOnWindowIsFramelessEvent) *callback {
 	if cb == nil {
 		return nil
 	}
 	return &callback{
 		name: "TOnWindowIsFramelessEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 2 : procedure(const window_: ICefWindow; var aResult: boolean);
-			window := AsCefWindowRef(getVal(0))
-			result := (*bool)(getPtr(getVal(1)))
-			cb(window, result)
-		},
-	}
-}
-
-func makeTOnWindowIsWindowModalDialogEvent(cb TOnWindowIsWindowModalDialogEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnWindowIsWindowModalDialogEvent",
 		cb: func(getVal func(i int) uintptr) {
 			// 2 : procedure(const window_: ICefWindow; var aResult: boolean);
 			window := AsCefWindowRef(getVal(0))
@@ -8516,21 +7897,6 @@ func makeTOnWindowKeyEventEvent(cb TOnWindowKeyEventEvent) *callback {
 			event := *(*TCefKeyEvent)(getPtr(getVal(2)))
 			result := (*bool)(getPtr(getVal(3)))
 			cb(sender, window, event, result)
-		},
-	}
-}
-
-func makeTOnWindowThemeColorsChangedEvent(cb TOnWindowThemeColorsChangedEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnWindowThemeColorsChangedEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 2 : procedure(const window_: ICefWindow; chrome_theme: Integer);
-			window := AsCefWindowRef(getVal(0))
-			chromeTheme := int32(getVal(1))
-			cb(window, chromeTheme)
 		},
 	}
 }
@@ -8603,52 +7969,6 @@ func makeTOnWindowWindowDestroyedEvent(cb TOnWindowWindowDestroyedEvent) *callba
 			// 1 : procedure(const window_: ICefWindow);
 			window := AsCefWindowRef(getVal(0))
 			cb(window)
-		},
-	}
-}
-
-func makeTOnWindowWindowFullscreenTransitionEvent(cb TOnWindowWindowFullscreenTransitionEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnWindowWindowFullscreenTransitionEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 2 : procedure(const window_: ICefWindow; is_completed: boolean);
-			window := AsCefWindowRef(getVal(0))
-			isCompleted := api.GoBool(getVal(1))
-			cb(window, isCompleted)
-		},
-	}
-}
-
-func makeTOnWindowWithStandardWindowButtonsEvent(cb TOnWindowWithStandardWindowButtonsEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnWindowWithStandardWindowButtonsEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 2 : procedure(const window_: ICefWindow; var aResult: boolean);
-			window := AsCefWindowRef(getVal(0))
-			result := (*bool)(getPtr(getVal(1)))
-			cb(window, result)
-		},
-	}
-}
-
-func makeTOnWithStandardWindowButtonsEvent(cb TOnWithStandardWindowButtonsEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnWithStandardWindowButtonsEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 3 : procedure(const Sender: TObject; const window_: ICefWindow; var aResult : boolean);
-			sender := lcl.AsObject(getVal(0))
-			window := AsCefWindowRef(getVal(1))
-			result := (*bool)(getPtr(getVal(2)))
-			cb(sender, window, result)
 		},
 	}
 }

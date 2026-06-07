@@ -32,9 +32,6 @@ var Json _JsonClass
 // _JsonClass is class type defined by TCEFJson
 type _JsonClass uintptr
 
-// ReadValue
-//
-//	Returns the ICefValue value at the specified key.
 func (_JsonClass) ReadValue(dictionary ICefDictionaryValue, key string, value *ICefValue) bool {
 	valuePtr := base.GetObjectUintptr(*value)
 	r := cEFJsonAPI().SysCallN(0, base.GetObjectUintptr(dictionary), api.PasStr(key), uintptr(base.UnsafePointer(&valuePtr)))
@@ -42,17 +39,11 @@ func (_JsonClass) ReadValue(dictionary ICefDictionaryValue, key string, value *I
 	return api.GoBool(r)
 }
 
-// ReadBoolean
-//
-//	Returns the boolean value at the specified key.
 func (_JsonClass) ReadBoolean(dictionary ICefDictionaryValue, key string, value *bool) bool {
 	r := cEFJsonAPI().SysCallN(1, base.GetObjectUintptr(dictionary), api.PasStr(key), uintptr(base.UnsafePointer(value)))
 	return api.GoBool(r)
 }
 
-// ReadInteger
-//
-//	Returns the integer value at the specified key.
 func (_JsonClass) ReadInteger(dictionary ICefDictionaryValue, key string, value *int32) bool {
 	valuePtr := uintptr(*value)
 	r := cEFJsonAPI().SysCallN(2, base.GetObjectUintptr(dictionary), api.PasStr(key), uintptr(base.UnsafePointer(&valuePtr)))
@@ -60,9 +51,6 @@ func (_JsonClass) ReadInteger(dictionary ICefDictionaryValue, key string, value 
 	return api.GoBool(r)
 }
 
-// ReadDouble
-//
-//	Returns the double value at the specified key.
 func (_JsonClass) ReadDouble(dictionary ICefDictionaryValue, key string, value *float64) bool {
 	valuePtr := uintptr(*value)
 	r := cEFJsonAPI().SysCallN(3, base.GetObjectUintptr(dictionary), api.PasStr(key), uintptr(base.UnsafePointer(&value)))
@@ -70,9 +58,6 @@ func (_JsonClass) ReadDouble(dictionary ICefDictionaryValue, key string, value *
 	return api.GoBool(r)
 }
 
-// ReadString
-//
-//	Returns the ustring value at the specified key.
 func (_JsonClass) ReadString(dictionary ICefDictionaryValue, key string, value *string) bool {
 	valuePtr := api.PasStr(*value)
 	r := cEFJsonAPI().SysCallN(4, base.GetObjectUintptr(dictionary), api.PasStr(key), uintptr(base.UnsafePointer(&valuePtr)))
@@ -80,9 +65,6 @@ func (_JsonClass) ReadString(dictionary ICefDictionaryValue, key string, value *
 	return api.GoBool(r)
 }
 
-// ReadBinary
-//
-//	Returns the ICefBinaryValue value at the specified key.
 func (_JsonClass) ReadBinary(dictionary ICefDictionaryValue, key string, value *ICefBinaryValue) bool {
 	valuePtr := base.GetObjectUintptr(*value)
 	r := cEFJsonAPI().SysCallN(5, base.GetObjectUintptr(dictionary), api.PasStr(key), uintptr(base.UnsafePointer(&valuePtr)))
@@ -90,9 +72,6 @@ func (_JsonClass) ReadBinary(dictionary ICefDictionaryValue, key string, value *
 	return api.GoBool(r)
 }
 
-// ReadDictionary
-//
-//	Returns the ICefDictionaryValue value at the specified key.
 func (_JsonClass) ReadDictionary(dictionary ICefDictionaryValue, key string, value *ICefDictionaryValue) bool {
 	valuePtr := base.GetObjectUintptr(*value)
 	r := cEFJsonAPI().SysCallN(6, base.GetObjectUintptr(dictionary), api.PasStr(key), uintptr(base.UnsafePointer(&valuePtr)))
@@ -100,9 +79,6 @@ func (_JsonClass) ReadDictionary(dictionary ICefDictionaryValue, key string, val
 	return api.GoBool(r)
 }
 
-// ReadList
-//
-//	Returns the ICefListValue value at the specified key.
 func (_JsonClass) ReadList(dictionary ICefDictionaryValue, key string, value *ICefListValue) bool {
 	valuePtr := base.GetObjectUintptr(*value)
 	r := cEFJsonAPI().SysCallN(7, base.GetObjectUintptr(dictionary), api.PasStr(key), uintptr(base.UnsafePointer(&valuePtr)))
@@ -110,10 +86,6 @@ func (_JsonClass) ReadList(dictionary ICefDictionaryValue, key string, value *IC
 	return api.GoBool(r)
 }
 
-// ParseWithStrJsonParserOptions
-//
-//	Parses the specified |json_string| and returns a dictionary or list
-//	representation. If JSON parsing fails this function returns NULL.
 func (_JsonClass) ParseWithStrJsonParserOptions(jsonString string, options cefTypes.TCefJsonParserOptions) (result ICefValue) {
 	var resultPtr uintptr
 	cEFJsonAPI().SysCallN(8, api.PasStr(jsonString), uintptr(options), uintptr(base.UnsafePointer(&resultPtr)))
@@ -121,11 +93,6 @@ func (_JsonClass) ParseWithStrJsonParserOptions(jsonString string, options cefTy
 	return
 }
 
-// ParseWithPointerNUIntJPOptions
-//
-//	Parses the specified UTF8-encoded |json| buffer of size |json_size| and
-//	returns a dictionary or list representation. If JSON parsing fails this
-//	function returns NULL.
 func (_JsonClass) ParseWithPointerNUIntJPOptions(json uintptr, jsonSize cefTypes.NativeUInt, options cefTypes.TCefJsonParserOptions) (result ICefValue) {
 	var resultPtr uintptr
 	cEFJsonAPI().SysCallN(9, uintptr(json), uintptr(jsonSize), uintptr(options), uintptr(base.UnsafePointer(&resultPtr)))
@@ -133,11 +100,6 @@ func (_JsonClass) ParseWithPointerNUIntJPOptions(json uintptr, jsonSize cefTypes
 	return
 }
 
-// ParseAndReturnError
-//
-//	Parses the specified |json_string| and returns a dictionary or list
-//	representation. If JSON parsing fails this function returns NULL and
-//	populates |error_msg_out| with a formatted error message.
 func (_JsonClass) ParseAndReturnError(jsonString string, options cefTypes.TCefJsonParserOptions, outErrorMsgOut *string) (result ICefValue) {
 	var errorMsgOutPtr uintptr
 	var resultPtr uintptr
@@ -147,31 +109,16 @@ func (_JsonClass) ParseAndReturnError(jsonString string, options cefTypes.TCefJs
 	return
 }
 
-// WriteWithValueJsonWriterOptions
-//
-//	Generates a JSON string from the specified root |node|.
-//	Returns an NULL string on failure. This function
-//	requires exclusive access to |node| including any underlying data.
 func (_JsonClass) WriteWithValueJsonWriterOptions(node ICefValue, options cefTypes.TCefJsonWriterOptions) string {
 	r := cEFJsonAPI().SysCallN(11, base.GetObjectUintptr(node), uintptr(options))
 	return api.GoStr(r)
 }
 
-// WriteWithDictionaryValueJsonWriterOptions
-//
-//	Generates a JSON string from the specified root |node|.
-//	Returns an NULL string on failure. This function
-//	requires exclusive access to |node| including any underlying data.
 func (_JsonClass) WriteWithDictionaryValueJsonWriterOptions(node ICefDictionaryValue, options cefTypes.TCefJsonWriterOptions) string {
 	r := cEFJsonAPI().SysCallN(12, base.GetObjectUintptr(node), uintptr(options))
 	return api.GoStr(r)
 }
 
-// WriteWithValueStringList
-//
-//	Generates a JSON string from the specified root |node|.
-//	Returns an NULL string on failure. This function
-//	requires exclusive access to |node| including any underlying data.
 func (_JsonClass) WriteWithValueStringList(node ICefValue, rsltStrings *lcl.IStringList) bool {
 	rsltStringsPtr := base.GetObjectUintptr(*rsltStrings)
 	r := cEFJsonAPI().SysCallN(13, base.GetObjectUintptr(node), uintptr(base.UnsafePointer(&rsltStringsPtr)))
@@ -179,11 +126,6 @@ func (_JsonClass) WriteWithValueStringList(node ICefValue, rsltStrings *lcl.IStr
 	return api.GoBool(r)
 }
 
-// WriteWithDictionaryValueStringList
-//
-//	Generates a JSON string from the specified root |node|.
-//	Returns an NULL string on failure. This function
-//	requires exclusive access to |node| including any underlying data.
 func (_JsonClass) WriteWithDictionaryValueStringList(node ICefDictionaryValue, rsltStrings *lcl.IStringList) bool {
 	rsltStringsPtr := base.GetObjectUintptr(*rsltStrings)
 	r := cEFJsonAPI().SysCallN(14, base.GetObjectUintptr(node), uintptr(base.UnsafePointer(&rsltStringsPtr)))
@@ -191,25 +133,16 @@ func (_JsonClass) WriteWithDictionaryValueStringList(node ICefDictionaryValue, r
 	return api.GoBool(r)
 }
 
-// SaveToFileWithValueStr
-//
-//	Saves the JSON data in |node| to a file in aFileName.
 func (_JsonClass) SaveToFileWithValueStr(node ICefValue, fileName string) bool {
 	r := cEFJsonAPI().SysCallN(15, base.GetObjectUintptr(node), api.PasStr(fileName))
 	return api.GoBool(r)
 }
 
-// SaveToFileWithDictionaryValueStr
-//
-//	Saves the JSON data in |node| to a file in aFileName.
 func (_JsonClass) SaveToFileWithDictionaryValueStr(node ICefDictionaryValue, fileName string) bool {
 	r := cEFJsonAPI().SysCallN(16, base.GetObjectUintptr(node), api.PasStr(fileName))
 	return api.GoBool(r)
 }
 
-// LoadFromFile
-//
-//	Loads the JSON data in |aFileName| using the |encoding| and returns an ICefValue node in |aRsltNode|.
 func (_JsonClass) LoadFromFile(fileName string, rsltNode *ICefValue, options cefTypes.TCefJsonParserOptions) bool {
 	rsltNodePtr := base.GetObjectUintptr(*rsltNode)
 	r := cEFJsonAPI().SysCallN(17, api.PasStr(fileName), uintptr(base.UnsafePointer(&rsltNodePtr)), uintptr(options))

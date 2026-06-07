@@ -21,7 +21,6 @@ type ICefApplication interface {
 	SetDestroyApplicationObject(value bool) // property DestroyApplicationObject Setter
 	DestroyAppWindows() bool                // property DestroyAppWindows Getter
 	SetDestroyAppWindows(value bool)        // property DestroyAppWindows Setter
-	AsIntfApplicationCoreEvents() uintptr
 }
 
 type TCefApplication struct {
@@ -58,20 +57,10 @@ func (m *TCefApplication) SetDestroyAppWindows(value bool) {
 	cefApplicationAPI().SysCallN(2, 1, m.Instance(), api.PasBool(value))
 }
 
-func (m *TCefApplication) AsIntfApplicationCoreEvents() uintptr {
-	return m.GetIntfPointer(0)
-}
-
 // NewApplication class constructor
 func NewApplication() ICefApplication {
-	var applicationCoreEventsPtr uintptr // IApplicationCoreEvents
-	r := cefApplicationAPI().SysCallN(0, uintptr(base.UnsafePointer(&applicationCoreEventsPtr)))
-	ret := AsCefApplication(r)
-	if intf, ok := ret.(base.IIntfs); ok {
-		intf.Create(1)
-		intf.SetIntfPointer(0, applicationCoreEventsPtr)
-	}
-	return ret
+	r := cefApplicationAPI().SysCallN(0)
+	return AsCefApplication(r)
 }
 
 var (

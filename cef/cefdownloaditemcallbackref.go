@@ -17,14 +17,8 @@ import (
 // ICefDownloadItemCallback Parent: ICefBaseRefCounted
 type ICefDownloadItemCallback interface {
 	ICefBaseRefCounted
-	// Cancel
-	//  Call to cancel the download.
 	Cancel() // procedure
-	// Pause
-	//  Call to pause the download.
-	Pause() // procedure
-	// Resume
-	//  Call to resume the download.
+	Pause()  // procedure
 	Resume() // procedure
 }
 

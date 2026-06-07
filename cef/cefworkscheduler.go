@@ -19,33 +19,19 @@ import (
 // ICEFWorkScheduler Parent: IComponent
 type ICEFWorkScheduler interface {
 	IComponent
-	ScheduleMessagePumpWork(delayMs int64) // procedure
-	// StopScheduler
-	//  Stop the scheduler. This function must be called after the destruction of all the forms in the application.
-	StopScheduler() // procedure
-	// CreateThread
-	//  Creates all the internal threads used by TCEFWorkScheduler.
-	CreateThread() // procedure
-	// Priority
-	//  Priority of TCEFWorkSchedulerThread in Windows.
+	ScheduleMessagePumpWork(delayMs int64)   // procedure
+	StopScheduler()                          // procedure
+	CreateThread()                           // procedure
 	Priority() types.TThreadPriority         // property Priority Getter
 	SetPriority(value types.TThreadPriority) // property Priority Setter
-	// DefaultInterval
-	//  Default interval in milliseconds to do the next GlobalCEFApp.DoMessageLoopWork call.
-	DefaultInterval() int32         // property DefaultInterval Getter
-	SetDefaultInterval(value int32) // property DefaultInterval Setter
-	// DepleteWorkCycles
-	//  Number of cycles used to deplete the remaining messages in the work loop.
-	DepleteWorkCycles() uint32         // property DepleteWorkCycles Getter
-	SetDepleteWorkCycles(value uint32) // property DepleteWorkCycles Setter
-	// DepleteWorkDelay
-	//  Delay in milliseconds between the cycles used to deplete the remaining messages in the work loop.
-	DepleteWorkDelay() uint32         // property DepleteWorkDelay Getter
-	SetDepleteWorkDelay(value uint32) // property DepleteWorkDelay Setter
-	// UseQueueThread
-	//  Use a custom queue thread instead of Windows messages or any other way to schedule the next pump work.
-	UseQueueThread() bool         // property UseQueueThread Getter
-	SetUseQueueThread(value bool) // property UseQueueThread Setter
+	DefaultInterval() int32                  // property DefaultInterval Getter
+	SetDefaultInterval(value int32)          // property DefaultInterval Setter
+	DepleteWorkCycles() uint32               // property DepleteWorkCycles Getter
+	SetDepleteWorkCycles(value uint32)       // property DepleteWorkCycles Setter
+	DepleteWorkDelay() uint32                // property DepleteWorkDelay Getter
+	SetDepleteWorkDelay(value uint32)        // property DepleteWorkDelay Setter
+	UseQueueThread() bool                    // property UseQueueThread Getter
+	SetUseQueueThread(value bool)            // property UseQueueThread Setter
 }
 
 type TCEFWorkScheduler struct {

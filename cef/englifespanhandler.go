@@ -17,11 +17,10 @@ import (
 // IEngLifeSpanHandler Parent: ICefLifeSpanHandlerOwn
 type IEngLifeSpanHandler interface {
 	ICefLifeSpanHandlerOwn
-	SetOnLifeSpanBeforePopup(fn TOnLifeSpanBeforePopupEvent)                 // property event
-	SetOnLifeSpanDoClose(fn TOnLifeSpanDoCloseEvent)                         // property event
-	SetOnLifeSpanBeforeDevToolsPopup(fn TOnLifeSpanBeforeDevToolsPopupEvent) // property event
-	SetOnLifeSpanAfterCreated(fn TOnLifeSpanAfterCreatedEvent)               // property event
-	SetOnLifeSpanBeforeClose(fn TOnLifeSpanBeforeCloseEvent)                 // property event
+	SetOnLifeSpanBeforePopup(fn TOnLifeSpanBeforePopupEvent)   // property event
+	SetOnLifeSpanDoClose(fn TOnLifeSpanDoCloseEvent)           // property event
+	SetOnLifeSpanAfterCreated(fn TOnLifeSpanAfterCreatedEvent) // property event
+	SetOnLifeSpanBeforeClose(fn TOnLifeSpanBeforeCloseEvent)   // property event
 	AsIntfLifeSpanHandler() uintptr
 }
 
@@ -45,20 +44,12 @@ func (m *TEngLifeSpanHandler) SetOnLifeSpanDoClose(fn TOnLifeSpanDoCloseEvent) {
 	base.SetEvent(m, 2, engLifeSpanHandlerAPI(), api.MakeEventDataPtr(cb))
 }
 
-func (m *TEngLifeSpanHandler) SetOnLifeSpanBeforeDevToolsPopup(fn TOnLifeSpanBeforeDevToolsPopupEvent) {
-	if !m.IsValid() {
-		return
-	}
-	cb := makeTOnLifeSpanBeforeDevToolsPopupEvent(fn)
-	base.SetEvent(m, 3, engLifeSpanHandlerAPI(), api.MakeEventDataPtr(cb))
-}
-
 func (m *TEngLifeSpanHandler) SetOnLifeSpanAfterCreated(fn TOnLifeSpanAfterCreatedEvent) {
 	if !m.IsValid() {
 		return
 	}
 	cb := makeTOnLifeSpanAfterCreatedEvent(fn)
-	base.SetEvent(m, 4, engLifeSpanHandlerAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 3, engLifeSpanHandlerAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TEngLifeSpanHandler) SetOnLifeSpanBeforeClose(fn TOnLifeSpanBeforeCloseEvent) {
@@ -66,7 +57,7 @@ func (m *TEngLifeSpanHandler) SetOnLifeSpanBeforeClose(fn TOnLifeSpanBeforeClose
 		return
 	}
 	cb := makeTOnLifeSpanBeforeCloseEvent(fn)
-	base.SetEvent(m, 5, engLifeSpanHandlerAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 4, engLifeSpanHandlerAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TEngLifeSpanHandler) AsIntfLifeSpanHandler() uintptr {
@@ -97,9 +88,8 @@ func engLifeSpanHandlerAPI() *imports.Imports {
 			/* 0 */ imports.NewTable("TEngLifeSpanHandler_Create", 0), // constructor NewEngLifeSpanHandler
 			/* 1 */ imports.NewTable("TEngLifeSpanHandler_OnLifeSpanBeforePopup", 0), // event OnLifeSpanBeforePopup
 			/* 2 */ imports.NewTable("TEngLifeSpanHandler_OnLifeSpanDoClose", 0), // event OnLifeSpanDoClose
-			/* 3 */ imports.NewTable("TEngLifeSpanHandler_OnLifeSpanBeforeDevToolsPopup", 0), // event OnLifeSpanBeforeDevToolsPopup
-			/* 4 */ imports.NewTable("TEngLifeSpanHandler_OnLifeSpanAfterCreated", 0), // event OnLifeSpanAfterCreated
-			/* 5 */ imports.NewTable("TEngLifeSpanHandler_OnLifeSpanBeforeClose", 0), // event OnLifeSpanBeforeClose
+			/* 3 */ imports.NewTable("TEngLifeSpanHandler_OnLifeSpanAfterCreated", 0), // event OnLifeSpanAfterCreated
+			/* 4 */ imports.NewTable("TEngLifeSpanHandler_OnLifeSpanBeforeClose", 0), // event OnLifeSpanBeforeClose
 		}
 	})
 	return engLifeSpanHandlerImport

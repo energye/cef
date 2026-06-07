@@ -18,48 +18,19 @@ import (
 // ICefDomDocument Parent: ICefBaseRefCounted
 type ICefDomDocument interface {
 	ICefBaseRefCounted
-	// GetType
-	//  Returns the document type.
-	GetType() cefTypes.TCefDomDocumentType // function
-	// GetDocument
-	//  Returns the root document node.
-	GetDocument() ICefDomNode // function
-	// GetBody
-	//  Returns the BODY node of an HTML document.
-	GetBody() ICefDomNode // function
-	// GetHead
-	//  Returns the HEAD node of an HTML document.
-	GetHead() ICefDomNode // function
-	// GetTitle
-	//  Returns the title of an HTML document.
-	GetTitle() string // function
-	// GetElementById
-	//  Returns the document element with the specified ID value.
-	GetElementById(id string) ICefDomNode // function
-	// GetFocusedNode
-	//  Returns the node that currently has keyboard focus.
-	GetFocusedNode() ICefDomNode // function
-	// HasSelection
-	//  Returns true (1) if a portion of the document is selected.
-	HasSelection() bool // function
-	// GetSelectionStartOffset
-	//  Returns the selection offset within the start node.
-	GetSelectionStartOffset() int32 // function
-	// GetSelectionEndOffset
-	//  Returns the selection offset within the end node.
-	GetSelectionEndOffset() int32 // function
-	// GetSelectionAsMarkup
-	//  Returns the contents of this selection as markup.
-	GetSelectionAsMarkup() string // function
-	// GetSelectionAsText
-	//  Returns the contents of this selection as text.
-	GetSelectionAsText() string // function
-	// GetBaseUrl
-	//  Returns the base URL for the document.
-	GetBaseUrl() string // function
-	// GetCompleteUrl
-	//  Returns a complete URL based on the document base URL and the specified
-	//  partial URL.
+	GetType() cefTypes.TCefDomDocumentType   // function
+	GetDocument() ICefDomNode                // function
+	GetBody() ICefDomNode                    // function
+	GetHead() ICefDomNode                    // function
+	GetTitle() string                        // function
+	GetElementById(id string) ICefDomNode    // function
+	GetFocusedNode() ICefDomNode             // function
+	HasSelection() bool                      // function
+	GetSelectionStartOffset() int32          // function
+	GetSelectionEndOffset() int32            // function
+	GetSelectionAsMarkup() string            // function
+	GetSelectionAsText() string              // function
+	GetBaseUrl() string                      // function
 	GetCompleteUrl(partialURL string) string // function
 }
 

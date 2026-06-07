@@ -25,15 +25,15 @@ type TCefBaseScoped struct {
 }
 
 type TCefBoxLayoutSettings struct {
-	Horizontal                    int32                      // Integer
-	InsideBorderHorizontalSpacing int32                      // Integer
-	InsideBorderVerticalSpacing   int32                      // Integer
-	InsideBorderInsets            TCefInsets                 // TCefInsets
-	BetweenChildSpacing           int32                      // Integer
-	MainAxisAlignment             cefTypes.TCefAxisAlignment // TCefAxisAlignment
-	CrossAxisAlignment            cefTypes.TCefAxisAlignment // TCefAxisAlignment
-	MinimumCrossAxisSize          int32                      // Integer
-	DefaultFlex                   int32                      // Integer
+	Horizontal                    int32                           // Integer
+	InsideBorderHorizontalSpacing int32                           // Integer
+	InsideBorderVerticalSpacing   int32                           // Integer
+	InsideBorderInsets            TCefInsets                      // TCefInsets
+	BetweenChildSpacing           int32                           // Integer
+	MainAxisAlignment             cefTypes.TCefMainAxisAlignment  // TCefMainAxisAlignment
+	CrossAxisAlignment            cefTypes.TCefCrossAxisAlignment // TCefCrossAxisAlignment
+	MinimumCrossAxisSize          int32                           // Integer
+	DefaultFlex                   int32                           // Integer
 }
 
 type TCefBrowserSettings struct {
@@ -62,8 +62,8 @@ type TCefBrowserSettings struct {
 	Databases                  cefTypes.TCefState // TCefState
 	Webgl                      cefTypes.TCefState // TCefState
 	BackgroundColor            cefTypes.TCefColor // TCefColor
+	AcceptLanguageList         string             // TCefString
 	ChromeStatusBubble         cefTypes.TCefState // TCefState
-	ChromeZoomBubble           cefTypes.TCefState // TCefState
 }
 
 type TCefCompositionUnderline struct {
@@ -143,23 +143,21 @@ type TCefMouseEvent struct {
 }
 
 type TCefPdfPrintSettings struct {
-	Landscape               int32                           // Integer
-	PrintBackground         int32                           // Integer
-	Scale                   float64                         // double
-	PaperWidth              float64                         // double
-	PaperHeight             float64                         // double
-	PreferCssPageSize       int32                           // Integer
-	MarginType              cefTypes.TCefPdfPrintMarginType // TCefPdfPrintMarginType
-	MarginTop               float64                         // double
-	MarginRight             float64                         // double
-	MarginBottom            float64                         // double
-	MarginLeft              float64                         // double
-	PageRanges              string                          // TCefString
-	DisplayHeaderFooter     int32                           // Integer
-	HeaderTemplate          string                          // TCefString
-	FooterTemplate          string                          // TCefString
-	GenerateTaggedPdf       int32                           // integer
-	GenerateDocumentOutline int32                           // integer
+	Landscape           int32                           // Integer
+	PrintBackground     int32                           // Integer
+	Scale               float64                         // double
+	PaperWidth          float64                         // double
+	PaperHeight         float64                         // double
+	PreferCssPageSize   int32                           // Integer
+	MarginType          cefTypes.TCefPdfPrintMarginType // TCefPdfPrintMarginType
+	MarginTop           float64                         // double
+	MarginRight         float64                         // double
+	MarginBottom        float64                         // double
+	MarginLeft          float64                         // double
+	PageRanges          string                          // TCefString
+	DisplayHeaderFooter int32                           // Integer
+	HeaderTemplate      string                          // TCefString
+	FooterTemplate      string                          // TCefString
 }
 
 type TCefPoint struct {
@@ -168,15 +166,18 @@ type TCefPoint struct {
 }
 
 type TCefPopupFeatures struct {
-	X         int32 // Integer
-	XSet      int32 // Integer
-	Y         int32 // Integer
-	YSet      int32 // Integer
-	Width     int32 // Integer
-	WidthSet  int32 // Integer
-	Height    int32 // Integer
-	HeightSet int32 // Integer
-	IsPopup   int32 // Integer
+	X                 int32 // Integer
+	XSet              int32 // Integer
+	Y                 int32 // Integer
+	YSet              int32 // Integer
+	Width             int32 // Integer
+	WidthSet          int32 // Integer
+	Height            int32 // Integer
+	HeightSet         int32 // Integer
+	MenuBarVisible    int32 // Integer
+	StatusBarVisible  int32 // Integer
+	ToolBarVisible    int32 // Integer
+	ScrollbarsVisible int32 // Integer
 }
 
 type TCefPreferenceRegistrar struct {
@@ -185,8 +186,8 @@ type TCefPreferenceRegistrar struct {
 }
 
 type TCefRange struct {
-	From uint32 // cardinal
-	To   uint32 // cardinal
+	From int32 // Integer
+	To   int32 // Integer
 }
 
 type TCefRect struct {
@@ -272,43 +273,6 @@ type TChromiumCoreSetCookieArgs struct {
 	AID             int32                       // integer
 }
 
-type TChromiumCoreSimulateKeyEventArgs struct {
-	Type                  cefTypes.TSimulatedCefKeyEventType // TSimulatedCefKeyEventType
-	Modifiers             int32                              // integer
-	Timestamp             float32                            // single
-	Text                  string                             // ustring
-	Unmodifiedtext        string                             // ustring
-	KeyIdentifier         string                             // ustring
-	Code                  string                             // ustring
-	Key                   string                             // ustring
-	WindowsVirtualKeyCode int32                              // integer
-	NativeVirtualKeyCode  int32                              // integer
-	AutoRepeat            types.LongBool                     // boolean
-	IsKeypad              types.LongBool                     // boolean
-	IsSystemKey           types.LongBool                     // boolean
-	Location              cefTypes.TCefKeyLocation           // TCefKeyLocation
-	Commands              cefTypes.TCefEditingCommand        // TCefEditingCommand
-}
-
-type TChromiumCoreSimulateMouseEventArgs struct {
-	Type               cefTypes.TCefSimulatedMouseEventType // TCefSimulatedMouseEventType
-	X                  float32                              // single
-	Y                  float32                              // single
-	Modifiers          int32                                // integer
-	Timestamp          float32                              // single
-	Button             cefTypes.TCefSimulatedMouseButton    // TCefSimulatedMouseButton
-	Buttons            int32                                // integer
-	ClickCount         int32                                // integer
-	Force              float32                              // single
-	TangentialPressure float32                              // single
-	TiltX              float32                              // single
-	TiltY              float32                              // single
-	Twist              int32                                // integer
-	DeltaX             float32                              // single
-	DeltaY             float32                              // single
-	PointerType        cefTypes.TCefSimulatedPointerType    // TCefSimulatedPointerType
-}
-
 func (m *TCefBrowserSettings) ToPas() *tCefBrowserSettings {
 	if m == nil {
 		return nil
@@ -339,8 +303,8 @@ func (m *TCefBrowserSettings) ToPas() *tCefBrowserSettings {
 		Databases:                  m.Databases,
 		Webgl:                      m.Webgl,
 		BackgroundColor:            m.BackgroundColor,
+		AcceptLanguageList:         api.PasStr(m.AcceptLanguageList),
 		ChromeStatusBubble:         m.ChromeStatusBubble,
-		ChromeZoomBubble:           m.ChromeZoomBubble,
 	}
 }
 
@@ -370,8 +334,8 @@ type tCefBrowserSettings struct {
 	Databases                  cefTypes.TCefState // TCefState
 	Webgl                      cefTypes.TCefState // TCefState
 	BackgroundColor            cefTypes.TCefColor // TCefColor
+	AcceptLanguageList         uintptr            // TCefString
 	ChromeStatusBubble         cefTypes.TCefState // TCefState
-	ChromeZoomBubble           cefTypes.TCefState // TCefState
 }
 
 func (m *tCefBrowserSettings) ToGo() TCefBrowserSettings {
@@ -404,8 +368,8 @@ func (m *tCefBrowserSettings) ToGo() TCefBrowserSettings {
 		Databases:                  m.Databases,
 		Webgl:                      m.Webgl,
 		BackgroundColor:            m.BackgroundColor,
+		AcceptLanguageList:         api.GoStr(m.AcceptLanguageList),
 		ChromeStatusBubble:         m.ChromeStatusBubble,
-		ChromeZoomBubble:           m.ChromeZoomBubble,
 	}
 }
 func (m *TCefCookie) ToPas() *tCefCookie {
@@ -527,44 +491,40 @@ func (m *TCefPdfPrintSettings) ToPas() *tCefPdfPrintSettings {
 		return nil
 	}
 	return &tCefPdfPrintSettings{
-		Landscape:               m.Landscape,
-		PrintBackground:         m.PrintBackground,
-		Scale:                   m.Scale,
-		PaperWidth:              m.PaperWidth,
-		PaperHeight:             m.PaperHeight,
-		PreferCssPageSize:       m.PreferCssPageSize,
-		MarginType:              m.MarginType,
-		MarginTop:               m.MarginTop,
-		MarginRight:             m.MarginRight,
-		MarginBottom:            m.MarginBottom,
-		MarginLeft:              m.MarginLeft,
-		PageRanges:              api.PasStr(m.PageRanges),
-		DisplayHeaderFooter:     m.DisplayHeaderFooter,
-		HeaderTemplate:          api.PasStr(m.HeaderTemplate),
-		FooterTemplate:          api.PasStr(m.FooterTemplate),
-		GenerateTaggedPdf:       m.GenerateTaggedPdf,
-		GenerateDocumentOutline: m.GenerateDocumentOutline,
+		Landscape:           m.Landscape,
+		PrintBackground:     m.PrintBackground,
+		Scale:               m.Scale,
+		PaperWidth:          m.PaperWidth,
+		PaperHeight:         m.PaperHeight,
+		PreferCssPageSize:   m.PreferCssPageSize,
+		MarginType:          m.MarginType,
+		MarginTop:           m.MarginTop,
+		MarginRight:         m.MarginRight,
+		MarginBottom:        m.MarginBottom,
+		MarginLeft:          m.MarginLeft,
+		PageRanges:          api.PasStr(m.PageRanges),
+		DisplayHeaderFooter: m.DisplayHeaderFooter,
+		HeaderTemplate:      api.PasStr(m.HeaderTemplate),
+		FooterTemplate:      api.PasStr(m.FooterTemplate),
 	}
 }
 
 type tCefPdfPrintSettings struct {
-	Landscape               int32                           // Integer
-	PrintBackground         int32                           // Integer
-	Scale                   float64                         // double
-	PaperWidth              float64                         // double
-	PaperHeight             float64                         // double
-	PreferCssPageSize       int32                           // Integer
-	MarginType              cefTypes.TCefPdfPrintMarginType // TCefPdfPrintMarginType
-	MarginTop               float64                         // double
-	MarginRight             float64                         // double
-	MarginBottom            float64                         // double
-	MarginLeft              float64                         // double
-	PageRanges              uintptr                         // TCefString
-	DisplayHeaderFooter     int32                           // Integer
-	HeaderTemplate          uintptr                         // TCefString
-	FooterTemplate          uintptr                         // TCefString
-	GenerateTaggedPdf       int32                           // integer
-	GenerateDocumentOutline int32                           // integer
+	Landscape           int32                           // Integer
+	PrintBackground     int32                           // Integer
+	Scale               float64                         // double
+	PaperWidth          float64                         // double
+	PaperHeight         float64                         // double
+	PreferCssPageSize   int32                           // Integer
+	MarginType          cefTypes.TCefPdfPrintMarginType // TCefPdfPrintMarginType
+	MarginTop           float64                         // double
+	MarginRight         float64                         // double
+	MarginBottom        float64                         // double
+	MarginLeft          float64                         // double
+	PageRanges          uintptr                         // TCefString
+	DisplayHeaderFooter int32                           // Integer
+	HeaderTemplate      uintptr                         // TCefString
+	FooterTemplate      uintptr                         // TCefString
 }
 
 func (m *tCefPdfPrintSettings) ToGo() TCefPdfPrintSettings {
@@ -572,23 +532,21 @@ func (m *tCefPdfPrintSettings) ToGo() TCefPdfPrintSettings {
 		return TCefPdfPrintSettings{}
 	}
 	return TCefPdfPrintSettings{
-		Landscape:               m.Landscape,
-		PrintBackground:         m.PrintBackground,
-		Scale:                   m.Scale,
-		PaperWidth:              m.PaperWidth,
-		PaperHeight:             m.PaperHeight,
-		PreferCssPageSize:       m.PreferCssPageSize,
-		MarginType:              m.MarginType,
-		MarginTop:               m.MarginTop,
-		MarginRight:             m.MarginRight,
-		MarginBottom:            m.MarginBottom,
-		MarginLeft:              m.MarginLeft,
-		PageRanges:              api.GoStr(m.PageRanges),
-		DisplayHeaderFooter:     m.DisplayHeaderFooter,
-		HeaderTemplate:          api.GoStr(m.HeaderTemplate),
-		FooterTemplate:          api.GoStr(m.FooterTemplate),
-		GenerateTaggedPdf:       m.GenerateTaggedPdf,
-		GenerateDocumentOutline: m.GenerateDocumentOutline,
+		Landscape:           m.Landscape,
+		PrintBackground:     m.PrintBackground,
+		Scale:               m.Scale,
+		PaperWidth:          m.PaperWidth,
+		PaperHeight:         m.PaperHeight,
+		PreferCssPageSize:   m.PreferCssPageSize,
+		MarginType:          m.MarginType,
+		MarginTop:           m.MarginTop,
+		MarginRight:         m.MarginRight,
+		MarginBottom:        m.MarginBottom,
+		MarginLeft:          m.MarginLeft,
+		PageRanges:          api.GoStr(m.PageRanges),
+		DisplayHeaderFooter: m.DisplayHeaderFooter,
+		HeaderTemplate:      api.GoStr(m.HeaderTemplate),
+		FooterTemplate:      api.GoStr(m.FooterTemplate),
 	}
 }
 func (m *TCefRequestContextSettings) ToPas() *tCefRequestContextSettings {
@@ -690,132 +648,5 @@ func (m *tChromiumCoreSetCookieArgs) ToGo() TChromiumCoreSetCookieArgs {
 		AID:             m.AID,
 	}
 }
-func (m *TChromiumCoreSimulateKeyEventArgs) ToPas() *tChromiumCoreSimulateKeyEventArgs {
-	if m == nil {
-		return nil
-	}
-	return &tChromiumCoreSimulateKeyEventArgs{
-		Type:                  m.Type,
-		Modifiers:             m.Modifiers,
-		Timestamp:             m.Timestamp,
-		Text:                  api.PasStr(m.Text),
-		Unmodifiedtext:        api.PasStr(m.Unmodifiedtext),
-		KeyIdentifier:         api.PasStr(m.KeyIdentifier),
-		Code:                  api.PasStr(m.Code),
-		Key:                   api.PasStr(m.Key),
-		WindowsVirtualKeyCode: m.WindowsVirtualKeyCode,
-		NativeVirtualKeyCode:  m.NativeVirtualKeyCode,
-		AutoRepeat:            m.AutoRepeat,
-		IsKeypad:              m.IsKeypad,
-		IsSystemKey:           m.IsSystemKey,
-		Location:              m.Location,
-		Commands:              m.Commands,
-	}
-}
 
-type tChromiumCoreSimulateKeyEventArgs struct {
-	Type                  cefTypes.TSimulatedCefKeyEventType // TSimulatedCefKeyEventType
-	Modifiers             int32                              // integer
-	Timestamp             float32                            // single
-	Text                  uintptr                            // ustring
-	Unmodifiedtext        uintptr                            // ustring
-	KeyIdentifier         uintptr                            // ustring
-	Code                  uintptr                            // ustring
-	Key                   uintptr                            // ustring
-	WindowsVirtualKeyCode int32                              // integer
-	NativeVirtualKeyCode  int32                              // integer
-	AutoRepeat            types.LongBool                     // boolean
-	IsKeypad              types.LongBool                     // boolean
-	IsSystemKey           types.LongBool                     // boolean
-	Location              cefTypes.TCefKeyLocation           // TCefKeyLocation
-	Commands              cefTypes.TCefEditingCommand        // TCefEditingCommand
-}
-
-func (m *tChromiumCoreSimulateKeyEventArgs) ToGo() TChromiumCoreSimulateKeyEventArgs {
-	if m == nil {
-		return TChromiumCoreSimulateKeyEventArgs{}
-	}
-	return TChromiumCoreSimulateKeyEventArgs{
-		Type:                  m.Type,
-		Modifiers:             m.Modifiers,
-		Timestamp:             m.Timestamp,
-		Text:                  api.GoStr(m.Text),
-		Unmodifiedtext:        api.GoStr(m.Unmodifiedtext),
-		KeyIdentifier:         api.GoStr(m.KeyIdentifier),
-		Code:                  api.GoStr(m.Code),
-		Key:                   api.GoStr(m.Key),
-		WindowsVirtualKeyCode: m.WindowsVirtualKeyCode,
-		NativeVirtualKeyCode:  m.NativeVirtualKeyCode,
-		AutoRepeat:            m.AutoRepeat,
-		IsKeypad:              m.IsKeypad,
-		IsSystemKey:           m.IsSystemKey,
-		Location:              m.Location,
-		Commands:              m.Commands,
-	}
-}
-func (m *TChromiumCoreSimulateMouseEventArgs) ToPas() *tChromiumCoreSimulateMouseEventArgs {
-	if m == nil {
-		return nil
-	}
-	return &tChromiumCoreSimulateMouseEventArgs{
-		Type:               m.Type,
-		X:                  m.X,
-		Y:                  m.Y,
-		Modifiers:          m.Modifiers,
-		Timestamp:          m.Timestamp,
-		Button:             m.Button,
-		Buttons:            m.Buttons,
-		ClickCount:         m.ClickCount,
-		Force:              m.Force,
-		TangentialPressure: m.TangentialPressure,
-		TiltX:              m.TiltX,
-		TiltY:              m.TiltY,
-		Twist:              m.Twist,
-		DeltaX:             m.DeltaX,
-		DeltaY:             m.DeltaY,
-		PointerType:        m.PointerType,
-	}
-}
-
-type tChromiumCoreSimulateMouseEventArgs struct {
-	Type               cefTypes.TCefSimulatedMouseEventType // TCefSimulatedMouseEventType
-	X                  float32                              // single
-	Y                  float32                              // single
-	Modifiers          int32                                // integer
-	Timestamp          float32                              // single
-	Button             cefTypes.TCefSimulatedMouseButton    // TCefSimulatedMouseButton
-	Buttons            int32                                // integer
-	ClickCount         int32                                // integer
-	Force              float32                              // single
-	TangentialPressure float32                              // single
-	TiltX              float32                              // single
-	TiltY              float32                              // single
-	Twist              int32                                // integer
-	DeltaX             float32                              // single
-	DeltaY             float32                              // single
-	PointerType        cefTypes.TCefSimulatedPointerType    // TCefSimulatedPointerType
-}
-
-func (m *tChromiumCoreSimulateMouseEventArgs) ToGo() TChromiumCoreSimulateMouseEventArgs {
-	if m == nil {
-		return TChromiumCoreSimulateMouseEventArgs{}
-	}
-	return TChromiumCoreSimulateMouseEventArgs{
-		Type:               m.Type,
-		X:                  m.X,
-		Y:                  m.Y,
-		Modifiers:          m.Modifiers,
-		Timestamp:          m.Timestamp,
-		Button:             m.Button,
-		Buttons:            m.Buttons,
-		ClickCount:         m.ClickCount,
-		Force:              m.Force,
-		TangentialPressure: m.TangentialPressure,
-		TiltX:              m.TiltX,
-		TiltY:              m.TiltY,
-		Twist:              m.Twist,
-		DeltaX:             m.DeltaX,
-		DeltaY:             m.DeltaY,
-		PointerType:        m.PointerType,
-	}
-}
+type TCefFrameIdentifierArray = []int64

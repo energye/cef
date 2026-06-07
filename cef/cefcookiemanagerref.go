@@ -17,43 +17,11 @@ import (
 // ICefCookieManager Parent: ICefBaseRefCounted
 type ICefCookieManager interface {
 	ICefBaseRefCounted
-	// VisitAllCookies
-	//  Visit all cookies on the UI thread. The returned cookies are ordered by
-	//  longest path, then by earliest creation date. Returns false (0) if cookies
-	//  cannot be accessed.
-	VisitAllCookies(visitor IEngCookieVisitor) bool // function
-	// VisitUrlCookies
-	//  Visit a subset of cookies on the UI thread. The results are filtered by
-	//  the given url scheme, host, domain and path. If |includeHttpOnly| is true
-	//  (1) HTTP-only cookies will also be included in the results. The returned
-	//  cookies are ordered by longest path, then by earliest creation date.
-	//  Returns false (0) if cookies cannot be accessed.
-	VisitUrlCookies(url string, includeHttpOnly bool, visitor IEngCookieVisitor) bool // function
-	// SetCookie
-	//  Sets a cookie given a valid URL and explicit user-provided cookie
-	//  attributes. This function expects each attribute to be well-formed. It
-	//  will check for disallowed characters (e.g. the ';' character is disallowed
-	//  within the cookie value attribute) and fail without setting the cookie if
-	//  such characters are found. If |callback| is non-NULL it will be executed
-	//  asnychronously on the UI thread after the cookie has been set. Returns
-	//  false (0) if an invalid URL is specified or if cookies cannot be accessed.
-	SetCookie(args TCefCookieManagerRefSetCookieArgs) bool // function
-	// DeleteCookies
-	//  Delete all cookies that match the specified parameters. If both |url| and
-	//  |cookie_name| values are specified all host and domain cookies matching
-	//  both will be deleted. If only |url| is specified all host cookies (but not
-	//  domain cookies) irrespective of path will be deleted. If |url| is NULL all
-	//  cookies for all hosts and domains will be deleted. If |callback| is non-
-	//  NULL it will be executed asnychronously on the UI thread after the cookies
-	//  have been deleted. Returns false (0) if a non-NULL invalid URL is
-	//  specified or if cookies cannot be accessed. Cookies can alternately be
-	//  deleted using the Visit*Cookies() functions.
+	VisitAllCookies(visitor IEngCookieVisitor) bool                                       // function
+	VisitUrlCookies(url string, includeHttpOnly bool, visitor IEngCookieVisitor) bool     // function
+	SetCookie(args TCefCookieManagerRefSetCookieArgs) bool                                // function
 	DeleteCookies(url string, cookieName string, callback IEngDeleteCookiesCallback) bool // function
-	// FlushStore
-	//  Flush the backing store (if any) to disk. If |callback| is non-NULL it
-	//  will be executed asnychronously on the UI thread after the flush is
-	//  complete. Returns false (0) if cookies cannot be accessed.
-	FlushStore(callback IEngCompletionCallback) bool // function
+	FlushStore(callback IEngCompletionCallback) bool                                      // function
 }
 
 // ICefCookieManagerRef Parent: ICefCookieManager ICefBaseRefCountedRef

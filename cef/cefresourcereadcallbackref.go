@@ -17,12 +17,6 @@ import (
 // ICefResourceReadCallback Parent: ICefBaseRefCounted
 type ICefResourceReadCallback interface {
 	ICefBaseRefCounted
-	// Cont
-	//  Callback for asynchronous continuation of read(). If |bytes_read| == 0 the
-	//  response will be considered complete. If |bytes_read| > 0 then read() will
-	//  be called again until the request is complete (based on either the result
-	//  or the expected content length). If |bytes_read| < 0 then the request will
-	//  fail and the |bytes_read| value will be treated as the error code.
 	Cont(bytesRead int64) // procedure
 }
 

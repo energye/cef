@@ -17,8 +17,6 @@ import (
 // ICefPrintJobCallback Parent: ICefBaseRefCounted
 type ICefPrintJobCallback interface {
 	ICefBaseRefCounted
-	// Cont
-	//  Indicate completion of the print job.
 	Cont() // procedure
 }
 

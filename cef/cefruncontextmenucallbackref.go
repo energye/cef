@@ -18,13 +18,8 @@ import (
 // ICefRunContextMenuCallback Parent: ICefBaseRefCounted
 type ICefRunContextMenuCallback interface {
 	ICefBaseRefCounted
-	// Cont
-	//  Complete context menu display by selecting the specified |command_id| and
-	//  |event_flags|.
 	Cont(commandId int32, eventFlags cefTypes.TCefEventFlags) // procedure
-	// Cancel
-	//  Cancel context menu display.
-	Cancel() // procedure
+	Cancel()                                                  // procedure
 }
 
 // ICefRunContextMenuCallbackRef Parent: ICefRunContextMenuCallback ICefBaseRefCountedRef

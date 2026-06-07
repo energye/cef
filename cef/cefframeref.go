@@ -18,117 +18,30 @@ import (
 // ICefFrame Parent: ICefBaseRefCounted
 type ICefFrame interface {
 	ICefBaseRefCounted
-	// IsValid
-	//  True if this object is currently attached to a valid frame.
-	IsValid() bool // function
-	// IsMain
-	//  Returns true (1) if this is the main (top-level) frame.
-	IsMain() bool // function
-	// IsFocused
-	//  Returns true (1) if this is the focused frame.
-	IsFocused() bool // function
-	// GetName
-	//  Returns the name for this frame. If the frame has an assigned name (for
-	//  example, set via the iframe "name" attribute) then that value will be
-	//  returned. Otherwise a unique name will be constructed based on the frame
-	//  parent hierarchy. The main (top-level) frame will always have an NULL name
-	//  value.
-	GetName() string // function
-	// GetIdentifier
-	//  Returns the globally unique identifier for this frame or empty if the
-	//  underlying frame does not yet exist.
-	GetIdentifier() string // function
-	// GetParent
-	//  Returns the parent of this frame or NULL if this is the main (top-level)
-	//  frame.
-	GetParent() ICefFrame // function
-	// GetUrl
-	//  Returns the URL currently loaded in this frame.
-	GetUrl() string // function
-	// GetBrowser
-	//  Returns the browser that this frame belongs to.
-	GetBrowser() ICefBrowser // function
-	// GetV8Context
-	//  Get the V8 context associated with the frame. This function can only be
-	//  called from the render process.
-	GetV8Context() ICefv8Context // function
-	// CreateUrlRequest
-	//  Create a new URL request that will be treated as originating from this
-	//  frame and the associated browser. Use TCustomCefUrlrequestClient.Create instead if
-	//  you do not want the request to have this association, in which case it may
-	//  be handled differently (see documentation on that function). A request
-	//  created with this function may only originate from the browser process,
-	//  and will behave as follows:
-	//  - It may be intercepted by the client via CefResourceRequestHandler or
-	//  CefSchemeHandlerFactory.
-	//  - POST data may only contain a single element of type PDE_TYPE_FILE or
-	//  PDE_TYPE_BYTES.
-	//
-	//  The |request| object will be marked as read-only after calling this
-	//  function.
-	CreateUrlRequest(request ICefRequest, client IEngUrlrequestClient) ICefUrlRequest // function
-	// Undo
-	//  Execute undo in this frame.
-	Undo() // procedure
-	// Redo
-	//  Execute redo in this frame.
-	Redo() // procedure
-	// Cut
-	//  Execute cut in this frame.
-	Cut() // procedure
-	// Copy
-	//  Execute copy in this frame.
-	Copy() // procedure
-	// Paste
-	//  Execute paste in this frame.
-	Paste() // procedure
-	// Del
-	//  Execute delete in this frame.
-	Del() // procedure
-	// SelectAll
-	//  Execute select all in this frame.
-	SelectAll() // procedure
-	// ViewSource
-	//  Save this frame's HTML source to a temporary file and open it in the
-	//  default text viewing application. This function can only be called from
-	//  the browser process.
-	ViewSource() // procedure
-	// GetSource
-	//  Retrieve this frame's HTML source as a string sent to the specified
-	//  visitor.
-	GetSource(visitor IEngStringVisitor) // procedure
-	// GetText
-	//  Retrieve this frame's display text as a string sent to the specified
-	//  visitor.
-	GetText(visitor IEngStringVisitor) // procedure
-	// LoadRequest
-	//  Load the request represented by the |request| object.
-	//
-	//  WARNING: This function will fail with "bad IPC message" reason
-	//  INVALID_INITIATOR_ORIGIN (213) unless you first navigate to the request
-	//  origin using some other mechanism (LoadURL, link click, etc).
-	LoadRequest(request ICefRequest) // procedure
-	// LoadUrl
-	//  Load the specified |url|.
-	LoadUrl(url string) // procedure
-	// ExecuteJavaScript
-	//  Execute a string of JavaScript code in this frame. The |script_url|
-	//  parameter is the URL where the script in question can be found, if any.
-	//  The renderer may request this URL to show the developer the source of the
-	//  error. The |start_line| parameter is the base line number to use for
-	//  error reporting.
-	ExecuteJavaScript(code string, scriptUrl string, startLine int32) // procedure
-	// VisitDom
-	//  Visit the DOM document. This function can only be called from the render
-	//  process.
-	VisitDom(visitor IEngDomVisitor) // procedure
-	// SendProcessMessage
-	//  Send a message to the specified |target_process|. Ownership of the message
-	//  contents will be transferred and the |message| reference will be
-	//  invalidated. Message delivery is not guaranteed in all cases (for example,
-	//  if the browser is closing, navigating, or if the target process crashes).
-	//  Send an ACK message back from the target process if confirmation is
-	//  required.
+	IsValid() bool                                                                       // function
+	IsMain() bool                                                                        // function
+	IsFocused() bool                                                                     // function
+	GetName() string                                                                     // function
+	GetIdentifier() int64                                                                // function
+	GetParent() ICefFrame                                                                // function
+	GetUrl() string                                                                      // function
+	GetBrowser() ICefBrowser                                                             // function
+	GetV8Context() ICefv8Context                                                         // function
+	CreateUrlRequest(request ICefRequest, client IEngUrlrequestClient) ICefUrlRequest    // function
+	Undo()                                                                               // procedure
+	Redo()                                                                               // procedure
+	Cut()                                                                                // procedure
+	Copy()                                                                               // procedure
+	Paste()                                                                              // procedure
+	Del()                                                                                // procedure
+	SelectAll()                                                                          // procedure
+	ViewSource()                                                                         // procedure
+	GetSource(visitor IEngStringVisitor)                                                 // procedure
+	GetText(visitor IEngStringVisitor)                                                   // procedure
+	LoadRequest(request ICefRequest)                                                     // procedure
+	LoadUrl(url string)                                                                  // procedure
+	ExecuteJavaScript(code string, scriptUrl string, startLine int32)                    // procedure
+	VisitDom(visitor IEngDomVisitor)                                                     // procedure
 	SendProcessMessage(targetProcess cefTypes.TCefProcessId, message ICefProcessMessage) // procedure
 }
 
@@ -178,14 +91,11 @@ func (m *TCefFrameRef) GetName() (result string) {
 	return
 }
 
-func (m *TCefFrameRef) GetIdentifier() (result string) {
+func (m *TCefFrameRef) GetIdentifier() (result int64) {
 	if !m.IsValid() {
-		return ""
+		return
 	}
-	strBuf := api.NewStringBuffer(0, 0)
-	cefFrameRefAPI().SysCallN(5, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
-	defer strBuf.Release()
-	result = strBuf.String()
+	cefFrameRefAPI().SysCallN(5, m.Instance(), uintptr(base.UnsafePointer(&result)))
 	return
 }
 

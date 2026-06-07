@@ -17,28 +17,21 @@ import (
 // IEngWindowDelegate Parent: ICefWindowDelegateOwn
 type IEngWindowDelegate interface {
 	ICefWindowDelegateOwn
-	SetOnWindowWindowCreated(fn TOnWindowWindowCreatedEvent)                           // property event
-	SetOnWindowWindowClosing(fn TOnWindowWindowClosingEvent)                           // property event
-	SetOnWindowWindowDestroyed(fn TOnWindowWindowDestroyedEvent)                       // property event
-	SetOnWindowWindowActivationChanged(fn TOnWindowWindowActivationChangedEvent)       // property event
-	SetOnWindowWindowBoundsChanged(fn TOnWindowWindowBoundsChangedEvent)               // property event
-	SetOnWindowWindowFullscreenTransition(fn TOnWindowWindowFullscreenTransitionEvent) // property event
-	SetOnWindowGetParentWindow(fn TOnWindowGetParentWindowEvent)                       // property event
-	SetOnWindowIsWindowModalDialog(fn TOnWindowIsWindowModalDialogEvent)               // property event
-	SetOnWindowGetInitialBounds(fn TOnWindowGetInitialBoundsEvent)                     // property event
-	SetOnWindowGetInitialShowState(fn TOnWindowGetInitialShowStateEvent)               // property event
-	SetOnWindowIsFrameless(fn TOnWindowIsFramelessEvent)                               // property event
-	SetOnWindowWithStandardWindowButtons(fn TOnWindowWithStandardWindowButtonsEvent)   // property event
-	SetOnWindowGetTitlebarHeight(fn TOnWindowGetTitlebarHeightEvent)                   // property event
-	SetOnWindowAcceptsFirstMouse(fn TOnWindowAcceptsFirstMouseEvent)                   // property event
-	SetOnWindowCanResize(fn TOnWindowCanResizeEvent)                                   // property event
-	SetOnWindowCanMaximize(fn TOnWindowCanMaximizeEvent)                               // property event
-	SetOnWindowCanMinimize(fn TOnWindowCanMinimizeEvent)                               // property event
-	SetOnWindowCanClose(fn TOnWindowCanCloseEvent)                                     // property event
-	SetOnWindowAccelerator(fn TOnWindowAcceleratorEvent)                               // property event
-	SetOnWindowKey(fn TOnWindowKeyEvent)                                               // property event
-	SetOnWindowThemeColorsChanged(fn TOnWindowThemeColorsChangedEvent)                 // property event
-	SetOnWindowGetWindowRuntimeStyle(fn TOnWindowGetWindowRuntimeStyleEvent)           // property event
+	SetOnWindowWindowCreated(fn TOnWindowWindowCreatedEvent)                     // property event
+	SetOnWindowWindowClosing(fn TOnWindowWindowClosingEvent)                     // property event
+	SetOnWindowWindowDestroyed(fn TOnWindowWindowDestroyedEvent)                 // property event
+	SetOnWindowWindowActivationChanged(fn TOnWindowWindowActivationChangedEvent) // property event
+	SetOnWindowWindowBoundsChanged(fn TOnWindowWindowBoundsChangedEvent)         // property event
+	SetOnWindowGetParentWindow(fn TOnWindowGetParentWindowEvent)                 // property event
+	SetOnWindowGetInitialBounds(fn TOnWindowGetInitialBoundsEvent)               // property event
+	SetOnWindowGetInitialShowState(fn TOnWindowGetInitialShowStateEvent)         // property event
+	SetOnWindowIsFrameless(fn TOnWindowIsFramelessEvent)                         // property event
+	SetOnWindowCanResize(fn TOnWindowCanResizeEvent)                             // property event
+	SetOnWindowCanMaximize(fn TOnWindowCanMaximizeEvent)                         // property event
+	SetOnWindowCanMinimize(fn TOnWindowCanMinimizeEvent)                         // property event
+	SetOnWindowCanClose(fn TOnWindowCanCloseEvent)                               // property event
+	SetOnWindowAccelerator(fn TOnWindowAcceleratorEvent)                         // property event
+	SetOnWindowKey(fn TOnWindowKeyEvent)                                         // property event
 	AsIntfWindowDelegate() uintptr
 	AsIntfPanelDelegate() uintptr
 	AsIntfViewDelegate() uintptr
@@ -88,28 +81,12 @@ func (m *TEngWindowDelegate) SetOnWindowWindowBoundsChanged(fn TOnWindowWindowBo
 	base.SetEvent(m, 5, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
 }
 
-func (m *TEngWindowDelegate) SetOnWindowWindowFullscreenTransition(fn TOnWindowWindowFullscreenTransitionEvent) {
-	if !m.IsValid() {
-		return
-	}
-	cb := makeTOnWindowWindowFullscreenTransitionEvent(fn)
-	base.SetEvent(m, 6, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
-}
-
 func (m *TEngWindowDelegate) SetOnWindowGetParentWindow(fn TOnWindowGetParentWindowEvent) {
 	if !m.IsValid() {
 		return
 	}
 	cb := makeTOnWindowGetParentWindowEvent(fn)
-	base.SetEvent(m, 7, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
-}
-
-func (m *TEngWindowDelegate) SetOnWindowIsWindowModalDialog(fn TOnWindowIsWindowModalDialogEvent) {
-	if !m.IsValid() {
-		return
-	}
-	cb := makeTOnWindowIsWindowModalDialogEvent(fn)
-	base.SetEvent(m, 8, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 6, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TEngWindowDelegate) SetOnWindowGetInitialBounds(fn TOnWindowGetInitialBoundsEvent) {
@@ -117,7 +94,7 @@ func (m *TEngWindowDelegate) SetOnWindowGetInitialBounds(fn TOnWindowGetInitialB
 		return
 	}
 	cb := makeTOnWindowGetInitialBoundsEvent(fn)
-	base.SetEvent(m, 9, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 7, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TEngWindowDelegate) SetOnWindowGetInitialShowState(fn TOnWindowGetInitialShowStateEvent) {
@@ -125,7 +102,7 @@ func (m *TEngWindowDelegate) SetOnWindowGetInitialShowState(fn TOnWindowGetIniti
 		return
 	}
 	cb := makeTOnWindowGetInitialShowStateEvent(fn)
-	base.SetEvent(m, 10, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 8, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TEngWindowDelegate) SetOnWindowIsFrameless(fn TOnWindowIsFramelessEvent) {
@@ -133,31 +110,7 @@ func (m *TEngWindowDelegate) SetOnWindowIsFrameless(fn TOnWindowIsFramelessEvent
 		return
 	}
 	cb := makeTOnWindowIsFramelessEvent(fn)
-	base.SetEvent(m, 11, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
-}
-
-func (m *TEngWindowDelegate) SetOnWindowWithStandardWindowButtons(fn TOnWindowWithStandardWindowButtonsEvent) {
-	if !m.IsValid() {
-		return
-	}
-	cb := makeTOnWindowWithStandardWindowButtonsEvent(fn)
-	base.SetEvent(m, 12, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
-}
-
-func (m *TEngWindowDelegate) SetOnWindowGetTitlebarHeight(fn TOnWindowGetTitlebarHeightEvent) {
-	if !m.IsValid() {
-		return
-	}
-	cb := makeTOnWindowGetTitlebarHeightEvent(fn)
-	base.SetEvent(m, 13, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
-}
-
-func (m *TEngWindowDelegate) SetOnWindowAcceptsFirstMouse(fn TOnWindowAcceptsFirstMouseEvent) {
-	if !m.IsValid() {
-		return
-	}
-	cb := makeTOnWindowAcceptsFirstMouseEvent(fn)
-	base.SetEvent(m, 14, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 9, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TEngWindowDelegate) SetOnWindowCanResize(fn TOnWindowCanResizeEvent) {
@@ -165,7 +118,7 @@ func (m *TEngWindowDelegate) SetOnWindowCanResize(fn TOnWindowCanResizeEvent) {
 		return
 	}
 	cb := makeTOnWindowCanResizeEvent(fn)
-	base.SetEvent(m, 15, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 10, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TEngWindowDelegate) SetOnWindowCanMaximize(fn TOnWindowCanMaximizeEvent) {
@@ -173,7 +126,7 @@ func (m *TEngWindowDelegate) SetOnWindowCanMaximize(fn TOnWindowCanMaximizeEvent
 		return
 	}
 	cb := makeTOnWindowCanMaximizeEvent(fn)
-	base.SetEvent(m, 16, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 11, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TEngWindowDelegate) SetOnWindowCanMinimize(fn TOnWindowCanMinimizeEvent) {
@@ -181,7 +134,7 @@ func (m *TEngWindowDelegate) SetOnWindowCanMinimize(fn TOnWindowCanMinimizeEvent
 		return
 	}
 	cb := makeTOnWindowCanMinimizeEvent(fn)
-	base.SetEvent(m, 17, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 12, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TEngWindowDelegate) SetOnWindowCanClose(fn TOnWindowCanCloseEvent) {
@@ -189,7 +142,7 @@ func (m *TEngWindowDelegate) SetOnWindowCanClose(fn TOnWindowCanCloseEvent) {
 		return
 	}
 	cb := makeTOnWindowCanCloseEvent(fn)
-	base.SetEvent(m, 18, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 13, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TEngWindowDelegate) SetOnWindowAccelerator(fn TOnWindowAcceleratorEvent) {
@@ -197,7 +150,7 @@ func (m *TEngWindowDelegate) SetOnWindowAccelerator(fn TOnWindowAcceleratorEvent
 		return
 	}
 	cb := makeTOnWindowAcceleratorEvent(fn)
-	base.SetEvent(m, 19, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 14, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TEngWindowDelegate) SetOnWindowKey(fn TOnWindowKeyEvent) {
@@ -205,23 +158,7 @@ func (m *TEngWindowDelegate) SetOnWindowKey(fn TOnWindowKeyEvent) {
 		return
 	}
 	cb := makeTOnWindowKeyEvent(fn)
-	base.SetEvent(m, 20, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
-}
-
-func (m *TEngWindowDelegate) SetOnWindowThemeColorsChanged(fn TOnWindowThemeColorsChangedEvent) {
-	if !m.IsValid() {
-		return
-	}
-	cb := makeTOnWindowThemeColorsChangedEvent(fn)
-	base.SetEvent(m, 21, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
-}
-
-func (m *TEngWindowDelegate) SetOnWindowGetWindowRuntimeStyle(fn TOnWindowGetWindowRuntimeStyleEvent) {
-	if !m.IsValid() {
-		return
-	}
-	cb := makeTOnWindowGetWindowRuntimeStyleEvent(fn)
-	base.SetEvent(m, 22, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 15, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TEngWindowDelegate) AsIntfWindowDelegate() uintptr {
@@ -265,23 +202,16 @@ func engWindowDelegateAPI() *imports.Imports {
 			/* 3 */ imports.NewTable("TEngWindowDelegate_OnWindowWindowDestroyed", 0), // event OnWindowWindowDestroyed
 			/* 4 */ imports.NewTable("TEngWindowDelegate_OnWindowWindowActivationChanged", 0), // event OnWindowWindowActivationChanged
 			/* 5 */ imports.NewTable("TEngWindowDelegate_OnWindowWindowBoundsChanged", 0), // event OnWindowWindowBoundsChanged
-			/* 6 */ imports.NewTable("TEngWindowDelegate_OnWindowWindowFullscreenTransition", 0), // event OnWindowWindowFullscreenTransition
-			/* 7 */ imports.NewTable("TEngWindowDelegate_OnWindowGetParentWindow", 0), // event OnWindowGetParentWindow
-			/* 8 */ imports.NewTable("TEngWindowDelegate_OnWindowIsWindowModalDialog", 0), // event OnWindowIsWindowModalDialog
-			/* 9 */ imports.NewTable("TEngWindowDelegate_OnWindowGetInitialBounds", 0), // event OnWindowGetInitialBounds
-			/* 10 */ imports.NewTable("TEngWindowDelegate_OnWindowGetInitialShowState", 0), // event OnWindowGetInitialShowState
-			/* 11 */ imports.NewTable("TEngWindowDelegate_OnWindowIsFrameless", 0), // event OnWindowIsFrameless
-			/* 12 */ imports.NewTable("TEngWindowDelegate_OnWindowWithStandardWindowButtons", 0), // event OnWindowWithStandardWindowButtons
-			/* 13 */ imports.NewTable("TEngWindowDelegate_OnWindowGetTitlebarHeight", 0), // event OnWindowGetTitlebarHeight
-			/* 14 */ imports.NewTable("TEngWindowDelegate_OnWindowAcceptsFirstMouse", 0), // event OnWindowAcceptsFirstMouse
-			/* 15 */ imports.NewTable("TEngWindowDelegate_OnWindowCanResize", 0), // event OnWindowCanResize
-			/* 16 */ imports.NewTable("TEngWindowDelegate_OnWindowCanMaximize", 0), // event OnWindowCanMaximize
-			/* 17 */ imports.NewTable("TEngWindowDelegate_OnWindowCanMinimize", 0), // event OnWindowCanMinimize
-			/* 18 */ imports.NewTable("TEngWindowDelegate_OnWindowCanClose", 0), // event OnWindowCanClose
-			/* 19 */ imports.NewTable("TEngWindowDelegate_OnWindowAccelerator", 0), // event OnWindowAccelerator
-			/* 20 */ imports.NewTable("TEngWindowDelegate_OnWindowKey", 0), // event OnWindowKey
-			/* 21 */ imports.NewTable("TEngWindowDelegate_OnWindowThemeColorsChanged", 0), // event OnWindowThemeColorsChanged
-			/* 22 */ imports.NewTable("TEngWindowDelegate_OnWindowGetWindowRuntimeStyle", 0), // event OnWindowGetWindowRuntimeStyle
+			/* 6 */ imports.NewTable("TEngWindowDelegate_OnWindowGetParentWindow", 0), // event OnWindowGetParentWindow
+			/* 7 */ imports.NewTable("TEngWindowDelegate_OnWindowGetInitialBounds", 0), // event OnWindowGetInitialBounds
+			/* 8 */ imports.NewTable("TEngWindowDelegate_OnWindowGetInitialShowState", 0), // event OnWindowGetInitialShowState
+			/* 9 */ imports.NewTable("TEngWindowDelegate_OnWindowIsFrameless", 0), // event OnWindowIsFrameless
+			/* 10 */ imports.NewTable("TEngWindowDelegate_OnWindowCanResize", 0), // event OnWindowCanResize
+			/* 11 */ imports.NewTable("TEngWindowDelegate_OnWindowCanMaximize", 0), // event OnWindowCanMaximize
+			/* 12 */ imports.NewTable("TEngWindowDelegate_OnWindowCanMinimize", 0), // event OnWindowCanMinimize
+			/* 13 */ imports.NewTable("TEngWindowDelegate_OnWindowCanClose", 0), // event OnWindowCanClose
+			/* 14 */ imports.NewTable("TEngWindowDelegate_OnWindowAccelerator", 0), // event OnWindowAccelerator
+			/* 15 */ imports.NewTable("TEngWindowDelegate_OnWindowKey", 0), // event OnWindowKey
 		}
 	})
 	return engWindowDelegateImport

@@ -17,35 +17,14 @@ import (
 // ICefV8StackFrame Parent: ICefBaseRefCounted
 type ICefV8StackFrame interface {
 	ICefBaseRefCounted
-	// IsValid
-	//  Returns true (1) if the underlying handle is valid and it can be accessed
-	//  on the current thread. Do not call any other functions if this function
-	//  returns false (0).
-	IsValid() bool // function
-	// GetScriptName
-	//  Returns the name of the resource script that contains the function.
-	GetScriptName() string // function
-	// GetScriptNameOrSourceUrl
-	//  Returns the name of the resource script that contains the function or the
-	//  sourceURL value if the script name is undefined and its source ends with a
-	//  "//@ sourceURL=..." string.
+	IsValid() bool                    // function
+	GetScriptName() string            // function
 	GetScriptNameOrSourceUrl() string // function
-	// GetFunctionName
-	//  Returns the name of the function.
-	GetFunctionName() string // function
-	// GetLineNumber
-	//  Returns the 1-based line number for the function call or 0 if unknown.
-	GetLineNumber() int32 // function
-	// GetColumn
-	//  Returns the 1-based column offset on the line for the function call or 0
-	//  if unknown.
-	GetColumn() int32 // function
-	// IsEval
-	//  Returns true (1) if the function was compiled using eval().
-	IsEval() bool // function
-	// IsConstructor
-	//  Returns true (1) if the function was called as a constructor via "new".
-	IsConstructor() bool // function
+	GetFunctionName() string          // function
+	GetLineNumber() int32             // function
+	GetColumn() int32                 // function
+	IsEval() bool                     // function
+	IsConstructor() bool              // function
 }
 
 // ICefV8StackFrameRef Parent: ICefV8StackFrame ICefBaseRefCountedRef

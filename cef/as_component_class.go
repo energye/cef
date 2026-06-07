@@ -98,17 +98,6 @@ func AsCEFWinControl(obj any) ICEFWinControl {
 	return result
 }
 
-// AsCEFLinkedWinControlBase Convert a pointer object to an existing class object
-func AsCEFLinkedWinControlBase(obj any) ICEFLinkedWinControlBase {
-	instance := base.GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	result := new(TCEFLinkedWinControlBase)
-	base.SetObjectInstance(result, instance)
-	return result
-}
-
 // AsChromiumWindow Convert a pointer object to an existing class object
 func AsChromiumWindow(obj any) IChromiumWindow {
 	instance := base.GetInstance(obj)
@@ -483,39 +472,6 @@ func AsCustomCefStringVisitor(obj any) ICustomCefStringVisitor {
 	return result
 }
 
-// AsCefManagedTask Convert a pointer object to an existing class object
-func AsCefManagedTask(obj any) ICefManagedTask {
-	instance := base.GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	result := new(TCefManagedTask)
-	base.SetObjectInstance(result, instance)
-	return result
-}
-
-// AsCefChromiumTask Convert a pointer object to an existing class object
-func AsCefChromiumTask(obj any) ICefChromiumTask {
-	instance := base.GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	result := new(TCefChromiumTask)
-	base.SetObjectInstance(result, instance)
-	return result
-}
-
-// AsCefViewDelegateTask Convert a pointer object to an existing class object
-func AsCefViewDelegateTask(obj any) ICefViewDelegateTask {
-	instance := base.GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	result := new(TCefViewDelegateTask)
-	base.SetObjectInstance(result, instance)
-	return result
-}
-
 // AsCefGenericTask Convert a pointer object to an existing class object
 func AsCefGenericTask(obj any) ICefGenericTask {
 	instance := base.GetInstance(obj)
@@ -523,28 +479,6 @@ func AsCefGenericTask(obj any) ICefGenericTask {
 		return nil
 	}
 	result := new(TCefGenericTask)
-	base.SetObjectInstance(result, instance)
-	return result
-}
-
-// AsCefURLRequestClientTask Convert a pointer object to an existing class object
-func AsCefURLRequestClientTask(obj any) ICefURLRequestClientTask {
-	instance := base.GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	result := new(TCefURLRequestClientTask)
-	base.SetObjectInstance(result, instance)
-	return result
-}
-
-// AsCefUrlrequestClientRef Convert a pointer object to an existing class object
-func AsCefUrlrequestClientRef(obj any) ICefUrlrequestClientRef {
-	instance := base.GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	result := new(TCefUrlrequestClientRef)
 	base.SetObjectInstance(result, instance)
 	return result
 }
@@ -2078,13 +2012,13 @@ func AsCefDomNodeRef(obj any) ICefDomNodeRef {
 	return result
 }
 
-// AsCefDownloadItemRef Convert a pointer object to an existing class object
-func AsCefDownloadItemRef(obj any) ICefDownloadItemRef {
+// AsCefDownLoadItemRef Convert a pointer object to an existing class object
+func AsCefDownLoadItemRef(obj any) ICefDownLoadItemRef {
 	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	result := new(TCefDownloadItemRef)
+	result := new(TCefDownLoadItemRef)
 	base.SetObjectInstance(result, instance)
 	return result
 }
@@ -2866,17 +2800,6 @@ func AsCefCustomStringList(obj any) ICefCustomStringList {
 		return nil
 	}
 	result := new(TCefCustomStringList)
-	base.SetObjectInstance(result, instance)
-	return result
-}
-
-// AsCefUnresponsiveProcessCallbackRef Convert a pointer object to an existing class object
-func AsCefUnresponsiveProcessCallbackRef(obj any) ICefUnresponsiveProcessCallbackRef {
-	instance := base.GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	result := new(TCefUnresponsiveProcessCallbackRef)
 	base.SetObjectInstance(result, instance)
 	return result
 }

@@ -48,9 +48,6 @@ var MenuButtonDelegateRef _MenuButtonDelegateRefClass
 // _MenuButtonDelegateRefClass is class type defined by TCefMenuButtonDelegateRef
 type _MenuButtonDelegateRefClass uintptr
 
-// UnWrapWithPointer
-//
-//	Returns a ICefMenuButtonDelegate instance using a PCefMenuButtonDelegate data pointer.
 func (_MenuButtonDelegateRefClass) UnWrapWithPointer(data uintptr) (result IEngMenuButtonDelegate) {
 	var resultPtr uintptr
 	cefMenuButtonDelegateRefAPI().SysCallN(1, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))

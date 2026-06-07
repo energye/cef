@@ -18,23 +18,10 @@ import (
 // ICefThread Parent: ICefBaseRefCounted
 type ICefThread interface {
 	ICefBaseRefCounted
-	// GetTaskRunner
-	//  Returns the ICefTaskRunner that will execute code on this thread's
-	//  message loop. This function is safe to call from any thread.
-	GetTaskRunner() ICefTaskRunner // function
-	// GetPlatformThreadID
-	//  Returns the platform thread ID. It will return the same value after stop()
-	//  is called. This function is safe to call from any thread.
+	GetTaskRunner() ICefTaskRunner                      // function
 	GetPlatformThreadID() cefTypes.TCefPlatformThreadId // function
-	// IsRunning
-	//  Returns true (1) if the thread is currently running. This function must be
-	//  called from the same thread that called cef_thread_create().
-	IsRunning() bool // function
-	// Stop
-	//  Stop and join the thread. This function must be called from the same
-	//  thread that called cef_thread_create(). Do not call this function if
-	//  cef_thread_create() was called with a |stoppable| value of false (0).
-	Stop() // procedure
+	IsRunning() bool                                    // function
+	Stop()                                              // procedure
 }
 
 // ICefThreadRef Parent: ICefThread ICefBaseRefCountedRef

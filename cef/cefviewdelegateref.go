@@ -40,9 +40,6 @@ var ViewDelegateRef _ViewDelegateRefClass
 // _ViewDelegateRefClass is class type defined by TCefViewDelegateRef
 type _ViewDelegateRefClass uintptr
 
-// UnWrapWithPointer
-//
-//	Returns a ICefViewDelegate instance using a PCefViewDelegate data pointer.
 func (_ViewDelegateRefClass) UnWrapWithPointer(data uintptr) (result IEngViewDelegate) {
 	var resultPtr uintptr
 	cefViewDelegateRefAPI().SysCallN(1, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))

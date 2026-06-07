@@ -26,22 +26,10 @@ type ICefButtonDelegateEvents interface {
 type ICEFButtonComponent interface {
 	ICefButtonDelegateEvents
 	ICEFViewComponent
-	// SetInkDropEnabled
-	//  Sets the Button will use an ink drop effect for displaying state changes.
-	SetInkDropEnabled(enabled bool) // procedure
-	// SetTooltipText
-	//  Sets the tooltip text that will be displayed when the user hovers the
-	//  mouse cursor over the Button.
-	SetTooltipText(tooltipText string) // procedure
-	// SetAccessibleName
-	//  Sets the accessible name that will be exposed to assistive technology
-	//  (AT).
-	SetAccessibleName(name string) // procedure
-	// AsLabelButton
-	//  Returns this Button as a LabelButton or NULL if this is not a LabelButton.
-	AsLabelButton() ICefLabelButton // property AsLabelButton Getter
-	// State
-	//  Returns the current display state of the Button.
+	SetInkDropEnabled(enabled bool)                        // procedure
+	SetTooltipText(tooltipText string)                     // procedure
+	SetAccessibleName(name string)                         // procedure
+	AsLabelButton() ICefLabelButton                        // property AsLabelButton Getter
 	State() cefTypes.TCefButtonState                       // property State Getter
 	SetState(value cefTypes.TCefButtonState)               // property State Setter
 	SetOnButtonPressed(fn TOnButtonPressedEvent)           // property event

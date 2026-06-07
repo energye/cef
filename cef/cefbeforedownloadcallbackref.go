@@ -17,11 +17,6 @@ import (
 // ICefBeforeDownloadCallback Parent: ICefBaseRefCounted
 type ICefBeforeDownloadCallback interface {
 	ICefBaseRefCounted
-	// Cont
-	//  Call to continue the download. Set |download_path| to the full file path
-	//  for the download including the file name or leave blank to use the
-	//  suggested name and the default temp directory. Set |show_dialog| to true
-	//  (1) if you do wish to show the default "Save As" dialog.
 	Cont(downloadPath string, showDialog bool) // procedure
 }
 

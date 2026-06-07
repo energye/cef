@@ -26,20 +26,10 @@ type ICefMenuButtonDelegateEvents interface {
 type ICEFMenuButtonComponent interface {
 	ICefMenuButtonDelegateEvents
 	ICEFLabelButtonComponent
-	// CreateMenuButton
-	//  Create a new MenuButton.
-	CreateMenuButton(text string) // procedure
-	// ShowMenu
-	//  Show a menu with contents |menu_model|. |screen_point| specifies the menu
-	//  position in screen coordinates. |anchor_position| specifies how the menu
-	//  will be anchored relative to |screen_point|. This function should be
-	//  called from ICefMenuButtonDelegate.OnMenuButtonPressed().
+	CreateMenuButton(text string)                                                                            // procedure
 	ShowMenu(menuModel ICefMenuModel, screenPoint TCefPoint, anchorPosition cefTypes.TCefMenuAnchorPosition) // procedure
-	// TriggerMenu
-	//  Show the menu for this button. Results in a call to
-	//  ICefMenuButtonDelegate.OnMenuButtonPressed().
-	TriggerMenu()                                        // procedure
-	SetOnMenuButtonPressed(fn TOnMenuButtonPressedEvent) // property event
+	TriggerMenu()                                                                                            // procedure
+	SetOnMenuButtonPressed(fn TOnMenuButtonPressedEvent)                                                     // property event
 	AsIntfMenuButtonDelegateEvents() uintptr
 	AsIntfButtonDelegateEvents() uintptr
 	AsIntfViewDelegateEvents() uintptr

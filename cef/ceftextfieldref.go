@@ -18,119 +18,37 @@ import (
 // ICefTextfield Parent: ICefView
 type ICefTextfield interface {
 	ICefView
-	// IsPasswordInput
-	//  Returns true (1) if the text will be displayed as asterisks.
-	IsPasswordInput() bool // function
-	// IsReadOnly
-	//  Returns true (1) if the text is read-only.
-	IsReadOnly() bool // function
-	// GetText
-	//  Returns the currently displayed text.
-	GetText() string // function
-	// HasSelection
-	//  Returns true (1) if there is any selected text.
-	HasSelection() bool // function
-	// GetSelectedText
-	//  Returns the currently selected text.
-	GetSelectedText() string // function
-	// GetSelectedRange
-	//  Returns the selected logical text range.
-	GetSelectedRange() TCefRange // function
-	// GetCursorPosition
-	//  Returns the current cursor position.
-	GetCursorPosition() cefTypes.NativeUInt // function
-	// GetTextColor
-	//  Returns the text color.
-	GetTextColor() cefTypes.TCefColor // function
-	// GetSelectionTextColor
-	//  Returns the selection text color.
-	GetSelectionTextColor() cefTypes.TCefColor // function
-	// GetSelectionBackgroundColor
-	//  Returns the selection background color.
-	GetSelectionBackgroundColor() cefTypes.TCefColor // function
-	// IsCommandEnabled
-	//  Returns true (1) if the action associated with the specified command id is
-	//  enabled. See additional comments on execute_command().
-	IsCommandEnabled(commandId cefTypes.TCefTextFieldCommands) bool // function
-	// GetPlaceholderText
-	//  Returns the placeholder text that will be displayed when the Textfield is
-	//  NULL.
-	GetPlaceholderText() string // function
-	// SetPasswordInput
-	//  Sets whether the text will be displayed as asterisks.
-	SetPasswordInput(passwordInput bool) // procedure
-	// SetReadOnly
-	//  Sets whether the text will read-only.
-	SetReadOnly(readOnly bool) // procedure
-	// SetText
-	//  Sets the contents to |text|. The cursor will be moved to end of the text
-	//  if the current position is outside of the text range.
-	SetText(text string) // procedure
-	// AppendText
-	//  Appends |text| to the previously-existing text.
-	AppendText(text string) // procedure
-	// InsertOrReplaceText
-	//  Inserts |text| at the current cursor position replacing any selected text.
-	InsertOrReplaceText(text string) // procedure
-	// SelectAll
-	//  Selects all text. If |reversed| is true (1) the range will end at the
-	//  logical beginning of the text; this generally shows the leading portion of
-	//  text that overflows its display area.
-	SelectAll(reversed bool) // procedure
-	// ClearSelection
-	//  Clears the text selection and sets the caret to the end.
-	ClearSelection() // procedure
-	// SelectRange
-	//  Selects the specified logical text range.
-	SelectRange(range_ TCefRange) // procedure
-	// SetTextColor
-	//  Sets the text color.
-	SetTextColor(color cefTypes.TCefColor) // procedure
-	// SetSelectionTextColor
-	//  Sets the selection text color.
-	SetSelectionTextColor(color cefTypes.TCefColor) // procedure
-	// SetSelectionBackgroundColor
-	//  Sets the selection background color.
-	SetSelectionBackgroundColor(color cefTypes.TCefColor) // procedure
-	// SetFontList
-	//  Sets the font list. The format is "<FONT_FAMILY_LIST>,[STYLES] <SIZE>",
-	//  where:
-	//  - FONT_FAMILY_LIST is a comma-separated list of font family names,
-	//  - STYLES is an optional space-separated list of style names (case-sensitive
-	//  "Bold" and "Italic" are supported), and
-	//  - SIZE is an integer font size in pixels with the suffix "px".
-	//
-	//  Here are examples of valid font description strings:
-	//  - "Arial, Helvetica, Bold Italic 14px"
-	//  - "Arial, 14px"
-	SetFontList(fontList string) // procedure
-	// ApplyTextColor
-	//  Applies |color| to the specified |range| without changing the default
-	//  color. If |range| is NULL the color will be set on the complete text
-	//  contents.
-	ApplyTextColor(color cefTypes.TCefColor, range_ TCefRange) // procedure
-	// ApplyTextStyle
-	//  Applies |style| to the specified |range| without changing the default
-	//  style. If |add| is true (1) the style will be added, otherwise the style
-	//  will be removed. If |range| is NULL the style will be set on the complete
-	//  text contents.
+	IsPasswordInput() bool                                                   // function
+	IsReadOnly() bool                                                        // function
+	GetText() string                                                         // function
+	HasSelection() bool                                                      // function
+	GetSelectedText() string                                                 // function
+	GetSelectedRange() TCefRange                                             // function
+	GetCursorPosition() cefTypes.NativeUInt                                  // function
+	GetTextColor() cefTypes.TCefColor                                        // function
+	GetSelectionTextColor() cefTypes.TCefColor                               // function
+	GetSelectionBackgroundColor() cefTypes.TCefColor                         // function
+	IsCommandEnabled(commandId cefTypes.TCefTextFieldCommands) bool          // function
+	GetPlaceholderText() string                                              // function
+	SetPasswordInput(passwordInput bool)                                     // procedure
+	SetReadOnly(readOnly bool)                                               // procedure
+	SetText(text string)                                                     // procedure
+	AppendText(text string)                                                  // procedure
+	InsertOrReplaceText(text string)                                         // procedure
+	SelectAll(reversed bool)                                                 // procedure
+	ClearSelection()                                                         // procedure
+	SelectRange(range_ TCefRange)                                            // procedure
+	SetTextColor(color cefTypes.TCefColor)                                   // procedure
+	SetSelectionTextColor(color cefTypes.TCefColor)                          // procedure
+	SetSelectionBackgroundColor(color cefTypes.TCefColor)                    // procedure
+	SetFontList(fontList string)                                             // procedure
+	ApplyTextColor(color cefTypes.TCefColor, range_ TCefRange)               // procedure
 	ApplyTextStyle(style cefTypes.TCefTextStyle, add bool, range_ TCefRange) // procedure
-	// ExecuteCommand
-	//  Performs the action associated with the specified command id.
-	ExecuteCommand(commandId cefTypes.TCefTextFieldCommands) // procedure
-	// ClearEditHistory
-	//  Clears Edit history.
-	ClearEditHistory() // procedure
-	// SetPlaceholderText
-	//  Sets the placeholder text that will be displayed when the Textfield is
-	//  NULL.
-	SetPlaceholderText(text string) // procedure
-	// SetPlaceholderTextColor
-	//  Sets the placeholder text color.
-	SetPlaceholderTextColor(color cefTypes.TCefColor) // procedure
-	// SetAccessibleName
-	//  Set the accessible name that will be exposed to assistive technology (AT).
-	SetAccessibleName(name string) // procedure
+	ExecuteCommand(commandId cefTypes.TCefTextFieldCommands)                 // procedure
+	ClearEditHistory()                                                       // procedure
+	SetPlaceholderText(text string)                                          // procedure
+	SetPlaceholderTextColor(color cefTypes.TCefColor)                        // procedure
+	SetAccessibleName(name string)                                           // procedure
 }
 
 // ICefTextfieldRef Parent: ICefTextfield ICefViewRef
@@ -396,9 +314,6 @@ var TextfieldRef _TextfieldRefClass
 // _TextfieldRefClass is class type defined by TCefTextfieldRef
 type _TextfieldRefClass uintptr
 
-// UnWrapWithPointer
-//
-//	Returns a ICefTextfield instance using a PCefTextfield data pointer.
 func (_TextfieldRefClass) UnWrapWithPointer(data uintptr) (result ICefTextfield) {
 	var resultPtr uintptr
 	cefTextfieldRefAPI().SysCallN(13, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))
@@ -406,9 +321,6 @@ func (_TextfieldRefClass) UnWrapWithPointer(data uintptr) (result ICefTextfield)
 	return
 }
 
-// CreateTextField
-//
-//	Create a new Textfield.
 func (_TextfieldRefClass) CreateTextField(delegate IEngTextfieldDelegate) (result ICefTextfield) {
 	var resultPtr uintptr
 	cefTextfieldRefAPI().SysCallN(14, base.GetObjectUintptr(delegate), uintptr(base.UnsafePointer(&resultPtr)))

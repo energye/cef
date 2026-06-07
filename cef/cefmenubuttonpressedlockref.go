@@ -40,9 +40,6 @@ var MenuButtonPressedLockRef _MenuButtonPressedLockRefClass
 // _MenuButtonPressedLockRefClass is class type defined by TCefMenuButtonPressedLockRef
 type _MenuButtonPressedLockRefClass uintptr
 
-// UnWrap
-//
-//	Returns a ICefMenuButtonPressedLock instance using a PCefMenuButtonPressedLock data pointer.
 func (_MenuButtonPressedLockRefClass) UnWrap(data uintptr) (result ICefMenuButtonPressedLock) {
 	var resultPtr uintptr
 	cefMenuButtonPressedLockRefAPI().SysCallN(1, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))

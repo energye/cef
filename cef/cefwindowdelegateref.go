@@ -48,9 +48,6 @@ var WindowDelegateRef _WindowDelegateRefClass
 // _WindowDelegateRefClass is class type defined by TCefWindowDelegateRef
 type _WindowDelegateRefClass uintptr
 
-// UnWrapWithPointer
-//
-//	Returns a ICefWindowDelegate instance using a PCefWindowDelegate data pointer.
 func (_WindowDelegateRefClass) UnWrapWithPointer(data uintptr) (result IEngWindowDelegate) {
 	var resultPtr uintptr
 	cefWindowDelegateRefAPI().SysCallN(1, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))

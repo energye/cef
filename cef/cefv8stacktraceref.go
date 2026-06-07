@@ -17,16 +17,8 @@ import (
 // ICefV8StackTrace Parent: ICefBaseRefCounted
 type ICefV8StackTrace interface {
 	ICefBaseRefCounted
-	// IsValid
-	//  Returns true (1) if the underlying handle is valid and it can be accessed
-	//  on the current thread. Do not call any other functions if this function
-	//  returns false (0).
-	IsValid() bool // function
-	// GetFrameCount
-	//  Returns the number of stack frames.
-	GetFrameCount() int32 // function
-	// GetFrame
-	//  Returns the stack frame at the specified 0-based index.
+	IsValid() bool                         // function
+	GetFrameCount() int32                  // function
 	GetFrame(index int32) ICefV8StackFrame // function
 }
 

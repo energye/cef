@@ -18,46 +18,18 @@ import (
 // ICefPanel Parent: ICefView
 type ICefPanel interface {
 	ICefView
-	// GetAsWindow
-	//  Returns this Panel as a Window or NULL if this is not a Window.
-	GetAsWindow() ICefWindow // function
-	// SetToFillLayout
-	//  Set this Panel's Layout to FillLayout and return the FillLayout object.
-	SetToFillLayout() ICefFillLayout // function
-	// SetToBoxLayout
-	//  Set this Panel's Layout to BoxLayout and return the BoxLayout object.
+	GetAsWindow() ICefWindow                                     // function
+	SetToFillLayout() ICefFillLayout                             // function
 	SetToBoxLayout(settings TCefBoxLayoutSettings) ICefBoxLayout // function
-	// GetLayout
-	//  Get the Layout.
-	GetLayout() ICefLayout // function
-	// GetChildViewCount
-	//  Returns the number of child Views.
-	GetChildViewCount() cefTypes.NativeUInt // function
-	// GetChildViewAt
-	//  Returns the child View at the specified |index|.
-	GetChildViewAt(index int32) ICefView // function
-	// Layout
-	//  Lay out the child Views (set their bounds based on sizing heuristics
-	//  specific to the current Layout).
-	Layout() // procedure
-	// AddChildView
-	//  Add a child View.
-	AddChildView(view ICefView) // procedure
-	// AddChildViewAt
-	//  Add a child View at the specified |index|. If |index| matches the result
-	//  of GetChildCount() then the View will be added at the end.
-	AddChildViewAt(view ICefView, index int32) // procedure
-	// ReorderChildView
-	//  Move the child View to the specified |index|. A negative value for |index|
-	//  will move the View to the end.
-	ReorderChildView(view ICefView, index int32) // procedure
-	// RemoveChildView
-	//  Remove a child View. The View can then be added to another Panel.
-	RemoveChildView(view ICefView) // procedure
-	// RemoveAllChildViews
-	//  Remove all child Views. The removed Views will be deleted if the client
-	//  holds no references to them.
-	RemoveAllChildViews() // procedure
+	GetLayout() ICefLayout                                       // function
+	GetChildViewCount() cefTypes.NativeUInt                      // function
+	GetChildViewAt(index int32) ICefView                         // function
+	Layout()                                                     // procedure
+	AddChildView(view ICefView)                                  // procedure
+	AddChildViewAt(view ICefView, index int32)                   // procedure
+	ReorderChildView(view ICefView, index int32)                 // procedure
+	RemoveChildView(view ICefView)                               // procedure
+	RemoveAllChildViews()                                        // procedure
 }
 
 // ICefPanelRef Parent: ICefPanel ICefViewRef
@@ -185,9 +157,6 @@ var PanelRef _PanelRefClass
 // _PanelRefClass is class type defined by TCefPanelRef
 type _PanelRefClass uintptr
 
-// UnWrapWithPointer
-//
-//	Returns a ICefPanel instance using a PCefPanel data pointer.
 func (_PanelRefClass) UnWrapWithPointer(data uintptr) (result ICefPanel) {
 	var resultPtr uintptr
 	cefPanelRefAPI().SysCallN(7, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))
@@ -195,9 +164,6 @@ func (_PanelRefClass) UnWrapWithPointer(data uintptr) (result ICefPanel) {
 	return
 }
 
-// CreatePanel
-//
-//	Create a new Panel.
 func (_PanelRefClass) CreatePanel(delegate IEngPanelDelegate) (result ICefPanel) {
 	var resultPtr uintptr
 	cefPanelRefAPI().SysCallN(8, base.GetObjectUintptr(delegate), uintptr(base.UnsafePointer(&resultPtr)))

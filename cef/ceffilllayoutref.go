@@ -44,9 +44,6 @@ var FillLayoutRef _FillLayoutRefClass
 // _FillLayoutRefClass is class type defined by TCefFillLayoutRef
 type _FillLayoutRefClass uintptr
 
-// UnWrapWithPointer
-//
-//	Returns a ICefFillLayout instance using a PCefFillLayout data pointer.
 func (_FillLayoutRefClass) UnWrapWithPointer(data uintptr) (result ICefFillLayout) {
 	var resultPtr uintptr
 	cefFillLayoutRefAPI().SysCallN(1, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))

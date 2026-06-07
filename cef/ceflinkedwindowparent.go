@@ -18,8 +18,6 @@ import (
 // ICEFLinkedWindowParent Parent: ICEFLinkedWinControlBase
 type ICEFLinkedWindowParent interface {
 	ICEFLinkedWinControlBase
-	// Chromium
-	//  TChromium instance used by this component.
 	Chromium() IChromium         // property Chromium Getter
 	SetChromium(value IChromium) // property Chromium Setter
 }

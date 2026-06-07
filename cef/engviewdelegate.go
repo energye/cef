@@ -27,7 +27,6 @@ type IEngViewDelegate interface {
 	SetOnViewLayoutChanged(fn TOnViewLayoutChangedEvent)         // property event
 	SetOnViewFocus(fn TOnViewFocusEvent)                         // property event
 	SetOnViewBlur(fn TOnViewBlurEvent)                           // property event
-	SetOnViewThemeChanged(fn TOnViewThemeChangedEvent)           // property event
 	AsIntfViewDelegate() uintptr
 }
 
@@ -115,14 +114,6 @@ func (m *TEngViewDelegate) SetOnViewBlur(fn TOnViewBlurEvent) {
 	base.SetEvent(m, 10, engViewDelegateAPI(), api.MakeEventDataPtr(cb))
 }
 
-func (m *TEngViewDelegate) SetOnViewThemeChanged(fn TOnViewThemeChangedEvent) {
-	if !m.IsValid() {
-		return
-	}
-	cb := makeTOnViewThemeChangedEvent(fn)
-	base.SetEvent(m, 11, engViewDelegateAPI(), api.MakeEventDataPtr(cb))
-}
-
 func (m *TEngViewDelegate) AsIntfViewDelegate() uintptr {
 	return m.GetIntfPointer(0)
 }
@@ -159,7 +150,6 @@ func engViewDelegateAPI() *imports.Imports {
 			/* 8 */ imports.NewTable("TEngViewDelegate_OnViewLayoutChanged", 0), // event OnViewLayoutChanged
 			/* 9 */ imports.NewTable("TEngViewDelegate_OnViewFocus", 0), // event OnViewFocus
 			/* 10 */ imports.NewTable("TEngViewDelegate_OnViewBlur", 0), // event OnViewBlur
-			/* 11 */ imports.NewTable("TEngViewDelegate_OnViewThemeChanged", 0), // event OnViewThemeChanged
 		}
 	})
 	return engViewDelegateImport

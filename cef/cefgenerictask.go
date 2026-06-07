@@ -14,14 +14,14 @@ import (
 	"github.com/energye/lcl/base"
 )
 
-// ICefGenericTask Parent: ICefChromiumTask
+// ICefGenericTask Parent: ICefTaskOwn
 type ICefGenericTask interface {
-	ICefChromiumTask
+	ICefTaskOwn
 	AsIntfTask() uintptr
 }
 
 type TCefGenericTask struct {
-	TCefChromiumTask
+	TCefTaskOwn
 }
 
 func (m *TCefGenericTask) AsIntfTask() uintptr {

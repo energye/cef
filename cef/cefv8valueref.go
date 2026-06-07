@@ -21,231 +21,56 @@ import (
 // ICefv8Value Parent: ICefBaseRefCounted
 type ICefv8Value interface {
 	ICefBaseRefCounted
-	// IsValid
-	//  Returns true (1) if the underlying handle is valid and it can be accessed
-	//  on the current thread. Do not call any other functions if this function
-	//  returns false (0).
-	IsValid() bool // function
-	// IsUndefined
-	//  True if the value type is undefined.
-	IsUndefined() bool // function
-	// IsNull
-	//  True if the value type is null.
-	IsNull() bool // function
-	// IsBool
-	//  True if the value type is bool.
-	IsBool() bool // function
-	// IsInt
-	//  True if the value type is int.
-	IsInt() bool // function
-	// IsUInt
-	//  True if the value type is unsigned int.
-	IsUInt() bool // function
-	// IsDouble
-	//  True if the value type is double.
-	IsDouble() bool // function
-	// IsDate
-	//  True if the value type is Date.
-	IsDate() bool // function
-	// IsString
-	//  True if the value type is string.
-	IsString() bool // function
-	// IsObject
-	//  True if the value type is object.
-	IsObject() bool // function
-	// IsArray
-	//  True if the value type is array.
-	IsArray() bool // function
-	// IsArrayBuffer
-	//  True if the value type is an ArrayBuffer.
-	IsArrayBuffer() bool // function
-	// IsFunction
-	//  True if the value type is function.
-	IsFunction() bool // function
-	// IsPromise
-	//  True if the value type is a Promise.
-	IsPromise() bool // function
-	// IsSame
-	//  Returns true (1) if this object is pointing to the same handle as |that|
-	//  object.
-	IsSame(that ICefv8Value) bool // function
-	// GetBoolValue
-	//  Return a bool value.
-	GetBoolValue() bool // function
-	// GetIntValue
-	//  Return an int value.
-	GetIntValue() int32 // function
-	// GetUIntValue
-	//  Return an unsigned int value.
-	GetUIntValue() uint32 // function
-	// GetDoubleValue
-	//  Return a double value.
-	GetDoubleValue() float64 // function
-	// GetDateValue
-	//  Return a Date value.
-	GetDateValue() types.TDateTime // function
-	// GetStringValue
-	//  Return a string value.
-	GetStringValue() string // function
-	// IsUserCreated
-	//  Returns true (1) if this is a user created object.
-	IsUserCreated() bool // function
-	// HasException
-	//  Returns true (1) if the last function call resulted in an exception. This
-	//  attribute exists only in the scope of the current CEF value object.
-	HasException() bool // function
-	// GetException
-	//  Returns the exception resulting from the last function call. This
-	//  attribute exists only in the scope of the current CEF value object.
-	GetException() ICefV8Exception // function
-	// ClearException
-	//  Clears the last exception and returns true (1) on success.
-	ClearException() bool // function
-	// WillRethrowExceptions
-	//  Returns true (1) if this object will re-throw future exceptions. This
-	//  attribute exists only in the scope of the current CEF value object.
-	WillRethrowExceptions() bool // function
-	// SetRethrowExceptions
-	//  Set whether this object will re-throw future exceptions. By default
-	//  exceptions are not re-thrown. If a exception is re-thrown the current
-	//  context should not be accessed again until after the exception has been
-	//  caught and not re-thrown. Returns true (1) on success. This attribute
-	//  exists only in the scope of the current CEF value object.
-	SetRethrowExceptions(rethrow bool) bool // function
-	// HasValueByKey
-	//  Returns true (1) if the object has a value with the specified identifier.
-	HasValueByKey(key string) bool // function
-	// HasValueByIndex
-	//  Returns true (1) if the object has a value with the specified identifier.
-	HasValueByIndex(index int32) bool // function
-	// DeleteValueByKey
-	//  Deletes the value with the specified identifier and returns true (1) on
-	//  success. Returns false (0) if this function is called incorrectly or an
-	//  exception is thrown. For read-only and don't-delete values this function
-	//  will return true (1) even though deletion failed.
-	DeleteValueByKey(key string) bool // function
-	// DeleteValueByIndex
-	//  Deletes the value with the specified identifier and returns true (1) on
-	//  success. Returns false (0) if this function is called incorrectly,
-	//  deletion fails or an exception is thrown. For read-only and don't-delete
-	//  values this function will return true (1) even though deletion failed.
-	DeleteValueByIndex(index int32) bool // function
-	// GetValueByKey
-	//  Returns the value with the specified identifier on success. Returns NULL
-	//  if this function is called incorrectly or an exception is thrown.
-	GetValueByKey(key string) ICefv8Value // function
-	// GetValueByIndex
-	//  Returns the value with the specified identifier on success. Returns NULL
-	//  if this function is called incorrectly or an exception is thrown.
-	GetValueByIndex(index int32) ICefv8Value // function
-	// SetValueByKey
-	//  Associates a value with the specified identifier and returns true (1) on
-	//  success. Returns false (0) if this function is called incorrectly or an
-	//  exception is thrown. For read-only values this function will return true
-	//  (1) even though assignment failed.
-	SetValueByKey(key string, value ICefv8Value, attribute cefTypes.TCefV8PropertyAttributes) bool // function
-	// SetValueByIndex
-	//  Associates a value with the specified identifier and returns true (1) on
-	//  success. Returns false (0) if this function is called incorrectly or an
-	//  exception is thrown. For read-only values this function will return true
-	//  (1) even though assignment failed.
-	SetValueByIndex(index int32, value ICefv8Value) bool // function
-	// SetValueByAccessor
-	//  Registers an identifier and returns true (1) on success. Access to the
-	//  identifier will be forwarded to the ICefV8Accessor instance passed to
-	//  cef_v8value_create_object(). Returns false (0) if this
-	//  function is called incorrectly or an exception is thrown. For read-only
-	//  values this function will return true (1) even though assignment failed.
-	SetValueByAccessor(key string, attribute cefTypes.TCefV8PropertyAttributes) bool // function
-	// GetKeys
-	//  Read the keys for the object's values into the specified vector. Integer-
-	//  based keys will also be returned as strings.
-	GetKeys(keys lcl.IStrings) int32 // function
-	// SetUserData
-	//  Sets the user data for this object and returns true (1) on success.
-	//  Returns false (0) if this function is called incorrectly. This function
-	//  can only be called on user created objects.
-	SetUserData(data ICefv8Value) bool // function
-	// GetUserData
-	//  Returns the user data, if any, assigned to this object.
-	GetUserData() ICefv8Value // function
-	// GetExternallyAllocatedMemory
-	//  Returns the amount of externally allocated memory registered for the
-	//  object.
-	GetExternallyAllocatedMemory() int32 // function
-	// AdjustExternallyAllocatedMemory
-	//  Adjusts the amount of registered external memory for the object. Used to
-	//  give V8 an indication of the amount of externally allocated memory that is
-	//  kept alive by JavaScript objects. V8 uses this information to decide when
-	//  to perform global garbage collection. Each ICefv8Value tracks the amount
-	//  of external memory associated with it and automatically decreases the
-	//  global total by the appropriate amount on its destruction.
-	//  |change_in_bytes| specifies the number of bytes to adjust by. This
-	//  function returns the number of bytes associated with the object after the
-	//  adjustment. This function can only be called on user created objects.
-	AdjustExternallyAllocatedMemory(changeInBytes int32) int32 // function
-	// GetArrayLength
-	//  Returns the number of elements in the array.
-	GetArrayLength() int32 // function
-	// GetArrayBufferReleaseCallback
-	//  Returns the ReleaseCallback object associated with the ArrayBuffer or NULL
-	//  if the ArrayBuffer was not created with CreateArrayBuffer.
-	GetArrayBufferReleaseCallback() IEngV8ArrayBufferReleaseCallback // function
-	// NeuterArrayBuffer
-	//  Prevent the ArrayBuffer from using it's memory block by setting the length
-	//  to zero. This operation cannot be undone. If the ArrayBuffer was created
-	//  with CreateArrayBuffer then
-	//  ICefv8ArrayBufferReleaseCallback.ReleaseBuffer will be called to
-	//  release the underlying buffer.
-	NeuterArrayBuffer() bool // function
-	// GetArrayBufferByteLength
-	//  Returns the length (in bytes) of the ArrayBuffer.
-	GetArrayBufferByteLength() cefTypes.NativeUInt // function
-	// GetArrayBufferData
-	//  Returns a pointer to the beginning of the memory block for this
-	//  ArrayBuffer backing store. The returned pointer is valid as long as the
-	//  ICefv8value is alive.
-	GetArrayBufferData() uintptr // function
-	// GetFunctionName
-	//  Returns the function name.
-	GetFunctionName() string // function
-	// GetFunctionHandler
-	//  Returns the function handler or NULL if not a CEF-created function.
-	GetFunctionHandler() IEngV8Handler // function
-	// ExecuteFunction
-	//  Execute the function using the current V8 context. This function should
-	//  only be called from within the scope of a ICefv8Handler or
-	//  ICefV8Accessor callback, or in combination with calling enter() and
-	//  exit() on a stored ICefv8Context reference. |object| is the receiver
-	//  ('this' object) of the function. If |object| is NULL the current context's
-	//  global object will be used. |arguments| is the list of arguments that will
-	//  be passed to the function. Returns the function return value on success.
-	//  Returns NULL if this function is called incorrectly or an exception is
-	//  thrown.
-	ExecuteFunction(obj ICefv8Value, arguments ICefv8ValueArray) ICefv8Value // function
-	// ExecuteFunctionWithContext
-	//  Execute the function using the specified V8 context. |object| is the
-	//  receiver ('this' object) of the function. If |object| is NULL the
-	//  specified context's global object will be used. |arguments| is the list of
-	//  arguments that will be passed to the function. Returns the function return
-	//  value on success. Returns NULL if this function is called incorrectly or
-	//  an exception is thrown.
-	ExecuteFunctionWithContext(context ICefv8Context, obj ICefv8Value, arguments ICefv8ValueArray) ICefv8Value // function
-	// ResolvePromise
-	//  Resolve the Promise using the current V8 context. This function should
-	//  only be called from within the scope of a ICefv8Handler or
-	//  ICefV8Accessor callback, or in combination with calling enter() and
-	//  exit() on a stored ICefv8Context reference. |arg| is the argument passed
-	//  to the resolved promise. Returns true (1) on success. Returns false (0) if
-	//  this function is called incorrectly or an exception is thrown.
-	ResolvePromise(arg ICefv8Value) bool // function
-	// RejectPromise
-	//  Reject the Promise using the current V8 context. This function should only
-	//  be called from within the scope of a ICefv8Handler or ICefV8Accessor
-	//  callback, or in combination with calling enter() and exit() on a stored
-	//  ICefv8Context reference. Returns true (1) on success. Returns false (0)
-	//  if this function is called incorrectly or an exception is thrown.
-	RejectPromise(errorMsg string) bool // function
+	IsValid() bool                                                                                                           // function
+	IsUndefined() bool                                                                                                       // function
+	IsNull() bool                                                                                                            // function
+	IsBool() bool                                                                                                            // function
+	IsInt() bool                                                                                                             // function
+	IsUInt() bool                                                                                                            // function
+	IsDouble() bool                                                                                                          // function
+	IsDate() bool                                                                                                            // function
+	IsString() bool                                                                                                          // function
+	IsObject() bool                                                                                                          // function
+	IsArray() bool                                                                                                           // function
+	IsArrayBuffer() bool                                                                                                     // function
+	IsFunction() bool                                                                                                        // function
+	IsPromise() bool                                                                                                         // function
+	IsSame(that ICefv8Value) bool                                                                                            // function
+	GetBoolValue() bool                                                                                                      // function
+	GetIntValue() int32                                                                                                      // function
+	GetUIntValue() uint32                                                                                                    // function
+	GetDoubleValue() float64                                                                                                 // function
+	GetDateValue() types.TDateTime                                                                                           // function
+	GetStringValue() string                                                                                                  // function
+	IsUserCreated() bool                                                                                                     // function
+	HasException() bool                                                                                                      // function
+	GetException() ICefV8Exception                                                                                           // function
+	ClearException() bool                                                                                                    // function
+	WillRethrowExceptions() bool                                                                                             // function
+	SetRethrowExceptions(rethrow bool) bool                                                                                  // function
+	HasValueByKey(key string) bool                                                                                           // function
+	HasValueByIndex(index int32) bool                                                                                        // function
+	DeleteValueByKey(key string) bool                                                                                        // function
+	DeleteValueByIndex(index int32) bool                                                                                     // function
+	GetValueByKey(key string) ICefv8Value                                                                                    // function
+	GetValueByIndex(index int32) ICefv8Value                                                                                 // function
+	SetValueByKey(key string, value ICefv8Value, attribute cefTypes.TCefV8PropertyAttributes) bool                           // function
+	SetValueByIndex(index int32, value ICefv8Value) bool                                                                     // function
+	SetValueByAccessor(key string, settings cefTypes.TCefV8AccessControls, attribute cefTypes.TCefV8PropertyAttributes) bool // function
+	GetKeys(keys lcl.IStrings) int32                                                                                         // function
+	SetUserData(data ICefv8Value) bool                                                                                       // function
+	GetUserData() ICefv8Value                                                                                                // function
+	GetExternallyAllocatedMemory() int32                                                                                     // function
+	AdjustExternallyAllocatedMemory(changeInBytes int32) int32                                                               // function
+	GetArrayLength() int32                                                                                                   // function
+	GetArrayBufferReleaseCallback() IEngV8ArrayBufferReleaseCallback                                                         // function
+	NeuterArrayBuffer() bool                                                                                                 // function
+	GetFunctionName() string                                                                                                 // function
+	GetFunctionHandler() IEngV8Handler                                                                                       // function
+	ExecuteFunction(obj ICefv8Value, arguments ICefv8ValueArray) ICefv8Value                                                 // function
+	ExecuteFunctionWithContext(context ICefv8Context, obj ICefv8Value, arguments ICefv8ValueArray) ICefv8Value               // function
+	ResolvePromise(arg ICefv8Value) bool                                                                                     // function
+	RejectPromise(errorMsg string) bool                                                                                      // function
 }
 
 // ICefv8ValueRef Parent: ICefv8Value ICefBaseRefCountedRef
@@ -548,11 +373,11 @@ func (m *TCefv8ValueRef) SetValueByIndex(index int32, value ICefv8Value) bool {
 	return api.GoBool(r)
 }
 
-func (m *TCefv8ValueRef) SetValueByAccessor(key string, attribute cefTypes.TCefV8PropertyAttributes) bool {
+func (m *TCefv8ValueRef) SetValueByAccessor(key string, settings cefTypes.TCefV8AccessControls, attribute cefTypes.TCefV8PropertyAttributes) bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefv8ValueRefAPI().SysCallN(36, m.Instance(), api.PasStr(key), uintptr(attribute))
+	r := cefv8ValueRefAPI().SysCallN(36, m.Instance(), api.PasStr(key), uintptr(settings), uintptr(attribute))
 	return api.GoBool(r)
 }
 
@@ -624,28 +449,12 @@ func (m *TCefv8ValueRef) NeuterArrayBuffer() bool {
 	return api.GoBool(r)
 }
 
-func (m *TCefv8ValueRef) GetArrayBufferByteLength() cefTypes.NativeUInt {
-	if !m.IsValid() {
-		return 0
-	}
-	r := cefv8ValueRefAPI().SysCallN(45, m.Instance())
-	return cefTypes.NativeUInt(r)
-}
-
-func (m *TCefv8ValueRef) GetArrayBufferData() uintptr {
-	if !m.IsValid() {
-		return 0
-	}
-	r := cefv8ValueRefAPI().SysCallN(46, m.Instance())
-	return uintptr(r)
-}
-
 func (m *TCefv8ValueRef) GetFunctionName() (result string) {
 	if !m.IsValid() {
 		return ""
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefv8ValueRefAPI().SysCallN(47, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefv8ValueRefAPI().SysCallN(45, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
@@ -656,7 +465,7 @@ func (m *TCefv8ValueRef) GetFunctionHandler() (result IEngV8Handler) {
 		return
 	}
 	var resultPtr uintptr
-	cefv8ValueRefAPI().SysCallN(48, m.Instance(), uintptr(base.UnsafePointer(&resultPtr)))
+	cefv8ValueRefAPI().SysCallN(46, m.Instance(), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsEngV8Handler(resultPtr)
 	return
 }
@@ -666,7 +475,7 @@ func (m *TCefv8ValueRef) ExecuteFunction(obj ICefv8Value, arguments ICefv8ValueA
 		return
 	}
 	var resultPtr uintptr
-	cefv8ValueRefAPI().SysCallN(49, m.Instance(), base.GetObjectUintptr(obj), arguments.Instance(), uintptr(int32(arguments.Count())), uintptr(base.UnsafePointer(&resultPtr)))
+	cefv8ValueRefAPI().SysCallN(47, m.Instance(), base.GetObjectUintptr(obj), arguments.Instance(), uintptr(int32(arguments.Count())), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefv8ValueRef(resultPtr)
 	return
 }
@@ -676,7 +485,7 @@ func (m *TCefv8ValueRef) ExecuteFunctionWithContext(context ICefv8Context, obj I
 		return
 	}
 	var resultPtr uintptr
-	cefv8ValueRefAPI().SysCallN(50, m.Instance(), base.GetObjectUintptr(context), base.GetObjectUintptr(obj), arguments.Instance(), uintptr(int32(arguments.Count())), uintptr(base.UnsafePointer(&resultPtr)))
+	cefv8ValueRefAPI().SysCallN(48, m.Instance(), base.GetObjectUintptr(context), base.GetObjectUintptr(obj), arguments.Instance(), uintptr(int32(arguments.Count())), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefv8ValueRef(resultPtr)
 	return
 }
@@ -685,7 +494,7 @@ func (m *TCefv8ValueRef) ResolvePromise(arg ICefv8Value) bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefv8ValueRefAPI().SysCallN(51, m.Instance(), base.GetObjectUintptr(arg))
+	r := cefv8ValueRefAPI().SysCallN(49, m.Instance(), base.GetObjectUintptr(arg))
 	return api.GoBool(r)
 }
 
@@ -693,7 +502,7 @@ func (m *TCefv8ValueRef) RejectPromise(errorMsg string) bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefv8ValueRefAPI().SysCallN(52, m.Instance(), api.PasStr(errorMsg))
+	r := cefv8ValueRefAPI().SysCallN(50, m.Instance(), api.PasStr(errorMsg))
 	return api.GoBool(r)
 }
 
@@ -707,167 +516,100 @@ var V8ValueRef _V8ValueRefClass
 // _V8ValueRefClass is class type defined by TCefv8ValueRef
 type _V8ValueRefClass uintptr
 
-// UnWrap
-//
-//	Returns a ICefv8Value instance using a PCefv8Value data pointer.
 func (_V8ValueRefClass) UnWrap(data uintptr) (result ICefv8Value) {
 	var resultPtr uintptr
-	cefv8ValueRefAPI().SysCallN(53, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))
+	cefv8ValueRefAPI().SysCallN(51, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefv8ValueRef(resultPtr)
 	return
 }
 
-// NewUndefined
-//
-//	Create a new ICefv8Value object of type undefined.
 func (_V8ValueRefClass) NewUndefined() (result ICefv8Value) {
 	var resultPtr uintptr
-	cefv8ValueRefAPI().SysCallN(54, uintptr(base.UnsafePointer(&resultPtr)))
+	cefv8ValueRefAPI().SysCallN(52, uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefv8ValueRef(resultPtr)
 	return
 }
 
-// NewNull
-//
-//	Create a new ICefv8Value object of type null.
 func (_V8ValueRefClass) NewNull() (result ICefv8Value) {
 	var resultPtr uintptr
-	cefv8ValueRefAPI().SysCallN(55, uintptr(base.UnsafePointer(&resultPtr)))
+	cefv8ValueRefAPI().SysCallN(53, uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefv8ValueRef(resultPtr)
 	return
 }
 
-// NewBool
-//
-//	Create a new ICefv8Value object of type bool.
 func (_V8ValueRefClass) NewBool(value bool) (result ICefv8Value) {
 	var resultPtr uintptr
-	cefv8ValueRefAPI().SysCallN(56, api.PasBool(value), uintptr(base.UnsafePointer(&resultPtr)))
+	cefv8ValueRefAPI().SysCallN(54, api.PasBool(value), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefv8ValueRef(resultPtr)
 	return
 }
 
-// NewInt
-//
-//	Create a new ICefv8Value object of type int.
 func (_V8ValueRefClass) NewInt(value int32) (result ICefv8Value) {
 	var resultPtr uintptr
-	cefv8ValueRefAPI().SysCallN(57, uintptr(value), uintptr(base.UnsafePointer(&resultPtr)))
+	cefv8ValueRefAPI().SysCallN(55, uintptr(value), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefv8ValueRef(resultPtr)
 	return
 }
 
-// NewUInt
-//
-//	Create a new ICefv8Value object of type unsigned int.
 func (_V8ValueRefClass) NewUInt(value uint32) (result ICefv8Value) {
 	var resultPtr uintptr
-	cefv8ValueRefAPI().SysCallN(58, uintptr(value), uintptr(base.UnsafePointer(&resultPtr)))
+	cefv8ValueRefAPI().SysCallN(56, uintptr(value), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefv8ValueRef(resultPtr)
 	return
 }
 
-// NewDouble
-//
-//	Create a new ICefv8Value object of type double.
 func (_V8ValueRefClass) NewDouble(value float64) (result ICefv8Value) {
 	var resultPtr uintptr
-	cefv8ValueRefAPI().SysCallN(59, uintptr(base.UnsafePointer(&value)), uintptr(base.UnsafePointer(&resultPtr)))
+	cefv8ValueRefAPI().SysCallN(57, uintptr(base.UnsafePointer(&value)), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefv8ValueRef(resultPtr)
 	return
 }
 
-// NewDate
-//
-//	Create a new ICefv8Value object of type Date. This function should only be
-//	called from within the scope of a ICefRenderProcessHandler,
-//	ICefv8Handler or ICefv8Accessor callback, or in combination with calling
-//	enter() and exit() on a stored ICefv8Context reference.
 func (_V8ValueRefClass) NewDate(value types.TDateTime) (result ICefv8Value) {
 	var resultPtr uintptr
-	cefv8ValueRefAPI().SysCallN(60, uintptr(base.UnsafePointer(&value)), uintptr(base.UnsafePointer(&resultPtr)))
+	cefv8ValueRefAPI().SysCallN(58, uintptr(base.UnsafePointer(&value)), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefv8ValueRef(resultPtr)
 	return
 }
 
-// NewString
-//
-//	Create a new ICefv8Value object of type string.
 func (_V8ValueRefClass) NewString(str string) (result ICefv8Value) {
 	var resultPtr uintptr
-	cefv8ValueRefAPI().SysCallN(61, api.PasStr(str), uintptr(base.UnsafePointer(&resultPtr)))
+	cefv8ValueRefAPI().SysCallN(59, api.PasStr(str), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefv8ValueRef(resultPtr)
 	return
 }
 
-// NewObject
-//
-//	Create a new ICefv8Value object of type object with optional accessor
-//	and/or interceptor. This function should only be called from within the
-//	scope of a ICefRenderProcessHandler, ICefv8Handler or ICefv8Accessor
-//	callback, or in combination with calling enter() and exit() on a stored
-//	ICefv8Context reference.
 func (_V8ValueRefClass) NewObject(accessor IEngV8Accessor, interceptor IEngV8Interceptor) (result ICefv8Value) {
 	var resultPtr uintptr
-	cefv8ValueRefAPI().SysCallN(62, base.GetObjectUintptr(accessor), base.GetObjectUintptr(interceptor), uintptr(base.UnsafePointer(&resultPtr)))
+	cefv8ValueRefAPI().SysCallN(60, base.GetObjectUintptr(accessor), base.GetObjectUintptr(interceptor), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefv8ValueRef(resultPtr)
 	return
 }
 
-// NewArray
-//
-//	Create a new ICefv8Value object of type array with the specified |length|.
-//	If |length| is negative the returned array will have length 0. This function
-//	should only be called from within the scope of a
-//	ICefRenderProcessHandler, ICefv8Handler or ICefv8Accessor callback,
-//	or in combination with calling enter() and exit() on a stored
-//	ICefv8Context reference.
 func (_V8ValueRefClass) NewArray(len int32) (result ICefv8Value) {
 	var resultPtr uintptr
-	cefv8ValueRefAPI().SysCallN(63, uintptr(len), uintptr(base.UnsafePointer(&resultPtr)))
+	cefv8ValueRefAPI().SysCallN(61, uintptr(len), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefv8ValueRef(resultPtr)
 	return
 }
 
-// NewArrayBuffer
-//
-//	Create a new ICefv8Value object of type ArrayBuffer which wraps the
-//	provided |buffer| of size |length| bytes. The ArrayBuffer is externalized,
-//	meaning that it does not own |buffer|. The caller is responsible for freeing
-//	|buffer| when requested via a call to
-//	ICefv8ArrayBufferReleaseCallback.ReleaseBuffer. This function should
-//	only be called from within the scope of a ICefRenderProcessHandler,
-//	ICefv8Handler or ICefv8Accessor callback, or in combination with calling
-//	enter() and exit() on a stored ICefv8Context reference.
 func (_V8ValueRefClass) NewArrayBuffer(buffer uintptr, length cefTypes.NativeUInt, callback IEngV8ArrayBufferReleaseCallback) (result ICefv8Value) {
 	var resultPtr uintptr
-	cefv8ValueRefAPI().SysCallN(64, uintptr(buffer), uintptr(length), base.GetObjectUintptr(callback), uintptr(base.UnsafePointer(&resultPtr)))
+	cefv8ValueRefAPI().SysCallN(62, uintptr(buffer), uintptr(length), base.GetObjectUintptr(callback), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefv8ValueRef(resultPtr)
 	return
 }
 
-// NewFunction
-//
-//	Create a new ICefv8Value object of type function. This function should
-//	only be called from within the scope of a ICefRenderProcessHandler,
-//	ICefv8Handler or ICefv8Accessor callback, or in combination with calling
-//	enter() and exit() on a stored ICefv8Context reference.
 func (_V8ValueRefClass) NewFunction(name string, handler IEngV8Handler) (result ICefv8Value) {
 	var resultPtr uintptr
-	cefv8ValueRefAPI().SysCallN(65, api.PasStr(name), base.GetObjectUintptr(handler), uintptr(base.UnsafePointer(&resultPtr)))
+	cefv8ValueRefAPI().SysCallN(63, api.PasStr(name), base.GetObjectUintptr(handler), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefv8ValueRef(resultPtr)
 	return
 }
 
-// NewPromise
-//
-//	Create a new ICefv8Value object of type Promise. This function should only
-//	be called from within the scope of a ICefRenderProcessHandler,
-//	ICefv8Handler or ICefv8Accessor callback, or in combination with calling
-//	enter() and exit() on a stored ICefv8Context reference.
 func (_V8ValueRefClass) NewPromise() (result ICefv8Value) {
 	var resultPtr uintptr
-	cefv8ValueRefAPI().SysCallN(66, uintptr(base.UnsafePointer(&resultPtr)))
+	cefv8ValueRefAPI().SysCallN(64, uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefv8ValueRef(resultPtr)
 	return
 }
@@ -938,28 +680,26 @@ func cefv8ValueRefAPI() *imports.Imports {
 			/* 42 */ imports.NewTable("TCefv8ValueRef_GetArrayLength", 0), // function GetArrayLength
 			/* 43 */ imports.NewTable("TCefv8ValueRef_GetArrayBufferReleaseCallback", 0), // function GetArrayBufferReleaseCallback
 			/* 44 */ imports.NewTable("TCefv8ValueRef_NeuterArrayBuffer", 0), // function NeuterArrayBuffer
-			/* 45 */ imports.NewTable("TCefv8ValueRef_GetArrayBufferByteLength", 0), // function GetArrayBufferByteLength
-			/* 46 */ imports.NewTable("TCefv8ValueRef_GetArrayBufferData", 0), // function GetArrayBufferData
-			/* 47 */ imports.NewTable("TCefv8ValueRef_GetFunctionName", 0), // function GetFunctionName
-			/* 48 */ imports.NewTable("TCefv8ValueRef_GetFunctionHandler", 0), // function GetFunctionHandler
-			/* 49 */ imports.NewTable("TCefv8ValueRef_ExecuteFunction", 0), // function ExecuteFunction
-			/* 50 */ imports.NewTable("TCefv8ValueRef_ExecuteFunctionWithContext", 0), // function ExecuteFunctionWithContext
-			/* 51 */ imports.NewTable("TCefv8ValueRef_ResolvePromise", 0), // function ResolvePromise
-			/* 52 */ imports.NewTable("TCefv8ValueRef_RejectPromise", 0), // function RejectPromise
-			/* 53 */ imports.NewTable("TCefv8ValueRef_UnWrap", 0), // static function UnWrap
-			/* 54 */ imports.NewTable("TCefv8ValueRef_NewUndefined", 0), // static function NewUndefined
-			/* 55 */ imports.NewTable("TCefv8ValueRef_NewNull", 0), // static function NewNull
-			/* 56 */ imports.NewTable("TCefv8ValueRef_NewBool", 0), // static function NewBool
-			/* 57 */ imports.NewTable("TCefv8ValueRef_NewInt", 0), // static function NewInt
-			/* 58 */ imports.NewTable("TCefv8ValueRef_NewUInt", 0), // static function NewUInt
-			/* 59 */ imports.NewTable("TCefv8ValueRef_NewDouble", 0), // static function NewDouble
-			/* 60 */ imports.NewTable("TCefv8ValueRef_NewDate", 0), // static function NewDate
-			/* 61 */ imports.NewTable("TCefv8ValueRef_NewString", 0), // static function NewString
-			/* 62 */ imports.NewTable("TCefv8ValueRef_NewObject", 0), // static function NewObject
-			/* 63 */ imports.NewTable("TCefv8ValueRef_NewArray", 0), // static function NewArray
-			/* 64 */ imports.NewTable("TCefv8ValueRef_NewArrayBuffer", 0), // static function NewArrayBuffer
-			/* 65 */ imports.NewTable("TCefv8ValueRef_NewFunction", 0), // static function NewFunction
-			/* 66 */ imports.NewTable("TCefv8ValueRef_NewPromise", 0), // static function NewPromise
+			/* 45 */ imports.NewTable("TCefv8ValueRef_GetFunctionName", 0), // function GetFunctionName
+			/* 46 */ imports.NewTable("TCefv8ValueRef_GetFunctionHandler", 0), // function GetFunctionHandler
+			/* 47 */ imports.NewTable("TCefv8ValueRef_ExecuteFunction", 0), // function ExecuteFunction
+			/* 48 */ imports.NewTable("TCefv8ValueRef_ExecuteFunctionWithContext", 0), // function ExecuteFunctionWithContext
+			/* 49 */ imports.NewTable("TCefv8ValueRef_ResolvePromise", 0), // function ResolvePromise
+			/* 50 */ imports.NewTable("TCefv8ValueRef_RejectPromise", 0), // function RejectPromise
+			/* 51 */ imports.NewTable("TCefv8ValueRef_UnWrap", 0), // static function UnWrap
+			/* 52 */ imports.NewTable("TCefv8ValueRef_NewUndefined", 0), // static function NewUndefined
+			/* 53 */ imports.NewTable("TCefv8ValueRef_NewNull", 0), // static function NewNull
+			/* 54 */ imports.NewTable("TCefv8ValueRef_NewBool", 0), // static function NewBool
+			/* 55 */ imports.NewTable("TCefv8ValueRef_NewInt", 0), // static function NewInt
+			/* 56 */ imports.NewTable("TCefv8ValueRef_NewUInt", 0), // static function NewUInt
+			/* 57 */ imports.NewTable("TCefv8ValueRef_NewDouble", 0), // static function NewDouble
+			/* 58 */ imports.NewTable("TCefv8ValueRef_NewDate", 0), // static function NewDate
+			/* 59 */ imports.NewTable("TCefv8ValueRef_NewString", 0), // static function NewString
+			/* 60 */ imports.NewTable("TCefv8ValueRef_NewObject", 0), // static function NewObject
+			/* 61 */ imports.NewTable("TCefv8ValueRef_NewArray", 0), // static function NewArray
+			/* 62 */ imports.NewTable("TCefv8ValueRef_NewArrayBuffer", 0), // static function NewArrayBuffer
+			/* 63 */ imports.NewTable("TCefv8ValueRef_NewFunction", 0), // static function NewFunction
+			/* 64 */ imports.NewTable("TCefv8ValueRef_NewPromise", 0), // static function NewPromise
 		}
 	})
 	return cefv8ValueRefImport

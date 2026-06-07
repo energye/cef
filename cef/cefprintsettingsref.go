@@ -18,76 +18,28 @@ import (
 // ICefPrintSettings Parent: ICefBaseRefCounted
 type ICefPrintSettings interface {
 	ICefBaseRefCounted
-	// IsValid
-	//  Returns true (1) if this object is valid. Do not call any other functions
-	//  if this function returns false (0).
-	IsValid() bool // function
-	// IsReadOnly
-	//  Returns true (1) if the values of this object are read-only. Some APIs may
-	//  expose read-only objects.
-	IsReadOnly() bool // function
-	// IsLandscape
-	//  Returns true (1) if the orientation is landscape.
-	IsLandscape() bool // function
-	// GetDeviceName
-	//  Get the device name.
-	GetDeviceName() string // function
-	// GetDpi
-	//  Get the DPI (dots per inch).
-	GetDpi() int32 // function
-	// GetPageRangesCount
-	//  Returns the number of page ranges that currently exist.
-	GetPageRangesCount() cefTypes.NativeUInt // function
-	// IsSelectionOnly
-	//  Returns true (1) if only the selection will be printed.
-	IsSelectionOnly() bool // function
-	// WillCollate
-	//  Returns true (1) if pages will be collated.
-	WillCollate() bool // function
-	// GetColorModel
-	//  Get the color model.
-	GetColorModel() cefTypes.TCefColorModel // function
-	// GetCopies
-	//  Get the number of copies.
-	GetCopies() int32 // function
-	// GetDuplexMode
-	//  Get the duplex mode.
-	GetDuplexMode() cefTypes.TCefDuplexMode // function
-	// SetOrientation
-	//  Set the page orientation.
-	SetOrientation(landscape bool) // procedure
-	// SetPrinterPrintableArea
-	//  Set the printer printable area in device units. Some platforms already
-	//  provide flipped area. Set |landscape_needs_flip| to false (0) on those
-	//  platforms to avoid double flipping.
+	IsValid() bool                                                                                                        // function
+	IsReadOnly() bool                                                                                                     // function
+	IsLandscape() bool                                                                                                    // function
+	GetDeviceName() string                                                                                                // function
+	GetDpi() int32                                                                                                        // function
+	GetPageRangesCount() cefTypes.NativeUInt                                                                              // function
+	IsSelectionOnly() bool                                                                                                // function
+	WillCollate() bool                                                                                                    // function
+	GetColorModel() cefTypes.TCefColorModel                                                                               // function
+	GetCopies() int32                                                                                                     // function
+	GetDuplexMode() cefTypes.TCefDuplexMode                                                                               // function
+	SetOrientation(landscape bool)                                                                                        // procedure
 	SetPrinterPrintableArea(physicalSizeDeviceUnits TCefSize, printableAreaDeviceUnits TCefRect, landscapeNeedsFlip bool) // procedure
-	// SetDeviceName
-	//  Set the device name.
-	SetDeviceName(name string) // procedure
-	// SetDpi
-	//  Set the DPI (dots per inch).
-	SetDpi(dpi int32) // procedure
-	// SetPageRanges
-	//  Set the page ranges.
-	SetPageRanges(ranges ICefRangeArray) // procedure
-	// GetPageRanges
-	//  Retrieve the page ranges.
-	GetPageRanges(outRanges *ICefRangeArray) // procedure
-	// SetSelectionOnly
-	//  Set whether only the selection will be printed.
-	SetSelectionOnly(selectionOnly bool) // procedure
-	// SetCollate
-	//  Set whether pages will be collated.
-	SetCollate(collate bool) // procedure
-	// SetColorModel
-	//  Set the color model.
-	SetColorModel(model cefTypes.TCefColorModel) // procedure
-	// SetCopies
-	//  Set the number of copies.
-	SetCopies(copies int32) // procedure
-	// SetDuplexMode
-	//  Set the duplex mode.
-	SetDuplexMode(mode cefTypes.TCefDuplexMode) // procedure
+	SetDeviceName(name string)                                                                                            // procedure
+	SetDpi(dpi int32)                                                                                                     // procedure
+	SetPageRanges(ranges ICefRangeArray)                                                                                  // procedure
+	GetPageRanges(outRanges *ICefRangeArray)                                                                              // procedure
+	SetSelectionOnly(selectionOnly bool)                                                                                  // procedure
+	SetCollate(collate bool)                                                                                              // procedure
+	SetColorModel(model cefTypes.TCefColorModel)                                                                          // procedure
+	SetCopies(copies int32)                                                                                               // procedure
+	SetDuplexMode(mode cefTypes.TCefDuplexMode)                                                                           // procedure
 }
 
 // ICefPrintSettingsRef Parent: ICefPrintSettings ICefBaseRefCountedRef

@@ -18,29 +18,14 @@ import (
 // ICEFScrollViewComponent Parent: ICEFViewComponent
 type ICEFScrollViewComponent interface {
 	ICEFViewComponent
-	// CreateScrollView
-	//  Create a new ScrollView.
-	CreateScrollView() // procedure
-	// ContentView
-	//  Get and set the content View. The content View must have a specified size (e.g.
-	//  via ICefView.SetBounds or ICefViewDelegate.GetPreferredSize).
-	ContentView() ICefView         // property ContentView Getter
-	SetContentView(value ICefView) // property ContentView Setter
-	// VisibleContentRect
-	//  Returns the visible region of the content View.
-	VisibleContentRect() TCefRect // property VisibleContentRect Getter
-	// HorizontalScrollbarHeight
-	//  Returns the height of the horizontal scrollbar.
+	CreateScrollView()                // procedure
+	ContentView() ICefView            // property ContentView Getter
+	SetContentView(value ICefView)    // property ContentView Setter
+	VisibleContentRect() TCefRect     // property VisibleContentRect Getter
 	HorizontalScrollbarHeight() int32 // property HorizontalScrollbarHeight Getter
-	// VerticalScrollbarWidth
-	//  Returns the width of the vertical scrollbar.
-	VerticalScrollbarWidth() int32 // property VerticalScrollbarWidth Getter
-	// HasHorizontalScrollbar
-	//  Returns true (1) if the horizontal scrollbar is currently showing.
-	HasHorizontalScrollbar() bool // property HasHorizontalScrollbar Getter
-	// HasVerticalScrollbar
-	//  Returns true (1) if the vertical scrollbar is currently showing.
-	HasVerticalScrollbar() bool // property HasVerticalScrollbar Getter
+	VerticalScrollbarWidth() int32    // property VerticalScrollbarWidth Getter
+	HasHorizontalScrollbar() bool     // property HasHorizontalScrollbar Getter
+	HasVerticalScrollbar() bool       // property HasVerticalScrollbar Getter
 	AsIntfViewDelegateEvents() uintptr
 }
 

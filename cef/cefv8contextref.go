@@ -17,50 +17,14 @@ import (
 // ICefv8Context Parent: ICefBaseRefCounted
 type ICefv8Context interface {
 	ICefBaseRefCounted
-	// GetTaskRunner
-	//  Returns the task runner associated with this context. V8 handles can only
-	//  be accessed from the thread on which they are created. This function can
-	//  be called on any render process thread.
-	GetTaskRunner() ICefTaskRunner // function
-	// IsValid
-	//  Returns true (1) if the underlying handle is valid and it can be accessed
-	//  on the current thread. Do not call any other functions if this function
-	//  returns false (0).
-	IsValid() bool // function
-	// GetBrowser
-	//  Returns the browser for this context. This function will return an NULL
-	//  reference for WebWorker contexts.
-	GetBrowser() ICefBrowser // function
-	// GetFrame
-	//  Returns the frame for this context. This function will return an NULL
-	//  reference for WebWorker contexts.
-	GetFrame() ICefFrame // function
-	// GetGlobal
-	//  Returns the global object for this context. The context must be entered
-	//  before calling this function.
-	GetGlobal() ICefv8Value // function
-	// Enter
-	//  Enter this context. A context must be explicitly entered before creating a
-	//  V8 Object, Array, Function or Date asynchronously. exit() must be called
-	//  the same number of times as enter() before releasing this context. V8
-	//  objects belong to the context in which they are created. Returns true (1)
-	//  if the scope was entered successfully.
-	Enter() bool // function
-	// Exit
-	//  Exit this context. Call this function only after calling enter(). Returns
-	//  true (1) if the scope was exited successfully.
-	Exit() bool // function
-	// IsSame
-	//  Returns true (1) if this object is pointing to the same handle as |that|
-	//  object.
-	IsSame(that ICefv8Context) bool // function
-	// Eval
-	//  Execute a string of JavaScript code in this V8 context. The |script_url|
-	//  parameter is the URL where the script in question can be found, if any.
-	//  The |start_line| parameter is the base line number to use for error
-	//  reporting. On success |retval| will be set to the return value, if any,
-	//  and the function will return true (1). On failure |exception| will be set
-	//  to the exception, if any, and the function will return false (0).
+	GetTaskRunner() ICefTaskRunner                                                                             // function
+	IsValid() bool                                                                                             // function
+	GetBrowser() ICefBrowser                                                                                   // function
+	GetFrame() ICefFrame                                                                                       // function
+	GetGlobal() ICefv8Value                                                                                    // function
+	Enter() bool                                                                                               // function
+	Exit() bool                                                                                                // function
+	IsSame(that ICefv8Context) bool                                                                            // function
 	Eval(code string, scriptUrl string, startLine int32, retval *ICefv8Value, exception *ICefV8Exception) bool // function
 }
 

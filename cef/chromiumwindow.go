@@ -18,38 +18,14 @@ import (
 // IChromiumWindow Parent: ICEFLinkedWinControlBase
 type IChromiumWindow interface {
 	ICEFLinkedWinControlBase
-	// CreateBrowser
-	//  Used to create the browser after the global request context has been
-	//  initialized. You need to set all properties and events before calling
-	//  this function because it will only create the internal handlers needed
-	//  for those events and the property values will be used in the browser
-	//  initialization.
-	//  The browser will be fully initialized when the TChromiumWindow.OnAfterCreated
-	//  event is triggered.
-	CreateBrowser() bool // function
-	// CloseBrowser
-	//  Request that the browser close. The JavaScript 'onbeforeunload' event will
-	//  be fired. If |aForceClose| is false (0) the event handler, if any, will be
-	//  allowed to prompt the user and the user can optionally cancel the close.
-	//  If |aForceClose| is true (1) the prompt will not be displayed and the
-	//  close will proceed. Results in a call to
-	//  ICefLifeSpanHandler.DoClose() if the event handler allows the close
-	//  or if |aForceClose| is true (1). See ICefLifeSpanHandler.DoClose()
-	//  documentation for additional usage information.
-	CloseBrowser(forceClose bool) // procedure
-	// LoadURL
-	//  Used to navigate to a URL.
-	LoadURL(uRL string) // procedure
-	// NotifyMoveOrResizeStarted
-	//  Notify the browser that the window hosting it is about to be moved or
-	//  resized. This function is only used on Windows and Linux.
-	NotifyMoveOrResizeStarted() // procedure
-	// ChromiumBrowser
-	//  TChromium instance used by this component.
-	ChromiumBrowser() IChromium // property ChromiumBrowser Getter
-	// Initialized
-	//  Returns true when the browser is fully initialized and it's not being closed.
+	CreateBrowser() bool               // function
+	CloseBrowser(forceClose bool)      // procedure
+	LoadURL(uRL string)                // procedure
+	NotifyMoveOrResizeStarted()        // procedure
+	ChromiumBrowser() IChromium        // property ChromiumBrowser Getter
 	Initialized() bool                 // property Initialized Getter
+	UseSetFocus() bool                 // property UseSetFocus Getter
+	SetUseSetFocus(value bool)         // property UseSetFocus Setter
 	SetOnClose(fn TNotifyEvent)        // property event
 	SetOnBeforeClose(fn TNotifyEvent)  // property event
 	SetOnAfterCreated(fn TNotifyEvent) // property event
@@ -104,15 +80,22 @@ func (m *TChromiumWindow) Initialized() bool {
 	return api.GoBool(r)
 }
 
-func (m *TChromiumWindow) SetOnClose(fn TNotifyEvent) {
+func (m *TChromiumWindow) UseSetFocus() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := chromiumWindowAPI().SysCallN(7, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TChromiumWindow) SetUseSetFocus(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	cb := makeTNotifyEvent(fn)
-	base.SetEvent(m, 7, chromiumWindowAPI(), api.MakeEventDataPtr(cb))
+	chromiumWindowAPI().SysCallN(7, 1, m.Instance(), api.PasBool(value))
 }
 
-func (m *TChromiumWindow) SetOnBeforeClose(fn TNotifyEvent) {
+func (m *TChromiumWindow) SetOnClose(fn TNotifyEvent) {
 	if !m.IsValid() {
 		return
 	}
@@ -120,12 +103,20 @@ func (m *TChromiumWindow) SetOnBeforeClose(fn TNotifyEvent) {
 	base.SetEvent(m, 8, chromiumWindowAPI(), api.MakeEventDataPtr(cb))
 }
 
-func (m *TChromiumWindow) SetOnAfterCreated(fn TNotifyEvent) {
+func (m *TChromiumWindow) SetOnBeforeClose(fn TNotifyEvent) {
 	if !m.IsValid() {
 		return
 	}
 	cb := makeTNotifyEvent(fn)
 	base.SetEvent(m, 9, chromiumWindowAPI(), api.MakeEventDataPtr(cb))
+}
+
+func (m *TChromiumWindow) SetOnAfterCreated(fn TNotifyEvent) {
+	if !m.IsValid() {
+		return
+	}
+	cb := makeTNotifyEvent(fn)
+	base.SetEvent(m, 10, chromiumWindowAPI(), api.MakeEventDataPtr(cb))
 }
 
 // NewChromiumWindow class constructor
@@ -150,9 +141,10 @@ func chromiumWindowAPI() *imports.Imports {
 			/* 4 */ imports.NewTable("TChromiumWindow_NotifyMoveOrResizeStarted", 0), // procedure NotifyMoveOrResizeStarted
 			/* 5 */ imports.NewTable("TChromiumWindow_ChromiumBrowser", 0), // property ChromiumBrowser
 			/* 6 */ imports.NewTable("TChromiumWindow_Initialized", 0), // property Initialized
-			/* 7 */ imports.NewTable("TChromiumWindow_OnClose", 0), // event OnClose
-			/* 8 */ imports.NewTable("TChromiumWindow_OnBeforeClose", 0), // event OnBeforeClose
-			/* 9 */ imports.NewTable("TChromiumWindow_OnAfterCreated", 0), // event OnAfterCreated
+			/* 7 */ imports.NewTable("TChromiumWindow_UseSetFocus", 0), // property UseSetFocus
+			/* 8 */ imports.NewTable("TChromiumWindow_OnClose", 0), // event OnClose
+			/* 9 */ imports.NewTable("TChromiumWindow_OnBeforeClose", 0), // event OnBeforeClose
+			/* 10 */ imports.NewTable("TChromiumWindow_OnAfterCreated", 0), // event OnAfterCreated
 		}
 	})
 	return chromiumWindowImport

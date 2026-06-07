@@ -18,49 +18,18 @@ import (
 // ICefZipReader Parent: ICefBaseRefCounted
 type ICefZipReader interface {
 	ICefBaseRefCounted
-	// MoveToFirstFile
-	//  Moves the cursor to the first file in the archive. Returns true (1) if the
-	//  cursor position was set successfully.
-	MoveToFirstFile() bool // function
-	// MoveToNextFile
-	//  Moves the cursor to the next file in the archive. Returns true (1) if the
-	//  cursor position was set successfully.
-	MoveToNextFile() bool // function
-	// MoveToFile
-	//  Moves the cursor to the specified file in the archive. If |caseSensitive|
-	//  is true (1) then the search will be case sensitive. Returns true (1) if
-	//  the cursor position was set successfully.
-	MoveToFile(fileName string, caseSensitive bool) bool // function
-	// Close
-	//  Closes the archive. This should be called directly to ensure that cleanup
-	//  occurs on the correct thread.
-	Close() bool // function
-	// GetFileName
-	//  Returns the name of the file.
-	GetFileName() string // function
-	// GetFileSize
-	//  Returns the uncompressed size of the file.
-	GetFileSize() int64 // function
-	// GetFileLastModified
-	//  Returns the last modified timestamp for the file.
-	GetFileLastModified() int64 // function
-	// OpenFile
-	//  Opens the file for reading of uncompressed data. A read password may
-	//  optionally be specified.
-	OpenFile(password string) bool // function
-	// CloseFile
-	//  Closes the file.
-	CloseFile() bool // function
-	// ReadFile
-	//  Read uncompressed file contents into the specified buffer. Returns < 0 if
-	//  an error occurred, 0 if at the end of file, or the number of bytes read.
+	MoveToFirstFile() bool                                         // function
+	MoveToNextFile() bool                                          // function
+	MoveToFile(fileName string, caseSensitive bool) bool           // function
+	Close() bool                                                   // function
+	GetFileName() string                                           // function
+	GetFileSize() int64                                            // function
+	GetFileLastModified() int64                                    // function
+	OpenFile(password string) bool                                 // function
+	CloseFile() bool                                               // function
 	ReadFile(buffer uintptr, bufferSize cefTypes.NativeUInt) int32 // function
-	// Tell
-	//  Returns the current offset in the uncompressed file contents.
-	Tell() int64 // function
-	// Eof
-	//  Returns true (1) if at end of the file contents.
-	Eof() bool // function
+	Tell() int64                                                   // function
+	Eof() bool                                                     // function
 }
 
 // ICefZipReaderRef Parent: ICefZipReader ICefBaseRefCountedRef

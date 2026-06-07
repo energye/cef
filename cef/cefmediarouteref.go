@@ -17,22 +17,11 @@ import (
 // ICefMediaRoute Parent: ICefBaseRefCounted
 type ICefMediaRoute interface {
 	ICefBaseRefCounted
-	// GetId
-	//  Returns the ID for this route.
-	GetId() string // function
-	// GetSource
-	//  Returns the source associated with this route.
-	GetSource() ICefMediaSource // function
-	// GetSink
-	//  Returns the sink associated with this route.
-	GetSink() ICefMediaSink // function
-	// SendRouteMessage
-	//  Send a message over this route. |message_| will be copied if necessary.
+	GetId() string                   // function
+	GetSource() ICefMediaSource      // function
+	GetSink() ICefMediaSink          // function
 	SendRouteMessage(message string) // procedure
-	// Terminate
-	//  Terminate this route. Will result in an asynchronous call to
-	//  ICefMediaObserver.OnRoutes on all registered observers.
-	Terminate() // procedure
+	Terminate()                      // procedure
 }
 
 // ICefMediaRouteRef Parent: ICefMediaRoute ICefBaseRefCountedRef

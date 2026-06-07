@@ -20,96 +20,32 @@ import (
 // ICefDragData Parent: ICefBaseRefCounted
 type ICefDragData interface {
 	ICefBaseRefCounted
-	// Clone
-	//  Returns a copy of the current object.
-	Clone() ICefDragData // function
-	// IsReadOnly
-	//  Returns true (1) if this object is read-only.
-	IsReadOnly() bool // function
-	// IsLink
-	//  Returns true (1) if the drag data is a link.
-	IsLink() bool // function
-	// IsFragment
-	//  Returns true (1) if the drag data is a text or html fragment.
-	IsFragment() bool // function
-	// IsFile
-	//  Returns true (1) if the drag data is a file.
-	IsFile() bool // function
-	// GetLinkUrl
-	//  Return the link URL that is being dragged.
-	GetLinkUrl() string // function
-	// GetLinkTitle
-	//  Return the title associated with the link being dragged.
-	GetLinkTitle() string // function
-	// GetLinkMetadata
-	//  Return the metadata, if any, associated with the link being dragged.
-	GetLinkMetadata() string // function
-	// GetFragmentText
-	//  Return the plain text fragment that is being dragged.
-	GetFragmentText() string // function
-	// GetFragmentHtml
-	//  Return the text/html fragment that is being dragged.
-	GetFragmentHtml() string // function
-	// GetFragmentBaseUrl
-	//  Return the base URL that the fragment came from. This value is used for
-	//  resolving relative URLs and may be NULL.
-	GetFragmentBaseUrl() string // function
-	// GetFileName
-	//  Return the name of the file being dragged out of the browser window.
-	GetFileName() string // function
-	// GetFileContents
-	//  Write the contents of the file being dragged out of the web view into
-	//  |writer|. Returns the number of bytes sent to |writer|. If |writer| is
-	//  NULL this function will return the size of the file contents in bytes.
-	//  Call get_file_name() to get a suggested name for the file.
+	Clone() ICefDragData                                         // function
+	IsReadOnly() bool                                            // function
+	IsLink() bool                                                // function
+	IsFragment() bool                                            // function
+	IsFile() bool                                                // function
+	GetLinkUrl() string                                          // function
+	GetLinkTitle() string                                        // function
+	GetLinkMetadata() string                                     // function
+	GetFragmentText() string                                     // function
+	GetFragmentHtml() string                                     // function
+	GetFragmentBaseUrl() string                                  // function
+	GetFileName() string                                         // function
 	GetFileContents(writer ICefStreamWriter) cefTypes.NativeUInt // function
-	// GetFileNames
-	//  Retrieve the list of file names that are being dragged into the browser
-	//  window.
-	GetFileNames(names *lcl.IStrings) int32 // function
-	// GetFilePaths
-	//  Retrieve the list of file paths that are being dragged into the browser
-	//  window.
-	GetFilePaths(paths *lcl.IStrings) int32 // function
-	// GetImage
-	//  Get the image representation of drag data. May return NULL if no image
-	//  representation is available.
-	GetImage() ICefImage // function
-	// GetImageHotspot
-	//  Get the image hotspot (drag start location relative to image dimensions).
-	GetImageHotspot() TCefPoint // function
-	// HasImage
-	//  Returns true (1) if an image representation of drag data is available.
-	HasImage() bool // function
-	// SetLinkUrl
-	//  Set the link URL that is being dragged.
-	SetLinkUrl(url string) // procedure
-	// SetLinkTitle
-	//  Set the title associated with the link being dragged.
-	SetLinkTitle(title string) // procedure
-	// SetLinkMetadata
-	//  Set the metadata associated with the link being dragged.
-	SetLinkMetadata(data string) // procedure
-	// SetFragmentText
-	//  Set the plain text fragment that is being dragged.
-	SetFragmentText(text string) // procedure
-	// SetFragmentHtml
-	//  Set the text/html fragment that is being dragged.
-	SetFragmentHtml(html string) // procedure
-	// SetFragmentBaseUrl
-	//  Set the base URL that the fragment came from.
-	SetFragmentBaseUrl(baseUrl string) // procedure
-	// ResetFileContents
-	//  Reset the file contents. You should do this before calling
-	//  ICefBrowserHost.DragTargetDragEnter as the web view does not allow us
-	//  to drag in this kind of data.
-	ResetFileContents() // procedure
-	// AddFile
-	//  Add a file that is being dragged into the webview.
-	AddFile(path string, displayName string) // procedure
-	// ClearFilenames
-	//  Clear list of filenames.
-	ClearFilenames() // procedure
+	GetFileNames(names *lcl.IStrings) int32                      // function
+	GetImage() ICefImage                                         // function
+	GetImageHotspot() TCefPoint                                  // function
+	HasImage() bool                                              // function
+	SetLinkUrl(url string)                                       // procedure
+	SetLinkTitle(title string)                                   // procedure
+	SetLinkMetadata(data string)                                 // procedure
+	SetFragmentText(text string)                                 // procedure
+	SetFragmentHtml(html string)                                 // procedure
+	SetFragmentBaseUrl(baseUrl string)                           // procedure
+	ResetFileContents()                                          // procedure
+	AddFile(path string, displayName string)                     // procedure
+	ClearFilenames()                                             // procedure
 }
 
 // ICefDragDataRef Parent: ICefDragData ICefBaseRefCountedRef
@@ -260,22 +196,12 @@ func (m *TCefDragDataRef) GetFileNames(names *lcl.IStrings) int32 {
 	return int32(r)
 }
 
-func (m *TCefDragDataRef) GetFilePaths(paths *lcl.IStrings) int32 {
-	if !m.IsValid() {
-		return 0
-	}
-	pathsPtr := base.GetObjectUintptr(*paths)
-	r := cefDragDataRefAPI().SysCallN(15, m.Instance(), uintptr(base.UnsafePointer(&pathsPtr)))
-	*paths = lcl.AsStrings(pathsPtr)
-	return int32(r)
-}
-
 func (m *TCefDragDataRef) GetImage() (result ICefImage) {
 	if !m.IsValid() {
 		return
 	}
 	var resultPtr uintptr
-	cefDragDataRefAPI().SysCallN(16, m.Instance(), uintptr(base.UnsafePointer(&resultPtr)))
+	cefDragDataRefAPI().SysCallN(15, m.Instance(), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefImageRef(resultPtr)
 	return
 }
@@ -284,7 +210,7 @@ func (m *TCefDragDataRef) GetImageHotspot() (result TCefPoint) {
 	if !m.IsValid() {
 		return
 	}
-	cefDragDataRefAPI().SysCallN(17, m.Instance(), uintptr(base.UnsafePointer(&result)))
+	cefDragDataRefAPI().SysCallN(16, m.Instance(), uintptr(base.UnsafePointer(&result)))
 	return
 }
 
@@ -292,7 +218,7 @@ func (m *TCefDragDataRef) HasImage() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefDragDataRefAPI().SysCallN(18, m.Instance())
+	r := cefDragDataRefAPI().SysCallN(17, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -300,63 +226,63 @@ func (m *TCefDragDataRef) SetLinkUrl(url string) {
 	if !m.IsValid() {
 		return
 	}
-	cefDragDataRefAPI().SysCallN(21, m.Instance(), api.PasStr(url))
+	cefDragDataRefAPI().SysCallN(20, m.Instance(), api.PasStr(url))
 }
 
 func (m *TCefDragDataRef) SetLinkTitle(title string) {
 	if !m.IsValid() {
 		return
 	}
-	cefDragDataRefAPI().SysCallN(22, m.Instance(), api.PasStr(title))
+	cefDragDataRefAPI().SysCallN(21, m.Instance(), api.PasStr(title))
 }
 
 func (m *TCefDragDataRef) SetLinkMetadata(data string) {
 	if !m.IsValid() {
 		return
 	}
-	cefDragDataRefAPI().SysCallN(23, m.Instance(), api.PasStr(data))
+	cefDragDataRefAPI().SysCallN(22, m.Instance(), api.PasStr(data))
 }
 
 func (m *TCefDragDataRef) SetFragmentText(text string) {
 	if !m.IsValid() {
 		return
 	}
-	cefDragDataRefAPI().SysCallN(24, m.Instance(), api.PasStr(text))
+	cefDragDataRefAPI().SysCallN(23, m.Instance(), api.PasStr(text))
 }
 
 func (m *TCefDragDataRef) SetFragmentHtml(html string) {
 	if !m.IsValid() {
 		return
 	}
-	cefDragDataRefAPI().SysCallN(25, m.Instance(), api.PasStr(html))
+	cefDragDataRefAPI().SysCallN(24, m.Instance(), api.PasStr(html))
 }
 
 func (m *TCefDragDataRef) SetFragmentBaseUrl(baseUrl string) {
 	if !m.IsValid() {
 		return
 	}
-	cefDragDataRefAPI().SysCallN(26, m.Instance(), api.PasStr(baseUrl))
+	cefDragDataRefAPI().SysCallN(25, m.Instance(), api.PasStr(baseUrl))
 }
 
 func (m *TCefDragDataRef) ResetFileContents() {
 	if !m.IsValid() {
 		return
 	}
-	cefDragDataRefAPI().SysCallN(27, m.Instance())
+	cefDragDataRefAPI().SysCallN(26, m.Instance())
 }
 
 func (m *TCefDragDataRef) AddFile(path string, displayName string) {
 	if !m.IsValid() {
 		return
 	}
-	cefDragDataRefAPI().SysCallN(28, m.Instance(), api.PasStr(path), api.PasStr(displayName))
+	cefDragDataRefAPI().SysCallN(27, m.Instance(), api.PasStr(path), api.PasStr(displayName))
 }
 
 func (m *TCefDragDataRef) ClearFilenames() {
 	if !m.IsValid() {
 		return
 	}
-	cefDragDataRefAPI().SysCallN(29, m.Instance())
+	cefDragDataRefAPI().SysCallN(28, m.Instance())
 }
 
 func (m *TCefDragDataRef) AsIntfDragData() uintptr {
@@ -371,14 +297,14 @@ type _DragDataRefClass uintptr
 
 func (_DragDataRefClass) UnWrap(data uintptr) (result ICefDragData) {
 	var resultPtr uintptr
-	cefDragDataRefAPI().SysCallN(19, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))
+	cefDragDataRefAPI().SysCallN(18, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefDragDataRef(resultPtr)
 	return
 }
 
 func (_DragDataRefClass) New() (result ICefDragData) {
 	var resultPtr uintptr
-	cefDragDataRefAPI().SysCallN(20, uintptr(base.UnsafePointer(&resultPtr)))
+	cefDragDataRefAPI().SysCallN(19, uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefDragDataRef(resultPtr)
 	return
 }
@@ -419,21 +345,20 @@ func cefDragDataRefAPI() *imports.Imports {
 			/* 12 */ imports.NewTable("TCefDragDataRef_GetFileName", 0), // function GetFileName
 			/* 13 */ imports.NewTable("TCefDragDataRef_GetFileContents", 0), // function GetFileContents
 			/* 14 */ imports.NewTable("TCefDragDataRef_GetFileNames", 0), // function GetFileNames
-			/* 15 */ imports.NewTable("TCefDragDataRef_GetFilePaths", 0), // function GetFilePaths
-			/* 16 */ imports.NewTable("TCefDragDataRef_GetImage", 0), // function GetImage
-			/* 17 */ imports.NewTable("TCefDragDataRef_GetImageHotspot", 0), // function GetImageHotspot
-			/* 18 */ imports.NewTable("TCefDragDataRef_HasImage", 0), // function HasImage
-			/* 19 */ imports.NewTable("TCefDragDataRef_UnWrap", 0), // static function UnWrap
-			/* 20 */ imports.NewTable("TCefDragDataRef_New", 0), // static function New
-			/* 21 */ imports.NewTable("TCefDragDataRef_SetLinkUrl", 0), // procedure SetLinkUrl
-			/* 22 */ imports.NewTable("TCefDragDataRef_SetLinkTitle", 0), // procedure SetLinkTitle
-			/* 23 */ imports.NewTable("TCefDragDataRef_SetLinkMetadata", 0), // procedure SetLinkMetadata
-			/* 24 */ imports.NewTable("TCefDragDataRef_SetFragmentText", 0), // procedure SetFragmentText
-			/* 25 */ imports.NewTable("TCefDragDataRef_SetFragmentHtml", 0), // procedure SetFragmentHtml
-			/* 26 */ imports.NewTable("TCefDragDataRef_SetFragmentBaseUrl", 0), // procedure SetFragmentBaseUrl
-			/* 27 */ imports.NewTable("TCefDragDataRef_ResetFileContents", 0), // procedure ResetFileContents
-			/* 28 */ imports.NewTable("TCefDragDataRef_AddFile", 0), // procedure AddFile
-			/* 29 */ imports.NewTable("TCefDragDataRef_ClearFilenames", 0), // procedure ClearFilenames
+			/* 15 */ imports.NewTable("TCefDragDataRef_GetImage", 0), // function GetImage
+			/* 16 */ imports.NewTable("TCefDragDataRef_GetImageHotspot", 0), // function GetImageHotspot
+			/* 17 */ imports.NewTable("TCefDragDataRef_HasImage", 0), // function HasImage
+			/* 18 */ imports.NewTable("TCefDragDataRef_UnWrap", 0), // static function UnWrap
+			/* 19 */ imports.NewTable("TCefDragDataRef_New", 0), // static function New
+			/* 20 */ imports.NewTable("TCefDragDataRef_SetLinkUrl", 0), // procedure SetLinkUrl
+			/* 21 */ imports.NewTable("TCefDragDataRef_SetLinkTitle", 0), // procedure SetLinkTitle
+			/* 22 */ imports.NewTable("TCefDragDataRef_SetLinkMetadata", 0), // procedure SetLinkMetadata
+			/* 23 */ imports.NewTable("TCefDragDataRef_SetFragmentText", 0), // procedure SetFragmentText
+			/* 24 */ imports.NewTable("TCefDragDataRef_SetFragmentHtml", 0), // procedure SetFragmentHtml
+			/* 25 */ imports.NewTable("TCefDragDataRef_SetFragmentBaseUrl", 0), // procedure SetFragmentBaseUrl
+			/* 26 */ imports.NewTable("TCefDragDataRef_ResetFileContents", 0), // procedure ResetFileContents
+			/* 27 */ imports.NewTable("TCefDragDataRef_AddFile", 0), // procedure AddFile
+			/* 28 */ imports.NewTable("TCefDragDataRef_ClearFilenames", 0), // procedure ClearFilenames
 		}
 	})
 	return cefDragDataRefImport

@@ -17,15 +17,9 @@ import (
 // ICefLayout Parent: ICefBaseRefCounted
 type ICefLayout interface {
 	ICefBaseRefCounted
-	// AsBoxLayout
-	//  Returns this Layout as a BoxLayout or NULL if this is not a BoxLayout.
-	AsBoxLayout() ICefBoxLayout // function
-	// AsFillLayout
-	//  Returns this Layout as a FillLayout or NULL if this is not a FillLayout.
+	AsBoxLayout() ICefBoxLayout   // function
 	AsFillLayout() ICefFillLayout // function
-	// IsValid
-	//  Returns true (1) if this Layout is valid.
-	IsValid() bool // function
+	IsValid() bool                // function
 }
 
 // ICefLayoutRef Parent: ICefLayout ICefBaseRefCountedRef
@@ -77,9 +71,6 @@ var LayoutRef _LayoutRefClass
 // _LayoutRefClass is class type defined by TCefLayoutRef
 type _LayoutRefClass uintptr
 
-// UnWrapWithPointer
-//
-//	Returns a ICefLayout instance using a PCefLayout data pointer.
 func (_LayoutRefClass) UnWrapWithPointer(data uintptr) (result ICefLayout) {
 	var resultPtr uintptr
 	cefLayoutRefAPI().SysCallN(4, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))

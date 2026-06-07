@@ -20,55 +20,18 @@ import (
 // ICEFLabelButtonComponent Parent: ICEFButtonComponent
 type ICEFLabelButtonComponent interface {
 	ICEFButtonComponent
-	// CreateLabelButton
-	//  Create a new LabelButton. |aText| will be shown on the LabelButton and used as the default
-	//  accessible name.
-	CreateLabelButton(text string) // procedure
-	// SetTextColor
-	//  Sets the text color shown for the specified button |for_state| to |color|.
+	CreateLabelButton(text string)                                            // procedure
 	SetTextColor(forState cefTypes.TCefButtonState, color cefTypes.TCefColor) // procedure
-	// SetEnabledTextColors
-	//  Sets the text colors shown for the non-disabled states to |color|.
-	SetEnabledTextColors(color cefTypes.TCefColor) // procedure
-	// SetFontList
-	//  Sets the font list. The format is "<FONT_FAMILY_LIST>,[STYLES] <SIZE>",
-	//  where:
-	//  <code>
-	//  - FONT_FAMILY_LIST is a comma-separated list of font family names,
-	//  - STYLES is an optional space-separated list of style names (case-sensitive
-	//  "Bold" and "Italic" are supported), and
-	//  - SIZE is an integer font size in pixels with the suffix "px".
-	//  </code>
-	//  Here are examples of valid font description strings:
-	//  <code>
-	//  - "Arial, Helvetica, Bold Italic 14px"
-	//  - "Arial, 14px"
-	//  </code>
-	SetFontList(fontList string) // procedure
-	// SetHorizontalAlignment
-	//  Sets the horizontal alignment; reversed in RTL. Default is
-	//  CEF_HORIZONTAL_ALIGNMENT_CENTER.
-	SetHorizontalAlignment(alignment cefTypes.TCefHorizontalAlignment) // procedure
-	// SetMinimumSize
-	//  Reset the minimum size of this LabelButton to |size|.
-	SetMinimumSize(size TCefSize) // procedure
-	// SetMaximumSize
-	//  Reset the maximum size of this LabelButton to |size|.
-	SetMaximumSize(size TCefSize) // procedure
-	// Text
-	//  Gets and sets the text shown on the LabelButton. By default |text| will also be
-	//  used as the accessible name.
-	Text() string         // property Text Getter
-	SetText(value string) // property Text Setter
-	// Image
-	//  Returns the image shown for |button_state|. If no image exists for that
-	//  state then the image for CEF_BUTTON_STATE_NORMAL will be returned.
-	Image(buttonState cefTypes.TCefButtonState) ICefImage           // property Image Getter
-	SetImage(buttonState cefTypes.TCefButtonState, value ICefImage) // property Image Setter
-	// AsMenuButton
-	//  Returns this LabelButton as a MenuButton or NULL if this is not a
-	//  MenuButton.
-	AsMenuButton() ICefMenuButton // property AsMenuButton Getter
+	SetEnabledTextColors(color cefTypes.TCefColor)                            // procedure
+	SetFontList(fontList string)                                              // procedure
+	SetHorizontalAlignment(alignment cefTypes.TCefHorizontalAlignment)        // procedure
+	SetMinimumSize(size TCefSize)                                             // procedure
+	SetMaximumSize(size TCefSize)                                             // procedure
+	Text() string                                                             // property Text Getter
+	SetText(value string)                                                     // property Text Setter
+	Image(buttonState cefTypes.TCefButtonState) ICefImage                     // property Image Getter
+	SetImage(buttonState cefTypes.TCefButtonState, value ICefImage)           // property Image Setter
+	AsMenuButton() ICefMenuButton                                             // property AsMenuButton Getter
 	AsIntfButtonDelegateEvents() uintptr
 	AsIntfViewDelegateEvents() uintptr
 }

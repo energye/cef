@@ -22,10 +22,8 @@ type IEngRequestHandler interface {
 	SetOnRequestGetAuthCredentials(fn TOnRequestGetAuthCredentialsEvent)                     // property event
 	SetOnRequestCertificateError(fn TOnRequestCertificateErrorEvent)                         // property event
 	SetOnRequestSelectClientCertificate(fn TOnRequestSelectClientCertificateEvent)           // property event
-	SetOnRequestRenderProcessUnresponsive(fn TOnRequestRenderProcessUnresponsiveEvent)       // property event
 	SetOnRequestGetResourceRequestHandler(fn TOnRequestGetResourceRequestHandlerEvent)       // property event
 	SetOnRequestRenderViewReady(fn TOnRequestRenderViewReadyEvent)                           // property event
-	SetOnRequestRenderProcessResponsive(fn TOnRequestRenderProcessResponsiveEvent)           // property event
 	SetOnRequestRenderProcessTerminated(fn TOnRequestRenderProcessTerminatedEvent)           // property event
 	SetOnRequestDocumentAvailableInMainFrame(fn TOnRequestDocumentAvailableInMainFrameEvent) // property event
 	AsIntfRequestHandler() uintptr
@@ -75,20 +73,12 @@ func (m *TEngRequestHandler) SetOnRequestSelectClientCertificate(fn TOnRequestSe
 	base.SetEvent(m, 5, engRequestHandlerAPI(), api.MakeEventDataPtr(cb))
 }
 
-func (m *TEngRequestHandler) SetOnRequestRenderProcessUnresponsive(fn TOnRequestRenderProcessUnresponsiveEvent) {
-	if !m.IsValid() {
-		return
-	}
-	cb := makeTOnRequestRenderProcessUnresponsiveEvent(fn)
-	base.SetEvent(m, 6, engRequestHandlerAPI(), api.MakeEventDataPtr(cb))
-}
-
 func (m *TEngRequestHandler) SetOnRequestGetResourceRequestHandler(fn TOnRequestGetResourceRequestHandlerEvent) {
 	if !m.IsValid() {
 		return
 	}
 	cb := makeTOnRequestGetResourceRequestHandlerEvent(fn)
-	base.SetEvent(m, 7, engRequestHandlerAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 6, engRequestHandlerAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TEngRequestHandler) SetOnRequestRenderViewReady(fn TOnRequestRenderViewReadyEvent) {
@@ -96,15 +86,7 @@ func (m *TEngRequestHandler) SetOnRequestRenderViewReady(fn TOnRequestRenderView
 		return
 	}
 	cb := makeTOnRequestRenderViewReadyEvent(fn)
-	base.SetEvent(m, 8, engRequestHandlerAPI(), api.MakeEventDataPtr(cb))
-}
-
-func (m *TEngRequestHandler) SetOnRequestRenderProcessResponsive(fn TOnRequestRenderProcessResponsiveEvent) {
-	if !m.IsValid() {
-		return
-	}
-	cb := makeTOnRequestRenderProcessResponsiveEvent(fn)
-	base.SetEvent(m, 9, engRequestHandlerAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 7, engRequestHandlerAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TEngRequestHandler) SetOnRequestRenderProcessTerminated(fn TOnRequestRenderProcessTerminatedEvent) {
@@ -112,7 +94,7 @@ func (m *TEngRequestHandler) SetOnRequestRenderProcessTerminated(fn TOnRequestRe
 		return
 	}
 	cb := makeTOnRequestRenderProcessTerminatedEvent(fn)
-	base.SetEvent(m, 10, engRequestHandlerAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 8, engRequestHandlerAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TEngRequestHandler) SetOnRequestDocumentAvailableInMainFrame(fn TOnRequestDocumentAvailableInMainFrameEvent) {
@@ -120,7 +102,7 @@ func (m *TEngRequestHandler) SetOnRequestDocumentAvailableInMainFrame(fn TOnRequ
 		return
 	}
 	cb := makeTOnRequestDocumentAvailableInMainFrameEvent(fn)
-	base.SetEvent(m, 11, engRequestHandlerAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 9, engRequestHandlerAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TEngRequestHandler) AsIntfRequestHandler() uintptr {
@@ -154,12 +136,10 @@ func engRequestHandlerAPI() *imports.Imports {
 			/* 3 */ imports.NewTable("TEngRequestHandler_OnRequestGetAuthCredentials", 0), // event OnRequestGetAuthCredentials
 			/* 4 */ imports.NewTable("TEngRequestHandler_OnRequestCertificateError", 0), // event OnRequestCertificateError
 			/* 5 */ imports.NewTable("TEngRequestHandler_OnRequestSelectClientCertificate", 0), // event OnRequestSelectClientCertificate
-			/* 6 */ imports.NewTable("TEngRequestHandler_OnRequestRenderProcessUnresponsive", 0), // event OnRequestRenderProcessUnresponsive
-			/* 7 */ imports.NewTable("TEngRequestHandler_OnRequestGetResourceRequestHandler", 0), // event OnRequestGetResourceRequestHandler
-			/* 8 */ imports.NewTable("TEngRequestHandler_OnRequestRenderViewReady", 0), // event OnRequestRenderViewReady
-			/* 9 */ imports.NewTable("TEngRequestHandler_OnRequestRenderProcessResponsive", 0), // event OnRequestRenderProcessResponsive
-			/* 10 */ imports.NewTable("TEngRequestHandler_OnRequestRenderProcessTerminated", 0), // event OnRequestRenderProcessTerminated
-			/* 11 */ imports.NewTable("TEngRequestHandler_OnRequestDocumentAvailableInMainFrame", 0), // event OnRequestDocumentAvailableInMainFrame
+			/* 6 */ imports.NewTable("TEngRequestHandler_OnRequestGetResourceRequestHandler", 0), // event OnRequestGetResourceRequestHandler
+			/* 7 */ imports.NewTable("TEngRequestHandler_OnRequestRenderViewReady", 0), // event OnRequestRenderViewReady
+			/* 8 */ imports.NewTable("TEngRequestHandler_OnRequestRenderProcessTerminated", 0), // event OnRequestRenderProcessTerminated
+			/* 9 */ imports.NewTable("TEngRequestHandler_OnRequestDocumentAvailableInMainFrame", 0), // event OnRequestDocumentAvailableInMainFrame
 		}
 	})
 	return engRequestHandlerImport

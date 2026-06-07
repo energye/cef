@@ -17,53 +17,22 @@ import (
 // ICefExtension Parent: ICefBaseRefCounted
 type ICefExtension interface {
 	ICefBaseRefCounted
-	// GetIdentifier
-	//  Returns the unique extension identifier. This is calculated based on the
-	//  extension public key, if available, or on the extension path. See
-	//  https://developer.chrome.com/extensions/manifest/key for details.
-	GetIdentifier() string // function
-	// GetPath
-	//  Returns the absolute path to the extension directory on disk. This value
-	//  will be prefixed with PK_DIR_RESOURCES if a relative path was passed to
-	//  ICefRequestContext.LoadExtension.
-	GetPath() string // function
-	// GetManifest
-	//  Returns the extension manifest contents as a ICefDictionaryValue
-	//  object. See https://developer.chrome.com/extensions/manifest for details.
-	GetManifest() ICefDictionaryValue // function
-	// IsSame
-	//  Returns true (1) if this object is the same extension as |that| object.
-	//  Extensions are considered the same if identifier, path and loader context
-	//  match.
-	IsSame(that ICefExtension) bool // function
-	// GetHandler
-	//  Returns the handler for this extension. Will return NULL for internal
-	//  extensions or if no handler was passed to
-	//  ICefRequestContext.LoadExtension.
-	GetHandler() IEngExtensionHandler // function
-	// GetLoaderContext
-	//  Returns the request context that loaded this extension. Will return NULL
-	//  for internal extensions or if the extension has been unloaded. See the
-	//  ICefRequestContext.LoadExtension documentation for more information
-	//  about loader contexts. Must be called on the browser process UI thread.
+	GetIdentifier() string                // function
+	GetPath() string                      // function
+	GetManifest() ICefDictionaryValue     // function
+	IsSame(that ICefExtension) bool       // function
+	GetHandler() IEngExtensionHandler     // function
 	GetLoaderContext() ICefRequestContext // function
-	// IsLoaded
-	//  Returns true (1) if this extension is currently loaded. Must be called on
-	//  the browser process UI thread.
-	IsLoaded() bool                // function
-	GetBrowserActionPopup() string // function
-	GetBrowserActionIcon() string  // function
-	GetPageActionPopup() string    // function
-	GetPageActionIcon() string     // function
-	GetOptionsPage() string        // function
-	GetOptionsUIPage() string      // function
-	GetBackgroundPage() string     // function
-	GetURL() string                // function
-	// Unload
-	//  Unload this extension if it is not an internal extension and is currently
-	//  loaded. Will result in a call to
-	//  ICefExtensionHandler.OnExtensionUnloaded on success.
-	Unload() // procedure
+	IsLoaded() bool                       // function
+	GetBrowserActionPopup() string        // function
+	GetBrowserActionIcon() string         // function
+	GetPageActionPopup() string           // function
+	GetPageActionIcon() string            // function
+	GetOptionsPage() string               // function
+	GetOptionsUIPage() string             // function
+	GetBackgroundPage() string            // function
+	GetURL() string                       // function
+	Unload()                              // procedure
 }
 
 // ICefExtensionRef Parent: ICefExtension ICefBaseRefCountedRef

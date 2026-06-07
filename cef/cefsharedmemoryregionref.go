@@ -18,16 +18,9 @@ import (
 // ICefSharedMemoryRegion Parent: ICefBaseRefCounted
 type ICefSharedMemoryRegion interface {
 	ICefBaseRefCounted
-	// IsValid
-	//  Returns true (1) if the mapping is valid.
-	IsValid() bool // function
-	// Size
-	//  Returns the size of the mapping in bytes. Returns 0 for invalid instances.
+	IsValid() bool             // function
 	Size() cefTypes.NativeUInt // function
-	// Memory
-	//  Returns the pointer to the memory. Returns nullptr for invalid instances.
-	//  The returned pointer is only valid for the life span of this object.
-	Memory() uintptr // function
+	Memory() uintptr           // function
 }
 
 // ICefSharedMemoryRegionRef Parent: ICefSharedMemoryRegion ICefBaseRefCountedRef

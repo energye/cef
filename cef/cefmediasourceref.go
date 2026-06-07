@@ -17,14 +17,8 @@ import (
 // ICefMediaSource Parent: ICefBaseRefCounted
 type ICefMediaSource interface {
 	ICefBaseRefCounted
-	// GetId
-	//  Returns the ID (media source URN or URL) for this source.
-	GetId() string // function
-	// IsCastSource
-	//  Returns true (1) if this source outputs its content via Cast.
+	GetId() string      // function
 	IsCastSource() bool // function
-	// IsDialSource
-	//  Returns true (1) if this source outputs its content via DIAL.
 	IsDialSource() bool // function
 }
 

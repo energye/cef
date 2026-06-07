@@ -18,25 +18,11 @@ import (
 // ICefStreamWriter Parent: ICefBaseRefCounted
 type ICefStreamWriter interface {
 	ICefBaseRefCounted
-	// Write
-	//  Write raw binary data.
 	Write(ptr uintptr, size cefTypes.NativeUInt, N cefTypes.NativeUInt) cefTypes.NativeUInt // function
-	// Seek
-	//  Seek to the specified offset position. |whence| may be any one of
-	//  SEEK_CUR, SEEK_END or SEEK_SET. Returns zero on success and non-zero on
-	//  failure.
-	Seek(offset int64, whence int32) int32 // function
-	// Tell
-	//  Return the current offset position.
-	Tell() int64 // function
-	// Flush
-	//  Flush the stream.
-	Flush() int32 // function
-	// MayBlock
-	//  Returns true (1) if this writer performs work like accessing the file
-	//  system which may block. Used as a hint for determining the thread to
-	//  access the writer from.
-	MayBlock() bool // function
+	Seek(offset int64, whence int32) int32                                                  // function
+	Tell() int64                                                                            // function
+	Flush() int32                                                                           // function
+	MayBlock() bool                                                                         // function
 }
 
 // ICefStreamWriterRef Parent: ICefStreamWriter ICefBaseRefCountedRef

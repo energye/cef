@@ -20,36 +20,20 @@ import (
 // ICEFSentinel Parent: IComponent
 type ICEFSentinel interface {
 	IComponent
-	// Start
-	//  Start checking all the CEF subprocesses.
-	Start() // procedure
-	// Status
-	//  Status of this component.
+	Start()                           // procedure
 	Status() cefTypes.TSentinelStatus // property Status Getter
-	// ChildProcCount
-	//  Number of CEF subprocesses.
-	ChildProcCount() int32 // property ChildProcCount Getter
-	// DelayPerProcMs
-	//  Delay per subprocess in milliseconds. This delay is used to calculate how much time to wait until this component checks the CEF subprocesses again.
-	DelayPerProcMs() uint32         // property DelayPerProcMs Getter
-	SetDelayPerProcMs(value uint32) // property DelayPerProcMs Setter
-	// MinInitDelayMs
-	//  Minimum initial delay in milliseconds. This is the minimum time to wait until this component checks the CEF subprocesses again.
-	MinInitDelayMs() uint32         // property MinInitDelayMs Getter
-	SetMinInitDelayMs(value uint32) // property MinInitDelayMs Setter
-	// FinalDelayMs
-	//  Final delay in milliseconds. This is an extra delay to wait after enough CEF subprocesses are closed.
-	FinalDelayMs() uint32         // property FinalDelayMs Getter
-	SetFinalDelayMs(value uint32) // property FinalDelayMs Setter
-	// MinChildProcs
-	//  Minimum number of CEF subprocesses. When ChildProcCount reaches this value it's considered safe to trigger OnClose.
-	MinChildProcs() int32         // property MinChildProcs Getter
-	SetMinChildProcs(value int32) // property MinChildProcs Setter
-	// MaxCheckCount
-	//  Maximum number of times this component will check the CEF subprocesses.
-	MaxCheckCount() int32         // property MaxCheckCount Getter
-	SetMaxCheckCount(value int32) // property MaxCheckCount Setter
-	SetOnClose(fn TNotifyEvent)   // property event
+	ChildProcCount() int32            // property ChildProcCount Getter
+	DelayPerProcMs() uint32           // property DelayPerProcMs Getter
+	SetDelayPerProcMs(value uint32)   // property DelayPerProcMs Setter
+	MinInitDelayMs() uint32           // property MinInitDelayMs Getter
+	SetMinInitDelayMs(value uint32)   // property MinInitDelayMs Setter
+	FinalDelayMs() uint32             // property FinalDelayMs Getter
+	SetFinalDelayMs(value uint32)     // property FinalDelayMs Setter
+	MinChildProcs() int32             // property MinChildProcs Getter
+	SetMinChildProcs(value int32)     // property MinChildProcs Setter
+	MaxCheckCount() int32             // property MaxCheckCount Getter
+	SetMaxCheckCount(value int32)     // property MaxCheckCount Setter
+	SetOnClose(fn TNotifyEvent)       // property event
 }
 
 type TCEFSentinel struct {

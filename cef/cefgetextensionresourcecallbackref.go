@@ -17,12 +17,8 @@ import (
 // ICefGetExtensionResourceCallback Parent: ICefBaseRefCounted
 type ICefGetExtensionResourceCallback interface {
 	ICefBaseRefCounted
-	// Cont
-	//  Continue the request. Read the resource contents from |stream|.
 	Cont(stream ICefStreamReader) // procedure
-	// Cancel
-	//  Cancel the request.
-	Cancel() // procedure
+	Cancel()                      // procedure
 }
 
 // ICefGetExtensionResourceCallbackRef Parent: ICefGetExtensionResourceCallback ICefBaseRefCountedRef

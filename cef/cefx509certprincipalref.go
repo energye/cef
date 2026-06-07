@@ -18,29 +18,15 @@ import (
 // ICefX509CertPrincipal Parent: ICefBaseRefCounted
 type ICefX509CertPrincipal interface {
 	ICefBaseRefCounted
-	// GetDisplayName
-	//  Returns a name that can be used to represent the issuer. It tries in this
-	//  order: Common Name (CN), Organization Name (O) and Organizational Unit
-	//  Name (OU) and returns the first non-NULL one found.
-	GetDisplayName() string // function
-	// GetCommonName
-	//  Returns the common name.
-	GetCommonName() string // function
-	// GetLocalityName
-	//  Returns the locality name.
-	GetLocalityName() string // function
-	// GetStateOrProvinceName
-	//  Returns the state or province name.
-	GetStateOrProvinceName() string // function
-	// GetCountryName
-	//  Returns the country name.
-	GetCountryName() string // function
-	// GetOrganizationNames
-	//  Retrieve the list of organization names.
-	GetOrganizationNames(names lcl.IStrings) // procedure
-	// GetOrganizationUnitNames
-	//  Retrieve the list of organization unit names.
+	GetDisplayName() string                      // function
+	GetCommonName() string                       // function
+	GetLocalityName() string                     // function
+	GetStateOrProvinceName() string              // function
+	GetCountryName() string                      // function
+	GetStreetAddresses(addresses lcl.IStrings)   // procedure
+	GetOrganizationNames(names lcl.IStrings)     // procedure
 	GetOrganizationUnitNames(names lcl.IStrings) // procedure
+	GetDomainComponents(components lcl.IStrings) // procedure
 }
 
 // ICefX509CertPrincipalRef Parent: ICefX509CertPrincipal ICefBaseRefCountedRef
@@ -109,18 +95,32 @@ func (m *TCefX509CertPrincipalRef) GetCountryName() (result string) {
 	return
 }
 
+func (m *TCefX509CertPrincipalRef) GetStreetAddresses(addresses lcl.IStrings) {
+	if !m.IsValid() {
+		return
+	}
+	cefX509CertPrincipalRefAPI().SysCallN(7, m.Instance(), base.GetObjectUintptr(addresses))
+}
+
 func (m *TCefX509CertPrincipalRef) GetOrganizationNames(names lcl.IStrings) {
 	if !m.IsValid() {
 		return
 	}
-	cefX509CertPrincipalRefAPI().SysCallN(7, m.Instance(), base.GetObjectUintptr(names))
+	cefX509CertPrincipalRefAPI().SysCallN(8, m.Instance(), base.GetObjectUintptr(names))
 }
 
 func (m *TCefX509CertPrincipalRef) GetOrganizationUnitNames(names lcl.IStrings) {
 	if !m.IsValid() {
 		return
 	}
-	cefX509CertPrincipalRefAPI().SysCallN(8, m.Instance(), base.GetObjectUintptr(names))
+	cefX509CertPrincipalRefAPI().SysCallN(9, m.Instance(), base.GetObjectUintptr(names))
+}
+
+func (m *TCefX509CertPrincipalRef) GetDomainComponents(components lcl.IStrings) {
+	if !m.IsValid() {
+		return
+	}
+	cefX509CertPrincipalRefAPI().SysCallN(10, m.Instance(), base.GetObjectUintptr(components))
 }
 
 func (m *TCefX509CertPrincipalRef) AsIntfX509CertPrincipal() uintptr {
@@ -168,8 +168,10 @@ func cefX509CertPrincipalRefAPI() *imports.Imports {
 			/* 4 */ imports.NewTable("TCefX509CertPrincipalRef_GetStateOrProvinceName", 0), // function GetStateOrProvinceName
 			/* 5 */ imports.NewTable("TCefX509CertPrincipalRef_GetCountryName", 0), // function GetCountryName
 			/* 6 */ imports.NewTable("TCefX509CertPrincipalRef_UnWrap", 0), // static function UnWrap
-			/* 7 */ imports.NewTable("TCefX509CertPrincipalRef_GetOrganizationNames", 0), // procedure GetOrganizationNames
-			/* 8 */ imports.NewTable("TCefX509CertPrincipalRef_GetOrganizationUnitNames", 0), // procedure GetOrganizationUnitNames
+			/* 7 */ imports.NewTable("TCefX509CertPrincipalRef_GetStreetAddresses", 0), // procedure GetStreetAddresses
+			/* 8 */ imports.NewTable("TCefX509CertPrincipalRef_GetOrganizationNames", 0), // procedure GetOrganizationNames
+			/* 9 */ imports.NewTable("TCefX509CertPrincipalRef_GetOrganizationUnitNames", 0), // procedure GetOrganizationUnitNames
+			/* 10 */ imports.NewTable("TCefX509CertPrincipalRef_GetDomainComponents", 0), // procedure GetDomainComponents
 		}
 	})
 	return cefX509CertPrincipalRefImport

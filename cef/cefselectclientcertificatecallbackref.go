@@ -17,9 +17,6 @@ import (
 // ICefSelectClientCertificateCallback Parent: ICefBaseRefCounted
 type ICefSelectClientCertificateCallback interface {
 	ICefBaseRefCounted
-	// Select
-	//  Chooses the specified certificate for client certificate authentication.
-	//  NULL value means that no client certificate should be used.
 	Select(cert ICefX509Certificate) // procedure
 }
 

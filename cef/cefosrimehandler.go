@@ -18,79 +18,24 @@ import (
 // ICEFOSRIMEHandler Parent: IObject
 type ICEFOSRIMEHandler interface {
 	IObject
-	// GetResult
-	//  Retrieve a composition result of the ongoing composition if it exists.
-	GetResult(param types.LParam, result *string) bool // function
-	// GetComposition
-	//  Retrieve the current composition status of the ongoing composition.
-	//  Includes composition text, underline information and selection range in the
-	//  composition text. IMM32 does not support char selection.
+	GetResult(param types.LParam, result *string) bool                                                                                   // function
 	GetComposition(param types.LParam, compositionText *string, underlines *ICefCompositionUnderlineArray, compositionStart *int32) bool // function
-	// SetInputLanguage
-	//  Sets InputLanguageID using the name of the active input locale identifier obtained from a GetKeyboardLayoutNameW call.
-	//  <see href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getkeyboardlayoutnamew">See the GetKeyboardLayoutNameW article.</see>
-	SetInputLanguage() // procedure
-	// CreateImeWindow
-	//  Calls CreateCaret for some languages in order to creates a new shape
-	//  for the system caret and assigns ownership of the caret to the specified
-	//  window.
-	//  <see href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-createcaret">See the CreateCaret article.</see>
-	CreateImeWindow() // procedure
-	// DestroyImeWindow
-	//  Calls DestroyCaret for some languages in order to destroy the caret's
-	//  current shape, frees the caret from the window, and removes the caret
-	//  from the screen.
-	//  <see href="https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-destroycaret">See the DestroyCaret article.</see>
-	DestroyImeWindow() // procedure
-	// CleanupComposition
-	//  Cleans up the all resources attached to the given IMM32Manager object, and
-	//  reset its composition status.
-	//  <see href="https://learn.microsoft.com/en-us/windows/win32/api/imm/nf-imm-immnotifyime">See the ImmNotifyIME article.</see>
-	CleanupComposition() // procedure
-	// ResetComposition
-	//  Reset the composition status. Cancel the ongoing composition if it exists.
-	ResetComposition() // procedure
-	// EnableIME
-	//  Enable the IME attached to the given window, i.e. allows user-input events
-	//  to be dispatched to the IME. In Chromium, this function is used when a
-	//  renderer process moves its input focus to another edit control, or a
-	//  renrerer process moves the position of the focused edit control.
-	EnableIME() // procedure
-	// DisableIME
-	//  Disable the IME attached to the given window, i.e. prohibits any user-input
-	//  events from being dispatched to the IME. In Chromium, this function is used
-	//  when a renreder process sets its input focus to a password input.
-	DisableIME() // procedure
-	// CancelIME
-	//  Cancels an ongoing composition of the IME.
-	CancelIME() // procedure
-	// UpdateCaretPosition
-	//  Updates the IME caret position of the given window.
-	UpdateCaretPosition(index uint32) // procedure
-	// ChangeCompositionRange
-	//  Updates the composition range. |selected_range| is the range of characters
-	//  that have been selected. |character_bounds| is the bounds of each character
-	//  in view device coordinates.
-	ChangeCompositionRange(selectionRange TCefRange, characterBounds ICefRectArray) // procedure
-	// MoveImeWindow
-	//  Updates the position of the IME windows.
-	MoveImeWindow() // procedure
-	// IsComposing
-	//  Retrieves whether or not there is an ongoing composition.
-	IsComposing() bool // property IsComposing Getter
-	// InputLanguageID
-	//  The current input Language ID retrieved from Windows
-	//  used for processing language-specific operations in IME.
-	InputLanguageID() types.LANGID // property InputLanguageID Getter
-	// PrimaryLangID
-	//  Returns the primary language ID based on the InputLanguageID value.
-	PrimaryLangID() uint16 // property PrimaryLangID Getter
-	// SubLangID
-	//  Returns the sublanguage ID based on the InputLanguageID value.
-	SubLangID() uint16 // property SubLangID Getter
-	// Initialized
-	//  Resturns True if the library was loaded successfully.
-	Initialized() bool // property Initialized Getter
+	SetInputLanguage()                                                                                                                   // procedure
+	CreateImeWindow()                                                                                                                    // procedure
+	DestroyImeWindow()                                                                                                                   // procedure
+	CleanupComposition()                                                                                                                 // procedure
+	ResetComposition()                                                                                                                   // procedure
+	EnableIME()                                                                                                                          // procedure
+	DisableIME()                                                                                                                         // procedure
+	CancelIME()                                                                                                                          // procedure
+	UpdateCaretPosition(index int32)                                                                                                     // procedure
+	ChangeCompositionRange(selectionRange TCefRange, characterBounds ICefRectArray)                                                      // procedure
+	MoveImeWindow()                                                                                                                      // procedure
+	IsComposing() bool                                                                                                                   // property IsComposing Getter
+	InputLanguageID() types.LANGID                                                                                                       // property InputLanguageID Getter
+	PrimaryLangID() uint16                                                                                                               // property PrimaryLangID Getter
+	SubLangID() uint16                                                                                                                   // property SubLangID Getter
+	Initialized() bool                                                                                                                   // property Initialized Getter
 }
 
 type TCEFOSRIMEHandler struct {
@@ -178,7 +123,7 @@ func (m *TCEFOSRIMEHandler) CancelIME() {
 	cEFOSRIMEHandlerAPI().SysCallN(10, m.Instance())
 }
 
-func (m *TCEFOSRIMEHandler) UpdateCaretPosition(index uint32) {
+func (m *TCEFOSRIMEHandler) UpdateCaretPosition(index int32) {
 	if !m.IsValid() {
 		return
 	}

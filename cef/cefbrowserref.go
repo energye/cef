@@ -20,79 +20,27 @@ import (
 // ICefBrowser Parent: ICefBaseRefCounted
 type ICefBrowser interface {
 	ICefBaseRefCounted
-	// IsValid
-	//  True if this object is currently valid. This will return false (0) after
-	//  ICefLifeSpanHandler.OnBeforeClose is called.
-	IsValid() bool // function
-	// GetHost
-	//  Returns the browser host object. This function can only be called in the
-	//  browser process.
-	GetHost() ICefBrowserHost // function
-	// CanGoBack
-	//  Returns true (1) if the browser can navigate backwards.
-	CanGoBack() bool // function
-	// CanGoForward
-	//  Returns true (1) if the browser can navigate forwards.
-	CanGoForward() bool // function
-	// IsLoading
-	//  Returns true (1) if the browser is currently loading.
-	IsLoading() bool // function
-	// GetIdentifier
-	//  Returns the globally unique identifier for this browser. This value is
-	//  also used as the tabId for extension APIs.
-	GetIdentifier() int32 // function
-	// IsSame
-	//  Returns true (1) if this object is pointing to the same handle as |that|
-	//  object.
-	IsSame(that ICefBrowser) bool // function
-	// IsPopup
-	//  Returns true (1) if the browser is a popup.
-	IsPopup() bool // function
-	// HasDocument
-	//  Returns true (1) if a document has been loaded in the browser.
-	HasDocument() bool // function
-	// GetMainFrame
-	//  Returns the main (top-level) frame for the browser. In the browser process
-	//  this will return a valid object until after
-	//  ICefLifeSpanHandler.OnBeforeClose is called. In the renderer process
-	//  this will return NULL if the main frame is hosted in a different renderer
-	//  process (e.g. for cross-origin sub-frames). The main frame object will
-	//  change during cross-origin navigation or re-navigation after renderer
-	//  process termination (due to crashes, etc).
-	GetMainFrame() ICefFrame // function
-	// GetFocusedFrame
-	//  Returns the focused frame for the browser.
-	GetFocusedFrame() ICefFrame // function
-	// GetFrameByIdentifier
-	//  Returns the frame with the specified identifier, or NULL if not found.
-	GetFrameByIdentifier(identifier string) ICefFrame // function
-	// GetFrameByName
-	//  Returns the frame with the specified name, or NULL if not found.
-	GetFrameByName(name string) ICefFrame // function
-	// GetFrameCount
-	//  Returns the number of frames that currently exist.
-	GetFrameCount() cefTypes.NativeUInt // function
-	// GetFrameIdentifiers
-	//  Returns the identifiers of all existing frames.
-	GetFrameIdentifiers(frameIdentifiers *lcl.IStrings) bool // function
-	// GetFrameNames
-	//  Returns the names of all existing frames.
-	GetFrameNames(frameNames *lcl.IStrings) bool // function
-	// GoBack
-	//  Navigate backwards.
-	GoBack() // procedure
-	// GoForward
-	//  Navigate forwards.
-	GoForward() // procedure
-	// Reload
-	//  Reload the current page.
-	Reload() // procedure
-	// ReloadIgnoreCache
-	//  Reload the current page ignoring any cached data.
-	ReloadIgnoreCache() // procedure
-	// StopLoad
-	//  Stop loading the page.
-	StopLoad() // procedure
+	IsValid() bool                                                                                            // function
+	GetHost() ICefBrowserHost                                                                                 // function
+	CanGoBack() bool                                                                                          // function
+	CanGoForward() bool                                                                                       // function
+	IsLoading() bool                                                                                          // function
+	GetIdentifier() int32                                                                                     // function
+	IsSame(that ICefBrowser) bool                                                                             // function
+	IsPopup() bool                                                                                            // function
+	HasDocument() bool                                                                                        // function
+	GetMainFrame() ICefFrame                                                                                  // function
+	GetFocusedFrame() ICefFrame                                                                               // function
+	GetFrameByident(identifier int64) ICefFrame                                                               // function
+	GetFrame(name string) ICefFrame                                                                           // function
+	GetFrameCount() cefTypes.NativeUInt                                                                       // function
+	GetFrameIdentifiers(frameCount *cefTypes.NativeUInt, frameIdentifierArray *ICefFrameIdentifierArray) bool // function
+	GetFrameNames(frameNames *lcl.IStrings) bool                                                              // function
+	GoBack()                                                                                                  // procedure
+	GoForward()                                                                                               // procedure
+	Reload()                                                                                                  // procedure
+	ReloadIgnoreCache()                                                                                       // procedure
+	StopLoad()                                                                                                // procedure
 }
 
 // ICefBrowserRef Parent: ICefBrowser ICefBaseRefCountedRef
@@ -200,17 +148,17 @@ func (m *TCefBrowserRef) GetFocusedFrame() (result ICefFrame) {
 	return
 }
 
-func (m *TCefBrowserRef) GetFrameByIdentifier(identifier string) (result ICefFrame) {
+func (m *TCefBrowserRef) GetFrameByident(identifier int64) (result ICefFrame) {
 	if !m.IsValid() {
 		return
 	}
 	var resultPtr uintptr
-	cefBrowserRefAPI().SysCallN(12, m.Instance(), api.PasStr(identifier), uintptr(base.UnsafePointer(&resultPtr)))
+	cefBrowserRefAPI().SysCallN(12, m.Instance(), uintptr(base.UnsafePointer(&identifier)), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefFrameRef(resultPtr)
 	return
 }
 
-func (m *TCefBrowserRef) GetFrameByName(name string) (result ICefFrame) {
+func (m *TCefBrowserRef) GetFrame(name string) (result ICefFrame) {
 	if !m.IsValid() {
 		return
 	}
@@ -228,13 +176,16 @@ func (m *TCefBrowserRef) GetFrameCount() cefTypes.NativeUInt {
 	return cefTypes.NativeUInt(r)
 }
 
-func (m *TCefBrowserRef) GetFrameIdentifiers(frameIdentifiers *lcl.IStrings) bool {
+func (m *TCefBrowserRef) GetFrameIdentifiers(frameCount *cefTypes.NativeUInt, frameIdentifierArray *ICefFrameIdentifierArray) bool {
 	if !m.IsValid() {
 		return false
 	}
-	frameIdentifiersPtr := base.GetObjectUintptr(*frameIdentifiers)
-	r := cefBrowserRefAPI().SysCallN(15, m.Instance(), uintptr(base.UnsafePointer(&frameIdentifiersPtr)))
-	*frameIdentifiers = lcl.AsStrings(frameIdentifiersPtr)
+	frameCountPtr := uintptr(*frameCount)
+	var frameIdentifierArrayPtr uintptr
+	var frameIdentifierArrayCountPtr uintptr
+	r := cefBrowserRefAPI().SysCallN(15, m.Instance(), uintptr(base.UnsafePointer(&frameCountPtr)), uintptr(base.UnsafePointer(&frameIdentifierArrayPtr)), uintptr(base.UnsafePointer(&frameIdentifierArrayCountPtr)))
+	*frameCount = cefTypes.NativeUInt(frameCountPtr)
+	*frameIdentifierArray = NewCefFrameIdentifierArray(int(frameIdentifierArrayCountPtr), frameIdentifierArrayPtr)
 	return api.GoBool(r)
 }
 
@@ -333,8 +284,8 @@ func cefBrowserRefAPI() *imports.Imports {
 			/* 9 */ imports.NewTable("TCefBrowserRef_HasDocument", 0), // function HasDocument
 			/* 10 */ imports.NewTable("TCefBrowserRef_GetMainFrame", 0), // function GetMainFrame
 			/* 11 */ imports.NewTable("TCefBrowserRef_GetFocusedFrame", 0), // function GetFocusedFrame
-			/* 12 */ imports.NewTable("TCefBrowserRef_GetFrameByIdentifier", 0), // function GetFrameByIdentifier
-			/* 13 */ imports.NewTable("TCefBrowserRef_GetFrameByName", 0), // function GetFrameByName
+			/* 12 */ imports.NewTable("TCefBrowserRef_GetFrameByident", 0), // function GetFrameByident
+			/* 13 */ imports.NewTable("TCefBrowserRef_GetFrame", 0), // function GetFrame
 			/* 14 */ imports.NewTable("TCefBrowserRef_GetFrameCount", 0), // function GetFrameCount
 			/* 15 */ imports.NewTable("TCefBrowserRef_GetFrameIdentifiers", 0), // function GetFrameIdentifiers
 			/* 16 */ imports.NewTable("TCefBrowserRef_GetFrameNames", 0), // function GetFrameNames

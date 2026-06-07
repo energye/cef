@@ -18,111 +18,35 @@ import (
 // ICefXmlReader Parent: ICefBaseRefCounted
 type ICefXmlReader interface {
 	ICefBaseRefCounted
-	// MoveToNextNode
-	//  Moves the cursor to the next node in the document. This function must be
-	//  called at least once to set the current cursor position. Returns true (1)
-	//  if the cursor position was set successfully.
-	MoveToNextNode() bool // function
-	// Close
-	//  Close the document. This should be called directly to ensure that cleanup
-	//  occurs on the correct thread.
-	Close() bool // function
-	// HasError
-	//  Returns true (1) if an error has been reported by the XML parser.
-	HasError() bool // function
-	// GetError
-	//  Returns the error string.
-	GetError() string // function
-	// GetType
-	//  Returns the node type.
-	GetType() cefTypes.TCefXmlNodeType // function
-	// GetDepth
-	//  Returns the node depth. Depth starts at 0 for the root node.
-	GetDepth() int32 // function
-	// GetLocalName
-	//  Returns the local name. See http://www.w3.org/TR/REC-xml-names/#NT-
-	//  LocalPart for additional details.
-	GetLocalName() string // function
-	// GetPrefix
-	//  Returns the namespace prefix. See http://www.w3.org/TR/REC-xml-names/ for
-	//  additional details.
-	GetPrefix() string // function
-	// GetQualifiedName
-	//  Returns the qualified name, equal to (Prefix:)LocalName. See
-	//  http://www.w3.org/TR/REC-xml-names/#ns-qualnames for additional details.
-	GetQualifiedName() string // function
-	// GetNamespaceUri
-	//  Returns the URI defining the namespace associated with the node. See
-	//  http://www.w3.org/TR/REC-xml-names/ for additional details.
-	GetNamespaceUri() string // function
-	// GetBaseUri
-	//  Returns the base URI of the node. See http://www.w3.org/TR/xmlbase/ for
-	//  additional details.
-	GetBaseUri() string // function
-	// GetXmlLang
-	//  Returns the xml:lang scope within which the node resides. See
-	//  http://www.w3.org/TR/REC-xml/#sec-lang-tag for additional details.
-	GetXmlLang() string // function
-	// IsEmptyElement
-	//  Returns true (1) if the node represents an NULL element. "<a/>" is
-	//  considered NULL but "<a></a>" is not.
-	IsEmptyElement() bool // function
-	// HasValue
-	//  Returns true (1) if the node has a text value.
-	HasValue() bool // function
-	// GetValue
-	//  Returns the text value.
-	GetValue() string // function
-	// HasAttributes
-	//  Returns true (1) if the node has attributes.
-	HasAttributes() bool // function
-	// GetAttributeCount
-	//  Returns the number of attributes.
-	GetAttributeCount() cefTypes.NativeUInt // function
-	// GetAttributeByIndex
-	//  Returns the value of the attribute at the specified 0-based index.
-	GetAttributeByIndex(index int32) string // function
-	// GetAttributeByQName
-	//  Returns the value of the attribute with the specified qualified name.
-	GetAttributeByQName(qualifiedName string) string // function
-	// GetAttributeByLName
-	//  Returns the value of the attribute with the specified local name and
-	//  namespace URI.
-	GetAttributeByLName(localName string, namespaceURI string) string // function
-	// GetInnerXml
-	//  Returns an XML representation of the current node's children.
-	GetInnerXml() string // function
-	// GetOuterXml
-	//  Returns an XML representation of the current node including its children.
-	GetOuterXml() string // function
-	// GetLineNumber
-	//  Returns the line number for the current node.
-	GetLineNumber() int32 // function
-	// MoveToAttributeByIndex
-	//  Moves the cursor to the attribute at the specified 0-based index. Returns
-	//  true (1) if the cursor position was set successfully.
-	MoveToAttributeByIndex(index int32) bool // function
-	// MoveToAttributeByQName
-	//  Moves the cursor to the attribute with the specified qualified name.
-	//  Returns true (1) if the cursor position was set successfully.
-	MoveToAttributeByQName(qualifiedName string) bool // function
-	// MoveToAttributeByLName
-	//  Moves the cursor to the attribute with the specified local name and
-	//  namespace URI. Returns true (1) if the cursor position was set
-	//  successfully.
+	MoveToNextNode() bool                                              // function
+	Close() bool                                                       // function
+	HasError() bool                                                    // function
+	GetError() string                                                  // function
+	GetType() cefTypes.TCefXmlNodeType                                 // function
+	GetDepth() int32                                                   // function
+	GetLocalName() string                                              // function
+	GetPrefix() string                                                 // function
+	GetQualifiedName() string                                          // function
+	GetNamespaceUri() string                                           // function
+	GetBaseUri() string                                                // function
+	GetXmlLang() string                                                // function
+	IsEmptyElement() bool                                              // function
+	HasValue() bool                                                    // function
+	GetValue() string                                                  // function
+	HasAttributes() bool                                               // function
+	GetAttributeCount() cefTypes.NativeUInt                            // function
+	GetAttributeByIndex(index int32) string                            // function
+	GetAttributeByQName(qualifiedName string) string                   // function
+	GetAttributeByLName(localName string, namespaceURI string) string  // function
+	GetInnerXml() string                                               // function
+	GetOuterXml() string                                               // function
+	GetLineNumber() int32                                              // function
+	MoveToAttributeByIndex(index int32) bool                           // function
+	MoveToAttributeByQName(qualifiedName string) bool                  // function
 	MoveToAttributeByLName(localName string, namespaceURI string) bool // function
-	// MoveToFirstAttribute
-	//  Moves the cursor to the first attribute in the current element. Returns
-	//  true (1) if the cursor position was set successfully.
-	MoveToFirstAttribute() bool // function
-	// MoveToNextAttribute
-	//  Moves the cursor to the next attribute in the current element. Returns
-	//  true (1) if the cursor position was set successfully.
-	MoveToNextAttribute() bool // function
-	// MoveToCarryingElement
-	//  Moves the cursor back to the carrying element. Returns true (1) if the
-	//  cursor position was set successfully.
-	MoveToCarryingElement() bool // function
+	MoveToFirstAttribute() bool                                        // function
+	MoveToNextAttribute() bool                                         // function
+	MoveToCarryingElement() bool                                       // function
 }
 
 // ICefXmlReaderRef Parent: ICefXmlReader ICefBaseRefCountedRef

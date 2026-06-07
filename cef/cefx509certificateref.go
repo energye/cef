@@ -20,53 +20,17 @@ import (
 // ICefX509Certificate Parent: ICefBaseRefCounted
 type ICefX509Certificate interface {
 	ICefBaseRefCounted
-	// GetSubject
-	//  Returns the subject of the X.509 certificate. For HTTPS server
-	//  certificates this represents the web server. The common name of the
-	//  subject should match the host name of the web server.
-	GetSubject() ICefX509CertPrincipal // function
-	// GetIssuer
-	//  Returns the issuer of the X.509 certificate.
-	GetIssuer() ICefX509CertPrincipal // function
-	// GetSerialNumber
-	//  Returns the DER encoded serial number for the X.509 certificate. The value
-	//  possibly includes a leading 00 byte.
-	GetSerialNumber() ICefBinaryValue // function
-	// GetValidStart
-	//  Returns the date before which the X.509 certificate is invalid.
-	//  CefBaseTime.GetTimeT() will return 0 if no date was specified.
-	GetValidStart() int64 // function
-	// GetValidExpiry
-	//  Returns the date after which the X.509 certificate is invalid.
-	//  CefBaseTime.GetTimeT() will return 0 if no date was specified.
-	GetValidExpiry() int64 // function
-	// GetValidStartAsDateTime
-	//  Returns the date before which the X.509 certificate is invalid.
-	//  CefBaseTime.GetTimeT() will return 0 if no date was specified.
-	GetValidStartAsDateTime() types.TDateTime // function
-	// GetValidExpiryAsDateTime
-	//  Returns the date after which the X.509 certificate is invalid.
-	//  CefBaseTime.GetTimeT() will return 0 if no date was specified.
-	GetValidExpiryAsDateTime() types.TDateTime // function
-	// GetDerEncoded
-	//  Returns the DER encoded data for the X.509 certificate.
-	GetDerEncoded() ICefBinaryValue // function
-	// GetPemEncoded
-	//  Returns the PEM encoded data for the X.509 certificate.
-	GetPemEncoded() ICefBinaryValue // function
-	// GetIssuerChainSize
-	//  Returns the number of certificates in the issuer chain. If 0, the
-	//  certificate is self-signed.
-	GetIssuerChainSize() cefTypes.NativeUInt // function
-	// GetDEREncodedIssuerChain
-	//  Returns the DER encoded data for the certificate issuer chain. If we
-	//  failed to encode a certificate in the chain it is still present in the
-	//  array but is an NULL string.
+	GetSubject() ICefX509CertPrincipal                                                    // function
+	GetIssuer() ICefX509CertPrincipal                                                     // function
+	GetSerialNumber() ICefBinaryValue                                                     // function
+	GetValidStart() int64                                                                 // function
+	GetValidExpiry() int64                                                                // function
+	GetValidStartAsDateTime() types.TDateTime                                             // function
+	GetValidExpiryAsDateTime() types.TDateTime                                            // function
+	GetDerEncoded() ICefBinaryValue                                                       // function
+	GetPemEncoded() ICefBinaryValue                                                       // function
+	GetIssuerChainSize() cefTypes.NativeUInt                                              // function
 	GetDEREncodedIssuerChain(chainCount cefTypes.NativeUInt, chain *ICefBinaryValueArray) // procedure
-	// GetPEMEncodedIssuerChain
-	//  Returns the PEM encoded data for the certificate issuer chain. If we
-	//  failed to encode a certificate in the chain it is still present in the
-	//  array but is an NULL string.
 	GetPEMEncodedIssuerChain(chainCount cefTypes.NativeUInt, chain *ICefBinaryValueArray) // procedure
 }
 

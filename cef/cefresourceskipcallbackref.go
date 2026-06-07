@@ -17,11 +17,6 @@ import (
 // ICefResourceSkipCallback Parent: ICefBaseRefCounted
 type ICefResourceSkipCallback interface {
 	ICefBaseRefCounted
-	// Cont
-	//  Callback for asynchronous continuation of skip(). If |bytes_skipped| > 0
-	//  then either skip() will be called again until the requested number of
-	//  bytes have been skipped or the request will proceed. If |bytes_skipped| <=
-	//  0 the request will fail with ERR_REQUEST_RANGE_NOT_SATISFIABLE.
 	Cont(bytesSkipped int64) // procedure
 }
 

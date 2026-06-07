@@ -28,8 +28,6 @@ type ICEFFileDialogInfo interface {
 	DefaultFilePath() string                  // property DefaultFilePath Getter
 	SetDefaultFilePath(value string)          // property DefaultFilePath Setter
 	SetAcceptFilters(value lcl.IStrings)      // property AcceptFilters Setter
-	SetAcceptExtensions(value lcl.IStrings)   // property AcceptExtensions Setter
-	SetAcceptDescriptions(value lcl.IStrings) // property AcceptDescriptions Setter
 	Callback() ICefFileDialogCallback         // property Callback Getter
 	SetCallback(value ICefFileDialogCallback) // property Callback Setter
 	DialogFilter() string                     // property DialogFilter Getter
@@ -117,26 +115,12 @@ func (m *TCEFFileDialogInfo) SetAcceptFilters(value lcl.IStrings) {
 	cEFFileDialogInfoAPI().SysCallN(5, m.Instance(), base.GetObjectUintptr(value))
 }
 
-func (m *TCEFFileDialogInfo) SetAcceptExtensions(value lcl.IStrings) {
-	if !m.IsValid() {
-		return
-	}
-	cEFFileDialogInfoAPI().SysCallN(6, m.Instance(), base.GetObjectUintptr(value))
-}
-
-func (m *TCEFFileDialogInfo) SetAcceptDescriptions(value lcl.IStrings) {
-	if !m.IsValid() {
-		return
-	}
-	cEFFileDialogInfoAPI().SysCallN(7, m.Instance(), base.GetObjectUintptr(value))
-}
-
 func (m *TCEFFileDialogInfo) Callback() (result ICefFileDialogCallback) {
 	if !m.IsValid() {
 		return
 	}
 	var resultPtr uintptr
-	cEFFileDialogInfoAPI().SysCallN(8, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&resultPtr)))
+	cEFFileDialogInfoAPI().SysCallN(6, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefFileDialogCallbackRef(resultPtr)
 	return
 }
@@ -145,7 +129,7 @@ func (m *TCEFFileDialogInfo) SetCallback(value ICefFileDialogCallback) {
 	if !m.IsValid() {
 		return
 	}
-	cEFFileDialogInfoAPI().SysCallN(8, 1, m.Instance(), base.GetObjectUintptr(value))
+	cEFFileDialogInfoAPI().SysCallN(6, 1, m.Instance(), base.GetObjectUintptr(value))
 }
 
 func (m *TCEFFileDialogInfo) DialogFilter() (result string) {
@@ -153,7 +137,7 @@ func (m *TCEFFileDialogInfo) DialogFilter() (result string) {
 		return
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cEFFileDialogInfoAPI().SysCallN(9, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cEFFileDialogInfoAPI().SysCallN(7, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
@@ -163,11 +147,47 @@ func (m *TCEFFileDialogInfo) DialogType() cefTypes.TCEFDialogType {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cEFFileDialogInfoAPI().SysCallN(10, m.Instance())
+	r := cEFFileDialogInfoAPI().SysCallN(8, m.Instance())
 	return cefTypes.TCEFDialogType(r)
 }
 
 func (m *TCEFFileDialogInfo) DefaultAudioFileDesc() (result string) {
+	if !m.IsValid() {
+		return
+	}
+	strBuf := api.NewStringBuffer(0, 0)
+	cEFFileDialogInfoAPI().SysCallN(9, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	defer strBuf.Release()
+	result = strBuf.String()
+	return
+}
+
+func (m *TCEFFileDialogInfo) SetDefaultAudioFileDesc(value string) {
+	if !m.IsValid() {
+		return
+	}
+	cEFFileDialogInfoAPI().SysCallN(9, 1, m.Instance(), api.PasStr(value))
+}
+
+func (m *TCEFFileDialogInfo) DefaultVideoFileDesc() (result string) {
+	if !m.IsValid() {
+		return
+	}
+	strBuf := api.NewStringBuffer(0, 0)
+	cEFFileDialogInfoAPI().SysCallN(10, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	defer strBuf.Release()
+	result = strBuf.String()
+	return
+}
+
+func (m *TCEFFileDialogInfo) SetDefaultVideoFileDesc(value string) {
+	if !m.IsValid() {
+		return
+	}
+	cEFFileDialogInfoAPI().SysCallN(10, 1, m.Instance(), api.PasStr(value))
+}
+
+func (m *TCEFFileDialogInfo) DefaultTextFileDesc() (result string) {
 	if !m.IsValid() {
 		return
 	}
@@ -178,14 +198,14 @@ func (m *TCEFFileDialogInfo) DefaultAudioFileDesc() (result string) {
 	return
 }
 
-func (m *TCEFFileDialogInfo) SetDefaultAudioFileDesc(value string) {
+func (m *TCEFFileDialogInfo) SetDefaultTextFileDesc(value string) {
 	if !m.IsValid() {
 		return
 	}
 	cEFFileDialogInfoAPI().SysCallN(11, 1, m.Instance(), api.PasStr(value))
 }
 
-func (m *TCEFFileDialogInfo) DefaultVideoFileDesc() (result string) {
+func (m *TCEFFileDialogInfo) DefaultImageFileDesc() (result string) {
 	if !m.IsValid() {
 		return
 	}
@@ -196,14 +216,14 @@ func (m *TCEFFileDialogInfo) DefaultVideoFileDesc() (result string) {
 	return
 }
 
-func (m *TCEFFileDialogInfo) SetDefaultVideoFileDesc(value string) {
+func (m *TCEFFileDialogInfo) SetDefaultImageFileDesc(value string) {
 	if !m.IsValid() {
 		return
 	}
 	cEFFileDialogInfoAPI().SysCallN(12, 1, m.Instance(), api.PasStr(value))
 }
 
-func (m *TCEFFileDialogInfo) DefaultTextFileDesc() (result string) {
+func (m *TCEFFileDialogInfo) DefaultAllFileDesc() (result string) {
 	if !m.IsValid() {
 		return
 	}
@@ -214,14 +234,14 @@ func (m *TCEFFileDialogInfo) DefaultTextFileDesc() (result string) {
 	return
 }
 
-func (m *TCEFFileDialogInfo) SetDefaultTextFileDesc(value string) {
+func (m *TCEFFileDialogInfo) SetDefaultAllFileDesc(value string) {
 	if !m.IsValid() {
 		return
 	}
 	cEFFileDialogInfoAPI().SysCallN(13, 1, m.Instance(), api.PasStr(value))
 }
 
-func (m *TCEFFileDialogInfo) DefaultImageFileDesc() (result string) {
+func (m *TCEFFileDialogInfo) DefaultUnknownFileDesc() (result string) {
 	if !m.IsValid() {
 		return
 	}
@@ -232,47 +252,11 @@ func (m *TCEFFileDialogInfo) DefaultImageFileDesc() (result string) {
 	return
 }
 
-func (m *TCEFFileDialogInfo) SetDefaultImageFileDesc(value string) {
-	if !m.IsValid() {
-		return
-	}
-	cEFFileDialogInfoAPI().SysCallN(14, 1, m.Instance(), api.PasStr(value))
-}
-
-func (m *TCEFFileDialogInfo) DefaultAllFileDesc() (result string) {
-	if !m.IsValid() {
-		return
-	}
-	strBuf := api.NewStringBuffer(0, 0)
-	cEFFileDialogInfoAPI().SysCallN(15, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
-	defer strBuf.Release()
-	result = strBuf.String()
-	return
-}
-
-func (m *TCEFFileDialogInfo) SetDefaultAllFileDesc(value string) {
-	if !m.IsValid() {
-		return
-	}
-	cEFFileDialogInfoAPI().SysCallN(15, 1, m.Instance(), api.PasStr(value))
-}
-
-func (m *TCEFFileDialogInfo) DefaultUnknownFileDesc() (result string) {
-	if !m.IsValid() {
-		return
-	}
-	strBuf := api.NewStringBuffer(0, 0)
-	cEFFileDialogInfoAPI().SysCallN(16, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
-	defer strBuf.Release()
-	result = strBuf.String()
-	return
-}
-
 func (m *TCEFFileDialogInfo) SetDefaultUnknownFileDesc(value string) {
 	if !m.IsValid() {
 		return
 	}
-	cEFFileDialogInfoAPI().SysCallN(16, 1, m.Instance(), api.PasStr(value))
+	cEFFileDialogInfoAPI().SysCallN(14, 1, m.Instance(), api.PasStr(value))
 }
 
 // NewFileDialogInfo class constructor
@@ -296,17 +280,15 @@ func cEFFileDialogInfoAPI() *imports.Imports {
 			/* 3 */ imports.NewTable("TCEFFileDialogInfo_Title", 0), // property Title
 			/* 4 */ imports.NewTable("TCEFFileDialogInfo_DefaultFilePath", 0), // property DefaultFilePath
 			/* 5 */ imports.NewTable("TCEFFileDialogInfo_AcceptFilters", 0), // property AcceptFilters
-			/* 6 */ imports.NewTable("TCEFFileDialogInfo_AcceptExtensions", 0), // property AcceptExtensions
-			/* 7 */ imports.NewTable("TCEFFileDialogInfo_AcceptDescriptions", 0), // property AcceptDescriptions
-			/* 8 */ imports.NewTable("TCEFFileDialogInfo_Callback", 0), // property Callback
-			/* 9 */ imports.NewTable("TCEFFileDialogInfo_DialogFilter", 0), // property DialogFilter
-			/* 10 */ imports.NewTable("TCEFFileDialogInfo_DialogType", 0), // property DialogType
-			/* 11 */ imports.NewTable("TCEFFileDialogInfo_DefaultAudioFileDesc", 0), // property DefaultAudioFileDesc
-			/* 12 */ imports.NewTable("TCEFFileDialogInfo_DefaultVideoFileDesc", 0), // property DefaultVideoFileDesc
-			/* 13 */ imports.NewTable("TCEFFileDialogInfo_DefaultTextFileDesc", 0), // property DefaultTextFileDesc
-			/* 14 */ imports.NewTable("TCEFFileDialogInfo_DefaultImageFileDesc", 0), // property DefaultImageFileDesc
-			/* 15 */ imports.NewTable("TCEFFileDialogInfo_DefaultAllFileDesc", 0), // property DefaultAllFileDesc
-			/* 16 */ imports.NewTable("TCEFFileDialogInfo_DefaultUnknownFileDesc", 0), // property DefaultUnknownFileDesc
+			/* 6 */ imports.NewTable("TCEFFileDialogInfo_Callback", 0), // property Callback
+			/* 7 */ imports.NewTable("TCEFFileDialogInfo_DialogFilter", 0), // property DialogFilter
+			/* 8 */ imports.NewTable("TCEFFileDialogInfo_DialogType", 0), // property DialogType
+			/* 9 */ imports.NewTable("TCEFFileDialogInfo_DefaultAudioFileDesc", 0), // property DefaultAudioFileDesc
+			/* 10 */ imports.NewTable("TCEFFileDialogInfo_DefaultVideoFileDesc", 0), // property DefaultVideoFileDesc
+			/* 11 */ imports.NewTable("TCEFFileDialogInfo_DefaultTextFileDesc", 0), // property DefaultTextFileDesc
+			/* 12 */ imports.NewTable("TCEFFileDialogInfo_DefaultImageFileDesc", 0), // property DefaultImageFileDesc
+			/* 13 */ imports.NewTable("TCEFFileDialogInfo_DefaultAllFileDesc", 0), // property DefaultAllFileDesc
+			/* 14 */ imports.NewTable("TCEFFileDialogInfo_DefaultUnknownFileDesc", 0), // property DefaultUnknownFileDesc
 		}
 	})
 	return cEFFileDialogInfoImport

@@ -19,13 +19,6 @@ import (
 // ICefSchemeRegistrarRef Parent: ICEFBaseScopedWrapperRef
 type ICefSchemeRegistrarRef interface {
 	ICEFBaseScopedWrapperRef
-	// AddCustomScheme
-	//  Register a custom scheme. This function should not be called for the
-	//  built-in HTTP, HTTPS, FILE, FTP, ABOUT and DATA schemes.
-	//  This function may be called on any thread. It should only be called once
-	//  per unique |scheme_name| value. If |scheme_name| is already registered or
-	//  if an error occurs this function will return false (0).
-	//  <see>See the CEF_SCHEME_OPTION_* constants in the uCEFConstants unit for possible values for |options|.</see>
 	AddCustomScheme(schemeName string, options cefTypes.TCefSchemeOptions) bool // function
 }
 

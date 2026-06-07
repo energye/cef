@@ -18,22 +18,11 @@ import (
 type ICefBaseRefCounted interface {
 	IInterfacedObject
 
-	// HasOneRef
-	//  Returns true (1) if the current reference count is 1.
-	HasOneRef() bool // function
-	// HasAtLeastOneRef
-	//  Returns true (1) if the current reference count is at least 1.
-	HasAtLeastOneRef() bool // function
-	// SameAs
-	//  Compares the aData pointer with the FData field if the current instance.
+	HasOneRef() bool          // function
+	HasAtLeastOneRef() bool   // function
 	SameAs(data uintptr) bool // function
-	// Wrap
-	//  Called to increment the reference count for the object. Should be called
-	//  for every new copy of a pointer to a given object.
-	Wrap() uintptr // function
-	// DestroyOtherRefs
-	//  Releases all other instances.
-	DestroyOtherRefs() // procedure
+	Wrap() uintptr            // function
+	DestroyOtherRefs()        // procedure
 }
 
 // ICefBaseRefCountedRef Parent: ICefBaseRefCounted IInterfacedObject

@@ -17,28 +17,11 @@ import (
 // ICefProcessMessage Parent: ICefBaseRefCounted
 type ICefProcessMessage interface {
 	ICefBaseRefCounted
-	// IsValid
-	//  Returns true (1) if this object is valid. Do not call any other functions
-	//  if this function returns false (0).
-	IsValid() bool // function
-	// IsReadOnly
-	//  Returns true (1) if the values of this object are read-only. Some APIs may
-	//  expose read-only objects.
-	IsReadOnly() bool // function
-	// Copy
-	//  Returns a writable copy of this object. Returns nullptr when message
-	//  contains a shared memory region.
-	Copy() ICefProcessMessage // function
-	// GetName
-	//  Returns the message name.
-	GetName() string // function
-	// GetArgumentList
-	//  Returns the list of arguments. Returns nullptr when message contains a
-	//  shared memory region.
-	GetArgumentList() ICefListValue // function
-	// GetSharedMemoryRegion
-	//  Returns the shared memory region. Returns nullptr when message contains an
-	//  argument list.
+	IsValid() bool                                 // function
+	IsReadOnly() bool                              // function
+	Copy() ICefProcessMessage                      // function
+	GetName() string                               // function
+	GetArgumentList() ICefListValue                // function
 	GetSharedMemoryRegion() ICefSharedMemoryRegion // function
 }
 

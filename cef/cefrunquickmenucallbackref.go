@@ -18,13 +18,8 @@ import (
 // ICefRunQuickMenuCallback Parent: ICefBaseRefCounted
 type ICefRunQuickMenuCallback interface {
 	ICefBaseRefCounted
-	// Cont
-	//  Complete quick menu display by selecting the specified |command_id| and
-	//  |event_flags|.
 	Cont(commandId int32, eventFlags cefTypes.TCefEventFlags) // procedure
-	// Cancel
-	//  Cancel quick menu display.
-	Cancel() // procedure
+	Cancel()                                                  // procedure
 }
 
 // ICefRunQuickMenuCallbackRef Parent: ICefRunQuickMenuCallback ICefBaseRefCountedRef

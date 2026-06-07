@@ -18,102 +18,25 @@ import (
 // ICefOverlayController Parent: ICefBaseRefCounted
 type ICefOverlayController interface {
 	ICefBaseRefCounted
-	// IsValid
-	//  Returns true (1) if this object is valid.
-	IsValid() bool // function
-	// IsSame
-	//  Returns true (1) if this object is the same as |that| object.
-	IsSame(that ICefOverlayController) bool // function
-	// GetContentsView
-	//  Returns the contents View for this overlay.
-	GetContentsView() ICefView // function
-	// GetWindow
-	//  Returns the top-level Window hosting this overlay. Use this function
-	//  instead of calling get_window() on the contents View.
-	GetWindow() ICefWindow // function
-	// GetDockingMode
-	//  Returns the docking mode for this overlay.
+	IsValid() bool                            // function
+	IsSame(that ICefOverlayController) bool   // function
+	GetContentsView() ICefView                // function
+	GetWindow() ICefWindow                    // function
 	GetDockingMode() cefTypes.TCefDockingMode // function
-	// GetBounds
-	//  Returns the bounds (size and position) of this overlay in parent
-	//  coordinates.
-	GetBounds() TCefRect // function
-	// GetBoundsInScreen
-	//  Returns the bounds (size and position) of this overlay in DIP screen
-	//  coordinates.
-	GetBoundsInScreen() TCefRect // function
-	// GetSize
-	//  Returns the size of this overlay in parent coordinates.
-	GetSize() TCefSize // function
-	// GetPosition
-	//  Returns the position of this overlay in parent coordinates.
-	GetPosition() TCefPoint // function
-	// GetInsets
-	//  Returns the insets for this overlay in parent coordinates.
-	GetInsets() TCefInsets // function
-	// IsVisible
-	//  Returns whether this overlay is visible. A View may be visible but still
-	//  not drawn in a Window if any parent Views are hidden. Call is_drawn() to
-	//  determine whether this overlay and all parent Views are visible and will
-	//  be drawn.
-	IsVisible() bool // function
-	// IsDrawn
-	//  Returns whether this overlay is visible and drawn in a Window. A View is
-	//  drawn if it and all parent Views are visible. To determine if the
-	//  containing Window is visible to the user on-screen call is_visible() on
-	//  the Window.
-	IsDrawn() bool // function
-	// DestroyOverlay
-	//  Destroy this overlay.
-	DestroyOverlay() // procedure
-	// SetBounds
-	//  Sets the bounds (size and position) of this overlay. This will set the
-	//  bounds of the contents View to match and trigger a re-layout if necessary.
-	//  |bounds| is in parent coordinates and any insets configured on this
-	//  overlay will be ignored. Use this function only for overlays created with
-	//  a docking mode value of CEF_DOCKING_MODE_CUSTOM. With other docking modes
-	//  modify the insets of this overlay and/or layout of the contents View and
-	//  call size_to_preferred_size() instead to calculate the new size and re-
-	//  position the overlay if necessary.
-	SetBounds(bounds TCefRect) // procedure
-	// SetSize
-	//  Sets the size of this overlay without changing the position. This will set
-	//  the size of the contents View to match and trigger a re-layout if
-	//  necessary. |size| is in parent coordinates and any insets configured on
-	//  this overlay will be ignored. Use this function only for overlays created
-	//  with a docking mode value of CEF_DOCKING_MODE_CUSTOM. With other docking
-	//  modes modify the insets of this overlay and/or layout of the contents View
-	//  and call size_to_preferred_size() instead to calculate the new size and
-	//  re-position the overlay if necessary.
-	SetSize(size TCefSize) // procedure
-	// SetPosition
-	//  Sets the position of this overlay without changing the size. |position| is
-	//  in parent coordinates and any insets configured on this overlay will be
-	//  ignored. Use this function only for overlays created with a docking mode
-	//  value of CEF_DOCKING_MODE_CUSTOM. With other docking modes modify the
-	//  insets of this overlay and/or layout of the contents View and call
-	//  size_to_preferred_size() instead to calculate the new size and re-position
-	//  the overlay if necessary.
-	SetPosition(position TCefPoint) // procedure
-	// SetInsets
-	//  Sets the insets for this overlay. |insets| is in parent coordinates. Use
-	//  this function only for overlays created with a docking mode value other
-	//  than CEF_DOCKING_MODE_CUSTOM.
-	SetInsets(insets TCefInsets) // procedure
-	// SizeToPreferredSize
-	//  Size this overlay to its preferred size and trigger a re-layout if
-	//  necessary. The position of overlays created with a docking mode value of
-	//  CEF_DOCKING_MODE_CUSTOM will not be modified by calling this function.
-	//  With other docking modes this function may re-position the overlay if
-	//  necessary to accommodate the new size and any insets configured on the
-	//  contents View.
-	SizeToPreferredSize() // procedure
-	// SetVisible
-	//  Sets whether this overlay is visible. Overlays are hidden by default. If
-	//  this overlay is hidden then it and any child Views will not be drawn and,
-	//  if any of those Views currently have focus, then focus will also be
-	//  cleared. Painting is scheduled as needed.
-	SetVisible(visible bool) // procedure
+	GetBounds() TCefRect                      // function
+	GetBoundsInScreen() TCefRect              // function
+	GetSize() TCefSize                        // function
+	GetPosition() TCefPoint                   // function
+	GetInsets() TCefInsets                    // function
+	IsVisible() bool                          // function
+	IsDrawn() bool                            // function
+	DestroyOverlay()                          // procedure
+	SetBounds(bounds TCefRect)                // procedure
+	SetSize(size TCefSize)                    // procedure
+	SetPosition(position TCefPoint)           // procedure
+	SetInsets(insets TCefInsets)              // procedure
+	SizeToPreferredSize()                     // procedure
+	SetVisible(visible bool)                  // procedure
 }
 
 // ICefOverlayControllerRef Parent: ICefOverlayController ICefBaseRefCountedRef
@@ -286,9 +209,6 @@ var OverlayControllerRef _OverlayControllerRefClass
 // _OverlayControllerRefClass is class type defined by TCefOverlayControllerRef
 type _OverlayControllerRefClass uintptr
 
-// UnWrap
-//
-//	Returns a ICefOverlayController instance using a PCefOverlayController data pointer.
 func (_OverlayControllerRefClass) UnWrap(data uintptr) (result ICefOverlayController) {
 	var resultPtr uintptr
 	cefOverlayControllerRefAPI().SysCallN(13, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))

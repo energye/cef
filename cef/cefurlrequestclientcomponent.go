@@ -26,14 +26,8 @@ type ICEFUrlRequestClientEvents interface {
 type ICEFUrlRequestClientComponent interface {
 	ICEFUrlRequestClientEvents
 	IComponent
-	// AddURLRequest
-	//  Create the URLRequest in the context of TCEFUrlRequestClientComponent.ThreadId, which is the CEF UI thread by default.
-	AddURLRequest() // procedure
-	// Client
-	//  Returns the client.
-	Client() IEngUrlrequestClient // property Client Getter
-	// ThreadID
-	//  CEF thread used to create the URLRequest. Most of the client events will be executed on the same thread.
+	AddURLRequest()                                   // procedure
+	Client() IEngUrlrequestClient                     // property Client Getter
 	ThreadID() cefTypes.TCefThreadId                  // property ThreadID Getter
 	SetThreadID(value cefTypes.TCefThreadId)          // property ThreadID Setter
 	SetOnRequestComplete(fn TOnRequestComplete)       // property event

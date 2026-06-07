@@ -18,12 +18,7 @@ import (
 // ICefSslInfo Parent: ICefBaseRefCounted
 type ICefSslInfo interface {
 	ICefBaseRefCounted
-	// GetCertStatus
-	//  Returns a bitmask containing any and all problems verifying the server
-	//  certificate.
-	GetCertStatus() cefTypes.TCefCertStatus // function
-	// GetX509Certificate
-	//  Returns the X.509 certificate.
+	GetCertStatus() cefTypes.TCefCertStatus  // function
 	GetX509Certificate() ICefX509Certificate // function
 }
 

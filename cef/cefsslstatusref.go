@@ -18,22 +18,11 @@ import (
 // ICefSSLStatus Parent: ICefBaseRefCounted
 type ICefSSLStatus interface {
 	ICefBaseRefCounted
-	// IsSecureConnection
-	//  Returns true (1) if the status is related to a secure SSL/TLS connection.
-	IsSecureConnection() bool // function
-	// GetCertStatus
-	//  Returns a bitmask containing any and all problems verifying the server
-	//  certificate.
-	GetCertStatus() cefTypes.TCefCertStatus // function
-	// GetSSLVersion
-	//  Returns the SSL version used for the SSL connection.
-	GetSSLVersion() cefTypes.TCefSSLVersion // function
-	// GetContentStatus
-	//  Returns a bitmask containing the page security content status.
+	IsSecureConnection() bool                        // function
+	GetCertStatus() cefTypes.TCefCertStatus          // function
+	GetSSLVersion() cefTypes.TCefSSLVersion          // function
 	GetContentStatus() cefTypes.TCefSSLContentStatus // function
-	// GetX509Certificate
-	//  Returns the X.509 certificate.
-	GetX509Certificate() ICefX509Certificate // function
+	GetX509Certificate() ICefX509Certificate         // function
 }
 
 // ICefSSLStatusRef Parent: ICefSSLStatus ICefBaseRefCountedRef

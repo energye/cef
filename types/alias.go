@@ -16,6 +16,7 @@ type TCefWindowHandle = uintptr        // IFDEF : MSWINDOWS
 type TCefCursorHandle = uintptr        // IFDEF : MSWINDOWS
 type TCefEventHandle = uintptr         // IFDEF : MSWINDOWS
 type TCefSharedTextureHandle = uintptr // IFDEF : MSWINDOWS
+
 // TCefPlatformThreadId
 //
 //	Platform thread ID.
@@ -309,6 +310,8 @@ type TCefLogItems = types.Cardinal
 type TCefResultCode = types.Integer
 type TCefBaseTime = int64
 type NativeUInt = types.NativeUInt
+
+type TCefV8AccessControls = types.Cardinal
 
 // TCefResourceHandlerClass = class of TCefResourceHandlerOwn
 type TCefResourceHandlerClass = uintptr

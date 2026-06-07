@@ -18,14 +18,8 @@ import (
 // ICefFileDialogCallback Parent: ICefBaseRefCounted
 type ICefFileDialogCallback interface {
 	ICefBaseRefCounted
-	// Cont
-	//  Continue the file selection. |file_paths| should be a single value or a
-	//  list of values depending on the dialog mode. An NULL |file_paths| value is
-	//  treated the same as calling cancel().
 	Cont(filePaths lcl.IStrings) // procedure
-	// Cancel
-	//  Cancel the file selection.
-	Cancel() // procedure
+	Cancel()                     // procedure
 }
 
 // ICefFileDialogCallbackRef Parent: ICefFileDialogCallback ICefBaseRefCountedRef

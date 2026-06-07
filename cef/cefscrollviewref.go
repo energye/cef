@@ -17,28 +17,13 @@ import (
 // ICefScrollView Parent: ICefView
 type ICefScrollView interface {
 	ICefView
-	// GetContentView
-	//  Returns the content View.
-	GetContentView() ICefView // function
-	// GetVisibleContentRect
-	//  Returns the visible region of the content View.
-	GetVisibleContentRect() TCefRect // function
-	// HasHorizontalScrollbar
-	//  Returns true (1) if the horizontal scrollbar is currently showing.
-	HasHorizontalScrollbar() bool // function
-	// GetHorizontalScrollbarHeight
-	//  Returns the height of the horizontal scrollbar.
+	GetContentView() ICefView            // function
+	GetVisibleContentRect() TCefRect     // function
+	HasHorizontalScrollbar() bool        // function
 	GetHorizontalScrollbarHeight() int32 // function
-	// HasVerticalScrollbar
-	//  Returns true (1) if the vertical scrollbar is currently showing.
-	HasVerticalScrollbar() bool // function
-	// GetVerticalScrollbarWidth
-	//  Returns the width of the vertical scrollbar.
-	GetVerticalScrollbarWidth() int32 // function
-	// SetContentView
-	//  Set the content View. The content View must have a specified size (e.g.
-	//  via ICefView.SetBounds or ICefViewDelegate.GetPreferredSize).
-	SetContentView(view ICefView) // procedure
+	HasVerticalScrollbar() bool          // function
+	GetVerticalScrollbarWidth() int32    // function
+	SetContentView(view ICefView)        // procedure
 }
 
 // ICefScrollViewRef Parent: ICefScrollView ICefViewRef
@@ -123,9 +108,6 @@ var ScrollViewRef _ScrollViewRefClass
 // _ScrollViewRefClass is class type defined by TCefScrollViewRef
 type _ScrollViewRefClass uintptr
 
-// UnWrapWithPointer
-//
-//	Returns a ICefScrollView instance using a PCefScrollView data pointer.
 func (_ScrollViewRefClass) UnWrapWithPointer(data uintptr) (result ICefScrollView) {
 	var resultPtr uintptr
 	cefScrollViewRefAPI().SysCallN(7, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))
@@ -133,9 +115,6 @@ func (_ScrollViewRefClass) UnWrapWithPointer(data uintptr) (result ICefScrollVie
 	return
 }
 
-// CreateScrollView
-//
-//	Create a new ScrollView.
 func (_ScrollViewRefClass) CreateScrollView(delegate IEngViewDelegate) (result ICefScrollView) {
 	var resultPtr uintptr
 	cefScrollViewRefAPI().SysCallN(8, base.GetObjectUintptr(delegate), uintptr(base.UnsafePointer(&resultPtr)))

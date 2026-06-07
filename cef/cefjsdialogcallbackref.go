@@ -17,10 +17,6 @@ import (
 // ICefJsDialogCallback Parent: ICefBaseRefCounted
 type ICefJsDialogCallback interface {
 	ICefBaseRefCounted
-	// Cont
-	//  Continue the JS dialog request. Set |success| to true (1) if the OK button
-	//  was pressed. The |user_input| value should be specified for prompt
-	//  dialogs.
 	Cont(success bool, userInput string) // procedure
 }
 

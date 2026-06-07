@@ -18,32 +18,14 @@ import (
 // ICefPostDataElement Parent: ICefBaseRefCounted
 type ICefPostDataElement interface {
 	ICefBaseRefCounted
-	// IsReadOnly
-	//  Returns true (1) if this object is read-only.
-	IsReadOnly() bool // function
-	// GetType
-	//  Return the type of this post data element.
-	GetType() cefTypes.TCefPostDataElementType // function
-	// GetFile
-	//  Return the file name.
-	GetFile() string // function
-	// GetBytesCount
-	//  Return the number of bytes.
-	GetBytesCount() cefTypes.NativeUInt // function
-	// GetBytes
-	//  Read up to |size| bytes into |bytes| and return the number of bytes
-	//  actually read.
+	IsReadOnly() bool                                                     // function
+	GetType() cefTypes.TCefPostDataElementType                            // function
+	GetFile() string                                                      // function
+	GetBytesCount() cefTypes.NativeUInt                                   // function
 	GetBytes(size cefTypes.NativeUInt, bytes uintptr) cefTypes.NativeUInt // function
-	// SetToEmpty
-	//  Remove all contents from the post data element.
-	SetToEmpty() // procedure
-	// SetToFile
-	//  The post data element will represent a file.
-	SetToFile(fileName string) // procedure
-	// SetToBytes
-	//  The post data element will represent bytes. The bytes passed in will be
-	//  copied.
-	SetToBytes(size cefTypes.NativeUInt, bytes uintptr) // procedure
+	SetToEmpty()                                                          // procedure
+	SetToFile(fileName string)                                            // procedure
+	SetToBytes(size cefTypes.NativeUInt, bytes uintptr)                   // procedure
 }
 
 // ICefPostDataElementRef Parent: ICefPostDataElement ICefBaseRefCountedRef

@@ -10,8 +10,7 @@ package types
 
 // TCefAlphaType ENUM
 //
-//	Describes how to interpret the alpha component of a pixel.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_alpha_type_t)</see>
+//	include/internal/cef_types.h (cef_alpha_type_t)
 type TCefAlphaType = int32
 
 const (
@@ -21,8 +20,6 @@ const (
 )
 
 // TCefAplicationStatus ENUM
-//
-//	Status of TCefAplicationCore.
 type TCefAplicationStatus = int32
 
 const (
@@ -33,15 +30,12 @@ const (
 	AsUnloaded
 	AsErrorMissingFiles
 	AsErrorDLLVersion
-	AsErrorWindowsVersion
 	AsErrorLoadingLibrary
 	AsErrorInitializingLibrary
 	AsErrorExecutingProcess
 )
 
 // TCefAutoplayPolicy ENUM
-//
-//	Autoplay policy types used by TCefApplicationCore.AutoplayPolicy. See the --autoplay-policy switch.
 type TCefAutoplayPolicy = int32
 
 const (
@@ -51,24 +45,10 @@ const (
 	AppUserGestureRequired
 )
 
-// TCefAxisAlignment ENUM
-//
-//	Specifies where along the axis the CefBoxLayout child views should be laid
-//	out. Should be kept in sync with Chromium's views::LayoutAlignment type.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_axis_alignment_t)</see>
-type TCefAxisAlignment = int32
-
-const (
-	CEF_AXIS_ALIGNMENT_START TCefAxisAlignment = iota
-	CEF_AXIS_ALIGNMENT_CENTER
-	CEF_AXIS_ALIGNMENT_END
-	CEF_AXIS_ALIGNMENT_STRETCH
-)
-
 // TCefBatterySaverModeState ENUM
 //
-//	Values used by the battery saver mode state preference.
-//	<see href="https://source.chromium.org/chromium/chromium/src/+/main:components/performance_manager/public/user_tuning/prefs.h">components/performance_manager/public/user_tuning/prefs.h</see>
+//	Values used by the battery saver mode state preference
+//	https://source.chromium.org/chromium/chromium/src/+/main:components/performance_manager/public/user_tuning/prefs.h
 type TCefBatterySaverModeState = int32
 
 const (
@@ -81,7 +61,7 @@ const (
 
 // TCefBrowserNavigation ENUM
 //
-//	Used by TCefBrowserNavigationTask to navigate in the right CEF thread.
+//	Used by TCefBrowserNavigationTask to navigate in the right CEF thread
 type TCefBrowserNavigation = int32
 
 const (
@@ -94,8 +74,7 @@ const (
 
 // TCefButtonState ENUM
 //
-//	Specifies the button display state.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_button_state_t)</see>
+//	include/internal/cef_types.h (cef_button_state_t)
 type TCefButtonState = int32
 
 const (
@@ -107,108 +86,47 @@ const (
 
 // TCefChannelLayout ENUM
 //
-//	Enumerates the various representations of the ordering of audio channels.
-//	Must be kept synchronized with media::ChannelLayout from Chromium.
-//	See media\base\channel_layout.h
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_channel_layout_t)</see>
+//	include/internal/cef_types.h (cef_channel_layout_t)
 type TCefChannelLayout = int32
 
 const (
-	CEF_CHANNEL_LAYOUT_NONE                    TCefChannelLayout = iota
-	CEF_CHANNEL_LAYOUT_UNSUPPORTED                               = 1
-	CEF_CHANNEL_LAYOUT_MONO                                      = 2
-	CEF_CHANNEL_LAYOUT_STEREO                                    = 3
-	CEF_CHANNEL_LAYOUT_2_1                                       = 4
-	CEF_CHANNEL_LAYOUT_SURROUND                                  = 5
-	CEF_CHANNEL_LAYOUT_4_0                                       = 6
-	CEF_CHANNEL_LAYOUT_2_2                                       = 7
-	CEF_CHANNEL_LAYOUT_QUAD                                      = 8
-	CEF_CHANNEL_LAYOUT_5_0                                       = 9
-	CEF_CHANNEL_LAYOUT_5_1                                       = 10
-	CEF_CHANNEL_LAYOUT_5_0_BACK                                  = 11
-	CEF_CHANNEL_LAYOUT_5_1_BACK                                  = 12
-	CEF_CHANNEL_LAYOUT_7_0                                       = 13
-	CEF_CHANNEL_LAYOUT_7_1                                       = 14
-	CEF_CHANNEL_LAYOUT_7_1_WIDE                                  = 15
-	CEF_CHANNEL_LAYOUT_STEREO_DOWNMIX                            = 16
-	CEF_CHANNEL_LAYOUT_2POINT1                                   = 17
-	CEF_CHANNEL_LAYOUT_3_1                                       = 18
-	CEF_CHANNEL_LAYOUT_4_1                                       = 19
-	CEF_CHANNEL_LAYOUT_6_0                                       = 20
-	CEF_CHANNEL_LAYOUT_6_0_FRONT                                 = 21
-	CEF_CHANNEL_LAYOUT_HEXAGONAL                                 = 22
-	CEF_CHANNEL_LAYOUT_6_1                                       = 23
-	CEF_CHANNEL_LAYOUT_6_1_BACK                                  = 24
-	CEF_CHANNEL_LAYOUT_6_1_FRONT                                 = 25
-	CEF_CHANNEL_LAYOUT_7_0_FRONT                                 = 26
-	CEF_CHANNEL_LAYOUT_7_1_WIDE_BACK                             = 27
-	CEF_CHANNEL_LAYOUT_OCTAGONAL                                 = 28
-	CEF_CHANNEL_LAYOUT_DISCRETE                                  = 29
-	CEF_CHANNEL_LAYOUT_STEREO_AND_KEYBOARD_MIC                   = 30
-	CEF_CHANNEL_LAYOUT_4_1_QUAD_SIDE                             = 31
-	CEF_CHANNEL_LAYOUT_BITSTREAM                                 = 32
-	CEF_CHANNEL_LAYOUT_5_1_4_DOWNMIX                             = 33
-	CEF_CHANNEL_LAYOUT_1_1                                       = 34
-	CEF_CHANNEL_LAYOUT_3_1_BACK                                  = 35
-)
-
-// TCefChromePageActionIconType ENUM
-//
-//	Chrome page action icon types. Should be kept in sync with Chromium's
-//	PageActionIconType type.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_chrome_page_action_icon_type_t)</see>
-type TCefChromePageActionIconType = int32
-
-const (
-	CEF_CPAIT_BOOKMARK_STAR TCefChromePageActionIconType = iota
-	CEF_CPAIT_CLICK_TO_CALL
-	CEF_CPAIT_COOKIE_CONTROLS
-	CEF_CPAIT_FILE_SYSTEM_ACCESS
-	CEF_CPAIT_FIND
-	CEF_CPAIT_MEMORY_SAVER
-	CEF_CPAIT_INTENT_PICKER
-	CEF_CPAIT_LOCAL_CARD_MIGRATION
-	CEF_CPAIT_MANAGE_PASSWORDS
-	CEF_CPAIT_PAYMENTS_OFFER_NOTIFICATION
-	CEF_CPAIT_PRICE_TRACKING
-	CEF_CPAIT_PWA_INSTALL
-	CEF_CPAIT_QR_CODE_GENERATOR_DEPRECATED
-	CEF_CPAIT_READER_MODE_DEPRECATED
-	CEF_CPAIT_SAVE_AUTOFILL_ADDRESS
-	CEF_CPAIT_SAVE_CARD
-	CEF_CPAIT_SEND_TAB_TO_SELF_DEPRECATED
-	CEF_CPAIT_SHARING_HUB
-	CEF_CPAIT_SIDE_SEARCH
-	CEF_CPAIT_SMS_REMOTE_FETCHER
-	CEF_CPAIT_TRANSLATE
-	CEF_CPAIT_VIRTUAL_CARD_ENROLL
-	CEF_CPAIT_VIRTUAL_CARD_MANUAL_FALLBACK
-	CEF_CPAIT_ZOOM
-	CEF_CPAIT_SAVE_IBAN
-	CEF_CPAIT_MANDATORY_REAUTH
-	CEF_CPAIT_PRICE_INSIGHTS
-	CEF_CPAIT_PRICE_READ_ANYTHING
-	CEF_CPAIT_PRODUCT_SPECIFICATIONS
-	CEF_CPAIT_LENS_OVERLAY
-)
-
-// TCefChromeToolbarButtonType ENUM
-//
-//	Chrome toolbar button types. Should be kept in sync with CEF's internal
-//	ToolbarButtonType type.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_time.h">CEF source file: /include/internal/cef_time.h (cef_chrome_toolbar_button_type_t)</see>
-type TCefChromeToolbarButtonType = int32
-
-const (
-	CEF_CTBT_CAST TCefChromeToolbarButtonType = iota
-	CEF_CTBT_DOWNLOAD
-	CEF_CTBT_SEND_TAB_TO_SELF
-	CEF_CTBT_SIDE_PANEL
+	CEF_CHANNEL_LAYOUT_NONE TCefChannelLayout = iota
+	CEF_CHANNEL_LAYOUT_UNSUPPORTED
+	CEF_CHANNEL_LAYOUT_MONO
+	CEF_CHANNEL_LAYOUT_STEREO
+	CEF_CHANNEL_LAYOUT_2_1
+	CEF_CHANNEL_LAYOUT_SURROUND
+	CEF_CHANNEL_LAYOUT_4_0
+	CEF_CHANNEL_LAYOUT_2_2
+	CEF_CHANNEL_LAYOUT_QUAD
+	CEF_CHANNEL_LAYOUT_5_0
+	CEF_CHANNEL_LAYOUT_5_1
+	CEF_CHANNEL_LAYOUT_5_0_BACK
+	CEF_CHANNEL_LAYOUT_5_1_BACK
+	CEF_CHANNEL_LAYOUT_7_0
+	CEF_CHANNEL_LAYOUT_7_1
+	CEF_CHANNEL_LAYOUT_7_1_WIDE
+	CEF_CHANNEL_LAYOUT_STEREO_DOWNMIX
+	CEF_CHANNEL_LAYOUT_2POINT1
+	CEF_CHANNEL_LAYOUT_3_1
+	CEF_CHANNEL_LAYOUT_4_1
+	CEF_CHANNEL_LAYOUT_6_0
+	CEF_CHANNEL_LAYOUT_6_0_FRONT
+	CEF_CHANNEL_LAYOUT_HEXAGONAL
+	CEF_CHANNEL_LAYOUT_6_1
+	CEF_CHANNEL_LAYOUT_6_1_BACK
+	CEF_CHANNEL_LAYOUT_6_1_FRONT
+	CEF_CHANNEL_LAYOUT_7_0_FRONT
+	CEF_CHANNEL_LAYOUT_7_1_WIDE_BACK
+	CEF_CHANNEL_LAYOUT_OCTAGONAL
+	CEF_CHANNEL_LAYOUT_DISCRETE
+	CEF_CHANNEL_LAYOUT_STEREO_AND_KEYBOARD_MIC
+	CEF_CHANNEL_LAYOUT_4_1_QUAD_SIDE
+	CEF_CHANNEL_LAYOUT_BITSTREAM
+	CEF_CHANNEL_LAYOUT_5_1_4_DOWNMIX
 )
 
 // TCefClearDataStorageTypes ENUM
-//
-//	Storage types used by the Storage.clearDataForOrigin DevTools method in TChromiumCore.ClearDataForOrigin.
 type TCefClearDataStorageTypes = int32
 
 const (
@@ -226,9 +144,10 @@ const (
 
 // TCefCloseBrowserAction ENUM
 //
-//	Action taken after the TChromium.Onclose event.
-//	cbaCancel : stop closing the browser.
-//	cbaClose : continue closing the browser.
+//	Used in TChromium.Onclose
+//	-------------------------
+//	cbaCancel : stop closing the browser
+//	cbaClose : continue closing the browser
 //	cbaDelay : stop closing the browser momentarily. Used when the application
 //	needs to execute some custom processes before closing the
 //	browser. This is usually needed to destroy a TCEFWindowParent
@@ -243,8 +162,7 @@ const (
 
 // TCefColorModel ENUM
 //
-//	Print job color mode values.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_color_model_t)</see>
+//	include/internal/cef_types.h (cef_color_model_t)
 type TCefColorModel = int32
 
 const (
@@ -273,8 +191,7 @@ const (
 
 // TCefColorType ENUM
 //
-//	Describes how to interpret the components of a pixel.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types_color.h">CEF source file: /include/internal/cef_types_color.h (cef_color_type_t)</see>
+//	include/internal/cef_types.h (cef_color_type_t)
 type TCefColorType = int32
 
 const (
@@ -282,27 +199,9 @@ const (
 	CEF_COLOR_TYPE_BGRA_8888
 )
 
-// TCefColorVariant ENUM
-//
-//	Specifies the color variants supported by
-//	ICefRequestContext.SetChromeThemeColor.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_color_variant_t)</see>
-type TCefColorVariant = int32
-
-const (
-	CEF_COLOR_VARIANT_SYSTEM TCefColorVariant = iota
-	CEF_COLOR_VARIANT_LIGHT
-	CEF_COLOR_VARIANT_DARK
-	CEF_COLOR_VARIANT_TONAL_SPOT
-	CEF_COLOR_VARIANT_NEUTRAL
-	CEF_COLOR_VARIANT_VIBRANT
-	CEF_COLOR_VARIANT_EXPRESSIVE
-)
-
 // TCefCOMInitMode ENUM
 //
-//	Flags used to customize the behavior of CefURLRequest.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_com_init_mode_t)</see>
+//	include/internal/cef_types.h (cef_com_init_mode_t)
 type TCefCOMInitMode = int32
 
 const (
@@ -313,8 +212,7 @@ const (
 
 // TCefCompositionUnderlineStyle ENUM
 //
-//	Composition underline style.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_composition_underline_style_t)</see>
+//	include/internal/cef_types.h (cef_composition_underline_style_t)
 type TCefCompositionUnderlineStyle = int32
 
 const (
@@ -324,148 +222,9 @@ const (
 	CEF_CUS_NONE
 )
 
-// TCefContentSettingTypes ENUM
-//
-//	Supported content setting types. Some types are platform-specific or only
-//	supported with the Chrome runtime. Should be kept in sync with Chromium's
-//	ContentSettingsType type.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types_content_settings.h">CEF source file: /include/internal/cef_types_content_settings.h (cef_content_setting_types_t)</see>
-type TCefContentSettingTypes = int32
-
-const (
-	CEF_CONTENT_SETTING_TYPE_COOKIES TCefContentSettingTypes = iota
-	CEF_CONTENT_SETTING_TYPE_IMAGES
-	CEF_CONTENT_SETTING_TYPE_JAVASCRIPT
-	CEF_CONTENT_SETTING_TYPE_POPUPS
-	CEF_CONTENT_SETTING_TYPE_GEOLOCATION
-	CEF_CONTENT_SETTING_TYPE_NOTIFICATIONS
-	CEF_CONTENT_SETTING_TYPE_AUTO_SELECT_CERTIFICATE
-	CEF_CONTENT_SETTING_TYPE_MIXEDSCRIPT
-	CEF_CONTENT_SETTING_TYPE_MEDIASTREAM_MIC
-	CEF_CONTENT_SETTING_TYPE_MEDIASTREAM_CAMERA
-	CEF_CONTENT_SETTING_TYPE_PROTOCOL_HANDLERS
-	CEF_CONTENT_SETTING_TYPE_DEPRECATED_PPAPI_BROKER
-	CEF_CONTENT_SETTING_TYPE_AUTOMATIC_DOWNLOADS
-	CEF_CONTENT_SETTING_TYPE_MIDI_SYSEX
-	CEF_CONTENT_SETTING_TYPE_SSL_CERT_DECISIONS
-	CEF_CONTENT_SETTING_TYPE_PROTECTED_MEDIA_IDENTIFIER
-	CEF_CONTENT_SETTING_TYPE_APP_BANNER
-	CEF_CONTENT_SETTING_TYPE_SITE_ENGAGEMENT
-	CEF_CONTENT_SETTING_TYPE_DURABLE_STORAGE
-	CEF_CONTENT_SETTING_TYPE_USB_CHOOSER_DATA
-	CEF_CONTENT_SETTING_TYPE_BLUETOOTH_GUARD
-	CEF_CONTENT_SETTING_TYPE_BACKGROUND_SYNC
-	CEF_CONTENT_SETTING_TYPE_AUTOPLAY
-	CEF_CONTENT_SETTING_TYPE_IMPORTANT_SITE_INFO
-	CEF_CONTENT_SETTING_TYPE_PERMISSION_AUTOBLOCKER_DATA
-	CEF_CONTENT_SETTING_TYPE_ADS
-	CEF_CONTENT_SETTING_TYPE_ADS_DATA
-	CEF_CONTENT_SETTING_TYPE_MIDI
-	CEF_CONTENT_SETTING_TYPE_PASSWORD_PROTECTION
-	CEF_CONTENT_SETTING_TYPE_MEDIA_ENGAGEMENT
-	CEF_CONTENT_SETTING_TYPE_SOUND
-	CEF_CONTENT_SETTING_TYPE_CLIENT_HINTS
-	CEF_CONTENT_SETTING_TYPE_SENSORS
-	CEF_CONTENT_SETTING_TYPE_ACCESSIBILITY_EVENTS
-	CEF_CONTENT_SETTING_TYPE_PAYMENT_HANDLER
-	CEF_CONTENT_SETTING_TYPE_USB_GUARD
-	CEF_CONTENT_SETTING_TYPE_BACKGROUND_FETCH
-	CEF_CONTENT_SETTING_TYPE_INTENT_PICKER_DISPLAY
-	CEF_CONTENT_SETTING_TYPE_IDLE_DETECTION
-	CEF_CONTENT_SETTING_TYPE_SERIAL_GUARD
-	CEF_CONTENT_SETTING_TYPE_SERIAL_CHOOSER_DATA
-	CEF_CONTENT_SETTING_TYPE_PERIODIC_BACKGROUND_SYNC
-	CEF_CONTENT_SETTING_TYPE_BLUETOOTH_SCANNING
-	CEF_CONTENT_SETTING_TYPE_HID_GUARD
-	CEF_CONTENT_SETTING_TYPE_HID_CHOOSER_DATA
-	CEF_CONTENT_SETTING_TYPE_WAKE_LOCK_SCREEN
-	CEF_CONTENT_SETTING_TYPE_WAKE_LOCK_SYSTEM
-	CEF_CONTENT_SETTING_TYPE_LEGACY_COOKIE_ACCESS
-	CEF_CONTENT_SETTING_TYPE_FILE_SYSTEM_WRITE_GUARD
-	CEF_CONTENT_SETTING_TYPE_NFC
-	CEF_CONTENT_SETTING_TYPE_BLUETOOTH_CHOOSER_DATA
-	CEF_CONTENT_SETTING_TYPE_CLIPBOARD_READ_WRITE
-	CEF_CONTENT_SETTING_TYPE_CLIPBOARD_SANITIZED_WRITE
-	CEF_CONTENT_SETTING_TYPE_SAFE_BROWSING_URL_CHECK_DATA
-	CEF_CONTENT_SETTING_TYPE_VR
-	CEF_CONTENT_SETTING_TYPE_AR
-	CEF_CONTENT_SETTING_TYPE_FILE_SYSTEM_READ_GUARD
-	CEF_CONTENT_SETTING_TYPE_STORAGE_ACCESS
-	CEF_CONTENT_SETTING_TYPE_CAMERA_PAN_TILT_ZOOM
-	CEF_CONTENT_SETTING_TYPE_WINDOW_MANAGEMENT
-	CEF_CONTENT_SETTING_TYPE_INSECURE_PRIVATE_NETWORK
-	CEF_CONTENT_SETTING_TYPE_LOCAL_FONTS
-	CEF_CONTENT_SETTING_TYPE_PERMISSION_AUTOREVOCATION_DATA
-	CEF_CONTENT_SETTING_TYPE_FILE_SYSTEM_LAST_PICKED_DIRECTORY
-	CEF_CONTENT_SETTING_TYPE_DISPLAY_CAPTURE
-	CEF_CONTENT_SETTING_TYPE_FILE_SYSTEM_ACCESS_CHOOSER_DATA
-	CEF_CONTENT_SETTING_TYPE_FEDERATED_IDENTITY_SHARING
-	CEF_CONTENT_SETTING_TYPE_JAVASCRIPT_JIT
-	CEF_CONTENT_SETTING_TYPE_HTTP_ALLOWED
-	CEF_CONTENT_SETTING_TYPE_FORMFILL_METADATA
-	CEF_CONTENT_SETTING_TYPE_DEPRECATED_FEDERATED_IDENTITY_ACTIVE_SESSION
-	CEF_CONTENT_SETTING_TYPE_AUTO_DARK_WEB_CONTENT
-	CEF_CONTENT_SETTING_TYPE_REQUEST_DESKTOP_SITE
-	CEF_CONTENT_SETTING_TYPE_FEDERATED_IDENTITY_API
-	CEF_CONTENT_SETTING_TYPE_NOTIFICATION_INTERACTIONS
-	CEF_CONTENT_SETTING_TYPE_REDUCED_ACCEPT_LANGUAGE
-	CEF_CONTENT_SETTING_TYPE_NOTIFICATION_PERMISSION_REVIEW
-	CEF_CONTENT_SETTING_TYPE_PRIVATE_NETWORK_GUARD
-	CEF_CONTENT_SETTING_TYPE_PRIVATE_NETWORK_CHOOSER_DATA
-	CEF_CONTENT_SETTING_TYPE_FEDERATED_IDENTITY_IDENTITY_PROVIDER_SIGNIN_STATUS
-	CEF_CONTENT_SETTING_TYPE_REVOKED_UNUSED_SITE_PERMISSIONS
-	CEF_CONTENT_SETTING_TYPE_TOP_LEVEL_STORAGE_ACCESS
-	CEF_CONTENT_SETTING_TYPE_FEDERATED_IDENTITY_AUTO_REAUTHN_PERMISSION
-	CEF_CONTENT_SETTING_TYPE_FEDERATED_IDENTITY_IDENTITY_PROVIDER_REGISTRATION
-	CEF_CONTENT_SETTING_TYPE_ANTI_ABUSE
-	CEF_CONTENT_SETTING_TYPE_THIRD_PARTY_STORAGE_PARTITIONING
-	CEF_CONTENT_SETTING_TYPE_HTTPS_ENFORCED
-	CEF_CONTENT_SETTING_TYPE_ALL_SCREEN_CAPTURE
-	CEF_CONTENT_SETTING_TYPE_COOKIE_CONTROLS_METADATA
-	CEF_CONTENT_SETTING_TYPE_TPCD_HEURISTICS_GRANTS
-	CEF_CONTENT_SETTING_TYPE_TPCD_METADATA_GRANTS
-	CEF_CONTENT_SETTING_TYPE_TPCD_TRIAL
-	CEF_CONTENT_SETTING_TYPE_TOP_LEVEL_TPCD_TRIAL
-	CEF_CONTENT_SETTING_TOP_LEVEL_TPCD_ORIGIN_TRIAL
-	CEF_CONTENT_SETTING_TYPE_AUTO_PICTURE_IN_PICTURE
-	CEF_CONTENT_SETTING_TYPE_FILE_SYSTEM_ACCESS_EXTENDED_PERMISSION
-	CEF_CONTENT_SETTING_TYPE_FILE_SYSTEM_ACCESS_RESTORE_PERMISSION
-	CEF_CONTENT_SETTING_TYPE_CAPTURED_SURFACE_CONTROL
-	CEF_CONTENT_SETTING_TYPE_SMART_CARD_GUARD
-	CEF_CONTENT_SETTING_TYPE_SMART_CARD_DATA
-	CEF_CONTENT_SETTING_TYPE_WEB_PRINTING
-	CEF_CONTENT_SETTING_TYPE_AUTOMATIC_FULLSCREEN
-	CEF_CONTENT_SETTING_TYPE_SUB_APP_INSTALLATION_PROMPTS
-	CEF_CONTENT_SETTING_TYPE_SPEAKER_SELECTION
-	CEF_CONTENT_SETTING_TYPE_DIRECT_SOCKETS
-	CEF_CONTENT_SETTING_TYPE_KEYBOARD_LOCK
-	CEF_CONTENT_SETTING_TYPE_POINTER_LOCK
-	CEF_CONTENT_SETTING_TYPE_REVOKED_ABUSIVE_NOTIFICATION_PERMISSIONS
-	CEF_CONTENT_SETTING_TYPE_TRACKING_PROTECTION
-)
-
-// TCefContentSettingValues ENUM
-//
-//	Supported content setting values. Should be kept in sync with Chromium's
-//	ContentSetting type.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types_content_settings.h">CEF source file: /include/internal/cef_types_content_settings.h (cef_content_setting_values_t)</see>
-type TCefContentSettingValues = int32
-
-const (
-	CEF_CONTENT_SETTING_VALUE_DEFAULT TCefContentSettingValues = iota
-	CEF_CONTENT_SETTING_VALUE_ALLOW
-	CEF_CONTENT_SETTING_VALUE_BLOCK
-	CEF_CONTENT_SETTING_VALUE_ASK
-	CEF_CONTENT_SETTING_VALUE_SESSION_ONLY
-	CEF_CONTENT_SETTING_VALUE_DETECT_IMPORTANT_CONTENT
-	CEF_CONTENT_SETTING_VALUE_NUM_VALUES
-)
-
 // TCefContextMenuMediaType ENUM
 //
-//	Supported context menu media types. These constants match their equivalents
-//	in Chromium's ContextMenuDataMediaType and should not be renumbered.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_context_menu_media_type_t)</see>
+//	include/internal/cef_types.h (cef_context_menu_media_type_t)
 type TCefContextMenuMediaType = int32
 
 const (
@@ -491,8 +250,7 @@ const (
 
 // TCefCookieSameSite ENUM
 //
-//	Cookie same site values.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_cookie_same_site_t)</see>
+//	include/internal/cef_types.h (cef_cookie_same_site_t)
 type TCefCookieSameSite = int32
 
 const (
@@ -502,10 +260,21 @@ const (
 	CEF_COOKIE_SAME_SITE_STRICT_MODE
 )
 
+// TCefCrossAxisAlignment ENUM
+//
+//	include/internal/cef_types.h (cef_cross_axis_alignment_t)
+type TCefCrossAxisAlignment = int32
+
+const (
+	CEF_CROSS_AXIS_ALIGNMENT_STRETCH TCefCrossAxisAlignment = iota
+	CEF_CROSS_AXIS_ALIGNMENT_START
+	CEF_CROSS_AXIS_ALIGNMENT_CENTER
+	CEF_CROSS_AXIS_ALIGNMENT_END
+)
+
 // TCefCursorType ENUM
 //
-//	Cursor type values.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_cursor_type_t)</see>
+//	include/internal/cef_types.h (cef_cursor_type_t)
 type TCefCursorType = int32
 
 const (
@@ -563,7 +332,7 @@ const (
 
 // TCEFDialogType ENUM
 //
-//	Used by TCEFFileDialogInfo.
+//	Used by TCEFFileDialogInfo
 type TCEFDialogType = int32
 
 const (
@@ -575,8 +344,7 @@ const (
 
 // TCefDomDocumentType ENUM
 //
-//	DOM document types.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_dom_document_type_t)</see>
+//	include/internal/cef_types.h (cef_dom_document_type_t)
 type TCefDomDocumentType = int32
 
 const (
@@ -588,8 +356,7 @@ const (
 
 // TCefDomEventPhase ENUM
 //
-//	DOM event processing phases.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_dom_event_phase_t)</see>
+//	include/internal/cef_types.h (cef_dom_event_phase_t)
 type TCefDomEventPhase = int32
 
 const (
@@ -599,54 +366,9 @@ const (
 	DOM_EVENT_PHASE_BUBBLING
 )
 
-// TCefDomFormControlType ENUM
-//
-//	DOM form control types. Should be kept in sync with Chromium's
-//	blink::mojom::FormControlType type.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_dom_form_control_type_t)</see>
-type TCefDomFormControlType = int32
-
-const (
-	DOM_FORM_CONTROL_TYPE_UNSUPPORTED TCefDomFormControlType = iota
-	DOM_FORM_CONTROL_TYPE_BUTTON_BUTTON
-	DOM_FORM_CONTROL_TYPE_BUTTON_SUBMIT
-	DOM_FORM_CONTROL_TYPE_BUTTON_RESET
-	DOM_FORM_CONTROL_TYPE_BUTTON_SELECT_LIST
-	DOM_FORM_CONTROL_TYPE_BUTTON_POPOVER
-	DOM_FORM_CONTROL_TYPE_FIELDSET
-	DOM_FORM_CONTROL_TYPE_INPUT_BUTTON
-	DOM_FORM_CONTROL_TYPE_INPUT_CHECKBOX
-	DOM_FORM_CONTROL_TYPE_INPUT_COLOR
-	DOM_FORM_CONTROL_TYPE_INPUT_DATE
-	DOM_FORM_CONTROL_TYPE_INPUT_DATETIME_LOCAL
-	DOM_FORM_CONTROL_TYPE_INPUT_EMAIL
-	DOM_FORM_CONTROL_TYPE_INPUT_FILE
-	DOM_FORM_CONTROL_TYPE_INPUT_HIDDEN
-	DOM_FORM_CONTROL_TYPE_INPUT_IMAGE
-	DOM_FORM_CONTROL_TYPE_INPUT_MONTH
-	DOM_FORM_CONTROL_TYPE_INPUT_NUMBER
-	DOM_FORM_CONTROL_TYPE_INPUT_PASSWORD
-	DOM_FORM_CONTROL_TYPE_INPUT_RADIO
-	DOM_FORM_CONTROL_TYPE_INPUT_RANGE
-	DOM_FORM_CONTROL_TYPE_INPUT_RESET
-	DOM_FORM_CONTROL_TYPE_INPUT_SEARCH
-	DOM_FORM_CONTROL_TYPE_INPUT_SUBMIT
-	DOM_FORM_CONTROL_TYPE_INPUT_TELEPHONE
-	DOM_FORM_CONTROL_TYPE_INPUT_TEXT
-	DOM_FORM_CONTROL_TYPE_INPUT_TIME
-	DOM_FORM_CONTROL_TYPE_INPUT_URL
-	DOM_FORM_CONTROL_TYPE_INPUT_WEEK
-	DOM_FORM_CONTROL_TYPE_OUTPUT
-	DOM_FORM_CONTROL_TYPE_SELECT_ONE
-	DOM_FORM_CONTROL_TYPE_SELECT_MULTIPLE
-	DOM_FORM_CONTROL_TYPE_SELECT_LIST
-	DOM_FORM_CONTROL_TYPE_TEXT_AREA
-)
-
 // TCefDomNodeType ENUM
 //
-//	DOM node types.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_dom_node_type_t)</see>
+//	include/internal/cef_types.h (cef_dom_node_type_t)
 type TCefDomNodeType = int32
 
 const (
@@ -662,160 +384,9 @@ const (
 	DOM_NODE_TYPE_DOCUMENT_FRAGMENT
 )
 
-// TCefEditingCommand ENUM
-//
-//	Blink editing commands used by the "Input.dispatchKeyEvent" DevTools method.
-//	<see href="https://chromedevtools.github.io/devtools-protocol/1-3/Input/#method-dispatchKeyEvent">See the "Input.dispatchKeyEvent" DevTools method.</see>
-//	<see href="https://source.chromium.org/chromium/chromium/src/+/master:third_party/blink/renderer/core/editing/commands/editor_command_names.h">See the Chromium sources.</see>
-type TCefEditingCommand = int32
-
-const (
-	EcNone TCefEditingCommand = iota
-	EcAlignCenter
-	EcAlignJustified
-	EcAlignLeft
-	EcAlignRight
-	EcBackColor
-	EcBackwardDelete
-	EcBold
-	EcCopy
-	EcCreateLink
-	EcCut
-	EcDefaultParagraphSeparator
-	EcDelete
-	EcDeleteBackward
-	EcDeleteBackwardByDecomposingPreviousCharacter
-	EcDeleteForward
-	EcDeleteToBeginningOfLine
-	EcDeleteToBeginningOfParagraph
-	EcDeleteToEndOfLine
-	EcDeleteToEndOfParagraph
-	EcDeleteToMark
-	EcDeleteWordBackward
-	EcDeleteWordForward
-	EcFindString
-	EcFontName
-	EcFontSize
-	EcFontSizeDelta
-	EcForeColor
-	EcFormatBlock
-	EcForwardDelete
-	EcHiliteColor
-	EcIgnoreSpelling
-	EcIndent
-	EcInsertBacktab
-	EcInsertHorizontalRule
-	EcInsertHTML
-	EcInsertImage
-	EcInsertLineBreak
-	EcInsertNewline
-	EcInsertNewlineInQuotedContent
-	EcInsertOrderedList
-	EcInsertParagraph
-	EcInsertTab
-	EcInsertText
-	EcInsertUnorderedList
-	EcItalic
-	EcJustifyCenter
-	EcJustifyFull
-	EcJustifyLeft
-	EcJustifyNone
-	EcJustifyRight
-	EcMakeTextWritingDirectionLeftToRight
-	EcMakeTextWritingDirectionNatural
-	EcMakeTextWritingDirectionRightToLeft
-	EcMoveBackward
-	EcMoveBackwardAndModifySelection
-	EcMoveDown
-	EcMoveDownAndModifySelection
-	EcMoveForward
-	EcMoveForwardAndModifySelection
-	EcMoveLeft
-	EcMoveLeftAndModifySelection
-	EcMovePageDown
-	EcMovePageDownAndModifySelection
-	EcMovePageUp
-	EcMovePageUpAndModifySelection
-	EcMoveParagraphBackward
-	EcMoveParagraphBackwardAndModifySelection
-	EcMoveParagraphForward
-	EcMoveParagraphForwardAndModifySelection
-	EcMoveRight
-	EcMoveRightAndModifySelection
-	EcMoveToBeginningOfDocument
-	EcMoveToBeginningOfDocumentAndModifySelection
-	EcMoveToBeginningOfLine
-	EcMoveToBeginningOfLineAndModifySelection
-	EcMoveToBeginningOfParagraph
-	EcMoveToBeginningOfParagraphAndModifySelection
-	EcMoveToBeginningOfSentence
-	EcMoveToBeginningOfSentenceAndModifySelection
-	EcMoveToEndOfDocument
-	EcMoveToEndOfDocumentAndModifySelection
-	EcMoveToEndOfLine
-	EcMoveToEndOfLineAndModifySelection
-	EcMoveToEndOfParagraph
-	EcMoveToEndOfParagraphAndModifySelection
-	EcMoveToEndOfSentence
-	EcMoveToEndOfSentenceAndModifySelection
-	EcMoveToLeftEndOfLine
-	EcMoveToLeftEndOfLineAndModifySelection
-	EcMoveToRightEndOfLine
-	EcMoveToRightEndOfLineAndModifySelection
-	EcMoveUp
-	EcMoveUpAndModifySelection
-	EcMoveWordBackward
-	EcMoveWordBackwardAndModifySelection
-	EcMoveWordForward
-	EcMoveWordForwardAndModifySelection
-	EcMoveWordLeft
-	EcMoveWordLeftAndModifySelection
-	EcMoveWordRight
-	EcMoveWordRightAndModifySelection
-	EcOutdent
-	EcOverWrite
-	EcPaste
-	EcPasteAndMatchStyle
-	EcPasteGlobalSelection
-	EcPrint
-	EcRedo
-	EcRemoveFormat
-	EcScrollLineDown
-	EcScrollLineUp
-	EcScrollPageBackward
-	EcScrollPageForward
-	EcScrollToBeginningOfDocument
-	EcScrollToEndOfDocument
-	EcSelectAll
-	EcSelectLine
-	EcSelectParagraph
-	EcSelectSentence
-	EcSelectToMark
-	EcSelectWord
-	EcSetMark
-	EcStrikethrough
-	EcStyleWithCSS
-	EcSubscript
-	EcSuperscript
-	EcSwapWithMark
-	EcToggleBold
-	EcToggleItalic
-	EcToggleUnderline
-	EcTranspose
-	EcUnderline
-	EcUndo
-	EcUnlink
-	EcUnscript
-	EcUnselect
-	EcUseCSS
-	EcYank
-	EcYankAndSelect
-)
-
 // TCefFocusSource ENUM
 //
-//	Focus sources.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_focus_source_t)</see>
+//	include/internal/cef_types.h (cef_focus_source_t)
 type TCefFocusSource = int32
 
 const (
@@ -823,34 +394,9 @@ const (
 	FOCUS_SOURCE_SYSTEM
 )
 
-// TCefGestureCommand ENUM
-//
-//	Specifies the gesture commands.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_gesture_command_t)</see>
-type TCefGestureCommand = int32
-
-const (
-	CEF_GESTURE_COMMAND_BACK TCefGestureCommand = iota
-	CEF_GESTURE_COMMAND_FORWARD
-)
-
-// TCefHighEfficiencyModeState ENUM
-//
-//	Values used by the high efficiency mode state preference.
-//	<see href="https://source.chromium.org/chromium/chromium/src/+/main:components/performance_manager/public/user_tuning/prefs.h">components/performance_manager/public/user_tuning/prefs.h</see>
-type TCefHighEfficiencyModeState = int32
-
-const (
-	KDisabled       TCefHighEfficiencyModeState = iota
-	KEnabled                                    = 1
-	KEnabledOnTimer                             = 2
-	KDefault                                    = 3
-)
-
 // TCefHorizontalAlignment ENUM
 //
-//	Specifies the horizontal text alignment mode.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_horizontal_alignment_t)</see>
+//	include/internal/cef_types.h (cef_horizontal_alignment_t)
 type TCefHorizontalAlignment = int32
 
 const (
@@ -861,8 +407,7 @@ const (
 
 // TCefJsDialogType ENUM
 //
-//	Supported JavaScript dialog types.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_jsdialog_type_t)</see>
+//	include/internal/cef_types.h (cef_jsdialog_type_t)
 type TCefJsDialogType = int32
 
 const (
@@ -873,8 +418,7 @@ const (
 
 // TCefJsonParserOptions ENUM
 //
-//	Options that can be passed to CefParseJSON.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_json_parser_options_t)</see>
+//	include/internal/cef_types.h (cef_json_parser_options_t)
 type TCefJsonParserOptions = int32
 
 const (
@@ -884,10 +428,7 @@ const (
 
 // TCefKeyEventType ENUM
 //
-//	Notification that a character was typed. Use this for text input. Key
-//	down events may generate 0, 1, or more than one character event depending
-//	on the key, locale, and operating system.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_key_event_type_t)</see>
+//	include/internal/cef_types.h (cef_key_event_type_t)
 type TCefKeyEventType = int32
 
 const (
@@ -897,22 +438,20 @@ const (
 	KEYEVENT_CHAR
 )
 
-// TCefKeyLocation ENUM
+// TCefMainAxisAlignment ENUM
 //
-//	Key location value used in the TChromiumCore.dispatchKeyEvent DevTools method.
-//	<see href="https://chromedevtools.github.io/devtools-protocol/1-3/Input/#method-dispatchKeyEvent">See the "Input.dispatchKeyEvent" DevTools method.</see>
-type TCefKeyLocation = int32
+//	include/internal/cef_types.h (cef_main_axis_alignment_t)
+type TCefMainAxisAlignment = int32
 
 const (
-	CEF_KEYLOCATION_NONE TCefKeyLocation = iota
-	CEF_KEYLOCATION_LEFT
-	CEF_KEYLOCATION_RIGHT
+	CEF_MAIN_AXIS_ALIGNMENT_START TCefMainAxisAlignment = iota
+	CEF_MAIN_AXIS_ALIGNMENT_CENTER
+	CEF_MAIN_AXIS_ALIGNMENT_END
 )
 
 // TCefMediaRouteConnectionState ENUM
 //
-//	Connection state for a MediaRoute object.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_media_route_connection_state_t)</see>
+//	include/internal/cef_types.h (cef_media_route_connection_state_t)
 type TCefMediaRouteConnectionState = int32
 
 const (
@@ -925,9 +464,7 @@ const (
 
 // TCefMediaSinkIconType ENUM
 //
-//	Icon types for a MediaSink object. Should be kept in sync with Chromium's
-//	media_router::SinkIconType type.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_media_sink_icon_type_t)</see>
+//	include/internal/cef_types.h (cef_media_sink_icon_type_t)
 type TCefMediaSinkIconType = int32
 
 const (
@@ -944,7 +481,7 @@ const (
 
 // TCefMediaType ENUM
 //
-//	Used by TCefMediaSinkInfo and TCefMediaSourceInfo.
+//	Used by TCefMediaSinkInfo and TCefMediaSourceInfo
 type TCefMediaType = int32
 
 const (
@@ -955,9 +492,7 @@ const (
 
 // TCefMenuAnchorPosition ENUM
 //
-//	Specifies how a menu will be anchored for non-RTL languages. The opposite
-//	position will be used for RTL languages.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_menu_anchor_position_t)</see>
+//	include/internal/cef_types.h (cef_menu_anchor_position_t)
 type TCefMenuAnchorPosition = int32
 
 const (
@@ -968,8 +503,7 @@ const (
 
 // TCefMenuColorType ENUM
 //
-//	Supported color types for menu items.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_menu_color_type_t)</see>
+//	include/internal/cef_types.h (cef_menu_color_type_t)
 type TCefMenuColorType = int32
 
 const (
@@ -984,8 +518,7 @@ const (
 
 // TCefMenuItemType ENUM
 //
-//	Supported menu item types.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_menu_item_type_t)</see>
+//	include/internal/cef_types.h (cef_menu_item_type_t)
 type TCefMenuItemType = int32
 
 const (
@@ -999,8 +532,7 @@ const (
 
 // TCefMessageLoopType ENUM
 //
-//	Flags used to customize the behavior of CefURLRequest.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_message_loop_type_t)</see>
+//	include/internal/cef_types.h (cef_message_loop_type_t)
 type TCefMessageLoopType = int32
 
 const (
@@ -1011,8 +543,7 @@ const (
 
 // TCefMouseButtonType ENUM
 //
-//	Mouse button types.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_mouse_button_type_t)</see>
+//	include/internal/cef_types.h (cef_mouse_button_type_t)
 type TCefMouseButtonType = int32
 
 const (
@@ -1023,8 +554,7 @@ const (
 
 // TCefNavigationType ENUM
 //
-//	Navigation types.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_navigation_type_t)</see>
+//	include/internal/cef_types.h (cef_navigation_type_t)
 type TCefNavigationType = int32
 
 const (
@@ -1040,8 +570,8 @@ const (
 //
 //	Values used by the --net-log-capture-mode command line switch.
 //	Sets the granularity of events to capture in the network log.
-//	<see href="https://source.chromium.org/chromium/chromium/src/+/main:content/browser/network_service_instance_impl.cc">network_service_instance_impl.cc</see>
-//	<see href="https://source.chromium.org/chromium/chromium/src/+/main:net/log/net_log_capture_mode.h">net_log_capture_mode.h</see>
+//	https://source.chromium.org/chromium/chromium/src/+/main:content/browser/network_service_instance_impl.cc
+//	https://source.chromium.org/chromium/chromium/src/+/main:net/log/net_log_capture_mode.h
 type TCefNetLogCaptureMode = int32
 
 const (
@@ -1052,8 +582,7 @@ const (
 
 // TCefPaintElementType ENUM
 //
-//	Paint element types.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_paint_element_type_t)</see>
+//	include/internal/cef_types.h (cef_paint_element_type_t)
 type TCefPaintElementType = int32
 
 const (
@@ -1063,8 +592,7 @@ const (
 
 // TCefPathKey ENUM
 //
-//	Process termination status values.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_path_key_t)</see>
+//	include/internal/cef_types.h (cef_path_key_t)
 type TCefPathKey = int32
 
 const (
@@ -1081,8 +609,7 @@ const (
 
 // TCefPdfPrintMarginType ENUM
 //
-//	Margin type for PDF printing.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_pdf_print_margin_type_t)</see>
+//	include/internal/cef_types.h (cef_pdf_print_margin_type_t)
 type TCefPdfPrintMarginType = int32
 
 const (
@@ -1093,8 +620,7 @@ const (
 
 // TCefPermissionRequestResult ENUM
 //
-//	Permission request results.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_permission_request_result_t)</see>
+//	include/internal/cef_types.h (cef_permission_request_result_t)
 type TCefPermissionRequestResult = int32
 
 const (
@@ -1106,8 +632,7 @@ const (
 
 // TCefPointerType ENUM
 //
-//	The device type that caused the event.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_pointer_type_t)</see>
+//	include/internal/cef_types.h (cef_pointer_type_t)
 type TCefPointerType = int32
 
 const (
@@ -1120,8 +645,7 @@ const (
 
 // TCefPostDataElementType ENUM
 //
-//	Post data elements may represent either bytes or files.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_postdataelement_type_t)</see>
+//	include/internal/cef_types.h (cef_postdataelement_type_t)
 type TCefPostDataElementType = int32
 
 const (
@@ -1132,9 +656,7 @@ const (
 
 // TCefPreferencesType ENUM
 //
-//	Preferences type passed to
-//	ICefBrowserProcessHandler.OnRegisterCustomPreferences.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_preferences_type_t)</see>
+//	include/internal/cef_types.h (cef_preferences_type_t)
 type TCefPreferencesType = int32
 
 const (
@@ -1144,8 +666,7 @@ const (
 
 // TCefProcessId ENUM
 //
-//	Existing process IDs.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_process_id_t)</see>
+//	include/internal/cef_types.h (cef_process_id_t)
 type TCefProcessId = int32
 
 const (
@@ -1154,8 +675,6 @@ const (
 )
 
 // TCefProcessType ENUM
-//
-//	Sub-process types of Chromium.
 type TCefProcessType = int32
 
 const (
@@ -1170,8 +689,6 @@ const (
 )
 
 // TCefProxyScheme ENUM
-//
-//	Supported proxy schemes in Chromium.
 type TCefProxyScheme = int32
 
 const (
@@ -1182,11 +699,7 @@ const (
 
 // TCefReferrerPolicy ENUM
 //
-//	Policy for how the Referrer HTTP header value will be sent during
-//	navigation. If the `--no-referrers` command-line flag is specified then the
-//	policy value will be ignored and the Referrer value will never be sent. Must
-//	be kept synchronized with net::URLRequest::ReferrerPolicy from Chromium.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_referrer_policy_t)</see>
+//	include/internal/cef_types.h (cef_referrer_policy_t)
 type TCefReferrerPolicy = int32
 
 const (
@@ -1202,9 +715,7 @@ const (
 
 // TCefResourceType ENUM
 //
-//	Resource type for a request. These constants match their equivalents in
-//	Chromium's ResourceType and should not be renumbered.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_resource_type_t)</see>
+//	include/internal/cef_types.h (cef_resource_type_t)
 type TCefResourceType = int32
 
 const (
@@ -1233,8 +744,7 @@ const (
 
 // TCefResponseFilterStatus ENUM
 //
-//	Return values for ICefResponseFilter.Filter().
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_response_filter_status_t)</see>
+//	include/internal/cef_types.h (cef_response_filter_status_t)
 type TCefResponseFilterStatus = int32
 
 const (
@@ -1245,8 +755,7 @@ const (
 
 // TCefReturnValue ENUM
 //
-//	Return value types.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_return_value_t)</see>
+//	include/internal/cef_types.h (cef_return_value_t)
 type TCefReturnValue = int32
 
 const (
@@ -1255,47 +764,9 @@ const (
 	RV_CONTINUE_ASYNC
 )
 
-// TCefRuntimeStyle ENUM
-//
-//	CEF supports both a Chrome runtime (based on the Chrome UI layer) and an
-//	Alloy runtime (based on the Chromium content layer). The Chrome runtime
-//	provides the full Chrome UI and browser functionality whereas the Alloy
-//	runtime provides less default browser functionality but adds additional
-//	client callbacks and support for windowless (off-screen) rendering. For
-//	additional comparative details on runtime types see
-//	https://bitbucket.org/chromiumembedded/cef/wiki/Architecture.md#markdown-header-cef3
-//
-//	Each runtime is composed of a bootstrap component and a style component. The
-//	bootstrap component is configured via CefSettings.chrome_runtime and cannot
-//	be changed after CefInitialize. The style component is individually
-//	configured for each window/browser at creation time and, in combination with
-//	the Chrome bootstrap, different styles can be mixed during runtime.
-//
-//	Windowless rendering will always use Alloy style. Windowed rendering with a
-//	default window or client-provided parent window can configure the style via
-//	CefWindowInfo.runtime_style. Windowed rendering with the Views framework can
-//	configure the style via CefWindowDelegate::GetWindowRuntimeStyle and
-//	CefBrowserViewDelegate::GetBrowserRuntimeStyle. Alloy style Windows with the
-//	Views framework can host only Alloy style BrowserViews but Chrome style
-//	Windows can host both style BrowserViews. Additionally, a Chrome style
-//	Window can host at most one Chrome style BrowserView but potentially
-//	multiple Alloy style BrowserViews. See CefWindowInfo.runtime_style
-//	documentation for any additional platform-specific limitations.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types_runtime.h">CEF source file: /include/internal/cef_types_runtime.h (cef_runtime_style_t)</see>
-type TCefRuntimeStyle = int32
-
-const (
-	CEF_RUNTIME_STYLE_DEFAULT TCefRuntimeStyle = iota
-	CEF_RUNTIME_STYLE_CHROME
-	CEF_RUNTIME_STYLE_ALLOY
-)
-
 // TCefScaleFactor ENUM
 //
-//	Supported UI scale factors for the platform. SCALE_FACTOR_NONE is used for
-//	density independent resources such as string, html/js files or an image that
-//	can be used for any scale factors (such as wallpapers).
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_scale_factor_t)</see>
+//	include/internal/cef_types.h (cef_scale_factor_t)
 type TCefScaleFactor = int32
 
 const (
@@ -1311,62 +782,9 @@ const (
 	SCALE_FACTOR_300P
 )
 
-// TCefSimulatedMouseButton ENUM
-//
-//	Mouse button in the TChromiumCore.SimulateMouseEvent function.
-//	<see href="https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchMouseEvent">See the Input.dispatchMouseEvent DevTools method</see>
-type TCefSimulatedMouseButton = int32
-
-const (
-	CEF_SIMULATEDMOUSEBUTTON_NONE TCefSimulatedMouseButton = iota
-	CEF_SIMULATEDMOUSEBUTTON_LEFT
-	CEF_SIMULATEDMOUSEBUTTON_MIDDLE
-	CEF_SIMULATEDMOUSEBUTTON_RIGHT
-	CEF_SIMULATEDMOUSEBUTTON_BACK
-	CEF_SIMULATEDMOUSEBUTTON_FORWARD
-)
-
-// TCefSimulatedMouseEventType ENUM
-//
-//	Type of mouse event in the TChromiumCore.SimulateMouseEvent function.
-//	<see href="https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchMouseEvent">See the Input.dispatchMouseEvent DevTools method</see>
-type TCefSimulatedMouseEventType = int32
-
-const (
-	MousePressed TCefSimulatedMouseEventType = iota
-	MouseReleased
-	MouseMoved
-	MouseWheel
-)
-
-// TCefSimulatedPointerType ENUM
-//
-//	Pointer type in the TChromiumCore.SimulateMouseEvent function.
-//	<see href="https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchMouseEvent">See the Input.dispatchMouseEvent DevTools method</see>
-type TCefSimulatedPointerType = int32
-
-const (
-	CEF_SIMULATEDPOINTERTYPE_MOUSE TCefSimulatedPointerType = iota
-	CEF_SIMULATEDPOINTERTYPE_PEN
-)
-
-// TCefSimulatedTouchEventType ENUM
-//
-//	Type of touch event in the TChromiumCore.SimulateTouchEvent function.
-//	<see href="https://chromedevtools.github.io/devtools-protocol/tot/Input/#method-dispatchTouchEvent">See the Input.dispatchTouchEvent DevTools method</see>
-type TCefSimulatedTouchEventType = int32
-
-const (
-	TouchStart TCefSimulatedTouchEventType = iota
-	TouchEnd
-	TouchMove
-	TouchCancel
-)
-
 // TCefState ENUM
 //
-//	Represents the state of a setting.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_state_t)</see>
+//	include/internal/cef_types.h (cef_state_t)
 type TCefState = int32
 
 const (
@@ -1377,8 +795,7 @@ const (
 
 // TCefStorageType ENUM
 //
-//	Storage types.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_storage_type_t)</see>
+//	include/internal/cef_types.h (cef_storage_type_t)
 type TCefStorageType = int32
 
 const (
@@ -1388,8 +805,7 @@ const (
 
 // TCefTerminationStatus ENUM
 //
-//	Process termination status values.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_termination_status_t)</see>
+//	include/internal/cef_types.h (cef_termination_status_t)
 type TCefTerminationStatus = int32
 
 const (
@@ -1397,14 +813,11 @@ const (
 	TS_PROCESS_WAS_KILLED
 	TS_PROCESS_CRASHED
 	TS_PROCESS_OOM
-	TS_LAUNCH_FAILED
-	TS_INTEGRITY_FAILURE
 )
 
 // TCefTestCertType ENUM
 //
-//	Specifies the gesture commands.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_test_cert_type_t)</see>
+//	include/internal/cef_types.h (cef_test_cert_type_t)
 type TCefTestCertType = int32
 
 const (
@@ -1415,10 +828,7 @@ const (
 
 // TCefTextInpuMode ENUM
 //
-//	Input mode of a virtual keyboard. These constants match their equivalents
-//	in Chromium's text_input_mode.h and should not be renumbered.
-//	See https://html.spec.whatwg.org/#input-modalities:-the-inputmode-attribute
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_text_input_mode_t)</see>
+//	include/internal/cef_types.h (cef_text_input_mode_t)
 type TCefTextInpuMode = int32
 
 const (
@@ -1435,8 +845,7 @@ const (
 
 // TCefTextStyle ENUM
 //
-//	Text style types. Should be kepy in sync with gfx::TextStyle.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_text_style_t)</see>
+//	include/internal/cef_types.h (cef_text_style_t)
 type TCefTextStyle = int32
 
 const (
@@ -1449,8 +858,7 @@ const (
 
 // TCefThreadId ENUM
 //
-//	Existing thread IDs.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_thread_id_t)</see>
+//	include/internal/cef_types.h (cef_thread_id_t)
 type TCefThreadId = int32
 
 const (
@@ -1465,8 +873,7 @@ const (
 
 // TCefThreadPriority ENUM
 //
-//	Thread priority values listed in increasing order of importance.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_thread_priority_t)</see>
+//	include/internal/cef_types.h (cef_thread_priority_t)
 type TCefThreadPriority = int32
 
 const (
@@ -1478,8 +885,7 @@ const (
 
 // TCefTouchEeventType ENUM
 //
-//	Touch points states types.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_touch_event_type_t)</see>
+//	include/internal/cef_types.h (cef_touch_event_type_t)
 type TCefTouchEeventType = int32
 
 const (
@@ -1489,21 +895,9 @@ const (
 	CEF_TET_CANCELLED
 )
 
-// TCefUIColorMode ENUM
-//
-//	Color mode in UI for platforms that support it.
-type TCefUIColorMode = int32
-
-const (
-	UicmSystemDefault TCefUIColorMode = iota
-	UicmForceLight
-	UicmForceDark
-)
-
 // TCefUrlRequestStatus ENUM
 //
-//	Flags that represent CefURLRequest status.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_urlrequest_status_t)</see>
+//	include/internal/cef_types.h (cef_urlrequest_status_t)
 type TCefUrlRequestStatus = int32
 
 const (
@@ -1516,8 +910,7 @@ const (
 
 // TCefValueType ENUM
 //
-//	Supported value types.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_value_type_t)</see>
+//	include/internal/cef_types.h (cef_value_type_t)
 type TCefValueType = int32
 
 const (
@@ -1533,8 +926,6 @@ const (
 )
 
 // TCefWebRTCHandlingPolicy ENUM
-//
-//	WebRTC handling policy types used by TChromiumCore.WebRTCIPHandlingPolicy.
 type TCefWebRTCHandlingPolicy = int32
 
 const (
@@ -1546,34 +937,27 @@ const (
 
 // TCefWindowOpenDisposition ENUM
 //
-//	The manner in which a link click should be opened. These constants match
-//	their equivalents in Chromium's window_open_disposition.h and should not be
-//	renumbered.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_window_open_disposition_t)</see>
+//	include/internal/cef_types.h (cef_window_open_disposition_t)
 type TCefWindowOpenDisposition = int32
 
 const (
-	CEF_WOD_UNKNOWN TCefWindowOpenDisposition = iota
-	CEF_WOD_CURRENT_TAB
-	CEF_WOD_SINGLETON_TAB
-	CEF_WOD_NEW_FOREGROUND_TAB
-	CEF_WOD_NEW_BACKGROUND_TAB
-	CEF_WOD_NEW_POPUP
-	CEF_WOD_NEW_WINDOW
-	CEF_WOD_SAVE_TO_DISK
-	CEF_WOD_OFF_THE_RECORD
-	CEF_WOD_IGNORE_ACTION
-	CEF_WOD_SWITCH_TO_TAB
-	CEF_WOD_NEW_PICTURE_IN_PICTURE
+	WOD_UNKNOWN TCefWindowOpenDisposition = iota
+	WOD_CURRENT_TAB
+	WOD_SINGLETON_TAB
+	WOD_NEW_FOREGROUND_TAB
+	WOD_NEW_BACKGROUND_TAB
+	WOD_NEW_POPUP
+	WOD_NEW_WINDOW
+	WOD_SAVE_TO_DISK
+	WOD_OFF_THE_RECORD
+	WOD_IGNORE_ACTION
+	WOD_SWITCH_TO_TAB
+	WOD_NEW_PICTURE_IN_PICTURE
 )
 
 // TCefXmlEncodingType ENUM
 //
-//	Supported XML encoding types. The parser supports ASCII, ISO-8859-1, and
-//	UTF16 (LE and BE) by default. All other types must be translated to UTF8
-//	before being passed to the parser. If a BOM is detected and the correct
-//	decoder is available then that decoder will be used automatically.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_xml_encoding_type_t)</see>
+//	include/internal/cef_types.h (cef_xml_encoding_type_t)
 type TCefXmlEncodingType = int32
 
 const (
@@ -1586,8 +970,7 @@ const (
 
 // TCefXmlNodeType ENUM
 //
-//	XML node types.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_xml_node_type_t)</see>
+//	include/internal/cef_types.h (cef_xml_node_type_t)
 type TCefXmlNodeType = int32
 
 const (
@@ -1602,18 +985,6 @@ const (
 	XML_NODE_ENTITY_REFERENCE
 	XML_NODE_WHITESPACE
 	XML_NODE_COMMENT
-)
-
-// TCefZoomCommand ENUM
-//
-//	Specifies the zoom commands supported by ICefBrowserHost.Zoom.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_zoom_command_t)</see>
-type TCefZoomCommand = int32
-
-const (
-	CEF_ZOOM_COMMAND_OUT TCefZoomCommand = iota
-	CEF_ZOOM_COMMAND_RESET
-	CEF_ZOOM_COMMAND_IN
 )
 
 // TOAuthChallengeMethod ENUM
@@ -1632,16 +1003,4 @@ const (
 	SsInitialDelay
 	SsCheckingChildren
 	SsClosing
-)
-
-// TSimulatedCefKeyEventType ENUM
-//
-//	Event type used by TChromiumCore.SimulateKeyEvent
-type TSimulatedCefKeyEventType = int32
-
-const (
-	KetKeyDown TSimulatedCefKeyEventType = iota
-	KetKeyUp
-	KetRawKeyDown
-	KetChar
 )

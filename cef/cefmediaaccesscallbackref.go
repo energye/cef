@@ -18,17 +18,8 @@ import (
 // ICefMediaAccessCallback Parent: ICefBaseRefCounted
 type ICefMediaAccessCallback interface {
 	ICefBaseRefCounted
-	// Cont
-	//  Call to allow or deny media access. If this callback was initiated in
-	//  response to a getUserMedia (indicated by
-	//  CEF_MEDIA_PERMISSION_DEVICE_AUDIO_CAPTURE and/or
-	//  CEF_MEDIA_PERMISSION_DEVICE_VIDEO_CAPTURE being set) then
-	//  |allowed_permissions| must match |required_permissions| passed to
-	//  OnRequestMediaAccessPermission.
 	Cont(allowedPermissions cefTypes.TCefMediaAccessPermissionTypes) // procedure
-	// Cancel
-	//  Cancel the media access request.
-	Cancel() // procedure
+	Cancel()                                                         // procedure
 }
 
 // ICefMediaAccessCallbackRef Parent: ICefMediaAccessCallback ICefBaseRefCountedRef
