@@ -20,20 +20,25 @@ type ICefResourceBundle interface {
 	ICefBaseRefCounted
 	// GetLocalizedString
 	//  Returns the localized string for the specified |string_id| or an NULL
-	//  string if the value is not found. Include cef_pack_strings.h for a listing
-	//  of valid string ID values.
+	//  string if the value is not found. Use the cef_id_for_pack_string_name()
+	//  function for version-safe mapping of string IDS names from
+	//  cef_pack_strings.h to version-specific numerical |string_id| values.
 	GetLocalizedString(stringId int32) string // function
 	// GetDataResource
-	//  Returns a ICefBinaryValue containing the decompressed contents of the
-	//  specified scale independent |resource_id| or NULL if not found. Include
-	//  cef_pack_resources.h for a listing of valid resource ID values.
+	//  Returns a cef_binary_value_t containing the decompressed contents of the
+	//  specified scale independent |resource_id| or NULL if not found. Use the
+	//  cef_id_for_pack_resource_name() function for version-safe mapping of
+	//  resource IDR names from cef_pack_resources.h to version-specific numerical
+	//  |resource_id| values.
 	GetDataResource(resourceId int32) ICefBinaryValue // function
 	// GetDataResourceForScale
-	//  Returns a ICefBinaryValue containing the decompressed contents of the
+	//  Returns a cef_binary_value_t containing the decompressed contents of the
 	//  specified |resource_id| nearest the scale factor |scale_factor| or NULL if
 	//  not found. Use a |scale_factor| value of SCALE_FACTOR_NONE for scale
-	//  independent resources or call GetDataResource instead.Include
-	//  cef_pack_resources.h for a listing of valid resource ID values.
+	//  independent resources or call GetDataResource instead. Use the
+	//  cef_id_for_pack_resource_name() function for version-safe mapping of
+	//  resource IDR names from cef_pack_resources.h to version-specific numerical
+	//  |resource_id| values.
 	GetDataResourceForScale(resourceId int32, scaleFactor cefTypes.TCefScaleFactor) ICefBinaryValue // function
 }
 

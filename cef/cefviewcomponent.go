@@ -88,8 +88,10 @@ type ICEFViewComponent interface {
 	//  bounds of parent Views do not change.
 	InvalidateLayout() // procedure
 	// RequestFocus
-	//  Request keyboard focus. If this View is focusable it will become the
-	//  focused View.
+	//  Request focus for this View in the context of the containing Window. If
+	//  this View is focusable it will become the focused View. Any focus changes
+	//  while a Window is not active may be applied after that Window next becomes
+	//  active.
 	RequestFocus() // procedure
 	// Initialized
 	//  Returns true when the control is fully initialized.
@@ -183,6 +185,11 @@ type ICEFViewComponent interface {
 	//  Return whether this View is focusable when the user requires full keyboard
 	//  access, even though it may not be normally focusable.
 	AccessibilityFocusable() bool // property AccessibilityFocusable Getter
+	// HasFocus
+	//  Returns true (1) if this View has focus in the context of the containing
+	//  Window. Check both this function and ICefWindow.IsActive to determine
+	//  global keyboard focus.
+	HasFocus() bool // property HasFocus Getter
 	// BackgroundColor
 	//  Returns the background color for this View. If the background color is
 	//  unset then the current `GetThemeColor(CEF_ColorPrimaryBackground)` value
@@ -558,11 +565,19 @@ func (m *TCEFViewComponent) AccessibilityFocusable() bool {
 	return api.GoBool(r)
 }
 
+func (m *TCEFViewComponent) HasFocus() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cEFViewComponentAPI().SysCallN(35, m.Instance())
+	return api.GoBool(r)
+}
+
 func (m *TCEFViewComponent) BackgroundColor() cefTypes.TCefColor {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cEFViewComponentAPI().SysCallN(35, 0, m.Instance())
+	r := cEFViewComponentAPI().SysCallN(36, 0, m.Instance())
 	return cefTypes.TCefColor(r)
 }
 
@@ -570,25 +585,10 @@ func (m *TCEFViewComponent) SetBackgroundColor(value cefTypes.TCefColor) {
 	if !m.IsValid() {
 		return
 	}
-	cEFViewComponentAPI().SysCallN(35, 1, m.Instance(), uintptr(value))
-}
-
-func (m *TCEFViewComponent) ID() int32 {
-	if !m.IsValid() {
-		return 0
-	}
-	r := cEFViewComponentAPI().SysCallN(36, 0, m.Instance())
-	return int32(r)
-}
-
-func (m *TCEFViewComponent) SetID(value int32) {
-	if !m.IsValid() {
-		return
-	}
 	cEFViewComponentAPI().SysCallN(36, 1, m.Instance(), uintptr(value))
 }
 
-func (m *TCEFViewComponent) GroupID() int32 {
+func (m *TCEFViewComponent) ID() int32 {
 	if !m.IsValid() {
 		return 0
 	}
@@ -596,29 +596,29 @@ func (m *TCEFViewComponent) GroupID() int32 {
 	return int32(r)
 }
 
-func (m *TCEFViewComponent) SetGroupID(value int32) {
+func (m *TCEFViewComponent) SetID(value int32) {
 	if !m.IsValid() {
 		return
 	}
 	cEFViewComponentAPI().SysCallN(37, 1, m.Instance(), uintptr(value))
 }
 
+func (m *TCEFViewComponent) GroupID() int32 {
+	if !m.IsValid() {
+		return 0
+	}
+	r := cEFViewComponentAPI().SysCallN(38, 0, m.Instance())
+	return int32(r)
+}
+
+func (m *TCEFViewComponent) SetGroupID(value int32) {
+	if !m.IsValid() {
+		return
+	}
+	cEFViewComponentAPI().SysCallN(38, 1, m.Instance(), uintptr(value))
+}
+
 func (m *TCEFViewComponent) Bounds() (result TCefRect) {
-	if !m.IsValid() {
-		return
-	}
-	cEFViewComponentAPI().SysCallN(38, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&result)))
-	return
-}
-
-func (m *TCEFViewComponent) SetBounds(value TCefRect) {
-	if !m.IsValid() {
-		return
-	}
-	cEFViewComponentAPI().SysCallN(38, 1, m.Instance(), uintptr(base.UnsafePointer(&value)))
-}
-
-func (m *TCEFViewComponent) Size() (result TCefSize) {
 	if !m.IsValid() {
 		return
 	}
@@ -626,14 +626,14 @@ func (m *TCEFViewComponent) Size() (result TCefSize) {
 	return
 }
 
-func (m *TCEFViewComponent) SetSize(value TCefSize) {
+func (m *TCEFViewComponent) SetBounds(value TCefRect) {
 	if !m.IsValid() {
 		return
 	}
 	cEFViewComponentAPI().SysCallN(39, 1, m.Instance(), uintptr(base.UnsafePointer(&value)))
 }
 
-func (m *TCEFViewComponent) Position() (result TCefPoint) {
+func (m *TCEFViewComponent) Size() (result TCefSize) {
 	if !m.IsValid() {
 		return
 	}
@@ -641,14 +641,14 @@ func (m *TCEFViewComponent) Position() (result TCefPoint) {
 	return
 }
 
-func (m *TCEFViewComponent) SetPosition(value TCefPoint) {
+func (m *TCEFViewComponent) SetSize(value TCefSize) {
 	if !m.IsValid() {
 		return
 	}
 	cEFViewComponentAPI().SysCallN(40, 1, m.Instance(), uintptr(base.UnsafePointer(&value)))
 }
 
-func (m *TCEFViewComponent) Insets() (result TCefInsets) {
+func (m *TCEFViewComponent) Position() (result TCefPoint) {
 	if !m.IsValid() {
 		return
 	}
@@ -656,11 +656,26 @@ func (m *TCEFViewComponent) Insets() (result TCefInsets) {
 	return
 }
 
-func (m *TCEFViewComponent) SetInsets(value TCefInsets) {
+func (m *TCEFViewComponent) SetPosition(value TCefPoint) {
 	if !m.IsValid() {
 		return
 	}
 	cEFViewComponentAPI().SysCallN(41, 1, m.Instance(), uintptr(base.UnsafePointer(&value)))
+}
+
+func (m *TCEFViewComponent) Insets() (result TCefInsets) {
+	if !m.IsValid() {
+		return
+	}
+	cEFViewComponentAPI().SysCallN(42, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&result)))
+	return
+}
+
+func (m *TCEFViewComponent) SetInsets(value TCefInsets) {
+	if !m.IsValid() {
+		return
+	}
+	cEFViewComponentAPI().SysCallN(42, 1, m.Instance(), uintptr(base.UnsafePointer(&value)))
 }
 
 func (m *TCEFViewComponent) TypeString() (result string) {
@@ -668,7 +683,7 @@ func (m *TCEFViewComponent) TypeString() (result string) {
 		return
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cEFViewComponentAPI().SysCallN(42, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cEFViewComponentAPI().SysCallN(43, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
@@ -678,7 +693,7 @@ func (m *TCEFViewComponent) HeightForWidth(width int32) int32 {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cEFViewComponentAPI().SysCallN(43, m.Instance(), uintptr(width))
+	r := cEFViewComponentAPI().SysCallN(44, m.Instance(), uintptr(width))
 	return int32(r)
 }
 
@@ -687,7 +702,7 @@ func (m *TCEFViewComponent) SetOnGetPreferredSize(fn TOnGetPreferredSizeEvent) {
 		return
 	}
 	cb := makeTOnGetPreferredSizeEvent(fn)
-	base.SetEvent(m, 44, cEFViewComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 45, cEFViewComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFViewComponent) SetOnGetMinimumSize(fn TOnGetMinimumSizeEvent) {
@@ -695,7 +710,7 @@ func (m *TCEFViewComponent) SetOnGetMinimumSize(fn TOnGetMinimumSizeEvent) {
 		return
 	}
 	cb := makeTOnGetMinimumSizeEvent(fn)
-	base.SetEvent(m, 45, cEFViewComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 46, cEFViewComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFViewComponent) SetOnGetMaximumSize(fn TOnGetMaximumSizeEvent) {
@@ -703,7 +718,7 @@ func (m *TCEFViewComponent) SetOnGetMaximumSize(fn TOnGetMaximumSizeEvent) {
 		return
 	}
 	cb := makeTOnGetMaximumSizeEvent(fn)
-	base.SetEvent(m, 46, cEFViewComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 47, cEFViewComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFViewComponent) SetOnGetHeightForWidth(fn TOnGetHeightForWidthEvent) {
@@ -711,7 +726,7 @@ func (m *TCEFViewComponent) SetOnGetHeightForWidth(fn TOnGetHeightForWidthEvent)
 		return
 	}
 	cb := makeTOnGetHeightForWidthEvent(fn)
-	base.SetEvent(m, 47, cEFViewComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 48, cEFViewComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFViewComponent) SetOnParentViewChanged(fn TOnParentViewChangedEvent) {
@@ -719,7 +734,7 @@ func (m *TCEFViewComponent) SetOnParentViewChanged(fn TOnParentViewChangedEvent)
 		return
 	}
 	cb := makeTOnParentViewChangedEvent(fn)
-	base.SetEvent(m, 48, cEFViewComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 49, cEFViewComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFViewComponent) SetOnChildViewChanged(fn TOnChildViewChangedEvent) {
@@ -727,7 +742,7 @@ func (m *TCEFViewComponent) SetOnChildViewChanged(fn TOnChildViewChangedEvent) {
 		return
 	}
 	cb := makeTOnChildViewChangedEvent(fn)
-	base.SetEvent(m, 49, cEFViewComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 50, cEFViewComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFViewComponent) SetOnWindowChanged(fn TOnWindowChangedEvent) {
@@ -735,7 +750,7 @@ func (m *TCEFViewComponent) SetOnWindowChanged(fn TOnWindowChangedEvent) {
 		return
 	}
 	cb := makeTOnWindowChangedEvent(fn)
-	base.SetEvent(m, 50, cEFViewComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 51, cEFViewComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFViewComponent) SetOnLayoutChanged(fn TOnLayoutChangedEvent) {
@@ -743,7 +758,7 @@ func (m *TCEFViewComponent) SetOnLayoutChanged(fn TOnLayoutChangedEvent) {
 		return
 	}
 	cb := makeTOnLayoutChangedEvent(fn)
-	base.SetEvent(m, 51, cEFViewComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 52, cEFViewComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFViewComponent) SetOnFocus(fn TOnFocusEvent) {
@@ -751,7 +766,7 @@ func (m *TCEFViewComponent) SetOnFocus(fn TOnFocusEvent) {
 		return
 	}
 	cb := makeTOnFocusEvent(fn)
-	base.SetEvent(m, 52, cEFViewComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 53, cEFViewComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFViewComponent) SetOnBlur(fn TOnBlurEvent) {
@@ -759,7 +774,7 @@ func (m *TCEFViewComponent) SetOnBlur(fn TOnBlurEvent) {
 		return
 	}
 	cb := makeTOnBlurEvent(fn)
-	base.SetEvent(m, 53, cEFViewComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 54, cEFViewComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFViewComponent) SetOnThemeChanged(fn TOnThemeChangedEvent) {
@@ -767,7 +782,7 @@ func (m *TCEFViewComponent) SetOnThemeChanged(fn TOnThemeChangedEvent) {
 		return
 	}
 	cb := makeTOnThemeChangedEvent(fn)
-	base.SetEvent(m, 54, cEFViewComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 55, cEFViewComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFViewComponent) AsIntfViewDelegateEvents() uintptr {
@@ -830,26 +845,27 @@ func cEFViewComponentAPI() *imports.Imports {
 			/* 32 */ imports.NewTable("TCEFViewComponent_Enabled", 0), // property Enabled
 			/* 33 */ imports.NewTable("TCEFViewComponent_Focusable", 0), // property Focusable
 			/* 34 */ imports.NewTable("TCEFViewComponent_AccessibilityFocusable", 0), // property AccessibilityFocusable
-			/* 35 */ imports.NewTable("TCEFViewComponent_BackgroundColor", 0), // property BackgroundColor
-			/* 36 */ imports.NewTable("TCEFViewComponent_ID", 0), // property ID
-			/* 37 */ imports.NewTable("TCEFViewComponent_GroupID", 0), // property GroupID
-			/* 38 */ imports.NewTable("TCEFViewComponent_Bounds", 0), // property Bounds
-			/* 39 */ imports.NewTable("TCEFViewComponent_Size", 0), // property Size
-			/* 40 */ imports.NewTable("TCEFViewComponent_Position", 0), // property Position
-			/* 41 */ imports.NewTable("TCEFViewComponent_Insets", 0), // property Insets
-			/* 42 */ imports.NewTable("TCEFViewComponent_TypeString", 0), // property TypeString
-			/* 43 */ imports.NewTable("TCEFViewComponent_HeightForWidth", 0), // property HeightForWidth
-			/* 44 */ imports.NewTable("TCEFViewComponent_OnGetPreferredSize", 0), // event OnGetPreferredSize
-			/* 45 */ imports.NewTable("TCEFViewComponent_OnGetMinimumSize", 0), // event OnGetMinimumSize
-			/* 46 */ imports.NewTable("TCEFViewComponent_OnGetMaximumSize", 0), // event OnGetMaximumSize
-			/* 47 */ imports.NewTable("TCEFViewComponent_OnGetHeightForWidth", 0), // event OnGetHeightForWidth
-			/* 48 */ imports.NewTable("TCEFViewComponent_OnParentViewChanged", 0), // event OnParentViewChanged
-			/* 49 */ imports.NewTable("TCEFViewComponent_OnChildViewChanged", 0), // event OnChildViewChanged
-			/* 50 */ imports.NewTable("TCEFViewComponent_OnWindowChanged", 0), // event OnWindowChanged
-			/* 51 */ imports.NewTable("TCEFViewComponent_OnLayoutChanged", 0), // event OnLayoutChanged
-			/* 52 */ imports.NewTable("TCEFViewComponent_OnFocus", 0), // event OnFocus
-			/* 53 */ imports.NewTable("TCEFViewComponent_OnBlur", 0), // event OnBlur
-			/* 54 */ imports.NewTable("TCEFViewComponent_OnThemeChanged", 0), // event OnThemeChanged
+			/* 35 */ imports.NewTable("TCEFViewComponent_HasFocus", 0), // property HasFocus
+			/* 36 */ imports.NewTable("TCEFViewComponent_BackgroundColor", 0), // property BackgroundColor
+			/* 37 */ imports.NewTable("TCEFViewComponent_ID", 0), // property ID
+			/* 38 */ imports.NewTable("TCEFViewComponent_GroupID", 0), // property GroupID
+			/* 39 */ imports.NewTable("TCEFViewComponent_Bounds", 0), // property Bounds
+			/* 40 */ imports.NewTable("TCEFViewComponent_Size", 0), // property Size
+			/* 41 */ imports.NewTable("TCEFViewComponent_Position", 0), // property Position
+			/* 42 */ imports.NewTable("TCEFViewComponent_Insets", 0), // property Insets
+			/* 43 */ imports.NewTable("TCEFViewComponent_TypeString", 0), // property TypeString
+			/* 44 */ imports.NewTable("TCEFViewComponent_HeightForWidth", 0), // property HeightForWidth
+			/* 45 */ imports.NewTable("TCEFViewComponent_OnGetPreferredSize", 0), // event OnGetPreferredSize
+			/* 46 */ imports.NewTable("TCEFViewComponent_OnGetMinimumSize", 0), // event OnGetMinimumSize
+			/* 47 */ imports.NewTable("TCEFViewComponent_OnGetMaximumSize", 0), // event OnGetMaximumSize
+			/* 48 */ imports.NewTable("TCEFViewComponent_OnGetHeightForWidth", 0), // event OnGetHeightForWidth
+			/* 49 */ imports.NewTable("TCEFViewComponent_OnParentViewChanged", 0), // event OnParentViewChanged
+			/* 50 */ imports.NewTable("TCEFViewComponent_OnChildViewChanged", 0), // event OnChildViewChanged
+			/* 51 */ imports.NewTable("TCEFViewComponent_OnWindowChanged", 0), // event OnWindowChanged
+			/* 52 */ imports.NewTable("TCEFViewComponent_OnLayoutChanged", 0), // event OnLayoutChanged
+			/* 53 */ imports.NewTable("TCEFViewComponent_OnFocus", 0), // event OnFocus
+			/* 54 */ imports.NewTable("TCEFViewComponent_OnBlur", 0), // event OnBlur
+			/* 55 */ imports.NewTable("TCEFViewComponent_OnThemeChanged", 0), // event OnThemeChanged
 		}
 	})
 	return cEFViewComponentImport

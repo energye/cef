@@ -18,6 +18,7 @@ import (
 type IEngFrameHandler interface {
 	ICefFrameHandlerOwn
 	SetOnFrameFrameCreated(fn TOnFrameFrameCreatedEvent)         // property event
+	SetOnFrameFrameDestroyed(fn TOnFrameFrameDestroyedEvent)     // property event
 	SetOnFrameFrameAttached(fn TOnFrameFrameAttachedEvent)       // property event
 	SetOnFrameFrameDetached(fn TOnFrameFrameDetachedEvent)       // property event
 	SetOnFrameMainFrameChanged(fn TOnFrameMainFrameChangedEvent) // property event
@@ -36,12 +37,20 @@ func (m *TEngFrameHandler) SetOnFrameFrameCreated(fn TOnFrameFrameCreatedEvent) 
 	base.SetEvent(m, 1, engFrameHandlerAPI(), api.MakeEventDataPtr(cb))
 }
 
+func (m *TEngFrameHandler) SetOnFrameFrameDestroyed(fn TOnFrameFrameDestroyedEvent) {
+	if !m.IsValid() {
+		return
+	}
+	cb := makeTOnFrameFrameDestroyedEvent(fn)
+	base.SetEvent(m, 2, engFrameHandlerAPI(), api.MakeEventDataPtr(cb))
+}
+
 func (m *TEngFrameHandler) SetOnFrameFrameAttached(fn TOnFrameFrameAttachedEvent) {
 	if !m.IsValid() {
 		return
 	}
 	cb := makeTOnFrameFrameAttachedEvent(fn)
-	base.SetEvent(m, 2, engFrameHandlerAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 3, engFrameHandlerAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TEngFrameHandler) SetOnFrameFrameDetached(fn TOnFrameFrameDetachedEvent) {
@@ -49,7 +58,7 @@ func (m *TEngFrameHandler) SetOnFrameFrameDetached(fn TOnFrameFrameDetachedEvent
 		return
 	}
 	cb := makeTOnFrameFrameDetachedEvent(fn)
-	base.SetEvent(m, 3, engFrameHandlerAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 4, engFrameHandlerAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TEngFrameHandler) SetOnFrameMainFrameChanged(fn TOnFrameMainFrameChangedEvent) {
@@ -57,7 +66,7 @@ func (m *TEngFrameHandler) SetOnFrameMainFrameChanged(fn TOnFrameMainFrameChange
 		return
 	}
 	cb := makeTOnFrameMainFrameChangedEvent(fn)
-	base.SetEvent(m, 4, engFrameHandlerAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 5, engFrameHandlerAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TEngFrameHandler) AsIntfFrameHandler() uintptr {
@@ -87,9 +96,10 @@ func engFrameHandlerAPI() *imports.Imports {
 		engFrameHandlerImport.Table = []*imports.Table{
 			/* 0 */ imports.NewTable("TEngFrameHandler_Create", 0), // constructor NewEngFrameHandler
 			/* 1 */ imports.NewTable("TEngFrameHandler_OnFrameFrameCreated", 0), // event OnFrameFrameCreated
-			/* 2 */ imports.NewTable("TEngFrameHandler_OnFrameFrameAttached", 0), // event OnFrameFrameAttached
-			/* 3 */ imports.NewTable("TEngFrameHandler_OnFrameFrameDetached", 0), // event OnFrameFrameDetached
-			/* 4 */ imports.NewTable("TEngFrameHandler_OnFrameMainFrameChanged", 0), // event OnFrameMainFrameChanged
+			/* 2 */ imports.NewTable("TEngFrameHandler_OnFrameFrameDestroyed", 0), // event OnFrameFrameDestroyed
+			/* 3 */ imports.NewTable("TEngFrameHandler_OnFrameFrameAttached", 0), // event OnFrameFrameAttached
+			/* 4 */ imports.NewTable("TEngFrameHandler_OnFrameFrameDetached", 0), // event OnFrameFrameDetached
+			/* 5 */ imports.NewTable("TEngFrameHandler_OnFrameMainFrameChanged", 0), // event OnFrameMainFrameChanged
 		}
 	})
 	return engFrameHandlerImport

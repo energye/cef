@@ -39,6 +39,7 @@ type IEngWindowDelegate interface {
 	SetOnWindowKey(fn TOnWindowKeyEvent)                                               // property event
 	SetOnWindowThemeColorsChanged(fn TOnWindowThemeColorsChangedEvent)                 // property event
 	SetOnWindowGetWindowRuntimeStyle(fn TOnWindowGetWindowRuntimeStyleEvent)           // property event
+	SetOnWindowGetLinuxWindowProperties(fn TOnWindowGetLinuxWindowPropertiesEvent)     // property event
 	AsIntfWindowDelegate() uintptr
 	AsIntfPanelDelegate() uintptr
 	AsIntfViewDelegate() uintptr
@@ -224,6 +225,14 @@ func (m *TEngWindowDelegate) SetOnWindowGetWindowRuntimeStyle(fn TOnWindowGetWin
 	base.SetEvent(m, 22, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
 }
 
+func (m *TEngWindowDelegate) SetOnWindowGetLinuxWindowProperties(fn TOnWindowGetLinuxWindowPropertiesEvent) {
+	if !m.IsValid() {
+		return
+	}
+	cb := makeTOnWindowGetLinuxWindowPropertiesEvent(fn)
+	base.SetEvent(m, 23, engWindowDelegateAPI(), api.MakeEventDataPtr(cb))
+}
+
 func (m *TEngWindowDelegate) AsIntfWindowDelegate() uintptr {
 	return m.GetIntfPointer(0)
 }
@@ -282,6 +291,7 @@ func engWindowDelegateAPI() *imports.Imports {
 			/* 20 */ imports.NewTable("TEngWindowDelegate_OnWindowKey", 0), // event OnWindowKey
 			/* 21 */ imports.NewTable("TEngWindowDelegate_OnWindowThemeColorsChanged", 0), // event OnWindowThemeColorsChanged
 			/* 22 */ imports.NewTable("TEngWindowDelegate_OnWindowGetWindowRuntimeStyle", 0), // event OnWindowGetWindowRuntimeStyle
+			/* 23 */ imports.NewTable("TEngWindowDelegate_OnWindowGetLinuxWindowProperties", 0), // event OnWindowGetLinuxWindowProperties
 		}
 	})
 	return engWindowDelegateImport

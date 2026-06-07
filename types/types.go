@@ -20,6 +20,31 @@ const (
 	CEF_ALPHA_TYPE_POSTMULTIPLIED
 )
 
+// TCefAngleImplementation ENUM
+//
+//	Select which ANGLE backend to use.
+//	<see href="https://peter.sh/experiments/chromium-command-line-switches/#use-angle">Uses the following command line switch: --use-angle</see>
+//	<see href="https://source.chromium.org/chromium/chromium/src/+/main:ui/gl/gl_switches.cc">See the gl_switches.cc file</see>
+type TCefAngleImplementation = int32
+
+const (
+	AnimDefault TCefAngleImplementation = iota
+	AnimD3D9
+	AnimD3D11
+	AnimD3D11on12
+	AnimD3D11Warp
+	AnimD3D11WarpForWebGL
+	AnimOpenGL
+	AnimOpenGLEGL
+	AnimOpenGLES
+	AnimOpenGLESEGL
+	AnimNull
+	AnimVulkan
+	AnimSwiftShader
+	AnimSwiftShaderForWebGL
+	AnimMetal
+)
+
 // TCefAplicationStatus ENUM
 //
 //	Status of TCefAplicationCore.
@@ -63,20 +88,7 @@ const (
 	CEF_AXIS_ALIGNMENT_CENTER
 	CEF_AXIS_ALIGNMENT_END
 	CEF_AXIS_ALIGNMENT_STRETCH
-)
-
-// TCefBatterySaverModeState ENUM
-//
-//	Values used by the battery saver mode state preference.
-//	<see href="https://source.chromium.org/chromium/chromium/src/+/main:components/performance_manager/public/user_tuning/prefs.h">components/performance_manager/public/user_tuning/prefs.h</see>
-type TCefBatterySaverModeState = int32
-
-const (
-	BsmsDisabled              TCefBatterySaverModeState = iota
-	BsmsEnabledBelowThreshold                           = 1
-	BsmsEnabledOnBattery                                = 2
-	BsmsEnabled                                         = 3
-	BsmsDefault                                         = 4
+	CEF_AXIS_ALIGNMENT_NUM_VALUES
 )
 
 // TCefBrowserNavigation ENUM
@@ -103,6 +115,7 @@ const (
 	CEF_BUTTON_STATE_HOVERED
 	CEF_BUTTON_STATE_PRESSED
 	CEF_BUTTON_STATE_DISABLED
+	CEF_BUTTON_STATE_NUM_VALUES
 )
 
 // TCefChannelLayout ENUM
@@ -114,42 +127,43 @@ const (
 type TCefChannelLayout = int32
 
 const (
-	CEF_CHANNEL_LAYOUT_NONE                    TCefChannelLayout = iota
-	CEF_CHANNEL_LAYOUT_UNSUPPORTED                               = 1
-	CEF_CHANNEL_LAYOUT_MONO                                      = 2
-	CEF_CHANNEL_LAYOUT_STEREO                                    = 3
-	CEF_CHANNEL_LAYOUT_2_1                                       = 4
-	CEF_CHANNEL_LAYOUT_SURROUND                                  = 5
-	CEF_CHANNEL_LAYOUT_4_0                                       = 6
-	CEF_CHANNEL_LAYOUT_2_2                                       = 7
-	CEF_CHANNEL_LAYOUT_QUAD                                      = 8
-	CEF_CHANNEL_LAYOUT_5_0                                       = 9
-	CEF_CHANNEL_LAYOUT_5_1                                       = 10
-	CEF_CHANNEL_LAYOUT_5_0_BACK                                  = 11
-	CEF_CHANNEL_LAYOUT_5_1_BACK                                  = 12
-	CEF_CHANNEL_LAYOUT_7_0                                       = 13
-	CEF_CHANNEL_LAYOUT_7_1                                       = 14
-	CEF_CHANNEL_LAYOUT_7_1_WIDE                                  = 15
-	CEF_CHANNEL_LAYOUT_STEREO_DOWNMIX                            = 16
-	CEF_CHANNEL_LAYOUT_2POINT1                                   = 17
-	CEF_CHANNEL_LAYOUT_3_1                                       = 18
-	CEF_CHANNEL_LAYOUT_4_1                                       = 19
-	CEF_CHANNEL_LAYOUT_6_0                                       = 20
-	CEF_CHANNEL_LAYOUT_6_0_FRONT                                 = 21
-	CEF_CHANNEL_LAYOUT_HEXAGONAL                                 = 22
-	CEF_CHANNEL_LAYOUT_6_1                                       = 23
-	CEF_CHANNEL_LAYOUT_6_1_BACK                                  = 24
-	CEF_CHANNEL_LAYOUT_6_1_FRONT                                 = 25
-	CEF_CHANNEL_LAYOUT_7_0_FRONT                                 = 26
-	CEF_CHANNEL_LAYOUT_7_1_WIDE_BACK                             = 27
-	CEF_CHANNEL_LAYOUT_OCTAGONAL                                 = 28
-	CEF_CHANNEL_LAYOUT_DISCRETE                                  = 29
-	CEF_CHANNEL_LAYOUT_STEREO_AND_KEYBOARD_MIC                   = 30
-	CEF_CHANNEL_LAYOUT_4_1_QUAD_SIDE                             = 31
-	CEF_CHANNEL_LAYOUT_BITSTREAM                                 = 32
-	CEF_CHANNEL_LAYOUT_5_1_4_DOWNMIX                             = 33
-	CEF_CHANNEL_LAYOUT_1_1                                       = 34
-	CEF_CHANNEL_LAYOUT_3_1_BACK                                  = 35
+	CEF_CHANNEL_LAYOUT_NONE TCefChannelLayout = iota
+	CEF_CHANNEL_LAYOUT_UNSUPPORTED
+	CEF_CHANNEL_LAYOUT_MONO
+	CEF_CHANNEL_LAYOUT_STEREO
+	CEF_CHANNEL_LAYOUT_2_1
+	CEF_CHANNEL_LAYOUT_SURROUND
+	CEF_CHANNEL_LAYOUT_4_0
+	CEF_CHANNEL_LAYOUT_2_2
+	CEF_CHANNEL_LAYOUT_QUAD
+	CEF_CHANNEL_LAYOUT_5_0
+	CEF_CHANNEL_LAYOUT_5_1
+	CEF_CHANNEL_LAYOUT_5_0_BACK
+	CEF_CHANNEL_LAYOUT_5_1_BACK
+	CEF_CHANNEL_LAYOUT_7_0
+	CEF_CHANNEL_LAYOUT_7_1
+	CEF_CHANNEL_LAYOUT_7_1_WIDE
+	CEF_CHANNEL_LAYOUT_STEREO_DOWNMIX
+	CEF_CHANNEL_LAYOUT_2POINT1
+	CEF_CHANNEL_LAYOUT_3_1
+	CEF_CHANNEL_LAYOUT_4_1
+	CEF_CHANNEL_LAYOUT_6_0
+	CEF_CHANNEL_LAYOUT_6_0_FRONT
+	CEF_CHANNEL_LAYOUT_HEXAGONAL
+	CEF_CHANNEL_LAYOUT_6_1
+	CEF_CHANNEL_LAYOUT_6_1_BACK
+	CEF_CHANNEL_LAYOUT_6_1_FRONT
+	CEF_CHANNEL_LAYOUT_7_0_FRONT
+	CEF_CHANNEL_LAYOUT_7_1_WIDE_BACK
+	CEF_CHANNEL_LAYOUT_OCTAGONAL
+	CEF_CHANNEL_LAYOUT_DISCRETE
+	CEF_CHANNEL_LAYOUT_STEREO_AND_KEYBOARD_MIC
+	CEF_CHANNEL_LAYOUT_4_1_QUAD_SIDE
+	CEF_CHANNEL_LAYOUT_BITSTREAM
+	CEF_CHANNEL_LAYOUT_5_1_4_DOWNMIX
+	CEF_CHANNEL_LAYOUT_1_1
+	CEF_CHANNEL_LAYOUT_3_1_BACK
+	CEF_CHANNEL_NUM_VALUES
 )
 
 // TCefChromePageActionIconType ENUM
@@ -161,7 +175,7 @@ type TCefChromePageActionIconType = int32
 
 const (
 	CEF_CPAIT_BOOKMARK_STAR TCefChromePageActionIconType = iota
-	CEF_CPAIT_CLICK_TO_CALL
+	CEF_CPAIT_CLICK_TO_CALL_DEPRECATED
 	CEF_CPAIT_COOKIE_CONTROLS
 	CEF_CPAIT_FILE_SYSTEM_ACCESS
 	CEF_CPAIT_FIND
@@ -178,18 +192,32 @@ const (
 	CEF_CPAIT_SAVE_CARD
 	CEF_CPAIT_SEND_TAB_TO_SELF_DEPRECATED
 	CEF_CPAIT_SHARING_HUB
-	CEF_CPAIT_SIDE_SEARCH
+	CEF_CPAIT_SIDE_SEARCH_DEPRECATED
 	CEF_CPAIT_SMS_REMOTE_FETCHER
 	CEF_CPAIT_TRANSLATE
 	CEF_CPAIT_VIRTUAL_CARD_ENROLL
-	CEF_CPAIT_VIRTUAL_CARD_MANUAL_FALLBACK
+	CEF_CPAIT_VIRTUAL_CARD_INFORMATION
 	CEF_CPAIT_ZOOM
 	CEF_CPAIT_SAVE_IBAN
 	CEF_CPAIT_MANDATORY_REAUTH
 	CEF_CPAIT_PRICE_INSIGHTS
-	CEF_CPAIT_PRICE_READ_ANYTHING
+	CEF_CPAIT_READ_ANYTHING_DEPRECATED
 	CEF_CPAIT_PRODUCT_SPECIFICATIONS
 	CEF_CPAIT_LENS_OVERLAY
+	CEF_CPAIT_DISCOUNTS
+	CEF_CPAIT_OPTIMIZATION_GUIDE
+	CEF_CPAIT_COLLABORATION_MESSAGING
+	CEF_CPAIT_CHANGE_PASSWORD
+	CEF_CPAIT_LENS_OVERLAY_HOMEWORK
+	CEF_CPAIT_AI_MODE
+	CEF_CPAIT_READING_MODE
+	CEF_CPAIT_CONTEXTUAL_SIDE_PANEL
+	CEF_CPAIT_JS_OPTIMIZATIONS
+	CEF_CPAIT_RECORD_REPLAY
+	CEF_CPAIT_INDIGO
+	CEF_CPAIT_FEDERATION_DEPRECATED
+	CEF_CPAIT_GLIC
+	CEF_CPAIT_NUM_VALUES
 )
 
 // TCefChromeToolbarButtonType ENUM
@@ -200,20 +228,25 @@ const (
 type TCefChromeToolbarButtonType = int32
 
 const (
-	CEF_CTBT_CAST TCefChromeToolbarButtonType = iota
-	CEF_CTBT_DOWNLOAD
-	CEF_CTBT_SEND_TAB_TO_SELF
-	CEF_CTBT_SIDE_PANEL
+	CEF_CTBT_CAST_DEPRECATED TCefChromeToolbarButtonType = iota
+	CEF_CTBT_DOWNLOAD_DEPRECATED
+	CEF_CTBT_SEND_TAB_TO_SELF_DEPRECATED
+	CEF_CTBT_SIDE_PANEL_DEPRECATED
+	CEF_CTBT_MEDIA
+	CEF_CTBT_TAB_SEARCH
+	CEF_CTBT_BATTERY_SAVER
+	CEF_CTBT_AVATAR
+	CEF_CTBT_NUM_VALUES
 )
 
 // TCefClearDataStorageTypes ENUM
 //
 //	Storage types used by the Storage.clearDataForOrigin DevTools method in TChromiumCore.ClearDataForOrigin.
+//	<see href="https://chromedevtools.github.io/devtools-protocol/tot/Storage/#type-StorageType">See the documentation for the Storage.StorageType type.</see>
 type TCefClearDataStorageTypes = int32
 
 const (
-	CdstAppCache TCefClearDataStorageTypes = iota
-	CdstCookies
+	CdstCookies TCefClearDataStorageTypes = iota
 	CdstFileSystems
 	CdstIndexeddb
 	CdstLocalStorage
@@ -221,7 +254,11 @@ const (
 	CdstWebsql
 	CdstServiceWorkers
 	CdstCacheStorage
+	CdstInterestGroups
+	CdstSharedStorage
+	CdstStorageBuckets
 	CdstAll
+	CdstOther
 )
 
 // TCefCloseBrowserAction ENUM
@@ -269,6 +306,7 @@ const (
 	COLOR_MODEL_PROCESSCOLORMODEL_CMYK
 	COLOR_MODEL_PROCESSCOLORMODEL_GREYSCALE
 	COLOR_MODEL_PROCESSCOLORMODEL_RGB
+	COLOR_MODEL_NUM_VALUES
 )
 
 // TCefColorType ENUM
@@ -280,6 +318,7 @@ type TCefColorType = int32
 const (
 	CEF_COLOR_TYPE_RGBA_8888 TCefColorType = iota
 	CEF_COLOR_TYPE_BGRA_8888
+	CEF_COLOR_TYPE_NUM_VALUES
 )
 
 // TCefColorVariant ENUM
@@ -297,6 +336,7 @@ const (
 	CEF_COLOR_VARIANT_NEUTRAL
 	CEF_COLOR_VARIANT_VIBRANT
 	CEF_COLOR_VARIANT_EXPRESSIVE
+	CEF_COLOR_VARIANT_NUM_VALUES
 )
 
 // TCefCOMInitMode ENUM
@@ -311,6 +351,61 @@ const (
 	COM_INIT_MODE_MTA
 )
 
+// TCefComponentState ENUM
+//
+//	Component state values. These map to update_client::ComponentState values
+//	from components/update_client/update_client.h
+//	A component is considered "installed" when its state is one of:
+//	CEF_COMPONENT_STATE_UPDATED, CEF_COMPONENT_STATE_UP_TO_DATE, or
+//	CEF_COMPONENT_STATE_RUN.
+//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types_component.h">CEF source file: /include/internal/cef_types_component.h (cef_component_state_t)</see>
+type TCefComponentState = int32
+
+const (
+	CEF_COMPONENT_STATE_NEW           TCefComponentState = iota
+	CEF_COMPONENT_STATE_CHECKING                         = 1
+	CEF_COMPONENT_STATE_CAN_UPDATE                       = 2
+	CEF_COMPONENT_STATE_DOWNLOADING                      = 3
+	CEF_COMPONENT_STATE_DECOMPRESSING                    = 4
+	CEF_COMPONENT_STATE_PATCHING                         = 5
+	CEF_COMPONENT_STATE_UPDATING                         = 6
+	CEF_COMPONENT_STATE_UPDATED                          = 7
+	CEF_COMPONENT_STATE_UP_TO_DATE                       = 8
+	CEF_COMPONENT_STATE_UPDATE_ERROR                     = 9
+	CEF_COMPONENT_STATE_RUN                              = 10
+)
+
+// TCefComponentUpdateError ENUM
+//
+//	Component update error codes. These map to update_client::Error values
+//	from components/update_client/update_client_errors.h
+//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types_component.h">CEF source file: /include/internal/cef_types_component.h (cef_component_update_error_t)</see>
+type TCefComponentUpdateError = int32
+
+const (
+	CEF_COMPONENT_UPDATE_ERROR_NONE                  TCefComponentUpdateError = iota
+	CEF_COMPONENT_UPDATE_ERROR_UPDATE_IN_PROGRESS                             = 1
+	CEF_COMPONENT_UPDATE_ERROR_UPDATE_CANCELED                                = 2
+	CEF_COMPONENT_UPDATE_ERROR_RETRY_LATER                                    = 3
+	CEF_COMPONENT_UPDATE_ERROR_SERVICE_ERROR                                  = 4
+	CEF_COMPONENT_UPDATE_ERROR_UPDATE_CHECK_ERROR                             = 5
+	CEF_COMPONENT_UPDATE_ERROR_CRX_NOT_FOUND                                  = 6
+	CEF_COMPONENT_UPDATE_ERROR_INVALID_ARGUMENT                               = 7
+	CEF_COMPONENT_UPDATE_ERROR_BAD_CRX_DATA_CALLBACK                          = 8
+)
+
+// TCefComponentUpdatePriority ENUM
+//
+//	Component update priority. Maps to
+//	component_updater::OnDemandUpdater::Priority.
+//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types_component.h">CEF source file: /include/internal/cef_types_component.h (cef_component_update_priority_t)</see>
+type TCefComponentUpdatePriority = int32
+
+const (
+	CEF_COMPONENT_UPDATE_PRIORITY_BACKGROUND TCefComponentUpdatePriority = iota
+	CEF_COMPONENT_UPDATE_PRIORITY_FOREGROUND                             = 1
+)
+
 // TCefCompositionUnderlineStyle ENUM
 //
 //	Composition underline style.
@@ -322,12 +417,13 @@ const (
 	CEF_CUS_DOT
 	CEF_CUS_DASH
 	CEF_CUS_NONE
+	CEF_CUS_NUM_VALUES
 )
 
 // TCefContentSettingTypes ENUM
 //
 //	Supported content setting types. Some types are platform-specific or only
-//	supported with the Chrome runtime. Should be kept in sync with Chromium's
+//	supported with Chrome style. Should be kept in sync with Chromium's
 //	ContentSettingsType type.
 //	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types_content_settings.h">CEF source file: /include/internal/cef_types_content_settings.h (cef_content_setting_types_t)</see>
 type TCefContentSettingTypes = int32
@@ -351,7 +447,7 @@ const (
 	CEF_CONTENT_SETTING_TYPE_PROTECTED_MEDIA_IDENTIFIER
 	CEF_CONTENT_SETTING_TYPE_APP_BANNER
 	CEF_CONTENT_SETTING_TYPE_SITE_ENGAGEMENT
-	CEF_CONTENT_SETTING_TYPE_DURABLE_STORAGE
+	CEF_CONTENT_SETTING_TYPE_PERSISTENT_STORAGE
 	CEF_CONTENT_SETTING_TYPE_USB_CHOOSER_DATA
 	CEF_CONTENT_SETTING_TYPE_BLUETOOTH_GUARD
 	CEF_CONTENT_SETTING_TYPE_BACKGROUND_SYNC
@@ -366,7 +462,7 @@ const (
 	CEF_CONTENT_SETTING_TYPE_SOUND
 	CEF_CONTENT_SETTING_TYPE_CLIENT_HINTS
 	CEF_CONTENT_SETTING_TYPE_SENSORS
-	CEF_CONTENT_SETTING_TYPE_ACCESSIBILITY_EVENTS
+	CEF_CONTENT_SETTING_TYPE_DEPRECATED_ACCESSIBILITY_EVENTS
 	CEF_CONTENT_SETTING_TYPE_PAYMENT_HANDLER
 	CEF_CONTENT_SETTING_TYPE_USB_GUARD
 	CEF_CONTENT_SETTING_TYPE_BACKGROUND_FETCH
@@ -393,7 +489,7 @@ const (
 	CEF_CONTENT_SETTING_TYPE_STORAGE_ACCESS
 	CEF_CONTENT_SETTING_TYPE_CAMERA_PAN_TILT_ZOOM
 	CEF_CONTENT_SETTING_TYPE_WINDOW_MANAGEMENT
-	CEF_CONTENT_SETTING_TYPE_INSECURE_PRIVATE_NETWORK
+	CEF_CONTENT_SETTING_TYPE_INSECURE_PRIVATE_NETWORK_DEPRECATED
 	CEF_CONTENT_SETTING_TYPE_LOCAL_FONTS
 	CEF_CONTENT_SETTING_TYPE_PERMISSION_AUTOREVOCATION_DATA
 	CEF_CONTENT_SETTING_TYPE_FILE_SYSTEM_LAST_PICKED_DIRECTORY
@@ -410,23 +506,23 @@ const (
 	CEF_CONTENT_SETTING_TYPE_NOTIFICATION_INTERACTIONS
 	CEF_CONTENT_SETTING_TYPE_REDUCED_ACCEPT_LANGUAGE
 	CEF_CONTENT_SETTING_TYPE_NOTIFICATION_PERMISSION_REVIEW
-	CEF_CONTENT_SETTING_TYPE_PRIVATE_NETWORK_GUARD
-	CEF_CONTENT_SETTING_TYPE_PRIVATE_NETWORK_CHOOSER_DATA
+	CEF_CONTENT_SETTING_TYPE_PRIVATE_NETWORK_GUARD_DEPRECATED
+	CEF_CONTENT_SETTING_TYPE_PRIVATE_NETWORK_CHOOSER_DATA_DEPRECATED
 	CEF_CONTENT_SETTING_TYPE_FEDERATED_IDENTITY_IDENTITY_PROVIDER_SIGNIN_STATUS
 	CEF_CONTENT_SETTING_TYPE_REVOKED_UNUSED_SITE_PERMISSIONS
 	CEF_CONTENT_SETTING_TYPE_TOP_LEVEL_STORAGE_ACCESS
 	CEF_CONTENT_SETTING_TYPE_FEDERATED_IDENTITY_AUTO_REAUTHN_PERMISSION
 	CEF_CONTENT_SETTING_TYPE_FEDERATED_IDENTITY_IDENTITY_PROVIDER_REGISTRATION
 	CEF_CONTENT_SETTING_TYPE_ANTI_ABUSE
-	CEF_CONTENT_SETTING_TYPE_THIRD_PARTY_STORAGE_PARTITIONING
+	CEF_CONTENT_SETTING_TYPE_THIRD_PARTY_STORAGE_PARTITIONING_DEPRECATED
 	CEF_CONTENT_SETTING_TYPE_HTTPS_ENFORCED
 	CEF_CONTENT_SETTING_TYPE_ALL_SCREEN_CAPTURE
 	CEF_CONTENT_SETTING_TYPE_COOKIE_CONTROLS_METADATA
 	CEF_CONTENT_SETTING_TYPE_TPCD_HEURISTICS_GRANTS
 	CEF_CONTENT_SETTING_TYPE_TPCD_METADATA_GRANTS
-	CEF_CONTENT_SETTING_TYPE_TPCD_TRIAL
-	CEF_CONTENT_SETTING_TYPE_TOP_LEVEL_TPCD_TRIAL
-	CEF_CONTENT_SETTING_TOP_LEVEL_TPCD_ORIGIN_TRIAL
+	CEF_CONTENT_SETTING_TYPE_TPCD_TRIAL_DEPRECATED
+	CEF_CONTENT_SETTING_TYPE_TOP_LEVEL_TPCD_TRIAL_DEPRECATED
+	CEF_CONTENT_SETTING_TYPE_TOP_LEVEL_TPCD_ORIGIN_TRIAL_DEPRECATED
 	CEF_CONTENT_SETTING_TYPE_AUTO_PICTURE_IN_PICTURE
 	CEF_CONTENT_SETTING_TYPE_FILE_SYSTEM_ACCESS_EXTENDED_PERMISSION
 	CEF_CONTENT_SETTING_TYPE_FILE_SYSTEM_ACCESS_RESTORE_PERMISSION
@@ -441,7 +537,28 @@ const (
 	CEF_CONTENT_SETTING_TYPE_KEYBOARD_LOCK
 	CEF_CONTENT_SETTING_TYPE_POINTER_LOCK
 	CEF_CONTENT_SETTING_TYPE_REVOKED_ABUSIVE_NOTIFICATION_PERMISSIONS
-	CEF_CONTENT_SETTING_TYPE_TRACKING_PROTECTION
+	CEF_CONTENT_SETTING_TYPE_TRACKING_PROTECTION_DEPRECATED
+	CEF_CONTENT_SETTING_TYPE_DISPLAY_MEDIA_SYSTEM_AUDIO
+	CEF_CONTENT_SETTING_TYPE_JAVASCRIPT_OPTIMIZER
+	CEF_CONTENT_SETTING_TYPE_STORAGE_ACCESS_HEADER_ORIGIN_TRIAL
+	CEF_CONTENT_SETTING_TYPE_HAND_TRACKING
+	CEF_CONTENT_SETTING_TYPE_WEB_APP_INSTALLATION
+	CEF_CONTENT_SETTING_TYPE_DIRECT_SOCKETS_PRIVATE_NETWORK_ACCESS
+	CEF_CONTENT_SETTING_TYPE_LEGACY_COOKIE_SCOPE
+	CEF_CONTENT_SETTING_TYPE_ARE_SUSPICIOUS_NOTIFICATIONS_ALLOWLISTED_BY_USER
+	CEF_CONTENT_SETTING_TYPE_CONTROLLED_FRAME
+	CEF_CONTENT_SETTING_TYPE_REVOKED_DISRUPTIVE_NOTIFICATION_PERMISSIONS
+	CEF_CONTENT_SETTING_TYPE_LOCAL_NETWORK_ACCESS
+	CEF_CONTENT_SETTING_TYPE_ON_DEVICE_SPEECH_RECOGNITION_LANGUAGES_DOWNLOADED
+	CEF_CONTENT_SETTING_TYPE_INITIALIZED_TRANSLATIONS
+	CEF_CONTENT_SETTING_TYPE_SUSPICIOUS_NOTIFICATION_IDS
+	CEF_CONTENT_SETTING_TYPE_GEOLOCATION_WITH_OPTIONS
+	CEF_CONTENT_SETTING_TYPE_DEVICE_ATTRIBUTES
+	CEF_CONTENT_SETTING_TYPE_PERMISSION_ACTIONS_HISTORY
+	CEF_CONTENT_SETTING_TYPE_SUSPICIOUS_NOTIFICATION_SHOW_ORIGINAL
+	CEF_CONTENT_SETTING_TYPE_LOCAL_NETWORK
+	CEF_CONTENT_SETTING_TYPE_LOOPBACK_NETWORK
+	CEF_CONTENT_SETTING_TYPE_NUM_VALUES
 )
 
 // TCefContentSettingValues ENUM
@@ -457,7 +574,7 @@ const (
 	CEF_CONTENT_SETTING_VALUE_BLOCK
 	CEF_CONTENT_SETTING_VALUE_ASK
 	CEF_CONTENT_SETTING_VALUE_SESSION_ONLY
-	CEF_CONTENT_SETTING_VALUE_DETECT_IMPORTANT_CONTENT
+	CEF_CONTENT_SETTING_VALUE_DETECT_IMPORTANT_CONTENT_DEPRECATED
 	CEF_CONTENT_SETTING_VALUE_NUM_VALUES
 )
 
@@ -476,6 +593,7 @@ const (
 	CM_MEDIATYPE_CANVAS
 	CM_MEDIATYPE_FILE
 	CM_MEDIATYPE_PLUGIN
+	CM_MEDIATYPE_NUM_VALUES
 )
 
 // TCefCookiePref ENUM
@@ -500,6 +618,7 @@ const (
 	CEF_COOKIE_SAME_SITE_NO_RESTRICTION
 	CEF_COOKIE_SAME_SITE_LAX_MODE
 	CEF_COOKIE_SAME_SITE_STRICT_MODE
+	CEF_COOKIE_SAME_SITE_NUM_VALUES
 )
 
 // TCefCursorType ENUM
@@ -559,6 +678,7 @@ const (
 	CT_DND_MOVE
 	CT_DND_COPY
 	CT_DND_LIN
+	CT_NUM_VALUES
 )
 
 // TCEFDialogType ENUM
@@ -584,6 +704,7 @@ const (
 	DOM_DOCUMENT_TYPE_HTML
 	DOM_DOCUMENT_TYPE_XHTML
 	DOM_DOCUMENT_TYPE_PLUGIN
+	DOM_DOCUMENT_TYPE_NUM_VALUES
 )
 
 // TCefDomEventPhase ENUM
@@ -597,6 +718,7 @@ const (
 	DOM_EVENT_PHASE_CAPTURING
 	DOM_EVENT_PHASE_AT_TARGET
 	DOM_EVENT_PHASE_BUBBLING
+	DOM_EVENT_PHASE_NUM_VALUES
 )
 
 // TCefDomFormControlType ENUM
@@ -611,7 +733,6 @@ const (
 	DOM_FORM_CONTROL_TYPE_BUTTON_BUTTON
 	DOM_FORM_CONTROL_TYPE_BUTTON_SUBMIT
 	DOM_FORM_CONTROL_TYPE_BUTTON_RESET
-	DOM_FORM_CONTROL_TYPE_BUTTON_SELECT_LIST
 	DOM_FORM_CONTROL_TYPE_BUTTON_POPOVER
 	DOM_FORM_CONTROL_TYPE_FIELDSET
 	DOM_FORM_CONTROL_TYPE_INPUT_BUTTON
@@ -639,8 +760,8 @@ const (
 	DOM_FORM_CONTROL_TYPE_OUTPUT
 	DOM_FORM_CONTROL_TYPE_SELECT_ONE
 	DOM_FORM_CONTROL_TYPE_SELECT_MULTIPLE
-	DOM_FORM_CONTROL_TYPE_SELECT_LIST
 	DOM_FORM_CONTROL_TYPE_TEXT_AREA
+	DOM_FORM_CONTROL_TYPE_NUM_VALUES
 )
 
 // TCefDomNodeType ENUM
@@ -660,6 +781,7 @@ const (
 	DOM_NODE_TYPE_DOCUMENT
 	DOM_NODE_TYPE_DOCUMENT_TYPE
 	DOM_NODE_TYPE_DOCUMENT_FRAGMENT
+	DOM_NODE_TYPE_NUM_VALUES
 )
 
 // TCefEditingCommand ENUM
@@ -821,6 +943,7 @@ type TCefFocusSource = int32
 const (
 	FOCUS_SOURCE_NAVIGATION TCefFocusSource = iota
 	FOCUS_SOURCE_SYSTEM
+	FOCUS_SOURCE_NUM_VALUES
 )
 
 // TCefGestureCommand ENUM
@@ -834,17 +957,32 @@ const (
 	CEF_GESTURE_COMMAND_FORWARD
 )
 
-// TCefHighEfficiencyModeState ENUM
+// TCefGLImplementation ENUM
 //
-//	Values used by the high efficiency mode state preference.
-//	<see href="https://source.chromium.org/chromium/chromium/src/+/main:components/performance_manager/public/user_tuning/prefs.h">components/performance_manager/public/user_tuning/prefs.h</see>
-type TCefHighEfficiencyModeState = int32
+//	Select which implementation of GL the GPU process should use.
+//	<see href="https://peter.sh/experiments/chromium-command-line-switches/#use-gl">Uses the following command line switch: --use-gl</see>
+//	<see href="https://source.chromium.org/chromium/chromium/src/+/main:ui/gl/gl_switches.cc">See the gl_switches.cc file</see>
+type TCefGLImplementation = int32
 
 const (
-	KDisabled       TCefHighEfficiencyModeState = iota
-	KEnabled                                    = 1
-	KEnabledOnTimer                             = 2
-	KDefault                                    = 3
+	GlimDefault TCefGLImplementation = iota
+	GlimEGL
+	GlimANGLE
+	GlimMock
+	GlimStub
+	GlimDisabled
+)
+
+// TCefGTKVersion ENUM
+//
+//	Preferred GTK version loaded by Chromium.
+//	<see href="https://github.com/chromium/chromium/blob/main/ui/gtk/gtk_compat.cc">See the LoadGtkImpl function in ui/gtk/gtk_compat.cc</see>
+type TCefGTKVersion = int32
+
+const (
+	GtkVersionDefault TCefGTKVersion = iota
+	GtkVersion3
+	GtkVersion4
 )
 
 // TCefHorizontalAlignment ENUM
@@ -869,6 +1007,7 @@ const (
 	JSDIALOGTYPE_ALERT TCefJsDialogType = iota
 	JSDIALOGTYPE_CONFIRM
 	JSDIALOGTYPE_PROMPT
+	JSDIALOGTYPE_NUM_VALUES
 )
 
 // TCefJsonParserOptions ENUM
@@ -909,18 +1048,16 @@ const (
 	CEF_KEYLOCATION_RIGHT
 )
 
-// TCefMediaRouteConnectionState ENUM
+// TCefLinuxDisplayServer ENUM
 //
-//	Connection state for a MediaRoute object.
-//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_media_route_connection_state_t)</see>
-type TCefMediaRouteConnectionState = int32
+//	Linux session type. Used to check whether the display server is Xorg or Wayland.
+type TCefLinuxDisplayServer = int32
 
 const (
-	CEF_MRCS_UNKNOWN TCefMediaRouteConnectionState = iota
-	CEF_MRCS_CONNECTING
-	CEF_MRCS_CONNECTED
-	CEF_MRCS_CLOSED
-	CEF_MRCS_TERMINATED
+	LdsX11 TCefLinuxDisplayServer = iota
+	LdsWayland
+	LdsTTY
+	LdsUnknown
 )
 
 // TCefMediaSinkIconType ENUM
@@ -939,7 +1076,7 @@ const (
 	CEF_MSIT_EDUCATION
 	CEF_MSIT_WIRED_DISPLAY
 	CEF_MSIT_GENERIC
-	CEF_MSIT_TOTAL_COUNT
+	CEF_MSIT_NUM_VALUES
 )
 
 // TCefMediaType ENUM
@@ -964,6 +1101,7 @@ const (
 	CEF_MENU_ANCHOR_TOPLEFT TCefMenuAnchorPosition = iota
 	CEF_MENU_ANCHOR_TOPRIGHT
 	CEF_MENU_ANCHOR_BOTTOMCENTER
+	CEF_MENU_ANCHOR_NUM_VALUES
 )
 
 // TCefMenuColorType ENUM
@@ -979,7 +1117,7 @@ const (
 	CEF_MENU_COLOR_TEXT_ACCELERATOR_HOVERED
 	CEF_MENU_COLOR_BACKGROUND
 	CEF_MENU_COLOR_BACKGROUND_HOVERED
-	CEF_MENU_COLOR_COUNT
+	CEF_MENU_COLOR_NUM_VALUES
 )
 
 // TCefMenuItemType ENUM
@@ -1007,6 +1145,7 @@ const (
 	ML_TYPE_DEFAULT TCefMessageLoopType = iota
 	ML_TYPE_UI
 	ML_TYPE_IO
+	ML_NUM_VALUES
 )
 
 // TCefMouseButtonType ENUM
@@ -1034,6 +1173,7 @@ const (
 	NAVIGATION_RELOAD
 	NAVIGATION_FORM_RESUBMITTED
 	NAVIGATION_OTHER
+	NAVIGATION_NUM_VALUES
 )
 
 // TCefNetLogCaptureMode ENUM
@@ -1050,6 +1190,19 @@ const (
 	NlcmEverything
 )
 
+// TCefOzonePlatform ENUM
+//
+//	Ozone platform implementation type.
+//	<see href="https://peter.sh/experiments/chromium-command-line-switches/#ozone-platform">Used by the --ozone-platform switch</see>
+type TCefOzonePlatform = int32
+
+const (
+	OzpDefault TCefOzonePlatform = iota
+	OzpWayland
+	OzpX11
+	OzpHeadless
+)
+
 // TCefPaintElementType ENUM
 //
 //	Paint element types.
@@ -1059,6 +1212,21 @@ type TCefPaintElementType = int32
 const (
 	PET_VIEW TCefPaintElementType = iota
 	PET_POPUP
+)
+
+// TCefPasswordStorage ENUM
+//
+//	Specifies which encryption storage backend to use in Linux.
+//	<see href="https://source.chromium.org/chromium/chromium/src/+/main:docs/linux/password_storage.md">Chromium document: docs/linux/password_storage.md</see>
+type TCefPasswordStorage = int32
+
+const (
+	PsDefault TCefPasswordStorage = iota
+	PsGnomeLibsecret
+	PsKWallet
+	PsKWallet5
+	PsKWallet6
+	PsBasic
 )
 
 // TCefPathKey ENUM
@@ -1077,6 +1245,7 @@ const (
 	PK_LOCAL_APP_DATA
 	PK_USER_DATA
 	PK_DIR_RESOURCES
+	PK_NUM_VALUES
 )
 
 // TCefPdfPrintMarginType ENUM
@@ -1102,6 +1271,7 @@ const (
 	CEF_PERMISSION_RESULT_DENY
 	CEF_PERMISSION_RESULT_DISMISS
 	CEF_PERMISSION_RESULT_IGNORE
+	CEF_PERMISSION_RESULT_NUM_VALUES
 )
 
 // TCefPointerType ENUM
@@ -1128,6 +1298,7 @@ const (
 	PDE_TYPE_EMPTY TCefPostDataElementType = iota
 	PDE_TYPE_BYTES
 	PDE_TYPE_FILE
+	PDE_TYPE_NUM_VALUES
 )
 
 // TCefPreferencesType ENUM
@@ -1140,6 +1311,7 @@ type TCefPreferencesType = int32
 const (
 	CEF_PREFERENCES_TYPE_GLOBAL TCefPreferencesType = iota
 	CEF_PREFERENCES_TYPE_REQUEST_CONTEXT
+	CEF_PREFERENCES_TYPE_NUM_VALUES
 )
 
 // TCefProcessId ENUM
@@ -1198,6 +1370,7 @@ const (
 	REFERRER_POLICY_CLEAR_REFERRER_ON_TRANSITION_CROSS_ORIGIN
 	REFERRER_POLICY_ORIGIN_CLEAR_ON_TRANSITION_FROM_SECURE_TO_INSECURE
 	REFERRER_POLICY_NO_REFERRER
+	REFERRER_POLICY_NUM_VALUES
 )
 
 // TCefResourceType ENUM
@@ -1229,6 +1402,7 @@ const (
 	RT_EMPTY_FILLER_TYPE_DO_NOT_USE
 	RT_NAVIGATION_PRELOAD_MAIN_FRAME
 	RT_NAVIGATION_PRELOAD_SUB_FRAME
+	RT_NUM_VALUES
 )
 
 // TCefResponseFilterStatus ENUM
@@ -1257,29 +1431,25 @@ const (
 
 // TCefRuntimeStyle ENUM
 //
-//	CEF supports both a Chrome runtime (based on the Chrome UI layer) and an
-//	Alloy runtime (based on the Chromium content layer). The Chrome runtime
-//	provides the full Chrome UI and browser functionality whereas the Alloy
-//	runtime provides less default browser functionality but adds additional
-//	client callbacks and support for windowless (off-screen) rendering. For
-//	additional comparative details on runtime types see
+//	CEF supports both a Chrome runtime style (based on the Chrome UI layer) and
+//	an Alloy runtime style (based on the Chromium content layer). Chrome style
+//	provides the full Chrome UI and browser functionality whereas Alloy style
+//	provides less default browser functionality but adds additional client
+//	callbacks and support for windowless (off-screen) rendering. The style type
+//	is individually configured for each window/browser at creation time and
+//	different styles can be mixed during runtime. For additional comparative
+//	details on runtime styles see
 //	https://bitbucket.org/chromiumembedded/cef/wiki/Architecture.md#markdown-header-cef3
-//
-//	Each runtime is composed of a bootstrap component and a style component. The
-//	bootstrap component is configured via CefSettings.chrome_runtime and cannot
-//	be changed after CefInitialize. The style component is individually
-//	configured for each window/browser at creation time and, in combination with
-//	the Chrome bootstrap, different styles can be mixed during runtime.
 //
 //	Windowless rendering will always use Alloy style. Windowed rendering with a
 //	default window or client-provided parent window can configure the style via
-//	CefWindowInfo.runtime_style. Windowed rendering with the Views framework can
-//	configure the style via CefWindowDelegate::GetWindowRuntimeStyle and
-//	CefBrowserViewDelegate::GetBrowserRuntimeStyle. Alloy style Windows with the
+//	TCefWindowInfo.runtime_style. Windowed rendering with the Views framework can
+//	configure the style via ICefWindowDelegate.GetWindowRuntimeStyle and
+//	ICefBrowserViewDelegate.GetBrowserRuntimeStyle. Alloy style Windows with the
 //	Views framework can host only Alloy style BrowserViews but Chrome style
 //	Windows can host both style BrowserViews. Additionally, a Chrome style
 //	Window can host at most one Chrome style BrowserView but potentially
-//	multiple Alloy style BrowserViews. See CefWindowInfo.runtime_style
+//	multiple Alloy style BrowserViews. See TCefWindowInfo.runtime_style
 //	documentation for any additional platform-specific limitations.
 //	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types_runtime.h">CEF source file: /include/internal/cef_types_runtime.h (cef_runtime_style_t)</see>
 type TCefRuntimeStyle = int32
@@ -1309,6 +1479,7 @@ const (
 	SCALE_FACTOR_200P
 	SCALE_FACTOR_250P
 	SCALE_FACTOR_300P
+	SCALE_FACTOR_NUM_VALUES
 )
 
 // TCefSimulatedMouseButton ENUM
@@ -1386,6 +1557,30 @@ const (
 	ST_SESSIONSTORAGE
 )
 
+// TCefTaskType ENUM
+//
+//	Specifies the task type variants supported by CefTaskManager.
+//	Should be kept in sync with Chromium's task_manager::Task::Type type.
+//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_task_type_t)</see>
+type TCefTaskType = int32
+
+const (
+	CEF_TASK_TYPE_UNKNOWN TCefTaskType = iota
+	CEF_TASK_TYPE_BROWSER
+	CEF_TASK_TYPE_GPU
+	CEF_TASK_TYPE_ZYGOTE
+	CEF_TASK_TYPE_UTILITY
+	CEF_TASK_TYPE_RENDERER
+	CEF_TASK_TYPE_EXTENSION
+	CEF_TASK_TYPE_GUEST
+	CEF_TASK_TYPE_PLUGIN_DEPRECATED
+	CEF_TASK_TYPE_SANDBOX_HELPER
+	CEF_TASK_TYPE_DEDICATED_WORKER
+	CEF_TASK_TYPE_SHARED_WORKER
+	CEF_TASK_TYPE_SERVICE_WORKER
+	CEF_TASK_TYPE_NUM_VALUES
+)
+
 // TCefTerminationStatus ENUM
 //
 //	Process termination status values.
@@ -1399,6 +1594,7 @@ const (
 	TS_PROCESS_OOM
 	TS_LAUNCH_FAILED
 	TS_INTEGRITY_FAILURE
+	TS_NUM_VALUES
 )
 
 // TCefTestCertType ENUM
@@ -1411,6 +1607,7 @@ const (
 	CEF_TEST_CERT_OK_IP TCefTestCertType = iota
 	CEF_TEST_CERT_OK_DOMAIN
 	CEF_TEST_CERT_EXPIRED
+	CEF_TEST_CERT_NUM_VALUES
 )
 
 // TCefTextInpuMode ENUM
@@ -1431,6 +1628,7 @@ const (
 	CEF_TEXT_INPUT_MODE_NUMERIC
 	CEF_TEXT_INPUT_MODE_DECIMAL
 	CEF_TEXT_INPUT_MODE_SEARCH
+	CEF_TEXT_INPUT_MODE_NUM_VALUES
 )
 
 // TCefTextStyle ENUM
@@ -1445,6 +1643,7 @@ const (
 	CEF_TEXT_STYLE_STRIKE
 	CEF_TEXT_STYLE_DIAGONAL_STRIKE
 	CEF_TEXT_STYLE_UNDERLINE
+	CEF_TEXT_STYLE_NUM_VALUES
 )
 
 // TCefThreadId ENUM
@@ -1461,6 +1660,7 @@ const (
 	TID_PROCESS_LAUNCHER
 	TID_IO
 	TID_RENDERER
+	TID_NUM_VALUES
 )
 
 // TCefThreadPriority ENUM
@@ -1474,6 +1674,7 @@ const (
 	TP_NORMAL
 	TP_DISPLAY
 	TP_REALTIME_AUDIO
+	TP_NUM_VALUES
 )
 
 // TCefTouchEeventType ENUM
@@ -1512,6 +1713,7 @@ const (
 	UR_IO_PENDING
 	UR_CANCELED
 	UR_FAILED
+	UR_NUM_VALUES
 )
 
 // TCefValueType ENUM
@@ -1530,6 +1732,7 @@ const (
 	VTYPE_BINARY
 	VTYPE_DICTIONARY
 	VTYPE_LIST
+	VTYPE_NUM_VALUES
 )
 
 // TCefWebRTCHandlingPolicy ENUM
@@ -1565,6 +1768,7 @@ const (
 	CEF_WOD_IGNORE_ACTION
 	CEF_WOD_SWITCH_TO_TAB
 	CEF_WOD_NEW_PICTURE_IN_PICTURE
+	CEF_WOD_NUM_VALUES
 )
 
 // TCefXmlEncodingType ENUM
@@ -1582,6 +1786,7 @@ const (
 	XML_ENCODING_UTF16LE
 	XML_ENCODING_UTF16BE
 	XML_ENCODING_ASCII
+	XML_ENCODING_NUM_VALUES
 )
 
 // TCefXmlNodeType ENUM
@@ -1602,6 +1807,7 @@ const (
 	XML_NODE_ENTITY_REFERENCE
 	XML_NODE_WHITESPACE
 	XML_NODE_COMMENT
+	XML_NODE_NUM_VALUES
 )
 
 // TCefZoomCommand ENUM

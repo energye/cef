@@ -99,7 +99,7 @@ func (_MiscFuncClass) CefGetObject(ptr uintptr) lcl.IObject {
 //	scope in which the prototype of the native function is defined. This
 //	function may only be called on the render process main thread.
 //
-//	Example JavaScript extension code: <pre>
+//	Example JavaScript extension code: <code>
 //	// create the 'example' global object if it doesn't already exist.
 //	if (!example)
 //	example = {};
@@ -137,9 +137,9 @@ func (_MiscFuncClass) CefGetObject(ptr uintptr) lcl.IObject {
 //	return myint;
 //	};
 //	})();
-//	</pre>
+//	</code>
 //
-//	Example usage in the page: <pre>
+//	Example usage in the page: <code>
 //	// Call the function.
 //	example.test.myfunction();
 //	// Set the parameter.
@@ -148,7 +148,7 @@ func (_MiscFuncClass) CefGetObject(ptr uintptr) lcl.IObject {
 //	value = example.test.myparam;
 //	// Call another function.
 //	example.test.increment();
-//	</pre>
+//	</code>
 func (_MiscFuncClass) CefRegisterExtension(name string, code string, handler IEngV8Handler) bool {
 	r := uCEFMiscFunctionsAPI().SysCallN(6, api.PasStr(name), api.PasStr(code), base.GetObjectUintptr(handler))
 	return api.GoBool(r)
@@ -164,7 +164,7 @@ func (_MiscFuncClass) CefRegisterExtension(name string, code string, handler IEn
 //	scope in which the prototype of the native function is defined. This
 //	function may only be called on the render process main thread.
 //
-//	Example JavaScript extension code: <pre>
+//	Example JavaScript extension code: <code>
 //	// create the 'example' global object if it doesn't already exist.
 //	if (!example)
 //	example = {};
@@ -202,9 +202,9 @@ func (_MiscFuncClass) CefRegisterExtension(name string, code string, handler IEn
 //	return myint;
 //	};
 //	})();
-//	</pre>
+//	</code>
 //
-//	Example usage in the page: <pre>
+//	Example usage in the page: <code>
 //	// Call the function.
 //	example.test.myfunction();
 //	// Set the parameter.
@@ -213,7 +213,7 @@ func (_MiscFuncClass) CefRegisterExtension(name string, code string, handler IEn
 //	value = example.test.myparam;
 //	// Call another function.
 //	example.test.increment();
-//	</pre>
+//	</code>
 //	Post a task for execution on the specified thread. Equivalent to using
 //	TCefTaskRunnerRef.GetForThread(threadId).PostTask(task).
 func (_MiscFuncClass) CefPostTask(threadId cefTypes.TCefThreadId, task IEngTask) bool {
@@ -231,7 +231,7 @@ func (_MiscFuncClass) CefPostTask(threadId cefTypes.TCefThreadId, task IEngTask)
 //	scope in which the prototype of the native function is defined. This
 //	function may only be called on the render process main thread.
 //
-//	Example JavaScript extension code: <pre>
+//	Example JavaScript extension code: <code>
 //	// create the 'example' global object if it doesn't already exist.
 //	if (!example)
 //	example = {};
@@ -269,9 +269,9 @@ func (_MiscFuncClass) CefPostTask(threadId cefTypes.TCefThreadId, task IEngTask)
 //	return myint;
 //	};
 //	})();
-//	</pre>
+//	</code>
 //
-//	Example usage in the page: <pre>
+//	Example usage in the page: <code>
 //	// Call the function.
 //	example.test.myfunction();
 //	// Set the parameter.
@@ -280,7 +280,7 @@ func (_MiscFuncClass) CefPostTask(threadId cefTypes.TCefThreadId, task IEngTask)
 //	value = example.test.myparam;
 //	// Call another function.
 //	example.test.increment();
-//	</pre>
+//	</code>
 //	Post a task for execution on the specified thread. Equivalent to using
 //	TCefTaskRunnerRef.GetForThread(threadId).PostTask(task).
 //	Post a task for delayed execution on the specified thread. Equivalent to
@@ -301,7 +301,7 @@ func (_MiscFuncClass) CefPostDelayedTask(threadId cefTypes.TCefThreadId, task IE
 //	scope in which the prototype of the native function is defined. This
 //	function may only be called on the render process main thread.
 //
-//	Example JavaScript extension code: <pre>
+//	Example JavaScript extension code: <code>
 //	// create the 'example' global object if it doesn't already exist.
 //	if (!example)
 //	example = {};
@@ -339,9 +339,9 @@ func (_MiscFuncClass) CefPostDelayedTask(threadId cefTypes.TCefThreadId, task IE
 //	return myint;
 //	};
 //	})();
-//	</pre>
+//	</code>
 //
-//	Example usage in the page: <pre>
+//	Example usage in the page: <code>
 //	// Call the function.
 //	example.test.myfunction();
 //	// Set the parameter.
@@ -350,7 +350,7 @@ func (_MiscFuncClass) CefPostDelayedTask(threadId cefTypes.TCefThreadId, task IE
 //	value = example.test.myparam;
 //	// Call another function.
 //	example.test.increment();
-//	</pre>
+//	</code>
 //	Post a task for execution on the specified thread. Equivalent to using
 //	TCefTaskRunnerRef.GetForThread(threadId).PostTask(task).
 //	Post a task for delayed execution on the specified thread. Equivalent to
@@ -2133,18 +2133,38 @@ func (_MiscFuncClass) GetDeviceScaleFactor() (result float32) {
 	return
 }
 
+func (_MiscFuncClass) TryRemoveDir(directory string) bool {
+	r := uCEFMiscFunctionsAPI().SysCallN(85, api.PasStr(directory))
+	return api.GoBool(r)
+}
+
+func (_MiscFuncClass) TryDeleteFile(fileName string) bool {
+	r := uCEFMiscFunctionsAPI().SysCallN(86, api.PasStr(fileName))
+	return api.GoBool(r)
+}
+
+func (_MiscFuncClass) TryRenameDir(oldName string, newName string) bool {
+	r := uCEFMiscFunctionsAPI().SysCallN(87, api.PasStr(oldName), api.PasStr(newName))
+	return api.GoBool(r)
+}
+
+func (_MiscFuncClass) TryRenameFile(oldName string, newName string) bool {
+	r := uCEFMiscFunctionsAPI().SysCallN(88, api.PasStr(oldName), api.PasStr(newName))
+	return api.GoBool(r)
+}
+
 func (_MiscFuncClass) DeleteDirContents(directory string, excludeFiles lcl.IStringList) bool {
-	r := uCEFMiscFunctionsAPI().SysCallN(85, api.PasStr(directory), base.GetObjectUintptr(excludeFiles))
+	r := uCEFMiscFunctionsAPI().SysCallN(89, api.PasStr(directory), base.GetObjectUintptr(excludeFiles))
 	return api.GoBool(r)
 }
 
 func (_MiscFuncClass) DeleteFileList(fileList lcl.IStringList) bool {
-	r := uCEFMiscFunctionsAPI().SysCallN(86, base.GetObjectUintptr(fileList))
+	r := uCEFMiscFunctionsAPI().SysCallN(90, base.GetObjectUintptr(fileList))
 	return api.GoBool(r)
 }
 
 func (_MiscFuncClass) MoveFileList(fileList lcl.IStringList, srcDirectory string, dstDirectory string) bool {
-	r := uCEFMiscFunctionsAPI().SysCallN(87, base.GetObjectUintptr(fileList), api.PasStr(srcDirectory), api.PasStr(dstDirectory))
+	r := uCEFMiscFunctionsAPI().SysCallN(91, base.GetObjectUintptr(fileList), api.PasStr(srcDirectory), api.PasStr(dstDirectory))
 	return api.GoBool(r)
 }
 
@@ -2152,7 +2172,7 @@ func (_MiscFuncClass) MoveFileList(fileList lcl.IStringList, srcDirectory string
 //
 //	Returns a URI with a DATA scheme using |aString| as the URI's data.
 func (_MiscFuncClass) CefGetDataURIWithStrX2(string string, mimeType string) string {
-	r := uCEFMiscFunctionsAPI().SysCallN(88, api.PasStr(string), api.PasStr(mimeType))
+	r := uCEFMiscFunctionsAPI().SysCallN(92, api.PasStr(string), api.PasStr(mimeType))
 	return api.GoStr(r)
 }
 
@@ -2161,7 +2181,7 @@ func (_MiscFuncClass) CefGetDataURIWithStrX2(string string, mimeType string) str
 //	Returns a URI with a DATA scheme using |aString| as the URI's data.
 //	Returns a URI with a DATA scheme encoding |aData| as a base64 string.
 func (_MiscFuncClass) CefGetDataURIWithPointerIntStrX2(data uintptr, size int32, mimeType string, charset string) string {
-	r := uCEFMiscFunctionsAPI().SysCallN(89, uintptr(data), uintptr(size), api.PasStr(mimeType), api.PasStr(charset))
+	r := uCEFMiscFunctionsAPI().SysCallN(93, uintptr(data), uintptr(size), api.PasStr(mimeType), api.PasStr(charset))
 	return api.GoStr(r)
 }
 
@@ -2170,7 +2190,7 @@ func (_MiscFuncClass) CefGetDataURIWithPointerIntStrX2(data uintptr, size int32,
 //	Returns a URI with a DATA scheme using |aString| as the URI's data.
 //	Returns a URI with a DATA scheme encoding |aData| as a base64 string.
 func (_MiscFuncClass) ValidCefWindowHandle(handle cefTypes.TCefWindowHandle) bool {
-	r := uCEFMiscFunctionsAPI().SysCallN(90, uintptr(handle))
+	r := uCEFMiscFunctionsAPI().SysCallN(94, uintptr(handle))
 	return api.GoBool(r)
 }
 
@@ -2181,7 +2201,7 @@ func (_MiscFuncClass) ValidCefWindowHandle(handle cefTypes.TCefWindowHandle) boo
 //	Returns a command line switch value if it exists.
 func (_MiscFuncClass) GetCommandLineSwitchValue(key string, value *string) bool {
 	valuePtr := api.PasStr(*value)
-	r := uCEFMiscFunctionsAPI().SysCallN(91, api.PasStr(key), uintptr(base.UnsafePointer(&valuePtr)))
+	r := uCEFMiscFunctionsAPI().SysCallN(95, api.PasStr(key), uintptr(base.UnsafePointer(&valuePtr)))
 	*value = api.GoStr(valuePtr)
 	return api.GoBool(r)
 }
@@ -2193,7 +2213,7 @@ func (_MiscFuncClass) GetCommandLineSwitchValue(key string, value *string) bool 
 //	Returns a command line switch value if it exists.
 //	Returns true if the command line switch has a "type" value.
 func (_MiscFuncClass) IsCEFSubprocess() bool {
-	r := uCEFMiscFunctionsAPI().SysCallN(92)
+	r := uCEFMiscFunctionsAPI().SysCallN(96)
 	return api.GoBool(r)
 }
 
@@ -2201,7 +2221,19 @@ func (_MiscFuncClass) IsCEFSubprocess() bool {
 //
 //	Convert an editting command to string.
 func (_MiscFuncClass) EditingCommandToString(editingCommand cefTypes.TCefEditingCommand) string {
-	r := uCEFMiscFunctionsAPI().SysCallN(93, uintptr(editingCommand))
+	r := uCEFMiscFunctionsAPI().SysCallN(97, uintptr(editingCommand))
+	return api.GoStr(r)
+}
+
+// CefResultCodeToString
+//
+//	Convert an editting command to string.
+//	Convert the GlobalCEFApp.ExitCode value to a human readable message.
+//	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_resultcode_t)</see>
+//	<see href="https://source.chromium.org/chromium/chromium/src/+/main:content/public/common/result_codes.h">See Chromium's content::ResultCode type.</see>
+//	<see href="https://source.chromium.org/chromium/chromium/src/+/main:sandbox/win/src/sandbox_types.h">See sandbox::TerminationCodes type.</see>
+func (_MiscFuncClass) CefResultCodeToString(exitCode cefTypes.TCefResultCode) string {
+	r := uCEFMiscFunctionsAPI().SysCallN(98, uintptr(exitCode))
 	return api.GoStr(r)
 }
 
@@ -2241,7 +2273,7 @@ func (_MiscFuncClass) EditingCommandToString(editingCommand cefTypes.TCefEditing
 //	This funcion should only be used by TCEFTimerWorkScheduler.
 //	Initialize a TCefTime variable.
 func (_MiscFuncClass) InitializeCefTime(time *TCefTime) {
-	uCEFMiscFunctionsAPI().SysCallN(94, uintptr(base.UnsafePointer(time)))
+	uCEFMiscFunctionsAPI().SysCallN(99, uintptr(base.UnsafePointer(time)))
 }
 
 // CefSetCrashKeyValue
@@ -2351,7 +2383,7 @@ func (_MiscFuncClass) InitializeCefTime(time *TCefTime) {
 //	crash server along with the crash dump file.
 //	Sets or clears a specific key-value pair from the crash metadata.
 func (_MiscFuncClass) CefSetCrashKeyValue(key string, value string) {
-	uCEFMiscFunctionsAPI().SysCallN(95, api.PasStr(key), api.PasStr(value))
+	uCEFMiscFunctionsAPI().SysCallN(100, api.PasStr(key), api.PasStr(value))
 }
 
 // CefLog
@@ -2465,7 +2497,7 @@ func (_MiscFuncClass) CefSetCrashKeyValue(key string, value string) {
 //	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/base/cef_logging.h">CEF source file: /include/base/cef_logging.h (cef_log)</see>
 //	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/base/cef_logging.h">CEF source file: /include/base/cef_logging.h (LogSeverity)</see>
 func (_MiscFuncClass) CefLog(file string, line int32, severity int32, message string) {
-	uCEFMiscFunctionsAPI().SysCallN(96, api.PasStr(file), uintptr(line), uintptr(severity), api.PasStr(message))
+	uCEFMiscFunctionsAPI().SysCallN(101, api.PasStr(file), uintptr(line), uintptr(severity), api.PasStr(message))
 }
 
 // CefKeyEventLog
@@ -2579,7 +2611,7 @@ func (_MiscFuncClass) CefLog(file string, line int32, severity int32, message st
 //	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/base/cef_logging.h">CEF source file: /include/base/cef_logging.h (cef_log)</see>
 //	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/base/cef_logging.h">CEF source file: /include/base/cef_logging.h (LogSeverity)</see>
 func (_MiscFuncClass) CefKeyEventLog(event TCefKeyEvent) {
-	uCEFMiscFunctionsAPI().SysCallN(97, uintptr(base.UnsafePointer(&event)))
+	uCEFMiscFunctionsAPI().SysCallN(102, uintptr(base.UnsafePointer(&event)))
 }
 
 // CefMouseEventLog
@@ -2693,7 +2725,7 @@ func (_MiscFuncClass) CefKeyEventLog(event TCefKeyEvent) {
 //	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/base/cef_logging.h">CEF source file: /include/base/cef_logging.h (cef_log)</see>
 //	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/base/cef_logging.h">CEF source file: /include/base/cef_logging.h (LogSeverity)</see>
 func (_MiscFuncClass) CefMouseEventLog(event TCefMouseEvent) {
-	uCEFMiscFunctionsAPI().SysCallN(98, uintptr(base.UnsafePointer(&event)))
+	uCEFMiscFunctionsAPI().SysCallN(103, uintptr(base.UnsafePointer(&event)))
 }
 
 // OutputDebugMessage
@@ -2807,11 +2839,11 @@ func (_MiscFuncClass) CefMouseEventLog(event TCefMouseEvent) {
 //	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/base/cef_logging.h">CEF source file: /include/base/cef_logging.h (cef_log)</see>
 //	<see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/base/cef_logging.h">CEF source file: /include/base/cef_logging.h (LogSeverity)</see>
 func (_MiscFuncClass) OutputDebugMessage(message string) {
-	uCEFMiscFunctionsAPI().SysCallN(99, api.PasStr(message))
+	uCEFMiscFunctionsAPI().SysCallN(104, api.PasStr(message))
 }
 
 func (_MiscFuncClass) OutputLastErrorMessage() {
-	uCEFMiscFunctionsAPI().SysCallN(100)
+	uCEFMiscFunctionsAPI().SysCallN(105)
 }
 
 // CefGetExtensionsForMimeType
@@ -2837,7 +2869,7 @@ func (_MiscFuncClass) OutputLastErrorMessage() {
 //	Any existing elements in the provided vector will not be erased.
 func (_MiscFuncClass) CefGetExtensionsForMimeType(mimeType string, extensions *lcl.IStringList) {
 	extensionsPtr := base.GetObjectUintptr(*extensions)
-	uCEFMiscFunctionsAPI().SysCallN(101, api.PasStr(mimeType), uintptr(base.UnsafePointer(&extensionsPtr)))
+	uCEFMiscFunctionsAPI().SysCallN(106, api.PasStr(mimeType), uintptr(base.UnsafePointer(&extensionsPtr)))
 	*extensions = lcl.AsStringList(extensionsPtr)
 }
 
@@ -2921,39 +2953,39 @@ func (_MiscFuncClass) CefGetExtensionsForMimeType(mimeType string, extensions *l
 //	initialized. See https://dev.chromium.org/Home/chromium-security/crlsets for
 //	background.
 func (_MiscFuncClass) CefLoadCRLSetsFile(path string) {
-	uCEFMiscFunctionsAPI().SysCallN(102, api.PasStr(path))
+	uCEFMiscFunctionsAPI().SysCallN(107, api.PasStr(path))
 }
 
 func (_MiscFuncClass) CefCheckAltGrPressed(wparam types.WParam, event *TCefKeyEvent) {
-	uCEFMiscFunctionsAPI().SysCallN(103, uintptr(wparam), uintptr(base.UnsafePointer(event)))
+	uCEFMiscFunctionsAPI().SysCallN(108, uintptr(wparam), uintptr(base.UnsafePointer(event)))
 }
 
 func (_MiscFuncClass) DropEffectToDragOperation(effect int32, allowedOps *cefTypes.TCefDragOperations) {
 	allowedOpsPtr := uintptr(*allowedOps)
-	uCEFMiscFunctionsAPI().SysCallN(104, uintptr(effect), uintptr(base.UnsafePointer(&allowedOpsPtr)))
+	uCEFMiscFunctionsAPI().SysCallN(109, uintptr(effect), uintptr(base.UnsafePointer(&allowedOpsPtr)))
 	*allowedOps = cefTypes.TCefDragOperations(allowedOpsPtr)
 }
 
 func (_MiscFuncClass) DragOperationToDropEffect(dragOperations cefTypes.TCefDragOperations, effect *int32) {
 	effectPtr := uintptr(*effect)
-	uCEFMiscFunctionsAPI().SysCallN(105, uintptr(dragOperations), uintptr(base.UnsafePointer(&effectPtr)))
+	uCEFMiscFunctionsAPI().SysCallN(110, uintptr(dragOperations), uintptr(base.UnsafePointer(&effectPtr)))
 	*effect = int32(effectPtr)
 }
 
 func (_MiscFuncClass) DeviceToLogicalWithMouseEventDouble(event *TCefMouseEvent, deviceScaleFactor float64) {
-	uCEFMiscFunctionsAPI().SysCallN(106, uintptr(base.UnsafePointer(event)), uintptr(base.UnsafePointer(&deviceScaleFactor)))
+	uCEFMiscFunctionsAPI().SysCallN(111, uintptr(base.UnsafePointer(event)), uintptr(base.UnsafePointer(&deviceScaleFactor)))
 }
 
 func (_MiscFuncClass) DeviceToLogicalWithTouchEventDouble(event *TCefTouchEvent, deviceScaleFactor float64) {
-	uCEFMiscFunctionsAPI().SysCallN(107, uintptr(base.UnsafePointer(event)), uintptr(base.UnsafePointer(&deviceScaleFactor)))
+	uCEFMiscFunctionsAPI().SysCallN(112, uintptr(base.UnsafePointer(event)), uintptr(base.UnsafePointer(&deviceScaleFactor)))
 }
 
 func (_MiscFuncClass) DeviceToLogicalWithPointDouble(point *types.TPoint, deviceScaleFactor float64) {
-	uCEFMiscFunctionsAPI().SysCallN(108, uintptr(base.UnsafePointer(point)), uintptr(base.UnsafePointer(&deviceScaleFactor)))
+	uCEFMiscFunctionsAPI().SysCallN(113, uintptr(base.UnsafePointer(point)), uintptr(base.UnsafePointer(&deviceScaleFactor)))
 }
 
 func (_MiscFuncClass) LogicalToDeviceWithRectDouble(rect *TCefRect, deviceScaleFactor float64) {
-	uCEFMiscFunctionsAPI().SysCallN(109, uintptr(base.UnsafePointer(rect)), uintptr(base.UnsafePointer(&deviceScaleFactor)))
+	uCEFMiscFunctionsAPI().SysCallN(114, uintptr(base.UnsafePointer(rect)), uintptr(base.UnsafePointer(&deviceScaleFactor)))
 }
 
 // InitializeWindowHandle
@@ -2962,7 +2994,7 @@ func (_MiscFuncClass) LogicalToDeviceWithRectDouble(rect *TCefRect, deviceScaleF
 //	Returns a URI with a DATA scheme encoding |aData| as a base64 string.
 func (_MiscFuncClass) InitializeWindowHandle(handle *cefTypes.TCefWindowHandle) {
 	handlePtr := uintptr(*handle)
-	uCEFMiscFunctionsAPI().SysCallN(110, uintptr(base.UnsafePointer(&handlePtr)))
+	uCEFMiscFunctionsAPI().SysCallN(115, uintptr(base.UnsafePointer(&handlePtr)))
 	*handle = cefTypes.TCefWindowHandle(handlePtr)
 }
 
@@ -3060,32 +3092,37 @@ func uCEFMiscFunctionsAPI() *imports.Imports {
 			/* 82 */ imports.NewTable("uCEFMiscFunctions_LogicalToDeviceWithIntDouble", 0), // static function LogicalToDeviceWithIntDouble
 			/* 83 */ imports.NewTable("uCEFMiscFunctions_GetScreenDPI", 0), // static function GetScreenDPI
 			/* 84 */ imports.NewTable("uCEFMiscFunctions_GetDeviceScaleFactor", 0), // static function GetDeviceScaleFactor
-			/* 85 */ imports.NewTable("uCEFMiscFunctions_DeleteDirContents", 0), // static function DeleteDirContents
-			/* 86 */ imports.NewTable("uCEFMiscFunctions_DeleteFileList", 0), // static function DeleteFileList
-			/* 87 */ imports.NewTable("uCEFMiscFunctions_MoveFileList", 0), // static function MoveFileList
-			/* 88 */ imports.NewTable("uCEFMiscFunctions_CefGetDataURIWithStrX2", 0), // static function CefGetDataURIWithStrX2
-			/* 89 */ imports.NewTable("uCEFMiscFunctions_CefGetDataURIWithPointerIntStrX2", 0), // static function CefGetDataURIWithPointerIntStrX2
-			/* 90 */ imports.NewTable("uCEFMiscFunctions_ValidCefWindowHandle", 0), // static function ValidCefWindowHandle
-			/* 91 */ imports.NewTable("uCEFMiscFunctions_GetCommandLineSwitchValue", 0), // static function GetCommandLineSwitchValue
-			/* 92 */ imports.NewTable("uCEFMiscFunctions_IsCEFSubprocess", 0), // static function IsCEFSubprocess
-			/* 93 */ imports.NewTable("uCEFMiscFunctions_EditingCommandToString", 0), // static function EditingCommandToString
-			/* 94 */ imports.NewTable("uCEFMiscFunctions_InitializeCefTime", 0), // static procedure InitializeCefTime
-			/* 95 */ imports.NewTable("uCEFMiscFunctions_CefSetCrashKeyValue", 0), // static procedure CefSetCrashKeyValue
-			/* 96 */ imports.NewTable("uCEFMiscFunctions_CefLog", 0), // static procedure CefLog
-			/* 97 */ imports.NewTable("uCEFMiscFunctions_CefKeyEventLog", 0), // static procedure CefKeyEventLog
-			/* 98 */ imports.NewTable("uCEFMiscFunctions_CefMouseEventLog", 0), // static procedure CefMouseEventLog
-			/* 99 */ imports.NewTable("uCEFMiscFunctions_OutputDebugMessage", 0), // static procedure OutputDebugMessage
-			/* 100 */ imports.NewTable("uCEFMiscFunctions_OutputLastErrorMessage", 0), // static procedure OutputLastErrorMessage
-			/* 101 */ imports.NewTable("uCEFMiscFunctions_CefGetExtensionsForMimeType", 0), // static procedure CefGetExtensionsForMimeType
-			/* 102 */ imports.NewTable("uCEFMiscFunctions_CefLoadCRLSetsFile", 0), // static procedure CefLoadCRLSetsFile
-			/* 103 */ imports.NewTable("uCEFMiscFunctions_CefCheckAltGrPressed", 0), // static procedure CefCheckAltGrPressed
-			/* 104 */ imports.NewTable("uCEFMiscFunctions_DropEffectToDragOperation", 0), // static procedure DropEffectToDragOperation
-			/* 105 */ imports.NewTable("uCEFMiscFunctions_DragOperationToDropEffect", 0), // static procedure DragOperationToDropEffect
-			/* 106 */ imports.NewTable("uCEFMiscFunctions_DeviceToLogicalWithMouseEventDouble", 0), // static procedure DeviceToLogicalWithMouseEventDouble
-			/* 107 */ imports.NewTable("uCEFMiscFunctions_DeviceToLogicalWithTouchEventDouble", 0), // static procedure DeviceToLogicalWithTouchEventDouble
-			/* 108 */ imports.NewTable("uCEFMiscFunctions_DeviceToLogicalWithPointDouble", 0), // static procedure DeviceToLogicalWithPointDouble
-			/* 109 */ imports.NewTable("uCEFMiscFunctions_LogicalToDeviceWithRectDouble", 0), // static procedure LogicalToDeviceWithRectDouble
-			/* 110 */ imports.NewTable("uCEFMiscFunctions_InitializeWindowHandle", 0), // static procedure InitializeWindowHandle
+			/* 85 */ imports.NewTable("uCEFMiscFunctions_TryRemoveDir", 0), // static function TryRemoveDir
+			/* 86 */ imports.NewTable("uCEFMiscFunctions_TryDeleteFile", 0), // static function TryDeleteFile
+			/* 87 */ imports.NewTable("uCEFMiscFunctions_TryRenameDir", 0), // static function TryRenameDir
+			/* 88 */ imports.NewTable("uCEFMiscFunctions_TryRenameFile", 0), // static function TryRenameFile
+			/* 89 */ imports.NewTable("uCEFMiscFunctions_DeleteDirContents", 0), // static function DeleteDirContents
+			/* 90 */ imports.NewTable("uCEFMiscFunctions_DeleteFileList", 0), // static function DeleteFileList
+			/* 91 */ imports.NewTable("uCEFMiscFunctions_MoveFileList", 0), // static function MoveFileList
+			/* 92 */ imports.NewTable("uCEFMiscFunctions_CefGetDataURIWithStrX2", 0), // static function CefGetDataURIWithStrX2
+			/* 93 */ imports.NewTable("uCEFMiscFunctions_CefGetDataURIWithPointerIntStrX2", 0), // static function CefGetDataURIWithPointerIntStrX2
+			/* 94 */ imports.NewTable("uCEFMiscFunctions_ValidCefWindowHandle", 0), // static function ValidCefWindowHandle
+			/* 95 */ imports.NewTable("uCEFMiscFunctions_GetCommandLineSwitchValue", 0), // static function GetCommandLineSwitchValue
+			/* 96 */ imports.NewTable("uCEFMiscFunctions_IsCEFSubprocess", 0), // static function IsCEFSubprocess
+			/* 97 */ imports.NewTable("uCEFMiscFunctions_EditingCommandToString", 0), // static function EditingCommandToString
+			/* 98 */ imports.NewTable("uCEFMiscFunctions_CefResultCodeToString", 0), // static function CefResultCodeToString
+			/* 99 */ imports.NewTable("uCEFMiscFunctions_InitializeCefTime", 0), // static procedure InitializeCefTime
+			/* 100 */ imports.NewTable("uCEFMiscFunctions_CefSetCrashKeyValue", 0), // static procedure CefSetCrashKeyValue
+			/* 101 */ imports.NewTable("uCEFMiscFunctions_CefLog", 0), // static procedure CefLog
+			/* 102 */ imports.NewTable("uCEFMiscFunctions_CefKeyEventLog", 0), // static procedure CefKeyEventLog
+			/* 103 */ imports.NewTable("uCEFMiscFunctions_CefMouseEventLog", 0), // static procedure CefMouseEventLog
+			/* 104 */ imports.NewTable("uCEFMiscFunctions_OutputDebugMessage", 0), // static procedure OutputDebugMessage
+			/* 105 */ imports.NewTable("uCEFMiscFunctions_OutputLastErrorMessage", 0), // static procedure OutputLastErrorMessage
+			/* 106 */ imports.NewTable("uCEFMiscFunctions_CefGetExtensionsForMimeType", 0), // static procedure CefGetExtensionsForMimeType
+			/* 107 */ imports.NewTable("uCEFMiscFunctions_CefLoadCRLSetsFile", 0), // static procedure CefLoadCRLSetsFile
+			/* 108 */ imports.NewTable("uCEFMiscFunctions_CefCheckAltGrPressed", 0), // static procedure CefCheckAltGrPressed
+			/* 109 */ imports.NewTable("uCEFMiscFunctions_DropEffectToDragOperation", 0), // static procedure DropEffectToDragOperation
+			/* 110 */ imports.NewTable("uCEFMiscFunctions_DragOperationToDropEffect", 0), // static procedure DragOperationToDropEffect
+			/* 111 */ imports.NewTable("uCEFMiscFunctions_DeviceToLogicalWithMouseEventDouble", 0), // static procedure DeviceToLogicalWithMouseEventDouble
+			/* 112 */ imports.NewTable("uCEFMiscFunctions_DeviceToLogicalWithTouchEventDouble", 0), // static procedure DeviceToLogicalWithTouchEventDouble
+			/* 113 */ imports.NewTable("uCEFMiscFunctions_DeviceToLogicalWithPointDouble", 0), // static procedure DeviceToLogicalWithPointDouble
+			/* 114 */ imports.NewTable("uCEFMiscFunctions_LogicalToDeviceWithRectDouble", 0), // static procedure LogicalToDeviceWithRectDouble
+			/* 115 */ imports.NewTable("uCEFMiscFunctions_InitializeWindowHandle", 0), // static procedure InitializeWindowHandle
 		}
 	})
 	return uCEFMiscFunctionsImport

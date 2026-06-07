@@ -134,6 +134,11 @@ type ICefView interface {
 	//  Return whether this View is focusable when the user requires full keyboard
 	//  access, even though it may not be normally focusable.
 	IsAccessibilityFocusable() bool // function
+	// HasFocus
+	//  Returns true (1) if this View has focus in the context of the containing
+	//  Window. Check both this function and ICefWindow.IsActive to determine
+	//  global keyboard focus.
+	HasFocus() bool // function
 	// GetBackgroundColor
 	//  Returns the background color for this View. If the background color is
 	//  unset then the current `GetThemeColor(CEF_ColorPrimaryBackground)` value
@@ -239,8 +244,10 @@ type ICefView interface {
 	//  so that a View used as a container does not get the focus.
 	SetFocusable(focusable bool) // procedure
 	// RequestFocus
-	//  Request keyboard focus. If this View is focusable it will become the
-	//  focused View.
+	//  Request focus for this View in the context of the containing Window. If
+	//  this View is focusable it will become the focused View. Any focus changes
+	//  while a Window is not active may be applied after that Window next becomes
+	//  active.
 	RequestFocus() // procedure
 	// SetBackgroundColor
 	//  Sets the background color for this View. The background color will be
@@ -523,11 +530,19 @@ func (m *TCefViewRef) IsAccessibilityFocusable() bool {
 	return api.GoBool(r)
 }
 
+func (m *TCefViewRef) HasFocus() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefViewRefAPI().SysCallN(31, m.Instance())
+	return api.GoBool(r)
+}
+
 func (m *TCefViewRef) GetBackgroundColor() cefTypes.TCefColor {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cefViewRefAPI().SysCallN(31, m.Instance())
+	r := cefViewRefAPI().SysCallN(32, m.Instance())
 	return cefTypes.TCefColor(r)
 }
 
@@ -535,7 +550,7 @@ func (m *TCefViewRef) GetThemeColor(colorId int32) cefTypes.TCefColor {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cefViewRefAPI().SysCallN(32, m.Instance(), uintptr(colorId))
+	r := cefViewRefAPI().SysCallN(33, m.Instance(), uintptr(colorId))
 	return cefTypes.TCefColor(r)
 }
 
@@ -543,7 +558,7 @@ func (m *TCefViewRef) ConvertPointToScreen(point *TCefPoint) bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefViewRefAPI().SysCallN(33, m.Instance(), uintptr(base.UnsafePointer(point)))
+	r := cefViewRefAPI().SysCallN(34, m.Instance(), uintptr(base.UnsafePointer(point)))
 	return api.GoBool(r)
 }
 
@@ -551,7 +566,7 @@ func (m *TCefViewRef) ConvertPointFromScreen(point *TCefPoint) bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefViewRefAPI().SysCallN(34, m.Instance(), uintptr(base.UnsafePointer(point)))
+	r := cefViewRefAPI().SysCallN(35, m.Instance(), uintptr(base.UnsafePointer(point)))
 	return api.GoBool(r)
 }
 
@@ -559,7 +574,7 @@ func (m *TCefViewRef) ConvertPointToWindow(point *TCefPoint) bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefViewRefAPI().SysCallN(35, m.Instance(), uintptr(base.UnsafePointer(point)))
+	r := cefViewRefAPI().SysCallN(36, m.Instance(), uintptr(base.UnsafePointer(point)))
 	return api.GoBool(r)
 }
 
@@ -567,7 +582,7 @@ func (m *TCefViewRef) ConvertPointFromWindow(point *TCefPoint) bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefViewRefAPI().SysCallN(36, m.Instance(), uintptr(base.UnsafePointer(point)))
+	r := cefViewRefAPI().SysCallN(37, m.Instance(), uintptr(base.UnsafePointer(point)))
 	return api.GoBool(r)
 }
 
@@ -575,7 +590,7 @@ func (m *TCefViewRef) ConvertPointToView(view ICefView, point *TCefPoint) bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefViewRefAPI().SysCallN(37, m.Instance(), base.GetObjectUintptr(view), uintptr(base.UnsafePointer(point)))
+	r := cefViewRefAPI().SysCallN(38, m.Instance(), base.GetObjectUintptr(view), uintptr(base.UnsafePointer(point)))
 	return api.GoBool(r)
 }
 
@@ -583,7 +598,7 @@ func (m *TCefViewRef) ConvertPointFromView(view ICefView, point *TCefPoint) bool
 	if !m.IsValid() {
 		return false
 	}
-	r := cefViewRefAPI().SysCallN(38, m.Instance(), base.GetObjectUintptr(view), uintptr(base.UnsafePointer(point)))
+	r := cefViewRefAPI().SysCallN(39, m.Instance(), base.GetObjectUintptr(view), uintptr(base.UnsafePointer(point)))
 	return api.GoBool(r)
 }
 
@@ -591,91 +606,91 @@ func (m *TCefViewRef) SetID(id int32) {
 	if !m.IsValid() {
 		return
 	}
-	cefViewRefAPI().SysCallN(40, m.Instance(), uintptr(id))
+	cefViewRefAPI().SysCallN(41, m.Instance(), uintptr(id))
 }
 
 func (m *TCefViewRef) SetGroupID(groupId int32) {
 	if !m.IsValid() {
 		return
 	}
-	cefViewRefAPI().SysCallN(41, m.Instance(), uintptr(groupId))
+	cefViewRefAPI().SysCallN(42, m.Instance(), uintptr(groupId))
 }
 
 func (m *TCefViewRef) SetBounds(bounds TCefRect) {
 	if !m.IsValid() {
 		return
 	}
-	cefViewRefAPI().SysCallN(42, m.Instance(), uintptr(base.UnsafePointer(&bounds)))
+	cefViewRefAPI().SysCallN(43, m.Instance(), uintptr(base.UnsafePointer(&bounds)))
 }
 
 func (m *TCefViewRef) SetSize(size TCefSize) {
 	if !m.IsValid() {
 		return
 	}
-	cefViewRefAPI().SysCallN(43, m.Instance(), uintptr(base.UnsafePointer(&size)))
+	cefViewRefAPI().SysCallN(44, m.Instance(), uintptr(base.UnsafePointer(&size)))
 }
 
 func (m *TCefViewRef) SetPosition(position TCefPoint) {
 	if !m.IsValid() {
 		return
 	}
-	cefViewRefAPI().SysCallN(44, m.Instance(), uintptr(base.UnsafePointer(&position)))
+	cefViewRefAPI().SysCallN(45, m.Instance(), uintptr(base.UnsafePointer(&position)))
 }
 
 func (m *TCefViewRef) SetInsets(insets TCefInsets) {
 	if !m.IsValid() {
 		return
 	}
-	cefViewRefAPI().SysCallN(45, m.Instance(), uintptr(base.UnsafePointer(&insets)))
+	cefViewRefAPI().SysCallN(46, m.Instance(), uintptr(base.UnsafePointer(&insets)))
 }
 
 func (m *TCefViewRef) SizeToPreferredSize() {
 	if !m.IsValid() {
 		return
 	}
-	cefViewRefAPI().SysCallN(46, m.Instance())
+	cefViewRefAPI().SysCallN(47, m.Instance())
 }
 
 func (m *TCefViewRef) InvalidateLayout() {
 	if !m.IsValid() {
 		return
 	}
-	cefViewRefAPI().SysCallN(47, m.Instance())
+	cefViewRefAPI().SysCallN(48, m.Instance())
 }
 
 func (m *TCefViewRef) SetVisible(visible bool) {
 	if !m.IsValid() {
 		return
 	}
-	cefViewRefAPI().SysCallN(48, m.Instance(), api.PasBool(visible))
+	cefViewRefAPI().SysCallN(49, m.Instance(), api.PasBool(visible))
 }
 
 func (m *TCefViewRef) SetEnabled(enabled bool) {
 	if !m.IsValid() {
 		return
 	}
-	cefViewRefAPI().SysCallN(49, m.Instance(), api.PasBool(enabled))
+	cefViewRefAPI().SysCallN(50, m.Instance(), api.PasBool(enabled))
 }
 
 func (m *TCefViewRef) SetFocusable(focusable bool) {
 	if !m.IsValid() {
 		return
 	}
-	cefViewRefAPI().SysCallN(50, m.Instance(), api.PasBool(focusable))
+	cefViewRefAPI().SysCallN(51, m.Instance(), api.PasBool(focusable))
 }
 
 func (m *TCefViewRef) RequestFocus() {
 	if !m.IsValid() {
 		return
 	}
-	cefViewRefAPI().SysCallN(51, m.Instance())
+	cefViewRefAPI().SysCallN(52, m.Instance())
 }
 
 func (m *TCefViewRef) SetBackgroundColor(color cefTypes.TCefColor) {
 	if !m.IsValid() {
 		return
 	}
-	cefViewRefAPI().SysCallN(52, m.Instance(), uintptr(color))
+	cefViewRefAPI().SysCallN(53, m.Instance(), uintptr(color))
 }
 
 func (m *TCefViewRef) AsIntfView() uintptr {
@@ -693,7 +708,7 @@ type _ViewRefClass uintptr
 //	Returns a ICefView instance using a PCefView data pointer.
 func (_ViewRefClass) UnWrapWithPointer(data uintptr) (result ICefView) {
 	var resultPtr uintptr
-	cefViewRefAPI().SysCallN(39, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))
+	cefViewRefAPI().SysCallN(40, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefViewRef(resultPtr)
 	return
 }
@@ -750,28 +765,29 @@ func cefViewRefAPI() *imports.Imports {
 			/* 28 */ imports.NewTable("TCefViewRef_IsEnabled", 0), // function IsEnabled
 			/* 29 */ imports.NewTable("TCefViewRef_IsFocusable", 0), // function IsFocusable
 			/* 30 */ imports.NewTable("TCefViewRef_IsAccessibilityFocusable", 0), // function IsAccessibilityFocusable
-			/* 31 */ imports.NewTable("TCefViewRef_GetBackgroundColor", 0), // function GetBackgroundColor
-			/* 32 */ imports.NewTable("TCefViewRef_GetThemeColor", 0), // function GetThemeColor
-			/* 33 */ imports.NewTable("TCefViewRef_ConvertPointToScreen", 0), // function ConvertPointToScreen
-			/* 34 */ imports.NewTable("TCefViewRef_ConvertPointFromScreen", 0), // function ConvertPointFromScreen
-			/* 35 */ imports.NewTable("TCefViewRef_ConvertPointToWindow", 0), // function ConvertPointToWindow
-			/* 36 */ imports.NewTable("TCefViewRef_ConvertPointFromWindow", 0), // function ConvertPointFromWindow
-			/* 37 */ imports.NewTable("TCefViewRef_ConvertPointToView", 0), // function ConvertPointToView
-			/* 38 */ imports.NewTable("TCefViewRef_ConvertPointFromView", 0), // function ConvertPointFromView
-			/* 39 */ imports.NewTable("TCefViewRef_UnWrapWithPointer", 0), // static function UnWrapWithPointer
-			/* 40 */ imports.NewTable("TCefViewRef_SetID", 0), // procedure SetID
-			/* 41 */ imports.NewTable("TCefViewRef_SetGroupID", 0), // procedure SetGroupID
-			/* 42 */ imports.NewTable("TCefViewRef_SetBounds", 0), // procedure SetBounds
-			/* 43 */ imports.NewTable("TCefViewRef_SetSize", 0), // procedure SetSize
-			/* 44 */ imports.NewTable("TCefViewRef_SetPosition", 0), // procedure SetPosition
-			/* 45 */ imports.NewTable("TCefViewRef_SetInsets", 0), // procedure SetInsets
-			/* 46 */ imports.NewTable("TCefViewRef_SizeToPreferredSize", 0), // procedure SizeToPreferredSize
-			/* 47 */ imports.NewTable("TCefViewRef_InvalidateLayout", 0), // procedure InvalidateLayout
-			/* 48 */ imports.NewTable("TCefViewRef_SetVisible", 0), // procedure SetVisible
-			/* 49 */ imports.NewTable("TCefViewRef_SetEnabled", 0), // procedure SetEnabled
-			/* 50 */ imports.NewTable("TCefViewRef_SetFocusable", 0), // procedure SetFocusable
-			/* 51 */ imports.NewTable("TCefViewRef_RequestFocus", 0), // procedure RequestFocus
-			/* 52 */ imports.NewTable("TCefViewRef_SetBackgroundColor", 0), // procedure SetBackgroundColor
+			/* 31 */ imports.NewTable("TCefViewRef_HasFocus", 0), // function HasFocus
+			/* 32 */ imports.NewTable("TCefViewRef_GetBackgroundColor", 0), // function GetBackgroundColor
+			/* 33 */ imports.NewTable("TCefViewRef_GetThemeColor", 0), // function GetThemeColor
+			/* 34 */ imports.NewTable("TCefViewRef_ConvertPointToScreen", 0), // function ConvertPointToScreen
+			/* 35 */ imports.NewTable("TCefViewRef_ConvertPointFromScreen", 0), // function ConvertPointFromScreen
+			/* 36 */ imports.NewTable("TCefViewRef_ConvertPointToWindow", 0), // function ConvertPointToWindow
+			/* 37 */ imports.NewTable("TCefViewRef_ConvertPointFromWindow", 0), // function ConvertPointFromWindow
+			/* 38 */ imports.NewTable("TCefViewRef_ConvertPointToView", 0), // function ConvertPointToView
+			/* 39 */ imports.NewTable("TCefViewRef_ConvertPointFromView", 0), // function ConvertPointFromView
+			/* 40 */ imports.NewTable("TCefViewRef_UnWrapWithPointer", 0), // static function UnWrapWithPointer
+			/* 41 */ imports.NewTable("TCefViewRef_SetID", 0), // procedure SetID
+			/* 42 */ imports.NewTable("TCefViewRef_SetGroupID", 0), // procedure SetGroupID
+			/* 43 */ imports.NewTable("TCefViewRef_SetBounds", 0), // procedure SetBounds
+			/* 44 */ imports.NewTable("TCefViewRef_SetSize", 0), // procedure SetSize
+			/* 45 */ imports.NewTable("TCefViewRef_SetPosition", 0), // procedure SetPosition
+			/* 46 */ imports.NewTable("TCefViewRef_SetInsets", 0), // procedure SetInsets
+			/* 47 */ imports.NewTable("TCefViewRef_SizeToPreferredSize", 0), // procedure SizeToPreferredSize
+			/* 48 */ imports.NewTable("TCefViewRef_InvalidateLayout", 0), // procedure InvalidateLayout
+			/* 49 */ imports.NewTable("TCefViewRef_SetVisible", 0), // procedure SetVisible
+			/* 50 */ imports.NewTable("TCefViewRef_SetEnabled", 0), // procedure SetEnabled
+			/* 51 */ imports.NewTable("TCefViewRef_SetFocusable", 0), // procedure SetFocusable
+			/* 52 */ imports.NewTable("TCefViewRef_RequestFocus", 0), // procedure RequestFocus
+			/* 53 */ imports.NewTable("TCefViewRef_SetBackgroundColor", 0), // procedure SetBackgroundColor
 		}
 	})
 	return cefViewRefImport

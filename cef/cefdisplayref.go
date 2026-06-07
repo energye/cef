@@ -27,7 +27,9 @@ type ICefDisplay interface {
 	//  Returns this Display's device pixel scale factor. This specifies how much
 	//  the UI should be scaled when the actual output has more pixels than
 	//  standard displays (which is around 100~120dpi). The potential return
-	//  values differ by platform.
+	//  values differ by platform. Windowed browsers with 1.0 zoom will have a
+	//  JavaScript `window.devicePixelRatio` value matching the associated
+	//  Display's get_device_scale_factor() value.
 	GetDeviceScaleFactor() float32 // function
 	// GetBounds
 	//  Returns this Display's bounds in DIP screen coordinates. This is the full

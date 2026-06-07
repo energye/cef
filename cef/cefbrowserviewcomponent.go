@@ -37,13 +37,18 @@ type ICEFBrowserViewComponent interface {
 	//  Updates the internal ICefBrowserView with the ICefBrowserView associated with |browser|.
 	GetForBrowser(browser ICefBrowser) bool // function
 	// SetPreferAccelerators
-	//  Sets whether accelerators registered with ICefWindow.SetAccelerator are
-	//  triggered before or after the event is sent to the ICefBrowser. If
-	//  |prefer_accelerators| is true (1) then the matching accelerator will be
-	//  triggered immediately and the event will not be sent to the ICefBrowser.
-	//  If |prefer_accelerators| is false (0) then the matching accelerator will
-	//  only be triggered if the event is not handled by web content or by
-	//  ICefKeyboardHandler. The default value is false (0).
+	//  Sets whether normal priority accelerators are first forwarded to the web
+	//  content (`keydown` event handler) or ICefKeyboardHandler. Normal priority
+	//  accelerators can be registered via ICefWindow.SetAccelerator (with
+	//  |high_priority|=false) or internally for standard accelerators supported
+	//  by Chrome style. If |prefer_accelerators| is true then the matching
+	//  accelerator will be triggered immediately (calling
+	//  ICefWindowDelegate.OnAccelerator or ICefCommandHandler.OnChromeCommand
+	//  respectively) and the event will not be forwarded to the web content or
+	//  ICefKeyboardHandler first. If |prefer_accelerators| is false then the
+	//  matching accelerator will only be triggered if the event is not handled by
+	//  web content (`keydown` event handler that calls `event.preventDefault()`)
+	//  or by ICefKeyboardHandler. The default value is false.
 	SetPreferAccelerators(preferAccelerators bool) // procedure
 	// Browser
 	//  Returns the ICefBrowser hosted by this BrowserView. Will return NULL if
@@ -52,18 +57,28 @@ type ICEFBrowserViewComponent interface {
 	// BrowserView
 	//  ICefBrowserView assiciated to this component.
 	BrowserView() ICefBrowserView // property BrowserView Getter
+	// ChromeToolbar
+	//  Returns the Chrome toolbar associated with this BrowserView. Only
+	//  supported when using Chrome style. The ICefBrowserViewDelegate.GetChromeToolbarType
+	//  function must return a value other than
+	//  CEF_CTT_NONE and the toolbar will not be available until after this
+	//  BrowserView is added to a ICefWindow and
+	//  ICefViewDelegate.OnWindowChanged() has been called.
+	ChromeToolbar() ICefView // property ChromeToolbar Getter
 	// RuntimeStyle
 	//  Returns the runtime style for this BrowserView (ALLOY or CHROME). See
 	//  TCefRuntimeStyle documentation for details.
-	RuntimeStyle() cefTypes.TCefRuntimeStyle                                                // property RuntimeStyle Getter
-	SetOnBrowserCreated(fn TOnBrowserCreatedEvent)                                          // property event
-	SetOnBrowserDestroyed(fn TOnBrowserDestroyedEvent)                                      // property event
-	SetOnGetDelegateForPopupBrowserView(fn TOnGetDelegateForPopupBrowserViewEvent)          // property event
-	SetOnPopupBrowserViewCreated(fn TOnPopupBrowserViewCreatedEvent)                        // property event
-	SetOnGetChromeToolbarType(fn TOnGetChromeToolbarTypeEvent)                              // property event
-	SetOnUseFramelessWindowForPictureInPicture(fn TOnUseFramelessWindowForPictureInPicture) // property event
-	SetOnGestureCommand(fn TOnGestureCommandEvent)                                          // property event
-	SetOnGetBrowserRuntimeStyle(fn TOnGetBrowserRuntimeStyleEvent)                          // property event
+	RuntimeStyle() cefTypes.TCefRuntimeStyle                                                               // property RuntimeStyle Getter
+	SetOnBrowserCreated(fn TOnBrowserCreatedEvent)                                                         // property event
+	SetOnBrowserDestroyed(fn TOnBrowserDestroyedEvent)                                                     // property event
+	SetOnGetDelegateForPopupBrowserView(fn TOnGetDelegateForPopupBrowserViewEvent)                         // property event
+	SetOnPopupBrowserViewCreated(fn TOnPopupBrowserViewCreatedEvent)                                       // property event
+	SetOnGetChromeToolbarType(fn TOnGetChromeToolbarTypeEvent)                                             // property event
+	SetOnUseFramelessWindowForPictureInPicture(fn TOnUseFramelessWindowForPictureInPicture)                // property event
+	SetOnGestureCommand(fn TOnGestureCommandEvent)                                                         // property event
+	SetOnGetBrowserRuntimeStyle(fn TOnGetBrowserRuntimeStyleEvent)                                         // property event
+	SetOnAllowMoveForPictureInPicture(fn TOnAllowMoveForPictureInPictureEvent)                             // property event
+	SetOnAllowPictureInPictureWithoutUserActivation(fn TOnAllowPictureInPictureWithoutUserActivationEvent) // property event
 	AsIntfBrowserViewDelegateEvents() uintptr
 	AsIntfViewDelegateEvents() uintptr
 }
@@ -116,11 +131,21 @@ func (m *TCEFBrowserViewComponent) BrowserView() (result ICefBrowserView) {
 	return
 }
 
+func (m *TCEFBrowserViewComponent) ChromeToolbar() (result ICefView) {
+	if !m.IsValid() {
+		return
+	}
+	var resultPtr uintptr
+	cEFBrowserViewComponentAPI().SysCallN(6, m.Instance(), uintptr(base.UnsafePointer(&resultPtr)))
+	result = AsCefViewRef(resultPtr)
+	return
+}
+
 func (m *TCEFBrowserViewComponent) RuntimeStyle() cefTypes.TCefRuntimeStyle {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cEFBrowserViewComponentAPI().SysCallN(6, m.Instance())
+	r := cEFBrowserViewComponentAPI().SysCallN(7, m.Instance())
 	return cefTypes.TCefRuntimeStyle(r)
 }
 
@@ -129,7 +154,7 @@ func (m *TCEFBrowserViewComponent) SetOnBrowserCreated(fn TOnBrowserCreatedEvent
 		return
 	}
 	cb := makeTOnBrowserCreatedEvent(fn)
-	base.SetEvent(m, 7, cEFBrowserViewComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 8, cEFBrowserViewComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFBrowserViewComponent) SetOnBrowserDestroyed(fn TOnBrowserDestroyedEvent) {
@@ -137,7 +162,7 @@ func (m *TCEFBrowserViewComponent) SetOnBrowserDestroyed(fn TOnBrowserDestroyedE
 		return
 	}
 	cb := makeTOnBrowserDestroyedEvent(fn)
-	base.SetEvent(m, 8, cEFBrowserViewComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 9, cEFBrowserViewComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFBrowserViewComponent) SetOnGetDelegateForPopupBrowserView(fn TOnGetDelegateForPopupBrowserViewEvent) {
@@ -145,7 +170,7 @@ func (m *TCEFBrowserViewComponent) SetOnGetDelegateForPopupBrowserView(fn TOnGet
 		return
 	}
 	cb := makeTOnGetDelegateForPopupBrowserViewEvent(fn)
-	base.SetEvent(m, 9, cEFBrowserViewComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 10, cEFBrowserViewComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFBrowserViewComponent) SetOnPopupBrowserViewCreated(fn TOnPopupBrowserViewCreatedEvent) {
@@ -153,7 +178,7 @@ func (m *TCEFBrowserViewComponent) SetOnPopupBrowserViewCreated(fn TOnPopupBrows
 		return
 	}
 	cb := makeTOnPopupBrowserViewCreatedEvent(fn)
-	base.SetEvent(m, 10, cEFBrowserViewComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 11, cEFBrowserViewComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFBrowserViewComponent) SetOnGetChromeToolbarType(fn TOnGetChromeToolbarTypeEvent) {
@@ -161,7 +186,7 @@ func (m *TCEFBrowserViewComponent) SetOnGetChromeToolbarType(fn TOnGetChromeTool
 		return
 	}
 	cb := makeTOnGetChromeToolbarTypeEvent(fn)
-	base.SetEvent(m, 11, cEFBrowserViewComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 12, cEFBrowserViewComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFBrowserViewComponent) SetOnUseFramelessWindowForPictureInPicture(fn TOnUseFramelessWindowForPictureInPicture) {
@@ -169,7 +194,7 @@ func (m *TCEFBrowserViewComponent) SetOnUseFramelessWindowForPictureInPicture(fn
 		return
 	}
 	cb := makeTOnUseFramelessWindowForPictureInPicture(fn)
-	base.SetEvent(m, 12, cEFBrowserViewComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 13, cEFBrowserViewComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFBrowserViewComponent) SetOnGestureCommand(fn TOnGestureCommandEvent) {
@@ -177,7 +202,7 @@ func (m *TCEFBrowserViewComponent) SetOnGestureCommand(fn TOnGestureCommandEvent
 		return
 	}
 	cb := makeTOnGestureCommandEvent(fn)
-	base.SetEvent(m, 13, cEFBrowserViewComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 14, cEFBrowserViewComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFBrowserViewComponent) SetOnGetBrowserRuntimeStyle(fn TOnGetBrowserRuntimeStyleEvent) {
@@ -185,7 +210,23 @@ func (m *TCEFBrowserViewComponent) SetOnGetBrowserRuntimeStyle(fn TOnGetBrowserR
 		return
 	}
 	cb := makeTOnGetBrowserRuntimeStyleEvent(fn)
-	base.SetEvent(m, 14, cEFBrowserViewComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 15, cEFBrowserViewComponentAPI(), api.MakeEventDataPtr(cb))
+}
+
+func (m *TCEFBrowserViewComponent) SetOnAllowMoveForPictureInPicture(fn TOnAllowMoveForPictureInPictureEvent) {
+	if !m.IsValid() {
+		return
+	}
+	cb := makeTOnAllowMoveForPictureInPictureEvent(fn)
+	base.SetEvent(m, 16, cEFBrowserViewComponentAPI(), api.MakeEventDataPtr(cb))
+}
+
+func (m *TCEFBrowserViewComponent) SetOnAllowPictureInPictureWithoutUserActivation(fn TOnAllowPictureInPictureWithoutUserActivationEvent) {
+	if !m.IsValid() {
+		return
+	}
+	cb := makeTOnAllowPictureInPictureWithoutUserActivationEvent(fn)
+	base.SetEvent(m, 17, cEFBrowserViewComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFBrowserViewComponent) AsIntfBrowserViewDelegateEvents() uintptr {
@@ -224,15 +265,18 @@ func cEFBrowserViewComponentAPI() *imports.Imports {
 			/* 3 */ imports.NewTable("TCEFBrowserViewComponent_SetPreferAccelerators", 0), // procedure SetPreferAccelerators
 			/* 4 */ imports.NewTable("TCEFBrowserViewComponent_Browser", 0), // property Browser
 			/* 5 */ imports.NewTable("TCEFBrowserViewComponent_BrowserView", 0), // property BrowserView
-			/* 6 */ imports.NewTable("TCEFBrowserViewComponent_RuntimeStyle", 0), // property RuntimeStyle
-			/* 7 */ imports.NewTable("TCEFBrowserViewComponent_OnBrowserCreated", 0), // event OnBrowserCreated
-			/* 8 */ imports.NewTable("TCEFBrowserViewComponent_OnBrowserDestroyed", 0), // event OnBrowserDestroyed
-			/* 9 */ imports.NewTable("TCEFBrowserViewComponent_OnGetDelegateForPopupBrowserView", 0), // event OnGetDelegateForPopupBrowserView
-			/* 10 */ imports.NewTable("TCEFBrowserViewComponent_OnPopupBrowserViewCreated", 0), // event OnPopupBrowserViewCreated
-			/* 11 */ imports.NewTable("TCEFBrowserViewComponent_OnGetChromeToolbarType", 0), // event OnGetChromeToolbarType
-			/* 12 */ imports.NewTable("TCEFBrowserViewComponent_OnUseFramelessWindowForPictureInPicture", 0), // event OnUseFramelessWindowForPictureInPicture
-			/* 13 */ imports.NewTable("TCEFBrowserViewComponent_OnGestureCommand", 0), // event OnGestureCommand
-			/* 14 */ imports.NewTable("TCEFBrowserViewComponent_OnGetBrowserRuntimeStyle", 0), // event OnGetBrowserRuntimeStyle
+			/* 6 */ imports.NewTable("TCEFBrowserViewComponent_ChromeToolbar", 0), // property ChromeToolbar
+			/* 7 */ imports.NewTable("TCEFBrowserViewComponent_RuntimeStyle", 0), // property RuntimeStyle
+			/* 8 */ imports.NewTable("TCEFBrowserViewComponent_OnBrowserCreated", 0), // event OnBrowserCreated
+			/* 9 */ imports.NewTable("TCEFBrowserViewComponent_OnBrowserDestroyed", 0), // event OnBrowserDestroyed
+			/* 10 */ imports.NewTable("TCEFBrowserViewComponent_OnGetDelegateForPopupBrowserView", 0), // event OnGetDelegateForPopupBrowserView
+			/* 11 */ imports.NewTable("TCEFBrowserViewComponent_OnPopupBrowserViewCreated", 0), // event OnPopupBrowserViewCreated
+			/* 12 */ imports.NewTable("TCEFBrowserViewComponent_OnGetChromeToolbarType", 0), // event OnGetChromeToolbarType
+			/* 13 */ imports.NewTable("TCEFBrowserViewComponent_OnUseFramelessWindowForPictureInPicture", 0), // event OnUseFramelessWindowForPictureInPicture
+			/* 14 */ imports.NewTable("TCEFBrowserViewComponent_OnGestureCommand", 0), // event OnGestureCommand
+			/* 15 */ imports.NewTable("TCEFBrowserViewComponent_OnGetBrowserRuntimeStyle", 0), // event OnGetBrowserRuntimeStyle
+			/* 16 */ imports.NewTable("TCEFBrowserViewComponent_OnAllowMoveForPictureInPicture", 0), // event OnAllowMoveForPictureInPicture
+			/* 17 */ imports.NewTable("TCEFBrowserViewComponent_OnAllowPictureInPictureWithoutUserActivation", 0), // event OnAllowPictureInPictureWithoutUserActivation
 		}
 	})
 	return cEFBrowserViewComponentImport

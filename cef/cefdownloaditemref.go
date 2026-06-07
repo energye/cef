@@ -79,6 +79,9 @@ type ICefDownloadItem interface {
 	// GetMimeType
 	//  Returns the mime type.
 	GetMimeType() string // function
+	// IsPaused
+	//  Returns true (1) if the download has been paused.
+	IsPaused() bool // function
 }
 
 // ICefDownloadItemRef Parent: ICefDownloadItem ICefBaseRefCountedRef
@@ -262,6 +265,14 @@ func (m *TCefDownloadItemRef) GetMimeType() (result string) {
 	return
 }
 
+func (m *TCefDownloadItemRef) IsPaused() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefDownloadItemRefAPI().SysCallN(20, m.Instance())
+	return api.GoBool(r)
+}
+
 func (m *TCefDownloadItemRef) AsIntfDownloadItem() uintptr {
 	return m.GetIntfPointer(0)
 }
@@ -274,7 +285,7 @@ type _DownloadItemRefClass uintptr
 
 func (_DownloadItemRefClass) UnWrap(data uintptr) (result ICefDownloadItem) {
 	var resultPtr uintptr
-	cefDownloadItemRefAPI().SysCallN(20, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))
+	cefDownloadItemRefAPI().SysCallN(21, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefDownloadItemRef(resultPtr)
 	return
 }
@@ -320,7 +331,8 @@ func cefDownloadItemRefAPI() *imports.Imports {
 			/* 17 */ imports.NewTable("TCefDownloadItemRef_GetSuggestedFileName", 0), // function GetSuggestedFileName
 			/* 18 */ imports.NewTable("TCefDownloadItemRef_GetContentDisposition", 0), // function GetContentDisposition
 			/* 19 */ imports.NewTable("TCefDownloadItemRef_GetMimeType", 0), // function GetMimeType
-			/* 20 */ imports.NewTable("TCefDownloadItemRef_UnWrap", 0), // static function UnWrap
+			/* 20 */ imports.NewTable("TCefDownloadItemRef_IsPaused", 0), // function IsPaused
+			/* 21 */ imports.NewTable("TCefDownloadItemRef_UnWrap", 0), // static function UnWrap
 		}
 	})
 	return cefDownloadItemRefImport

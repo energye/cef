@@ -17,11 +17,10 @@ import (
 )
 
 type TCefAcceleratedPaintInfo struct {
-	Planes     uintptr                // array [0..pred(CEF_KACCELERATEDPAINTMAXPLANES)] of TCefAcceleratedPaintNativePixmapPlaneInfo
-	PlanesSize int32                  // SizeOf: array [0..pred(CEF_KACCELERATEDPAINTMAXPLANES)] of TCefAcceleratedPaintNativePixmapPlaneInfo
-	PlaneCount int32                  // integer
-	Modifier   uint64                 // uint64
-	Format     cefTypes.TCefColorType // TCefColorType
+	Planes     uintptr // array [0..pred(CEF_KACCELERATEDPAINTMAXPLANES)] of TCefAcceleratedPaintNativePixmapPlaneInfo
+	PlanesSize int32   // SizeOf: array [0..pred(CEF_KACCELERATEDPAINTMAXPLANES)] of TCefAcceleratedPaintNativePixmapPlaneInfo
+	PlaneCount int32   // integer
+	Modifier   uint64  // uint64
 }
 
 type TCefAcceleratedPaintNativePixmapPlaneInfo struct {
@@ -51,16 +50,14 @@ func (m *TCefAcceleratedPaintInfo) ToPas() *tCefAcceleratedPaintInfo {
 		PlanesSize: m.PlanesSize,
 		PlaneCount: m.PlaneCount,
 		Modifier:   m.Modifier,
-		Format:     m.Format,
 	}
 }
 
 type tCefAcceleratedPaintInfo struct {
-	Planes     uintptr                // array [0..pred(CEF_KACCELERATEDPAINTMAXPLANES)] of TCefAcceleratedPaintNativePixmapPlaneInfo
-	PlanesSize int32                  // SizeOf: array [0..pred(CEF_KACCELERATEDPAINTMAXPLANES)] of TCefAcceleratedPaintNativePixmapPlaneInfo
-	PlaneCount int32                  // integer
-	Modifier   uint64                 // uint64
-	Format     cefTypes.TCefColorType // TCefColorType
+	Planes     uintptr // array [0..pred(CEF_KACCELERATEDPAINTMAXPLANES)] of TCefAcceleratedPaintNativePixmapPlaneInfo
+	PlanesSize int32   // SizeOf: array [0..pred(CEF_KACCELERATEDPAINTMAXPLANES)] of TCefAcceleratedPaintNativePixmapPlaneInfo
+	PlaneCount int32   // integer
+	Modifier   uint64  // uint64
 }
 
 func (m *tCefAcceleratedPaintInfo) ToGo() TCefAcceleratedPaintInfo {
@@ -72,7 +69,6 @@ func (m *tCefAcceleratedPaintInfo) ToGo() TCefAcceleratedPaintInfo {
 		PlanesSize: m.PlanesSize,
 		PlaneCount: m.PlaneCount,
 		Modifier:   m.Modifier,
-		Format:     m.Format,
 	}
 }
 func (m *TCefWindowInfo) ToPas() *tCefWindowInfo {

@@ -14,6 +14,21 @@ import (
 	"github.com/energye/lcl/types"
 )
 
+type TCefAcceleratedPaintInfoCommon struct {
+	Timestamp            uint64   // uint64
+	CodedSize            TCefSize // TCefSize
+	VisibleRect          TCefRect // TCefRect
+	ContentRect          TCefRect // TCefRect
+	SourceSize           TCefSize // TCefSize
+	CaptureUpdateRect    TCefRect // TCefRect
+	RegionCaptureRect    TCefRect // TCefRect
+	CaptureCounter       uint64   // uint64
+	HasCaptureUpdateRect byte     // byte
+	HasRegionCaptureRect byte     // byte
+	HasSourceSize        byte     // byte
+	HasCaptureCounter    byte     // byte
+}
+
 type TCefAudioParameters struct {
 	ChannelLayout   cefTypes.TCefChannelLayout // TCefChannelLayout
 	SampleRate      int32                      // integer
@@ -59,11 +74,12 @@ type TCefBrowserSettings struct {
 	TextAreaResize             cefTypes.TCefState // TCefState
 	TabToLinks                 cefTypes.TCefState // TCefState
 	LocalStorage               cefTypes.TCefState // TCefState
-	Databases                  cefTypes.TCefState // TCefState
+	DatabasesDeprecated        cefTypes.TCefState // TCefState
 	Webgl                      cefTypes.TCefState // TCefState
 	BackgroundColor            cefTypes.TCefColor // TCefColor
 	ChromeStatusBubble         cefTypes.TCefState // TCefState
 	ChromeZoomBubble           cefTypes.TCefState // TCefState
+	AxViewportCollapse         cefTypes.TCefState // TCefState
 }
 
 type TCefCompositionUnderline struct {
@@ -199,7 +215,6 @@ type TCefRect struct {
 type TCefRequestContextSettings struct {
 	CachePath                        string // TCefString
 	PersistSessionCookies            int32  // Integer
-	PersistUserPreferences           int32  // Integer
 	AcceptLanguageList               string // TCefString
 	CookieableSchemesList            string // TCefString
 	CookieableSchemesExcludeDefaults int32  // integer
@@ -252,6 +267,13 @@ type TCefTouchHandleState struct {
 	MirrorHorizontal int32                            // integer
 	Origin           TCefPoint                        // TCefPoint
 	Alpha            float32                          // single
+}
+
+type TCefVersionInfo struct {
+	VersionMajor int32 // integer
+	VersionMinor int32 // integer
+	VersionPatch int32 // integer
+	CommitNumber int32 // integer
 }
 
 type TChromiumCoreSetCookieArgs struct {
@@ -309,6 +331,32 @@ type TChromiumCoreSimulateMouseEventArgs struct {
 	PointerType        cefTypes.TCefSimulatedPointerType    // TCefSimulatedPointerType
 }
 
+type TChromiumVersionInfo struct {
+	VersionMajor int32 // integer
+	VersionMinor int32 // integer
+	VersionBuild int32 // integer
+	VersionPatch int32 // integer
+}
+
+type TCustomTaskInfo struct {
+	Id                  int64                 // int64
+	Type                cefTypes.TCefTaskType // TCefTaskType
+	IsKillable          types.LongBool        // boolean
+	Title               string                // ustring
+	CpuUsage            float64               // double
+	NumberOfProcessors  int32                 // integer
+	Memory              int64                 // int64
+	GpuMemory           int64                 // int64
+	IsGpuMemoryInflated types.LongBool        // boolean
+}
+
+type TLinuxWindowProperties struct {
+	WaylandAppId string // ustring
+	WmClassClass string // ustring
+	WmClassName  string // ustring
+	WmRoleName   string // ustring
+}
+
 func (m *TCefBrowserSettings) ToPas() *tCefBrowserSettings {
 	if m == nil {
 		return nil
@@ -336,11 +384,12 @@ func (m *TCefBrowserSettings) ToPas() *tCefBrowserSettings {
 		TextAreaResize:             m.TextAreaResize,
 		TabToLinks:                 m.TabToLinks,
 		LocalStorage:               m.LocalStorage,
-		Databases:                  m.Databases,
+		DatabasesDeprecated:        m.DatabasesDeprecated,
 		Webgl:                      m.Webgl,
 		BackgroundColor:            m.BackgroundColor,
 		ChromeStatusBubble:         m.ChromeStatusBubble,
 		ChromeZoomBubble:           m.ChromeZoomBubble,
+		AxViewportCollapse:         m.AxViewportCollapse,
 	}
 }
 
@@ -367,11 +416,12 @@ type tCefBrowserSettings struct {
 	TextAreaResize             cefTypes.TCefState // TCefState
 	TabToLinks                 cefTypes.TCefState // TCefState
 	LocalStorage               cefTypes.TCefState // TCefState
-	Databases                  cefTypes.TCefState // TCefState
+	DatabasesDeprecated        cefTypes.TCefState // TCefState
 	Webgl                      cefTypes.TCefState // TCefState
 	BackgroundColor            cefTypes.TCefColor // TCefColor
 	ChromeStatusBubble         cefTypes.TCefState // TCefState
 	ChromeZoomBubble           cefTypes.TCefState // TCefState
+	AxViewportCollapse         cefTypes.TCefState // TCefState
 }
 
 func (m *tCefBrowserSettings) ToGo() TCefBrowserSettings {
@@ -401,11 +451,12 @@ func (m *tCefBrowserSettings) ToGo() TCefBrowserSettings {
 		TextAreaResize:             m.TextAreaResize,
 		TabToLinks:                 m.TabToLinks,
 		LocalStorage:               m.LocalStorage,
-		Databases:                  m.Databases,
+		DatabasesDeprecated:        m.DatabasesDeprecated,
 		Webgl:                      m.Webgl,
 		BackgroundColor:            m.BackgroundColor,
 		ChromeStatusBubble:         m.ChromeStatusBubble,
 		ChromeZoomBubble:           m.ChromeZoomBubble,
+		AxViewportCollapse:         m.AxViewportCollapse,
 	}
 }
 func (m *TCefCookie) ToPas() *tCefCookie {
@@ -598,7 +649,6 @@ func (m *TCefRequestContextSettings) ToPas() *tCefRequestContextSettings {
 	return &tCefRequestContextSettings{
 		CachePath:                        api.PasStr(m.CachePath),
 		PersistSessionCookies:            m.PersistSessionCookies,
-		PersistUserPreferences:           m.PersistUserPreferences,
 		AcceptLanguageList:               api.PasStr(m.AcceptLanguageList),
 		CookieableSchemesList:            api.PasStr(m.CookieableSchemesList),
 		CookieableSchemesExcludeDefaults: m.CookieableSchemesExcludeDefaults,
@@ -608,7 +658,6 @@ func (m *TCefRequestContextSettings) ToPas() *tCefRequestContextSettings {
 type tCefRequestContextSettings struct {
 	CachePath                        uintptr // TCefString
 	PersistSessionCookies            int32   // Integer
-	PersistUserPreferences           int32   // Integer
 	AcceptLanguageList               uintptr // TCefString
 	CookieableSchemesList            uintptr // TCefString
 	CookieableSchemesExcludeDefaults int32   // integer
@@ -621,7 +670,6 @@ func (m *tCefRequestContextSettings) ToGo() TCefRequestContextSettings {
 	return TCefRequestContextSettings{
 		CachePath:                        api.GoStr(m.CachePath),
 		PersistSessionCookies:            m.PersistSessionCookies,
-		PersistUserPreferences:           m.PersistUserPreferences,
 		AcceptLanguageList:               api.GoStr(m.AcceptLanguageList),
 		CookieableSchemesList:            api.GoStr(m.CookieableSchemesList),
 		CookieableSchemesExcludeDefaults: m.CookieableSchemesExcludeDefaults,
@@ -819,3 +867,80 @@ func (m *tChromiumCoreSimulateMouseEventArgs) ToGo() TChromiumCoreSimulateMouseE
 		PointerType:        m.PointerType,
 	}
 }
+func (m *TCustomTaskInfo) ToPas() *tCustomTaskInfo {
+	if m == nil {
+		return nil
+	}
+	return &tCustomTaskInfo{
+		Id:                  m.Id,
+		Type:                m.Type,
+		IsKillable:          m.IsKillable,
+		Title:               api.PasStr(m.Title),
+		CpuUsage:            m.CpuUsage,
+		NumberOfProcessors:  m.NumberOfProcessors,
+		Memory:              m.Memory,
+		GpuMemory:           m.GpuMemory,
+		IsGpuMemoryInflated: m.IsGpuMemoryInflated,
+	}
+}
+
+type tCustomTaskInfo struct {
+	Id                  int64                 // int64
+	Type                cefTypes.TCefTaskType // TCefTaskType
+	IsKillable          types.LongBool        // boolean
+	Title               uintptr               // ustring
+	CpuUsage            float64               // double
+	NumberOfProcessors  int32                 // integer
+	Memory              int64                 // int64
+	GpuMemory           int64                 // int64
+	IsGpuMemoryInflated types.LongBool        // boolean
+}
+
+func (m *tCustomTaskInfo) ToGo() TCustomTaskInfo {
+	if m == nil {
+		return TCustomTaskInfo{}
+	}
+	return TCustomTaskInfo{
+		Id:                  m.Id,
+		Type:                m.Type,
+		IsKillable:          m.IsKillable,
+		Title:               api.GoStr(m.Title),
+		CpuUsage:            m.CpuUsage,
+		NumberOfProcessors:  m.NumberOfProcessors,
+		Memory:              m.Memory,
+		GpuMemory:           m.GpuMemory,
+		IsGpuMemoryInflated: m.IsGpuMemoryInflated,
+	}
+}
+func (m *TLinuxWindowProperties) ToPas() *tLinuxWindowProperties {
+	if m == nil {
+		return nil
+	}
+	return &tLinuxWindowProperties{
+		WaylandAppId: api.PasStr(m.WaylandAppId),
+		WmClassClass: api.PasStr(m.WmClassClass),
+		WmClassName:  api.PasStr(m.WmClassName),
+		WmRoleName:   api.PasStr(m.WmRoleName),
+	}
+}
+
+type tLinuxWindowProperties struct {
+	WaylandAppId uintptr // ustring
+	WmClassClass uintptr // ustring
+	WmClassName  uintptr // ustring
+	WmRoleName   uintptr // ustring
+}
+
+func (m *tLinuxWindowProperties) ToGo() TLinuxWindowProperties {
+	if m == nil {
+		return TLinuxWindowProperties{}
+	}
+	return TLinuxWindowProperties{
+		WaylandAppId: api.GoStr(m.WaylandAppId),
+		WmClassClass: api.GoStr(m.WmClassClass),
+		WmClassName:  api.GoStr(m.WmClassName),
+		WmRoleName:   api.GoStr(m.WmRoleName),
+	}
+}
+
+type TCefComponentArray = []ICefComponent

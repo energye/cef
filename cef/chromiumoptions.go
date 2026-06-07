@@ -74,6 +74,7 @@ type IChromiumOptions interface {
 	// Databases
 	//  Controls whether databases can be used. Also configurable using the
 	//  "disable-databases" command-line switch.
+	//  Deprecated since CEF 138
 	Databases() cefTypes.TCefState         // property Databases Getter
 	SetDatabases(value cefTypes.TCefState) // property Databases Setter
 	// Webgl
@@ -97,23 +98,36 @@ type IChromiumOptions interface {
 	//  The maximum rate in frames per second (fps) that ICefRenderHandler.OnPaint
 	//  will be called for a windowless browser. The actual fps may be lower if
 	//  the browser cannot generate frames at the requested rate. The minimum
-	//  value is 1 and the maximum value is 60 (default 30). This value can also
-	//  be changed dynamically via ICefBrowserHost.SetWindowlessFrameRate.
+	//  value is 1 and the default value is 30. This value can also be changed
+	//  dynamically via ICefBrowserHost.SetWindowlessFrameRate.
 	//  Use CEF_OSR_SHARED_TEXTURES_FRAMERATE_DEFAULT as default value if the shared textures are enabled.
 	//  Use CEF_OSR_FRAMERATE_DEFAULT as default value if the shared textures are disabled.
 	WindowlessFrameRate() int32         // property WindowlessFrameRate Getter
 	SetWindowlessFrameRate(value int32) // property WindowlessFrameRate Setter
 	// ChromeStatusBubble
 	//  Controls whether the Chrome status bubble will be used. Only supported
-	//  with the Chrome runtime. For details about the status bubble see
+	//  with Chrome style. For details about the status bubble see
 	//  https://www.chromium.org/user-experience/status-bubble/
 	ChromeStatusBubble() cefTypes.TCefState         // property ChromeStatusBubble Getter
 	SetChromeStatusBubble(value cefTypes.TCefState) // property ChromeStatusBubble Setter
 	// ChromeZoomBubble
 	//  Controls whether the Chrome zoom bubble will be shown when zooming. Only
-	//  supported with the Chrome runtime.
+	//  supported with Chrome style.
 	ChromeZoomBubble() cefTypes.TCefState         // property ChromeZoomBubble Getter
 	SetChromeZoomBubble(value cefTypes.TCefState) // property ChromeZoomBubble Setter
+	// AxViewportCollapse
+	//  Controls whether CDP accessibility tree serialization collapses off-screen
+	//  nodes. When enabled, off-screen landmarks and headings are serialized as
+	//  summaries (role + name only) and other off-screen nodes are pruned.
+	//  This reduces snapshot size for AI agents using Playwright ariaSnapshot().
+	//  WARNING: This collapses the CDP accessibility tree and disables CDP
+	//  dynamic tree updates (nodesUpdated events). The DevTools Accessibility
+	//  panel will show an incomplete tree. Platform screen readers (NVDA, JAWS,
+	//  VoiceOver) are unaffected they use a separate code path.
+	//  Can also be configured at runtime using
+	//  ICefBrowserHost.SetAxViewportCollapse.
+	AxViewportCollapse() cefTypes.TCefState         // property AxViewportCollapse Getter
+	SetAxViewportCollapse(value cefTypes.TCefState) // property AxViewportCollapse Setter
 }
 
 type TChromiumOptions struct {
@@ -345,6 +359,21 @@ func (m *TChromiumOptions) SetChromeZoomBubble(value cefTypes.TCefState) {
 	chromiumOptionsAPI().SysCallN(15, 1, m.Instance(), uintptr(value))
 }
 
+func (m *TChromiumOptions) AxViewportCollapse() cefTypes.TCefState {
+	if !m.IsValid() {
+		return 0
+	}
+	r := chromiumOptionsAPI().SysCallN(16, 0, m.Instance())
+	return cefTypes.TCefState(r)
+}
+
+func (m *TChromiumOptions) SetAxViewportCollapse(value cefTypes.TCefState) {
+	if !m.IsValid() {
+		return
+	}
+	chromiumOptionsAPI().SysCallN(16, 1, m.Instance(), uintptr(value))
+}
+
 // NewChromiumOptions class constructor
 func NewChromiumOptions() IChromiumOptions {
 	r := chromiumOptionsAPI().SysCallN(0)
@@ -376,6 +405,7 @@ func chromiumOptionsAPI() *imports.Imports {
 			/* 13 */ imports.NewTable("TChromiumOptions_WindowlessFrameRate", 0), // property WindowlessFrameRate
 			/* 14 */ imports.NewTable("TChromiumOptions_ChromeStatusBubble", 0), // property ChromeStatusBubble
 			/* 15 */ imports.NewTable("TChromiumOptions_ChromeZoomBubble", 0), // property ChromeZoomBubble
+			/* 16 */ imports.NewTable("TChromiumOptions_AxViewportCollapse", 0), // property AxViewportCollapse
 		}
 	})
 	return chromiumOptionsImport

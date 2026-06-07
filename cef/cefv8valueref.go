@@ -153,7 +153,7 @@ type ICefv8Value interface {
 	// SetValueByAccessor
 	//  Registers an identifier and returns true (1) on success. Access to the
 	//  identifier will be forwarded to the ICefV8Accessor instance passed to
-	//  cef_v8value_create_object(). Returns false (0) if this
+	//  cef_v8_value_create_object(). Returns false (0) if this
 	//  function is called incorrectly or an exception is thrown. For read-only
 	//  values this function will return true (1) even though assignment failed.
 	SetValueByAccessor(key string, attribute cefTypes.TCefV8PropertyAttributes) bool // function
@@ -165,10 +165,10 @@ type ICefv8Value interface {
 	//  Sets the user data for this object and returns true (1) on success.
 	//  Returns false (0) if this function is called incorrectly. This function
 	//  can only be called on user created objects.
-	SetUserData(data ICefv8Value) bool // function
+	SetUserData(data ICefCustomUserData) bool // function
 	// GetUserData
 	//  Returns the user data, if any, assigned to this object.
-	GetUserData() ICefv8Value // function
+	GetUserData() ICefCustomUserData // function
 	// GetExternallyAllocatedMemory
 	//  Returns the amount of externally allocated memory registered for the
 	//  object.
@@ -564,7 +564,7 @@ func (m *TCefv8ValueRef) GetKeys(keys lcl.IStrings) int32 {
 	return int32(r)
 }
 
-func (m *TCefv8ValueRef) SetUserData(data ICefv8Value) bool {
+func (m *TCefv8ValueRef) SetUserData(data ICefCustomUserData) bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -572,13 +572,13 @@ func (m *TCefv8ValueRef) SetUserData(data ICefv8Value) bool {
 	return api.GoBool(r)
 }
 
-func (m *TCefv8ValueRef) GetUserData() (result ICefv8Value) {
+func (m *TCefv8ValueRef) GetUserData() (result ICefCustomUserData) {
 	if !m.IsValid() {
 		return
 	}
 	var resultPtr uintptr
 	cefv8ValueRefAPI().SysCallN(39, m.Instance(), uintptr(base.UnsafePointer(&resultPtr)))
-	result = AsCefv8ValueRef(resultPtr)
+	result = AsCefCustomUserData(resultPtr)
 	return
 }
 
@@ -839,9 +839,41 @@ func (_V8ValueRefClass) NewArray(len int32) (result ICefv8Value) {
 //	only be called from within the scope of a ICefRenderProcessHandler,
 //	ICefv8Handler or ICefv8Accessor callback, or in combination with calling
 //	enter() and exit() on a stored ICefv8Context reference.
+//	NOTE: Always returns nullptr when V8 sandbox is enabled.
 func (_V8ValueRefClass) NewArrayBuffer(buffer uintptr, length cefTypes.NativeUInt, callback IEngV8ArrayBufferReleaseCallback) (result ICefv8Value) {
 	var resultPtr uintptr
 	cefv8ValueRefAPI().SysCallN(64, uintptr(buffer), uintptr(length), base.GetObjectUintptr(callback), uintptr(base.UnsafePointer(&resultPtr)))
+	result = AsCefv8ValueRef(resultPtr)
+	return
+}
+
+// NewArrayBufferWithCopy
+//
+//	Create a new ICefv8Value object of type ArrayBuffer which copies the
+//	provided |buffer| of size |length| bytes. This function should only be
+//	called from within the scope of a ICefRenderProcessHandler,
+//	ICefv8Handler or ICefv8Accessor callback, or in combination with calling
+//	enter() and exit() on a stored ICefv8Context reference.
+func (_V8ValueRefClass) NewArrayBufferWithCopy(buffer uintptr, length cefTypes.NativeUInt) (result ICefv8Value) {
+	var resultPtr uintptr
+	cefv8ValueRefAPI().SysCallN(65, uintptr(buffer), uintptr(length), uintptr(base.UnsafePointer(&resultPtr)))
+	result = AsCefv8ValueRef(resultPtr)
+	return
+}
+
+// NewArrayBufferFromBackingStore
+//
+//	Create a new ICefv8Value object of type ArrayBuffer from a backing store
+//	previously created with TCefv8BackingStoreRef.New
+//	This is a zero-copy operation the ArrayBuffer
+//	uses the memory already allocated by the backing store. The backing store is
+//	consumed and becomes invalid after this call. This function should only be
+//	called from within the scope of a ICefRenderProcessHandler,
+//	ICefv8Handler or ICefv8Accessor callback, or in combination with
+//	calling enter() and exit() on a stored ICefv8Context reference.
+func (_V8ValueRefClass) NewArrayBufferFromBackingStore(backingStore ICefv8BackingStore) (result ICefv8Value) {
+	var resultPtr uintptr
+	cefv8ValueRefAPI().SysCallN(66, base.GetObjectUintptr(backingStore), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefv8ValueRef(resultPtr)
 	return
 }
@@ -854,7 +886,7 @@ func (_V8ValueRefClass) NewArrayBuffer(buffer uintptr, length cefTypes.NativeUIn
 //	enter() and exit() on a stored ICefv8Context reference.
 func (_V8ValueRefClass) NewFunction(name string, handler IEngV8Handler) (result ICefv8Value) {
 	var resultPtr uintptr
-	cefv8ValueRefAPI().SysCallN(65, api.PasStr(name), base.GetObjectUintptr(handler), uintptr(base.UnsafePointer(&resultPtr)))
+	cefv8ValueRefAPI().SysCallN(67, api.PasStr(name), base.GetObjectUintptr(handler), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefv8ValueRef(resultPtr)
 	return
 }
@@ -867,7 +899,7 @@ func (_V8ValueRefClass) NewFunction(name string, handler IEngV8Handler) (result 
 //	enter() and exit() on a stored ICefv8Context reference.
 func (_V8ValueRefClass) NewPromise() (result ICefv8Value) {
 	var resultPtr uintptr
-	cefv8ValueRefAPI().SysCallN(66, uintptr(base.UnsafePointer(&resultPtr)))
+	cefv8ValueRefAPI().SysCallN(68, uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefv8ValueRef(resultPtr)
 	return
 }
@@ -958,8 +990,10 @@ func cefv8ValueRefAPI() *imports.Imports {
 			/* 62 */ imports.NewTable("TCefv8ValueRef_NewObject", 0), // static function NewObject
 			/* 63 */ imports.NewTable("TCefv8ValueRef_NewArray", 0), // static function NewArray
 			/* 64 */ imports.NewTable("TCefv8ValueRef_NewArrayBuffer", 0), // static function NewArrayBuffer
-			/* 65 */ imports.NewTable("TCefv8ValueRef_NewFunction", 0), // static function NewFunction
-			/* 66 */ imports.NewTable("TCefv8ValueRef_NewPromise", 0), // static function NewPromise
+			/* 65 */ imports.NewTable("TCefv8ValueRef_NewArrayBufferWithCopy", 0), // static function NewArrayBufferWithCopy
+			/* 66 */ imports.NewTable("TCefv8ValueRef_NewArrayBufferFromBackingStore", 0), // static function NewArrayBufferFromBackingStore
+			/* 67 */ imports.NewTable("TCefv8ValueRef_NewFunction", 0), // static function NewFunction
+			/* 68 */ imports.NewTable("TCefv8ValueRef_NewPromise", 0), // static function NewPromise
 		}
 	})
 	return cefv8ValueRefImport

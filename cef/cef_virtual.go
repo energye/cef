@@ -424,12 +424,6 @@ type ICefStringVisitorOwn interface {
 type TCefStringVisitorOwn struct {
 	TCefBaseRefCountedOwn
 }
-
-// ICefTask Parent: ICefBaseRefCounted
-type ICefTask interface {
-	ICefBaseRefCounted
-}
-
 type ICefTaskOwn interface {
 	ICefTask
 	ICefBaseRefCountedOwn
@@ -671,19 +665,6 @@ type TCefPermissionHandlerOwn struct {
 	TCefBaseRefCountedOwn
 }
 
-// ICefMediaAccessHandler Parent: ICefBaseRefCounted
-type ICefMediaAccessHandler interface {
-	ICefBaseRefCounted
-}
-
-type ICefMediaAccessHandlerOwn interface {
-	ICefMediaAccessHandler
-	ICefBaseRefCountedOwn
-}
-type TCefMediaAccessHandlerOwn struct {
-	TCefBaseRefCountedOwn
-}
-
 // ICefClient Parent: ICefBaseRefCounted
 type ICefClient interface {
 	ICefBaseRefCounted
@@ -704,16 +685,29 @@ type TCefWindowDelegateOwn struct {
 	TCefPanelDelegateOwn
 }
 
-// ICefExtensionHandler Parent: ICefBaseRefCounted
-type ICefExtensionHandler interface {
+// ICefPreferenceObserver Parent: ICefBaseRefCounted
+type ICefPreferenceObserver interface {
 	ICefBaseRefCounted
 }
 
-type ICefExtensionHandlerOwn interface {
-	ICefExtensionHandler
+type ICefPreferenceObserverOwn interface {
+	ICefPreferenceObserver
 	ICefBaseRefCountedOwn
 }
-type TCefExtensionHandlerOwn struct {
+type TCefPreferenceObserverOwn struct {
+	TCefBaseRefCountedOwn
+}
+
+// ICefSettingObserver Parent: ICefBaseRefCounted
+type ICefSettingObserver interface {
+	ICefBaseRefCounted
+}
+
+type ICefSettingObserverOwn interface {
+	ICefSettingObserver
+	ICefBaseRefCountedOwn
+}
+type TCefSettingObserverOwn struct {
 	TCefBaseRefCountedOwn
 }
 

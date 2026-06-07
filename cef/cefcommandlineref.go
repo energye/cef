@@ -91,6 +91,10 @@ type ICefCommandLine interface {
 	//  Insert a command before the current command. Common for debuggers, like
 	//  "valgrind" or "gdb --args".
 	PrependWrapper(wrapper string) // procedure
+	// RemoveSwitch
+	//  Remove a switch from the command line. If no such switch is present, this
+	//  has no effect.
+	RemoveSwitch(name string) // procedure
 }
 
 // ICefCommandLineRef Parent: ICefCommandLine ICefBaseRefCountedRef
@@ -271,6 +275,13 @@ func (m *TCefCommandLineRef) PrependWrapper(wrapper string) {
 	cefCommandLineRefAPI().SysCallN(23, m.Instance(), api.PasStr(wrapper))
 }
 
+func (m *TCefCommandLineRef) RemoveSwitch(name string) {
+	if !m.IsValid() {
+		return
+	}
+	cefCommandLineRefAPI().SysCallN(24, m.Instance(), api.PasStr(name))
+}
+
 func (m *TCefCommandLineRef) AsIntfCommandLine() uintptr {
 	return m.GetIntfPointer(0)
 }
@@ -357,6 +368,7 @@ func cefCommandLineRefAPI() *imports.Imports {
 			/* 21 */ imports.NewTable("TCefCommandLineRef_GetArguments", 0), // procedure GetArguments
 			/* 22 */ imports.NewTable("TCefCommandLineRef_AppendArgument", 0), // procedure AppendArgument
 			/* 23 */ imports.NewTable("TCefCommandLineRef_PrependWrapper", 0), // procedure PrependWrapper
+			/* 24 */ imports.NewTable("TCefCommandLineRef_RemoveSwitch", 0), // procedure RemoveSwitch
 		}
 	})
 	return cefCommandLineRefImport

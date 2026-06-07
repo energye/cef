@@ -12,6 +12,7 @@ import (
 	"github.com/energye/lcl/api"
 	"github.com/energye/lcl/api/imports"
 	"github.com/energye/lcl/base"
+	"github.com/energye/lcl/lcl"
 )
 
 // ICefPreferenceManager Parent: ICefBaseRefCounted
@@ -50,6 +51,14 @@ type ICefPreferenceManager interface {
 	//  description of the problem. This function must be called on the browser
 	//  process UI thread.
 	SetPreference(name string, value ICefValue, outError_ *string) bool // function
+	// AddPreferenceObserver
+	//  Add an observer for preference changes. |name| is the name of the
+	//  preference to observe. If |name| is NULL then all preferences will be
+	//  observed. Observing all preferences has performance consequences and is
+	//  not recommended outside of testing scenarios. The observer will remain
+	//  registered until the returned Registration object is destroyed. This
+	//  function must be called on the browser process UI thread.
+	AddPreferenceObserver(name string, observer IEngPreferenceObserver) ICefRegistration // function
 }
 
 // ICefPreferenceManagerRef Parent: ICefPreferenceManager ICefBaseRefCountedRef
@@ -109,6 +118,16 @@ func (m *TCefPreferenceManagerRef) SetPreference(name string, value ICefValue, o
 	return api.GoBool(r)
 }
 
+func (m *TCefPreferenceManagerRef) AddPreferenceObserver(name string, observer IEngPreferenceObserver) (result ICefRegistration) {
+	if !m.IsValid() {
+		return
+	}
+	var resultPtr uintptr
+	cefPreferenceManagerRefAPI().SysCallN(6, m.Instance(), api.PasStr(name), base.GetObjectUintptr(observer), uintptr(base.UnsafePointer(&resultPtr)))
+	result = AsCefRegistrationRef(resultPtr)
+	return
+}
+
 func (m *TCefPreferenceManagerRef) AsIntfPreferenceManager() uintptr {
 	return m.GetIntfPointer(0)
 }
@@ -121,16 +140,46 @@ type _PreferenceManagerRefClass uintptr
 
 func (_PreferenceManagerRefClass) UnWrapWithPointer(data uintptr) (result ICefPreferenceManager) {
 	var resultPtr uintptr
-	cefPreferenceManagerRefAPI().SysCallN(6, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))
+	cefPreferenceManagerRefAPI().SysCallN(7, uintptr(data), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefPreferenceManagerRef(resultPtr)
 	return
 }
 
+// GlobalToPreferenceManager
+//
+//	Returns the global preference manager object.
 func (_PreferenceManagerRefClass) GlobalToPreferenceManager() (result ICefPreferenceManager) {
 	var resultPtr uintptr
-	cefPreferenceManagerRefAPI().SysCallN(7, uintptr(base.UnsafePointer(&resultPtr)))
+	cefPreferenceManagerRefAPI().SysCallN(8, uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefPreferenceManagerRef(resultPtr)
 	return
+}
+
+// GetChromeVariationsAsSwitches
+//
+//	Returns the current Chrome Variations configuration (combination of field
+//	trials and chrome://flags) as equivalent command-line switches
+//	(`--[enable|disable]-features=XXXX`, etc). These switches can be used to
+//	apply the same configuration when launching a CEF-based application. See
+//	https://developer.chrome.com/docs/web-platform/chrome-variations for
+//	background and details. Note that field trial tests are disabled by default
+//	in Official CEF builds (via the `disable_fieldtrial_testing_config=true (1)`
+//	GN flag). This function must be called on the browser process UI thread.
+func (_PreferenceManagerRefClass) GetChromeVariationsAsSwitches(switches lcl.IStrings) {
+	cefPreferenceManagerRefAPI().SysCallN(9, base.GetObjectUintptr(switches))
+}
+
+// GetChromeVariationsAsStrings
+//
+//	Returns the current Chrome Variations configuration (combination of field
+//	trials and chrome://flags) as human-readable strings. This is the human-
+//	readable equivalent of the "Active Variations" section of chrome://version.
+//	See https://developer.chrome.com/docs/web-platform/chrome-variations for
+//	background and details. Note that field trial tests are disabled by default
+//	in Official CEF builds (via the `disable_fieldtrial_testing_config=true (1)`
+//	GN flag). This function must be called on the browser process UI thread.
+func (_PreferenceManagerRefClass) GetChromeVariationsAsStrings(strings lcl.IStrings) {
+	cefPreferenceManagerRefAPI().SysCallN(10, base.GetObjectUintptr(strings))
 }
 
 // NewPreferenceManagerRef class constructor
@@ -160,8 +209,11 @@ func cefPreferenceManagerRefAPI() *imports.Imports {
 			/* 3 */ imports.NewTable("TCefPreferenceManagerRef_GetAllPreferences", 0), // function GetAllPreferences
 			/* 4 */ imports.NewTable("TCefPreferenceManagerRef_CanSetPreference", 0), // function CanSetPreference
 			/* 5 */ imports.NewTable("TCefPreferenceManagerRef_SetPreference", 0), // function SetPreference
-			/* 6 */ imports.NewTable("TCefPreferenceManagerRef_UnWrapWithPointer", 0), // static function UnWrapWithPointer
-			/* 7 */ imports.NewTable("TCefPreferenceManagerRef_GlobalToPreferenceManager", 0), // static function GlobalToPreferenceManager
+			/* 6 */ imports.NewTable("TCefPreferenceManagerRef_AddPreferenceObserver", 0), // function AddPreferenceObserver
+			/* 7 */ imports.NewTable("TCefPreferenceManagerRef_UnWrapWithPointer", 0), // static function UnWrapWithPointer
+			/* 8 */ imports.NewTable("TCefPreferenceManagerRef_GlobalToPreferenceManager", 0), // static function GlobalToPreferenceManager
+			/* 9 */ imports.NewTable("TCefPreferenceManagerRef_GetChromeVariationsAsSwitches", 0), // static procedure GetChromeVariationsAsSwitches
+			/* 10 */ imports.NewTable("TCefPreferenceManagerRef_GetChromeVariationsAsStrings", 0), // static procedure GetChromeVariationsAsStrings
 		}
 	})
 	return cefPreferenceManagerRefImport

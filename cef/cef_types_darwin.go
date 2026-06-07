@@ -18,7 +18,6 @@ import (
 
 type TCefAcceleratedPaintInfo struct {
 	SharedTextureIoSurface cefTypes.TCefSharedTextureHandle // TCefSharedTextureHandle
-	Format                 cefTypes.TCefColorType           // TCefColorType
 }
 
 type TCefWindowInfo struct {
@@ -39,13 +38,11 @@ func (m *TCefAcceleratedPaintInfo) ToPas() *tCefAcceleratedPaintInfo {
 	}
 	return &tCefAcceleratedPaintInfo{
 		SharedTextureIoSurface: m.SharedTextureIoSurface,
-		Format:                 m.Format,
 	}
 }
 
 type tCefAcceleratedPaintInfo struct {
 	SharedTextureIoSurface cefTypes.TCefSharedTextureHandle // TCefSharedTextureHandle
-	Format                 cefTypes.TCefColorType           // TCefColorType
 }
 
 func (m *tCefAcceleratedPaintInfo) ToGo() TCefAcceleratedPaintInfo {
@@ -54,7 +51,6 @@ func (m *tCefAcceleratedPaintInfo) ToGo() TCefAcceleratedPaintInfo {
 	}
 	return TCefAcceleratedPaintInfo{
 		SharedTextureIoSurface: m.SharedTextureIoSurface,
-		Format:                 m.Format,
 	}
 }
 func (m *TCefWindowInfo) ToPas() *tCefWindowInfo {

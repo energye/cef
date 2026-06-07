@@ -69,6 +69,9 @@ type IBufferPanel interface {
 	// DrawOrigPopupBuffer
 	//  Copy the contents from the original popup buffer copy to the main buffer copy.
 	DrawOrigPopupBuffer(srcRect types.TRect, dstRect types.TRect) // procedure
+	// SendMessage
+	//  This is just a workaround for the missing implementation of SendMessage in GTK3. Don't use!
+	SendMessage(message *types.TMessage) // procedure
 	// ScanlineSize
 	//  Returns the scanline size.
 	ScanlineSize() int32 // property ScanlineSize Getter
@@ -288,15 +291,14 @@ func (m *TBufferPanel) DrawOrigPopupBuffer(srcRect types.TRect, dstRect types.TR
 	bufferPanelAPI().SysCallN(14, m.Instance(), uintptr(base.UnsafePointer(&srcRect)), uintptr(base.UnsafePointer(&dstRect)))
 }
 
-func (m *TBufferPanel) ScanlineSize() int32 {
+func (m *TBufferPanel) SendMessage(message *types.TMessage) {
 	if !m.IsValid() {
-		return 0
+		return
 	}
-	r := bufferPanelAPI().SysCallN(15, m.Instance())
-	return int32(r)
+	bufferPanelAPI().SysCallN(15, m.Instance(), uintptr(base.UnsafePointer(message)))
 }
 
-func (m *TBufferPanel) BufferWidth() int32 {
+func (m *TBufferPanel) ScanlineSize() int32 {
 	if !m.IsValid() {
 		return 0
 	}
@@ -304,7 +306,7 @@ func (m *TBufferPanel) BufferWidth() int32 {
 	return int32(r)
 }
 
-func (m *TBufferPanel) BufferHeight() int32 {
+func (m *TBufferPanel) BufferWidth() int32 {
 	if !m.IsValid() {
 		return 0
 	}
@@ -312,11 +314,19 @@ func (m *TBufferPanel) BufferHeight() int32 {
 	return int32(r)
 }
 
-func (m *TBufferPanel) BufferBits() uintptr {
+func (m *TBufferPanel) BufferHeight() int32 {
 	if !m.IsValid() {
 		return 0
 	}
 	r := bufferPanelAPI().SysCallN(18, m.Instance())
+	return int32(r)
+}
+
+func (m *TBufferPanel) BufferBits() uintptr {
+	if !m.IsValid() {
+		return 0
+	}
+	r := bufferPanelAPI().SysCallN(19, m.Instance())
 	return uintptr(r)
 }
 
@@ -324,7 +334,7 @@ func (m *TBufferPanel) ScreenScale() (result float32) {
 	if !m.IsValid() {
 		return
 	}
-	bufferPanelAPI().SysCallN(19, m.Instance(), uintptr(base.UnsafePointer(&result)))
+	bufferPanelAPI().SysCallN(20, m.Instance(), uintptr(base.UnsafePointer(&result)))
 	return
 }
 
@@ -332,7 +342,7 @@ func (m *TBufferPanel) ForcedDeviceScaleFactor() (result float32) {
 	if !m.IsValid() {
 		return
 	}
-	bufferPanelAPI().SysCallN(20, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&result)))
+	bufferPanelAPI().SysCallN(21, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&result)))
 	return
 }
 
@@ -340,14 +350,14 @@ func (m *TBufferPanel) SetForcedDeviceScaleFactor(value float32) {
 	if !m.IsValid() {
 		return
 	}
-	bufferPanelAPI().SysCallN(20, 1, m.Instance(), uintptr(base.UnsafePointer(&value)))
+	bufferPanelAPI().SysCallN(21, 1, m.Instance(), uintptr(base.UnsafePointer(&value)))
 }
 
 func (m *TBufferPanel) MustInitBuffer() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := bufferPanelAPI().SysCallN(21, 0, m.Instance())
+	r := bufferPanelAPI().SysCallN(22, 0, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -355,14 +365,14 @@ func (m *TBufferPanel) SetMustInitBuffer(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	bufferPanelAPI().SysCallN(21, 1, m.Instance(), api.PasBool(value))
+	bufferPanelAPI().SysCallN(22, 1, m.Instance(), api.PasBool(value))
 }
 
 func (m *TBufferPanel) Buffer() lcl.IBitmap {
 	if !m.IsValid() {
 		return nil
 	}
-	r := bufferPanelAPI().SysCallN(22, m.Instance())
+	r := bufferPanelAPI().SysCallN(23, m.Instance())
 	return lcl.AsBitmap(r)
 }
 
@@ -370,7 +380,7 @@ func (m *TBufferPanel) OrigBuffer() ICEFBitmapBitBuffer {
 	if !m.IsValid() {
 		return nil
 	}
-	r := bufferPanelAPI().SysCallN(23, m.Instance())
+	r := bufferPanelAPI().SysCallN(24, m.Instance())
 	return AsCEFBitmapBitBuffer(r)
 }
 
@@ -378,7 +388,7 @@ func (m *TBufferPanel) OrigBufferWidth() int32 {
 	if !m.IsValid() {
 		return 0
 	}
-	r := bufferPanelAPI().SysCallN(24, m.Instance())
+	r := bufferPanelAPI().SysCallN(25, m.Instance())
 	return int32(r)
 }
 
@@ -386,7 +396,7 @@ func (m *TBufferPanel) OrigBufferHeight() int32 {
 	if !m.IsValid() {
 		return 0
 	}
-	r := bufferPanelAPI().SysCallN(25, m.Instance())
+	r := bufferPanelAPI().SysCallN(26, m.Instance())
 	return int32(r)
 }
 
@@ -394,7 +404,7 @@ func (m *TBufferPanel) OrigPopupBuffer() ICEFBitmapBitBuffer {
 	if !m.IsValid() {
 		return nil
 	}
-	r := bufferPanelAPI().SysCallN(26, m.Instance())
+	r := bufferPanelAPI().SysCallN(27, m.Instance())
 	return AsCEFBitmapBitBuffer(r)
 }
 
@@ -402,7 +412,7 @@ func (m *TBufferPanel) OrigPopupBufferWidth() int32 {
 	if !m.IsValid() {
 		return 0
 	}
-	r := bufferPanelAPI().SysCallN(27, m.Instance())
+	r := bufferPanelAPI().SysCallN(28, m.Instance())
 	return int32(r)
 }
 
@@ -410,7 +420,7 @@ func (m *TBufferPanel) OrigPopupBufferHeight() int32 {
 	if !m.IsValid() {
 		return 0
 	}
-	r := bufferPanelAPI().SysCallN(28, m.Instance())
+	r := bufferPanelAPI().SysCallN(29, m.Instance())
 	return int32(r)
 }
 
@@ -418,7 +428,7 @@ func (m *TBufferPanel) OrigPopupBufferBits() uintptr {
 	if !m.IsValid() {
 		return 0
 	}
-	r := bufferPanelAPI().SysCallN(29, m.Instance())
+	r := bufferPanelAPI().SysCallN(30, m.Instance())
 	return uintptr(r)
 }
 
@@ -426,7 +436,7 @@ func (m *TBufferPanel) OrigPopupScanlineSize() int32 {
 	if !m.IsValid() {
 		return 0
 	}
-	r := bufferPanelAPI().SysCallN(30, m.Instance())
+	r := bufferPanelAPI().SysCallN(31, m.Instance())
 	return int32(r)
 }
 
@@ -434,7 +444,7 @@ func (m *TBufferPanel) ParentFormHandle() cefTypes.TCefWindowHandle {
 	if !m.IsValid() {
 		return 0
 	}
-	r := bufferPanelAPI().SysCallN(31, m.Instance())
+	r := bufferPanelAPI().SysCallN(32, m.Instance())
 	return cefTypes.TCefWindowHandle(r)
 }
 
@@ -442,7 +452,7 @@ func (m *TBufferPanel) ParentForm() lcl.ICustomForm {
 	if !m.IsValid() {
 		return nil
 	}
-	r := bufferPanelAPI().SysCallN(32, m.Instance())
+	r := bufferPanelAPI().SysCallN(33, m.Instance())
 	return lcl.AsCustomForm(r)
 }
 
@@ -450,7 +460,7 @@ func (m *TBufferPanel) Transparent() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := bufferPanelAPI().SysCallN(33, 0, m.Instance())
+	r := bufferPanelAPI().SysCallN(34, 0, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -458,14 +468,14 @@ func (m *TBufferPanel) SetTransparent(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	bufferPanelAPI().SysCallN(33, 1, m.Instance(), api.PasBool(value))
+	bufferPanelAPI().SysCallN(34, 1, m.Instance(), api.PasBool(value))
 }
 
 func (m *TBufferPanel) CopyOriginalBuffer() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := bufferPanelAPI().SysCallN(34, 0, m.Instance())
+	r := bufferPanelAPI().SysCallN(35, 0, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -473,14 +483,14 @@ func (m *TBufferPanel) SetCopyOriginalBuffer(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	bufferPanelAPI().SysCallN(34, 1, m.Instance(), api.PasBool(value))
+	bufferPanelAPI().SysCallN(35, 1, m.Instance(), api.PasBool(value))
 }
 
 func (m *TBufferPanel) DragCursor() types.TCursor {
 	if !m.IsValid() {
 		return 0
 	}
-	r := bufferPanelAPI().SysCallN(35, 0, m.Instance())
+	r := bufferPanelAPI().SysCallN(36, 0, m.Instance())
 	return types.TCursor(r)
 }
 
@@ -488,14 +498,14 @@ func (m *TBufferPanel) SetDragCursor(value types.TCursor) {
 	if !m.IsValid() {
 		return
 	}
-	bufferPanelAPI().SysCallN(35, 1, m.Instance(), uintptr(value))
+	bufferPanelAPI().SysCallN(36, 1, m.Instance(), uintptr(value))
 }
 
 func (m *TBufferPanel) DragKind() types.TDragKind {
 	if !m.IsValid() {
 		return 0
 	}
-	r := bufferPanelAPI().SysCallN(36, 0, m.Instance())
+	r := bufferPanelAPI().SysCallN(37, 0, m.Instance())
 	return types.TDragKind(r)
 }
 
@@ -503,14 +513,14 @@ func (m *TBufferPanel) SetDragKind(value types.TDragKind) {
 	if !m.IsValid() {
 		return
 	}
-	bufferPanelAPI().SysCallN(36, 1, m.Instance(), uintptr(value))
+	bufferPanelAPI().SysCallN(37, 1, m.Instance(), uintptr(value))
 }
 
 func (m *TBufferPanel) DragMode() types.TDragMode {
 	if !m.IsValid() {
 		return 0
 	}
-	r := bufferPanelAPI().SysCallN(37, 0, m.Instance())
+	r := bufferPanelAPI().SysCallN(38, 0, m.Instance())
 	return types.TDragMode(r)
 }
 
@@ -518,25 +528,10 @@ func (m *TBufferPanel) SetDragMode(value types.TDragMode) {
 	if !m.IsValid() {
 		return
 	}
-	bufferPanelAPI().SysCallN(37, 1, m.Instance(), uintptr(value))
+	bufferPanelAPI().SysCallN(38, 1, m.Instance(), uintptr(value))
 }
 
 func (m *TBufferPanel) ParentFont() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := bufferPanelAPI().SysCallN(38, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TBufferPanel) SetParentFont(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	bufferPanelAPI().SysCallN(38, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TBufferPanel) ParentShowHint() bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -544,11 +539,26 @@ func (m *TBufferPanel) ParentShowHint() bool {
 	return api.GoBool(r)
 }
 
-func (m *TBufferPanel) SetParentShowHint(value bool) {
+func (m *TBufferPanel) SetParentFont(value bool) {
 	if !m.IsValid() {
 		return
 	}
 	bufferPanelAPI().SysCallN(39, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TBufferPanel) ParentShowHint() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := bufferPanelAPI().SysCallN(40, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TBufferPanel) SetParentShowHint(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	bufferPanelAPI().SysCallN(40, 1, m.Instance(), api.PasBool(value))
 }
 
 func (m *TBufferPanel) SetOnIMECancelComposition(fn TNotifyEvent) {
@@ -556,7 +566,7 @@ func (m *TBufferPanel) SetOnIMECancelComposition(fn TNotifyEvent) {
 		return
 	}
 	cb := makeTNotifyEvent(fn)
-	base.SetEvent(m, 40, bufferPanelAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 41, bufferPanelAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TBufferPanel) SetOnIMECommitText(fn TOnIMECommitTextEvent) {
@@ -564,7 +574,7 @@ func (m *TBufferPanel) SetOnIMECommitText(fn TOnIMECommitTextEvent) {
 		return
 	}
 	cb := makeTOnIMECommitTextEvent(fn)
-	base.SetEvent(m, 41, bufferPanelAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 42, bufferPanelAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TBufferPanel) SetOnIMESetComposition(fn TOnIMESetCompositionEvent) {
@@ -572,7 +582,7 @@ func (m *TBufferPanel) SetOnIMESetComposition(fn TOnIMESetCompositionEvent) {
 		return
 	}
 	cb := makeTOnIMESetCompositionEvent(fn)
-	base.SetEvent(m, 42, bufferPanelAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 43, bufferPanelAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TBufferPanel) SetOnCustomTouch(fn TOnHandledMessageEvent) {
@@ -580,7 +590,7 @@ func (m *TBufferPanel) SetOnCustomTouch(fn TOnHandledMessageEvent) {
 		return
 	}
 	cb := makeTOnHandledMessageEvent(fn)
-	base.SetEvent(m, 43, bufferPanelAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 44, bufferPanelAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TBufferPanel) SetOnPointerDown(fn TOnHandledMessageEvent) {
@@ -588,7 +598,7 @@ func (m *TBufferPanel) SetOnPointerDown(fn TOnHandledMessageEvent) {
 		return
 	}
 	cb := makeTOnHandledMessageEvent(fn)
-	base.SetEvent(m, 44, bufferPanelAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 45, bufferPanelAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TBufferPanel) SetOnPointerUp(fn TOnHandledMessageEvent) {
@@ -596,7 +606,7 @@ func (m *TBufferPanel) SetOnPointerUp(fn TOnHandledMessageEvent) {
 		return
 	}
 	cb := makeTOnHandledMessageEvent(fn)
-	base.SetEvent(m, 45, bufferPanelAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 46, bufferPanelAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TBufferPanel) SetOnPointerUpdate(fn TOnHandledMessageEvent) {
@@ -604,7 +614,7 @@ func (m *TBufferPanel) SetOnPointerUpdate(fn TOnHandledMessageEvent) {
 		return
 	}
 	cb := makeTOnHandledMessageEvent(fn)
-	base.SetEvent(m, 46, bufferPanelAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 47, bufferPanelAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TBufferPanel) SetOnPaintParentBkg(fn TNotifyEvent) {
@@ -612,7 +622,7 @@ func (m *TBufferPanel) SetOnPaintParentBkg(fn TNotifyEvent) {
 		return
 	}
 	cb := makeTNotifyEvent(fn)
-	base.SetEvent(m, 47, bufferPanelAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 48, bufferPanelAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TBufferPanel) SetOnConstrainedResize(fn TConstrainedResizeEvent) {
@@ -620,7 +630,7 @@ func (m *TBufferPanel) SetOnConstrainedResize(fn TConstrainedResizeEvent) {
 		return
 	}
 	cb := makeTConstrainedResizeEvent(fn)
-	base.SetEvent(m, 48, bufferPanelAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 49, bufferPanelAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TBufferPanel) SetOnContextPopup(fn TContextPopupEvent) {
@@ -628,7 +638,7 @@ func (m *TBufferPanel) SetOnContextPopup(fn TContextPopupEvent) {
 		return
 	}
 	cb := makeTContextPopupEvent(fn)
-	base.SetEvent(m, 49, bufferPanelAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 50, bufferPanelAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TBufferPanel) SetOnDblClick(fn TNotifyEvent) {
@@ -636,7 +646,7 @@ func (m *TBufferPanel) SetOnDblClick(fn TNotifyEvent) {
 		return
 	}
 	cb := makeTNotifyEvent(fn)
-	base.SetEvent(m, 50, bufferPanelAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 51, bufferPanelAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TBufferPanel) SetOnDragDrop(fn TDragDropEvent) {
@@ -644,7 +654,7 @@ func (m *TBufferPanel) SetOnDragDrop(fn TDragDropEvent) {
 		return
 	}
 	cb := makeTDragDropEvent(fn)
-	base.SetEvent(m, 51, bufferPanelAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 52, bufferPanelAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TBufferPanel) SetOnDragOver(fn TDragOverEvent) {
@@ -652,7 +662,7 @@ func (m *TBufferPanel) SetOnDragOver(fn TDragOverEvent) {
 		return
 	}
 	cb := makeTDragOverEvent(fn)
-	base.SetEvent(m, 52, bufferPanelAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 53, bufferPanelAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TBufferPanel) SetOnEndDock(fn TEndDragEvent) {
@@ -660,7 +670,7 @@ func (m *TBufferPanel) SetOnEndDock(fn TEndDragEvent) {
 		return
 	}
 	cb := makeTEndDragEvent(fn)
-	base.SetEvent(m, 53, bufferPanelAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 54, bufferPanelAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TBufferPanel) SetOnEndDrag(fn TEndDragEvent) {
@@ -668,7 +678,7 @@ func (m *TBufferPanel) SetOnEndDrag(fn TEndDragEvent) {
 		return
 	}
 	cb := makeTEndDragEvent(fn)
-	base.SetEvent(m, 54, bufferPanelAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 55, bufferPanelAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TBufferPanel) SetOnGetSiteInfo(fn TGetSiteInfoEvent) {
@@ -676,7 +686,7 @@ func (m *TBufferPanel) SetOnGetSiteInfo(fn TGetSiteInfoEvent) {
 		return
 	}
 	cb := makeTGetSiteInfoEvent(fn)
-	base.SetEvent(m, 55, bufferPanelAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 56, bufferPanelAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TBufferPanel) SetOnMouseDown(fn TMouseEvent) {
@@ -684,7 +694,7 @@ func (m *TBufferPanel) SetOnMouseDown(fn TMouseEvent) {
 		return
 	}
 	cb := makeTMouseEvent(fn)
-	base.SetEvent(m, 56, bufferPanelAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 57, bufferPanelAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TBufferPanel) SetOnMouseMove(fn TMouseMoveEvent) {
@@ -692,7 +702,7 @@ func (m *TBufferPanel) SetOnMouseMove(fn TMouseMoveEvent) {
 		return
 	}
 	cb := makeTMouseMoveEvent(fn)
-	base.SetEvent(m, 57, bufferPanelAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 58, bufferPanelAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TBufferPanel) SetOnMouseUp(fn TMouseEvent) {
@@ -700,7 +710,7 @@ func (m *TBufferPanel) SetOnMouseUp(fn TMouseEvent) {
 		return
 	}
 	cb := makeTMouseEvent(fn)
-	base.SetEvent(m, 58, bufferPanelAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 59, bufferPanelAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TBufferPanel) SetOnMouseWheel(fn TMouseWheelEvent) {
@@ -708,7 +718,7 @@ func (m *TBufferPanel) SetOnMouseWheel(fn TMouseWheelEvent) {
 		return
 	}
 	cb := makeTMouseWheelEvent(fn)
-	base.SetEvent(m, 59, bufferPanelAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 60, bufferPanelAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TBufferPanel) SetOnStartDock(fn TStartDockEvent) {
@@ -716,7 +726,7 @@ func (m *TBufferPanel) SetOnStartDock(fn TStartDockEvent) {
 		return
 	}
 	cb := makeTStartDockEvent(fn)
-	base.SetEvent(m, 60, bufferPanelAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 61, bufferPanelAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TBufferPanel) SetOnStartDrag(fn TStartDragEvent) {
@@ -724,7 +734,7 @@ func (m *TBufferPanel) SetOnStartDrag(fn TStartDragEvent) {
 		return
 	}
 	cb := makeTStartDragEvent(fn)
-	base.SetEvent(m, 61, bufferPanelAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 62, bufferPanelAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TBufferPanel) SetOnMouseEnter(fn TNotifyEvent) {
@@ -732,7 +742,7 @@ func (m *TBufferPanel) SetOnMouseEnter(fn TNotifyEvent) {
 		return
 	}
 	cb := makeTNotifyEvent(fn)
-	base.SetEvent(m, 62, bufferPanelAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 63, bufferPanelAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TBufferPanel) SetOnMouseLeave(fn TNotifyEvent) {
@@ -740,7 +750,7 @@ func (m *TBufferPanel) SetOnMouseLeave(fn TNotifyEvent) {
 		return
 	}
 	cb := makeTNotifyEvent(fn)
-	base.SetEvent(m, 63, bufferPanelAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 64, bufferPanelAPI(), api.MakeEventDataPtr(cb))
 }
 
 // NewBufferPanel class constructor
@@ -773,55 +783,56 @@ func bufferPanelAPI() *imports.Imports {
 			/* 12 */ imports.NewTable("TBufferPanel_CreateIMEHandler", 0), // procedure CreateIMEHandler
 			/* 13 */ imports.NewTable("TBufferPanel_ChangeCompositionRange", 0), // procedure ChangeCompositionRange
 			/* 14 */ imports.NewTable("TBufferPanel_DrawOrigPopupBuffer", 0), // procedure DrawOrigPopupBuffer
-			/* 15 */ imports.NewTable("TBufferPanel_ScanlineSize", 0), // property ScanlineSize
-			/* 16 */ imports.NewTable("TBufferPanel_BufferWidth", 0), // property BufferWidth
-			/* 17 */ imports.NewTable("TBufferPanel_BufferHeight", 0), // property BufferHeight
-			/* 18 */ imports.NewTable("TBufferPanel_BufferBits", 0), // property BufferBits
-			/* 19 */ imports.NewTable("TBufferPanel_ScreenScale", 0), // property ScreenScale
-			/* 20 */ imports.NewTable("TBufferPanel_ForcedDeviceScaleFactor", 0), // property ForcedDeviceScaleFactor
-			/* 21 */ imports.NewTable("TBufferPanel_MustInitBuffer", 0), // property MustInitBuffer
-			/* 22 */ imports.NewTable("TBufferPanel_Buffer", 0), // property Buffer
-			/* 23 */ imports.NewTable("TBufferPanel_OrigBuffer", 0), // property OrigBuffer
-			/* 24 */ imports.NewTable("TBufferPanel_OrigBufferWidth", 0), // property OrigBufferWidth
-			/* 25 */ imports.NewTable("TBufferPanel_OrigBufferHeight", 0), // property OrigBufferHeight
-			/* 26 */ imports.NewTable("TBufferPanel_OrigPopupBuffer", 0), // property OrigPopupBuffer
-			/* 27 */ imports.NewTable("TBufferPanel_OrigPopupBufferWidth", 0), // property OrigPopupBufferWidth
-			/* 28 */ imports.NewTable("TBufferPanel_OrigPopupBufferHeight", 0), // property OrigPopupBufferHeight
-			/* 29 */ imports.NewTable("TBufferPanel_OrigPopupBufferBits", 0), // property OrigPopupBufferBits
-			/* 30 */ imports.NewTable("TBufferPanel_OrigPopupScanlineSize", 0), // property OrigPopupScanlineSize
-			/* 31 */ imports.NewTable("TBufferPanel_ParentFormHandle", 0), // property ParentFormHandle
-			/* 32 */ imports.NewTable("TBufferPanel_ParentForm", 0), // property ParentForm
-			/* 33 */ imports.NewTable("TBufferPanel_Transparent", 0), // property Transparent
-			/* 34 */ imports.NewTable("TBufferPanel_CopyOriginalBuffer", 0), // property CopyOriginalBuffer
-			/* 35 */ imports.NewTable("TBufferPanel_DragCursor", 0), // property DragCursor
-			/* 36 */ imports.NewTable("TBufferPanel_DragKind", 0), // property DragKind
-			/* 37 */ imports.NewTable("TBufferPanel_DragMode", 0), // property DragMode
-			/* 38 */ imports.NewTable("TBufferPanel_ParentFont", 0), // property ParentFont
-			/* 39 */ imports.NewTable("TBufferPanel_ParentShowHint", 0), // property ParentShowHint
-			/* 40 */ imports.NewTable("TBufferPanel_OnIMECancelComposition", 0), // event OnIMECancelComposition
-			/* 41 */ imports.NewTable("TBufferPanel_OnIMECommitText", 0), // event OnIMECommitText
-			/* 42 */ imports.NewTable("TBufferPanel_OnIMESetComposition", 0), // event OnIMESetComposition
-			/* 43 */ imports.NewTable("TBufferPanel_OnCustomTouch", 0), // event OnCustomTouch
-			/* 44 */ imports.NewTable("TBufferPanel_OnPointerDown", 0), // event OnPointerDown
-			/* 45 */ imports.NewTable("TBufferPanel_OnPointerUp", 0), // event OnPointerUp
-			/* 46 */ imports.NewTable("TBufferPanel_OnPointerUpdate", 0), // event OnPointerUpdate
-			/* 47 */ imports.NewTable("TBufferPanel_OnPaintParentBkg", 0), // event OnPaintParentBkg
-			/* 48 */ imports.NewTable("TBufferPanel_OnConstrainedResize", 0), // event OnConstrainedResize
-			/* 49 */ imports.NewTable("TBufferPanel_OnContextPopup", 0), // event OnContextPopup
-			/* 50 */ imports.NewTable("TBufferPanel_OnDblClick", 0), // event OnDblClick
-			/* 51 */ imports.NewTable("TBufferPanel_OnDragDrop", 0), // event OnDragDrop
-			/* 52 */ imports.NewTable("TBufferPanel_OnDragOver", 0), // event OnDragOver
-			/* 53 */ imports.NewTable("TBufferPanel_OnEndDock", 0), // event OnEndDock
-			/* 54 */ imports.NewTable("TBufferPanel_OnEndDrag", 0), // event OnEndDrag
-			/* 55 */ imports.NewTable("TBufferPanel_OnGetSiteInfo", 0), // event OnGetSiteInfo
-			/* 56 */ imports.NewTable("TBufferPanel_OnMouseDown", 0), // event OnMouseDown
-			/* 57 */ imports.NewTable("TBufferPanel_OnMouseMove", 0), // event OnMouseMove
-			/* 58 */ imports.NewTable("TBufferPanel_OnMouseUp", 0), // event OnMouseUp
-			/* 59 */ imports.NewTable("TBufferPanel_OnMouseWheel", 0), // event OnMouseWheel
-			/* 60 */ imports.NewTable("TBufferPanel_OnStartDock", 0), // event OnStartDock
-			/* 61 */ imports.NewTable("TBufferPanel_OnStartDrag", 0), // event OnStartDrag
-			/* 62 */ imports.NewTable("TBufferPanel_OnMouseEnter", 0), // event OnMouseEnter
-			/* 63 */ imports.NewTable("TBufferPanel_OnMouseLeave", 0), // event OnMouseLeave
+			/* 15 */ imports.NewTable("TBufferPanel_SendMessage", 0), // procedure SendMessage
+			/* 16 */ imports.NewTable("TBufferPanel_ScanlineSize", 0), // property ScanlineSize
+			/* 17 */ imports.NewTable("TBufferPanel_BufferWidth", 0), // property BufferWidth
+			/* 18 */ imports.NewTable("TBufferPanel_BufferHeight", 0), // property BufferHeight
+			/* 19 */ imports.NewTable("TBufferPanel_BufferBits", 0), // property BufferBits
+			/* 20 */ imports.NewTable("TBufferPanel_ScreenScale", 0), // property ScreenScale
+			/* 21 */ imports.NewTable("TBufferPanel_ForcedDeviceScaleFactor", 0), // property ForcedDeviceScaleFactor
+			/* 22 */ imports.NewTable("TBufferPanel_MustInitBuffer", 0), // property MustInitBuffer
+			/* 23 */ imports.NewTable("TBufferPanel_Buffer", 0), // property Buffer
+			/* 24 */ imports.NewTable("TBufferPanel_OrigBuffer", 0), // property OrigBuffer
+			/* 25 */ imports.NewTable("TBufferPanel_OrigBufferWidth", 0), // property OrigBufferWidth
+			/* 26 */ imports.NewTable("TBufferPanel_OrigBufferHeight", 0), // property OrigBufferHeight
+			/* 27 */ imports.NewTable("TBufferPanel_OrigPopupBuffer", 0), // property OrigPopupBuffer
+			/* 28 */ imports.NewTable("TBufferPanel_OrigPopupBufferWidth", 0), // property OrigPopupBufferWidth
+			/* 29 */ imports.NewTable("TBufferPanel_OrigPopupBufferHeight", 0), // property OrigPopupBufferHeight
+			/* 30 */ imports.NewTable("TBufferPanel_OrigPopupBufferBits", 0), // property OrigPopupBufferBits
+			/* 31 */ imports.NewTable("TBufferPanel_OrigPopupScanlineSize", 0), // property OrigPopupScanlineSize
+			/* 32 */ imports.NewTable("TBufferPanel_ParentFormHandle", 0), // property ParentFormHandle
+			/* 33 */ imports.NewTable("TBufferPanel_ParentForm", 0), // property ParentForm
+			/* 34 */ imports.NewTable("TBufferPanel_Transparent", 0), // property Transparent
+			/* 35 */ imports.NewTable("TBufferPanel_CopyOriginalBuffer", 0), // property CopyOriginalBuffer
+			/* 36 */ imports.NewTable("TBufferPanel_DragCursor", 0), // property DragCursor
+			/* 37 */ imports.NewTable("TBufferPanel_DragKind", 0), // property DragKind
+			/* 38 */ imports.NewTable("TBufferPanel_DragMode", 0), // property DragMode
+			/* 39 */ imports.NewTable("TBufferPanel_ParentFont", 0), // property ParentFont
+			/* 40 */ imports.NewTable("TBufferPanel_ParentShowHint", 0), // property ParentShowHint
+			/* 41 */ imports.NewTable("TBufferPanel_OnIMECancelComposition", 0), // event OnIMECancelComposition
+			/* 42 */ imports.NewTable("TBufferPanel_OnIMECommitText", 0), // event OnIMECommitText
+			/* 43 */ imports.NewTable("TBufferPanel_OnIMESetComposition", 0), // event OnIMESetComposition
+			/* 44 */ imports.NewTable("TBufferPanel_OnCustomTouch", 0), // event OnCustomTouch
+			/* 45 */ imports.NewTable("TBufferPanel_OnPointerDown", 0), // event OnPointerDown
+			/* 46 */ imports.NewTable("TBufferPanel_OnPointerUp", 0), // event OnPointerUp
+			/* 47 */ imports.NewTable("TBufferPanel_OnPointerUpdate", 0), // event OnPointerUpdate
+			/* 48 */ imports.NewTable("TBufferPanel_OnPaintParentBkg", 0), // event OnPaintParentBkg
+			/* 49 */ imports.NewTable("TBufferPanel_OnConstrainedResize", 0), // event OnConstrainedResize
+			/* 50 */ imports.NewTable("TBufferPanel_OnContextPopup", 0), // event OnContextPopup
+			/* 51 */ imports.NewTable("TBufferPanel_OnDblClick", 0), // event OnDblClick
+			/* 52 */ imports.NewTable("TBufferPanel_OnDragDrop", 0), // event OnDragDrop
+			/* 53 */ imports.NewTable("TBufferPanel_OnDragOver", 0), // event OnDragOver
+			/* 54 */ imports.NewTable("TBufferPanel_OnEndDock", 0), // event OnEndDock
+			/* 55 */ imports.NewTable("TBufferPanel_OnEndDrag", 0), // event OnEndDrag
+			/* 56 */ imports.NewTable("TBufferPanel_OnGetSiteInfo", 0), // event OnGetSiteInfo
+			/* 57 */ imports.NewTable("TBufferPanel_OnMouseDown", 0), // event OnMouseDown
+			/* 58 */ imports.NewTable("TBufferPanel_OnMouseMove", 0), // event OnMouseMove
+			/* 59 */ imports.NewTable("TBufferPanel_OnMouseUp", 0), // event OnMouseUp
+			/* 60 */ imports.NewTable("TBufferPanel_OnMouseWheel", 0), // event OnMouseWheel
+			/* 61 */ imports.NewTable("TBufferPanel_OnStartDock", 0), // event OnStartDock
+			/* 62 */ imports.NewTable("TBufferPanel_OnStartDrag", 0), // event OnStartDrag
+			/* 63 */ imports.NewTable("TBufferPanel_OnMouseEnter", 0), // event OnMouseEnter
+			/* 64 */ imports.NewTable("TBufferPanel_OnMouseLeave", 0), // event OnMouseLeave
 		}
 	})
 	return bufferPanelImport

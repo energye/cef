@@ -11,11 +11,12 @@
 package cef
 
 import (
+	"os"
+	"sync"
+
 	"github.com/energye/lcl/api"
 	"github.com/energye/lcl/lcl"
 	"github.com/energye/lcl/tool"
-	"os"
-	"sync"
 )
 
 var (

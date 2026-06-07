@@ -49,6 +49,59 @@ type ICefApplicationCore interface {
 	// NextComponentID
 	//  Returns the next component ID and adds this value to the valid ID list.
 	NextComponentID() int32 // function
+	// DumpWithoutCrashing
+	//  This function allows for generating of crash dumps with a throttling
+	//  mechanism, preventing frequent dumps from being generated in a short period
+	//  of time from the same location. If should only be called after cef_initialize
+	//  has been successfully called. The |function_name|, |file_name|, and
+	//  |line_number| parameters specify the origin location of the dump. The
+	//  |mseconds_between_dumps| is an interval between consecutive dumps in
+	//  milliseconds from the same location.
+	//  For detailed behavior, usage instructions, and considerations, refer to the
+	//  documentation of DumpWithoutCrashing in base/debug/dump_without_crashing.h.
+	//  <returns>
+	//  Returns true if the dump was successfully generated, false otherwise.
+	//  </returns>
+	//  <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/base/cef_dump_without_crashing.h">CEF source file: /include/base/cef_dump_without_crashing.h (CefDumpWithoutCrashing)</see>
+	DumpWithoutCrashing(msecondsBetweenDumps int64, functionName string, fileName string, lineNumber int32) bool // function
+	// GetCEFVersionInfo
+	//  Returns CEF version information for the libcef library.
+	//  <returns>
+	//  Returns true if successfull.
+	//  </returns>
+	//  <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/cef_version_info.h">CEF source file: /include/cef_version_info.h (cef_version_info)</see>
+	GetCEFVersionInfo(cEFVersionInfo *TCefVersionInfo) bool // function
+	// GetChromiumVersionInfo
+	//  Returns Chromium version information for the libcef library.
+	//  <returns>
+	//  Returns true if successfull.
+	//  </returns>
+	//  <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/cef_version_info.h">CEF source file: /include/cef_version_info.h (cef_version_info)</see>
+	GetChromiumVersionInfo(chromiumVersionInfo *TChromiumVersionInfo) bool // function
+	// GetIdForPackResourceName
+	//  Returns the numeric ID value for an IDR |name| from cef_pack_resources.h or
+	//  -1 if |name| is unrecognized by the current CEF/Chromium build. This
+	//  function provides version-safe mapping of resource IDR names to
+	//  version-specific numeric ID values. Numeric ID values are likely to change
+	//  across CEF/Chromium versions but names generally remain the same.
+	//  <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/cef_id_mappers.h">CEF source file: /include/cef_id_mappers.h (cef_id_for_pack_resource_name)</see>
+	GetIdForPackResourceName(name string) int32 // function
+	// GetIdForPackStringName
+	//  Returns the numeric ID value for an IDS |name| from cef_pack_strings.h or -1
+	//  if |name| is unrecognized by the current CEF/Chromium build. This function
+	//  provides version-safe mapping of string IDS names to version-specific
+	//  numeric ID values. Numeric ID values are likely to change across
+	//  CEF/Chromium versions but names generally remain the same.
+	//  <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/cef_id_mappers.h">CEF source file: /include/cef_id_mappers.h (cef_id_for_pack_string_name)</see>
+	GetIdForPackStringName(name string) int32 // function
+	// GetIdForCommandIdName
+	//  Returns the numeric ID value for an IDC |name| from cef_command_ids.h or -1
+	//  if |name| is unrecognized by the current CEF/Chromium build. This function
+	//  provides version-safe mapping of command IDC names to version-specific
+	//  numeric ID values. Numeric ID values are likely to change across
+	//  CEF/Chromium versions but names generally remain the same.
+	//  <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/cef_id_mappers.h">CEF source file: /include/cef_id_mappers.h (cef_id_for_command_id_name)</see>
+	GetIdForCommandIdName(name string) int32 // function
 	// AddCustomCommandLine
 	//  Used to add any command line switch that is not available as a
 	//  TCEFApplicationCore property.
@@ -81,6 +134,38 @@ type ICefApplicationCore interface {
 	//  RunMessageLoop. This function should only be called on the main
 	//  application thread and only if RunMessageLoop was used.
 	QuitMessageLoop() // procedure
+	// SetNestableTasksAllowed
+	//  Set to true (1) before calling OS APIs on the CEF UI thread that will enter
+	//  a native message loop (see usage restrictions below). Set to false (0) after
+	//  exiting the native message loop. On Windows, use the CefSetOSModalLoop
+	//  function instead in cases like native top menus where resize of the browser
+	//  content is not required, or in cases like printer APIs where reentrancy
+	//  safety cannot be guaranteed.
+	//
+	//  Nested processing of Chromium tasks is disabled by default because common
+	//  controls and/or printer functions may use nested native message loops that
+	//  lead to unplanned reentrancy. This function re-enables nested processing in
+	//  the scope of an upcoming native message loop. It must only be used in cases
+	//  where the stack is reentrancy safe and processing nestable tasks is
+	//  explicitly safe. Do not use in cases (like the printer example) where an OS
+	//  API may experience unplanned reentrancy as a result of a new task executing
+	//  immediately.
+	//
+	//  For instance,
+	//  <code>
+	//  - The UI thread is running a message loop.
+	//  - It receives a task #1 and executes it.
+	//  - The task #1 implicitly starts a nested message loop. For example, via
+	//  Windows APIs such as MessageBox or GetSaveFileName, or default handling of
+	//  a user-initiated drag/resize operation (e.g. DefWindowProc handling of
+	//  WM_SYSCOMMAND for SC_MOVE/SC_SIZE).
+	//  - The UI thread receives a task #2 before or while in this second message
+	//  loop.
+	//  - With NestableTasksAllowed set to true (1), the task #2 will run right
+	//  away. Otherwise, it will be executed right after task #1 completes at
+	//  "thread message loop level".
+	//  </code>
+	SetNestableTasksAllowed(allowed bool) // procedure
 	// UpdateDeviceScaleFactor
 	//  Update the DeviceScaleFactor value with the current monitor scale.
 	UpdateDeviceScaleFactor() // procedure
@@ -123,12 +208,6 @@ type ICefApplicationCore interface {
 	//  command-line switch.
 	MainBundlePath() string         // property MainBundlePath Getter
 	SetMainBundlePath(value string) // property MainBundlePath Setter
-	// ChromeRuntime
-	//  Set to true (1) to enable use of the Chrome runtime in CEF. This feature
-	//  is considered experimental and is not recommended for most users at this
-	//  time. See issue #2969 for details.
-	ChromeRuntime() bool         // property ChromeRuntime Getter
-	SetChromeRuntime(value bool) // property ChromeRuntime Setter
 	// MultiThreadedMessageLoop
 	//  Set to true (1) to have the browser process message loop run in a separate
 	//  thread. If false (0) then the CefDoMessageLoopWork() function must be
@@ -164,16 +243,16 @@ type ICefApplicationCore interface {
 	// Cache
 	//  The directory where data for the global browser cache will be stored on
 	//  disk. If this value is non-empty then it must be an absolute path that is
-	//  either equal to or a child directory of TCefSettings.root_cache_path. If
+	//  either equal to or a child directory of CefSettings.root_cache_path. If
 	//  this value is empty then browsers will be created in "incognito mode"
 	//  where in-memory caches are used for storage and no profile-specific data
 	//  is persisted to disk (installation-specific data will still be persisted
 	//  in root_cache_path). HTML5 databases such as localStorage will only
 	//  persist across sessions if a cache path is specified. Can be overridden
-	//  for individual ICefRequestContext instances via the
-	//  ICefRequestContextSettings.cache_path value. When using the Chrome runtime
-	//  any child directory value will be ignored and the "default" profile (also
-	//  a child directory) will be used instead.
+	//  for individual CefRequestContext instances via the
+	//  TCefRequestContextSettings.cache_path value. Any child directory value will
+	//  be ignored and the "default" profile (also a child directory) will be used
+	//  instead.
 	Cache() string         // property Cache Getter
 	SetCache(value string) // property Cache Setter
 	// RootCache
@@ -212,15 +291,6 @@ type ICefApplicationCore interface {
 	//  TCefRequestContextSettings.persist_session_cookies value.
 	PersistSessionCookies() bool         // property PersistSessionCookies Getter
 	SetPersistSessionCookies(value bool) // property PersistSessionCookies Setter
-	// PersistUserPreferences
-	//  To persist user preferences as a JSON file in the cache path directory set
-	//  this value to true (1). A |cache_path| value must also be specified
-	//  to enable this feature. Also configurable using the
-	//  "persist-user-preferences" command-line switch. Can be overridden for
-	//  individual CefRequestContext instances via the
-	//  TCefRequestContextSettings.persist_user_preferences value.
-	PersistUserPreferences() bool         // property PersistUserPreferences Getter
-	SetPersistUserPreferences(value bool) // property PersistUserPreferences Setter
 	// UserAgent
 	//  Value that will be returned as the User-Agent HTTP header. If empty the
 	//  default User-Agent string will be used. Also configurable using the
@@ -289,14 +359,6 @@ type ICefApplicationCore interface {
 	//  switch.
 	LocalesDirPath() string         // property LocalesDirPath Getter
 	SetLocalesDirPath(value string) // property LocalesDirPath Setter
-	// PackLoadingDisabled
-	//  Set to true (1) to disable loading of pack files for resources and
-	//  locales. A resource bundle handler must be provided for the browser and
-	//  render processes via ICefApp.GetResourceBundleHandler() if loading of pack
-	//  files is disabled. Also configurable using the "disable-pack-loading"
-	//  command- line switch.
-	PackLoadingDisabled() bool         // property PackLoadingDisabled Getter
-	SetPackLoadingDisabled(value bool) // property PackLoadingDisabled Setter
 	// RemoteDebuggingPort
 	//  Set to a value between 1024 and 65535 to enable remote debugging on the
 	//  specified port. Also configurable using the "remote-debugging-port"
@@ -359,7 +421,7 @@ type ICefApplicationCore interface {
 	//  policies. On Windows, this is a registry key like
 	//  "SOFTWARE\\Policies\\Google\\Chrome". On MacOS, this is a bundle ID like
 	//  "com.google.Chrome". On Linux, this is an absolute directory path like
-	//  "/etc/opt/chrome/policies". Only supported with the Chrome runtime. See
+	//  "/etc/opt/chrome/policies". Only supported with Chrome style. See
 	//  https://support.google.com/chrome/a/answer/9037717 for details.
 	//  Chrome Browser Cloud Management integration, when enabled via the
 	//  "enable-chrome-browser-cloud-management" command-line flag, will also use
@@ -371,10 +433,21 @@ type ICefApplicationCore interface {
 	//  Specify an ID for an ICON resource that can be loaded from the main
 	//  executable and used when creating default Chrome windows such as DevTools
 	//  and Task Manager. If unspecified the default Chromium ICON (IDR_MAINFRAME
-	//  [101]) will be loaded from libcef.dll. Only supported with the Chrome
-	//  runtime on Windows.
+	//  [101]) will be loaded from libcef.dll. Only supported with Chrome style on
+	//  Windows.
 	ChromeAppIconId() int32         // property ChromeAppIconId Getter
 	SetChromeAppIconId(value int32) // property ChromeAppIconId Setter
+	// DisableSignalHandlers
+	//  Specify whether signal handlers must be disabled on POSIX systems.
+	DisableSignalHandlers() bool         // property DisableSignalHandlers Getter
+	SetDisableSignalHandlers(value bool) // property DisableSignalHandlers Setter
+	// UseViewsDefaultPopup
+	//  If true use a Views (bare-bones) window instead of a Chrome UI window when
+	//  creating default popups for Chrome style native-hosted (non-Views)
+	//  browsers. This applies when ICefLifeSpanHandler.OnBeforePopup has not been
+	//  implemented to provide parent window information for the new popup.
+	UseViewsDefaultPopup() bool         // property UseViewsDefaultPopup Getter
+	SetUseViewsDefaultPopup(value bool) // property UseViewsDefaultPopup Setter
 	// SingleProcess
 	//  Runs the renderer and plugins in the same process as the browser.
 	//  <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --single-process</see>
@@ -511,8 +584,7 @@ type ICefApplicationCore interface {
 	DisableSiteIsolationTrials() bool         // property DisableSiteIsolationTrials Getter
 	SetDisableSiteIsolationTrials(value bool) // property DisableSiteIsolationTrials Setter
 	// DisableChromeLoginPrompt
-	//  Delegate all login requests to the client GetAuthCredentials
-	//  callback when using the Chrome runtime.
+	//  Delegate all login requests to the client GetAuthCredentials callback.
 	//  <see href="https://bitbucket.org/chromiumembedded/cef/src/master/libcef/common/cef_switches.cc">Uses the following command line switch: --disable-chrome-login-prompt</see>
 	DisableChromeLoginPrompt() bool         // property DisableChromeLoginPrompt Getter
 	SetDisableChromeLoginPrompt(value bool) // property DisableChromeLoginPrompt Setter
@@ -740,6 +812,78 @@ type ICefApplicationCore interface {
 	//  <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --hide-crash-restore-bubble</see>
 	HideCrashRestoreBubble() bool         // property HideCrashRestoreBubble Getter
 	SetHideCrashRestoreBubble(value bool) // property HideCrashRestoreBubble Setter
+	// TLS13HybridizedKyberSupport
+	//  This option enables a combination of X25519 and Kyber in TLS 1.3.
+	TLS13HybridizedKyberSupport() cefTypes.TCefState         // property TLS13HybridizedKyberSupport Getter
+	SetTLS13HybridizedKyberSupport(value cefTypes.TCefState) // property TLS13HybridizedKyberSupport Setter
+	// ProxySettings
+	//  Configure all the browsers to use a proxy server.
+	//  If you use the proxy settings in GlobalCEFApp you will not be able to use the proxy properties in TChromiumCore.
+	//  <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --no-proxy-server</see>
+	//  <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --proxy-auto-detect</see>
+	//  <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --proxy-bypass-list</see>
+	//  <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --proxy-pac-url</see>
+	//  <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --proxy-server</see>
+	//  <see href="https://www.chromium.org/developers/design-documents/network-settings/">See the Network Settings article.</see>
+	//  <see href="https://github.com/chromium/chromium/blob/main/net/docs/proxy.md"/">See the Proxy Support article.</see>
+	//  <see href="https://developer.chrome.com/docs/extensions/reference/api/proxy">See the chrome.proxy API article.</see>
+	ProxySettings() ICEFProxySettings // property ProxySettings Getter
+	// FieldTrialConfig
+	//  Enable field trial tests configured in fieldtrial_testing_config.json.
+	//  If the "disable_fieldtrial_testing_config" GN flag is set to true, then this switch is a no-op.
+	//  Otherwise, for non-Chrome branded builds, the testing config is already applied by default,
+	//  unless the "--disable-field-trial-config", "--force-fieldtrials", and/or "--variations-server-url"
+	//  switches are passed. It is however possible to apply the testing config as well as specify
+	//  additional field trials (using "--force-fieldtrials") by using this switch. For Chrome-branded
+	//  builds, the testing config is not enabled by default, so this switch is required to enable it.
+	//  <see href="https://peter.sh/experiments/chromium-command-line-switches/#enable-field-trial-config">Uses the following command line switch: --enable-field-trial-config</see>
+	//  <see href="https://peter.sh/experiments/chromium-command-line-switches/#disable-field-trial-config">Uses the following command line switch: --disable-field-trial-config</see>
+	FieldTrialConfig() cefTypes.TCefState         // property FieldTrialConfig Getter
+	SetFieldTrialConfig(value cefTypes.TCefState) // property FieldTrialConfig Setter
+	// DoNotDeElevate
+	//  Do not de-elevate the browser on launch. Used after de-elevating to prevent infinite loops.
+	//  <see href="https://peter.sh/experiments/chromium-command-line-switches/#do-not-de-elevate">Uses the following command line switch: --do-not-de-elevate</see>
+	DoNotDeElevate() bool         // property DoNotDeElevate Getter
+	SetDoNotDeElevate(value bool) // property DoNotDeElevate Setter
+	// NoDefaultBrowserCheck
+	//  Disables the default browser check. Useful for UI/browser tests where we want to avoid having the default browser info-bar displayed.
+	//  <see href="https://peter.sh/experiments/chromium-command-line-switches/#no-default-browser-check">Uses the following command line switch: --no-default-browser-check</see>
+	NoDefaultBrowserCheck() bool         // property NoDefaultBrowserCheck Getter
+	SetNoDefaultBrowserCheck(value bool) // property NoDefaultBrowserCheck Setter
+	// NoFirstRun
+	//  Skip First Run tasks as well as not showing additional dialogs, prompts or bubbles. Suppressing dialogs, prompts, and bubbles is
+	//  important as this switch is used by automation (including performance benchmarks) where it's important only a browser window is shown.
+	//  This may not actually be the first run or the What's New page. Its effect can be partially ignored by adding kForceFirstRun (for FRE),
+	//  kForceWhatsNew (for What's New) and/or kIgnoreNoFirstRunForSearchEngineChoiceScreen (for the DSE choice screen). This does not drop
+	//  the First Run sentinel and thus doesn't prevent first run from occurring the next time chrome is launched without this flag.
+	//  It also does not update the last What's New milestone, so does not prevent What's New from occurring the next time chrome is launched
+	//  without this flag.
+	//  <see href="https://peter.sh/experiments/chromium-command-line-switches/#no-first-run">Uses the following command line switch: --no-first-run</see>
+	NoFirstRun() bool         // property NoFirstRun Getter
+	SetNoFirstRun(value bool) // property NoFirstRun Setter
+	// EnableAutomation
+	//  Enable indication that browser is controlled by automation.
+	//  <see href="https://peter.sh/experiments/chromium-command-line-switches/#enable-automation">Uses the following command line switch: --enable-automation</see>
+	EnableAutomation() bool         // property EnableAutomation Getter
+	SetEnableAutomation(value bool) // property EnableAutomation Setter
+	// PasswordStorage
+	//  Specifies which encryption storage backend to use in Linux.
+	//  <see href="https://source.chromium.org/chromium/chromium/src/+/main:docs/linux/password_storage.md">Chromium document: docs/linux/password_storage.md</see>
+	PasswordStorage() cefTypes.TCefPasswordStorage         // property PasswordStorage Getter
+	SetPasswordStorage(value cefTypes.TCefPasswordStorage) // property PasswordStorage Setter
+	// GTKVersion
+	//  Preferred GTK version loaded by Chromium.
+	//  <see href="https://github.com/chromium/chromium/blob/main/ui/gtk/gtk_compat.cc">See the LoadGtkImpl function in ui/gtk/gtk_compat.cc</see>
+	GTKVersion() cefTypes.TCefGTKVersion         // property GTKVersion Getter
+	SetGTKVersion(value cefTypes.TCefGTKVersion) // property GTKVersion Setter
+	// OzonePlatform
+	//  Preferred GTK version loaded by Chromium.
+	//  <see href="https://peter.sh/experiments/chromium-command-line-switches/#ozone-platform">Uses the following command line switch: --ozone-platform</see>
+	OzonePlatform() cefTypes.TCefOzonePlatform         // property OzonePlatform Getter
+	SetOzonePlatform(value cefTypes.TCefOzonePlatform) // property OzonePlatform Setter
+	// DisplayServer
+	//  Linux display server type.
+	DisplayServer() cefTypes.TCefLinuxDisplayServer // property DisplayServer Getter
 	// IgnoreCertificateErrors
 	//  Ignores certificate-related errors.
 	//  <see href="https://source.chromium.org/chromium/chromium/src/+/main:components/network_session_configurator/common/network_switch_list.h">Uses the following command line switch: --ignore-certificate-errors</see>
@@ -844,8 +988,11 @@ type ICefApplicationCore interface {
 	MustCreateLoadHandler() bool         // property MustCreateLoadHandler Getter
 	SetMustCreateLoadHandler(value bool) // property MustCreateLoadHandler Setter
 	// OsmodalLoop
-	//  Set to true (1) before calling Windows APIs like TrackPopupMenu that enter a
-	//  modal message loop. Set to false (0) after exiting the modal message loop.
+	//  Set to true before calling Windows APIs like TrackPopupMenu that enter a
+	//  modal message loop. Set to false after exiting the modal message loop.
+	//  Use the SetNestableTasksAllowed procedure instead in cases where the
+	//  browser content may be resized during native message loop execution (see
+	//  that procedure for usage restrictions).
 	//  <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_app_win.h">CEF source file: /include/internal/cef_app_win.h (cef_set_osmodal_loop)</see>
 	SetOsmodalLoop(value bool) // property OsmodalLoop Setter
 	// Status
@@ -873,27 +1020,54 @@ type ICefApplicationCore interface {
 	// SystemMemoryLoad
 	//  Memory load in Windows.
 	SystemMemoryLoad() uint32 // property SystemMemoryLoad Getter
-	// ApiHashUniversal
-	//  Calls cef_api_hash to get the universal hash.
-	ApiHashUniversal() string // property ApiHashUniversal Getter
 	// ApiHashPlatform
 	//  Calls cef_api_hash to get the platform hash.
 	ApiHashPlatform() string // property ApiHashPlatform Getter
 	// ApiHashCommit
 	//  Calls cef_api_hash to get the commit hash.
 	ApiHashCommit() string // property ApiHashCommit Getter
+	// ApiVersion
+	//  Returns the CEF API version that was configured by the first call to
+	//  cef_api_hash().
+	ApiVersion() int32 // property ApiVersion Getter
 	// ExitCode
 	//  This property can optionally be read on the main application thread after
-	//  CefInitialize to retrieve the initialization exit code. When CefInitialize
+	//  cef_initialize to retrieve the initialization exit code. When cef_initialize
 	//  returns true (1) the exit code will be 0 (CEF_RESULT_CODE_NORMAL_EXIT).
 	//  Otherwise, see TCefResultCode for possible exit code values including
 	//  browser process initialization errors and normal early exit conditions (such
 	//  as CEF_RESULT_CODE_NORMAL_EXIT_PROCESS_NOTIFIED for process singleton
 	//  relaunch behavior).
 	ExitCode() cefTypes.TCefResultCode // property ExitCode Getter
+	// BrowserById
+	//  Returns the browser (if any) with the specified identifier.
+	BrowserById(id int32) ICefBrowser // property BrowserById Getter
 	// LastErrorMessage
 	//  Last error message that is usually shown when CEF finds a problem at initialization.
 	LastErrorMessage() string // property LastErrorMessage Getter
+	// SharedTextureEnabled
+	//  Set to true (1) to enable shared textures for windowless rendering. Only
+	//  valid if windowless_rendering_enabled above is also set to true. Currently
+	//  only supported on Windows (D3D11).
+	SharedTextureEnabled() bool         // property SharedTextureEnabled Getter
+	SetSharedTextureEnabled(value bool) // property SharedTextureEnabled Setter
+	// ExternalBeginFrameEnabled
+	//  Set to true (1) to enable the ability to issue BeginFrame requests from
+	//  the client application by calling ICefBrowserHost.SendExternalBeginFrame.
+	ExternalBeginFrameEnabled() bool         // property ExternalBeginFrameEnabled Getter
+	SetExternalBeginFrameEnabled(value bool) // property ExternalBeginFrameEnabled Setter
+	// UseGL
+	//  Select which implementation of GL the GPU process should use.
+	//  <see href="https://peter.sh/experiments/chromium-command-line-switches/#use-gl">Uses the following command line switch: --use-gl</see>
+	//  <see href="https://source.chromium.org/chromium/chromium/src/+/main:ui/gl/gl_switches.cc">See the gl_switches.cc file</see>
+	UseGL() cefTypes.TCefGLImplementation         // property UseGL Getter
+	SetUseGL(value cefTypes.TCefGLImplementation) // property UseGL Setter
+	// UseAngle
+	//  Select which ANGLE backend to use.
+	//  <see href="https://peter.sh/experiments/chromium-command-line-switches/#use-angle">Uses the following command line switch: --use-angle</see>
+	//  <see href="https://source.chromium.org/chromium/chromium/src/+/main:ui/gl/gl_switches.cc">See the gl_switches.cc file</see>
+	UseAngle() cefTypes.TCefAngleImplementation         // property UseAngle Getter
+	SetUseAngle(value cefTypes.TCefAngleImplementation) // property UseAngle Setter
 	// XDisplay
 	//  Return the singleton X11 display shared with Chromium. The display is not
 	//  thread-safe and must only be accessed on the browser process UI thread.
@@ -968,60 +1142,115 @@ func (m *TCefApplicationCore) NextComponentID() int32 {
 	return int32(r)
 }
 
+func (m *TCefApplicationCore) DumpWithoutCrashing(msecondsBetweenDumps int64, functionName string, fileName string, lineNumber int32) bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(6, m.Instance(), uintptr(base.UnsafePointer(&msecondsBetweenDumps)), api.PasStr(functionName), api.PasStr(fileName), uintptr(lineNumber))
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) GetCEFVersionInfo(cEFVersionInfo *TCefVersionInfo) bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(7, m.Instance(), uintptr(base.UnsafePointer(cEFVersionInfo)))
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) GetChromiumVersionInfo(chromiumVersionInfo *TChromiumVersionInfo) bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(8, m.Instance(), uintptr(base.UnsafePointer(chromiumVersionInfo)))
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) GetIdForPackResourceName(name string) int32 {
+	if !m.IsValid() {
+		return 0
+	}
+	r := cefApplicationCoreAPI().SysCallN(9, m.Instance(), api.PasStr(name))
+	return int32(r)
+}
+
+func (m *TCefApplicationCore) GetIdForPackStringName(name string) int32 {
+	if !m.IsValid() {
+		return 0
+	}
+	r := cefApplicationCoreAPI().SysCallN(10, m.Instance(), api.PasStr(name))
+	return int32(r)
+}
+
+func (m *TCefApplicationCore) GetIdForCommandIdName(name string) int32 {
+	if !m.IsValid() {
+		return 0
+	}
+	r := cefApplicationCoreAPI().SysCallN(11, m.Instance(), api.PasStr(name))
+	return int32(r)
+}
+
 func (m *TCefApplicationCore) AddCustomCommandLine(commandLine string, value string) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(6, m.Instance(), api.PasStr(commandLine), api.PasStr(value))
+	cefApplicationCoreAPI().SysCallN(12, m.Instance(), api.PasStr(commandLine), api.PasStr(value))
 }
 
 func (m *TCefApplicationCore) DoMessageLoopWork() {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(7, m.Instance())
+	cefApplicationCoreAPI().SysCallN(13, m.Instance())
 }
 
 func (m *TCefApplicationCore) RunMessageLoop() {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(8, m.Instance())
+	cefApplicationCoreAPI().SysCallN(14, m.Instance())
 }
 
 func (m *TCefApplicationCore) QuitMessageLoop() {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(9, m.Instance())
+	cefApplicationCoreAPI().SysCallN(15, m.Instance())
+}
+
+func (m *TCefApplicationCore) SetNestableTasksAllowed(allowed bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(16, m.Instance(), api.PasBool(allowed))
 }
 
 func (m *TCefApplicationCore) UpdateDeviceScaleFactor() {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(10, m.Instance())
+	cefApplicationCoreAPI().SysCallN(17, m.Instance())
 }
 
 func (m *TCefApplicationCore) InitLibLocationFromArgs() {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(11, m.Instance())
+	cefApplicationCoreAPI().SysCallN(18, m.Instance())
 }
 
 func (m *TCefApplicationCore) RemoveComponentID(componentID int32) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(12, m.Instance(), uintptr(componentID))
+	cefApplicationCoreAPI().SysCallN(19, m.Instance(), uintptr(componentID))
 }
 
 func (m *TCefApplicationCore) NoSandbox() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefApplicationCoreAPI().SysCallN(13, 0, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(20, 0, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -1029,7 +1258,7 @@ func (m *TCefApplicationCore) SetNoSandbox(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(13, 1, m.Instance(), api.PasBool(value))
+	cefApplicationCoreAPI().SysCallN(20, 1, m.Instance(), api.PasBool(value))
 }
 
 func (m *TCefApplicationCore) BrowserSubprocessPath() (result string) {
@@ -1037,7 +1266,7 @@ func (m *TCefApplicationCore) BrowserSubprocessPath() (result string) {
 		return
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(14, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefApplicationCoreAPI().SysCallN(21, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
@@ -1047,121 +1276,10 @@ func (m *TCefApplicationCore) SetBrowserSubprocessPath(value string) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(14, 1, m.Instance(), api.PasStr(value))
+	cefApplicationCoreAPI().SysCallN(21, 1, m.Instance(), api.PasStr(value))
 }
 
 func (m *TCefApplicationCore) FrameworkDirPath() (result string) {
-	if !m.IsValid() {
-		return
-	}
-	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(15, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
-	defer strBuf.Release()
-	result = strBuf.String()
-	return
-}
-
-func (m *TCefApplicationCore) SetFrameworkDirPath(value string) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(15, 1, m.Instance(), api.PasStr(value))
-}
-
-func (m *TCefApplicationCore) MainBundlePath() (result string) {
-	if !m.IsValid() {
-		return
-	}
-	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(16, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
-	defer strBuf.Release()
-	result = strBuf.String()
-	return
-}
-
-func (m *TCefApplicationCore) SetMainBundlePath(value string) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(16, 1, m.Instance(), api.PasStr(value))
-}
-
-func (m *TCefApplicationCore) ChromeRuntime() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(17, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetChromeRuntime(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(17, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) MultiThreadedMessageLoop() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(18, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetMultiThreadedMessageLoop(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(18, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) ExternalMessagePump() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(19, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetExternalMessagePump(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(19, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) WindowlessRenderingEnabled() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(20, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetWindowlessRenderingEnabled(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(20, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) CommandLineArgsDisabled() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(21, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetCommandLineArgsDisabled(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(21, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) Cache() (result string) {
 	if !m.IsValid() {
 		return
 	}
@@ -1172,14 +1290,14 @@ func (m *TCefApplicationCore) Cache() (result string) {
 	return
 }
 
-func (m *TCefApplicationCore) SetCache(value string) {
+func (m *TCefApplicationCore) SetFrameworkDirPath(value string) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(22, 1, m.Instance(), api.PasStr(value))
 }
 
-func (m *TCefApplicationCore) RootCache() (result string) {
+func (m *TCefApplicationCore) MainBundlePath() (result string) {
 	if !m.IsValid() {
 		return
 	}
@@ -1190,14 +1308,14 @@ func (m *TCefApplicationCore) RootCache() (result string) {
 	return
 }
 
-func (m *TCefApplicationCore) SetRootCache(value string) {
+func (m *TCefApplicationCore) SetMainBundlePath(value string) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(23, 1, m.Instance(), api.PasStr(value))
 }
 
-func (m *TCefApplicationCore) PersistSessionCookies() bool {
+func (m *TCefApplicationCore) MultiThreadedMessageLoop() bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -1205,14 +1323,14 @@ func (m *TCefApplicationCore) PersistSessionCookies() bool {
 	return api.GoBool(r)
 }
 
-func (m *TCefApplicationCore) SetPersistSessionCookies(value bool) {
+func (m *TCefApplicationCore) SetMultiThreadedMessageLoop(value bool) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(24, 1, m.Instance(), api.PasBool(value))
 }
 
-func (m *TCefApplicationCore) PersistUserPreferences() bool {
+func (m *TCefApplicationCore) ExternalMessagePump() bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -1220,50 +1338,44 @@ func (m *TCefApplicationCore) PersistUserPreferences() bool {
 	return api.GoBool(r)
 }
 
-func (m *TCefApplicationCore) SetPersistUserPreferences(value bool) {
+func (m *TCefApplicationCore) SetExternalMessagePump(value bool) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(25, 1, m.Instance(), api.PasBool(value))
 }
 
-func (m *TCefApplicationCore) UserAgent() (result string) {
+func (m *TCefApplicationCore) WindowlessRenderingEnabled() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(26, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetWindowlessRenderingEnabled(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(26, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
-	defer strBuf.Release()
-	result = strBuf.String()
-	return
+	cefApplicationCoreAPI().SysCallN(26, 1, m.Instance(), api.PasBool(value))
 }
 
-func (m *TCefApplicationCore) SetUserAgent(value string) {
+func (m *TCefApplicationCore) CommandLineArgsDisabled() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(27, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetCommandLineArgsDisabled(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(26, 1, m.Instance(), api.PasStr(value))
+	cefApplicationCoreAPI().SysCallN(27, 1, m.Instance(), api.PasBool(value))
 }
 
-func (m *TCefApplicationCore) UserAgentProduct() (result string) {
-	if !m.IsValid() {
-		return
-	}
-	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(27, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
-	defer strBuf.Release()
-	result = strBuf.String()
-	return
-}
-
-func (m *TCefApplicationCore) SetUserAgentProduct(value string) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(27, 1, m.Instance(), api.PasStr(value))
-}
-
-func (m *TCefApplicationCore) Locale() (result string) {
+func (m *TCefApplicationCore) Cache() (result string) {
 	if !m.IsValid() {
 		return
 	}
@@ -1274,14 +1386,14 @@ func (m *TCefApplicationCore) Locale() (result string) {
 	return
 }
 
-func (m *TCefApplicationCore) SetLocale(value string) {
+func (m *TCefApplicationCore) SetCache(value string) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(28, 1, m.Instance(), api.PasStr(value))
 }
 
-func (m *TCefApplicationCore) LogFile() (result string) {
+func (m *TCefApplicationCore) RootCache() (result string) {
 	if !m.IsValid() {
 		return
 	}
@@ -1292,44 +1404,47 @@ func (m *TCefApplicationCore) LogFile() (result string) {
 	return
 }
 
-func (m *TCefApplicationCore) SetLogFile(value string) {
+func (m *TCefApplicationCore) SetRootCache(value string) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(29, 1, m.Instance(), api.PasStr(value))
 }
 
-func (m *TCefApplicationCore) LogSeverity() cefTypes.TCefLogSeverity {
+func (m *TCefApplicationCore) PersistSessionCookies() bool {
 	if !m.IsValid() {
-		return 0
+		return false
 	}
 	r := cefApplicationCoreAPI().SysCallN(30, 0, m.Instance())
-	return cefTypes.TCefLogSeverity(r)
+	return api.GoBool(r)
 }
 
-func (m *TCefApplicationCore) SetLogSeverity(value cefTypes.TCefLogSeverity) {
+func (m *TCefApplicationCore) SetPersistSessionCookies(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(30, 1, m.Instance(), uintptr(value))
+	cefApplicationCoreAPI().SysCallN(30, 1, m.Instance(), api.PasBool(value))
 }
 
-func (m *TCefApplicationCore) LogItems() cefTypes.TCefLogItems {
-	if !m.IsValid() {
-		return 0
-	}
-	r := cefApplicationCoreAPI().SysCallN(31, 0, m.Instance())
-	return cefTypes.TCefLogItems(r)
-}
-
-func (m *TCefApplicationCore) SetLogItems(value cefTypes.TCefLogItems) {
+func (m *TCefApplicationCore) UserAgent() (result string) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(31, 1, m.Instance(), uintptr(value))
+	strBuf := api.NewStringBuffer(0, 0)
+	cefApplicationCoreAPI().SysCallN(31, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	defer strBuf.Release()
+	result = strBuf.String()
+	return
 }
 
-func (m *TCefApplicationCore) JavaScriptFlags() (result string) {
+func (m *TCefApplicationCore) SetUserAgent(value string) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(31, 1, m.Instance(), api.PasStr(value))
+}
+
+func (m *TCefApplicationCore) UserAgentProduct() (result string) {
 	if !m.IsValid() {
 		return
 	}
@@ -1340,14 +1455,14 @@ func (m *TCefApplicationCore) JavaScriptFlags() (result string) {
 	return
 }
 
-func (m *TCefApplicationCore) SetJavaScriptFlags(value string) {
+func (m *TCefApplicationCore) SetUserAgentProduct(value string) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(32, 1, m.Instance(), api.PasStr(value))
 }
 
-func (m *TCefApplicationCore) ResourcesDirPath() (result string) {
+func (m *TCefApplicationCore) Locale() (result string) {
 	if !m.IsValid() {
 		return
 	}
@@ -1358,14 +1473,14 @@ func (m *TCefApplicationCore) ResourcesDirPath() (result string) {
 	return
 }
 
-func (m *TCefApplicationCore) SetResourcesDirPath(value string) {
+func (m *TCefApplicationCore) SetLocale(value string) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(33, 1, m.Instance(), api.PasStr(value))
 }
 
-func (m *TCefApplicationCore) LocalesDirPath() (result string) {
+func (m *TCefApplicationCore) LogFile() (result string) {
 	if !m.IsValid() {
 		return
 	}
@@ -1376,74 +1491,80 @@ func (m *TCefApplicationCore) LocalesDirPath() (result string) {
 	return
 }
 
-func (m *TCefApplicationCore) SetLocalesDirPath(value string) {
+func (m *TCefApplicationCore) SetLogFile(value string) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(34, 1, m.Instance(), api.PasStr(value))
 }
 
-func (m *TCefApplicationCore) PackLoadingDisabled() bool {
+func (m *TCefApplicationCore) LogSeverity() cefTypes.TCefLogSeverity {
 	if !m.IsValid() {
-		return false
+		return 0
 	}
 	r := cefApplicationCoreAPI().SysCallN(35, 0, m.Instance())
-	return api.GoBool(r)
+	return cefTypes.TCefLogSeverity(r)
 }
 
-func (m *TCefApplicationCore) SetPackLoadingDisabled(value bool) {
+func (m *TCefApplicationCore) SetLogSeverity(value cefTypes.TCefLogSeverity) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(35, 1, m.Instance(), api.PasBool(value))
+	cefApplicationCoreAPI().SysCallN(35, 1, m.Instance(), uintptr(value))
 }
 
-func (m *TCefApplicationCore) RemoteDebuggingPort() int32 {
+func (m *TCefApplicationCore) LogItems() cefTypes.TCefLogItems {
 	if !m.IsValid() {
 		return 0
 	}
 	r := cefApplicationCoreAPI().SysCallN(36, 0, m.Instance())
-	return int32(r)
+	return cefTypes.TCefLogItems(r)
 }
 
-func (m *TCefApplicationCore) SetRemoteDebuggingPort(value int32) {
+func (m *TCefApplicationCore) SetLogItems(value cefTypes.TCefLogItems) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(36, 1, m.Instance(), uintptr(value))
 }
 
-func (m *TCefApplicationCore) UncaughtExceptionStackSize() int32 {
-	if !m.IsValid() {
-		return 0
-	}
-	r := cefApplicationCoreAPI().SysCallN(37, 0, m.Instance())
-	return int32(r)
-}
-
-func (m *TCefApplicationCore) SetUncaughtExceptionStackSize(value int32) {
+func (m *TCefApplicationCore) JavaScriptFlags() (result string) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(37, 1, m.Instance(), uintptr(value))
+	strBuf := api.NewStringBuffer(0, 0)
+	cefApplicationCoreAPI().SysCallN(37, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	defer strBuf.Release()
+	result = strBuf.String()
+	return
 }
 
-func (m *TCefApplicationCore) BackgroundColor() cefTypes.TCefColor {
-	if !m.IsValid() {
-		return 0
-	}
-	r := cefApplicationCoreAPI().SysCallN(38, 0, m.Instance())
-	return cefTypes.TCefColor(r)
-}
-
-func (m *TCefApplicationCore) SetBackgroundColor(value cefTypes.TCefColor) {
+func (m *TCefApplicationCore) SetJavaScriptFlags(value string) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(38, 1, m.Instance(), uintptr(value))
+	cefApplicationCoreAPI().SysCallN(37, 1, m.Instance(), api.PasStr(value))
 }
 
-func (m *TCefApplicationCore) AcceptLanguageList() (result string) {
+func (m *TCefApplicationCore) ResourcesDirPath() (result string) {
+	if !m.IsValid() {
+		return
+	}
+	strBuf := api.NewStringBuffer(0, 0)
+	cefApplicationCoreAPI().SysCallN(38, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	defer strBuf.Release()
+	result = strBuf.String()
+	return
+}
+
+func (m *TCefApplicationCore) SetResourcesDirPath(value string) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(38, 1, m.Instance(), api.PasStr(value))
+}
+
+func (m *TCefApplicationCore) LocalesDirPath() (result string) {
 	if !m.IsValid() {
 		return
 	}
@@ -1454,11 +1575,74 @@ func (m *TCefApplicationCore) AcceptLanguageList() (result string) {
 	return
 }
 
-func (m *TCefApplicationCore) SetAcceptLanguageList(value string) {
+func (m *TCefApplicationCore) SetLocalesDirPath(value string) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(39, 1, m.Instance(), api.PasStr(value))
+}
+
+func (m *TCefApplicationCore) RemoteDebuggingPort() int32 {
+	if !m.IsValid() {
+		return 0
+	}
+	r := cefApplicationCoreAPI().SysCallN(40, 0, m.Instance())
+	return int32(r)
+}
+
+func (m *TCefApplicationCore) SetRemoteDebuggingPort(value int32) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(40, 1, m.Instance(), uintptr(value))
+}
+
+func (m *TCefApplicationCore) UncaughtExceptionStackSize() int32 {
+	if !m.IsValid() {
+		return 0
+	}
+	r := cefApplicationCoreAPI().SysCallN(41, 0, m.Instance())
+	return int32(r)
+}
+
+func (m *TCefApplicationCore) SetUncaughtExceptionStackSize(value int32) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(41, 1, m.Instance(), uintptr(value))
+}
+
+func (m *TCefApplicationCore) BackgroundColor() cefTypes.TCefColor {
+	if !m.IsValid() {
+		return 0
+	}
+	r := cefApplicationCoreAPI().SysCallN(42, 0, m.Instance())
+	return cefTypes.TCefColor(r)
+}
+
+func (m *TCefApplicationCore) SetBackgroundColor(value cefTypes.TCefColor) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(42, 1, m.Instance(), uintptr(value))
+}
+
+func (m *TCefApplicationCore) AcceptLanguageList() (result string) {
+	if !m.IsValid() {
+		return
+	}
+	strBuf := api.NewStringBuffer(0, 0)
+	cefApplicationCoreAPI().SysCallN(43, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	defer strBuf.Release()
+	result = strBuf.String()
+	return
+}
+
+func (m *TCefApplicationCore) SetAcceptLanguageList(value string) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(43, 1, m.Instance(), api.PasStr(value))
 }
 
 func (m *TCefApplicationCore) CookieableSchemesList() (result string) {
@@ -1466,7 +1650,7 @@ func (m *TCefApplicationCore) CookieableSchemesList() (result string) {
 		return
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(40, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefApplicationCoreAPI().SysCallN(44, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
@@ -1476,14 +1660,14 @@ func (m *TCefApplicationCore) SetCookieableSchemesList(value string) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(40, 1, m.Instance(), api.PasStr(value))
+	cefApplicationCoreAPI().SysCallN(44, 1, m.Instance(), api.PasStr(value))
 }
 
 func (m *TCefApplicationCore) CookieableSchemesExcludeDefaults() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefApplicationCoreAPI().SysCallN(41, 0, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(45, 0, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -1491,7 +1675,7 @@ func (m *TCefApplicationCore) SetCookieableSchemesExcludeDefaults(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(41, 1, m.Instance(), api.PasBool(value))
+	cefApplicationCoreAPI().SysCallN(45, 1, m.Instance(), api.PasBool(value))
 }
 
 func (m *TCefApplicationCore) ChromePolicyId() (result string) {
@@ -1499,7 +1683,7 @@ func (m *TCefApplicationCore) ChromePolicyId() (result string) {
 		return
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(42, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefApplicationCoreAPI().SysCallN(46, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
@@ -1509,14 +1693,14 @@ func (m *TCefApplicationCore) SetChromePolicyId(value string) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(42, 1, m.Instance(), api.PasStr(value))
+	cefApplicationCoreAPI().SysCallN(46, 1, m.Instance(), api.PasStr(value))
 }
 
 func (m *TCefApplicationCore) ChromeAppIconId() int32 {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cefApplicationCoreAPI().SysCallN(43, 0, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(47, 0, m.Instance())
 	return int32(r)
 }
 
@@ -1524,70 +1708,10 @@ func (m *TCefApplicationCore) SetChromeAppIconId(value int32) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(43, 1, m.Instance(), uintptr(value))
+	cefApplicationCoreAPI().SysCallN(47, 1, m.Instance(), uintptr(value))
 }
 
-func (m *TCefApplicationCore) SingleProcess() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(44, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetSingleProcess(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(44, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) EnableMediaStream() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(45, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetEnableMediaStream(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(45, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) EnableSpeechInput() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(46, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetEnableSpeechInput(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(46, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) UseFakeUIForMediaStream() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(47, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetUseFakeUIForMediaStream(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(47, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) EnableUsermediaScreenCapturing() bool {
+func (m *TCefApplicationCore) DisableSignalHandlers() bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -1595,14 +1719,14 @@ func (m *TCefApplicationCore) EnableUsermediaScreenCapturing() bool {
 	return api.GoBool(r)
 }
 
-func (m *TCefApplicationCore) SetEnableUsermediaScreenCapturing(value bool) {
+func (m *TCefApplicationCore) SetDisableSignalHandlers(value bool) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(48, 1, m.Instance(), api.PasBool(value))
 }
 
-func (m *TCefApplicationCore) EnableGPU() bool {
+func (m *TCefApplicationCore) UseViewsDefaultPopup() bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -1610,122 +1734,104 @@ func (m *TCefApplicationCore) EnableGPU() bool {
 	return api.GoBool(r)
 }
 
-func (m *TCefApplicationCore) SetEnableGPU(value bool) {
+func (m *TCefApplicationCore) SetUseViewsDefaultPopup(value bool) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(49, 1, m.Instance(), api.PasBool(value))
 }
 
+func (m *TCefApplicationCore) SingleProcess() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(50, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetSingleProcess(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(50, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) EnableMediaStream() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(51, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetEnableMediaStream(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(51, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) EnableSpeechInput() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(52, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetEnableSpeechInput(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(52, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) UseFakeUIForMediaStream() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(53, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetUseFakeUIForMediaStream(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(53, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) EnableUsermediaScreenCapturing() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(54, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetEnableUsermediaScreenCapturing(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(54, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) EnableGPU() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(55, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetEnableGPU(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(55, 1, m.Instance(), api.PasBool(value))
+}
+
 func (m *TCefApplicationCore) EnableFeatures() (result string) {
-	if !m.IsValid() {
-		return
-	}
-	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(50, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
-	defer strBuf.Release()
-	result = strBuf.String()
-	return
-}
-
-func (m *TCefApplicationCore) SetEnableFeatures(value string) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(50, 1, m.Instance(), api.PasStr(value))
-}
-
-func (m *TCefApplicationCore) DisableFeatures() (result string) {
-	if !m.IsValid() {
-		return
-	}
-	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(51, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
-	defer strBuf.Release()
-	result = strBuf.String()
-	return
-}
-
-func (m *TCefApplicationCore) SetDisableFeatures(value string) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(51, 1, m.Instance(), api.PasStr(value))
-}
-
-func (m *TCefApplicationCore) EnableBlinkFeatures() (result string) {
-	if !m.IsValid() {
-		return
-	}
-	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(52, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
-	defer strBuf.Release()
-	result = strBuf.String()
-	return
-}
-
-func (m *TCefApplicationCore) SetEnableBlinkFeatures(value string) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(52, 1, m.Instance(), api.PasStr(value))
-}
-
-func (m *TCefApplicationCore) DisableBlinkFeatures() (result string) {
-	if !m.IsValid() {
-		return
-	}
-	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(53, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
-	defer strBuf.Release()
-	result = strBuf.String()
-	return
-}
-
-func (m *TCefApplicationCore) SetDisableBlinkFeatures(value string) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(53, 1, m.Instance(), api.PasStr(value))
-}
-
-func (m *TCefApplicationCore) BlinkSettings() (result string) {
-	if !m.IsValid() {
-		return
-	}
-	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(54, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
-	defer strBuf.Release()
-	result = strBuf.String()
-	return
-}
-
-func (m *TCefApplicationCore) SetBlinkSettings(value string) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(54, 1, m.Instance(), api.PasStr(value))
-}
-
-func (m *TCefApplicationCore) ForceFieldTrials() (result string) {
-	if !m.IsValid() {
-		return
-	}
-	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(55, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
-	defer strBuf.Release()
-	result = strBuf.String()
-	return
-}
-
-func (m *TCefApplicationCore) SetForceFieldTrials(value string) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(55, 1, m.Instance(), api.PasStr(value))
-}
-
-func (m *TCefApplicationCore) ForceFieldTrialParams() (result string) {
 	if !m.IsValid() {
 		return
 	}
@@ -1736,18 +1842,126 @@ func (m *TCefApplicationCore) ForceFieldTrialParams() (result string) {
 	return
 }
 
-func (m *TCefApplicationCore) SetForceFieldTrialParams(value string) {
+func (m *TCefApplicationCore) SetEnableFeatures(value string) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(56, 1, m.Instance(), api.PasStr(value))
 }
 
+func (m *TCefApplicationCore) DisableFeatures() (result string) {
+	if !m.IsValid() {
+		return
+	}
+	strBuf := api.NewStringBuffer(0, 0)
+	cefApplicationCoreAPI().SysCallN(57, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	defer strBuf.Release()
+	result = strBuf.String()
+	return
+}
+
+func (m *TCefApplicationCore) SetDisableFeatures(value string) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(57, 1, m.Instance(), api.PasStr(value))
+}
+
+func (m *TCefApplicationCore) EnableBlinkFeatures() (result string) {
+	if !m.IsValid() {
+		return
+	}
+	strBuf := api.NewStringBuffer(0, 0)
+	cefApplicationCoreAPI().SysCallN(58, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	defer strBuf.Release()
+	result = strBuf.String()
+	return
+}
+
+func (m *TCefApplicationCore) SetEnableBlinkFeatures(value string) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(58, 1, m.Instance(), api.PasStr(value))
+}
+
+func (m *TCefApplicationCore) DisableBlinkFeatures() (result string) {
+	if !m.IsValid() {
+		return
+	}
+	strBuf := api.NewStringBuffer(0, 0)
+	cefApplicationCoreAPI().SysCallN(59, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	defer strBuf.Release()
+	result = strBuf.String()
+	return
+}
+
+func (m *TCefApplicationCore) SetDisableBlinkFeatures(value string) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(59, 1, m.Instance(), api.PasStr(value))
+}
+
+func (m *TCefApplicationCore) BlinkSettings() (result string) {
+	if !m.IsValid() {
+		return
+	}
+	strBuf := api.NewStringBuffer(0, 0)
+	cefApplicationCoreAPI().SysCallN(60, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	defer strBuf.Release()
+	result = strBuf.String()
+	return
+}
+
+func (m *TCefApplicationCore) SetBlinkSettings(value string) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(60, 1, m.Instance(), api.PasStr(value))
+}
+
+func (m *TCefApplicationCore) ForceFieldTrials() (result string) {
+	if !m.IsValid() {
+		return
+	}
+	strBuf := api.NewStringBuffer(0, 0)
+	cefApplicationCoreAPI().SysCallN(61, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	defer strBuf.Release()
+	result = strBuf.String()
+	return
+}
+
+func (m *TCefApplicationCore) SetForceFieldTrials(value string) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(61, 1, m.Instance(), api.PasStr(value))
+}
+
+func (m *TCefApplicationCore) ForceFieldTrialParams() (result string) {
+	if !m.IsValid() {
+		return
+	}
+	strBuf := api.NewStringBuffer(0, 0)
+	cefApplicationCoreAPI().SysCallN(62, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	defer strBuf.Release()
+	result = strBuf.String()
+	return
+}
+
+func (m *TCefApplicationCore) SetForceFieldTrialParams(value string) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(62, 1, m.Instance(), api.PasStr(value))
+}
+
 func (m *TCefApplicationCore) SmoothScrolling() cefTypes.TCefState {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cefApplicationCoreAPI().SysCallN(57, 0, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(63, 0, m.Instance())
 	return cefTypes.TCefState(r)
 }
 
@@ -1755,100 +1969,10 @@ func (m *TCefApplicationCore) SetSmoothScrolling(value cefTypes.TCefState) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(57, 1, m.Instance(), uintptr(value))
+	cefApplicationCoreAPI().SysCallN(63, 1, m.Instance(), uintptr(value))
 }
 
 func (m *TCefApplicationCore) MuteAudio() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(58, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetMuteAudio(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(58, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) SitePerProcess() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(59, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetSitePerProcess(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(59, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) DisableWebSecurity() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(60, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetDisableWebSecurity(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(60, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) DisablePDFExtension() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(61, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetDisablePDFExtension(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(61, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) DisableSiteIsolationTrials() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(62, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetDisableSiteIsolationTrials(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(62, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) DisableChromeLoginPrompt() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(63, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetDisableChromeLoginPrompt(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(63, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) DisableExtensions() bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -1856,29 +1980,29 @@ func (m *TCefApplicationCore) DisableExtensions() bool {
 	return api.GoBool(r)
 }
 
-func (m *TCefApplicationCore) SetDisableExtensions(value bool) {
+func (m *TCefApplicationCore) SetMuteAudio(value bool) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(64, 1, m.Instance(), api.PasBool(value))
 }
 
-func (m *TCefApplicationCore) AutoplayPolicy() cefTypes.TCefAutoplayPolicy {
+func (m *TCefApplicationCore) SitePerProcess() bool {
 	if !m.IsValid() {
-		return 0
+		return false
 	}
 	r := cefApplicationCoreAPI().SysCallN(65, 0, m.Instance())
-	return cefTypes.TCefAutoplayPolicy(r)
+	return api.GoBool(r)
 }
 
-func (m *TCefApplicationCore) SetAutoplayPolicy(value cefTypes.TCefAutoplayPolicy) {
+func (m *TCefApplicationCore) SetSitePerProcess(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(65, 1, m.Instance(), uintptr(value))
+	cefApplicationCoreAPI().SysCallN(65, 1, m.Instance(), api.PasBool(value))
 }
 
-func (m *TCefApplicationCore) DisableBackgroundNetworking() bool {
+func (m *TCefApplicationCore) DisableWebSecurity() bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -1886,14 +2010,14 @@ func (m *TCefApplicationCore) DisableBackgroundNetworking() bool {
 	return api.GoBool(r)
 }
 
-func (m *TCefApplicationCore) SetDisableBackgroundNetworking(value bool) {
+func (m *TCefApplicationCore) SetDisableWebSecurity(value bool) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(66, 1, m.Instance(), api.PasBool(value))
 }
 
-func (m *TCefApplicationCore) MetricsRecordingOnly() bool {
+func (m *TCefApplicationCore) DisablePDFExtension() bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -1901,14 +2025,14 @@ func (m *TCefApplicationCore) MetricsRecordingOnly() bool {
 	return api.GoBool(r)
 }
 
-func (m *TCefApplicationCore) SetMetricsRecordingOnly(value bool) {
+func (m *TCefApplicationCore) SetDisablePDFExtension(value bool) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(67, 1, m.Instance(), api.PasBool(value))
 }
 
-func (m *TCefApplicationCore) AllowFileAccessFromFiles() bool {
+func (m *TCefApplicationCore) DisableSiteIsolationTrials() bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -1916,14 +2040,14 @@ func (m *TCefApplicationCore) AllowFileAccessFromFiles() bool {
 	return api.GoBool(r)
 }
 
-func (m *TCefApplicationCore) SetAllowFileAccessFromFiles(value bool) {
+func (m *TCefApplicationCore) SetDisableSiteIsolationTrials(value bool) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(68, 1, m.Instance(), api.PasBool(value))
 }
 
-func (m *TCefApplicationCore) AllowRunningInsecureContent() bool {
+func (m *TCefApplicationCore) DisableChromeLoginPrompt() bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -1931,14 +2055,14 @@ func (m *TCefApplicationCore) AllowRunningInsecureContent() bool {
 	return api.GoBool(r)
 }
 
-func (m *TCefApplicationCore) SetAllowRunningInsecureContent(value bool) {
+func (m *TCefApplicationCore) SetDisableChromeLoginPrompt(value bool) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(69, 1, m.Instance(), api.PasBool(value))
 }
 
-func (m *TCefApplicationCore) EnablePrintPreview() bool {
+func (m *TCefApplicationCore) DisableExtensions() bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -1946,11 +2070,101 @@ func (m *TCefApplicationCore) EnablePrintPreview() bool {
 	return api.GoBool(r)
 }
 
-func (m *TCefApplicationCore) SetEnablePrintPreview(value bool) {
+func (m *TCefApplicationCore) SetDisableExtensions(value bool) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(70, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) AutoplayPolicy() cefTypes.TCefAutoplayPolicy {
+	if !m.IsValid() {
+		return 0
+	}
+	r := cefApplicationCoreAPI().SysCallN(71, 0, m.Instance())
+	return cefTypes.TCefAutoplayPolicy(r)
+}
+
+func (m *TCefApplicationCore) SetAutoplayPolicy(value cefTypes.TCefAutoplayPolicy) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(71, 1, m.Instance(), uintptr(value))
+}
+
+func (m *TCefApplicationCore) DisableBackgroundNetworking() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(72, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetDisableBackgroundNetworking(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(72, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) MetricsRecordingOnly() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(73, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetMetricsRecordingOnly(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(73, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) AllowFileAccessFromFiles() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(74, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetAllowFileAccessFromFiles(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(74, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) AllowRunningInsecureContent() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(75, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetAllowRunningInsecureContent(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(75, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) EnablePrintPreview() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(76, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetEnablePrintPreview(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(76, 1, m.Instance(), api.PasBool(value))
 }
 
 func (m *TCefApplicationCore) DefaultEncoding() (result string) {
@@ -1958,7 +2172,7 @@ func (m *TCefApplicationCore) DefaultEncoding() (result string) {
 		return
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(71, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefApplicationCoreAPI().SysCallN(77, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
@@ -1968,100 +2182,10 @@ func (m *TCefApplicationCore) SetDefaultEncoding(value string) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(71, 1, m.Instance(), api.PasStr(value))
+	cefApplicationCoreAPI().SysCallN(77, 1, m.Instance(), api.PasStr(value))
 }
 
 func (m *TCefApplicationCore) DisableJavascript() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(72, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetDisableJavascript(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(72, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) DisableJavascriptCloseWindows() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(73, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetDisableJavascriptCloseWindows(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(73, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) DisableJavascriptAccessClipboard() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(74, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetDisableJavascriptAccessClipboard(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(74, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) DisableJavascriptDomPaste() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(75, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetDisableJavascriptDomPaste(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(75, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) AllowUniversalAccessFromFileUrls() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(76, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetAllowUniversalAccessFromFileUrls(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(76, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) DisableImageLoading() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(77, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetDisableImageLoading(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(77, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) ImageShrinkStandaloneToFit() bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -2069,14 +2193,14 @@ func (m *TCefApplicationCore) ImageShrinkStandaloneToFit() bool {
 	return api.GoBool(r)
 }
 
-func (m *TCefApplicationCore) SetImageShrinkStandaloneToFit(value bool) {
+func (m *TCefApplicationCore) SetDisableJavascript(value bool) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(78, 1, m.Instance(), api.PasBool(value))
 }
 
-func (m *TCefApplicationCore) DisableTextAreaResize() bool {
+func (m *TCefApplicationCore) DisableJavascriptCloseWindows() bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -2084,14 +2208,14 @@ func (m *TCefApplicationCore) DisableTextAreaResize() bool {
 	return api.GoBool(r)
 }
 
-func (m *TCefApplicationCore) SetDisableTextAreaResize(value bool) {
+func (m *TCefApplicationCore) SetDisableJavascriptCloseWindows(value bool) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(79, 1, m.Instance(), api.PasBool(value))
 }
 
-func (m *TCefApplicationCore) DisableTabToLinks() bool {
+func (m *TCefApplicationCore) DisableJavascriptAccessClipboard() bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -2099,14 +2223,14 @@ func (m *TCefApplicationCore) DisableTabToLinks() bool {
 	return api.GoBool(r)
 }
 
-func (m *TCefApplicationCore) SetDisableTabToLinks(value bool) {
+func (m *TCefApplicationCore) SetDisableJavascriptAccessClipboard(value bool) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(80, 1, m.Instance(), api.PasBool(value))
 }
 
-func (m *TCefApplicationCore) EnableProfanityFilter() bool {
+func (m *TCefApplicationCore) DisableJavascriptDomPaste() bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -2114,14 +2238,14 @@ func (m *TCefApplicationCore) EnableProfanityFilter() bool {
 	return api.GoBool(r)
 }
 
-func (m *TCefApplicationCore) SetEnableProfanityFilter(value bool) {
+func (m *TCefApplicationCore) SetDisableJavascriptDomPaste(value bool) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(81, 1, m.Instance(), api.PasBool(value))
 }
 
-func (m *TCefApplicationCore) DisableSpellChecking() bool {
+func (m *TCefApplicationCore) AllowUniversalAccessFromFileUrls() bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -2129,11 +2253,101 @@ func (m *TCefApplicationCore) DisableSpellChecking() bool {
 	return api.GoBool(r)
 }
 
-func (m *TCefApplicationCore) SetDisableSpellChecking(value bool) {
+func (m *TCefApplicationCore) SetAllowUniversalAccessFromFileUrls(value bool) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(82, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) DisableImageLoading() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(83, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetDisableImageLoading(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(83, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) ImageShrinkStandaloneToFit() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(84, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetImageShrinkStandaloneToFit(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(84, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) DisableTextAreaResize() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(85, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetDisableTextAreaResize(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(85, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) DisableTabToLinks() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(86, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetDisableTabToLinks(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(86, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) EnableProfanityFilter() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(87, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetEnableProfanityFilter(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(87, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) DisableSpellChecking() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(88, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetDisableSpellChecking(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(88, 1, m.Instance(), api.PasBool(value))
 }
 
 func (m *TCefApplicationCore) OverrideSpellCheckLang() (result string) {
@@ -2141,7 +2355,7 @@ func (m *TCefApplicationCore) OverrideSpellCheckLang() (result string) {
 		return
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(83, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefApplicationCoreAPI().SysCallN(89, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
@@ -2151,14 +2365,14 @@ func (m *TCefApplicationCore) SetOverrideSpellCheckLang(value string) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(83, 1, m.Instance(), api.PasStr(value))
+	cefApplicationCoreAPI().SysCallN(89, 1, m.Instance(), api.PasStr(value))
 }
 
 func (m *TCefApplicationCore) TouchEvents() cefTypes.TCefState {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cefApplicationCoreAPI().SysCallN(84, 0, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(90, 0, m.Instance())
 	return cefTypes.TCefState(r)
 }
 
@@ -2166,14 +2380,14 @@ func (m *TCefApplicationCore) SetTouchEvents(value cefTypes.TCefState) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(84, 1, m.Instance(), uintptr(value))
+	cefApplicationCoreAPI().SysCallN(90, 1, m.Instance(), uintptr(value))
 }
 
 func (m *TCefApplicationCore) DisableReadingFromCanvas() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefApplicationCoreAPI().SysCallN(85, 0, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(91, 0, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -2181,14 +2395,14 @@ func (m *TCefApplicationCore) SetDisableReadingFromCanvas(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(85, 1, m.Instance(), api.PasBool(value))
+	cefApplicationCoreAPI().SysCallN(91, 1, m.Instance(), api.PasBool(value))
 }
 
 func (m *TCefApplicationCore) HyperlinkAuditing() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefApplicationCoreAPI().SysCallN(86, 0, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(92, 0, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -2196,14 +2410,14 @@ func (m *TCefApplicationCore) SetHyperlinkAuditing(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(86, 1, m.Instance(), api.PasBool(value))
+	cefApplicationCoreAPI().SysCallN(92, 1, m.Instance(), api.PasBool(value))
 }
 
 func (m *TCefApplicationCore) DisableNewBrowserInfoTimeout() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefApplicationCoreAPI().SysCallN(87, 0, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(93, 0, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -2211,7 +2425,7 @@ func (m *TCefApplicationCore) SetDisableNewBrowserInfoTimeout(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(87, 1, m.Instance(), api.PasBool(value))
+	cefApplicationCoreAPI().SysCallN(93, 1, m.Instance(), api.PasBool(value))
 }
 
 func (m *TCefApplicationCore) DevToolsProtocolLogFile() (result string) {
@@ -2219,7 +2433,7 @@ func (m *TCefApplicationCore) DevToolsProtocolLogFile() (result string) {
 		return
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(88, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefApplicationCoreAPI().SysCallN(94, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
@@ -2229,14 +2443,14 @@ func (m *TCefApplicationCore) SetDevToolsProtocolLogFile(value string) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(88, 1, m.Instance(), api.PasStr(value))
+	cefApplicationCoreAPI().SysCallN(94, 1, m.Instance(), api.PasStr(value))
 }
 
 func (m *TCefApplicationCore) ForcedDeviceScaleFactor() (result float32) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(89, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&result)))
+	cefApplicationCoreAPI().SysCallN(95, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&result)))
 	return
 }
 
@@ -2244,100 +2458,10 @@ func (m *TCefApplicationCore) SetForcedDeviceScaleFactor(value float32) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(89, 1, m.Instance(), uintptr(base.UnsafePointer(&value)))
+	cefApplicationCoreAPI().SysCallN(95, 1, m.Instance(), uintptr(base.UnsafePointer(&value)))
 }
 
 func (m *TCefApplicationCore) DisableZygote() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(90, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetDisableZygote(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(90, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) UseMockKeyChain() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(91, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetUseMockKeyChain(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(91, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) DisableRequestHandlingForTesting() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(92, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetDisableRequestHandlingForTesting(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(92, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) DisablePopupBlocking() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(93, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetDisablePopupBlocking(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(93, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) DisableBackForwardCache() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(94, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetDisableBackForwardCache(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(94, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) DisableComponentUpdate() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(95, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetDisableComponentUpdate(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(95, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) AllowInsecureLocalhost() bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -2345,14 +2469,14 @@ func (m *TCefApplicationCore) AllowInsecureLocalhost() bool {
 	return api.GoBool(r)
 }
 
-func (m *TCefApplicationCore) SetAllowInsecureLocalhost(value bool) {
+func (m *TCefApplicationCore) SetDisableZygote(value bool) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(96, 1, m.Instance(), api.PasBool(value))
 }
 
-func (m *TCefApplicationCore) KioskPrinting() bool {
+func (m *TCefApplicationCore) UseMockKeyChain() bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -2360,11 +2484,101 @@ func (m *TCefApplicationCore) KioskPrinting() bool {
 	return api.GoBool(r)
 }
 
-func (m *TCefApplicationCore) SetKioskPrinting(value bool) {
+func (m *TCefApplicationCore) SetUseMockKeyChain(value bool) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(97, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) DisableRequestHandlingForTesting() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(98, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetDisableRequestHandlingForTesting(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(98, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) DisablePopupBlocking() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(99, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetDisablePopupBlocking(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(99, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) DisableBackForwardCache() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(100, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetDisableBackForwardCache(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(100, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) DisableComponentUpdate() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(101, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetDisableComponentUpdate(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(101, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) AllowInsecureLocalhost() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(102, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetAllowInsecureLocalhost(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(102, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) KioskPrinting() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(103, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetKioskPrinting(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(103, 1, m.Instance(), api.PasBool(value))
 }
 
 func (m *TCefApplicationCore) TreatInsecureOriginAsSecure() (result string) {
@@ -2372,7 +2586,7 @@ func (m *TCefApplicationCore) TreatInsecureOriginAsSecure() (result string) {
 		return
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(98, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefApplicationCoreAPI().SysCallN(104, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
@@ -2382,14 +2596,14 @@ func (m *TCefApplicationCore) SetTreatInsecureOriginAsSecure(value string) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(98, 1, m.Instance(), api.PasStr(value))
+	cefApplicationCoreAPI().SysCallN(104, 1, m.Instance(), api.PasStr(value))
 }
 
 func (m *TCefApplicationCore) NetLogEnabled() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefApplicationCoreAPI().SysCallN(99, 0, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(105, 0, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -2397,7 +2611,7 @@ func (m *TCefApplicationCore) SetNetLogEnabled(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(99, 1, m.Instance(), api.PasBool(value))
+	cefApplicationCoreAPI().SysCallN(105, 1, m.Instance(), api.PasBool(value))
 }
 
 func (m *TCefApplicationCore) NetLogFile() (result string) {
@@ -2405,7 +2619,7 @@ func (m *TCefApplicationCore) NetLogFile() (result string) {
 		return
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(100, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefApplicationCoreAPI().SysCallN(106, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
@@ -2415,14 +2629,14 @@ func (m *TCefApplicationCore) SetNetLogFile(value string) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(100, 1, m.Instance(), api.PasStr(value))
+	cefApplicationCoreAPI().SysCallN(106, 1, m.Instance(), api.PasStr(value))
 }
 
 func (m *TCefApplicationCore) NetLogCaptureMode() cefTypes.TCefNetLogCaptureMode {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cefApplicationCoreAPI().SysCallN(101, 0, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(107, 0, m.Instance())
 	return cefTypes.TCefNetLogCaptureMode(r)
 }
 
@@ -2430,7 +2644,7 @@ func (m *TCefApplicationCore) SetNetLogCaptureMode(value cefTypes.TCefNetLogCapt
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(101, 1, m.Instance(), uintptr(value))
+	cefApplicationCoreAPI().SysCallN(107, 1, m.Instance(), uintptr(value))
 }
 
 func (m *TCefApplicationCore) RemoteAllowOrigins() (result string) {
@@ -2438,7 +2652,7 @@ func (m *TCefApplicationCore) RemoteAllowOrigins() (result string) {
 		return
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(102, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefApplicationCoreAPI().SysCallN(108, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
@@ -2448,14 +2662,14 @@ func (m *TCefApplicationCore) SetRemoteAllowOrigins(value string) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(102, 1, m.Instance(), api.PasStr(value))
+	cefApplicationCoreAPI().SysCallN(108, 1, m.Instance(), api.PasStr(value))
 }
 
 func (m *TCefApplicationCore) AutoAcceptCamAndMicCapture() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefApplicationCoreAPI().SysCallN(103, 0, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(109, 0, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -2463,14 +2677,14 @@ func (m *TCefApplicationCore) SetAutoAcceptCamAndMicCapture(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(103, 1, m.Instance(), api.PasBool(value))
+	cefApplicationCoreAPI().SysCallN(109, 1, m.Instance(), api.PasBool(value))
 }
 
 func (m *TCefApplicationCore) UIColorMode() cefTypes.TCefUIColorMode {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cefApplicationCoreAPI().SysCallN(104, 0, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(110, 0, m.Instance())
 	return cefTypes.TCefUIColorMode(r)
 }
 
@@ -2478,86 +2692,10 @@ func (m *TCefApplicationCore) SetUIColorMode(value cefTypes.TCefUIColorMode) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(104, 1, m.Instance(), uintptr(value))
+	cefApplicationCoreAPI().SysCallN(110, 1, m.Instance(), uintptr(value))
 }
 
 func (m *TCefApplicationCore) DisableHangMonitor() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(105, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetDisableHangMonitor(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(105, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) HideCrashRestoreBubble() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(106, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetHideCrashRestoreBubble(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(106, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) IgnoreCertificateErrors() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefApplicationCoreAPI().SysCallN(107, 0, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCefApplicationCore) SetIgnoreCertificateErrors(value bool) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(107, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) WindowsSandboxInfo() uintptr {
-	if !m.IsValid() {
-		return 0
-	}
-	r := cefApplicationCoreAPI().SysCallN(108, 0, m.Instance())
-	return uintptr(r)
-}
-
-func (m *TCefApplicationCore) SetWindowsSandboxInfo(value uintptr) {
-	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(108, 1, m.Instance(), uintptr(value))
-}
-
-func (m *TCefApplicationCore) ArgcCopy() int32 {
-	if !m.IsValid() {
-		return 0
-	}
-	r := cefApplicationCoreAPI().SysCallN(109, m.Instance())
-	return int32(r)
-}
-
-func (m *TCefApplicationCore) ArgvCopy() types.PPAnsiChar {
-	if !m.IsValid() {
-		return 0
-	}
-	r := cefApplicationCoreAPI().SysCallN(110, m.Instance())
-	return types.PPAnsiChar(r)
-}
-
-func (m *TCefApplicationCore) DeleteCache() bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -2565,14 +2703,14 @@ func (m *TCefApplicationCore) DeleteCache() bool {
 	return api.GoBool(r)
 }
 
-func (m *TCefApplicationCore) SetDeleteCache(value bool) {
+func (m *TCefApplicationCore) SetDisableHangMonitor(value bool) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(111, 1, m.Instance(), api.PasBool(value))
 }
 
-func (m *TCefApplicationCore) DeleteCookies() bool {
+func (m *TCefApplicationCore) HideCrashRestoreBubble() bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -2580,59 +2718,52 @@ func (m *TCefApplicationCore) DeleteCookies() bool {
 	return api.GoBool(r)
 }
 
-func (m *TCefApplicationCore) SetDeleteCookies(value bool) {
+func (m *TCefApplicationCore) SetHideCrashRestoreBubble(value bool) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(112, 1, m.Instance(), api.PasBool(value))
 }
 
-func (m *TCefApplicationCore) CheckCEFFiles() bool {
+func (m *TCefApplicationCore) TLS13HybridizedKyberSupport() cefTypes.TCefState {
 	if !m.IsValid() {
-		return false
+		return 0
 	}
 	r := cefApplicationCoreAPI().SysCallN(113, 0, m.Instance())
-	return api.GoBool(r)
+	return cefTypes.TCefState(r)
 }
 
-func (m *TCefApplicationCore) SetCheckCEFFiles(value bool) {
+func (m *TCefApplicationCore) SetTLS13HybridizedKyberSupport(value cefTypes.TCefState) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(113, 1, m.Instance(), api.PasBool(value))
+	cefApplicationCoreAPI().SysCallN(113, 1, m.Instance(), uintptr(value))
 }
 
-func (m *TCefApplicationCore) ShowMessageDlg() bool {
+func (m *TCefApplicationCore) ProxySettings() ICEFProxySettings {
 	if !m.IsValid() {
-		return false
+		return nil
 	}
-	r := cefApplicationCoreAPI().SysCallN(114, 0, m.Instance())
-	return api.GoBool(r)
+	r := cefApplicationCoreAPI().SysCallN(114, m.Instance())
+	return AsCEFProxySettings(r)
 }
 
-func (m *TCefApplicationCore) SetShowMessageDlg(value bool) {
+func (m *TCefApplicationCore) FieldTrialConfig() cefTypes.TCefState {
 	if !m.IsValid() {
-		return
-	}
-	cefApplicationCoreAPI().SysCallN(114, 1, m.Instance(), api.PasBool(value))
-}
-
-func (m *TCefApplicationCore) MissingBinariesException() bool {
-	if !m.IsValid() {
-		return false
+		return 0
 	}
 	r := cefApplicationCoreAPI().SysCallN(115, 0, m.Instance())
-	return api.GoBool(r)
+	return cefTypes.TCefState(r)
 }
 
-func (m *TCefApplicationCore) SetMissingBinariesException(value bool) {
+func (m *TCefApplicationCore) SetFieldTrialConfig(value cefTypes.TCefState) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(115, 1, m.Instance(), api.PasBool(value))
+	cefApplicationCoreAPI().SysCallN(115, 1, m.Instance(), uintptr(value))
 }
 
-func (m *TCefApplicationCore) SetCurrentDir() bool {
+func (m *TCefApplicationCore) DoNotDeElevate() bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -2640,18 +2771,252 @@ func (m *TCefApplicationCore) SetCurrentDir() bool {
 	return api.GoBool(r)
 }
 
-func (m *TCefApplicationCore) SetSetCurrentDir(value bool) {
+func (m *TCefApplicationCore) SetDoNotDeElevate(value bool) {
 	if !m.IsValid() {
 		return
 	}
 	cefApplicationCoreAPI().SysCallN(116, 1, m.Instance(), api.PasBool(value))
 }
 
+func (m *TCefApplicationCore) NoDefaultBrowserCheck() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(117, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetNoDefaultBrowserCheck(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(117, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) NoFirstRun() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(118, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetNoFirstRun(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(118, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) EnableAutomation() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(119, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetEnableAutomation(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(119, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) PasswordStorage() cefTypes.TCefPasswordStorage {
+	if !m.IsValid() {
+		return 0
+	}
+	r := cefApplicationCoreAPI().SysCallN(120, 0, m.Instance())
+	return cefTypes.TCefPasswordStorage(r)
+}
+
+func (m *TCefApplicationCore) SetPasswordStorage(value cefTypes.TCefPasswordStorage) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(120, 1, m.Instance(), uintptr(value))
+}
+
+func (m *TCefApplicationCore) GTKVersion() cefTypes.TCefGTKVersion {
+	if !m.IsValid() {
+		return 0
+	}
+	r := cefApplicationCoreAPI().SysCallN(121, 0, m.Instance())
+	return cefTypes.TCefGTKVersion(r)
+}
+
+func (m *TCefApplicationCore) SetGTKVersion(value cefTypes.TCefGTKVersion) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(121, 1, m.Instance(), uintptr(value))
+}
+
+func (m *TCefApplicationCore) OzonePlatform() cefTypes.TCefOzonePlatform {
+	if !m.IsValid() {
+		return 0
+	}
+	r := cefApplicationCoreAPI().SysCallN(122, 0, m.Instance())
+	return cefTypes.TCefOzonePlatform(r)
+}
+
+func (m *TCefApplicationCore) SetOzonePlatform(value cefTypes.TCefOzonePlatform) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(122, 1, m.Instance(), uintptr(value))
+}
+
+func (m *TCefApplicationCore) DisplayServer() cefTypes.TCefLinuxDisplayServer {
+	if !m.IsValid() {
+		return 0
+	}
+	r := cefApplicationCoreAPI().SysCallN(123, m.Instance())
+	return cefTypes.TCefLinuxDisplayServer(r)
+}
+
+func (m *TCefApplicationCore) IgnoreCertificateErrors() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(124, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetIgnoreCertificateErrors(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(124, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) WindowsSandboxInfo() uintptr {
+	if !m.IsValid() {
+		return 0
+	}
+	r := cefApplicationCoreAPI().SysCallN(125, 0, m.Instance())
+	return uintptr(r)
+}
+
+func (m *TCefApplicationCore) SetWindowsSandboxInfo(value uintptr) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(125, 1, m.Instance(), uintptr(value))
+}
+
+func (m *TCefApplicationCore) ArgcCopy() int32 {
+	if !m.IsValid() {
+		return 0
+	}
+	r := cefApplicationCoreAPI().SysCallN(126, m.Instance())
+	return int32(r)
+}
+
+func (m *TCefApplicationCore) ArgvCopy() types.PPAnsiChar {
+	if !m.IsValid() {
+		return 0
+	}
+	r := cefApplicationCoreAPI().SysCallN(127, m.Instance())
+	return types.PPAnsiChar(r)
+}
+
+func (m *TCefApplicationCore) DeleteCache() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(128, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetDeleteCache(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(128, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) DeleteCookies() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(129, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetDeleteCookies(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(129, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) CheckCEFFiles() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(130, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetCheckCEFFiles(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(130, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) ShowMessageDlg() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(131, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetShowMessageDlg(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(131, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) MissingBinariesException() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(132, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetMissingBinariesException(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(132, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) SetCurrentDir() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(133, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetSetCurrentDir(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(133, 1, m.Instance(), api.PasBool(value))
+}
+
 func (m *TCefApplicationCore) GlobalContextInitialized() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefApplicationCoreAPI().SysCallN(117, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(134, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -2659,7 +3024,7 @@ func (m *TCefApplicationCore) ChromeMajorVer() uint16 {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cefApplicationCoreAPI().SysCallN(118, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(135, m.Instance())
 	return uint16(r)
 }
 
@@ -2667,7 +3032,7 @@ func (m *TCefApplicationCore) ChromeMinorVer() uint16 {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cefApplicationCoreAPI().SysCallN(119, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(136, m.Instance())
 	return uint16(r)
 }
 
@@ -2675,7 +3040,7 @@ func (m *TCefApplicationCore) ChromeRelease() uint16 {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cefApplicationCoreAPI().SysCallN(120, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(137, m.Instance())
 	return uint16(r)
 }
 
@@ -2683,7 +3048,7 @@ func (m *TCefApplicationCore) ChromeBuild() uint16 {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cefApplicationCoreAPI().SysCallN(121, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(138, m.Instance())
 	return uint16(r)
 }
 
@@ -2692,7 +3057,7 @@ func (m *TCefApplicationCore) ChromeVersion() (result string) {
 		return
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(122, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefApplicationCoreAPI().SysCallN(139, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
@@ -2703,7 +3068,7 @@ func (m *TCefApplicationCore) LibCefVersion() (result string) {
 		return
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(123, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefApplicationCoreAPI().SysCallN(140, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
@@ -2714,7 +3079,7 @@ func (m *TCefApplicationCore) LibCefPath() (result string) {
 		return
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(124, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefApplicationCoreAPI().SysCallN(141, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
@@ -2725,7 +3090,7 @@ func (m *TCefApplicationCore) ChromeElfPath() (result string) {
 		return
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(125, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefApplicationCoreAPI().SysCallN(142, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
@@ -2735,7 +3100,7 @@ func (m *TCefApplicationCore) LibLoaded() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefApplicationCoreAPI().SysCallN(126, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(143, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -2743,7 +3108,7 @@ func (m *TCefApplicationCore) LogProcessInfo() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefApplicationCoreAPI().SysCallN(127, 0, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(144, 0, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -2751,14 +3116,14 @@ func (m *TCefApplicationCore) SetLogProcessInfo(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(127, 1, m.Instance(), api.PasBool(value))
+	cefApplicationCoreAPI().SysCallN(144, 1, m.Instance(), api.PasBool(value))
 }
 
 func (m *TCefApplicationCore) ReRaiseExceptions() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefApplicationCoreAPI().SysCallN(128, 0, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(145, 0, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -2766,14 +3131,14 @@ func (m *TCefApplicationCore) SetReRaiseExceptions(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(128, 1, m.Instance(), api.PasBool(value))
+	cefApplicationCoreAPI().SysCallN(145, 1, m.Instance(), api.PasBool(value))
 }
 
 func (m *TCefApplicationCore) DeviceScaleFactor() (result float32) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(129, m.Instance(), uintptr(base.UnsafePointer(&result)))
+	cefApplicationCoreAPI().SysCallN(146, m.Instance(), uintptr(base.UnsafePointer(&result)))
 	return
 }
 
@@ -2782,7 +3147,7 @@ func (m *TCefApplicationCore) LocalesRequired() (result string) {
 		return
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(130, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefApplicationCoreAPI().SysCallN(147, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
@@ -2792,14 +3157,14 @@ func (m *TCefApplicationCore) SetLocalesRequired(value string) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(130, 1, m.Instance(), api.PasStr(value))
+	cefApplicationCoreAPI().SysCallN(147, 1, m.Instance(), api.PasStr(value))
 }
 
 func (m *TCefApplicationCore) ProcessType() cefTypes.TCefProcessType {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cefApplicationCoreAPI().SysCallN(131, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(148, m.Instance())
 	return cefTypes.TCefProcessType(r)
 }
 
@@ -2807,7 +3172,7 @@ func (m *TCefApplicationCore) MustCreateResourceBundleHandler() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefApplicationCoreAPI().SysCallN(132, 0, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(149, 0, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -2815,14 +3180,14 @@ func (m *TCefApplicationCore) SetMustCreateResourceBundleHandler(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(132, 1, m.Instance(), api.PasBool(value))
+	cefApplicationCoreAPI().SysCallN(149, 1, m.Instance(), api.PasBool(value))
 }
 
 func (m *TCefApplicationCore) MustCreateBrowserProcessHandler() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefApplicationCoreAPI().SysCallN(133, 0, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(150, 0, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -2830,14 +3195,14 @@ func (m *TCefApplicationCore) SetMustCreateBrowserProcessHandler(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(133, 1, m.Instance(), api.PasBool(value))
+	cefApplicationCoreAPI().SysCallN(150, 1, m.Instance(), api.PasBool(value))
 }
 
 func (m *TCefApplicationCore) MustCreateRenderProcessHandler() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefApplicationCoreAPI().SysCallN(134, 0, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(151, 0, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -2845,14 +3210,14 @@ func (m *TCefApplicationCore) SetMustCreateRenderProcessHandler(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(134, 1, m.Instance(), api.PasBool(value))
+	cefApplicationCoreAPI().SysCallN(151, 1, m.Instance(), api.PasBool(value))
 }
 
 func (m *TCefApplicationCore) MustCreateLoadHandler() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefApplicationCoreAPI().SysCallN(135, 0, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(152, 0, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -2860,21 +3225,21 @@ func (m *TCefApplicationCore) SetMustCreateLoadHandler(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(135, 1, m.Instance(), api.PasBool(value))
+	cefApplicationCoreAPI().SysCallN(152, 1, m.Instance(), api.PasBool(value))
 }
 
 func (m *TCefApplicationCore) SetOsmodalLoop(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(136, m.Instance(), api.PasBool(value))
+	cefApplicationCoreAPI().SysCallN(153, m.Instance(), api.PasBool(value))
 }
 
 func (m *TCefApplicationCore) Status() cefTypes.TCefAplicationStatus {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cefApplicationCoreAPI().SysCallN(137, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(154, m.Instance())
 	return cefTypes.TCefAplicationStatus(r)
 }
 
@@ -2883,7 +3248,7 @@ func (m *TCefApplicationCore) MissingLibFiles() (result string) {
 		return
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(138, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefApplicationCoreAPI().SysCallN(155, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
@@ -2893,7 +3258,7 @@ func (m *TCefApplicationCore) MustFreeLibrary() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefApplicationCoreAPI().SysCallN(139, 0, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(156, 0, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -2901,14 +3266,14 @@ func (m *TCefApplicationCore) SetMustFreeLibrary(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(139, 1, m.Instance(), api.PasBool(value))
+	cefApplicationCoreAPI().SysCallN(156, 1, m.Instance(), api.PasBool(value))
 }
 
 func (m *TCefApplicationCore) ChildProcessesCount() int32 {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cefApplicationCoreAPI().SysCallN(140, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(157, m.Instance())
 	return int32(r)
 }
 
@@ -2916,7 +3281,7 @@ func (m *TCefApplicationCore) UsedMemory() (result uint64) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(141, m.Instance(), uintptr(base.UnsafePointer(&result)))
+	cefApplicationCoreAPI().SysCallN(158, m.Instance(), uintptr(base.UnsafePointer(&result)))
 	return
 }
 
@@ -2924,7 +3289,7 @@ func (m *TCefApplicationCore) TotalSystemMemory() (result uint64) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(142, m.Instance(), uintptr(base.UnsafePointer(&result)))
+	cefApplicationCoreAPI().SysCallN(159, m.Instance(), uintptr(base.UnsafePointer(&result)))
 	return
 }
 
@@ -2932,7 +3297,7 @@ func (m *TCefApplicationCore) AvailableSystemMemory() (result uint64) {
 	if !m.IsValid() {
 		return
 	}
-	cefApplicationCoreAPI().SysCallN(143, m.Instance(), uintptr(base.UnsafePointer(&result)))
+	cefApplicationCoreAPI().SysCallN(160, m.Instance(), uintptr(base.UnsafePointer(&result)))
 	return
 }
 
@@ -2940,19 +3305,8 @@ func (m *TCefApplicationCore) SystemMemoryLoad() uint32 {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cefApplicationCoreAPI().SysCallN(144, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(161, m.Instance())
 	return uint32(r)
-}
-
-func (m *TCefApplicationCore) ApiHashUniversal() (result string) {
-	if !m.IsValid() {
-		return
-	}
-	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(145, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
-	defer strBuf.Release()
-	result = strBuf.String()
-	return
 }
 
 func (m *TCefApplicationCore) ApiHashPlatform() (result string) {
@@ -2960,7 +3314,7 @@ func (m *TCefApplicationCore) ApiHashPlatform() (result string) {
 		return
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(146, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefApplicationCoreAPI().SysCallN(162, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
@@ -2971,18 +3325,36 @@ func (m *TCefApplicationCore) ApiHashCommit() (result string) {
 		return
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(147, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefApplicationCoreAPI().SysCallN(163, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
+}
+
+func (m *TCefApplicationCore) ApiVersion() int32 {
+	if !m.IsValid() {
+		return 0
+	}
+	r := cefApplicationCoreAPI().SysCallN(164, m.Instance())
+	return int32(r)
 }
 
 func (m *TCefApplicationCore) ExitCode() cefTypes.TCefResultCode {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cefApplicationCoreAPI().SysCallN(148, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(165, m.Instance())
 	return cefTypes.TCefResultCode(r)
+}
+
+func (m *TCefApplicationCore) BrowserById(id int32) (result ICefBrowser) {
+	if !m.IsValid() {
+		return
+	}
+	var resultPtr uintptr
+	cefApplicationCoreAPI().SysCallN(166, m.Instance(), uintptr(id), uintptr(base.UnsafePointer(&resultPtr)))
+	result = AsCefBrowserRef(resultPtr)
+	return
 }
 
 func (m *TCefApplicationCore) LastErrorMessage() (result string) {
@@ -2990,17 +3362,77 @@ func (m *TCefApplicationCore) LastErrorMessage() (result string) {
 		return
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cefApplicationCoreAPI().SysCallN(149, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cefApplicationCoreAPI().SysCallN(167, m.Instance(), uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
+}
+
+func (m *TCefApplicationCore) SharedTextureEnabled() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(168, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetSharedTextureEnabled(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(168, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) ExternalBeginFrameEnabled() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cefApplicationCoreAPI().SysCallN(169, 0, m.Instance())
+	return api.GoBool(r)
+}
+
+func (m *TCefApplicationCore) SetExternalBeginFrameEnabled(value bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(169, 1, m.Instance(), api.PasBool(value))
+}
+
+func (m *TCefApplicationCore) UseGL() cefTypes.TCefGLImplementation {
+	if !m.IsValid() {
+		return 0
+	}
+	r := cefApplicationCoreAPI().SysCallN(170, 0, m.Instance())
+	return cefTypes.TCefGLImplementation(r)
+}
+
+func (m *TCefApplicationCore) SetUseGL(value cefTypes.TCefGLImplementation) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(170, 1, m.Instance(), uintptr(value))
+}
+
+func (m *TCefApplicationCore) UseAngle() cefTypes.TCefAngleImplementation {
+	if !m.IsValid() {
+		return 0
+	}
+	r := cefApplicationCoreAPI().SysCallN(171, 0, m.Instance())
+	return cefTypes.TCefAngleImplementation(r)
+}
+
+func (m *TCefApplicationCore) SetUseAngle(value cefTypes.TCefAngleImplementation) {
+	if !m.IsValid() {
+		return
+	}
+	cefApplicationCoreAPI().SysCallN(171, 1, m.Instance(), uintptr(value))
 }
 
 func (m *TCefApplicationCore) XDisplay() uintptr {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cefApplicationCoreAPI().SysCallN(150, m.Instance())
+	r := cefApplicationCoreAPI().SysCallN(172, m.Instance())
 	return uintptr(r)
 }
 
@@ -3009,7 +3441,7 @@ func (m *TCefApplicationCore) SetOnRegCustomSchemes(fn TOnRegisterCustomSchemesE
 		return
 	}
 	cb := makeTOnRegisterCustomSchemesEvent(fn)
-	base.SetEvent(m, 151, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 173, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCefApplicationCore) SetOnRegisterCustomPreferences(fn TOnRegisterCustomPreferencesEvent) {
@@ -3017,7 +3449,7 @@ func (m *TCefApplicationCore) SetOnRegisterCustomPreferences(fn TOnRegisterCusto
 		return
 	}
 	cb := makeTOnRegisterCustomPreferencesEvent(fn)
-	base.SetEvent(m, 152, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 174, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCefApplicationCore) SetOnContextInitialized(fn TOnContextInitializedEvent) {
@@ -3025,7 +3457,7 @@ func (m *TCefApplicationCore) SetOnContextInitialized(fn TOnContextInitializedEv
 		return
 	}
 	cb := makeTOnContextInitializedEvent(fn)
-	base.SetEvent(m, 153, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 175, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCefApplicationCore) SetOnBeforeChildProcessLaunch(fn TOnBeforeChildProcessLaunchEvent) {
@@ -3033,7 +3465,7 @@ func (m *TCefApplicationCore) SetOnBeforeChildProcessLaunch(fn TOnBeforeChildPro
 		return
 	}
 	cb := makeTOnBeforeChildProcessLaunchEvent(fn)
-	base.SetEvent(m, 154, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 176, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCefApplicationCore) SetOnAlreadyRunningAppRelaunch(fn TOnAlreadyRunningAppRelaunchEvent) {
@@ -3041,7 +3473,7 @@ func (m *TCefApplicationCore) SetOnAlreadyRunningAppRelaunch(fn TOnAlreadyRunnin
 		return
 	}
 	cb := makeTOnAlreadyRunningAppRelaunchEvent(fn)
-	base.SetEvent(m, 155, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 177, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCefApplicationCore) SetOnScheduleMessagePumpWork(fn TOnScheduleMessagePumpWorkEvent) {
@@ -3049,7 +3481,7 @@ func (m *TCefApplicationCore) SetOnScheduleMessagePumpWork(fn TOnScheduleMessage
 		return
 	}
 	cb := makeTOnScheduleMessagePumpWorkEvent(fn)
-	base.SetEvent(m, 156, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 178, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCefApplicationCore) SetOnGetDefaultClient(fn TOnGetDefaultClientEvent) {
@@ -3057,7 +3489,7 @@ func (m *TCefApplicationCore) SetOnGetDefaultClient(fn TOnGetDefaultClientEvent)
 		return
 	}
 	cb := makeTOnGetDefaultClientEvent(fn)
-	base.SetEvent(m, 157, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 179, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCefApplicationCore) SetOnGetDefaultRequestContextHandler(fn TOnGetDefaultRequestContextHandlerEvent) {
@@ -3065,7 +3497,7 @@ func (m *TCefApplicationCore) SetOnGetDefaultRequestContextHandler(fn TOnGetDefa
 		return
 	}
 	cb := makeTOnGetDefaultRequestContextHandlerEvent(fn)
-	base.SetEvent(m, 158, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 180, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCefApplicationCore) SetOnGetLocalizedString(fn TOnGetLocalizedStringEvent) {
@@ -3073,7 +3505,7 @@ func (m *TCefApplicationCore) SetOnGetLocalizedString(fn TOnGetLocalizedStringEv
 		return
 	}
 	cb := makeTOnGetLocalizedStringEvent(fn)
-	base.SetEvent(m, 159, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 181, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCefApplicationCore) SetOnGetDataResource(fn TOnGetDataResourceEvent) {
@@ -3081,7 +3513,7 @@ func (m *TCefApplicationCore) SetOnGetDataResource(fn TOnGetDataResourceEvent) {
 		return
 	}
 	cb := makeTOnGetDataResourceEvent(fn)
-	base.SetEvent(m, 160, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 182, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCefApplicationCore) SetOnGetDataResourceForScale(fn TOnGetDataResourceForScaleEvent) {
@@ -3089,7 +3521,7 @@ func (m *TCefApplicationCore) SetOnGetDataResourceForScale(fn TOnGetDataResource
 		return
 	}
 	cb := makeTOnGetDataResourceForScaleEvent(fn)
-	base.SetEvent(m, 161, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 183, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCefApplicationCore) SetOnWebKitInitialized(fn TOnWebKitInitializedEvent) {
@@ -3097,7 +3529,7 @@ func (m *TCefApplicationCore) SetOnWebKitInitialized(fn TOnWebKitInitializedEven
 		return
 	}
 	cb := makeTOnWebKitInitializedEvent(fn)
-	base.SetEvent(m, 162, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 184, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCefApplicationCore) SetOnBrowserCreated(fn TOnBrowserCreatedEvent) {
@@ -3105,7 +3537,7 @@ func (m *TCefApplicationCore) SetOnBrowserCreated(fn TOnBrowserCreatedEvent) {
 		return
 	}
 	cb := makeTOnBrowserCreatedEvent(fn)
-	base.SetEvent(m, 163, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 185, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCefApplicationCore) SetOnBrowserDestroyed(fn TOnBrowserDestroyedEvent) {
@@ -3113,7 +3545,7 @@ func (m *TCefApplicationCore) SetOnBrowserDestroyed(fn TOnBrowserDestroyedEvent)
 		return
 	}
 	cb := makeTOnBrowserDestroyedEvent(fn)
-	base.SetEvent(m, 164, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 186, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCefApplicationCore) SetOnContextCreated(fn TOnContextCreatedEvent) {
@@ -3121,7 +3553,7 @@ func (m *TCefApplicationCore) SetOnContextCreated(fn TOnContextCreatedEvent) {
 		return
 	}
 	cb := makeTOnContextCreatedEvent(fn)
-	base.SetEvent(m, 165, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 187, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCefApplicationCore) SetOnContextReleased(fn TOnContextReleasedEvent) {
@@ -3129,7 +3561,7 @@ func (m *TCefApplicationCore) SetOnContextReleased(fn TOnContextReleasedEvent) {
 		return
 	}
 	cb := makeTOnContextReleasedEvent(fn)
-	base.SetEvent(m, 166, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 188, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCefApplicationCore) SetOnUncaughtException(fn TOnUncaughtExceptionEvent) {
@@ -3137,7 +3569,7 @@ func (m *TCefApplicationCore) SetOnUncaughtException(fn TOnUncaughtExceptionEven
 		return
 	}
 	cb := makeTOnUncaughtExceptionEvent(fn)
-	base.SetEvent(m, 167, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 189, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCefApplicationCore) SetOnFocusedNodeChanged(fn TOnFocusedNodeChangedEvent) {
@@ -3145,7 +3577,7 @@ func (m *TCefApplicationCore) SetOnFocusedNodeChanged(fn TOnFocusedNodeChangedEv
 		return
 	}
 	cb := makeTOnFocusedNodeChangedEvent(fn)
-	base.SetEvent(m, 168, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 190, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCefApplicationCore) SetOnProcessMessageReceived(fn TOnProcessMessageReceivedEvent) {
@@ -3153,7 +3585,7 @@ func (m *TCefApplicationCore) SetOnProcessMessageReceived(fn TOnProcessMessageRe
 		return
 	}
 	cb := makeTOnProcessMessageReceivedEvent(fn)
-	base.SetEvent(m, 169, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 191, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCefApplicationCore) SetOnLoadingStateChange(fn TOnRenderLoadingStateChange) {
@@ -3161,7 +3593,7 @@ func (m *TCefApplicationCore) SetOnLoadingStateChange(fn TOnRenderLoadingStateCh
 		return
 	}
 	cb := makeTOnRenderLoadingStateChange(fn)
-	base.SetEvent(m, 170, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 192, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCefApplicationCore) SetOnLoadStart(fn TOnRenderLoadStart) {
@@ -3169,7 +3601,7 @@ func (m *TCefApplicationCore) SetOnLoadStart(fn TOnRenderLoadStart) {
 		return
 	}
 	cb := makeTOnRenderLoadStart(fn)
-	base.SetEvent(m, 171, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 193, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCefApplicationCore) SetOnLoadEnd(fn TOnRenderLoadEnd) {
@@ -3177,7 +3609,7 @@ func (m *TCefApplicationCore) SetOnLoadEnd(fn TOnRenderLoadEnd) {
 		return
 	}
 	cb := makeTOnRenderLoadEnd(fn)
-	base.SetEvent(m, 172, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 194, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCefApplicationCore) SetOnLoadError(fn TOnRenderLoadError) {
@@ -3185,7 +3617,7 @@ func (m *TCefApplicationCore) SetOnLoadError(fn TOnRenderLoadError) {
 		return
 	}
 	cb := makeTOnRenderLoadError(fn)
-	base.SetEvent(m, 173, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 195, cefApplicationCoreAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCefApplicationCore) AsIntfApplicationCoreEvents() uintptr {
@@ -3219,174 +3651,196 @@ func cefApplicationCoreAPI() *imports.Imports {
 			/* 3 */ imports.NewTable("TCefApplicationCore_StartSubProcess", 0), // function StartSubProcess
 			/* 4 */ imports.NewTable("TCefApplicationCore_ValidComponentID", 0), // function ValidComponentID
 			/* 5 */ imports.NewTable("TCefApplicationCore_NextComponentID", 0), // function NextComponentID
-			/* 6 */ imports.NewTable("TCefApplicationCore_AddCustomCommandLine", 0), // procedure AddCustomCommandLine
-			/* 7 */ imports.NewTable("TCefApplicationCore_DoMessageLoopWork", 0), // procedure DoMessageLoopWork
-			/* 8 */ imports.NewTable("TCefApplicationCore_RunMessageLoop", 0), // procedure RunMessageLoop
-			/* 9 */ imports.NewTable("TCefApplicationCore_QuitMessageLoop", 0), // procedure QuitMessageLoop
-			/* 10 */ imports.NewTable("TCefApplicationCore_UpdateDeviceScaleFactor", 0), // procedure UpdateDeviceScaleFactor
-			/* 11 */ imports.NewTable("TCefApplicationCore_InitLibLocationFromArgs", 0), // procedure InitLibLocationFromArgs
-			/* 12 */ imports.NewTable("TCefApplicationCore_RemoveComponentID", 0), // procedure RemoveComponentID
-			/* 13 */ imports.NewTable("TCefApplicationCore_NoSandbox", 0), // property NoSandbox
-			/* 14 */ imports.NewTable("TCefApplicationCore_BrowserSubprocessPath", 0), // property BrowserSubprocessPath
-			/* 15 */ imports.NewTable("TCefApplicationCore_FrameworkDirPath", 0), // property FrameworkDirPath
-			/* 16 */ imports.NewTable("TCefApplicationCore_MainBundlePath", 0), // property MainBundlePath
-			/* 17 */ imports.NewTable("TCefApplicationCore_ChromeRuntime", 0), // property ChromeRuntime
-			/* 18 */ imports.NewTable("TCefApplicationCore_MultiThreadedMessageLoop", 0), // property MultiThreadedMessageLoop
-			/* 19 */ imports.NewTable("TCefApplicationCore_ExternalMessagePump", 0), // property ExternalMessagePump
-			/* 20 */ imports.NewTable("TCefApplicationCore_WindowlessRenderingEnabled", 0), // property WindowlessRenderingEnabled
-			/* 21 */ imports.NewTable("TCefApplicationCore_CommandLineArgsDisabled", 0), // property CommandLineArgsDisabled
-			/* 22 */ imports.NewTable("TCefApplicationCore_Cache", 0), // property Cache
-			/* 23 */ imports.NewTable("TCefApplicationCore_RootCache", 0), // property RootCache
-			/* 24 */ imports.NewTable("TCefApplicationCore_PersistSessionCookies", 0), // property PersistSessionCookies
-			/* 25 */ imports.NewTable("TCefApplicationCore_PersistUserPreferences", 0), // property PersistUserPreferences
-			/* 26 */ imports.NewTable("TCefApplicationCore_UserAgent", 0), // property UserAgent
-			/* 27 */ imports.NewTable("TCefApplicationCore_UserAgentProduct", 0), // property UserAgentProduct
-			/* 28 */ imports.NewTable("TCefApplicationCore_Locale", 0), // property Locale
-			/* 29 */ imports.NewTable("TCefApplicationCore_LogFile", 0), // property LogFile
-			/* 30 */ imports.NewTable("TCefApplicationCore_LogSeverity", 0), // property LogSeverity
-			/* 31 */ imports.NewTable("TCefApplicationCore_LogItems", 0), // property LogItems
-			/* 32 */ imports.NewTable("TCefApplicationCore_JavaScriptFlags", 0), // property JavaScriptFlags
-			/* 33 */ imports.NewTable("TCefApplicationCore_ResourcesDirPath", 0), // property ResourcesDirPath
-			/* 34 */ imports.NewTable("TCefApplicationCore_LocalesDirPath", 0), // property LocalesDirPath
-			/* 35 */ imports.NewTable("TCefApplicationCore_PackLoadingDisabled", 0), // property PackLoadingDisabled
-			/* 36 */ imports.NewTable("TCefApplicationCore_RemoteDebuggingPort", 0), // property RemoteDebuggingPort
-			/* 37 */ imports.NewTable("TCefApplicationCore_UncaughtExceptionStackSize", 0), // property UncaughtExceptionStackSize
-			/* 38 */ imports.NewTable("TCefApplicationCore_BackgroundColor", 0), // property BackgroundColor
-			/* 39 */ imports.NewTable("TCefApplicationCore_AcceptLanguageList", 0), // property AcceptLanguageList
-			/* 40 */ imports.NewTable("TCefApplicationCore_CookieableSchemesList", 0), // property CookieableSchemesList
-			/* 41 */ imports.NewTable("TCefApplicationCore_CookieableSchemesExcludeDefaults", 0), // property CookieableSchemesExcludeDefaults
-			/* 42 */ imports.NewTable("TCefApplicationCore_ChromePolicyId", 0), // property ChromePolicyId
-			/* 43 */ imports.NewTable("TCefApplicationCore_ChromeAppIconId", 0), // property ChromeAppIconId
-			/* 44 */ imports.NewTable("TCefApplicationCore_SingleProcess", 0), // property SingleProcess
-			/* 45 */ imports.NewTable("TCefApplicationCore_EnableMediaStream", 0), // property EnableMediaStream
-			/* 46 */ imports.NewTable("TCefApplicationCore_EnableSpeechInput", 0), // property EnableSpeechInput
-			/* 47 */ imports.NewTable("TCefApplicationCore_UseFakeUIForMediaStream", 0), // property UseFakeUIForMediaStream
-			/* 48 */ imports.NewTable("TCefApplicationCore_EnableUsermediaScreenCapturing", 0), // property EnableUsermediaScreenCapturing
-			/* 49 */ imports.NewTable("TCefApplicationCore_EnableGPU", 0), // property EnableGPU
-			/* 50 */ imports.NewTable("TCefApplicationCore_EnableFeatures", 0), // property EnableFeatures
-			/* 51 */ imports.NewTable("TCefApplicationCore_DisableFeatures", 0), // property DisableFeatures
-			/* 52 */ imports.NewTable("TCefApplicationCore_EnableBlinkFeatures", 0), // property EnableBlinkFeatures
-			/* 53 */ imports.NewTable("TCefApplicationCore_DisableBlinkFeatures", 0), // property DisableBlinkFeatures
-			/* 54 */ imports.NewTable("TCefApplicationCore_BlinkSettings", 0), // property BlinkSettings
-			/* 55 */ imports.NewTable("TCefApplicationCore_ForceFieldTrials", 0), // property ForceFieldTrials
-			/* 56 */ imports.NewTable("TCefApplicationCore_ForceFieldTrialParams", 0), // property ForceFieldTrialParams
-			/* 57 */ imports.NewTable("TCefApplicationCore_SmoothScrolling", 0), // property SmoothScrolling
-			/* 58 */ imports.NewTable("TCefApplicationCore_MuteAudio", 0), // property MuteAudio
-			/* 59 */ imports.NewTable("TCefApplicationCore_SitePerProcess", 0), // property SitePerProcess
-			/* 60 */ imports.NewTable("TCefApplicationCore_DisableWebSecurity", 0), // property DisableWebSecurity
-			/* 61 */ imports.NewTable("TCefApplicationCore_DisablePDFExtension", 0), // property DisablePDFExtension
-			/* 62 */ imports.NewTable("TCefApplicationCore_DisableSiteIsolationTrials", 0), // property DisableSiteIsolationTrials
-			/* 63 */ imports.NewTable("TCefApplicationCore_DisableChromeLoginPrompt", 0), // property DisableChromeLoginPrompt
-			/* 64 */ imports.NewTable("TCefApplicationCore_DisableExtensions", 0), // property DisableExtensions
-			/* 65 */ imports.NewTable("TCefApplicationCore_AutoplayPolicy", 0), // property AutoplayPolicy
-			/* 66 */ imports.NewTable("TCefApplicationCore_DisableBackgroundNetworking", 0), // property DisableBackgroundNetworking
-			/* 67 */ imports.NewTable("TCefApplicationCore_MetricsRecordingOnly", 0), // property MetricsRecordingOnly
-			/* 68 */ imports.NewTable("TCefApplicationCore_AllowFileAccessFromFiles", 0), // property AllowFileAccessFromFiles
-			/* 69 */ imports.NewTable("TCefApplicationCore_AllowRunningInsecureContent", 0), // property AllowRunningInsecureContent
-			/* 70 */ imports.NewTable("TCefApplicationCore_EnablePrintPreview", 0), // property EnablePrintPreview
-			/* 71 */ imports.NewTable("TCefApplicationCore_DefaultEncoding", 0), // property DefaultEncoding
-			/* 72 */ imports.NewTable("TCefApplicationCore_DisableJavascript", 0), // property DisableJavascript
-			/* 73 */ imports.NewTable("TCefApplicationCore_DisableJavascriptCloseWindows", 0), // property DisableJavascriptCloseWindows
-			/* 74 */ imports.NewTable("TCefApplicationCore_DisableJavascriptAccessClipboard", 0), // property DisableJavascriptAccessClipboard
-			/* 75 */ imports.NewTable("TCefApplicationCore_DisableJavascriptDomPaste", 0), // property DisableJavascriptDomPaste
-			/* 76 */ imports.NewTable("TCefApplicationCore_AllowUniversalAccessFromFileUrls", 0), // property AllowUniversalAccessFromFileUrls
-			/* 77 */ imports.NewTable("TCefApplicationCore_DisableImageLoading", 0), // property DisableImageLoading
-			/* 78 */ imports.NewTable("TCefApplicationCore_ImageShrinkStandaloneToFit", 0), // property ImageShrinkStandaloneToFit
-			/* 79 */ imports.NewTable("TCefApplicationCore_DisableTextAreaResize", 0), // property DisableTextAreaResize
-			/* 80 */ imports.NewTable("TCefApplicationCore_DisableTabToLinks", 0), // property DisableTabToLinks
-			/* 81 */ imports.NewTable("TCefApplicationCore_EnableProfanityFilter", 0), // property EnableProfanityFilter
-			/* 82 */ imports.NewTable("TCefApplicationCore_DisableSpellChecking", 0), // property DisableSpellChecking
-			/* 83 */ imports.NewTable("TCefApplicationCore_OverrideSpellCheckLang", 0), // property OverrideSpellCheckLang
-			/* 84 */ imports.NewTable("TCefApplicationCore_TouchEvents", 0), // property TouchEvents
-			/* 85 */ imports.NewTable("TCefApplicationCore_DisableReadingFromCanvas", 0), // property DisableReadingFromCanvas
-			/* 86 */ imports.NewTable("TCefApplicationCore_HyperlinkAuditing", 0), // property HyperlinkAuditing
-			/* 87 */ imports.NewTable("TCefApplicationCore_DisableNewBrowserInfoTimeout", 0), // property DisableNewBrowserInfoTimeout
-			/* 88 */ imports.NewTable("TCefApplicationCore_DevToolsProtocolLogFile", 0), // property DevToolsProtocolLogFile
-			/* 89 */ imports.NewTable("TCefApplicationCore_ForcedDeviceScaleFactor", 0), // property ForcedDeviceScaleFactor
-			/* 90 */ imports.NewTable("TCefApplicationCore_DisableZygote", 0), // property DisableZygote
-			/* 91 */ imports.NewTable("TCefApplicationCore_UseMockKeyChain", 0), // property UseMockKeyChain
-			/* 92 */ imports.NewTable("TCefApplicationCore_DisableRequestHandlingForTesting", 0), // property DisableRequestHandlingForTesting
-			/* 93 */ imports.NewTable("TCefApplicationCore_DisablePopupBlocking", 0), // property DisablePopupBlocking
-			/* 94 */ imports.NewTable("TCefApplicationCore_DisableBackForwardCache", 0), // property DisableBackForwardCache
-			/* 95 */ imports.NewTable("TCefApplicationCore_DisableComponentUpdate", 0), // property DisableComponentUpdate
-			/* 96 */ imports.NewTable("TCefApplicationCore_AllowInsecureLocalhost", 0), // property AllowInsecureLocalhost
-			/* 97 */ imports.NewTable("TCefApplicationCore_KioskPrinting", 0), // property KioskPrinting
-			/* 98 */ imports.NewTable("TCefApplicationCore_TreatInsecureOriginAsSecure", 0), // property TreatInsecureOriginAsSecure
-			/* 99 */ imports.NewTable("TCefApplicationCore_NetLogEnabled", 0), // property NetLogEnabled
-			/* 100 */ imports.NewTable("TCefApplicationCore_NetLogFile", 0), // property NetLogFile
-			/* 101 */ imports.NewTable("TCefApplicationCore_NetLogCaptureMode", 0), // property NetLogCaptureMode
-			/* 102 */ imports.NewTable("TCefApplicationCore_RemoteAllowOrigins", 0), // property RemoteAllowOrigins
-			/* 103 */ imports.NewTable("TCefApplicationCore_AutoAcceptCamAndMicCapture", 0), // property AutoAcceptCamAndMicCapture
-			/* 104 */ imports.NewTable("TCefApplicationCore_UIColorMode", 0), // property UIColorMode
-			/* 105 */ imports.NewTable("TCefApplicationCore_DisableHangMonitor", 0), // property DisableHangMonitor
-			/* 106 */ imports.NewTable("TCefApplicationCore_HideCrashRestoreBubble", 0), // property HideCrashRestoreBubble
-			/* 107 */ imports.NewTable("TCefApplicationCore_IgnoreCertificateErrors", 0), // property IgnoreCertificateErrors
-			/* 108 */ imports.NewTable("TCefApplicationCore_WindowsSandboxInfo", 0), // property WindowsSandboxInfo
-			/* 109 */ imports.NewTable("TCefApplicationCore_argcCopy", 0), // property ArgcCopy
-			/* 110 */ imports.NewTable("TCefApplicationCore_argvCopy", 0), // property ArgvCopy
-			/* 111 */ imports.NewTable("TCefApplicationCore_DeleteCache", 0), // property DeleteCache
-			/* 112 */ imports.NewTable("TCefApplicationCore_DeleteCookies", 0), // property DeleteCookies
-			/* 113 */ imports.NewTable("TCefApplicationCore_CheckCEFFiles", 0), // property CheckCEFFiles
-			/* 114 */ imports.NewTable("TCefApplicationCore_ShowMessageDlg", 0), // property ShowMessageDlg
-			/* 115 */ imports.NewTable("TCefApplicationCore_MissingBinariesException", 0), // property MissingBinariesException
-			/* 116 */ imports.NewTable("TCefApplicationCore_SetCurrentDir", 0), // property SetCurrentDir
-			/* 117 */ imports.NewTable("TCefApplicationCore_GlobalContextInitialized", 0), // property GlobalContextInitialized
-			/* 118 */ imports.NewTable("TCefApplicationCore_ChromeMajorVer", 0), // property ChromeMajorVer
-			/* 119 */ imports.NewTable("TCefApplicationCore_ChromeMinorVer", 0), // property ChromeMinorVer
-			/* 120 */ imports.NewTable("TCefApplicationCore_ChromeRelease", 0), // property ChromeRelease
-			/* 121 */ imports.NewTable("TCefApplicationCore_ChromeBuild", 0), // property ChromeBuild
-			/* 122 */ imports.NewTable("TCefApplicationCore_ChromeVersion", 0), // property ChromeVersion
-			/* 123 */ imports.NewTable("TCefApplicationCore_LibCefVersion", 0), // property LibCefVersion
-			/* 124 */ imports.NewTable("TCefApplicationCore_LibCefPath", 0), // property LibCefPath
-			/* 125 */ imports.NewTable("TCefApplicationCore_ChromeElfPath", 0), // property ChromeElfPath
-			/* 126 */ imports.NewTable("TCefApplicationCore_LibLoaded", 0), // property LibLoaded
-			/* 127 */ imports.NewTable("TCefApplicationCore_LogProcessInfo", 0), // property LogProcessInfo
-			/* 128 */ imports.NewTable("TCefApplicationCore_ReRaiseExceptions", 0), // property ReRaiseExceptions
-			/* 129 */ imports.NewTable("TCefApplicationCore_DeviceScaleFactor", 0), // property DeviceScaleFactor
-			/* 130 */ imports.NewTable("TCefApplicationCore_LocalesRequired", 0), // property LocalesRequired
-			/* 131 */ imports.NewTable("TCefApplicationCore_ProcessType", 0), // property ProcessType
-			/* 132 */ imports.NewTable("TCefApplicationCore_MustCreateResourceBundleHandler", 0), // property MustCreateResourceBundleHandler
-			/* 133 */ imports.NewTable("TCefApplicationCore_MustCreateBrowserProcessHandler", 0), // property MustCreateBrowserProcessHandler
-			/* 134 */ imports.NewTable("TCefApplicationCore_MustCreateRenderProcessHandler", 0), // property MustCreateRenderProcessHandler
-			/* 135 */ imports.NewTable("TCefApplicationCore_MustCreateLoadHandler", 0), // property MustCreateLoadHandler
-			/* 136 */ imports.NewTable("TCefApplicationCore_OsmodalLoop", 0), // property OsmodalLoop
-			/* 137 */ imports.NewTable("TCefApplicationCore_Status", 0), // property Status
-			/* 138 */ imports.NewTable("TCefApplicationCore_MissingLibFiles", 0), // property MissingLibFiles
-			/* 139 */ imports.NewTable("TCefApplicationCore_MustFreeLibrary", 0), // property MustFreeLibrary
-			/* 140 */ imports.NewTable("TCefApplicationCore_ChildProcessesCount", 0), // property ChildProcessesCount
-			/* 141 */ imports.NewTable("TCefApplicationCore_UsedMemory", 0), // property UsedMemory
-			/* 142 */ imports.NewTable("TCefApplicationCore_TotalSystemMemory", 0), // property TotalSystemMemory
-			/* 143 */ imports.NewTable("TCefApplicationCore_AvailableSystemMemory", 0), // property AvailableSystemMemory
-			/* 144 */ imports.NewTable("TCefApplicationCore_SystemMemoryLoad", 0), // property SystemMemoryLoad
-			/* 145 */ imports.NewTable("TCefApplicationCore_ApiHashUniversal", 0), // property ApiHashUniversal
-			/* 146 */ imports.NewTable("TCefApplicationCore_ApiHashPlatform", 0), // property ApiHashPlatform
-			/* 147 */ imports.NewTable("TCefApplicationCore_ApiHashCommit", 0), // property ApiHashCommit
-			/* 148 */ imports.NewTable("TCefApplicationCore_ExitCode", 0), // property ExitCode
-			/* 149 */ imports.NewTable("TCefApplicationCore_LastErrorMessage", 0), // property LastErrorMessage
-			/* 150 */ imports.NewTable("TCefApplicationCore_XDisplay", 0), // property XDisplay
-			/* 151 */ imports.NewTable("TCefApplicationCore_OnRegCustomSchemes", 0), // event OnRegCustomSchemes
-			/* 152 */ imports.NewTable("TCefApplicationCore_OnRegisterCustomPreferences", 0), // event OnRegisterCustomPreferences
-			/* 153 */ imports.NewTable("TCefApplicationCore_OnContextInitialized", 0), // event OnContextInitialized
-			/* 154 */ imports.NewTable("TCefApplicationCore_OnBeforeChildProcessLaunch", 0), // event OnBeforeChildProcessLaunch
-			/* 155 */ imports.NewTable("TCefApplicationCore_OnAlreadyRunningAppRelaunch", 0), // event OnAlreadyRunningAppRelaunch
-			/* 156 */ imports.NewTable("TCefApplicationCore_OnScheduleMessagePumpWork", 0), // event OnScheduleMessagePumpWork
-			/* 157 */ imports.NewTable("TCefApplicationCore_OnGetDefaultClient", 0), // event OnGetDefaultClient
-			/* 158 */ imports.NewTable("TCefApplicationCore_OnGetDefaultRequestContextHandler", 0), // event OnGetDefaultRequestContextHandler
-			/* 159 */ imports.NewTable("TCefApplicationCore_OnGetLocalizedString", 0), // event OnGetLocalizedString
-			/* 160 */ imports.NewTable("TCefApplicationCore_OnGetDataResource", 0), // event OnGetDataResource
-			/* 161 */ imports.NewTable("TCefApplicationCore_OnGetDataResourceForScale", 0), // event OnGetDataResourceForScale
-			/* 162 */ imports.NewTable("TCefApplicationCore_OnWebKitInitialized", 0), // event OnWebKitInitialized
-			/* 163 */ imports.NewTable("TCefApplicationCore_OnBrowserCreated", 0), // event OnBrowserCreated
-			/* 164 */ imports.NewTable("TCefApplicationCore_OnBrowserDestroyed", 0), // event OnBrowserDestroyed
-			/* 165 */ imports.NewTable("TCefApplicationCore_OnContextCreated", 0), // event OnContextCreated
-			/* 166 */ imports.NewTable("TCefApplicationCore_OnContextReleased", 0), // event OnContextReleased
-			/* 167 */ imports.NewTable("TCefApplicationCore_OnUncaughtException", 0), // event OnUncaughtException
-			/* 168 */ imports.NewTable("TCefApplicationCore_OnFocusedNodeChanged", 0), // event OnFocusedNodeChanged
-			/* 169 */ imports.NewTable("TCefApplicationCore_OnProcessMessageReceived", 0), // event OnProcessMessageReceived
-			/* 170 */ imports.NewTable("TCefApplicationCore_OnLoadingStateChange", 0), // event OnLoadingStateChange
-			/* 171 */ imports.NewTable("TCefApplicationCore_OnLoadStart", 0), // event OnLoadStart
-			/* 172 */ imports.NewTable("TCefApplicationCore_OnLoadEnd", 0), // event OnLoadEnd
-			/* 173 */ imports.NewTable("TCefApplicationCore_OnLoadError", 0), // event OnLoadError
+			/* 6 */ imports.NewTable("TCefApplicationCore_DumpWithoutCrashing", 0), // function DumpWithoutCrashing
+			/* 7 */ imports.NewTable("TCefApplicationCore_GetCEFVersionInfo", 0), // function GetCEFVersionInfo
+			/* 8 */ imports.NewTable("TCefApplicationCore_GetChromiumVersionInfo", 0), // function GetChromiumVersionInfo
+			/* 9 */ imports.NewTable("TCefApplicationCore_GetIdForPackResourceName", 0), // function GetIdForPackResourceName
+			/* 10 */ imports.NewTable("TCefApplicationCore_GetIdForPackStringName", 0), // function GetIdForPackStringName
+			/* 11 */ imports.NewTable("TCefApplicationCore_GetIdForCommandIdName", 0), // function GetIdForCommandIdName
+			/* 12 */ imports.NewTable("TCefApplicationCore_AddCustomCommandLine", 0), // procedure AddCustomCommandLine
+			/* 13 */ imports.NewTable("TCefApplicationCore_DoMessageLoopWork", 0), // procedure DoMessageLoopWork
+			/* 14 */ imports.NewTable("TCefApplicationCore_RunMessageLoop", 0), // procedure RunMessageLoop
+			/* 15 */ imports.NewTable("TCefApplicationCore_QuitMessageLoop", 0), // procedure QuitMessageLoop
+			/* 16 */ imports.NewTable("TCefApplicationCore_SetNestableTasksAllowed", 0), // procedure SetNestableTasksAllowed
+			/* 17 */ imports.NewTable("TCefApplicationCore_UpdateDeviceScaleFactor", 0), // procedure UpdateDeviceScaleFactor
+			/* 18 */ imports.NewTable("TCefApplicationCore_InitLibLocationFromArgs", 0), // procedure InitLibLocationFromArgs
+			/* 19 */ imports.NewTable("TCefApplicationCore_RemoveComponentID", 0), // procedure RemoveComponentID
+			/* 20 */ imports.NewTable("TCefApplicationCore_NoSandbox", 0), // property NoSandbox
+			/* 21 */ imports.NewTable("TCefApplicationCore_BrowserSubprocessPath", 0), // property BrowserSubprocessPath
+			/* 22 */ imports.NewTable("TCefApplicationCore_FrameworkDirPath", 0), // property FrameworkDirPath
+			/* 23 */ imports.NewTable("TCefApplicationCore_MainBundlePath", 0), // property MainBundlePath
+			/* 24 */ imports.NewTable("TCefApplicationCore_MultiThreadedMessageLoop", 0), // property MultiThreadedMessageLoop
+			/* 25 */ imports.NewTable("TCefApplicationCore_ExternalMessagePump", 0), // property ExternalMessagePump
+			/* 26 */ imports.NewTable("TCefApplicationCore_WindowlessRenderingEnabled", 0), // property WindowlessRenderingEnabled
+			/* 27 */ imports.NewTable("TCefApplicationCore_CommandLineArgsDisabled", 0), // property CommandLineArgsDisabled
+			/* 28 */ imports.NewTable("TCefApplicationCore_Cache", 0), // property Cache
+			/* 29 */ imports.NewTable("TCefApplicationCore_RootCache", 0), // property RootCache
+			/* 30 */ imports.NewTable("TCefApplicationCore_PersistSessionCookies", 0), // property PersistSessionCookies
+			/* 31 */ imports.NewTable("TCefApplicationCore_UserAgent", 0), // property UserAgent
+			/* 32 */ imports.NewTable("TCefApplicationCore_UserAgentProduct", 0), // property UserAgentProduct
+			/* 33 */ imports.NewTable("TCefApplicationCore_Locale", 0), // property Locale
+			/* 34 */ imports.NewTable("TCefApplicationCore_LogFile", 0), // property LogFile
+			/* 35 */ imports.NewTable("TCefApplicationCore_LogSeverity", 0), // property LogSeverity
+			/* 36 */ imports.NewTable("TCefApplicationCore_LogItems", 0), // property LogItems
+			/* 37 */ imports.NewTable("TCefApplicationCore_JavaScriptFlags", 0), // property JavaScriptFlags
+			/* 38 */ imports.NewTable("TCefApplicationCore_ResourcesDirPath", 0), // property ResourcesDirPath
+			/* 39 */ imports.NewTable("TCefApplicationCore_LocalesDirPath", 0), // property LocalesDirPath
+			/* 40 */ imports.NewTable("TCefApplicationCore_RemoteDebuggingPort", 0), // property RemoteDebuggingPort
+			/* 41 */ imports.NewTable("TCefApplicationCore_UncaughtExceptionStackSize", 0), // property UncaughtExceptionStackSize
+			/* 42 */ imports.NewTable("TCefApplicationCore_BackgroundColor", 0), // property BackgroundColor
+			/* 43 */ imports.NewTable("TCefApplicationCore_AcceptLanguageList", 0), // property AcceptLanguageList
+			/* 44 */ imports.NewTable("TCefApplicationCore_CookieableSchemesList", 0), // property CookieableSchemesList
+			/* 45 */ imports.NewTable("TCefApplicationCore_CookieableSchemesExcludeDefaults", 0), // property CookieableSchemesExcludeDefaults
+			/* 46 */ imports.NewTable("TCefApplicationCore_ChromePolicyId", 0), // property ChromePolicyId
+			/* 47 */ imports.NewTable("TCefApplicationCore_ChromeAppIconId", 0), // property ChromeAppIconId
+			/* 48 */ imports.NewTable("TCefApplicationCore_DisableSignalHandlers", 0), // property DisableSignalHandlers
+			/* 49 */ imports.NewTable("TCefApplicationCore_UseViewsDefaultPopup", 0), // property UseViewsDefaultPopup
+			/* 50 */ imports.NewTable("TCefApplicationCore_SingleProcess", 0), // property SingleProcess
+			/* 51 */ imports.NewTable("TCefApplicationCore_EnableMediaStream", 0), // property EnableMediaStream
+			/* 52 */ imports.NewTable("TCefApplicationCore_EnableSpeechInput", 0), // property EnableSpeechInput
+			/* 53 */ imports.NewTable("TCefApplicationCore_UseFakeUIForMediaStream", 0), // property UseFakeUIForMediaStream
+			/* 54 */ imports.NewTable("TCefApplicationCore_EnableUsermediaScreenCapturing", 0), // property EnableUsermediaScreenCapturing
+			/* 55 */ imports.NewTable("TCefApplicationCore_EnableGPU", 0), // property EnableGPU
+			/* 56 */ imports.NewTable("TCefApplicationCore_EnableFeatures", 0), // property EnableFeatures
+			/* 57 */ imports.NewTable("TCefApplicationCore_DisableFeatures", 0), // property DisableFeatures
+			/* 58 */ imports.NewTable("TCefApplicationCore_EnableBlinkFeatures", 0), // property EnableBlinkFeatures
+			/* 59 */ imports.NewTable("TCefApplicationCore_DisableBlinkFeatures", 0), // property DisableBlinkFeatures
+			/* 60 */ imports.NewTable("TCefApplicationCore_BlinkSettings", 0), // property BlinkSettings
+			/* 61 */ imports.NewTable("TCefApplicationCore_ForceFieldTrials", 0), // property ForceFieldTrials
+			/* 62 */ imports.NewTable("TCefApplicationCore_ForceFieldTrialParams", 0), // property ForceFieldTrialParams
+			/* 63 */ imports.NewTable("TCefApplicationCore_SmoothScrolling", 0), // property SmoothScrolling
+			/* 64 */ imports.NewTable("TCefApplicationCore_MuteAudio", 0), // property MuteAudio
+			/* 65 */ imports.NewTable("TCefApplicationCore_SitePerProcess", 0), // property SitePerProcess
+			/* 66 */ imports.NewTable("TCefApplicationCore_DisableWebSecurity", 0), // property DisableWebSecurity
+			/* 67 */ imports.NewTable("TCefApplicationCore_DisablePDFExtension", 0), // property DisablePDFExtension
+			/* 68 */ imports.NewTable("TCefApplicationCore_DisableSiteIsolationTrials", 0), // property DisableSiteIsolationTrials
+			/* 69 */ imports.NewTable("TCefApplicationCore_DisableChromeLoginPrompt", 0), // property DisableChromeLoginPrompt
+			/* 70 */ imports.NewTable("TCefApplicationCore_DisableExtensions", 0), // property DisableExtensions
+			/* 71 */ imports.NewTable("TCefApplicationCore_AutoplayPolicy", 0), // property AutoplayPolicy
+			/* 72 */ imports.NewTable("TCefApplicationCore_DisableBackgroundNetworking", 0), // property DisableBackgroundNetworking
+			/* 73 */ imports.NewTable("TCefApplicationCore_MetricsRecordingOnly", 0), // property MetricsRecordingOnly
+			/* 74 */ imports.NewTable("TCefApplicationCore_AllowFileAccessFromFiles", 0), // property AllowFileAccessFromFiles
+			/* 75 */ imports.NewTable("TCefApplicationCore_AllowRunningInsecureContent", 0), // property AllowRunningInsecureContent
+			/* 76 */ imports.NewTable("TCefApplicationCore_EnablePrintPreview", 0), // property EnablePrintPreview
+			/* 77 */ imports.NewTable("TCefApplicationCore_DefaultEncoding", 0), // property DefaultEncoding
+			/* 78 */ imports.NewTable("TCefApplicationCore_DisableJavascript", 0), // property DisableJavascript
+			/* 79 */ imports.NewTable("TCefApplicationCore_DisableJavascriptCloseWindows", 0), // property DisableJavascriptCloseWindows
+			/* 80 */ imports.NewTable("TCefApplicationCore_DisableJavascriptAccessClipboard", 0), // property DisableJavascriptAccessClipboard
+			/* 81 */ imports.NewTable("TCefApplicationCore_DisableJavascriptDomPaste", 0), // property DisableJavascriptDomPaste
+			/* 82 */ imports.NewTable("TCefApplicationCore_AllowUniversalAccessFromFileUrls", 0), // property AllowUniversalAccessFromFileUrls
+			/* 83 */ imports.NewTable("TCefApplicationCore_DisableImageLoading", 0), // property DisableImageLoading
+			/* 84 */ imports.NewTable("TCefApplicationCore_ImageShrinkStandaloneToFit", 0), // property ImageShrinkStandaloneToFit
+			/* 85 */ imports.NewTable("TCefApplicationCore_DisableTextAreaResize", 0), // property DisableTextAreaResize
+			/* 86 */ imports.NewTable("TCefApplicationCore_DisableTabToLinks", 0), // property DisableTabToLinks
+			/* 87 */ imports.NewTable("TCefApplicationCore_EnableProfanityFilter", 0), // property EnableProfanityFilter
+			/* 88 */ imports.NewTable("TCefApplicationCore_DisableSpellChecking", 0), // property DisableSpellChecking
+			/* 89 */ imports.NewTable("TCefApplicationCore_OverrideSpellCheckLang", 0), // property OverrideSpellCheckLang
+			/* 90 */ imports.NewTable("TCefApplicationCore_TouchEvents", 0), // property TouchEvents
+			/* 91 */ imports.NewTable("TCefApplicationCore_DisableReadingFromCanvas", 0), // property DisableReadingFromCanvas
+			/* 92 */ imports.NewTable("TCefApplicationCore_HyperlinkAuditing", 0), // property HyperlinkAuditing
+			/* 93 */ imports.NewTable("TCefApplicationCore_DisableNewBrowserInfoTimeout", 0), // property DisableNewBrowserInfoTimeout
+			/* 94 */ imports.NewTable("TCefApplicationCore_DevToolsProtocolLogFile", 0), // property DevToolsProtocolLogFile
+			/* 95 */ imports.NewTable("TCefApplicationCore_ForcedDeviceScaleFactor", 0), // property ForcedDeviceScaleFactor
+			/* 96 */ imports.NewTable("TCefApplicationCore_DisableZygote", 0), // property DisableZygote
+			/* 97 */ imports.NewTable("TCefApplicationCore_UseMockKeyChain", 0), // property UseMockKeyChain
+			/* 98 */ imports.NewTable("TCefApplicationCore_DisableRequestHandlingForTesting", 0), // property DisableRequestHandlingForTesting
+			/* 99 */ imports.NewTable("TCefApplicationCore_DisablePopupBlocking", 0), // property DisablePopupBlocking
+			/* 100 */ imports.NewTable("TCefApplicationCore_DisableBackForwardCache", 0), // property DisableBackForwardCache
+			/* 101 */ imports.NewTable("TCefApplicationCore_DisableComponentUpdate", 0), // property DisableComponentUpdate
+			/* 102 */ imports.NewTable("TCefApplicationCore_AllowInsecureLocalhost", 0), // property AllowInsecureLocalhost
+			/* 103 */ imports.NewTable("TCefApplicationCore_KioskPrinting", 0), // property KioskPrinting
+			/* 104 */ imports.NewTable("TCefApplicationCore_TreatInsecureOriginAsSecure", 0), // property TreatInsecureOriginAsSecure
+			/* 105 */ imports.NewTable("TCefApplicationCore_NetLogEnabled", 0), // property NetLogEnabled
+			/* 106 */ imports.NewTable("TCefApplicationCore_NetLogFile", 0), // property NetLogFile
+			/* 107 */ imports.NewTable("TCefApplicationCore_NetLogCaptureMode", 0), // property NetLogCaptureMode
+			/* 108 */ imports.NewTable("TCefApplicationCore_RemoteAllowOrigins", 0), // property RemoteAllowOrigins
+			/* 109 */ imports.NewTable("TCefApplicationCore_AutoAcceptCamAndMicCapture", 0), // property AutoAcceptCamAndMicCapture
+			/* 110 */ imports.NewTable("TCefApplicationCore_UIColorMode", 0), // property UIColorMode
+			/* 111 */ imports.NewTable("TCefApplicationCore_DisableHangMonitor", 0), // property DisableHangMonitor
+			/* 112 */ imports.NewTable("TCefApplicationCore_HideCrashRestoreBubble", 0), // property HideCrashRestoreBubble
+			/* 113 */ imports.NewTable("TCefApplicationCore_TLS13HybridizedKyberSupport", 0), // property TLS13HybridizedKyberSupport
+			/* 114 */ imports.NewTable("TCefApplicationCore_ProxySettings", 0), // property ProxySettings
+			/* 115 */ imports.NewTable("TCefApplicationCore_FieldTrialConfig", 0), // property FieldTrialConfig
+			/* 116 */ imports.NewTable("TCefApplicationCore_DoNotDeElevate", 0), // property DoNotDeElevate
+			/* 117 */ imports.NewTable("TCefApplicationCore_NoDefaultBrowserCheck", 0), // property NoDefaultBrowserCheck
+			/* 118 */ imports.NewTable("TCefApplicationCore_NoFirstRun", 0), // property NoFirstRun
+			/* 119 */ imports.NewTable("TCefApplicationCore_EnableAutomation", 0), // property EnableAutomation
+			/* 120 */ imports.NewTable("TCefApplicationCore_PasswordStorage", 0), // property PasswordStorage
+			/* 121 */ imports.NewTable("TCefApplicationCore_GTKVersion", 0), // property GTKVersion
+			/* 122 */ imports.NewTable("TCefApplicationCore_OzonePlatform", 0), // property OzonePlatform
+			/* 123 */ imports.NewTable("TCefApplicationCore_DisplayServer", 0), // property DisplayServer
+			/* 124 */ imports.NewTable("TCefApplicationCore_IgnoreCertificateErrors", 0), // property IgnoreCertificateErrors
+			/* 125 */ imports.NewTable("TCefApplicationCore_WindowsSandboxInfo", 0), // property WindowsSandboxInfo
+			/* 126 */ imports.NewTable("TCefApplicationCore_argcCopy", 0), // property ArgcCopy
+			/* 127 */ imports.NewTable("TCefApplicationCore_argvCopy", 0), // property ArgvCopy
+			/* 128 */ imports.NewTable("TCefApplicationCore_DeleteCache", 0), // property DeleteCache
+			/* 129 */ imports.NewTable("TCefApplicationCore_DeleteCookies", 0), // property DeleteCookies
+			/* 130 */ imports.NewTable("TCefApplicationCore_CheckCEFFiles", 0), // property CheckCEFFiles
+			/* 131 */ imports.NewTable("TCefApplicationCore_ShowMessageDlg", 0), // property ShowMessageDlg
+			/* 132 */ imports.NewTable("TCefApplicationCore_MissingBinariesException", 0), // property MissingBinariesException
+			/* 133 */ imports.NewTable("TCefApplicationCore_SetCurrentDir", 0), // property SetCurrentDir
+			/* 134 */ imports.NewTable("TCefApplicationCore_GlobalContextInitialized", 0), // property GlobalContextInitialized
+			/* 135 */ imports.NewTable("TCefApplicationCore_ChromeMajorVer", 0), // property ChromeMajorVer
+			/* 136 */ imports.NewTable("TCefApplicationCore_ChromeMinorVer", 0), // property ChromeMinorVer
+			/* 137 */ imports.NewTable("TCefApplicationCore_ChromeRelease", 0), // property ChromeRelease
+			/* 138 */ imports.NewTable("TCefApplicationCore_ChromeBuild", 0), // property ChromeBuild
+			/* 139 */ imports.NewTable("TCefApplicationCore_ChromeVersion", 0), // property ChromeVersion
+			/* 140 */ imports.NewTable("TCefApplicationCore_LibCefVersion", 0), // property LibCefVersion
+			/* 141 */ imports.NewTable("TCefApplicationCore_LibCefPath", 0), // property LibCefPath
+			/* 142 */ imports.NewTable("TCefApplicationCore_ChromeElfPath", 0), // property ChromeElfPath
+			/* 143 */ imports.NewTable("TCefApplicationCore_LibLoaded", 0), // property LibLoaded
+			/* 144 */ imports.NewTable("TCefApplicationCore_LogProcessInfo", 0), // property LogProcessInfo
+			/* 145 */ imports.NewTable("TCefApplicationCore_ReRaiseExceptions", 0), // property ReRaiseExceptions
+			/* 146 */ imports.NewTable("TCefApplicationCore_DeviceScaleFactor", 0), // property DeviceScaleFactor
+			/* 147 */ imports.NewTable("TCefApplicationCore_LocalesRequired", 0), // property LocalesRequired
+			/* 148 */ imports.NewTable("TCefApplicationCore_ProcessType", 0), // property ProcessType
+			/* 149 */ imports.NewTable("TCefApplicationCore_MustCreateResourceBundleHandler", 0), // property MustCreateResourceBundleHandler
+			/* 150 */ imports.NewTable("TCefApplicationCore_MustCreateBrowserProcessHandler", 0), // property MustCreateBrowserProcessHandler
+			/* 151 */ imports.NewTable("TCefApplicationCore_MustCreateRenderProcessHandler", 0), // property MustCreateRenderProcessHandler
+			/* 152 */ imports.NewTable("TCefApplicationCore_MustCreateLoadHandler", 0), // property MustCreateLoadHandler
+			/* 153 */ imports.NewTable("TCefApplicationCore_OsmodalLoop", 0), // property OsmodalLoop
+			/* 154 */ imports.NewTable("TCefApplicationCore_Status", 0), // property Status
+			/* 155 */ imports.NewTable("TCefApplicationCore_MissingLibFiles", 0), // property MissingLibFiles
+			/* 156 */ imports.NewTable("TCefApplicationCore_MustFreeLibrary", 0), // property MustFreeLibrary
+			/* 157 */ imports.NewTable("TCefApplicationCore_ChildProcessesCount", 0), // property ChildProcessesCount
+			/* 158 */ imports.NewTable("TCefApplicationCore_UsedMemory", 0), // property UsedMemory
+			/* 159 */ imports.NewTable("TCefApplicationCore_TotalSystemMemory", 0), // property TotalSystemMemory
+			/* 160 */ imports.NewTable("TCefApplicationCore_AvailableSystemMemory", 0), // property AvailableSystemMemory
+			/* 161 */ imports.NewTable("TCefApplicationCore_SystemMemoryLoad", 0), // property SystemMemoryLoad
+			/* 162 */ imports.NewTable("TCefApplicationCore_ApiHashPlatform", 0), // property ApiHashPlatform
+			/* 163 */ imports.NewTable("TCefApplicationCore_ApiHashCommit", 0), // property ApiHashCommit
+			/* 164 */ imports.NewTable("TCefApplicationCore_ApiVersion", 0), // property ApiVersion
+			/* 165 */ imports.NewTable("TCefApplicationCore_ExitCode", 0), // property ExitCode
+			/* 166 */ imports.NewTable("TCefApplicationCore_BrowserById", 0), // property BrowserById
+			/* 167 */ imports.NewTable("TCefApplicationCore_LastErrorMessage", 0), // property LastErrorMessage
+			/* 168 */ imports.NewTable("TCefApplicationCore_SharedTextureEnabled", 0), // property SharedTextureEnabled
+			/* 169 */ imports.NewTable("TCefApplicationCore_ExternalBeginFrameEnabled", 0), // property ExternalBeginFrameEnabled
+			/* 170 */ imports.NewTable("TCefApplicationCore_UseGL", 0), // property UseGL
+			/* 171 */ imports.NewTable("TCefApplicationCore_UseAngle", 0), // property UseAngle
+			/* 172 */ imports.NewTable("TCefApplicationCore_XDisplay", 0), // property XDisplay
+			/* 173 */ imports.NewTable("TCefApplicationCore_OnRegCustomSchemes", 0), // event OnRegCustomSchemes
+			/* 174 */ imports.NewTable("TCefApplicationCore_OnRegisterCustomPreferences", 0), // event OnRegisterCustomPreferences
+			/* 175 */ imports.NewTable("TCefApplicationCore_OnContextInitialized", 0), // event OnContextInitialized
+			/* 176 */ imports.NewTable("TCefApplicationCore_OnBeforeChildProcessLaunch", 0), // event OnBeforeChildProcessLaunch
+			/* 177 */ imports.NewTable("TCefApplicationCore_OnAlreadyRunningAppRelaunch", 0), // event OnAlreadyRunningAppRelaunch
+			/* 178 */ imports.NewTable("TCefApplicationCore_OnScheduleMessagePumpWork", 0), // event OnScheduleMessagePumpWork
+			/* 179 */ imports.NewTable("TCefApplicationCore_OnGetDefaultClient", 0), // event OnGetDefaultClient
+			/* 180 */ imports.NewTable("TCefApplicationCore_OnGetDefaultRequestContextHandler", 0), // event OnGetDefaultRequestContextHandler
+			/* 181 */ imports.NewTable("TCefApplicationCore_OnGetLocalizedString", 0), // event OnGetLocalizedString
+			/* 182 */ imports.NewTable("TCefApplicationCore_OnGetDataResource", 0), // event OnGetDataResource
+			/* 183 */ imports.NewTable("TCefApplicationCore_OnGetDataResourceForScale", 0), // event OnGetDataResourceForScale
+			/* 184 */ imports.NewTable("TCefApplicationCore_OnWebKitInitialized", 0), // event OnWebKitInitialized
+			/* 185 */ imports.NewTable("TCefApplicationCore_OnBrowserCreated", 0), // event OnBrowserCreated
+			/* 186 */ imports.NewTable("TCefApplicationCore_OnBrowserDestroyed", 0), // event OnBrowserDestroyed
+			/* 187 */ imports.NewTable("TCefApplicationCore_OnContextCreated", 0), // event OnContextCreated
+			/* 188 */ imports.NewTable("TCefApplicationCore_OnContextReleased", 0), // event OnContextReleased
+			/* 189 */ imports.NewTable("TCefApplicationCore_OnUncaughtException", 0), // event OnUncaughtException
+			/* 190 */ imports.NewTable("TCefApplicationCore_OnFocusedNodeChanged", 0), // event OnFocusedNodeChanged
+			/* 191 */ imports.NewTable("TCefApplicationCore_OnProcessMessageReceived", 0), // event OnProcessMessageReceived
+			/* 192 */ imports.NewTable("TCefApplicationCore_OnLoadingStateChange", 0), // event OnLoadingStateChange
+			/* 193 */ imports.NewTable("TCefApplicationCore_OnLoadStart", 0), // event OnLoadStart
+			/* 194 */ imports.NewTable("TCefApplicationCore_OnLoadEnd", 0), // event OnLoadEnd
+			/* 195 */ imports.NewTable("TCefApplicationCore_OnLoadError", 0), // event OnLoadError
 		}
 	})
 	return cefApplicationCoreImport

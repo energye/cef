@@ -183,6 +183,12 @@ type ICEFWindowComponent interface {
 	//  Do not call this function from ICefWindowDelegate.OnThemeColorsChanged
 	//  or ICefViewDelegate.OnThemeChanged.
 	ThemeChanged() // procedure
+	// FocusedView
+	//  Returns the View that currently has focus in this Window, or nullptr if no
+	//  View currently has focus. A Window may have a focused View even if it is
+	//  not currently active. Any focus changes while a Window is not active may
+	//  be applied after that Window next becomes active.
+	FocusedView() ICefView // property FocusedView Getter
 	// Title
 	//  Get the Window title.
 	Title() string         // property Title Getter
@@ -256,6 +262,7 @@ type ICEFWindowComponent interface {
 	SetOnKeyEvent(fn TOnWindowKeyEventEvent)                               // property event
 	SetOnThemeColorsChanged(fn TOnThemeColorsChangedEvent)                 // property event
 	SetOnGetWindowRuntimeStyle(fn TOnGetWindowRuntimeStyleEvent)           // property event
+	SetOnGetLinuxWindowProperties(fn TOnGetLinuxWindowPropertiesEvent)     // property event
 	AsIntfWindowDelegateEvents() uintptr
 	AsIntfPanelDelegateEvents() uintptr
 	AsIntfViewDelegateEvents() uintptr
@@ -436,12 +443,22 @@ func (m *TCEFWindowComponent) ThemeChanged() {
 	cEFWindowComponentAPI().SysCallN(24, m.Instance())
 }
 
+func (m *TCEFWindowComponent) FocusedView() (result ICefView) {
+	if !m.IsValid() {
+		return
+	}
+	var resultPtr uintptr
+	cEFWindowComponentAPI().SysCallN(25, m.Instance(), uintptr(base.UnsafePointer(&resultPtr)))
+	result = AsCefViewRef(resultPtr)
+	return
+}
+
 func (m *TCEFWindowComponent) Title() (result string) {
 	if !m.IsValid() {
 		return
 	}
 	strBuf := api.NewStringBuffer(0, 0)
-	cEFWindowComponentAPI().SysCallN(25, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
+	cEFWindowComponentAPI().SysCallN(26, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&strBuf.Data)), uintptr(base.UnsafePointer(&strBuf.Size)))
 	defer strBuf.Release()
 	result = strBuf.String()
 	return
@@ -451,27 +468,10 @@ func (m *TCEFWindowComponent) SetTitle(value string) {
 	if !m.IsValid() {
 		return
 	}
-	cEFWindowComponentAPI().SysCallN(25, 1, m.Instance(), api.PasStr(value))
+	cEFWindowComponentAPI().SysCallN(26, 1, m.Instance(), api.PasStr(value))
 }
 
 func (m *TCEFWindowComponent) WindowIcon() (result ICefImage) {
-	if !m.IsValid() {
-		return
-	}
-	var resultPtr uintptr
-	cEFWindowComponentAPI().SysCallN(26, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&resultPtr)))
-	result = AsCefImageRef(resultPtr)
-	return
-}
-
-func (m *TCEFWindowComponent) SetWindowIcon(value ICefImage) {
-	if !m.IsValid() {
-		return
-	}
-	cEFWindowComponentAPI().SysCallN(26, 1, m.Instance(), base.GetObjectUintptr(value))
-}
-
-func (m *TCEFWindowComponent) WindowAppIcon() (result ICefImage) {
 	if !m.IsValid() {
 		return
 	}
@@ -481,11 +481,28 @@ func (m *TCEFWindowComponent) WindowAppIcon() (result ICefImage) {
 	return
 }
 
-func (m *TCEFWindowComponent) SetWindowAppIcon(value ICefImage) {
+func (m *TCEFWindowComponent) SetWindowIcon(value ICefImage) {
 	if !m.IsValid() {
 		return
 	}
 	cEFWindowComponentAPI().SysCallN(27, 1, m.Instance(), base.GetObjectUintptr(value))
+}
+
+func (m *TCEFWindowComponent) WindowAppIcon() (result ICefImage) {
+	if !m.IsValid() {
+		return
+	}
+	var resultPtr uintptr
+	cEFWindowComponentAPI().SysCallN(28, 0, m.Instance(), 0, uintptr(base.UnsafePointer(&resultPtr)))
+	result = AsCefImageRef(resultPtr)
+	return
+}
+
+func (m *TCEFWindowComponent) SetWindowAppIcon(value ICefImage) {
+	if !m.IsValid() {
+		return
+	}
+	cEFWindowComponentAPI().SysCallN(28, 1, m.Instance(), base.GetObjectUintptr(value))
 }
 
 func (m *TCEFWindowComponent) Display() (result ICefDisplay) {
@@ -493,7 +510,7 @@ func (m *TCEFWindowComponent) Display() (result ICefDisplay) {
 		return
 	}
 	var resultPtr uintptr
-	cEFWindowComponentAPI().SysCallN(28, m.Instance(), uintptr(base.UnsafePointer(&resultPtr)))
+	cEFWindowComponentAPI().SysCallN(29, m.Instance(), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefDisplayRef(resultPtr)
 	return
 }
@@ -502,7 +519,7 @@ func (m *TCEFWindowComponent) ClientAreaBoundsInScreen() (result TCefRect) {
 	if !m.IsValid() {
 		return
 	}
-	cEFWindowComponentAPI().SysCallN(29, m.Instance(), uintptr(base.UnsafePointer(&result)))
+	cEFWindowComponentAPI().SysCallN(30, m.Instance(), uintptr(base.UnsafePointer(&result)))
 	return
 }
 
@@ -510,7 +527,7 @@ func (m *TCEFWindowComponent) WindowHandle() cefTypes.TCefWindowHandle {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cEFWindowComponentAPI().SysCallN(30, m.Instance())
+	r := cEFWindowComponentAPI().SysCallN(31, m.Instance())
 	return cefTypes.TCefWindowHandle(r)
 }
 
@@ -518,7 +535,7 @@ func (m *TCEFWindowComponent) IsClosed() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cEFWindowComponentAPI().SysCallN(31, m.Instance())
+	r := cEFWindowComponentAPI().SysCallN(32, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -526,7 +543,7 @@ func (m *TCEFWindowComponent) IsActive() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cEFWindowComponentAPI().SysCallN(32, m.Instance())
+	r := cEFWindowComponentAPI().SysCallN(33, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -534,7 +551,7 @@ func (m *TCEFWindowComponent) IsAlwaysOnTop() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cEFWindowComponentAPI().SysCallN(33, 0, m.Instance())
+	r := cEFWindowComponentAPI().SysCallN(34, 0, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -542,14 +559,14 @@ func (m *TCEFWindowComponent) SetIsAlwaysOnTop(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	cEFWindowComponentAPI().SysCallN(33, 1, m.Instance(), api.PasBool(value))
+	cEFWindowComponentAPI().SysCallN(34, 1, m.Instance(), api.PasBool(value))
 }
 
 func (m *TCEFWindowComponent) IsFullscreen() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cEFWindowComponentAPI().SysCallN(34, 0, m.Instance())
+	r := cEFWindowComponentAPI().SysCallN(35, 0, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -557,18 +574,10 @@ func (m *TCEFWindowComponent) SetIsFullscreen(value bool) {
 	if !m.IsValid() {
 		return
 	}
-	cEFWindowComponentAPI().SysCallN(34, 1, m.Instance(), api.PasBool(value))
+	cEFWindowComponentAPI().SysCallN(35, 1, m.Instance(), api.PasBool(value))
 }
 
 func (m *TCEFWindowComponent) IsMaximized() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cEFWindowComponentAPI().SysCallN(35, m.Instance())
-	return api.GoBool(r)
-}
-
-func (m *TCEFWindowComponent) IsMinimized() bool {
 	if !m.IsValid() {
 		return false
 	}
@@ -576,11 +585,19 @@ func (m *TCEFWindowComponent) IsMinimized() bool {
 	return api.GoBool(r)
 }
 
+func (m *TCEFWindowComponent) IsMinimized() bool {
+	if !m.IsValid() {
+		return false
+	}
+	r := cEFWindowComponentAPI().SysCallN(37, m.Instance())
+	return api.GoBool(r)
+}
+
 func (m *TCEFWindowComponent) RuntimeStyle() cefTypes.TCefRuntimeStyle {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cEFWindowComponentAPI().SysCallN(37, m.Instance())
+	r := cEFWindowComponentAPI().SysCallN(38, m.Instance())
 	return cefTypes.TCefRuntimeStyle(r)
 }
 
@@ -589,7 +606,7 @@ func (m *TCEFWindowComponent) SetOnWindowCreated(fn TOnWindowCreatedEvent) {
 		return
 	}
 	cb := makeTOnWindowCreatedEvent(fn)
-	base.SetEvent(m, 38, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 39, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFWindowComponent) SetOnWindowClosing(fn TOnWindowClosingEvent) {
@@ -597,7 +614,7 @@ func (m *TCEFWindowComponent) SetOnWindowClosing(fn TOnWindowClosingEvent) {
 		return
 	}
 	cb := makeTOnWindowClosingEvent(fn)
-	base.SetEvent(m, 39, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 40, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFWindowComponent) SetOnWindowDestroyed(fn TOnWindowDestroyedEvent) {
@@ -605,7 +622,7 @@ func (m *TCEFWindowComponent) SetOnWindowDestroyed(fn TOnWindowDestroyedEvent) {
 		return
 	}
 	cb := makeTOnWindowDestroyedEvent(fn)
-	base.SetEvent(m, 40, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 41, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFWindowComponent) SetOnWindowActivationChanged(fn TOnWindowActivationChangedEvent) {
@@ -613,7 +630,7 @@ func (m *TCEFWindowComponent) SetOnWindowActivationChanged(fn TOnWindowActivatio
 		return
 	}
 	cb := makeTOnWindowActivationChangedEvent(fn)
-	base.SetEvent(m, 41, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 42, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFWindowComponent) SetOnWindowBoundsChanged(fn TOnWindowBoundsChangedEvent) {
@@ -621,7 +638,7 @@ func (m *TCEFWindowComponent) SetOnWindowBoundsChanged(fn TOnWindowBoundsChanged
 		return
 	}
 	cb := makeTOnWindowBoundsChangedEvent(fn)
-	base.SetEvent(m, 42, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 43, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFWindowComponent) SetOnWindowFullscreenTransition(fn TOnWindowFullscreenTransitionEvent) {
@@ -629,7 +646,7 @@ func (m *TCEFWindowComponent) SetOnWindowFullscreenTransition(fn TOnWindowFullsc
 		return
 	}
 	cb := makeTOnWindowFullscreenTransitionEvent(fn)
-	base.SetEvent(m, 43, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 44, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFWindowComponent) SetOnGetParentWindow(fn TOnGetParentWindowEvent) {
@@ -637,7 +654,7 @@ func (m *TCEFWindowComponent) SetOnGetParentWindow(fn TOnGetParentWindowEvent) {
 		return
 	}
 	cb := makeTOnGetParentWindowEvent(fn)
-	base.SetEvent(m, 44, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 45, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFWindowComponent) SetOnIsWindowModalDialog(fn TOnIsWindowModalDialogEvent) {
@@ -645,7 +662,7 @@ func (m *TCEFWindowComponent) SetOnIsWindowModalDialog(fn TOnIsWindowModalDialog
 		return
 	}
 	cb := makeTOnIsWindowModalDialogEvent(fn)
-	base.SetEvent(m, 45, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 46, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFWindowComponent) SetOnGetInitialBounds(fn TOnGetInitialBoundsEvent) {
@@ -653,7 +670,7 @@ func (m *TCEFWindowComponent) SetOnGetInitialBounds(fn TOnGetInitialBoundsEvent)
 		return
 	}
 	cb := makeTOnGetInitialBoundsEvent(fn)
-	base.SetEvent(m, 46, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 47, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFWindowComponent) SetOnGetInitialShowState(fn TOnGetInitialShowStateEvent) {
@@ -661,7 +678,7 @@ func (m *TCEFWindowComponent) SetOnGetInitialShowState(fn TOnGetInitialShowState
 		return
 	}
 	cb := makeTOnGetInitialShowStateEvent(fn)
-	base.SetEvent(m, 47, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 48, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFWindowComponent) SetOnIsFrameless(fn TOnIsFramelessEvent) {
@@ -669,7 +686,7 @@ func (m *TCEFWindowComponent) SetOnIsFrameless(fn TOnIsFramelessEvent) {
 		return
 	}
 	cb := makeTOnIsFramelessEvent(fn)
-	base.SetEvent(m, 48, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 49, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFWindowComponent) SetOnWithStandardWindowButtons(fn TOnWithStandardWindowButtonsEvent) {
@@ -677,7 +694,7 @@ func (m *TCEFWindowComponent) SetOnWithStandardWindowButtons(fn TOnWithStandardW
 		return
 	}
 	cb := makeTOnWithStandardWindowButtonsEvent(fn)
-	base.SetEvent(m, 49, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 50, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFWindowComponent) SetOnGetTitlebarHeight(fn TOnGetTitlebarHeightEvent) {
@@ -685,7 +702,7 @@ func (m *TCEFWindowComponent) SetOnGetTitlebarHeight(fn TOnGetTitlebarHeightEven
 		return
 	}
 	cb := makeTOnGetTitlebarHeightEvent(fn)
-	base.SetEvent(m, 50, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 51, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFWindowComponent) SetOnAcceptsFirstMouse(fn TOnAcceptsFirstMouseEvent) {
@@ -693,7 +710,7 @@ func (m *TCEFWindowComponent) SetOnAcceptsFirstMouse(fn TOnAcceptsFirstMouseEven
 		return
 	}
 	cb := makeTOnAcceptsFirstMouseEvent(fn)
-	base.SetEvent(m, 51, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 52, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFWindowComponent) SetOnCanResize(fn TOnCanResizeEvent) {
@@ -701,7 +718,7 @@ func (m *TCEFWindowComponent) SetOnCanResize(fn TOnCanResizeEvent) {
 		return
 	}
 	cb := makeTOnCanResizeEvent(fn)
-	base.SetEvent(m, 52, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 53, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFWindowComponent) SetOnCanMaximize(fn TOnCanMaximizeEvent) {
@@ -709,7 +726,7 @@ func (m *TCEFWindowComponent) SetOnCanMaximize(fn TOnCanMaximizeEvent) {
 		return
 	}
 	cb := makeTOnCanMaximizeEvent(fn)
-	base.SetEvent(m, 53, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 54, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFWindowComponent) SetOnCanMinimize(fn TOnCanMinimizeEvent) {
@@ -717,7 +734,7 @@ func (m *TCEFWindowComponent) SetOnCanMinimize(fn TOnCanMinimizeEvent) {
 		return
 	}
 	cb := makeTOnCanMinimizeEvent(fn)
-	base.SetEvent(m, 54, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 55, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFWindowComponent) SetOnCanClose(fn TOnCanCloseEvent) {
@@ -725,7 +742,7 @@ func (m *TCEFWindowComponent) SetOnCanClose(fn TOnCanCloseEvent) {
 		return
 	}
 	cb := makeTOnCanCloseEvent(fn)
-	base.SetEvent(m, 55, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 56, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFWindowComponent) SetOnAccelerator(fn TOnAcceleratorEvent) {
@@ -733,7 +750,7 @@ func (m *TCEFWindowComponent) SetOnAccelerator(fn TOnAcceleratorEvent) {
 		return
 	}
 	cb := makeTOnAcceleratorEvent(fn)
-	base.SetEvent(m, 56, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 57, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFWindowComponent) SetOnKeyEvent(fn TOnWindowKeyEventEvent) {
@@ -741,7 +758,7 @@ func (m *TCEFWindowComponent) SetOnKeyEvent(fn TOnWindowKeyEventEvent) {
 		return
 	}
 	cb := makeTOnWindowKeyEventEvent(fn)
-	base.SetEvent(m, 57, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 58, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFWindowComponent) SetOnThemeColorsChanged(fn TOnThemeColorsChangedEvent) {
@@ -749,7 +766,7 @@ func (m *TCEFWindowComponent) SetOnThemeColorsChanged(fn TOnThemeColorsChangedEv
 		return
 	}
 	cb := makeTOnThemeColorsChangedEvent(fn)
-	base.SetEvent(m, 58, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 59, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFWindowComponent) SetOnGetWindowRuntimeStyle(fn TOnGetWindowRuntimeStyleEvent) {
@@ -757,7 +774,15 @@ func (m *TCEFWindowComponent) SetOnGetWindowRuntimeStyle(fn TOnGetWindowRuntimeS
 		return
 	}
 	cb := makeTOnGetWindowRuntimeStyleEvent(fn)
-	base.SetEvent(m, 59, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
+	base.SetEvent(m, 60, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
+}
+
+func (m *TCEFWindowComponent) SetOnGetLinuxWindowProperties(fn TOnGetLinuxWindowPropertiesEvent) {
+	if !m.IsValid() {
+		return
+	}
+	cb := makeTOnGetLinuxWindowPropertiesEvent(fn)
+	base.SetEvent(m, 61, cEFWindowComponentAPI(), api.MakeEventDataPtr(cb))
 }
 
 func (m *TCEFWindowComponent) AsIntfWindowDelegateEvents() uintptr {
@@ -820,41 +845,43 @@ func cEFWindowComponentAPI() *imports.Imports {
 			/* 22 */ imports.NewTable("TCEFWindowComponent_RemoveAllAccelerators", 0), // procedure RemoveAllAccelerators
 			/* 23 */ imports.NewTable("TCEFWindowComponent_SetThemeColor", 0), // procedure SetThemeColor
 			/* 24 */ imports.NewTable("TCEFWindowComponent_ThemeChanged", 0), // procedure ThemeChanged
-			/* 25 */ imports.NewTable("TCEFWindowComponent_Title", 0), // property Title
-			/* 26 */ imports.NewTable("TCEFWindowComponent_WindowIcon", 0), // property WindowIcon
-			/* 27 */ imports.NewTable("TCEFWindowComponent_WindowAppIcon", 0), // property WindowAppIcon
-			/* 28 */ imports.NewTable("TCEFWindowComponent_Display", 0), // property Display
-			/* 29 */ imports.NewTable("TCEFWindowComponent_ClientAreaBoundsInScreen", 0), // property ClientAreaBoundsInScreen
-			/* 30 */ imports.NewTable("TCEFWindowComponent_WindowHandle", 0), // property WindowHandle
-			/* 31 */ imports.NewTable("TCEFWindowComponent_IsClosed", 0), // property IsClosed
-			/* 32 */ imports.NewTable("TCEFWindowComponent_IsActive", 0), // property IsActive
-			/* 33 */ imports.NewTable("TCEFWindowComponent_IsAlwaysOnTop", 0), // property IsAlwaysOnTop
-			/* 34 */ imports.NewTable("TCEFWindowComponent_IsFullscreen", 0), // property IsFullscreen
-			/* 35 */ imports.NewTable("TCEFWindowComponent_IsMaximized", 0), // property IsMaximized
-			/* 36 */ imports.NewTable("TCEFWindowComponent_IsMinimized", 0), // property IsMinimized
-			/* 37 */ imports.NewTable("TCEFWindowComponent_RuntimeStyle", 0), // property RuntimeStyle
-			/* 38 */ imports.NewTable("TCEFWindowComponent_OnWindowCreated", 0), // event OnWindowCreated
-			/* 39 */ imports.NewTable("TCEFWindowComponent_OnWindowClosing", 0), // event OnWindowClosing
-			/* 40 */ imports.NewTable("TCEFWindowComponent_OnWindowDestroyed", 0), // event OnWindowDestroyed
-			/* 41 */ imports.NewTable("TCEFWindowComponent_OnWindowActivationChanged", 0), // event OnWindowActivationChanged
-			/* 42 */ imports.NewTable("TCEFWindowComponent_OnWindowBoundsChanged", 0), // event OnWindowBoundsChanged
-			/* 43 */ imports.NewTable("TCEFWindowComponent_OnWindowFullscreenTransition", 0), // event OnWindowFullscreenTransition
-			/* 44 */ imports.NewTable("TCEFWindowComponent_OnGetParentWindow", 0), // event OnGetParentWindow
-			/* 45 */ imports.NewTable("TCEFWindowComponent_OnIsWindowModalDialog", 0), // event OnIsWindowModalDialog
-			/* 46 */ imports.NewTable("TCEFWindowComponent_OnGetInitialBounds", 0), // event OnGetInitialBounds
-			/* 47 */ imports.NewTable("TCEFWindowComponent_OnGetInitialShowState", 0), // event OnGetInitialShowState
-			/* 48 */ imports.NewTable("TCEFWindowComponent_OnIsFrameless", 0), // event OnIsFrameless
-			/* 49 */ imports.NewTable("TCEFWindowComponent_OnWithStandardWindowButtons", 0), // event OnWithStandardWindowButtons
-			/* 50 */ imports.NewTable("TCEFWindowComponent_OnGetTitlebarHeight", 0), // event OnGetTitlebarHeight
-			/* 51 */ imports.NewTable("TCEFWindowComponent_OnAcceptsFirstMouse", 0), // event OnAcceptsFirstMouse
-			/* 52 */ imports.NewTable("TCEFWindowComponent_OnCanResize", 0), // event OnCanResize
-			/* 53 */ imports.NewTable("TCEFWindowComponent_OnCanMaximize", 0), // event OnCanMaximize
-			/* 54 */ imports.NewTable("TCEFWindowComponent_OnCanMinimize", 0), // event OnCanMinimize
-			/* 55 */ imports.NewTable("TCEFWindowComponent_OnCanClose", 0), // event OnCanClose
-			/* 56 */ imports.NewTable("TCEFWindowComponent_OnAccelerator", 0), // event OnAccelerator
-			/* 57 */ imports.NewTable("TCEFWindowComponent_OnKeyEvent", 0), // event OnKeyEvent
-			/* 58 */ imports.NewTable("TCEFWindowComponent_OnThemeColorsChanged", 0), // event OnThemeColorsChanged
-			/* 59 */ imports.NewTable("TCEFWindowComponent_OnGetWindowRuntimeStyle", 0), // event OnGetWindowRuntimeStyle
+			/* 25 */ imports.NewTable("TCEFWindowComponent_FocusedView", 0), // property FocusedView
+			/* 26 */ imports.NewTable("TCEFWindowComponent_Title", 0), // property Title
+			/* 27 */ imports.NewTable("TCEFWindowComponent_WindowIcon", 0), // property WindowIcon
+			/* 28 */ imports.NewTable("TCEFWindowComponent_WindowAppIcon", 0), // property WindowAppIcon
+			/* 29 */ imports.NewTable("TCEFWindowComponent_Display", 0), // property Display
+			/* 30 */ imports.NewTable("TCEFWindowComponent_ClientAreaBoundsInScreen", 0), // property ClientAreaBoundsInScreen
+			/* 31 */ imports.NewTable("TCEFWindowComponent_WindowHandle", 0), // property WindowHandle
+			/* 32 */ imports.NewTable("TCEFWindowComponent_IsClosed", 0), // property IsClosed
+			/* 33 */ imports.NewTable("TCEFWindowComponent_IsActive", 0), // property IsActive
+			/* 34 */ imports.NewTable("TCEFWindowComponent_IsAlwaysOnTop", 0), // property IsAlwaysOnTop
+			/* 35 */ imports.NewTable("TCEFWindowComponent_IsFullscreen", 0), // property IsFullscreen
+			/* 36 */ imports.NewTable("TCEFWindowComponent_IsMaximized", 0), // property IsMaximized
+			/* 37 */ imports.NewTable("TCEFWindowComponent_IsMinimized", 0), // property IsMinimized
+			/* 38 */ imports.NewTable("TCEFWindowComponent_RuntimeStyle", 0), // property RuntimeStyle
+			/* 39 */ imports.NewTable("TCEFWindowComponent_OnWindowCreated", 0), // event OnWindowCreated
+			/* 40 */ imports.NewTable("TCEFWindowComponent_OnWindowClosing", 0), // event OnWindowClosing
+			/* 41 */ imports.NewTable("TCEFWindowComponent_OnWindowDestroyed", 0), // event OnWindowDestroyed
+			/* 42 */ imports.NewTable("TCEFWindowComponent_OnWindowActivationChanged", 0), // event OnWindowActivationChanged
+			/* 43 */ imports.NewTable("TCEFWindowComponent_OnWindowBoundsChanged", 0), // event OnWindowBoundsChanged
+			/* 44 */ imports.NewTable("TCEFWindowComponent_OnWindowFullscreenTransition", 0), // event OnWindowFullscreenTransition
+			/* 45 */ imports.NewTable("TCEFWindowComponent_OnGetParentWindow", 0), // event OnGetParentWindow
+			/* 46 */ imports.NewTable("TCEFWindowComponent_OnIsWindowModalDialog", 0), // event OnIsWindowModalDialog
+			/* 47 */ imports.NewTable("TCEFWindowComponent_OnGetInitialBounds", 0), // event OnGetInitialBounds
+			/* 48 */ imports.NewTable("TCEFWindowComponent_OnGetInitialShowState", 0), // event OnGetInitialShowState
+			/* 49 */ imports.NewTable("TCEFWindowComponent_OnIsFrameless", 0), // event OnIsFrameless
+			/* 50 */ imports.NewTable("TCEFWindowComponent_OnWithStandardWindowButtons", 0), // event OnWithStandardWindowButtons
+			/* 51 */ imports.NewTable("TCEFWindowComponent_OnGetTitlebarHeight", 0), // event OnGetTitlebarHeight
+			/* 52 */ imports.NewTable("TCEFWindowComponent_OnAcceptsFirstMouse", 0), // event OnAcceptsFirstMouse
+			/* 53 */ imports.NewTable("TCEFWindowComponent_OnCanResize", 0), // event OnCanResize
+			/* 54 */ imports.NewTable("TCEFWindowComponent_OnCanMaximize", 0), // event OnCanMaximize
+			/* 55 */ imports.NewTable("TCEFWindowComponent_OnCanMinimize", 0), // event OnCanMinimize
+			/* 56 */ imports.NewTable("TCEFWindowComponent_OnCanClose", 0), // event OnCanClose
+			/* 57 */ imports.NewTable("TCEFWindowComponent_OnAccelerator", 0), // event OnAccelerator
+			/* 58 */ imports.NewTable("TCEFWindowComponent_OnKeyEvent", 0), // event OnKeyEvent
+			/* 59 */ imports.NewTable("TCEFWindowComponent_OnThemeColorsChanged", 0), // event OnThemeColorsChanged
+			/* 60 */ imports.NewTable("TCEFWindowComponent_OnGetWindowRuntimeStyle", 0), // event OnGetWindowRuntimeStyle
+			/* 61 */ imports.NewTable("TCEFWindowComponent_OnGetLinuxWindowProperties", 0), // event OnGetLinuxWindowProperties
 		}
 	})
 	return cEFWindowComponentImport

@@ -16,6 +16,13 @@ type TCefWindowHandle = uintptr        // IFDEF : MSWINDOWS
 type TCefCursorHandle = uintptr        // IFDEF : MSWINDOWS
 type TCefEventHandle = uintptr         // IFDEF : MSWINDOWS
 type TCefSharedTextureHandle = uintptr // IFDEF : MSWINDOWS
+
+// TCefMediaRouteConnectionState
+// Connection state for a MediaRoute object. Should be kept in sync with
+// Chromium's blink::mojom::PresentationConnectionState type.
+// <para><see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/internal/cef_types.h">CEF source file: /include/internal/cef_types.h (cef_media_route_connection_state_t)</see></para>
+type TCefMediaRouteConnectionState = types.Integer
+
 // TCefPlatformThreadId
 //
 //	Platform thread ID.

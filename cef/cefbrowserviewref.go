@@ -24,7 +24,7 @@ type ICefBrowserView interface {
 	GetBrowser() ICefBrowser // function
 	// GetChromeToolbar
 	//  Returns the Chrome toolbar associated with this BrowserView. Only
-	//  supported when using the Chrome runtime. The ICefBrowserViewDelegate.GetChromeToolbarType
+	//  supported when using Chrome style. The ICefBrowserViewDelegate.GetChromeToolbarType
 	//  function must return a value other than
 	//  CEF_CTT_NONE and the toolbar will not be available until after this
 	//  BrowserView is added to a ICefWindow and
@@ -39,7 +39,7 @@ type ICefBrowserView interface {
 	//  content (`keydown` event handler) or ICefKeyboardHandler. Normal priority
 	//  accelerators can be registered via ICefWindow.SetAccelerator (with
 	//  |high_priority|=false) or internally for standard accelerators supported
-	//  by the Chrome runtime. If |prefer_accelerators| is true then the matching
+	//  by Chrome style. If |prefer_accelerators| is true then the matching
 	//  accelerator will be triggered immediately (calling
 	//  ICefWindowDelegate.OnAccelerator or ICefCommandHandler.OnChromeCommand
 	//  respectively) and the event will not be forwarded to the web content or

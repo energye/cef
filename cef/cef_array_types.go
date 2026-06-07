@@ -122,6 +122,11 @@ type ICefDisplayArray interface {
 	base.IArraySlice[ICefDisplay]
 }
 
+// ICefComponentArray = array of ICefComponent
+type ICefComponentArray interface {
+	base.IArraySlice[ICefComponent]
+}
+
 // NewCefBinaryValueArray 初始化 ICefBinaryValue 数组结构
 //
 //	count: 外部数组元素个数
@@ -229,6 +234,22 @@ func NewCefDisplayArray(count int, instance uintptr) ICefDisplayArray {
 			return nil
 		}
 		result := new(TCefDisplayRef)
+		base.SetObjectInstance(result, instance)
+		return result
+	})
+}
+
+// NewCefComponentArray 初始化 ICefDisplay 数组结构
+//
+//	count: 外部数组元素个数
+//	instance: 数组首地址, 值0(nil)表示内部维护数组, 否则为外部数组首地址
+func NewCefComponentArray(count int, instance uintptr) ICefComponentArray {
+	return base.NewInterfaceArraySlice[ICefComponent](count, instance, func(obj any) ICefComponent {
+		instance := base.GetInstance(obj)
+		if instance == nil {
+			return nil
+		}
+		result := new(TCefComponentRef)
 		base.SetObjectInstance(result, instance)
 		return result
 	})

@@ -483,6 +483,17 @@ func AsCustomCefStringVisitor(obj any) ICustomCefStringVisitor {
 	return result
 }
 
+// AsCefTaskRef Convert a pointer object to an existing class object
+func AsCefTaskRef(obj any) ICefTaskRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefTaskRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
 // AsCefManagedTask Convert a pointer object to an existing class object
 func AsCefManagedTask(obj any) ICefManagedTask {
 	instance := base.GetInstance(obj)
@@ -1231,6 +1242,17 @@ func AsCefStringMapOwn(obj any) ICefStringMapOwn {
 	return result
 }
 
+// AsCEFProxySettings Convert a pointer object to an existing class object
+func AsCEFProxySettings(obj any) ICEFProxySettings {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCEFProxySettings)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
 // AsEngBrowserProcessHandler Convert a pointer object to an existing class object
 func AsEngBrowserProcessHandler(obj any) IEngBrowserProcessHandler {
 	instance := base.GetInstance(obj)
@@ -1858,17 +1880,6 @@ func AsEngPermissionHandler(obj any) IEngPermissionHandler {
 	return result
 }
 
-// AsEngMediaAccessHandler Convert a pointer object to an existing class object
-func AsEngMediaAccessHandler(obj any) IEngMediaAccessHandler {
-	instance := base.GetInstance(obj)
-	if instance == nil {
-		return nil
-	}
-	result := new(TEngMediaAccessHandler)
-	base.SetObjectInstance(result, instance)
-	return result
-}
-
 // AsEngClient Convert a pointer object to an existing class object
 func AsEngClient(obj any) IEngClient {
 	instance := base.GetInstance(obj)
@@ -1891,13 +1902,24 @@ func AsEngWindowDelegate(obj any) IEngWindowDelegate {
 	return result
 }
 
-// AsEngExtensionHandler Convert a pointer object to an existing class object
-func AsEngExtensionHandler(obj any) IEngExtensionHandler {
+// AsEngPreferenceObserver Convert a pointer object to an existing class object
+func AsEngPreferenceObserver(obj any) IEngPreferenceObserver {
 	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	result := new(TEngExtensionHandler)
+	result := new(TEngPreferenceObserver)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsEngSettingObserver Convert a pointer object to an existing class object
+func AsEngSettingObserver(obj any) IEngSettingObserver {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TEngSettingObserver)
 	base.SetObjectInstance(result, instance)
 	return result
 }
@@ -2837,6 +2859,17 @@ func AsCefPreferenceManagerRef(obj any) ICefPreferenceManagerRef {
 	return result
 }
 
+// AsCefTaskManagerRef Convert a pointer object to an existing class object
+func AsCefTaskManagerRef(obj any) ICefTaskManagerRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefTaskManagerRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
 // AsCefRegistrationRef Convert a pointer object to an existing class object
 func AsCefRegistrationRef(obj any) ICefRegistrationRef {
 	instance := base.GetInstance(obj)
@@ -2914,24 +2947,35 @@ func AsCefBaseRefCountedOwn(obj any) ICefBaseRefCountedOwn {
 	return result
 }
 
-// AsCefExtensionRef Convert a pointer object to an existing class object
-func AsCefExtensionRef(obj any) ICefExtensionRef {
+// AsCefCustomUserData Convert a pointer object to an existing class object
+func AsCefCustomUserData(obj any) ICefCustomUserData {
 	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	result := new(TCefExtensionRef)
+	result := new(TCefCustomUserData)
 	base.SetObjectInstance(result, instance)
 	return result
 }
 
-// AsCefGetExtensionResourceCallbackRef Convert a pointer object to an existing class object
-func AsCefGetExtensionResourceCallbackRef(obj any) ICefGetExtensionResourceCallbackRef {
+// AsCefComponentRef Convert a pointer object to an existing class object
+func AsCefComponentRef(obj any) ICefComponentRef {
 	instance := base.GetInstance(obj)
 	if instance == nil {
 		return nil
 	}
-	result := new(TCefGetExtensionResourceCallbackRef)
+	result := new(TCefComponentRef)
+	base.SetObjectInstance(result, instance)
+	return result
+}
+
+// AsCefv8BackingStoreRef Convert a pointer object to an existing class object
+func AsCefv8BackingStoreRef(obj any) ICefv8BackingStoreRef {
+	instance := base.GetInstance(obj)
+	if instance == nil {
+		return nil
+	}
+	result := new(TCefv8BackingStoreRef)
 	base.SetObjectInstance(result, instance)
 	return result
 }

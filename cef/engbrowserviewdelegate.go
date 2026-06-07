@@ -17,14 +17,16 @@ import (
 // IEngBrowserViewDelegate Parent: ICefBrowserViewDelegateOwn
 type IEngBrowserViewDelegate interface {
 	ICefBrowserViewDelegateOwn
-	SetOnBrowserViewBrowserCreated(fn TOnBrowserViewBrowserCreatedEvent)                                               // property event
-	SetOnBrowserViewBrowserDestroyed(fn TOnBrowserViewBrowserDestroyedEvent)                                           // property event
-	SetOnBrowserViewGetDelegateForPopupBrowserView(fn TOnBrowserViewGetDelegateForPopupBrowserViewEvent)               // property event
-	SetOnBrowserViewPopupBrowserViewCreated(fn TOnBrowserViewPopupBrowserViewCreatedEvent)                             // property event
-	SetOnBrowserViewGetChromeToolbarType(fn TOnBrowserViewGetChromeToolbarTypeEvent)                                   // property event
-	SetOnBrowserViewUseFramelessWindowForPictureInPicture(fn TOnBrowserViewUseFramelessWindowForPictureInPictureEvent) // property event
-	SetOnBrowserViewGestureCommand(fn TOnBrowserViewGestureCommandEvent)                                               // property event
-	SetOnBrowserViewGetBrowserRuntimeStyle(fn TOnBrowserViewGetBrowserRuntimeStyleEvent)                               // property event
+	SetOnBrowserViewBrowserCreated(fn TOnBrowserViewBrowserCreatedEvent)                                                         // property event
+	SetOnBrowserViewBrowserDestroyed(fn TOnBrowserViewBrowserDestroyedEvent)                                                     // property event
+	SetOnBrowserViewGetDelegateForPopupBrowserView(fn TOnBrowserViewGetDelegateForPopupBrowserViewEvent)                         // property event
+	SetOnBrowserViewPopupBrowserViewCreated(fn TOnBrowserViewPopupBrowserViewCreatedEvent)                                       // property event
+	SetOnBrowserViewGetChromeToolbarType(fn TOnBrowserViewGetChromeToolbarTypeEvent)                                             // property event
+	SetOnBrowserViewUseFramelessWindowForPictureInPicture(fn TOnBrowserViewUseFramelessWindowForPictureInPictureEvent)           // property event
+	SetOnBrowserViewGestureCommand(fn TOnBrowserViewGestureCommandEvent)                                                         // property event
+	SetOnBrowserViewGetBrowserRuntimeStyle(fn TOnBrowserViewGetBrowserRuntimeStyleEvent)                                         // property event
+	SetOnBrowserViewAllowMoveForPictureInPicture(fn TOnBrowserViewAllowMoveForPictureInPictureEvent)                             // property event
+	SetOnBrowserViewAllowPictureInPictureWithoutUserActivation(fn TOnBrowserViewAllowPictureInPictureWithoutUserActivationEvent) // property event
 	AsIntfBrowserViewDelegate() uintptr
 	AsIntfViewDelegate() uintptr
 }
@@ -97,6 +99,22 @@ func (m *TEngBrowserViewDelegate) SetOnBrowserViewGetBrowserRuntimeStyle(fn TOnB
 	base.SetEvent(m, 8, engBrowserViewDelegateAPI(), api.MakeEventDataPtr(cb))
 }
 
+func (m *TEngBrowserViewDelegate) SetOnBrowserViewAllowMoveForPictureInPicture(fn TOnBrowserViewAllowMoveForPictureInPictureEvent) {
+	if !m.IsValid() {
+		return
+	}
+	cb := makeTOnBrowserViewAllowMoveForPictureInPictureEvent(fn)
+	base.SetEvent(m, 9, engBrowserViewDelegateAPI(), api.MakeEventDataPtr(cb))
+}
+
+func (m *TEngBrowserViewDelegate) SetOnBrowserViewAllowPictureInPictureWithoutUserActivation(fn TOnBrowserViewAllowPictureInPictureWithoutUserActivationEvent) {
+	if !m.IsValid() {
+		return
+	}
+	cb := makeTOnBrowserViewAllowPictureInPictureWithoutUserActivationEvent(fn)
+	base.SetEvent(m, 10, engBrowserViewDelegateAPI(), api.MakeEventDataPtr(cb))
+}
+
 func (m *TEngBrowserViewDelegate) AsIntfBrowserViewDelegate() uintptr {
 	return m.GetIntfPointer(0)
 }
@@ -136,6 +154,8 @@ func engBrowserViewDelegateAPI() *imports.Imports {
 			/* 6 */ imports.NewTable("TEngBrowserViewDelegate_OnBrowserViewUseFramelessWindowForPictureInPicture", 0), // event OnBrowserViewUseFramelessWindowForPictureInPicture
 			/* 7 */ imports.NewTable("TEngBrowserViewDelegate_OnBrowserViewGestureCommand", 0), // event OnBrowserViewGestureCommand
 			/* 8 */ imports.NewTable("TEngBrowserViewDelegate_OnBrowserViewGetBrowserRuntimeStyle", 0), // event OnBrowserViewGetBrowserRuntimeStyle
+			/* 9 */ imports.NewTable("TEngBrowserViewDelegate_OnBrowserViewAllowMoveForPictureInPicture", 0), // event OnBrowserViewAllowMoveForPictureInPicture
+			/* 10 */ imports.NewTable("TEngBrowserViewDelegate_OnBrowserViewAllowPictureInPictureWithoutUserActivation", 0), // event OnBrowserViewAllowPictureInPictureWithoutUserActivation
 		}
 	})
 	return engBrowserViewDelegateImport

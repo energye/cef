@@ -82,6 +82,9 @@ type ICefFrame interface {
 	// Paste
 	//  Execute paste in this frame.
 	Paste() // procedure
+	// PasteAndMatchStyle
+	//  Execute paste and match style in this frame.
+	PasteAndMatchStyle() // procedure
 	// Del
 	//  Execute delete in this frame.
 	Del() // procedure
@@ -275,74 +278,81 @@ func (m *TCefFrameRef) Paste() {
 	cefFrameRefAPI().SysCallN(16, m.Instance())
 }
 
-func (m *TCefFrameRef) Del() {
+func (m *TCefFrameRef) PasteAndMatchStyle() {
 	if !m.IsValid() {
 		return
 	}
 	cefFrameRefAPI().SysCallN(17, m.Instance())
 }
 
-func (m *TCefFrameRef) SelectAll() {
+func (m *TCefFrameRef) Del() {
 	if !m.IsValid() {
 		return
 	}
 	cefFrameRefAPI().SysCallN(18, m.Instance())
 }
 
-func (m *TCefFrameRef) ViewSource() {
+func (m *TCefFrameRef) SelectAll() {
 	if !m.IsValid() {
 		return
 	}
 	cefFrameRefAPI().SysCallN(19, m.Instance())
 }
 
-func (m *TCefFrameRef) GetSource(visitor IEngStringVisitor) {
+func (m *TCefFrameRef) ViewSource() {
 	if !m.IsValid() {
 		return
 	}
-	cefFrameRefAPI().SysCallN(20, m.Instance(), base.GetObjectUintptr(visitor))
+	cefFrameRefAPI().SysCallN(20, m.Instance())
 }
 
-func (m *TCefFrameRef) GetText(visitor IEngStringVisitor) {
+func (m *TCefFrameRef) GetSource(visitor IEngStringVisitor) {
 	if !m.IsValid() {
 		return
 	}
 	cefFrameRefAPI().SysCallN(21, m.Instance(), base.GetObjectUintptr(visitor))
 }
 
+func (m *TCefFrameRef) GetText(visitor IEngStringVisitor) {
+	if !m.IsValid() {
+		return
+	}
+	cefFrameRefAPI().SysCallN(22, m.Instance(), base.GetObjectUintptr(visitor))
+}
+
 func (m *TCefFrameRef) LoadRequest(request ICefRequest) {
 	if !m.IsValid() {
 		return
 	}
-	cefFrameRefAPI().SysCallN(22, m.Instance(), base.GetObjectUintptr(request))
+	cefFrameRefAPI().SysCallN(23, m.Instance(), base.GetObjectUintptr(request))
 }
 
 func (m *TCefFrameRef) LoadUrl(url string) {
 	if !m.IsValid() {
 		return
 	}
-	cefFrameRefAPI().SysCallN(23, m.Instance(), api.PasStr(url))
+	cefFrameRefAPI().SysCallN(24, m.Instance(), api.PasStr(url))
 }
 
 func (m *TCefFrameRef) ExecuteJavaScript(code string, scriptUrl string, startLine int32) {
 	if !m.IsValid() {
 		return
 	}
-	cefFrameRefAPI().SysCallN(24, m.Instance(), api.PasStr(code), api.PasStr(scriptUrl), uintptr(startLine))
+	cefFrameRefAPI().SysCallN(25, m.Instance(), api.PasStr(code), api.PasStr(scriptUrl), uintptr(startLine))
 }
 
 func (m *TCefFrameRef) VisitDom(visitor IEngDomVisitor) {
 	if !m.IsValid() {
 		return
 	}
-	cefFrameRefAPI().SysCallN(25, m.Instance(), base.GetObjectUintptr(visitor))
+	cefFrameRefAPI().SysCallN(26, m.Instance(), base.GetObjectUintptr(visitor))
 }
 
 func (m *TCefFrameRef) SendProcessMessage(targetProcess cefTypes.TCefProcessId, message ICefProcessMessage) {
 	if !m.IsValid() {
 		return
 	}
-	cefFrameRefAPI().SysCallN(26, m.Instance(), uintptr(targetProcess), base.GetObjectUintptr(message))
+	cefFrameRefAPI().SysCallN(27, m.Instance(), uintptr(targetProcess), base.GetObjectUintptr(message))
 }
 
 func (m *TCefFrameRef) AsIntfFrame() uintptr {
@@ -400,16 +410,17 @@ func cefFrameRefAPI() *imports.Imports {
 			/* 14 */ imports.NewTable("TCefFrameRef_Cut", 0), // procedure Cut
 			/* 15 */ imports.NewTable("TCefFrameRef_Copy", 0), // procedure Copy
 			/* 16 */ imports.NewTable("TCefFrameRef_Paste", 0), // procedure Paste
-			/* 17 */ imports.NewTable("TCefFrameRef_Del", 0), // procedure Del
-			/* 18 */ imports.NewTable("TCefFrameRef_SelectAll", 0), // procedure SelectAll
-			/* 19 */ imports.NewTable("TCefFrameRef_ViewSource", 0), // procedure ViewSource
-			/* 20 */ imports.NewTable("TCefFrameRef_GetSource", 0), // procedure GetSource
-			/* 21 */ imports.NewTable("TCefFrameRef_GetText", 0), // procedure GetText
-			/* 22 */ imports.NewTable("TCefFrameRef_LoadRequest", 0), // procedure LoadRequest
-			/* 23 */ imports.NewTable("TCefFrameRef_LoadUrl", 0), // procedure LoadUrl
-			/* 24 */ imports.NewTable("TCefFrameRef_ExecuteJavaScript", 0), // procedure ExecuteJavaScript
-			/* 25 */ imports.NewTable("TCefFrameRef_VisitDom", 0), // procedure VisitDom
-			/* 26 */ imports.NewTable("TCefFrameRef_SendProcessMessage", 0), // procedure SendProcessMessage
+			/* 17 */ imports.NewTable("TCefFrameRef_PasteAndMatchStyle", 0), // procedure PasteAndMatchStyle
+			/* 18 */ imports.NewTable("TCefFrameRef_Del", 0), // procedure Del
+			/* 19 */ imports.NewTable("TCefFrameRef_SelectAll", 0), // procedure SelectAll
+			/* 20 */ imports.NewTable("TCefFrameRef_ViewSource", 0), // procedure ViewSource
+			/* 21 */ imports.NewTable("TCefFrameRef_GetSource", 0), // procedure GetSource
+			/* 22 */ imports.NewTable("TCefFrameRef_GetText", 0), // procedure GetText
+			/* 23 */ imports.NewTable("TCefFrameRef_LoadRequest", 0), // procedure LoadRequest
+			/* 24 */ imports.NewTable("TCefFrameRef_LoadUrl", 0), // procedure LoadUrl
+			/* 25 */ imports.NewTable("TCefFrameRef_ExecuteJavaScript", 0), // procedure ExecuteJavaScript
+			/* 26 */ imports.NewTable("TCefFrameRef_VisitDom", 0), // procedure VisitDom
+			/* 27 */ imports.NewTable("TCefFrameRef_SendProcessMessage", 0), // procedure SendProcessMessage
 		}
 	})
 	return cefFrameRefImport

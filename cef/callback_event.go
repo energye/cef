@@ -356,6 +356,38 @@ func makeTOnAllowEvent(cb TOnAllowEvent) *callback {
 	}
 }
 
+func makeTOnAllowMoveForPictureInPictureEvent(cb TOnAllowMoveForPictureInPictureEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnAllowMoveForPictureInPictureEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 3 : procedure(const Sender: TObject; const browser_view: ICefBrowserView; var aResult : boolean);
+			sender := lcl.AsObject(getVal(0))
+			browserView := AsCefBrowserViewRef(getVal(1))
+			result := (*bool)(getPtr(getVal(2)))
+			cb(sender, browserView, result)
+		},
+	}
+}
+
+func makeTOnAllowPictureInPictureWithoutUserActivationEvent(cb TOnAllowPictureInPictureWithoutUserActivationEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnAllowPictureInPictureWithoutUserActivationEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 3 : procedure(const Sender: TObject; const browser_view: ICefBrowserView; var aResult : boolean);
+			sender := lcl.AsObject(getVal(0))
+			browserView := AsCefBrowserViewRef(getVal(1))
+			result := (*bool)(getPtr(getVal(2)))
+			cb(sender, browserView, result)
+		},
+	}
+}
+
 func makeTOnAlreadyRunningAppRelaunchEvent(cb TOnAlreadyRunningAppRelaunchEvent) *callback {
 	if cb == nil {
 		return nil
@@ -617,33 +649,6 @@ func makeTOnAutoResize(cb TOnAutoResize) *callback {
 	}
 }
 
-func makeTOnBeforeBackgroundBrowserEvent(cb TOnBeforeBackgroundBrowserEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnBeforeBackgroundBrowserEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 6 : procedure(Sender: TObject; const extension: ICefExtension; const url: ustring; var client: ICefClient; var settings: TCefBrowserSettings; var aResult : boolean);
-			sender := lcl.AsObject(getVal(0))
-			extension := AsCefExtensionRef(getVal(1))
-			url := api.GoStr(getVal(2))
-			var client IEngClient
-			client = AsEngClient(*(*uintptr)(getPtr(getVal(3))))
-			settingsPtr := *(*tCefBrowserSettings)(getPtr(getVal(4)))
-			settings := settingsPtr.ToGo()
-			result := (*bool)(getPtr(getVal(5)))
-			cb(sender, extension, url, &client, &settings, result)
-			if client != nil {
-				*(*uintptr)(getPtr(getVal(3))) = client.Instance()
-			}
-			if r := settings.ToPas(); r != nil {
-				*(*tCefBrowserSettings)(getPtr(getVal(4))) = *r
-			}
-		},
-	}
-}
-
 func makeTOnBeforeBrowse(cb TOnBeforeBrowse) *callback {
 	if cb == nil {
 		return nil
@@ -660,42 +665,6 @@ func makeTOnBeforeBrowse(cb TOnBeforeBrowse) *callback {
 			isRedirect := api.GoBool(getVal(5))
 			result := (*bool)(getPtr(getVal(6)))
 			cb(sender, browser, frame, request, userGesture, isRedirect, result)
-		},
-	}
-}
-
-func makeTOnBeforeBrowserEvent(cb TOnBeforeBrowserEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnBeforeBrowserEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 11 : procedure(Sender: TObject; const extension: ICefExtension; const browser, active_browser: ICefBrowser; index: Integer; const url: ustring; active: boolean; var windowInfo: TCefWindowInfo; var client: ICefClient; var settings: TCefBrowserSettings; var aResult : boolean);
-			sender := lcl.AsObject(getVal(0))
-			extension := AsCefExtensionRef(getVal(1))
-			browser := AsCefBrowserRef(getVal(2))
-			activeBrowser := AsCefBrowserRef(getVal(3))
-			index := int32(getVal(4))
-			url := api.GoStr(getVal(5))
-			active := api.GoBool(getVal(6))
-			windowInfoPtr := *(*tCefWindowInfo)(getPtr(getVal(7)))
-			windowInfo := windowInfoPtr.ToGo()
-			var client IEngClient
-			client = AsEngClient(*(*uintptr)(getPtr(getVal(8))))
-			settingsPtr := *(*tCefBrowserSettings)(getPtr(getVal(9)))
-			settings := settingsPtr.ToGo()
-			result := (*bool)(getPtr(getVal(10)))
-			cb(sender, extension, browser, activeBrowser, index, url, active, &windowInfo, &client, &settings, result)
-			if r := windowInfo.ToPas(); r != nil {
-				*(*tCefWindowInfo)(getPtr(getVal(7))) = *r
-			}
-			if client != nil {
-				*(*uintptr)(getPtr(getVal(8))) = client.Instance()
-			}
-			if r := settings.ToPas(); r != nil {
-				*(*tCefBrowserSettings)(getPtr(getVal(9))) = *r
-			}
 		},
 	}
 }
@@ -808,37 +777,54 @@ func makeTOnBeforePopup(cb TOnBeforePopup) *callback {
 	return &callback{
 		name: "TOnBeforePopup",
 		cb: func(getVal func(i int) uintptr) {
-			// 14 : procedure(Sender: TObject; const browser: ICefBrowser; const frame: ICefFrame; const targetUrl, targetFrameName: ustring; targetDisposition: TCefWindowOpenDisposition; userGesture: Boolean; const popupFeatures: TCefPopupFeatures; var windowInfo: TCefWindowInfo; var client: ICefClient; var settings: TCefBrowserSettings; var extra_info: ICefDictionaryValue; var noJavascriptAccess: Boolean; var Result: Boolean);
+			// 15 : procedure(Sender: TObject; const browser: ICefBrowser; const frame: ICefFrame; popup_id: Integer; const targetUrl, targetFrameName: ustring; targetDisposition: TCefWindowOpenDisposition; userGesture: Boolean; const popupFeatures: TCefPopupFeatures; var windowInfo: TCefWindowInfo; var client: ICefClient; var settings: TCefBrowserSettings; var extra_info: ICefDictionaryValue; var noJavascriptAccess: Boolean; var Result: Boolean);
 			sender := lcl.AsObject(getVal(0))
 			browser := AsCefBrowserRef(getVal(1))
 			frame := AsCefFrameRef(getVal(2))
-			targetUrl := api.GoStr(getVal(3))
-			targetFrameName := api.GoStr(getVal(4))
-			targetDisposition := cefTypes.TCefWindowOpenDisposition(getVal(5))
-			userGesture := api.GoBool(getVal(6))
-			popupFeatures := *(*TCefPopupFeatures)(getPtr(getVal(7)))
-			windowInfoPtr := *(*tCefWindowInfo)(getPtr(getVal(8)))
+			popupId := int32(getVal(3))
+			targetUrl := api.GoStr(getVal(4))
+			targetFrameName := api.GoStr(getVal(5))
+			targetDisposition := cefTypes.TCefWindowOpenDisposition(getVal(6))
+			userGesture := api.GoBool(getVal(7))
+			popupFeatures := *(*TCefPopupFeatures)(getPtr(getVal(8)))
+			windowInfoPtr := *(*tCefWindowInfo)(getPtr(getVal(9)))
 			windowInfo := windowInfoPtr.ToGo()
 			var client IEngClient
-			client = AsEngClient(*(*uintptr)(getPtr(getVal(9))))
-			settingsPtr := *(*tCefBrowserSettings)(getPtr(getVal(10)))
+			client = AsEngClient(*(*uintptr)(getPtr(getVal(10))))
+			settingsPtr := *(*tCefBrowserSettings)(getPtr(getVal(11)))
 			settings := settingsPtr.ToGo()
-			extraInfo := ICefDictionaryValue(AsCefDictionaryValueRef(*(*uintptr)(getPtr(getVal(11)))))
-			noJavascriptAccess := (*bool)(getPtr(getVal(12)))
-			result := (*bool)(getPtr(getVal(13)))
-			cb(sender, browser, frame, targetUrl, targetFrameName, targetDisposition, userGesture, popupFeatures, &windowInfo, &client, &settings, &extraInfo, noJavascriptAccess, result)
+			extraInfo := ICefDictionaryValue(AsCefDictionaryValueRef(*(*uintptr)(getPtr(getVal(12)))))
+			noJavascriptAccess := (*bool)(getPtr(getVal(13)))
+			result := (*bool)(getPtr(getVal(14)))
+			cb(sender, browser, frame, popupId, targetUrl, targetFrameName, targetDisposition, userGesture, popupFeatures, &windowInfo, &client, &settings, &extraInfo, noJavascriptAccess, result)
 			if r := windowInfo.ToPas(); r != nil {
-				*(*tCefWindowInfo)(getPtr(getVal(8))) = *r
+				*(*tCefWindowInfo)(getPtr(getVal(9))) = *r
 			}
 			if client != nil {
-				*(*uintptr)(getPtr(getVal(9))) = client.Instance()
+				*(*uintptr)(getPtr(getVal(10))) = client.Instance()
 			}
 			if r := settings.ToPas(); r != nil {
-				*(*tCefBrowserSettings)(getPtr(getVal(10))) = *r
+				*(*tCefBrowserSettings)(getPtr(getVal(11))) = *r
 			}
 			if extraInfo != nil {
-				*(*uintptr)(getPtr(getVal(11))) = extraInfo.Instance()
+				*(*uintptr)(getPtr(getVal(12))) = extraInfo.Instance()
 			}
+		},
+	}
+}
+
+func makeTOnBeforePopupAborted(cb TOnBeforePopupAborted) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnBeforePopupAborted",
+		cb: func(getVal func(i int) uintptr) {
+			// 3 : procedure(Sender: TObject; const browser: ICefBrowser; popup_id: Integer);
+			sender := lcl.AsObject(getVal(0))
+			browser := AsCefBrowserRef(getVal(1))
+			popupId := int32(getVal(2))
+			cb(sender, browser, popupId)
 		},
 	}
 }
@@ -1033,6 +1019,36 @@ func makeTOnBrowserProcessScheduleMessagePumpWorkEvent(cb TOnBrowserProcessSched
 	}
 }
 
+func makeTOnBrowserViewAllowMoveForPictureInPictureEvent(cb TOnBrowserViewAllowMoveForPictureInPictureEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnBrowserViewAllowMoveForPictureInPictureEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 2 : procedure(const browser_view: ICefBrowserView; var aResult: boolean);
+			browserView := AsCefBrowserViewRef(getVal(0))
+			result := (*bool)(getPtr(getVal(1)))
+			cb(browserView, result)
+		},
+	}
+}
+
+func makeTOnBrowserViewAllowPictureInPictureWithoutUserActivationEvent(cb TOnBrowserViewAllowPictureInPictureWithoutUserActivationEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnBrowserViewAllowPictureInPictureWithoutUserActivationEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 2 : procedure(const browser_view: ICefBrowserView; var aResult: boolean);
+			browserView := AsCefBrowserViewRef(getVal(0))
+			result := (*bool)(getPtr(getVal(1)))
+			cb(browserView, result)
+		},
+	}
+}
+
 func makeTOnBrowserViewBrowserCreatedEvent(cb TOnBrowserViewBrowserCreatedEvent) *callback {
 	if cb == nil {
 		return nil
@@ -1102,7 +1118,7 @@ func makeTOnBrowserViewGetChromeToolbarTypeEvent(cb TOnBrowserViewGetChromeToolb
 		cb: func(getVal func(i int) uintptr) {
 			// 2 : procedure(const browser_view: ICefBrowserView; var aResult: TCefChromeToolbarType);
 			browserView := AsCefBrowserViewRef(getVal(0))
-			result := (*cefTypes.TCefChromeToolbarType)(getPtr(getVal(1)))
+			result := (*TCefChromeToolbarType)(getPtr(getVal(1)))
 			cb(browserView, result)
 		},
 	}
@@ -1217,25 +1233,6 @@ func makeTOnButtonStateChangedEvent(cb TOnButtonStateChangedEvent) *callback {
 			sender := lcl.AsObject(getVal(0))
 			button := AsCefButtonRef(getVal(1))
 			cb(sender, button)
-		},
-	}
-}
-
-func makeTOnCanAccessBrowserEvent(cb TOnCanAccessBrowserEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnCanAccessBrowserEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 6 : procedure(Sender: TObject; const extension: ICefExtension; const browser: ICefBrowser; include_incognito: boolean; const target_browser: ICefBrowser; var aResult : boolean);
-			sender := lcl.AsObject(getVal(0))
-			extension := AsCefExtensionRef(getVal(1))
-			browser := AsCefBrowserRef(getVal(2))
-			includeIncognito := api.GoBool(getVal(3))
-			targetBrowser := AsCefBrowserRef(getVal(4))
-			result := (*bool)(getPtr(getVal(5)))
-			cb(sender, extension, browser, includeIncognito, targetBrowser, result)
 		},
 	}
 }
@@ -1916,6 +1913,22 @@ func makeTOnCompletionCallbackCompleteEvent(cb TOnCompletionCallbackCompleteEven
 	}
 }
 
+func makeTOnComponentUpdateCompletedEvent(cb TOnComponentUpdateCompletedEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnComponentUpdateCompletedEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 3 : procedure(Sender: TObject; const component_id: ustring; error: TCefComponentUpdateError);
+			sender := lcl.AsObject(getVal(0))
+			componentId := api.GoStr(getVal(1))
+			error_ := cefTypes.TCefComponentUpdateError(getVal(2))
+			cb(sender, componentId, error_)
+		},
+	}
+}
+
 func makeTOnConsoleMessage(cb TOnConsoleMessage) *callback {
 	if cb == nil {
 		return nil
@@ -1923,7 +1936,7 @@ func makeTOnConsoleMessage(cb TOnConsoleMessage) *callback {
 	return &callback{
 		name: "TOnConsoleMessage",
 		cb: func(getVal func(i int) uintptr) {
-			// 7 : procedure(Sender: TObject; const browser: ICefBrowser; level: TCefLogSeverity; const message, source: ustring; line: Integer; out Result: Boolean);
+			// 7 : procedure(Sender: TObject; const browser: ICefBrowser; level: TCefLogSeverity; const message_, source: ustring; line: Integer; out Result: Boolean);
 			sender := lcl.AsObject(getVal(0))
 			browser := AsCefBrowserRef(getVal(1))
 			level := cefTypes.TCefLogSeverity(getVal(2))
@@ -1932,6 +1945,23 @@ func makeTOnConsoleMessage(cb TOnConsoleMessage) *callback {
 			line := int32(getVal(5))
 			result := (*bool)(getPtr(getVal(6)))
 			cb(sender, browser, level, message, source, line, result)
+		},
+	}
+}
+
+func makeTOnContentsBoundsChange(cb TOnContentsBoundsChange) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnContentsBoundsChange",
+		cb: func(getVal func(i int) uintptr) {
+			// 4 : procedure(Sender: TObject; const browser: ICefBrowser; const new_bounds: PCefRect; var aResult : boolean);
+			sender := lcl.AsObject(getVal(0))
+			browser := AsCefBrowserRef(getVal(1))
+			newBounds := *(*TCefRect)(getPtr(getVal(2)))
+			result := (*bool)(getPtr(getVal(3)))
+			cb(sender, browser, newBounds, result)
 		},
 	}
 }
@@ -2640,6 +2670,22 @@ func makeTOnDisplayConsoleMessageEvent(cb TOnDisplayConsoleMessageEvent) *callba
 	}
 }
 
+func makeTOnDisplayContentsBoundsChangeEvent(cb TOnDisplayContentsBoundsChangeEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnDisplayContentsBoundsChangeEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 2 : function(const browser: ICefBrowser; const new_bounds: PCefRect): Boolean;
+			browser := AsCefBrowserRef(getVal(0))
+			newBounds := *(*TCefRect)(getPtr(getVal(1)))
+			ret := cb(browser, newBounds)
+			*(*bool)(getPtr(getVal(2))) = ret
+		},
+	}
+}
+
 func makeTOnDisplayCursorChangeEvent(cb TOnDisplayCursorChangeEvent) *callback {
 	if cb == nil {
 		return nil
@@ -2684,6 +2730,22 @@ func makeTOnDisplayFullScreenModeChangeEvent(cb TOnDisplayFullScreenModeChangeEv
 			browser := AsCefBrowserRef(getVal(0))
 			fullscreen := api.GoBool(getVal(1))
 			cb(browser, fullscreen)
+		},
+	}
+}
+
+func makeTOnDisplayGetRootWindowScreenRectEvent(cb TOnDisplayGetRootWindowScreenRectEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnDisplayGetRootWindowScreenRectEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 2 : function(const browser: ICefBrowser; rect_: PCefRect): Boolean;
+			browser := AsCefBrowserRef(getVal(0))
+			rect := *(*TCefRect)(getPtr(getVal(1)))
+			ret := cb(browser, rect)
+			*(*bool)(getPtr(getVal(2))) = ret
 		},
 	}
 }
@@ -3031,210 +3093,6 @@ func makeTOnExecuteTaskOnCefThread(cb TOnExecuteTaskOnCefThread) *callback {
 	}
 }
 
-func makeTOnExtensionBeforeBackgroundBrowserEvent(cb TOnExtensionBeforeBackgroundBrowserEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnExtensionBeforeBackgroundBrowserEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 4 : function(const extension: ICefExtension; const url: ustring; var client: ICefClient; var settings: TCefBrowserSettings): boolean;
-			extension := AsCefExtensionRef(getVal(0))
-			url := api.GoStr(getVal(1))
-			var client IEngClient
-			client = AsEngClient(*(*uintptr)(getPtr(getVal(2))))
-			settingsPtr := *(*tCefBrowserSettings)(getPtr(getVal(3)))
-			settings := settingsPtr.ToGo()
-			ret := cb(extension, url, &client, &settings)
-			if client != nil {
-				*(*uintptr)(getPtr(getVal(2))) = client.Instance()
-			}
-			if r := settings.ToPas(); r != nil {
-				*(*tCefBrowserSettings)(getPtr(getVal(3))) = *r
-			}
-			*(*bool)(getPtr(getVal(4))) = ret
-		},
-	}
-}
-
-func makeTOnExtensionBeforeBrowserEvent(cb TOnExtensionBeforeBrowserEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnExtensionBeforeBrowserEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 9 : function(const extension: ICefExtension; const browser: ICefBrowser; const active_browser: ICefBrowser; index: Integer; const url: ustring; active: boolean; var windowInfo: TCefWindowInfo; var client: ICefClient; var settings: TCefBrowserSettings): boolean;
-			extension := AsCefExtensionRef(getVal(0))
-			browser := AsCefBrowserRef(getVal(1))
-			activeBrowser := AsCefBrowserRef(getVal(2))
-			index := int32(getVal(3))
-			url := api.GoStr(getVal(4))
-			active := api.GoBool(getVal(5))
-			windowInfoPtr := *(*tCefWindowInfo)(getPtr(getVal(6)))
-			windowInfo := windowInfoPtr.ToGo()
-			var client IEngClient
-			client = AsEngClient(*(*uintptr)(getPtr(getVal(7))))
-			settingsPtr := *(*tCefBrowserSettings)(getPtr(getVal(8)))
-			settings := settingsPtr.ToGo()
-			ret := cb(extension, browser, activeBrowser, index, url, active, &windowInfo, &client, &settings)
-			if r := windowInfo.ToPas(); r != nil {
-				*(*tCefWindowInfo)(getPtr(getVal(6))) = *r
-			}
-			if client != nil {
-				*(*uintptr)(getPtr(getVal(7))) = client.Instance()
-			}
-			if r := settings.ToPas(); r != nil {
-				*(*tCefBrowserSettings)(getPtr(getVal(8))) = *r
-			}
-			*(*bool)(getPtr(getVal(9))) = ret
-		},
-	}
-}
-
-func makeTOnExtensionCanAccessBrowserEvent(cb TOnExtensionCanAccessBrowserEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnExtensionCanAccessBrowserEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 4 : function(const extension: ICefExtension; const browser: ICefBrowser; include_incognito: boolean; const target_browser: ICefBrowser): boolean;
-			extension := AsCefExtensionRef(getVal(0))
-			browser := AsCefBrowserRef(getVal(1))
-			includeIncognito := api.GoBool(getVal(2))
-			targetBrowser := AsCefBrowserRef(getVal(3))
-			ret := cb(extension, browser, includeIncognito, targetBrowser)
-			*(*bool)(getPtr(getVal(4))) = ret
-		},
-	}
-}
-
-func makeTOnExtensionExtensionLoadFailedEvent(cb TOnExtensionExtensionLoadFailedEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnExtensionExtensionLoadFailedEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 1 : procedure(result: TCefErrorcode);
-			result := cefTypes.TCefErrorCode(getVal(0))
-			cb(result)
-		},
-	}
-}
-
-func makeTOnExtensionExtensionLoadedEvent(cb TOnExtensionExtensionLoadedEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnExtensionExtensionLoadedEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 1 : procedure(const extension: ICefExtension);
-			extension := AsCefExtensionRef(getVal(0))
-			cb(extension)
-		},
-	}
-}
-
-func makeTOnExtensionExtensionUnloadedEvent(cb TOnExtensionExtensionUnloadedEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnExtensionExtensionUnloadedEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 1 : procedure(const extension: ICefExtension);
-			extension := AsCefExtensionRef(getVal(0))
-			cb(extension)
-		},
-	}
-}
-
-func makeTOnExtensionGetActiveBrowserEvent(cb TOnExtensionGetActiveBrowserEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnExtensionGetActiveBrowserEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 4 : procedure(const extension: ICefExtension; const browser: ICefBrowser; include_incognito: boolean; var aRsltBrowser: ICefBrowser);
-			extension := AsCefExtensionRef(getVal(0))
-			browser := AsCefBrowserRef(getVal(1))
-			includeIncognito := api.GoBool(getVal(2))
-			rsltBrowser := ICefBrowser(AsCefBrowserRef(*(*uintptr)(getPtr(getVal(3)))))
-			cb(extension, browser, includeIncognito, &rsltBrowser)
-			if rsltBrowser != nil {
-				*(*uintptr)(getPtr(getVal(3))) = rsltBrowser.Instance()
-			}
-		},
-	}
-}
-
-func makeTOnExtensionGetExtensionResourceEvent(cb TOnExtensionGetExtensionResourceEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnExtensionGetExtensionResourceEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 4 : function(const extension: ICefExtension; const browser: ICefBrowser; const file_: ustring; const callback: ICefGetExtensionResourceCallback): boolean;
-			extension := AsCefExtensionRef(getVal(0))
-			browser := AsCefBrowserRef(getVal(1))
-			file := api.GoStr(getVal(2))
-			callback := AsCefGetExtensionResourceCallbackRef(getVal(3))
-			ret := cb(extension, browser, file, callback)
-			*(*bool)(getPtr(getVal(4))) = ret
-		},
-	}
-}
-
-func makeTOnExtensionLoadFailedEvent(cb TOnExtensionLoadFailedEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnExtensionLoadFailedEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 2 : procedure(Sender: TObject; result: TCefErrorcode);
-			sender := lcl.AsObject(getVal(0))
-			result := cefTypes.TCefErrorCode(getVal(1))
-			cb(sender, result)
-		},
-	}
-}
-
-func makeTOnExtensionLoadedEvent(cb TOnExtensionLoadedEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnExtensionLoadedEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 2 : procedure(Sender: TObject; const extension: ICefExtension);
-			sender := lcl.AsObject(getVal(0))
-			extension := AsCefExtensionRef(getVal(1))
-			cb(sender, extension)
-		},
-	}
-}
-
-func makeTOnExtensionUnloadedEvent(cb TOnExtensionUnloadedEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnExtensionUnloadedEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 2 : procedure(Sender: TObject; const extension: ICefExtension);
-			sender := lcl.AsObject(getVal(0))
-			extension := AsCefExtensionRef(getVal(1))
-			cb(sender, extension)
-		},
-	}
-}
-
 func makeTOnFavIconUrlChange(cb TOnFavIconUrlChange) *callback {
 	if cb == nil {
 		return nil
@@ -3443,6 +3301,22 @@ func makeTOnFrameCreated(cb TOnFrameCreated) *callback {
 	}
 }
 
+func makeTOnFrameDestroyed(cb TOnFrameDestroyed) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnFrameDestroyed",
+		cb: func(getVal func(i int) uintptr) {
+			// 3 : procedure(Sender: TObject; const browser: ICefBrowser; const frame: ICefFrame);
+			sender := lcl.AsObject(getVal(0))
+			browser := AsCefBrowserRef(getVal(1))
+			frame := AsCefFrameRef(getVal(2))
+			cb(sender, browser, frame)
+		},
+	}
+}
+
 func makeTOnFrameDetached(cb TOnFrameDetached) *callback {
 	if cb == nil {
 		return nil
@@ -3481,6 +3355,21 @@ func makeTOnFrameFrameCreatedEvent(cb TOnFrameFrameCreatedEvent) *callback {
 	}
 	return &callback{
 		name: "TOnFrameFrameCreatedEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 2 : procedure(const browser: ICefBrowser; const frame: ICefFrame);
+			browser := AsCefBrowserRef(getVal(0))
+			frame := AsCefFrameRef(getVal(1))
+			cb(browser, frame)
+		},
+	}
+}
+
+func makeTOnFrameFrameDestroyedEvent(cb TOnFrameFrameDestroyedEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnFrameFrameDestroyedEvent",
 		cb: func(getVal func(i int) uintptr) {
 			// 2 : procedure(const browser: ICefBrowser; const frame: ICefFrame);
 			browser := AsCefBrowserRef(getVal(0))
@@ -3573,27 +3462,6 @@ func makeTOnGetAccessibilityHandler(cb TOnGetAccessibilityHandler) *callback {
 	}
 }
 
-func makeTOnGetActiveBrowserEvent(cb TOnGetActiveBrowserEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnGetActiveBrowserEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 5 : procedure(Sender: TObject; const extension: ICefExtension; const browser: ICefBrowser; include_incognito: boolean; var aRsltBrowser : ICefBrowser);
-			sender := lcl.AsObject(getVal(0))
-			extension := AsCefExtensionRef(getVal(1))
-			browser := AsCefBrowserRef(getVal(2))
-			includeIncognito := api.GoBool(getVal(3))
-			rsltBrowser := ICefBrowser(AsCefBrowserRef(*(*uintptr)(getPtr(getVal(4)))))
-			cb(sender, extension, browser, includeIncognito, &rsltBrowser)
-			if rsltBrowser != nil {
-				*(*uintptr)(getPtr(getVal(4))) = rsltBrowser.Instance()
-			}
-		},
-	}
-}
-
 func makeTOnGetAudioParametersEvent(cb TOnGetAudioParametersEvent) *callback {
 	if cb == nil {
 		return nil
@@ -3660,7 +3528,7 @@ func makeTOnGetChromeToolbarTypeEvent(cb TOnGetChromeToolbarTypeEvent) *callback
 			// 3 : procedure(const Sender: TObject; const browser_view: ICefBrowserView; var aChromeToolbarType: TCefChromeToolbarType);
 			sender := lcl.AsObject(getVal(0))
 			browserView := AsCefBrowserViewRef(getVal(1))
-			chromeToolbarType := (*cefTypes.TCefChromeToolbarType)(getPtr(getVal(2)))
+			chromeToolbarType := (*TCefChromeToolbarType)(getPtr(getVal(2)))
 			cb(sender, browserView, chromeToolbarType)
 		},
 	}
@@ -3761,25 +3629,6 @@ func makeTOnGetDelegateForPopupBrowserViewEvent(cb TOnGetDelegateForPopupBrowser
 	}
 }
 
-func makeTOnGetExtensionResourceEvent(cb TOnGetExtensionResourceEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnGetExtensionResourceEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 6 : procedure(Sender: TObject; const extension: ICefExtension; const browser: ICefBrowser; const file_: ustring; const callback: ICefGetExtensionResourceCallback; var aResult : boolean);
-			sender := lcl.AsObject(getVal(0))
-			extension := AsCefExtensionRef(getVal(1))
-			browser := AsCefBrowserRef(getVal(2))
-			file := api.GoStr(getVal(3))
-			callback := AsCefGetExtensionResourceCallbackRef(getVal(4))
-			result := (*bool)(getPtr(getVal(5)))
-			cb(sender, extension, browser, file, callback, result)
-		},
-	}
-}
-
 func makeTOnGetHeightForWidthEvent(cb TOnGetHeightForWidthEvent) *callback {
 	if cb == nil {
 		return nil
@@ -3826,6 +3675,27 @@ func makeTOnGetInitialShowStateEvent(cb TOnGetInitialShowStateEvent) *callback {
 			window := AsCefWindowRef(getVal(1))
 			result := (*cefTypes.TCefShowState)(getPtr(getVal(2)))
 			cb(sender, window, result)
+		},
+	}
+}
+
+func makeTOnGetLinuxWindowPropertiesEvent(cb TOnGetLinuxWindowPropertiesEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnGetLinuxWindowPropertiesEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 4 : procedure(const Sender: TObject; const window_: ICefWindow; var properties: TLinuxWindowProperties; var aResult: boolean);
+			sender := lcl.AsObject(getVal(0))
+			window := AsCefWindowRef(getVal(1))
+			propertiesPtr := *(*tLinuxWindowProperties)(getPtr(getVal(2)))
+			properties := propertiesPtr.ToGo()
+			result := (*bool)(getPtr(getVal(3)))
+			cb(sender, window, &properties, result)
+			if r := properties.ToPas(); r != nil {
+				*(*tLinuxWindowProperties)(getPtr(getVal(2))) = *r
+			}
 		},
 	}
 }
@@ -4021,6 +3891,23 @@ func makeTOnGetRootScreenRect(cb TOnGetRootScreenRect) *callback {
 			result := (*bool)(getPtr(getVal(3)))
 			cb(sender, browser, rect, result)
 			*(*TCefRect)(getPtr(getVal(2))) = *rect
+		},
+	}
+}
+
+func makeTOnGetRootWindowScreenRect(cb TOnGetRootWindowScreenRect) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnGetRootWindowScreenRect",
+		cb: func(getVal func(i int) uintptr) {
+			// 4 : procedure(Sender: TObject; const browser: ICefBrowser; rect_: PCefRect; var aResult : boolean);
+			sender := lcl.AsObject(getVal(0))
+			browser := AsCefBrowserRef(getVal(1))
+			rect := *(*TCefRect)(getPtr(getVal(2)))
+			result := (*bool)(getPtr(getVal(3)))
+			cb(sender, browser, rect, result)
 		},
 	}
 }
@@ -4567,6 +4454,21 @@ func makeTOnLifeSpanBeforeDevToolsPopupEvent(cb TOnLifeSpanBeforeDevToolsPopupEv
 	}
 }
 
+func makeTOnLifeSpanBeforePopupAbortedEvent(cb TOnLifeSpanBeforePopupAbortedEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnLifeSpanBeforePopupAbortedEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 2 : procedure(const browser: ICefBrowser; popup_id: Integer);
+			browser := AsCefBrowserRef(getVal(0))
+			popupId := int32(getVal(1))
+			cb(browser, popupId)
+		},
+	}
+}
+
 func makeTOnLifeSpanBeforePopupEvent(cb TOnLifeSpanBeforePopupEvent) *callback {
 	if cb == nil {
 		return nil
@@ -4574,36 +4476,37 @@ func makeTOnLifeSpanBeforePopupEvent(cb TOnLifeSpanBeforePopupEvent) *callback {
 	return &callback{
 		name: "TOnLifeSpanBeforePopupEvent",
 		cb: func(getVal func(i int) uintptr) {
-			// 12 : function(const browser: ICefBrowser; const frame: ICefFrame; const targetUrl: ustring; const targetFrameName: ustring; targetDisposition: TCefWindowOpenDisposition; userGesture: Boolean; const popupFeatures: TCefPopupFeatures; var windowInfo: TCefWindowInfo; var client: ICefClient; var settings: TCefBrowserSettings; var extra_info: ICefDictionaryValue; var noJavascriptAccess: Boolean): Boolean;
+			// 13 : function(const browser: ICefBrowser; const frame: ICefFrame; popup_id: Integer; const targetUrl: ustring; const targetFrameName: ustring; targetDisposition: TCefWindowOpenDisposition; userGesture: Boolean; const popupFeatures: TCefPopupFeatures; var windowInfo: TCefWindowInfo; var client: ICefClient; var settings: TCefBrowserSettings; var extra_info: ICefDictionaryValue; var noJavascriptAccess: Boolean): Boolean;
 			browser := AsCefBrowserRef(getVal(0))
 			frame := AsCefFrameRef(getVal(1))
-			targetUrl := api.GoStr(getVal(2))
-			targetFrameName := api.GoStr(getVal(3))
-			targetDisposition := cefTypes.TCefWindowOpenDisposition(getVal(4))
-			userGesture := api.GoBool(getVal(5))
-			popupFeatures := *(*TCefPopupFeatures)(getPtr(getVal(6)))
-			windowInfoPtr := *(*tCefWindowInfo)(getPtr(getVal(7)))
+			popupId := int32(getVal(2))
+			targetUrl := api.GoStr(getVal(3))
+			targetFrameName := api.GoStr(getVal(4))
+			targetDisposition := cefTypes.TCefWindowOpenDisposition(getVal(5))
+			userGesture := api.GoBool(getVal(6))
+			popupFeatures := *(*TCefPopupFeatures)(getPtr(getVal(7)))
+			windowInfoPtr := *(*tCefWindowInfo)(getPtr(getVal(8)))
 			windowInfo := windowInfoPtr.ToGo()
 			var client IEngClient
-			client = AsEngClient(*(*uintptr)(getPtr(getVal(8))))
-			settingsPtr := *(*tCefBrowserSettings)(getPtr(getVal(9)))
+			client = AsEngClient(*(*uintptr)(getPtr(getVal(9))))
+			settingsPtr := *(*tCefBrowserSettings)(getPtr(getVal(10)))
 			settings := settingsPtr.ToGo()
-			extraInfo := ICefDictionaryValue(AsCefDictionaryValueRef(*(*uintptr)(getPtr(getVal(10)))))
-			noJavascriptAccess := (*bool)(getPtr(getVal(11)))
-			ret := cb(browser, frame, targetUrl, targetFrameName, targetDisposition, userGesture, popupFeatures, &windowInfo, &client, &settings, &extraInfo, noJavascriptAccess)
+			extraInfo := ICefDictionaryValue(AsCefDictionaryValueRef(*(*uintptr)(getPtr(getVal(11)))))
+			noJavascriptAccess := (*bool)(getPtr(getVal(12)))
+			ret := cb(browser, frame, popupId, targetUrl, targetFrameName, targetDisposition, userGesture, popupFeatures, &windowInfo, &client, &settings, &extraInfo, noJavascriptAccess)
 			if r := windowInfo.ToPas(); r != nil {
-				*(*tCefWindowInfo)(getPtr(getVal(7))) = *r
+				*(*tCefWindowInfo)(getPtr(getVal(8))) = *r
 			}
 			if client != nil {
-				*(*uintptr)(getPtr(getVal(8))) = client.Instance()
+				*(*uintptr)(getPtr(getVal(9))) = client.Instance()
 			}
 			if r := settings.ToPas(); r != nil {
-				*(*tCefBrowserSettings)(getPtr(getVal(9))) = *r
+				*(*tCefBrowserSettings)(getPtr(getVal(10))) = *r
 			}
 			if extraInfo != nil {
-				*(*uintptr)(getPtr(getVal(10))) = extraInfo.Instance()
+				*(*uintptr)(getPtr(getVal(11))) = extraInfo.Instance()
 			}
-			*(*bool)(getPtr(getVal(12))) = ret
+			*(*bool)(getPtr(getVal(13))) = ret
 		},
 	}
 }
@@ -4807,25 +4710,6 @@ func makeTOnMediaAccessChange(cb TOnMediaAccessChange) *callback {
 			hasVideoAccess := api.GoBool(getVal(2))
 			hasAudioAccess := api.GoBool(getVal(3))
 			cb(sender, browser, hasVideoAccess, hasAudioAccess)
-		},
-	}
-}
-
-func makeTOnMediaAccessRequestMediaAccessPermissionEvent(cb TOnMediaAccessRequestMediaAccessPermissionEvent) *callback {
-	if cb == nil {
-		return nil
-	}
-	return &callback{
-		name: "TOnMediaAccessRequestMediaAccessPermissionEvent",
-		cb: func(getVal func(i int) uintptr) {
-			// 5 : function(const browser: ICefBrowser; const frame: ICefFrame; const requesting_url: ustring; requested_permissions: TCefMediaAccessPermissionTypes; const callback: ICefMediaAccessCallback): boolean;
-			browser := AsCefBrowserRef(getVal(0))
-			frame := AsCefFrameRef(getVal(1))
-			requestingUrl := api.GoStr(getVal(2))
-			requestedPermissions := cefTypes.TCefMediaAccessPermissionTypes(getVal(3))
-			callback := AsCefMediaAccessCallbackRef(getVal(4))
-			ret := cb(browser, frame, requestingUrl, requestedPermissions, callback)
-			*(*bool)(getPtr(getVal(5))) = ret
 		},
 	}
 }
@@ -5342,6 +5226,35 @@ func makeTOnPreKeyEvent(cb TOnPreKeyEvent) *callback {
 			isKeyboardShortcut := (*bool)(getPtr(getVal(4)))
 			result := (*bool)(getPtr(getVal(5)))
 			cb(sender, browser, event, osEvent, isKeyboardShortcut, result)
+		},
+	}
+}
+
+func makeTOnPreferenceChangedEvent(cb TOnPreferenceChangedEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnPreferenceChangedEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 2 : procedure(Sender: TObject; const name_: ustring);
+			sender := lcl.AsObject(getVal(0))
+			name := api.GoStr(getVal(1))
+			cb(sender, name)
+		},
+	}
+}
+
+func makeTOnPreferenceObserverPreferenceChangedEvent(cb TOnPreferenceObserverPreferenceChangedEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnPreferenceObserverPreferenceChangedEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 1 : procedure(const name: ustring);
+			name := api.GoStr(getVal(0))
+			cb(name)
 		},
 	}
 }
@@ -7339,6 +7252,39 @@ func makeTOnSetFocus(cb TOnSetFocus) *callback {
 	}
 }
 
+func makeTOnSettingChangedEvent(cb TOnSettingChangedEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnSettingChangedEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 4 : procedure(Sender: TObject; const requesting_url, top_level_url : ustring; content_type: TCefContentSettingTypes);
+			sender := lcl.AsObject(getVal(0))
+			requestingUrl := api.GoStr(getVal(1))
+			topLevelUrl := api.GoStr(getVal(2))
+			contentType := cefTypes.TCefContentSettingTypes(getVal(3))
+			cb(sender, requestingUrl, topLevelUrl, contentType)
+		},
+	}
+}
+
+func makeTOnSettingObserverSettingChangedEvent(cb TOnSettingObserverSettingChangedEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnSettingObserverSettingChangedEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 3 : procedure(const requesting_url: ustring; const top_level_url: ustring; content_type: TCefContentSettingTypes);
+			requestingUrl := api.GoStr(getVal(0))
+			topLevelUrl := api.GoStr(getVal(1))
+			contentType := cefTypes.TCefContentSettingTypes(getVal(2))
+			cb(requestingUrl, topLevelUrl, contentType)
+		},
+	}
+}
+
 func makeTOnShowPermissionPromptEvent(cb TOnShowPermissionPromptEvent) *callback {
 	if cb == nil {
 		return nil
@@ -7433,7 +7379,7 @@ func makeTOnTakeFocus(cb TOnTakeFocus) *callback {
 	return &callback{
 		name: "TOnTakeFocus",
 		cb: func(getVal func(i int) uintptr) {
-			// 3 : procedure(Sender: TObject; const browser: ICefBrowser; next: Boolean);
+			// 3 : procedure(Sender: TObject; const browser: ICefBrowser; next_: Boolean);
 			sender := lcl.AsObject(getVal(0))
 			browser := AsCefBrowserRef(getVal(1))
 			next := api.GoBool(getVal(2))
@@ -8403,6 +8349,26 @@ func makeTOnWindowGetInitialShowStateEvent(cb TOnWindowGetInitialShowStateEvent)
 			window := AsCefWindowRef(getVal(0))
 			result := (*cefTypes.TCefShowState)(getPtr(getVal(1)))
 			cb(window, result)
+		},
+	}
+}
+
+func makeTOnWindowGetLinuxWindowPropertiesEvent(cb TOnWindowGetLinuxWindowPropertiesEvent) *callback {
+	if cb == nil {
+		return nil
+	}
+	return &callback{
+		name: "TOnWindowGetLinuxWindowPropertiesEvent",
+		cb: func(getVal func(i int) uintptr) {
+			// 3 : procedure(const window_: ICefWindow; var properties: TLinuxWindowProperties; var aResult: boolean);
+			window := AsCefWindowRef(getVal(0))
+			propertiesPtr := *(*tLinuxWindowProperties)(getPtr(getVal(1)))
+			properties := propertiesPtr.ToGo()
+			result := (*bool)(getPtr(getVal(2)))
+			cb(window, &properties, result)
+			if r := properties.ToPas(); r != nil {
+				*(*tLinuxWindowProperties)(getPtr(getVal(1))) = *r
+			}
 		},
 	}
 }

@@ -24,14 +24,33 @@ type ICefBrowserHost interface {
 	//  Returns the hosted browser object.
 	GetBrowser() ICefBrowser // function
 	// TryCloseBrowser
-	//  Helper for closing a browser. Call this function from the top-level window
-	//  close handler (if any). Internally this calls CloseBrowser(false (0)) if
-	//  the close has not yet been initiated. This function returns false (0)
-	//  while the close is pending and true (1) after the close has completed. See
-	//  CloseBrowser() and ICefLifeSpanHandler.DoClose() documentation for
-	//  additional usage information. This function must be called on the browser
-	//  process UI thread.
+	//  Helper for closing a browser. This is similar in behavior to
+	//  CLoseBrowser(false) but returns a boolean to reflect the immediate
+	//  close status. Call this function from a top-level window close handler
+	//  such as TCEFWindowComponent.OnCanClose (or platform-specific equivalent)
+	//  to request that the browser close, and return the result to indicate if
+	//  the window close should proceed. Returns false (0) if the close will be
+	//  delayed (JavaScript unload handlers triggered but still pending) or true
+	//  (1) if the close will proceed immediately (possibly asynchronously). See
+	//  CloseBrowser() documentation for additional usage information. This
+	//  function must be called on the browser process UI thread.
 	TryCloseBrowser() bool // function
+	// IsReadyToBeClosed
+	//  Returns true (1) if the browser is ready to be closed, meaning that the
+	//  close has already been initiated and that JavaScript unload handlers have
+	//  already executed or should be ignored. This can be used from a top-level
+	//  window close handler such as TCEFWindowComponent.OnCanClose (or platform-
+	//  specific equivalent) to distringuish between potentially cancelable
+	//  browser close events (like the user clicking the top-level window close
+	//  button before browser close has started) and mandatory browser close
+	//  events (like JavaScript `window.close()` or after browser close has
+	//  started in response to [Try]CloseBrowser()). Not completing the browser
+	//  close for mandatory close events (when this function returns true (1))
+	//  will leave the browser in a partially closed state that interferes with
+	//  proper functioning. See CloseBrowser() documentation for additional usage
+	//  information. This function must be called on the browser process UI
+	//  thread.
+	IsReadyToBeClosed() bool // function
 	// GetWindowHandle
 	//  Retrieve the window handle (if any) for this browser. If this browser is
 	//  wrapped in a ICefBrowserView this function should be called on the
@@ -44,6 +63,10 @@ type ICefBrowserHost interface {
 	//  wrapped in a ICefBrowserView. This function can be used in combination
 	//  with custom handling of modal windows.
 	GetOpenerWindowHandle() cefTypes.TCefWindowHandle // function
+	// GetOpenerIdentifier
+	//  Retrieve the unique identifier of the browser that opened this browser.
+	//  Will return 0 for non-popup browsers.
+	GetOpenerIdentifier() int32 // function
 	// HasView
 	//  Returns true (1) if this browser is wrapped in a ICefBrowserView.
 	HasView() bool // function
@@ -59,8 +82,7 @@ type ICefBrowserHost interface {
 	CanZoom(command cefTypes.TCefZoomCommand) bool // function
 	// GetDefaultZoomLevel
 	//  Get the default zoom level. This value will be 0.0 by default but can be
-	//  configured with the Chrome runtime. This function can only be called on
-	//  the UI thread.
+	//  configured. This function can only be called on the UI thread.
 	GetDefaultZoomLevel() float64 // function
 	// GetZoomLevel
 	//  Get the current zoom level. This function can only be called on the UI
@@ -129,24 +151,13 @@ type ICefBrowserHost interface {
 	//  Returns the maximum rate in frames per second (fps) that
 	//  ICefRenderHandler.OnPaint will be called for a windowless browser. The
 	//  actual fps may be lower if the browser cannot generate frames at the
-	//  requested rate. The minimum value is 1 and the maximum value is 60
-	//  (default 30). This function can only be called on the UI thread.
+	//  requested rate. The minimum value is 1 and the default value is 30. This
+	//  method can only be called on the UI thread.
 	GetWindowlessFrameRate() int32 // function
 	// GetVisibleNavigationEntry
 	//  Returns the current visible navigation entry for this browser. This
 	//  function can only be called on the UI thread.
 	GetVisibleNavigationEntry() ICefNavigationEntry // function
-	// GetExtension
-	//  Returns the extension hosted in this browser or NULL if no extension is
-	//  hosted. See ICefRequestContext.LoadExtension for details.
-	//  WARNING: This API is deprecated and will be removed in ~M127.
-	GetExtension() ICefExtension // function
-	// IsBackgroundHost
-	//  Returns true (1) if this browser is hosting an extension background
-	//  script. Background hosts do not have a window and are not displayable. See
-	//  ICefRequestContext.LoadExtension for details.
-	//  WARNING: This API is deprecated and will be removed in ~M127.
-	IsBackgroundHost() bool // function
 	// IsAudioMuted
 	//  Returns true (1) if the browser's audio is muted. This function can only
 	//  be called on the UI thread.
@@ -159,9 +170,11 @@ type ICefBrowserHost interface {
 	//  can only be called on the UI thread.
 	IsFullscreen() bool // function
 	// CanExecuteChromeCommand
-	//  Returns true (1) if a Chrome command is supported and enabled. Values for
-	//  |command_id| can be found in the cef_command_ids.h file. This function can
-	//  only be called on the UI thread. Only used with the Chrome runtime.
+	//  Returns true (1) if a Chrome command is supported and enabled. Use the
+	//  cef_id_for_command_id_name() function for version-safe mapping of command
+	//  IDC names from cef_command_ids.h to version-specific numerical
+	//  |command_id| values. This function can only be called on the UI thread.
+	//  Only used with Chrome style.
 	//  <see cref="uCEFConstants">See the IDC_* constants in uCEFConstants.pas for all the |command_id| values.</see>
 	//  <see href="https://source.chromium.org/chromium/chromium/src/+/main:chrome/app/chrome_command_ids.h">The command_id values are also available in chrome/app/chrome_command_ids.h</see>
 	CanExecuteChromeCommand(commandId int32) bool // function
@@ -179,14 +192,26 @@ type ICefBrowserHost interface {
 	//  This function can only be called on the CEF UI thread.
 	GetRuntimeStyle() cefTypes.TCefRuntimeStyle // function
 	// CloseBrowser
-	//  Request that the browser close. The JavaScript 'onbeforeunload' event will
-	//  be fired. If |force_close| is false (0) the event handler, if any, will be
-	//  allowed to prompt the user and the user can optionally cancel the close.
-	//  If |force_close| is true (1) the prompt will not be displayed and the
-	//  close will proceed. Results in a call to
-	//  ICefLifeSpanHandler.DoClose() if the event handler allows the close
-	//  or if |force_close| is true (1). See ICefLifeSpanHandler.DoClose()
-	//  documentation for additional usage information.
+	//  Request that the browser close. Closing a browser is a multi-stage process
+	//  that may complete either synchronously or asynchronously, and involves
+	//  events such as TChromiumCore.OnClose (Alloy style only),
+	//  TChromiumCore.OnBeforeClose, and a top-level window close
+	//  handler such as TCEFWindowComponent.OnCanClose (or platform-specific
+	//  equivalent). In some cases a close request may be delayed or canceled by
+	//  the user. Using TryCloseBrowser() instead of CloseBrowser() is
+	//  recommended for most use cases. See TChromiumCore.OnClose
+	//  documentation for detailed usage and examples.
+	//
+	//  If |aForceClose| is false (0) then JavaScript unload handlers, if any, may
+	//  be fired and the close may be delayed or canceled by the user. If
+	//  |aForceClose| is true (1) then the user will not be prompted and the close
+	//  will proceed immediately (possibly asynchronously). If browser close is
+	//  delayed and not canceled the default behavior is to call the top-level
+	//  window close handler once the browser is ready to be closed. This default
+	//  behavior can be changed for Alloy style browsers by implementing
+	//  TChromiumCore.OnClose. IsReadyToBeClosed() can be used
+	//  to detect mandatory browser close events when customizing close behavior
+	//  on the browser process UI thread.
 	CloseBrowser(forceClose bool) // procedure
 	// SetFocus
 	//  Set whether the browser is focused.
@@ -285,12 +310,25 @@ type ICefBrowserHost interface {
 	//  regions. This function is only used when window rendering is disabled.
 	WasResized() // procedure
 	// NotifyScreenInfoChanged
-	//  Send a notification to the browser that the screen info has changed. The
-	//  browser will then call ICefRenderHandler.GetScreenInfo to update the
-	//  screen information with the new values. This simulates moving the webview
-	//  window from one display to another, or changing the properties of the
-	//  current display. This function is only used when window rendering is
-	//  disabled.
+	//  Notify the browser that screen information has changed. Updated
+	//  information will be sent to the renderer process to configure screen size
+	//  and position values used by CSS and JavaScript (window.deviceScaleFactor,
+	//  window.screenX/Y, window.outerWidth/Height, etc.). For background see
+	//  https://chromiumembedded.github.io/cef/general_usage#coordinate-systems
+	//
+	//  This function is used with (a) windowless rendering and (b) windowed
+	//  rendering with external (client-provided) root window.
+	//
+	//  With windowless rendering the browser will call
+	//  ICefRenderHandler.GetScreenInfo,
+	//  ICefRenderHandler.GetRootScreenRect and
+	//  ICefRenderHandler.GetViewRect. This simulates moving or resizing the
+	//  root window in the current display, moving the root window from one
+	//  display to another, or changing the properties of the current display.
+	//
+	//  With windowed rendering the browser will call
+	//  ICefDisplayHandler.GetRootWindowScreenRect and use the associated
+	//  display properties.
 	NotifyScreenInfoChanged() // procedure
 	// WasHidden
 	//  Notify the browser that it has been hidden or shown. Layouting and
@@ -339,9 +377,9 @@ type ICefBrowserHost interface {
 	//  Set the maximum rate in frames per second (fps) that
 	//  ICefRenderHandler.OnPaint will be called for a windowless browser.
 	//  The actual fps may be lower if the browser cannot generate frames at the
-	//  requested rate. The minimum value is 1 and the maximum value is 60
-	//  (default 30). Can also be set at browser creation via
-	//  TCefBrowserSettings.windowless_frame_rate.
+	//  requested rate. The minimum value is 1 and the default value is 30.
+	//  Can also be set at browser creation via TCefBrowserSettings.windowless_frame_rate
+	//  and TChromium.Options.WindowlessFrameRate
 	SetWindowlessFrameRate(frameRate int32) // procedure
 	// IMESetComposition
 	//  Begins a new composition or updates the existing composition. Blink has a
@@ -467,22 +505,36 @@ type ICefBrowserHost interface {
 	SetAudioMuted(mute bool) // procedure
 	// ExitFullscreen
 	//  Requests the renderer to exit browser fullscreen. In most cases exiting
-	//  window fullscreen should also exit browser fullscreen. With the Alloy
-	//  runtime this function should be called in response to a user action such
-	//  as clicking the green traffic light button on MacOS
+	//  window fullscreen should also exit browser fullscreen. With Alloy style
+	//  this function should be called in response to a user action such as
+	//  clicking the green traffic light button on MacOS
 	//  (ICefWindowDelegate.OnWindowFullscreenTransition callback) or pressing
-	//  the "ESC" key (ICefKeyboardHandler.OnPreKeyEvent callback). With the
-	//  Chrome runtime these standard exit actions are handled internally but
+	//  the "ESC" key (ICefKeyboardHandler.OnPreKeyEvent callback). With
+	//  Chrome style these standard exit actions are handled internally but
 	//  new/additional user actions can use this function. Set |will_cause_resize|
 	//  to true (1) if exiting browser fullscreen will cause a view resize.
 	ExitFullscreen(willCauseResize bool) // procedure
 	// ExecuteChromeCommand
-	//  Execute a Chrome command. Values for |command_id| can be found in the
-	//  cef_command_ids.h file. |disposition| provides information about the
-	//  intended command target. Only used with the Chrome runtime.
+	//  Returns true (1) if a Chrome command is supported and enabled. Use the
+	//  cef_id_for_command_id_name() function for version-safe mapping of command
+	//  IDC names from cef_command_ids.h to version-specific numerical
+	//  |command_id| values. This function can only be called on the UI thread.
+	//  Only used with Chrome style.
 	//  <see cref="uCEFConstants">See the IDC_* constants in uCEFConstants.pas for all the |command_id| values.</see>
 	//  <see href="https://source.chromium.org/chromium/chromium/src/+/main:chrome/app/chrome_command_ids.h">The command_id values are also available in chrome/app/chrome_command_ids.h</see>
 	ExecuteChromeCommand(commandId int32, disposition cefTypes.TCefWindowOpenDisposition) // procedure
+	// SetAxViewportCollapse
+	//  Enable or disable CDP accessibility tree viewport collapse for this
+	//  browser. When enabled, off-screen landmarks and headings are serialized as
+	//  summaries and other off-screen nodes are pruned. Overrides the
+	//  TCefBrowserSettings.ax_viewport_collapse value. If called on the UI
+	//  thread the change will be applied immediately. Otherwise, the change will
+	//  be applied asynchronously on the UI thread. WARNING: This collapses the
+	//  CDP accessibility tree and disables CDP dynamic tree updates (nodesUpdated
+	//  events). The DevTools Accessibility panel will show an incomplete tree.
+	//  Platform screen readers (NVDA, JAWS, VoiceOver) are unaffected they use
+	//  a separate code path.
+	SetAxViewportCollapse(enabled bool) // procedure
 }
 
 // ICefBrowserHostRef Parent: ICefBrowserHost ICefBaseRefCountedRef
@@ -514,15 +566,15 @@ func (m *TCefBrowserHostRef) TryCloseBrowser() bool {
 	return api.GoBool(r)
 }
 
-func (m *TCefBrowserHostRef) GetWindowHandle() cefTypes.TCefWindowHandle {
+func (m *TCefBrowserHostRef) IsReadyToBeClosed() bool {
 	if !m.IsValid() {
-		return 0
+		return false
 	}
 	r := cefBrowserHostRefAPI().SysCallN(3, m.Instance())
-	return cefTypes.TCefWindowHandle(r)
+	return api.GoBool(r)
 }
 
-func (m *TCefBrowserHostRef) GetOpenerWindowHandle() cefTypes.TCefWindowHandle {
+func (m *TCefBrowserHostRef) GetWindowHandle() cefTypes.TCefWindowHandle {
 	if !m.IsValid() {
 		return 0
 	}
@@ -530,11 +582,27 @@ func (m *TCefBrowserHostRef) GetOpenerWindowHandle() cefTypes.TCefWindowHandle {
 	return cefTypes.TCefWindowHandle(r)
 }
 
+func (m *TCefBrowserHostRef) GetOpenerWindowHandle() cefTypes.TCefWindowHandle {
+	if !m.IsValid() {
+		return 0
+	}
+	r := cefBrowserHostRefAPI().SysCallN(5, m.Instance())
+	return cefTypes.TCefWindowHandle(r)
+}
+
+func (m *TCefBrowserHostRef) GetOpenerIdentifier() int32 {
+	if !m.IsValid() {
+		return 0
+	}
+	r := cefBrowserHostRefAPI().SysCallN(6, m.Instance())
+	return int32(r)
+}
+
 func (m *TCefBrowserHostRef) HasView() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefBrowserHostRefAPI().SysCallN(5, m.Instance())
+	r := cefBrowserHostRefAPI().SysCallN(7, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -543,7 +611,7 @@ func (m *TCefBrowserHostRef) GetClient() (result IEngClient) {
 		return
 	}
 	var resultPtr uintptr
-	cefBrowserHostRefAPI().SysCallN(6, m.Instance(), uintptr(base.UnsafePointer(&resultPtr)))
+	cefBrowserHostRefAPI().SysCallN(8, m.Instance(), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsEngClient(resultPtr)
 	return
 }
@@ -553,7 +621,7 @@ func (m *TCefBrowserHostRef) GetRequestContext() (result ICefRequestContext) {
 		return
 	}
 	var resultPtr uintptr
-	cefBrowserHostRefAPI().SysCallN(7, m.Instance(), uintptr(base.UnsafePointer(&resultPtr)))
+	cefBrowserHostRefAPI().SysCallN(9, m.Instance(), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefRequestContextRef(resultPtr)
 	return
 }
@@ -562,7 +630,7 @@ func (m *TCefBrowserHostRef) CanZoom(command cefTypes.TCefZoomCommand) bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefBrowserHostRefAPI().SysCallN(8, m.Instance(), uintptr(command))
+	r := cefBrowserHostRefAPI().SysCallN(10, m.Instance(), uintptr(command))
 	return api.GoBool(r)
 }
 
@@ -570,7 +638,7 @@ func (m *TCefBrowserHostRef) GetDefaultZoomLevel() (result float64) {
 	if !m.IsValid() {
 		return
 	}
-	cefBrowserHostRefAPI().SysCallN(9, m.Instance(), uintptr(base.UnsafePointer(&result)))
+	cefBrowserHostRefAPI().SysCallN(11, m.Instance(), uintptr(base.UnsafePointer(&result)))
 	return
 }
 
@@ -578,7 +646,7 @@ func (m *TCefBrowserHostRef) GetZoomLevel() (result float64) {
 	if !m.IsValid() {
 		return
 	}
-	cefBrowserHostRefAPI().SysCallN(10, m.Instance(), uintptr(base.UnsafePointer(&result)))
+	cefBrowserHostRefAPI().SysCallN(12, m.Instance(), uintptr(base.UnsafePointer(&result)))
 	return
 }
 
@@ -586,7 +654,7 @@ func (m *TCefBrowserHostRef) HasDevTools() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefBrowserHostRefAPI().SysCallN(11, m.Instance())
+	r := cefBrowserHostRefAPI().SysCallN(13, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -594,7 +662,7 @@ func (m *TCefBrowserHostRef) SendDevToolsMessage(message string) bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefBrowserHostRefAPI().SysCallN(12, m.Instance(), api.PasStr(message))
+	r := cefBrowserHostRefAPI().SysCallN(14, m.Instance(), api.PasStr(message))
 	return api.GoBool(r)
 }
 
@@ -602,7 +670,7 @@ func (m *TCefBrowserHostRef) ExecuteDevToolsMethod(messageId int32, method strin
 	if !m.IsValid() {
 		return 0
 	}
-	r := cefBrowserHostRefAPI().SysCallN(13, m.Instance(), uintptr(messageId), api.PasStr(method), base.GetObjectUintptr(params))
+	r := cefBrowserHostRefAPI().SysCallN(15, m.Instance(), uintptr(messageId), api.PasStr(method), base.GetObjectUintptr(params))
 	return int32(r)
 }
 
@@ -611,7 +679,7 @@ func (m *TCefBrowserHostRef) AddDevToolsMessageObserver(observer IEngDevToolsMes
 		return
 	}
 	var resultPtr uintptr
-	cefBrowserHostRefAPI().SysCallN(14, m.Instance(), base.GetObjectUintptr(observer), uintptr(base.UnsafePointer(&resultPtr)))
+	cefBrowserHostRefAPI().SysCallN(16, m.Instance(), base.GetObjectUintptr(observer), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefRegistrationRef(resultPtr)
 	return
 }
@@ -620,7 +688,7 @@ func (m *TCefBrowserHostRef) IsWindowRenderingDisabled() bool {
 	if !m.IsValid() {
 		return false
 	}
-	r := cefBrowserHostRefAPI().SysCallN(15, m.Instance())
+	r := cefBrowserHostRefAPI().SysCallN(17, m.Instance())
 	return api.GoBool(r)
 }
 
@@ -628,7 +696,7 @@ func (m *TCefBrowserHostRef) GetWindowlessFrameRate() int32 {
 	if !m.IsValid() {
 		return 0
 	}
-	r := cefBrowserHostRefAPI().SysCallN(16, m.Instance())
+	r := cefBrowserHostRefAPI().SysCallN(18, m.Instance())
 	return int32(r)
 }
 
@@ -637,27 +705,9 @@ func (m *TCefBrowserHostRef) GetVisibleNavigationEntry() (result ICefNavigationE
 		return
 	}
 	var resultPtr uintptr
-	cefBrowserHostRefAPI().SysCallN(17, m.Instance(), uintptr(base.UnsafePointer(&resultPtr)))
+	cefBrowserHostRefAPI().SysCallN(19, m.Instance(), uintptr(base.UnsafePointer(&resultPtr)))
 	result = AsCefNavigationEntryRef(resultPtr)
 	return
-}
-
-func (m *TCefBrowserHostRef) GetExtension() (result ICefExtension) {
-	if !m.IsValid() {
-		return
-	}
-	var resultPtr uintptr
-	cefBrowserHostRefAPI().SysCallN(18, m.Instance(), uintptr(base.UnsafePointer(&resultPtr)))
-	result = AsCefExtensionRef(resultPtr)
-	return
-}
-
-func (m *TCefBrowserHostRef) IsBackgroundHost() bool {
-	if !m.IsValid() {
-		return false
-	}
-	r := cefBrowserHostRefAPI().SysCallN(19, m.Instance())
-	return api.GoBool(r)
 }
 
 func (m *TCefBrowserHostRef) IsAudioMuted() bool {
@@ -1011,6 +1061,13 @@ func (m *TCefBrowserHostRef) ExecuteChromeCommand(commandId int32, disposition c
 	cefBrowserHostRefAPI().SysCallN(69, m.Instance(), uintptr(commandId), uintptr(disposition))
 }
 
+func (m *TCefBrowserHostRef) SetAxViewportCollapse(enabled bool) {
+	if !m.IsValid() {
+		return
+	}
+	cefBrowserHostRefAPI().SysCallN(70, m.Instance(), api.PasBool(enabled))
+}
+
 func (m *TCefBrowserHostRef) AsIntfBrowserHost() uintptr {
 	return m.GetIntfPointer(0)
 }
@@ -1052,23 +1109,23 @@ func cefBrowserHostRefAPI() *imports.Imports {
 			/* 0 */ imports.NewTable("TCefBrowserHostRef_Create", 0), // constructor NewBrowserHostRef
 			/* 1 */ imports.NewTable("TCefBrowserHostRef_GetBrowser", 0), // function GetBrowser
 			/* 2 */ imports.NewTable("TCefBrowserHostRef_TryCloseBrowser", 0), // function TryCloseBrowser
-			/* 3 */ imports.NewTable("TCefBrowserHostRef_GetWindowHandle", 0), // function GetWindowHandle
-			/* 4 */ imports.NewTable("TCefBrowserHostRef_GetOpenerWindowHandle", 0), // function GetOpenerWindowHandle
-			/* 5 */ imports.NewTable("TCefBrowserHostRef_HasView", 0), // function HasView
-			/* 6 */ imports.NewTable("TCefBrowserHostRef_GetClient", 0), // function GetClient
-			/* 7 */ imports.NewTable("TCefBrowserHostRef_GetRequestContext", 0), // function GetRequestContext
-			/* 8 */ imports.NewTable("TCefBrowserHostRef_CanZoom", 0), // function CanZoom
-			/* 9 */ imports.NewTable("TCefBrowserHostRef_GetDefaultZoomLevel", 0), // function GetDefaultZoomLevel
-			/* 10 */ imports.NewTable("TCefBrowserHostRef_GetZoomLevel", 0), // function GetZoomLevel
-			/* 11 */ imports.NewTable("TCefBrowserHostRef_HasDevTools", 0), // function HasDevTools
-			/* 12 */ imports.NewTable("TCefBrowserHostRef_SendDevToolsMessage", 0), // function SendDevToolsMessage
-			/* 13 */ imports.NewTable("TCefBrowserHostRef_ExecuteDevToolsMethod", 0), // function ExecuteDevToolsMethod
-			/* 14 */ imports.NewTable("TCefBrowserHostRef_AddDevToolsMessageObserver", 0), // function AddDevToolsMessageObserver
-			/* 15 */ imports.NewTable("TCefBrowserHostRef_IsWindowRenderingDisabled", 0), // function IsWindowRenderingDisabled
-			/* 16 */ imports.NewTable("TCefBrowserHostRef_GetWindowlessFrameRate", 0), // function GetWindowlessFrameRate
-			/* 17 */ imports.NewTable("TCefBrowserHostRef_GetVisibleNavigationEntry", 0), // function GetVisibleNavigationEntry
-			/* 18 */ imports.NewTable("TCefBrowserHostRef_GetExtension", 0), // function GetExtension
-			/* 19 */ imports.NewTable("TCefBrowserHostRef_IsBackgroundHost", 0), // function IsBackgroundHost
+			/* 3 */ imports.NewTable("TCefBrowserHostRef_IsReadyToBeClosed", 0), // function IsReadyToBeClosed
+			/* 4 */ imports.NewTable("TCefBrowserHostRef_GetWindowHandle", 0), // function GetWindowHandle
+			/* 5 */ imports.NewTable("TCefBrowserHostRef_GetOpenerWindowHandle", 0), // function GetOpenerWindowHandle
+			/* 6 */ imports.NewTable("TCefBrowserHostRef_GetOpenerIdentifier", 0), // function GetOpenerIdentifier
+			/* 7 */ imports.NewTable("TCefBrowserHostRef_HasView", 0), // function HasView
+			/* 8 */ imports.NewTable("TCefBrowserHostRef_GetClient", 0), // function GetClient
+			/* 9 */ imports.NewTable("TCefBrowserHostRef_GetRequestContext", 0), // function GetRequestContext
+			/* 10 */ imports.NewTable("TCefBrowserHostRef_CanZoom", 0), // function CanZoom
+			/* 11 */ imports.NewTable("TCefBrowserHostRef_GetDefaultZoomLevel", 0), // function GetDefaultZoomLevel
+			/* 12 */ imports.NewTable("TCefBrowserHostRef_GetZoomLevel", 0), // function GetZoomLevel
+			/* 13 */ imports.NewTable("TCefBrowserHostRef_HasDevTools", 0), // function HasDevTools
+			/* 14 */ imports.NewTable("TCefBrowserHostRef_SendDevToolsMessage", 0), // function SendDevToolsMessage
+			/* 15 */ imports.NewTable("TCefBrowserHostRef_ExecuteDevToolsMethod", 0), // function ExecuteDevToolsMethod
+			/* 16 */ imports.NewTable("TCefBrowserHostRef_AddDevToolsMessageObserver", 0), // function AddDevToolsMessageObserver
+			/* 17 */ imports.NewTable("TCefBrowserHostRef_IsWindowRenderingDisabled", 0), // function IsWindowRenderingDisabled
+			/* 18 */ imports.NewTable("TCefBrowserHostRef_GetWindowlessFrameRate", 0), // function GetWindowlessFrameRate
+			/* 19 */ imports.NewTable("TCefBrowserHostRef_GetVisibleNavigationEntry", 0), // function GetVisibleNavigationEntry
 			/* 20 */ imports.NewTable("TCefBrowserHostRef_IsAudioMuted", 0), // function IsAudioMuted
 			/* 21 */ imports.NewTable("TCefBrowserHostRef_IsFullscreen", 0), // function IsFullscreen
 			/* 22 */ imports.NewTable("TCefBrowserHostRef_CanExecuteChromeCommand", 0), // function CanExecuteChromeCommand
@@ -1119,6 +1176,7 @@ func cefBrowserHostRefAPI() *imports.Imports {
 			/* 67 */ imports.NewTable("TCefBrowserHostRef_SetAudioMuted", 0), // procedure SetAudioMuted
 			/* 68 */ imports.NewTable("TCefBrowserHostRef_ExitFullscreen", 0), // procedure ExitFullscreen
 			/* 69 */ imports.NewTable("TCefBrowserHostRef_ExecuteChromeCommand", 0), // procedure ExecuteChromeCommand
+			/* 70 */ imports.NewTable("TCefBrowserHostRef_SetAxViewportCollapse", 0), // procedure SetAxViewportCollapse
 		}
 	})
 	return cefBrowserHostRefImport
