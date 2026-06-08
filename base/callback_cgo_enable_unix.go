@@ -10,7 +10,7 @@
 
 //go:build !windows && cgo
 
-package cef
+package base
 
 //// #cgo darwin CFLAGS: -mmacosx-version-min=11.0 -DMACOSX_DEPLOYMENT_TARGET=11.0
 // #cgo darwin CFLAGS: -mmacosx-version-min=11.0

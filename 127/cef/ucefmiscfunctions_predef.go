@@ -15,7 +15,7 @@ package cef
 import (
 	"unsafe"
 
-	cefTypes "github.com/energye/cef/127/types"
+	cefTypes "github.com/energye/cef/147/types"
 	"github.com/energye/lcl/api"
 	"github.com/energye/lcl/api/imports"
 	"github.com/energye/lcl/base"

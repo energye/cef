@@ -10,7 +10,10 @@
 
 package cef
 
-import "github.com/energye/lcl/lcl"
+import (
+	"github.com/energye/cef/127/types"
+	"github.com/energye/lcl/lcl"
+)
 
 // PPSingle = ^PSingle = ^Single = Single = float32
 type PPSingle = uintptr
@@ -27,3 +30,5 @@ type IPersistent = lcl.IPersistent
 type TPersistent = lcl.TPersistent
 type ICustomPanel = lcl.ICustomPanel
 type TCustomPanel = lcl.TCustomPanel
+
+type TCefChromeToolbarType = types.TCefChromeToolbarType

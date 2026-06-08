@@ -10,7 +10,7 @@
 
 //go:build windows
 
-package cef
+package base
 
 import (
 	"syscall"

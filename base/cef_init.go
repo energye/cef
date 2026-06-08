@@ -8,7 +8,7 @@
 
 // :predefine:
 
-package cef
+package base
 
 import (
 	"os"

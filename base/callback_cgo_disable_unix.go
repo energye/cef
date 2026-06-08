@@ -8,15 +8,15 @@
 
 // :predefine:
 
-//go:build windows
+//go:build !windows && !cgo
 
-package cef
+package base
 
 import (
-	"syscall"
+	"github.com/energye/lcl/api/imports"
 )
 
 var (
-	eventCallback       = syscall.NewCallback(eventCallbackProc)
-	removeEventCallback = syscall.NewCallback(removeEventCallbackProc)
+	eventCallback       = imports.NewCallback(eventCallbackProc)
+	removeEventCallback = imports.NewCallback(removeEventCallbackProc)
 )

@@ -8,7 +8,7 @@
 
 // :predefine:
 
-package cef
+package base
 
 import (
 	"github.com/energye/lcl/api"
@@ -26,16 +26,16 @@ func AddCrDelegate() {
 	cefApplicationDefAPI().SysCallN(1)
 }
 
-func SetGlobalCEFApplication(application ICefApplication) {
-	cefApplicationDefAPI().SysCallN(2, application.Instance())
+func SetGlobalCEFApplication(application uintptr) {
+	cefApplicationDefAPI().SysCallN(2, application)
 }
 
 func DestroyGlobalCEFApplication() {
 	cefApplicationDefAPI().SysCallN(3)
 }
 
-func SetGlobalCEFWorkSchedule(workSchedule ICEFWorkScheduler) {
-	cefApplicationDefAPI().SysCallN(4, workSchedule.Instance())
+func SetGlobalCEFWorkSchedule(workSchedule uintptr) {
+	cefApplicationDefAPI().SysCallN(4, workSchedule)
 }
 
 func DestroyGlobalCEFWorkSchedule() {

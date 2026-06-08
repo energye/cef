@@ -9,8 +9,3 @@
 //----------------------------------------
 
 package base
-
-type Callback struct {
-	Name string
-	Cb   func(getVal func(i int) uintptr)
-}
