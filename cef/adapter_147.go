@@ -8,7 +8,7 @@
 //
 //----------------------------------------
 
-//go:build cef147 || CEF147
+//go:build CEF147
 
 package cef
 

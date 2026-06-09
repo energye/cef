@@ -8,7 +8,7 @@
 //
 //----------------------------------------
 
-//go:build cef109 || CEF109
+//go:build CEF109 || (!CEF109 && !CEF127 && !CEF147)
 
 package cef
 
