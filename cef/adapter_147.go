@@ -1263,11 +1263,6 @@ type TOnZoomPctAvailable func(sender lcl.IObject, zoomPct float64)
 type TStartDockEvent func(sender lcl.IObject, dragObject *lcl.IDragDockObject)
 type TStartDragEvent func(sender lcl.IObject, dragObject *lcl.IDragObject)
 
-type IApplicationCoreEvents_147 interface {
-	IApplicationCoreEvents
-	IObject
-}
-
 type tIApplicationCoreEvents_147 struct {
 	raw vcef.IApplicationCoreEvents
 	IObject
@@ -1310,10 +1305,6 @@ func (t *tIApplicationCoreEvents_147) RawCEF147IApplicationCoreEvents() vcef.IAp
 	return t.raw
 }
 
-type ICEFAccessibilityHandlerOwn_147 interface {
-	ICEFAccessibilityHandlerOwn
-}
-
 type tICEFAccessibilityHandlerOwn_147 struct {
 	raw vcef.ICEFAccessibilityHandlerOwn
 	*tICefBaseRefCountedOwn_147
@@ -1354,10 +1345,6 @@ func (t *tICEFAccessibilityHandlerOwn_147) CEFVersion() string {
 
 func (t *tICEFAccessibilityHandlerOwn_147) RawCEF147ICEFAccessibilityHandlerOwn() vcef.ICEFAccessibilityHandlerOwn {
 	return t.raw
-}
-
-type ICEFBaseScopedWrapperRef_147 interface {
-	ICEFBaseScopedWrapperRef
 }
 
 type tICEFBaseScopedWrapperRef_147 struct {
@@ -1405,10 +1392,6 @@ func (t *tICEFBaseScopedWrapperRef_147) RawCEF147ICEFBaseScopedWrapperRef() vcef
 func (t *tICEFBaseScopedWrapperRef_147) Wrap() uintptr {
 	r0 := t.raw.Wrap()
 	return r0
-}
-
-type ICEFBitmapBitBuffer_147 interface {
-	ICEFBitmapBitBuffer
 }
 
 type tICEFBitmapBitBuffer_147 struct {
@@ -1495,27 +1478,6 @@ func (t *tICEFBitmapBitBuffer_147) UpdateSize(width int32, height int32) {
 func (t *tICEFBitmapBitBuffer_147) Width() int32 {
 	r0 := t.raw.Width()
 	return r0
-}
-
-type ICEFBrowserViewComponent_147 interface {
-	ICEFBrowserViewComponent
-	// ChromeToolbar
-	// Returns the Chrome toolbar associated with this BrowserView. Only
-	// supported when using Chrome style. The ICefBrowserViewDelegate.GetChromeToolbarType
-	// function must return a value other than
-	// CEF_CTT_NONE and the toolbar will not be available until after this
-	// BrowserView is added to a ICefWindow and
-	// ICefViewDelegate.OnWindowChanged() has been called.
-	ChromeToolbar() ICefView
-	// RuntimeStyle
-	// Returns the runtime style for this BrowserView (ALLOY or CHROME). See
-	// TCefRuntimeStyle documentation for details.
-	RuntimeStyle() cefTypes.TCefRuntimeStyle
-	SetOnAllowMoveForPictureInPicture(fn TOnAllowMoveForPictureInPictureEvent)
-	SetOnAllowPictureInPictureWithoutUserActivation(fn TOnAllowPictureInPictureWithoutUserActivationEvent)
-	SetOnGestureCommand(fn TOnGestureCommandEvent)
-	SetOnGetBrowserRuntimeStyle(fn TOnGetBrowserRuntimeStyleEvent)
-	SetOnUseFramelessWindowForPictureInPicture(fn TOnUseFramelessWindowForPictureInPicture)
 }
 
 type tICEFBrowserViewComponent_147 struct {
@@ -1664,10 +1626,6 @@ func (t *tICEFBrowserViewComponent_147) SetPreferAccelerators(preferAccelerators
 	t.raw.SetPreferAccelerators(preferAccelerators)
 }
 
-type ICEFButtonComponent_147 interface {
-	ICEFButtonComponent
-}
-
 type tICEFButtonComponent_147 struct {
 	raw vcef.ICEFButtonComponent
 	*tICEFViewComponent_147
@@ -1754,10 +1712,6 @@ func (t *tICEFButtonComponent_147) State() cefTypes.TCefButtonState {
 	return r0
 }
 
-type ICEFDevToolsMessageObserverOwn_147 interface {
-	ICEFDevToolsMessageObserverOwn
-}
-
 type tICEFDevToolsMessageObserverOwn_147 struct {
 	raw vcef.ICEFDevToolsMessageObserverOwn
 	*tICefBaseRefCountedOwn_147
@@ -1798,12 +1752,6 @@ func (t *tICEFDevToolsMessageObserverOwn_147) CEFVersion() string {
 
 func (t *tICEFDevToolsMessageObserverOwn_147) RawCEF147ICEFDevToolsMessageObserverOwn() vcef.ICEFDevToolsMessageObserverOwn {
 	return t.raw
-}
-
-type ICEFFileDialogInfo_147 interface {
-	ICEFFileDialogInfo
-	SetAcceptDescriptions(value lcl.IStrings)
-	SetAcceptExtensions(value lcl.IStrings)
 }
 
 type tICEFFileDialogInfo_147 struct {
@@ -1964,10 +1912,6 @@ func (t *tICEFFileDialogInfo_147) Title() string {
 	return r0
 }
 
-type ICEFJson_147 interface {
-	ICEFJson
-}
-
 type tICEFJson_147 struct {
 	raw vcef.ICEFJson
 	IObject
@@ -2006,10 +1950,6 @@ func (t *tICEFJson_147) CEFVersion() string {
 
 func (t *tICEFJson_147) RawCEF147ICEFJson() vcef.ICEFJson {
 	return t.raw
-}
-
-type ICEFLabelButtonComponent_147 interface {
-	ICEFLabelButtonComponent
 }
 
 type tICEFLabelButtonComponent_147 struct {
@@ -2115,14 +2055,6 @@ func (t *tICEFLabelButtonComponent_147) Text() string {
 	return r0
 }
 
-type ICEFLinkedWinControlBase_147 interface {
-	ICEFLinkedWinControlBase
-	SetUseSetFocus(value bool)
-	// UseSetFocus
-	// Use TChromium.SetFocus when the component receives a WM_SETFOCUS message in Windows.
-	UseSetFocus() bool
-}
-
 type tICEFLinkedWinControlBase_147 struct {
 	raw vcef.ICEFLinkedWinControlBase
 	*tICEFWinControl_147
@@ -2174,10 +2106,6 @@ func (t *tICEFLinkedWinControlBase_147) UseSetFocus() bool {
 	return r0
 }
 
-type ICEFLinkedWindowParent_147 interface {
-	ICEFLinkedWindowParent
-}
-
 type tICEFLinkedWindowParent_147 struct {
 	raw vcef.ICEFLinkedWindowParent
 	*tICEFLinkedWinControlBase_147
@@ -2227,10 +2155,6 @@ func (t *tICEFLinkedWindowParent_147) Chromium() IChromium {
 
 func (t *tICEFLinkedWindowParent_147) SetChromium(value IChromium) {
 	t.raw.SetChromium(unwrapIChromium(value))
-}
-
-type ICEFMenuButtonComponent_147 interface {
-	ICEFMenuButtonComponent
 }
 
 type tICEFMenuButtonComponent_147 struct {
@@ -2306,10 +2230,6 @@ func (t *tICEFMenuButtonComponent_147) ShowMenu(menuModel ICefMenuModel, screenP
 
 func (t *tICEFMenuButtonComponent_147) TriggerMenu() {
 	t.raw.TriggerMenu()
-}
-
-type ICEFOAuth2Helper_147 interface {
-	ICEFOAuth2Helper
 }
 
 type tICEFOAuth2Helper_147 struct {
@@ -2513,13 +2433,6 @@ func (t *tICEFOAuth2Helper_147) ValidState() bool {
 	return r0
 }
 
-type ICEFOSRIMEHandler_147 interface {
-	ICEFOSRIMEHandler
-	// UpdateCaretPosition
-	// Updates the IME caret position of the given window.
-	UpdateCaretPosition(index uint32)
-}
-
 type tICEFOSRIMEHandler_147 struct {
 	raw vcef.ICEFOSRIMEHandler
 	IObject
@@ -2639,13 +2552,6 @@ func (t *tICEFOSRIMEHandler_147) UpdateCaretPosition(index uint32) {
 	t.raw.UpdateCaretPosition(index)
 }
 
-type ICEFPanelComponent_147 interface {
-	ICEFPanelComponent
-	// ChildViewCount
-	// Returns the number of child Views.
-	ChildViewCount() cefTypes.NativeUInt
-}
-
 type tICEFPanelComponent_147 struct {
 	raw vcef.ICEFPanelComponent
 	*tICEFViewComponent_147
@@ -2756,21 +2662,6 @@ func (t *tICEFPanelComponent_147) SetToFillLayout() ICefFillLayout {
 	return wrapICefFillLayout(r0)
 }
 
-type ICEFProxySettings_147 interface {
-	ICEFProxySettings
-	IObject
-	AutoDetect() bool
-	ByPassList() string
-	NoProxyServer() bool
-	PacUrl() string
-	Server() string
-	SetAutoDetect(value bool)
-	SetByPassList(value string)
-	SetNoProxyServer(value bool)
-	SetPacUrl(value string)
-	SetServer(value string)
-}
-
 type tICEFProxySettings_147 struct {
 	raw vcef.ICEFProxySettings
 	IObject
@@ -2856,10 +2747,6 @@ func (t *tICEFProxySettings_147) SetServer(value string) {
 	t.raw.SetServer(value)
 }
 
-type ICEFScrollViewComponent_147 interface {
-	ICEFScrollViewComponent
-}
-
 type tICEFScrollViewComponent_147 struct {
 	raw vcef.ICEFScrollViewComponent
 	*tICEFViewComponent_147
@@ -2943,10 +2830,6 @@ func (t *tICEFScrollViewComponent_147) VerticalScrollbarWidth() int32 {
 func (t *tICEFScrollViewComponent_147) VisibleContentRect() TCefRect {
 	r0 := t.raw.VisibleContentRect()
 	return r0
-}
-
-type ICEFSentinel_147 interface {
-	ICEFSentinel
 }
 
 type tICEFSentinel_147 struct {
@@ -3050,10 +2933,6 @@ func (t *tICEFSentinel_147) Start() {
 func (t *tICEFSentinel_147) Status() cefTypes.TSentinelStatus {
 	r0 := t.raw.Status()
 	return r0
-}
-
-type ICEFServerComponent_147 interface {
-	ICEFServerComponent
 }
 
 type tICEFServerComponent_147 struct {
@@ -3210,10 +3089,6 @@ func (t *tICEFServerComponent_147) Shutdown() {
 	t.raw.Shutdown()
 }
 
-type ICEFServerHandlerOwn_147 interface {
-	ICEFServerHandlerOwn
-}
-
 type tICEFServerHandlerOwn_147 struct {
 	raw vcef.ICEFServerHandlerOwn
 	*tICefBaseRefCountedOwn_147
@@ -3254,10 +3129,6 @@ func (t *tICEFServerHandlerOwn_147) CEFVersion() string {
 
 func (t *tICEFServerHandlerOwn_147) RawCEF147ICEFServerHandlerOwn() vcef.ICEFServerHandlerOwn {
 	return t.raw
-}
-
-type ICEFServerRef_147 interface {
-	ICEFServerRef
 }
 
 type tICEFServerRef_147 struct {
@@ -3360,17 +3231,6 @@ func (t *tICEFServerRef_147) SendWebSocketMessage(connectionId int32, data uintp
 
 func (t *tICEFServerRef_147) Shutdown() {
 	t.raw.Shutdown()
-}
-
-type ICEFTextfieldComponent_147 interface {
-	ICEFTextfieldComponent
-	// CursorPosition
-	// Returns the current cursor position.
-	CursorPosition() cefTypes.NativeUInt
-	// SelectedRange
-	// Returns the selected logical text range.
-	SelectedRange() TCefRange
-	SetSelectedRange(value TCefRange)
 }
 
 type tICEFTextfieldComponent_147 struct {
@@ -3575,10 +3435,6 @@ func (t *tICEFTextfieldComponent_147) Text() string {
 	return r0
 }
 
-type ICEFTimerWorkScheduler_147 interface {
-	ICEFTimerWorkScheduler
-}
-
 type tICEFTimerWorkScheduler_147 struct {
 	raw vcef.ICEFTimerWorkScheduler
 	IObject
@@ -3654,10 +3510,6 @@ func (t *tICEFTimerWorkScheduler_147) SetOnAllowDoWork(fn TOnAllowEvent) {
 
 func (t *tICEFTimerWorkScheduler_147) StopScheduler() {
 	t.raw.StopScheduler()
-}
-
-type ICEFUrlRequestClientComponent_147 interface {
-	ICEFUrlRequestClientComponent
 }
 
 type tICEFUrlRequestClientComponent_147 struct {
@@ -3759,10 +3611,6 @@ func (t *tICEFUrlRequestClientComponent_147) ThreadID() cefTypes.TCefThreadId {
 	return r0
 }
 
-type ICEFUrlRequestClientEvents_147 interface {
-	ICEFUrlRequestClientEvents
-}
-
 type tICEFUrlRequestClientEvents_147 struct {
 	raw vcef.ICEFUrlRequestClientEvents
 	IObject
@@ -3803,27 +3651,6 @@ func (t *tICEFUrlRequestClientEvents_147) CEFVersion() string {
 
 func (t *tICEFUrlRequestClientEvents_147) RawCEF147ICEFUrlRequestClientEvents() vcef.ICEFUrlRequestClientEvents {
 	return t.raw
-}
-
-type ICEFViewComponent_147 interface {
-	ICEFViewComponent
-	// GetThemeColor
-	// Returns the current theme color associated with |color_id|, or the
-	// placeholder color (red) if unset. See cef_color_ids.h for standard ID
-	// values. Standard colors can be overridden and custom colors can be added
-	// using ICefWindow.SetThemeColor.
-	GetThemeColor(colorId int32) cefTypes.TCefColor
-	// HasFocus
-	// Returns true (1) if this View has focus in the context of the containing
-	// Window. Check both this function and ICefWindow.IsActive to determine
-	// global keyboard focus.
-	HasFocus() bool
-	// Insets
-	// Returns the insets for this View in parent coordinates, or DIP screen
-	// coordinates if there is no parent.
-	Insets() TCefInsets
-	SetInsets(value TCefInsets)
-	SetOnThemeChanged(fn TOnThemeChangedEvent)
 }
 
 type tICEFViewComponent_147 struct {
@@ -4182,10 +4009,6 @@ func (t *tICEFViewComponent_147) Window() ICefWindow {
 	return wrapICefWindow(r0)
 }
 
-type ICEFWinControl_147 interface {
-	ICEFWinControl
-}
-
 type tICEFWinControl_147 struct {
 	raw vcef.ICEFWinControl
 	IWinControl
@@ -4296,110 +4119,6 @@ func (t *tICEFWinControl_147) TakeSnapshot(bitmap *lcl.IBitmap) bool {
 
 func (t *tICEFWinControl_147) UpdateSize() {
 	t.raw.UpdateSize()
-}
-
-type ICEFWindowComponent_147 interface {
-	ICEFWindowComponent
-	// AddOverlayView
-	// Add a View that will be overlayed on the Window contents with absolute
-	// positioning and high z-order. Positioning is controlled by |docking_mode|
-	// as described below. Setting |can_activate| to true (1) will allow the
-	// overlay view to receive input focus. The returned cef_overlay_controller_t
-	// object is used to control the overlay. Overlays are hidden by default.
-	// With CEF_DOCKING_MODE_CUSTOM:
-	// <code>
-	// 1. The overlay is initially hidden, sized to |view|'s preferred size,
-	// and positioned in the top-left corner.
-	// 2. Optionally change the overlay position and/or size by calling
-	// CefOverlayController methods.
-	// 3. Call CefOverlayController::SetVisible(true) to show the overlay.
-	// 4. The overlay will be automatically re-sized if |view|'s layout
-	// changes. Optionally change the overlay position and/or size when
-	// OnLayoutChanged is called on the Window's delegate to indicate a
-	// change in Window bounds.</code>
-	// With other docking modes:
-	// <code>
-	// 1. The overlay is initially hidden, sized to |view|'s preferred size,
-	// and positioned based on |docking_mode|.
-	// 2. Call CefOverlayController::SetVisible(true) to show the overlay.
-	// 3. The overlay will be automatically re-sized if |view|'s layout changes
-	// and re-positioned as appropriate when the Window resizes.</code>
-	// Overlays created by this function will receive a higher z-order then any
-	// child Views added previously. It is therefore recommended to call this
-	// function last after all other child Views have been added so that the
-	// overlay displays as the top-most child of the Window.
-	AddOverlayView(view ICefView, dockingMode cefTypes.TCefDockingMode, canActivate bool) ICefOverlayController
-	// FocusedView
-	// Returns the View that currently has focus in this Window, or nullptr if no
-	// View currently has focus. A Window may have a focused View even if it is
-	// not currently active. Any focus changes while a Window is not active may
-	// be applied after that Window next becomes active.
-	FocusedView() ICefView
-	// RuntimeStyle
-	// Returns the runtime style for this Window (ALLOY or CHROME). See
-	// TCefRuntimeStyle documentation for details.
-	RuntimeStyle() cefTypes.TCefRuntimeStyle
-	// SetAccelerator
-	// Set the keyboard accelerator for the specified |command_id|. |key_code|
-	// can be any virtual key or character value. Required modifier keys are
-	// specified by |shift_pressed|, |ctrl_pressed| and/or |alt_pressed|.
-	// ICefWindowDelegate.OnAccelerator will be called if the keyboard
-	// combination is triggered while this window has focus.
-	// The |high_priority| value will be considered if a child ICefBrowserView
-	// has focus when the keyboard combination is triggered. If |high_priority|
-	// is true (1) then the key event will not be forwarded to the web content
-	// (`keydown` event handler) or ICefKeyboardHandler first. If
-	// |high_priority| is false (0) then the behavior will depend on the
-	// ICefBrowserView.SetPreferAccelerators configuration.
-	SetAccelerator(commandId int32, keyCode int32, shiftPressed bool, ctrlPressed bool, altPressed bool, highPriority bool)
-	SetOnAcceptsFirstMouse(fn TOnAcceptsFirstMouseEvent)
-	SetOnGetLinuxWindowProperties(fn TOnGetLinuxWindowPropertiesEvent)
-	SetOnGetTitlebarHeight(fn TOnGetTitlebarHeightEvent)
-	SetOnGetWindowRuntimeStyle(fn TOnGetWindowRuntimeStyleEvent)
-	SetOnIsWindowModalDialog(fn TOnIsWindowModalDialogEvent)
-	SetOnThemeColorsChanged(fn TOnThemeColorsChangedEvent)
-	SetOnWindowFullscreenTransition(fn TOnWindowFullscreenTransitionEvent)
-	SetOnWithStandardWindowButtons(fn TOnWithStandardWindowButtonsEvent)
-	// SetThemeColor
-	// Override a standard theme color or add a custom color associated with
-	// |color_id|. See cef_color_ids.h for standard ID values. Recommended usage
-	// is as follows:
-	// <code>
-	// 1. Customize the default native/OS theme by calling SetThemeColor before
-	// showing the first Window. When done setting colors call
-	// ICefWindow.ThemeChanged to trigger ICefViewDelegate.OnThemeChanged
-	// notifications.
-	// 2. Customize the current native/OS or Chrome theme after it changes by
-	// calling SetThemeColor from the ICefWindowDelegate.OnThemeColorsChanged
-	// callback. ICefViewDelegate.OnThemeChanged notifications will then be
-	// triggered automatically.
-	// </code>
-	// The configured color will be available immediately via
-	// ICefView.GetThemeColor and will be applied to each View in this
-	// Window's component hierarchy when ICefViewDelegate.OnThemeChanged is
-	// called. See OnThemeColorsChanged documentation for additional details.
-	// Clients wishing to add custom colors should use |color_id| values >=
-	// CEF_ChromeColorsEnd.
-	SetThemeColor(colorId int32, color cefTypes.TCefColor)
-	// ShowAsBrowserModalDialog
-	// Show the Window as a browser modal dialog relative to |browser_view|. A
-	// parent Window must be returned via
-	// ICefWindowDelegate.OnGetParentWindow and |browser_view| must belong
-	// to that parent Window. While this Window is visible, |browser_view| will
-	// be disabled while other controls in the parent Window remain enabled.
-	// Navigating or destroying the |browser_view| will close this Window
-	// automatically. Alternately, use show() and return true (1) from
-	// ICefWindowDelegate.OnIsWindowModalDialog for a window modal dialog
-	// where all controls in the parent Window are disabled.
-	ShowAsBrowserModalDialog(browserView ICefBrowserView)
-	// ThemeChanged
-	// Trigger ICefViewDelegate.OnThemeChanged callbacks for each View in
-	// this Window's component hierarchy. Unlike a native/OS or Chrome theme
-	// change this function does not reset theme colors to standard values and
-	// does not result in a call to ICefWindowDelegate.OnThemeColorsChanged.
-	// Do not call this function from ICefWindowDelegate.OnThemeColorsChanged
-	// or ICefViewDelegate.OnThemeChanged.
-	ThemeChanged()
 }
 
 type tICEFWindowComponent_147 struct {
@@ -4780,10 +4499,6 @@ func (t *tICEFWindowComponent_147) WindowIcon() ICefImage {
 	return wrapICefImage(r0)
 }
 
-type ICEFWindowParent_147 interface {
-	ICEFWindowParent
-}
-
 type tICEFWindowParent_147 struct {
 	raw vcef.ICEFWindowParent
 	*tICEFWinControl_147
@@ -4822,10 +4537,6 @@ func (t *tICEFWindowParent_147) CEFVersion() string {
 
 func (t *tICEFWindowParent_147) RawCEF147ICEFWindowParent() vcef.ICEFWindowParent {
 	return t.raw
-}
-
-type ICEFWorkScheduler_147 interface {
-	ICEFWorkScheduler
 }
 
 type tICEFWorkScheduler_147 struct {
@@ -4923,10 +4634,6 @@ func (t *tICEFWorkScheduler_147) StopScheduler() {
 func (t *tICEFWorkScheduler_147) UseQueueThread() bool {
 	r0 := t.raw.UseQueueThread()
 	return r0
-}
-
-type ICEFX509CertificateRef_147 interface {
-	ICEFX509CertificateRef
 }
 
 type tICEFX509CertificateRef_147 struct {
@@ -5048,10 +4755,6 @@ func (t *tICEFX509CertificateRef_147) GetValidStart() int64 {
 	return r0
 }
 
-type ICefAccessibilityHandler_147 interface {
-	ICefAccessibilityHandler
-}
-
 type tICefAccessibilityHandler_147 struct {
 	raw vcef.ICefAccessibilityHandler
 	*tICefBaseRefCounted_147
@@ -5094,10 +4797,6 @@ func (t *tICefAccessibilityHandler_147) RawCEF147ICefAccessibilityHandler() vcef
 	return t.raw
 }
 
-type ICefApp_147 interface {
-	ICefApp
-}
-
 type tICefApp_147 struct {
 	raw vcef.ICefApp
 	*tICefBaseRefCounted_147
@@ -5138,10 +4837,6 @@ func (t *tICefApp_147) RawCEF147ICefApp() vcef.ICefApp {
 	return t.raw
 }
 
-type ICefAppOwn_147 interface {
-	ICefAppOwn
-}
-
 type tICefAppOwn_147 struct {
 	raw vcef.ICefAppOwn
 	*tICefBaseRefCountedOwn_147
@@ -5180,12 +4875,6 @@ func (t *tICefAppOwn_147) CEFVersion() string {
 
 func (t *tICefAppOwn_147) RawCEF147ICefAppOwn() vcef.ICefAppOwn {
 	return t.raw
-}
-
-type ICefApplication_147 interface {
-	ICefApplication
-	IInterfacedObject
-	AsIntfApplicationCoreEvents() uintptr
 }
 
 type tICefApplication_147 struct {
@@ -5249,285 +4938,6 @@ func (t *tICefApplication_147) SetDestroyAppWindows(value bool) {
 
 func (t *tICefApplication_147) SetDestroyApplicationObject(value bool) {
 	t.raw.SetDestroyApplicationObject(value)
-}
-
-type ICefApplicationCore_147 interface {
-	ICefApplicationCore
-	IApplicationCoreEvents
-	IInterfacedObject
-	// ApiVersion
-	// Returns the CEF API version that was configured by the first call to
-	// cef_api_hash().
-	ApiVersion() int32
-	AsIntfApplicationCoreEvents() uintptr
-	// AutoAcceptCamAndMicCapture
-	// Bypasses the dialog prompting the user for permission to capture cameras and microphones.
-	// Useful in automatic tests of video-conferencing Web applications. This is nearly
-	// identical to kUseFakeUIForMediaStream, with the exception being that this flag does NOT
-	// affect screen-capture.
-	// <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --auto-accept-camera-and-microphone-capture</see>
-	AutoAcceptCamAndMicCapture() bool
-	// BrowserById
-	// Returns the browser (if any) with the specified identifier.
-	BrowserById(id int32) ICefBrowser
-	// ChromeAppIconId
-	// Specify an ID for an ICON resource that can be loaded from the main
-	// executable and used when creating default Chrome windows such as DevTools
-	// and Task Manager. If unspecified the default Chromium ICON (IDR_MAINFRAME
-	// [101]) will be loaded from libcef.dll. Only supported with Chrome style on
-	// Windows.
-	ChromeAppIconId() int32
-	// ChromePolicyId
-	// Specify an ID to enable Chrome policy management via Platform and OS-user
-	// policies. On Windows, this is a registry key like
-	// "SOFTWARE\\Policies\\Google\\Chrome". On MacOS, this is a bundle ID like
-	// "com.google.Chrome". On Linux, this is an absolute directory path like
-	// "/etc/opt/chrome/policies". Only supported with Chrome style. See
-	// https://support.google.com/chrome/a/answer/9037717 for details.
-	// Chrome Browser Cloud Management integration, when enabled via the
-	// "enable-chrome-browser-cloud-management" command-line flag, will also use
-	// the specified ID. See https://support.google.com/chrome/a/answer/9116814
-	// for details.
-	ChromePolicyId() string
-	// DisableHangMonitor
-	// Suppresses hang monitor dialogs in renderer processes. This may allow slow unload handlers on a page to prevent the tab from closing, but the Task Manager can be used to terminate the offending process in this case.
-	// <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --disable-hang-monitor</see>
-	DisableHangMonitor() bool
-	// DisableSignalHandlers
-	// Specify whether signal handlers must be disabled on POSIX systems.
-	DisableSignalHandlers() bool
-	// DisplayServer
-	// Linux display server type.
-	DisplayServer() cefTypes.TCefLinuxDisplayServer
-	// DoNotDeElevate
-	// Do not de-elevate the browser on launch. Used after de-elevating to prevent infinite loops.
-	// <see href="https://peter.sh/experiments/chromium-command-line-switches/#do-not-de-elevate">Uses the following command line switch: --do-not-de-elevate</see>
-	DoNotDeElevate() bool
-	// DumpWithoutCrashing
-	// This function allows for generating of crash dumps with a throttling
-	// mechanism, preventing frequent dumps from being generated in a short period
-	// of time from the same location. If should only be called after cef_initialize
-	// has been successfully called. The |function_name|, |file_name|, and
-	// |line_number| parameters specify the origin location of the dump. The
-	// |mseconds_between_dumps| is an interval between consecutive dumps in
-	// milliseconds from the same location.
-	// For detailed behavior, usage instructions, and considerations, refer to the
-	// documentation of DumpWithoutCrashing in base/debug/dump_without_crashing.h.
-	// <returns>
-	// Returns true if the dump was successfully generated, false otherwise.
-	// </returns>
-	// <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/base/cef_dump_without_crashing.h">CEF source file: /include/base/cef_dump_without_crashing.h (CefDumpWithoutCrashing)</see>
-	DumpWithoutCrashing(msecondsBetweenDumps int64, functionName string, fileName string, lineNumber int32) bool
-	// EnableAutomation
-	// Enable indication that browser is controlled by automation.
-	// <see href="https://peter.sh/experiments/chromium-command-line-switches/#enable-automation">Uses the following command line switch: --enable-automation</see>
-	EnableAutomation() bool
-	// ExitCode
-	// This property can optionally be read on the main application thread after
-	// cef_initialize to retrieve the initialization exit code. When cef_initialize
-	// returns true (1) the exit code will be 0 (CEF_RESULT_CODE_NORMAL_EXIT).
-	// Otherwise, see TCefResultCode for possible exit code values including
-	// browser process initialization errors and normal early exit conditions (such
-	// as CEF_RESULT_CODE_NORMAL_EXIT_PROCESS_NOTIFIED for process singleton
-	// relaunch behavior).
-	ExitCode() cefTypes.TCefResultCode
-	// ExternalBeginFrameEnabled
-	// Set to true (1) to enable the ability to issue BeginFrame requests from
-	// the client application by calling ICefBrowserHost.SendExternalBeginFrame.
-	ExternalBeginFrameEnabled() bool
-	// FieldTrialConfig
-	// Enable field trial tests configured in fieldtrial_testing_config.json.
-	// If the "disable_fieldtrial_testing_config" GN flag is set to true, then this switch is a no-op.
-	// Otherwise, for non-Chrome branded builds, the testing config is already applied by default,
-	// unless the "--disable-field-trial-config", "--force-fieldtrials", and/or "--variations-server-url"
-	// switches are passed. It is however possible to apply the testing config as well as specify
-	// additional field trials (using "--force-fieldtrials") by using this switch. For Chrome-branded
-	// builds, the testing config is not enabled by default, so this switch is required to enable it.
-	// <see href="https://peter.sh/experiments/chromium-command-line-switches/#enable-field-trial-config">Uses the following command line switch: --enable-field-trial-config</see>
-	// <see href="https://peter.sh/experiments/chromium-command-line-switches/#disable-field-trial-config">Uses the following command line switch: --disable-field-trial-config</see>
-	FieldTrialConfig() cefTypes.TCefState
-	// GTKVersion
-	// Preferred GTK version loaded by Chromium.
-	// <see href="https://github.com/chromium/chromium/blob/main/ui/gtk/gtk_compat.cc">See the LoadGtkImpl function in ui/gtk/gtk_compat.cc</see>
-	GTKVersion() cefTypes.TCefGTKVersion
-	// GetCEFVersionInfo
-	// Returns CEF version information for the libcef library.
-	// <returns>
-	// Returns true if successfull.
-	// </returns>
-	// <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/cef_version_info.h">CEF source file: /include/cef_version_info.h (cef_version_info)</see>
-	GetCEFVersionInfo(cEFVersionInfo *TCefVersionInfo) bool
-	// GetChromiumVersionInfo
-	// Returns Chromium version information for the libcef library.
-	// <returns>
-	// Returns true if successfull.
-	// </returns>
-	// <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/cef_version_info.h">CEF source file: /include/cef_version_info.h (cef_version_info)</see>
-	GetChromiumVersionInfo(chromiumVersionInfo *TChromiumVersionInfo) bool
-	// GetIdForCommandIdName
-	// Returns the numeric ID value for an IDC |name| from cef_command_ids.h or -1
-	// if |name| is unrecognized by the current CEF/Chromium build. This function
-	// provides version-safe mapping of command IDC names to version-specific
-	// numeric ID values. Numeric ID values are likely to change across
-	// CEF/Chromium versions but names generally remain the same.
-	// <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/cef_id_mappers.h">CEF source file: /include/cef_id_mappers.h (cef_id_for_command_id_name)</see>
-	GetIdForCommandIdName(name string) int32
-	// GetIdForPackResourceName
-	// Returns the numeric ID value for an IDR |name| from cef_pack_resources.h or
-	// -1 if |name| is unrecognized by the current CEF/Chromium build. This
-	// function provides version-safe mapping of resource IDR names to
-	// version-specific numeric ID values. Numeric ID values are likely to change
-	// across CEF/Chromium versions but names generally remain the same.
-	// <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/cef_id_mappers.h">CEF source file: /include/cef_id_mappers.h (cef_id_for_pack_resource_name)</see>
-	GetIdForPackResourceName(name string) int32
-	// GetIdForPackStringName
-	// Returns the numeric ID value for an IDS |name| from cef_pack_strings.h or -1
-	// if |name| is unrecognized by the current CEF/Chromium build. This function
-	// provides version-safe mapping of string IDS names to version-specific
-	// numeric ID values. Numeric ID values are likely to change across
-	// CEF/Chromium versions but names generally remain the same.
-	// <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/cef_id_mappers.h">CEF source file: /include/cef_id_mappers.h (cef_id_for_pack_string_name)</see>
-	GetIdForPackStringName(name string) int32
-	// HideCrashRestoreBubble
-	// Does not show the "Restore pages" popup bubble after incorrect shutdown.
-	// <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --hide-crash-restore-bubble</see>
-	HideCrashRestoreBubble() bool
-	// LogItems
-	// The log items prepended to each log line. If not set the default log items
-	// will be used. Also configurable using the "log-items" command-line switch
-	// with a value of "none" for no log items, or a comma-delimited list of
-	// values "pid", "tid", "timestamp" or "tickcount" for custom log items.
-	LogItems() cefTypes.TCefLogItems
-	// NextComponentID
-	// Returns the next component ID and adds this value to the valid ID list.
-	NextComponentID() int32
-	// NoDefaultBrowserCheck
-	// Disables the default browser check. Useful for UI/browser tests where we want to avoid having the default browser info-bar displayed.
-	// <see href="https://peter.sh/experiments/chromium-command-line-switches/#no-default-browser-check">Uses the following command line switch: --no-default-browser-check</see>
-	NoDefaultBrowserCheck() bool
-	// NoFirstRun
-	// Skip First Run tasks as well as not showing additional dialogs, prompts or bubbles. Suppressing dialogs, prompts, and bubbles is
-	// important as this switch is used by automation (including performance benchmarks) where it's important only a browser window is shown.
-	// This may not actually be the first run or the What's New page. Its effect can be partially ignored by adding kForceFirstRun (for FRE),
-	// kForceWhatsNew (for What's New) and/or kIgnoreNoFirstRunForSearchEngineChoiceScreen (for the DSE choice screen). This does not drop
-	// the First Run sentinel and thus doesn't prevent first run from occurring the next time chrome is launched without this flag.
-	// It also does not update the last What's New milestone, so does not prevent What's New from occurring the next time chrome is launched
-	// without this flag.
-	// <see href="https://peter.sh/experiments/chromium-command-line-switches/#no-first-run">Uses the following command line switch: --no-first-run</see>
-	NoFirstRun() bool
-	// OzonePlatform
-	// Preferred GTK version loaded by Chromium.
-	// <see href="https://peter.sh/experiments/chromium-command-line-switches/#ozone-platform">Uses the following command line switch: --ozone-platform</see>
-	OzonePlatform() cefTypes.TCefOzonePlatform
-	// PasswordStorage
-	// Specifies which encryption storage backend to use in Linux.
-	// <see href="https://source.chromium.org/chromium/chromium/src/+/main:docs/linux/password_storage.md">Chromium document: docs/linux/password_storage.md</see>
-	PasswordStorage() cefTypes.TCefPasswordStorage
-	// ProxySettings
-	// Configure all the browsers to use a proxy server.
-	// If you use the proxy settings in GlobalCEFApp you will not be able to use the proxy properties in TChromiumCore.
-	// <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --no-proxy-server</see>
-	// <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --proxy-auto-detect</see>
-	// <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --proxy-bypass-list</see>
-	// <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --proxy-pac-url</see>
-	// <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --proxy-server</see>
-	// <see href="https://www.chromium.org/developers/design-documents/network-settings/">See the Network Settings article.</see>
-	// <see href="https://github.com/chromium/chromium/blob/main/net/docs/proxy.md"/">See the Proxy Support article.</see>
-	// <see href="https://developer.chrome.com/docs/extensions/reference/api/proxy">See the chrome.proxy API article.</see>
-	ProxySettings() ICEFProxySettings
-	// RemoteAllowOrigins
-	// Enables web socket connections from the specified origins only. '*' allows any origin.
-	// <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --remote-allow-origins</see>
-	RemoteAllowOrigins() string
-	// RemoveComponentID
-	// Removes a component ID from the valid ID list when a component is destroyed.
-	RemoveComponentID(componentID int32)
-	SetAutoAcceptCamAndMicCapture(value bool)
-	SetChromeAppIconId(value int32)
-	SetChromePolicyId(value string)
-	SetDisableHangMonitor(value bool)
-	SetDisableSignalHandlers(value bool)
-	SetDoNotDeElevate(value bool)
-	SetEnableAutomation(value bool)
-	SetExternalBeginFrameEnabled(value bool)
-	SetFieldTrialConfig(value cefTypes.TCefState)
-	SetGTKVersion(value cefTypes.TCefGTKVersion)
-	SetHideCrashRestoreBubble(value bool)
-	SetLogItems(value cefTypes.TCefLogItems)
-	// SetNestableTasksAllowed
-	// Set to true (1) before calling OS APIs on the CEF UI thread that will enter
-	// a native message loop (see usage restrictions below). Set to false (0) after
-	// exiting the native message loop. On Windows, use the CefSetOSModalLoop
-	// function instead in cases like native top menus where resize of the browser
-	// content is not required, or in cases like printer APIs where reentrancy
-	// safety cannot be guaranteed.
-	// Nested processing of Chromium tasks is disabled by default because common
-	// controls and/or printer functions may use nested native message loops that
-	// lead to unplanned reentrancy. This function re-enables nested processing in
-	// the scope of an upcoming native message loop. It must only be used in cases
-	// where the stack is reentrancy safe and processing nestable tasks is
-	// explicitly safe. Do not use in cases (like the printer example) where an OS
-	// API may experience unplanned reentrancy as a result of a new task executing
-	// immediately.
-	// For instance,
-	// <code>
-	// - The UI thread is running a message loop.
-	// - It receives a task #1 and executes it.
-	// - The task #1 implicitly starts a nested message loop. For example, via
-	// Windows APIs such as MessageBox or GetSaveFileName, or default handling of
-	// a user-initiated drag/resize operation (e.g. DefWindowProc handling of
-	// WM_SYSCOMMAND for SC_MOVE/SC_SIZE).
-	// - The UI thread receives a task #2 before or while in this second message
-	// loop.
-	// - With NestableTasksAllowed set to true (1), the task #2 will run right
-	// away. Otherwise, it will be executed right after task #1 completes at
-	// "thread message loop level".
-	// </code>
-	SetNestableTasksAllowed(allowed bool)
-	SetNoDefaultBrowserCheck(value bool)
-	SetNoFirstRun(value bool)
-	SetOnAlreadyRunningAppRelaunch(fn TOnAlreadyRunningAppRelaunchEvent)
-	SetOnGetDefaultRequestContextHandler(fn TOnGetDefaultRequestContextHandlerEvent)
-	SetOzonePlatform(value cefTypes.TCefOzonePlatform)
-	SetPasswordStorage(value cefTypes.TCefPasswordStorage)
-	SetRemoteAllowOrigins(value string)
-	SetSharedTextureEnabled(value bool)
-	SetTLS13HybridizedKyberSupport(value cefTypes.TCefState)
-	SetUIColorMode(value cefTypes.TCefUIColorMode)
-	SetUseAngle(value cefTypes.TCefAngleImplementation)
-	SetUseGL(value cefTypes.TCefGLImplementation)
-	SetUseViewsDefaultPopup(value bool)
-	// SharedTextureEnabled
-	// Set to true (1) to enable shared textures for windowless rendering. Only
-	// valid if windowless_rendering_enabled above is also set to true. Currently
-	// only supported on Windows (D3D11).
-	SharedTextureEnabled() bool
-	// TLS13HybridizedKyberSupport
-	// This option enables a combination of X25519 and Kyber in TLS 1.3.
-	TLS13HybridizedKyberSupport() cefTypes.TCefState
-	// UIColorMode
-	// Forces light or dark mode in UI for platforms that support it.
-	// <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switches: --force-dark-mode --force-light-mode</see>
-	UIColorMode() cefTypes.TCefUIColorMode
-	// UseAngle
-	// Select which ANGLE backend to use.
-	// <see href="https://peter.sh/experiments/chromium-command-line-switches/#use-angle">Uses the following command line switch: --use-angle</see>
-	// <see href="https://source.chromium.org/chromium/chromium/src/+/main:ui/gl/gl_switches.cc">See the gl_switches.cc file</see>
-	UseAngle() cefTypes.TCefAngleImplementation
-	// UseGL
-	// Select which implementation of GL the GPU process should use.
-	// <see href="https://peter.sh/experiments/chromium-command-line-switches/#use-gl">Uses the following command line switch: --use-gl</see>
-	// <see href="https://source.chromium.org/chromium/chromium/src/+/main:ui/gl/gl_switches.cc">See the gl_switches.cc file</see>
-	UseGL() cefTypes.TCefGLImplementation
-	// UseViewsDefaultPopup
-	// If true use a Views (bare-bones) window instead of a Chrome UI window when
-	// creating default popups for Chrome style native-hosted (non-Views)
-	// browsers. This applies when ICefLifeSpanHandler.OnBeforePopup has not been
-	// implemented to provide parent window information for the new popup.
-	UseViewsDefaultPopup() bool
-	// ValidComponentID
-	// Returns true if a custom component ID is valid before executing a CEF task.
-	ValidComponentID(componentID int32) bool
 }
 
 type tICefApplicationCore_147 struct {
@@ -7050,10 +6460,6 @@ func (t *tICefApplicationCore_147) XDisplay() uintptr {
 	return r0
 }
 
-type ICefAudioHandler_147 interface {
-	ICefAudioHandler
-}
-
 type tICefAudioHandler_147 struct {
 	raw vcef.ICefAudioHandler
 	*tICefBaseRefCounted_147
@@ -7092,10 +6498,6 @@ func (t *tICefAudioHandler_147) CEFVersion() string {
 
 func (t *tICefAudioHandler_147) RawCEF147ICefAudioHandler() vcef.ICefAudioHandler {
 	return t.raw
-}
-
-type ICefAudioHandlerOwn_147 interface {
-	ICefAudioHandlerOwn
 }
 
 type tICefAudioHandlerOwn_147 struct {
@@ -7138,10 +6540,6 @@ func (t *tICefAudioHandlerOwn_147) CEFVersion() string {
 
 func (t *tICefAudioHandlerOwn_147) RawCEF147ICefAudioHandlerOwn() vcef.ICefAudioHandlerOwn {
 	return t.raw
-}
-
-type ICefAuthCallback_147 interface {
-	ICefAuthCallback
 }
 
 type tICefAuthCallback_147 struct {
@@ -7190,10 +6588,6 @@ func (t *tICefAuthCallback_147) Cancel() {
 
 func (t *tICefAuthCallback_147) Cont(username string, password string) {
 	t.raw.Cont(username, password)
-}
-
-type ICefAuthCallbackRef_147 interface {
-	ICefAuthCallbackRef
 }
 
 type tICefAuthCallbackRef_147 struct {
@@ -7249,10 +6643,6 @@ func (t *tICefAuthCallbackRef_147) Cancel() {
 
 func (t *tICefAuthCallbackRef_147) Cont(username string, password string) {
 	t.raw.Cont(username, password)
-}
-
-type ICefBaseRefCounted_147 interface {
-	ICefBaseRefCounted
 }
 
 type tICefBaseRefCounted_147 struct {
@@ -7321,10 +6711,6 @@ func (t *tICefBaseRefCounted_147) Wrap() uintptr {
 	return r0
 }
 
-type ICefBaseRefCountedOwn_147 interface {
-	ICefBaseRefCountedOwn
-}
-
 type tICefBaseRefCountedOwn_147 struct {
 	raw vcef.ICefBaseRefCountedOwn
 	*tICefBaseRefCounted_147
@@ -7367,10 +6753,6 @@ func (t *tICefBaseRefCountedOwn_147) RawCEF147ICefBaseRefCountedOwn() vcef.ICefB
 	return t.raw
 }
 
-type ICefBaseRefCountedRef_147 interface {
-	ICefBaseRefCountedRef
-}
-
 type tICefBaseRefCountedRef_147 struct {
 	raw vcef.ICefBaseRefCountedRef
 	*tICefBaseRefCounted_147
@@ -7411,10 +6793,6 @@ func (t *tICefBaseRefCountedRef_147) CEFVersion() string {
 
 func (t *tICefBaseRefCountedRef_147) RawCEF147ICefBaseRefCountedRef() vcef.ICefBaseRefCountedRef {
 	return t.raw
-}
-
-type ICefBeforeDownloadCallback_147 interface {
-	ICefBeforeDownloadCallback
 }
 
 type tICefBeforeDownloadCallback_147 struct {
@@ -7461,10 +6839,6 @@ func (t *tICefBeforeDownloadCallback_147) RawCEF147ICefBeforeDownloadCallback() 
 
 func (t *tICefBeforeDownloadCallback_147) Cont(downloadPath string, showDialog bool) {
 	t.raw.Cont(downloadPath, showDialog)
-}
-
-type ICefBeforeDownloadCallbackRef_147 interface {
-	ICefBeforeDownloadCallbackRef
 }
 
 type tICefBeforeDownloadCallbackRef_147 struct {
@@ -7516,14 +6890,6 @@ func (t *tICefBeforeDownloadCallbackRef_147) AsIntfBeforeDownloadCallback() uint
 
 func (t *tICefBeforeDownloadCallbackRef_147) Cont(downloadPath string, showDialog bool) {
 	t.raw.Cont(downloadPath, showDialog)
-}
-
-type ICefBinaryValue_147 interface {
-	ICefBinaryValue
-	// GetRawData
-	// Returns a pointer to the beginning of the memory block. The returned
-	// pointer is valid as long as the ICefBinaryValue is alive.
-	GetRawData() uintptr
 }
 
 type tICefBinaryValue_147 struct {
@@ -7604,10 +6970,6 @@ func (t *tICefBinaryValue_147) IsSame(that ICefBinaryValue) bool {
 func (t *tICefBinaryValue_147) IsValid() bool {
 	r0 := t.raw.IsValid()
 	return r0
-}
-
-type ICefBinaryValueRef_147 interface {
-	ICefBinaryValueRef
 }
 
 type tICefBinaryValueRef_147 struct {
@@ -7697,10 +7059,6 @@ func (t *tICefBinaryValueRef_147) IsValid() bool {
 	return r0
 }
 
-type ICefBoxLayout_147 interface {
-	ICefBoxLayout
-}
-
 type tICefBoxLayout_147 struct {
 	raw vcef.ICefBoxLayout
 	*tICefLayout_147
@@ -7747,10 +7105,6 @@ func (t *tICefBoxLayout_147) ClearFlexForView(view ICefView) {
 
 func (t *tICefBoxLayout_147) SetFlexForView(view ICefView, flex int32) {
 	t.raw.SetFlexForView(unwrapICefView(view), flex)
-}
-
-type ICefBoxLayoutRef_147 interface {
-	ICefBoxLayoutRef
 }
 
 type tICefBoxLayoutRef_147 struct {
@@ -7809,19 +7163,6 @@ func (t *tICefBoxLayoutRef_147) ClearFlexForView(view ICefView) {
 
 func (t *tICefBoxLayoutRef_147) SetFlexForView(view ICefView, flex int32) {
 	t.raw.SetFlexForView(unwrapICefView(view), flex)
-}
-
-type ICefBrowser_147 interface {
-	ICefBrowser
-	// GetFrameByIdentifier
-	// Returns the frame with the specified identifier, or NULL if not found.
-	GetFrameByIdentifier(identifier string) ICefFrame
-	// GetFrameByName
-	// Returns the frame with the specified name, or NULL if not found.
-	GetFrameByName(name string) ICefFrame
-	// GetFrameIdentifiers
-	// Returns the identifiers of all existing frames.
-	GetFrameIdentifiers(frameIdentifiers *lcl.IStrings) bool
 }
 
 type tICefBrowser_147 struct {
@@ -7962,107 +7303,6 @@ func (t *tICefBrowser_147) Reload() {
 
 func (t *tICefBrowser_147) StopLoad() {
 	t.raw.StopLoad()
-}
-
-type ICefBrowserHost_147 interface {
-	ICefBrowserHost
-	// CanExecuteChromeCommand
-	// Returns true (1) if a Chrome command is supported and enabled. Use the
-	// cef_id_for_command_id_name() function for version-safe mapping of command
-	// IDC names from cef_command_ids.h to version-specific numerical
-	// |command_id| values. This function can only be called on the UI thread.
-	// Only used with Chrome style.
-	// <see cref="uCEFConstants">See the IDC_* constants in uCEFConstants.pas for all the |command_id| values.</see>
-	// <see href="https://source.chromium.org/chromium/chromium/src/+/main:chrome/app/chrome_command_ids.h">The command_id values are also available in chrome/app/chrome_command_ids.h</see>
-	CanExecuteChromeCommand(commandId int32) bool
-	// CanZoom
-	// Returns true (1) if this browser can execute the specified zoom command.
-	// This function can only be called on the UI thread.
-	CanZoom(command cefTypes.TCefZoomCommand) bool
-	// ExecuteChromeCommand
-	// Returns true (1) if a Chrome command is supported and enabled. Use the
-	// cef_id_for_command_id_name() function for version-safe mapping of command
-	// IDC names from cef_command_ids.h to version-specific numerical
-	// |command_id| values. This function can only be called on the UI thread.
-	// Only used with Chrome style.
-	// <see cref="uCEFConstants">See the IDC_* constants in uCEFConstants.pas for all the |command_id| values.</see>
-	// <see href="https://source.chromium.org/chromium/chromium/src/+/main:chrome/app/chrome_command_ids.h">The command_id values are also available in chrome/app/chrome_command_ids.h</see>
-	ExecuteChromeCommand(commandId int32, disposition cefTypes.TCefWindowOpenDisposition)
-	// ExitFullscreen
-	// Requests the renderer to exit browser fullscreen. In most cases exiting
-	// window fullscreen should also exit browser fullscreen. With Alloy style
-	// this function should be called in response to a user action such as
-	// clicking the green traffic light button on MacOS
-	// (ICefWindowDelegate.OnWindowFullscreenTransition callback) or pressing
-	// the "ESC" key (ICefKeyboardHandler.OnPreKeyEvent callback). With
-	// Chrome style these standard exit actions are handled internally but
-	// new/additional user actions can use this function. Set |will_cause_resize|
-	// to true (1) if exiting browser fullscreen will cause a view resize.
-	ExitFullscreen(willCauseResize bool)
-	// GetClient
-	// Returns the client for this browser.
-	GetClient() IEngClient
-	// GetDefaultZoomLevel
-	// Get the default zoom level. This value will be 0.0 by default but can be
-	// configured. This function can only be called on the UI thread.
-	GetDefaultZoomLevel() float64
-	// GetOpenerIdentifier
-	// Retrieve the unique identifier of the browser that opened this browser.
-	// Will return 0 for non-popup browsers.
-	GetOpenerIdentifier() int32
-	// GetRuntimeStyle
-	// Returns the runtime style for this browser (ALLOY or CHROME). See
-	// TCefRuntimeStyle documentation for details.
-	// This function can only be called on the CEF UI thread.
-	GetRuntimeStyle() cefTypes.TCefRuntimeStyle
-	// IsFullscreen
-	// Returns true (1) if the renderer is currently in browser fullscreen. This
-	// differs from window fullscreen in that browser fullscreen is entered using
-	// the JavaScript Fullscreen API and modifies CSS attributes such as the
-	// ::backdrop pseudo-element and :fullscreen pseudo-structure. This function
-	// can only be called on the UI thread.
-	IsFullscreen() bool
-	// IsReadyToBeClosed
-	// Returns true (1) if the browser is ready to be closed, meaning that the
-	// close has already been initiated and that JavaScript unload handlers have
-	// already executed or should be ignored. This can be used from a top-level
-	// window close handler such as TCEFWindowComponent.OnCanClose (or platform-
-	// specific equivalent) to distringuish between potentially cancelable
-	// browser close events (like the user clicking the top-level window close
-	// button before browser close has started) and mandatory browser close
-	// events (like JavaScript `window.close()` or after browser close has
-	// started in response to [Try]CloseBrowser()). Not completing the browser
-	// close for mandatory close events (when this function returns true (1))
-	// will leave the browser in a partially closed state that interferes with
-	// proper functioning. See CloseBrowser() documentation for additional usage
-	// information. This function must be called on the browser process UI
-	// thread.
-	IsReadyToBeClosed() bool
-	// IsRenderProcessUnresponsive
-	// Returns true (1) if the render process associated with this browser is
-	// currently unresponsive as indicated by a lack of input event processing
-	// for at least 15 seconds. To receive associated state change notifications
-	// and optionally handle an unresponsive render process implement
-	// ICefRequestHandler.OnRenderProcessUnresponsive.
-	// This function can only be called on the CEF UI thread.
-	IsRenderProcessUnresponsive() bool
-	// SetAxViewportCollapse
-	// Enable or disable CDP accessibility tree viewport collapse for this
-	// browser. When enabled, off-screen landmarks and headings are serialized as
-	// summaries and other off-screen nodes are pruned. Overrides the
-	// TCefBrowserSettings.ax_viewport_collapse value. If called on the UI
-	// thread the change will be applied immediately. Otherwise, the change will
-	// be applied asynchronously on the UI thread. WARNING: This collapses the
-	// CDP accessibility tree and disables CDP dynamic tree updates (nodesUpdated
-	// events). The DevTools Accessibility panel will show an incomplete tree.
-	// Platform screen readers (NVDA, JAWS, VoiceOver) are unaffected they use
-	// a separate code path.
-	SetAxViewportCollapse(enabled bool)
-	// Zoom
-	// Execute a zoom command in this browser. If called on the UI thread the
-	// change will be applied immediately. Otherwise, the change will be applied
-	// asynchronously on the UI thread.
-	Zoom(command cefTypes.TCefZoomCommand)
 }
 
 type tICefBrowserHost_147 struct {
@@ -8403,10 +7643,6 @@ func (t *tICefBrowserHost_147) WasResized() {
 
 func (t *tICefBrowserHost_147) Zoom(command cefTypes.TCefZoomCommand) {
 	t.raw.Zoom(command)
-}
-
-type ICefBrowserHostRef_147 interface {
-	ICefBrowserHostRef
 }
 
 type tICefBrowserHostRef_147 struct {
@@ -8756,10 +7992,6 @@ func (t *tICefBrowserHostRef_147) Zoom(command cefTypes.TCefZoomCommand) {
 	t.raw.Zoom(command)
 }
 
-type ICefBrowserProcessHandler_147 interface {
-	ICefBrowserProcessHandler
-}
-
 type tICefBrowserProcessHandler_147 struct {
 	raw vcef.ICefBrowserProcessHandler
 	*tICefBaseRefCounted_147
@@ -8802,10 +8034,6 @@ func (t *tICefBrowserProcessHandler_147) RawCEF147ICefBrowserProcessHandler() vc
 	return t.raw
 }
 
-type ICefBrowserProcessHandlerOwn_147 interface {
-	ICefBrowserProcessHandlerOwn
-}
-
 type tICefBrowserProcessHandlerOwn_147 struct {
 	raw vcef.ICefBrowserProcessHandlerOwn
 	*tICefBaseRefCountedOwn_147
@@ -8846,10 +8074,6 @@ func (t *tICefBrowserProcessHandlerOwn_147) CEFVersion() string {
 
 func (t *tICefBrowserProcessHandlerOwn_147) RawCEF147ICefBrowserProcessHandlerOwn() vcef.ICefBrowserProcessHandlerOwn {
 	return t.raw
-}
-
-type ICefBrowserRef_147 interface {
-	ICefBrowserRef
 }
 
 type tICefBrowserRef_147 struct {
@@ -8997,14 +8221,6 @@ func (t *tICefBrowserRef_147) StopLoad() {
 	t.raw.StopLoad()
 }
 
-type ICefBrowserView_147 interface {
-	ICefBrowserView
-	// GetRuntimeStyle
-	// Returns the runtime style for this BrowserView (ALLOY or CHROME). See
-	// TCefRuntimeStyle documentation for details.
-	GetRuntimeStyle() cefTypes.TCefRuntimeStyle
-}
-
 type tICefBrowserView_147 struct {
 	raw vcef.ICefBrowserView
 	*tICefView_147
@@ -9064,10 +8280,6 @@ func (t *tICefBrowserView_147) SetPreferAccelerators(preferAccelerators bool) {
 	t.raw.SetPreferAccelerators(preferAccelerators)
 }
 
-type ICefBrowserViewDelegate_147 interface {
-	ICefBrowserViewDelegate
-}
-
 type tICefBrowserViewDelegate_147 struct {
 	raw vcef.ICefBrowserViewDelegate
 	*tICefViewDelegate_147
@@ -9108,10 +8320,6 @@ func (t *tICefBrowserViewDelegate_147) CEFVersion() string {
 
 func (t *tICefBrowserViewDelegate_147) RawCEF147ICefBrowserViewDelegate() vcef.ICefBrowserViewDelegate {
 	return t.raw
-}
-
-type ICefBrowserViewDelegateEvents_147 interface {
-	ICefBrowserViewDelegateEvents
 }
 
 type tICefBrowserViewDelegateEvents_147 struct {
@@ -9156,10 +8364,6 @@ func (t *tICefBrowserViewDelegateEvents_147) RawCEF147ICefBrowserViewDelegateEve
 	return t.raw
 }
 
-type ICefBrowserViewDelegateOwn_147 interface {
-	ICefBrowserViewDelegateOwn
-}
-
 type tICefBrowserViewDelegateOwn_147 struct {
 	raw vcef.ICefBrowserViewDelegateOwn
 	*tICefViewDelegateOwn_147
@@ -9200,10 +8404,6 @@ func (t *tICefBrowserViewDelegateOwn_147) CEFVersion() string {
 
 func (t *tICefBrowserViewDelegateOwn_147) RawCEF147ICefBrowserViewDelegateOwn() vcef.ICefBrowserViewDelegateOwn {
 	return t.raw
-}
-
-type ICefBrowserViewDelegateRef_147 interface {
-	ICefBrowserViewDelegateRef
 }
 
 type tICefBrowserViewDelegateRef_147 struct {
@@ -9256,10 +8456,6 @@ func (t *tICefBrowserViewDelegateRef_147) AsIntfBrowserViewDelegate() uintptr {
 func (t *tICefBrowserViewDelegateRef_147) AsIntfViewDelegate() uintptr {
 	r0 := t.raw.AsIntfViewDelegate()
 	return r0
-}
-
-type ICefBrowserViewRef_147 interface {
-	ICefBrowserViewRef
 }
 
 type tICefBrowserViewRef_147 struct {
@@ -9333,10 +8529,6 @@ func (t *tICefBrowserViewRef_147) SetPreferAccelerators(preferAccelerators bool)
 	t.raw.SetPreferAccelerators(preferAccelerators)
 }
 
-type ICefButton_147 interface {
-	ICefButton
-}
-
 type tICefButton_147 struct {
 	raw vcef.ICefButton
 	*tICefView_147
@@ -9403,10 +8595,6 @@ func (t *tICefButton_147) SetTooltipText(tooltipText string) {
 	t.raw.SetTooltipText(tooltipText)
 }
 
-type ICefButtonDelegate_147 interface {
-	ICefButtonDelegate
-}
-
 type tICefButtonDelegate_147 struct {
 	raw vcef.ICefButtonDelegate
 	*tICefViewDelegate_147
@@ -9447,10 +8635,6 @@ func (t *tICefButtonDelegate_147) CEFVersion() string {
 
 func (t *tICefButtonDelegate_147) RawCEF147ICefButtonDelegate() vcef.ICefButtonDelegate {
 	return t.raw
-}
-
-type ICefButtonDelegateEvents_147 interface {
-	ICefButtonDelegateEvents
 }
 
 type tICefButtonDelegateEvents_147 struct {
@@ -9495,10 +8679,6 @@ func (t *tICefButtonDelegateEvents_147) RawCEF147ICefButtonDelegateEvents() vcef
 	return t.raw
 }
 
-type ICefButtonDelegateOwn_147 interface {
-	ICefButtonDelegateOwn
-}
-
 type tICefButtonDelegateOwn_147 struct {
 	raw vcef.ICefButtonDelegateOwn
 	*tICefViewDelegateOwn_147
@@ -9539,10 +8719,6 @@ func (t *tICefButtonDelegateOwn_147) CEFVersion() string {
 
 func (t *tICefButtonDelegateOwn_147) RawCEF147ICefButtonDelegateOwn() vcef.ICefButtonDelegateOwn {
 	return t.raw
-}
-
-type ICefButtonDelegateRef_147 interface {
-	ICefButtonDelegateRef
 }
 
 type tICefButtonDelegateRef_147 struct {
@@ -9595,10 +8771,6 @@ func (t *tICefButtonDelegateRef_147) AsIntfButtonDelegate() uintptr {
 func (t *tICefButtonDelegateRef_147) AsIntfViewDelegate() uintptr {
 	r0 := t.raw.AsIntfViewDelegate()
 	return r0
-}
-
-type ICefButtonRef_147 interface {
-	ICefButtonRef
 }
 
 type tICefButtonRef_147 struct {
@@ -9675,10 +8847,6 @@ func (t *tICefButtonRef_147) SetState(state cefTypes.TCefButtonState) {
 
 func (t *tICefButtonRef_147) SetTooltipText(tooltipText string) {
 	t.raw.SetTooltipText(tooltipText)
-}
-
-type ICefBytesWriteHandler_147 interface {
-	ICefBytesWriteHandler
 }
 
 type tICefBytesWriteHandler_147 struct {
@@ -9763,10 +8931,6 @@ func (t *tICefBytesWriteHandler_147) Write(ptr uintptr, size cefTypes.NativeUInt
 	return r0
 }
 
-type ICefCallback_147 interface {
-	ICefCallback
-}
-
 type tICefCallback_147 struct {
 	raw vcef.ICefCallback
 	*tICefBaseRefCounted_147
@@ -9813,10 +8977,6 @@ func (t *tICefCallback_147) Cancel() {
 
 func (t *tICefCallback_147) Cont() {
 	t.raw.Cont()
-}
-
-type ICefCallbackRef_147 interface {
-	ICefCallbackRef
 }
 
 type tICefCallbackRef_147 struct {
@@ -9872,12 +9032,6 @@ func (t *tICefCallbackRef_147) Cont() {
 	t.raw.Cont()
 }
 
-type ICefChromiumTask_147 interface {
-	ICefChromiumTask
-	ICefManagedTask
-	AsIntfTask() uintptr
-}
-
 type tICefChromiumTask_147 struct {
 	raw vcef.ICefChromiumTask
 	*tICefManagedTask_147
@@ -9923,10 +9077,6 @@ func (t *tICefChromiumTask_147) AsIntfTask() uintptr {
 	return r0
 }
 
-type ICefClient_147 interface {
-	ICefClient
-}
-
 type tICefClient_147 struct {
 	raw vcef.ICefClient
 	*tICefBaseRefCounted_147
@@ -9967,10 +9117,6 @@ func (t *tICefClient_147) RawCEF147ICefClient() vcef.ICefClient {
 	return t.raw
 }
 
-type ICefClientOwn_147 interface {
-	ICefClientOwn
-}
-
 type tICefClientOwn_147 struct {
 	raw vcef.ICefClientOwn
 	*tICefBaseRefCountedOwn_147
@@ -10009,10 +9155,6 @@ func (t *tICefClientOwn_147) CEFVersion() string {
 
 func (t *tICefClientOwn_147) RawCEF147ICefClientOwn() vcef.ICefClientOwn {
 	return t.raw
-}
-
-type ICefCommandHandler_147 interface {
-	ICefCommandHandler
 }
 
 type tICefCommandHandler_147 struct {
@@ -10057,10 +9199,6 @@ func (t *tICefCommandHandler_147) RawCEF147ICefCommandHandler() vcef.ICefCommand
 	return t.raw
 }
 
-type ICefCommandHandlerOwn_147 interface {
-	ICefCommandHandlerOwn
-}
-
 type tICefCommandHandlerOwn_147 struct {
 	raw vcef.ICefCommandHandlerOwn
 	*tICefBaseRefCountedOwn_147
@@ -10101,14 +9239,6 @@ func (t *tICefCommandHandlerOwn_147) CEFVersion() string {
 
 func (t *tICefCommandHandlerOwn_147) RawCEF147ICefCommandHandlerOwn() vcef.ICefCommandHandlerOwn {
 	return t.raw
-}
-
-type ICefCommandLine_147 interface {
-	ICefCommandLine
-	// RemoveSwitch
-	// Remove a switch from the command line. If no such switch is present, this
-	// has no effect.
-	RemoveSwitch(name string)
 }
 
 type tICefCommandLine_147 struct {
@@ -10243,10 +9373,6 @@ func (t *tICefCommandLine_147) Reset() {
 
 func (t *tICefCommandLine_147) SetProgram(prog string) {
 	t.raw.SetProgram(prog)
-}
-
-type ICefCommandLineRef_147 interface {
-	ICefCommandLineRef
 }
 
 type tICefCommandLineRef_147 struct {
@@ -10390,10 +9516,6 @@ func (t *tICefCommandLineRef_147) SetProgram(prog string) {
 	t.raw.SetProgram(prog)
 }
 
-type ICefCompletionCallback_147 interface {
-	ICefCompletionCallback
-}
-
 type tICefCompletionCallback_147 struct {
 	raw vcef.ICefCompletionCallback
 	*tICefBaseRefCounted_147
@@ -10436,10 +9558,6 @@ func (t *tICefCompletionCallback_147) RawCEF147ICefCompletionCallback() vcef.ICe
 	return t.raw
 }
 
-type ICefCompletionCallbackOwn_147 interface {
-	ICefCompletionCallbackOwn
-}
-
 type tICefCompletionCallbackOwn_147 struct {
 	raw vcef.ICefCompletionCallbackOwn
 	*tICefBaseRefCountedOwn_147
@@ -10480,28 +9598,6 @@ func (t *tICefCompletionCallbackOwn_147) CEFVersion() string {
 
 func (t *tICefCompletionCallbackOwn_147) RawCEF147ICefCompletionCallbackOwn() vcef.ICefCompletionCallbackOwn {
 	return t.raw
-}
-
-type ICefComponent_147 interface {
-	ICefComponent
-	ICefBaseRefCounted
-	// GetId
-	// Returns the unique identifier for this component.
-	GetId() string
-	// GetName
-	// Returns the human-readable name of this component. Returns an NULL string
-	// if the component is not installed.
-	GetName() string
-	// GetState
-	// Returns the state of this component at the time this object was created. A
-	// component is considered installed when its state is one of:
-	// CEF_COMPONENT_STATE_UPDATED, CEF_COMPONENT_STATE_UP_TO_DATE, or
-	// CEF_COMPONENT_STATE_RUN.
-	GetState() cefTypes.TCefComponentState
-	// GetVersion
-	// Returns the version of this component as a string (e.g., "1.2.3.4").
-	// Returns an NULL string if the component is not installed.
-	GetVersion() string
 }
 
 type tICefComponent_147 struct {
@@ -10562,13 +9658,6 @@ func (t *tICefComponent_147) GetState() cefTypes.TCefComponentState {
 func (t *tICefComponent_147) GetVersion() string {
 	r0 := t.raw.GetVersion()
 	return r0
-}
-
-type ICefComponentRef_147 interface {
-	ICefComponentRef
-	ICefBaseRefCountedRef
-	ICefComponent
-	AsIntfComponent() uintptr
 }
 
 type tICefComponentRef_147 struct {
@@ -10636,10 +9725,6 @@ func (t *tICefComponentRef_147) GetVersion() string {
 	return r0
 }
 
-type ICefContextMenuHandler_147 interface {
-	ICefContextMenuHandler
-}
-
 type tICefContextMenuHandler_147 struct {
 	raw vcef.ICefContextMenuHandler
 	*tICefBaseRefCounted_147
@@ -10682,10 +9767,6 @@ func (t *tICefContextMenuHandler_147) RawCEF147ICefContextMenuHandler() vcef.ICe
 	return t.raw
 }
 
-type ICefContextMenuHandlerOwn_147 interface {
-	ICefContextMenuHandlerOwn
-}
-
 type tICefContextMenuHandlerOwn_147 struct {
 	raw vcef.ICefContextMenuHandlerOwn
 	*tICefBaseRefCountedOwn_147
@@ -10726,10 +9807,6 @@ func (t *tICefContextMenuHandlerOwn_147) CEFVersion() string {
 
 func (t *tICefContextMenuHandlerOwn_147) RawCEF147ICefContextMenuHandlerOwn() vcef.ICefContextMenuHandlerOwn {
 	return t.raw
-}
-
-type ICefContextMenuParams_147 interface {
-	ICefContextMenuParams
 }
 
 type tICefContextMenuParams_147 struct {
@@ -10872,10 +9949,6 @@ func (t *tICefContextMenuParams_147) IsEditable() bool {
 func (t *tICefContextMenuParams_147) IsSpellCheckEnabled() bool {
 	r0 := t.raw.IsSpellCheckEnabled()
 	return r0
-}
-
-type ICefContextMenuParamsRef_147 interface {
-	ICefContextMenuParamsRef
 }
 
 type tICefContextMenuParamsRef_147 struct {
@@ -11025,10 +10098,6 @@ func (t *tICefContextMenuParamsRef_147) IsSpellCheckEnabled() bool {
 	return r0
 }
 
-type ICefCookieAccessFilter_147 interface {
-	ICefCookieAccessFilter
-}
-
 type tICefCookieAccessFilter_147 struct {
 	raw vcef.ICefCookieAccessFilter
 	*tICefBaseRefCounted_147
@@ -11071,10 +10140,6 @@ func (t *tICefCookieAccessFilter_147) RawCEF147ICefCookieAccessFilter() vcef.ICe
 	return t.raw
 }
 
-type ICefCookieAccessFilterOwn_147 interface {
-	ICefCookieAccessFilterOwn
-}
-
 type tICefCookieAccessFilterOwn_147 struct {
 	raw vcef.ICefCookieAccessFilterOwn
 	*tICefBaseRefCountedOwn_147
@@ -11115,10 +10180,6 @@ func (t *tICefCookieAccessFilterOwn_147) CEFVersion() string {
 
 func (t *tICefCookieAccessFilterOwn_147) RawCEF147ICefCookieAccessFilterOwn() vcef.ICefCookieAccessFilterOwn {
 	return t.raw
-}
-
-type ICefCookieAccessFilterRef_147 interface {
-	ICefCookieAccessFilterRef
 }
 
 type tICefCookieAccessFilterRef_147 struct {
@@ -11166,10 +10227,6 @@ func (t *tICefCookieAccessFilterRef_147) RawCEF147ICefCookieAccessFilterRef() vc
 func (t *tICefCookieAccessFilterRef_147) AsIntfCookieAccessFilter() uintptr {
 	r0 := t.raw.AsIntfCookieAccessFilter()
 	return r0
-}
-
-type ICefCookieManager_147 interface {
-	ICefCookieManager
 }
 
 type tICefCookieManager_147 struct {
@@ -11235,10 +10292,6 @@ func (t *tICefCookieManager_147) VisitAllCookies(visitor IEngCookieVisitor) bool
 func (t *tICefCookieManager_147) VisitUrlCookies(url string, includeHttpOnly bool, visitor IEngCookieVisitor) bool {
 	r0 := t.raw.VisitUrlCookies(url, includeHttpOnly, unwrapIEngCookieVisitor(visitor))
 	return r0
-}
-
-type ICefCookieManagerRef_147 interface {
-	ICefCookieManagerRef
 }
 
 type tICefCookieManagerRef_147 struct {
@@ -11313,10 +10366,6 @@ func (t *tICefCookieManagerRef_147) VisitUrlCookies(url string, includeHttpOnly 
 	return r0
 }
 
-type ICefCookieVisitor_147 interface {
-	ICefCookieVisitor
-}
-
 type tICefCookieVisitor_147 struct {
 	raw vcef.ICefCookieVisitor
 	*tICefBaseRefCounted_147
@@ -11355,10 +10404,6 @@ func (t *tICefCookieVisitor_147) CEFVersion() string {
 
 func (t *tICefCookieVisitor_147) RawCEF147ICefCookieVisitor() vcef.ICefCookieVisitor {
 	return t.raw
-}
-
-type ICefCookieVisitorOwn_147 interface {
-	ICefCookieVisitorOwn
 }
 
 type tICefCookieVisitorOwn_147 struct {
@@ -11401,10 +10446,6 @@ func (t *tICefCookieVisitorOwn_147) CEFVersion() string {
 
 func (t *tICefCookieVisitorOwn_147) RawCEF147ICefCookieVisitorOwn() vcef.ICefCookieVisitorOwn {
 	return t.raw
-}
-
-type ICefCustomBrowserProcessHandler_147 interface {
-	ICefCustomBrowserProcessHandler
 }
 
 type tICefCustomBrowserProcessHandler_147 struct {
@@ -11454,10 +10495,6 @@ func (t *tICefCustomBrowserProcessHandler_147) AsIntfBrowserProcessHandler() uin
 	return r0
 }
 
-type ICefCustomCompletionCallback_147 interface {
-	ICefCustomCompletionCallback
-}
-
 type tICefCustomCompletionCallback_147 struct {
 	raw vcef.ICefCustomCompletionCallback
 	*tICefCompletionCallbackOwn_147
@@ -11503,10 +10540,6 @@ func (t *tICefCustomCompletionCallback_147) RawCEF147ICefCustomCompletionCallbac
 func (t *tICefCustomCompletionCallback_147) AsIntfCompletionCallback() uintptr {
 	r0 := t.raw.AsIntfCompletionCallback()
 	return r0
-}
-
-type ICefCustomCookieVisitor_147 interface {
-	ICefCustomCookieVisitor
 }
 
 type tICefCustomCookieVisitor_147 struct {
@@ -11556,10 +10589,6 @@ func (t *tICefCustomCookieVisitor_147) AsIntfCookieVisitor() uintptr {
 	return r0
 }
 
-type ICefCustomDeleteCookiesCallback_147 interface {
-	ICefCustomDeleteCookiesCallback
-}
-
 type tICefCustomDeleteCookiesCallback_147 struct {
 	raw vcef.ICefCustomDeleteCookiesCallback
 	*tICefDeleteCookiesCallbackOwn_147
@@ -11605,10 +10634,6 @@ func (t *tICefCustomDeleteCookiesCallback_147) RawCEF147ICefCustomDeleteCookiesC
 func (t *tICefCustomDeleteCookiesCallback_147) AsIntfDeleteCookiesCallback() uintptr {
 	r0 := t.raw.AsIntfDeleteCookiesCallback()
 	return r0
-}
-
-type ICefCustomDownloadImageCallback_147 interface {
-	ICefCustomDownloadImageCallback
 }
 
 type tICefCustomDownloadImageCallback_147 struct {
@@ -11658,10 +10683,6 @@ func (t *tICefCustomDownloadImageCallback_147) AsIntfDownloadImageCallback() uin
 	return r0
 }
 
-type ICefCustomMediaRouteCreateCallback_147 interface {
-	ICefCustomMediaRouteCreateCallback
-}
-
 type tICefCustomMediaRouteCreateCallback_147 struct {
 	raw vcef.ICefCustomMediaRouteCreateCallback
 	*tICefMediaRouteCreateCallbackOwn_147
@@ -11707,10 +10728,6 @@ func (t *tICefCustomMediaRouteCreateCallback_147) RawCEF147ICefCustomMediaRouteC
 func (t *tICefCustomMediaRouteCreateCallback_147) AsIntfMediaRouteCreateCallback() uintptr {
 	r0 := t.raw.AsIntfMediaRouteCreateCallback()
 	return r0
-}
-
-type ICefCustomMediaSinkDeviceInfoCallback_147 interface {
-	ICefCustomMediaSinkDeviceInfoCallback
 }
 
 type tICefCustomMediaSinkDeviceInfoCallback_147 struct {
@@ -11760,10 +10777,6 @@ func (t *tICefCustomMediaSinkDeviceInfoCallback_147) AsIntfMediaSinkDeviceInfoCa
 	return r0
 }
 
-type ICefCustomPDFPrintCallBack_147 interface {
-	ICefCustomPDFPrintCallBack
-}
-
 type tICefCustomPDFPrintCallBack_147 struct {
 	raw vcef.ICefCustomPDFPrintCallBack
 	*tICefPdfPrintCallbackOwn_147
@@ -11809,10 +10822,6 @@ func (t *tICefCustomPDFPrintCallBack_147) RawCEF147ICefCustomPDFPrintCallBack() 
 func (t *tICefCustomPDFPrintCallBack_147) AsIntfPdfPrintCallback() uintptr {
 	r0 := t.raw.AsIntfPdfPrintCallback()
 	return r0
-}
-
-type ICefCustomRenderProcessHandler_147 interface {
-	ICefCustomRenderProcessHandler
 }
 
 type tICefCustomRenderProcessHandler_147 struct {
@@ -11862,10 +10871,6 @@ func (t *tICefCustomRenderProcessHandler_147) AsIntfRenderProcessHandler() uintp
 	return r0
 }
 
-type ICefCustomResolveCallback_147 interface {
-	ICefCustomResolveCallback
-}
-
 type tICefCustomResolveCallback_147 struct {
 	raw vcef.ICefCustomResolveCallback
 	*tICefResolveCallbackOwn_147
@@ -11911,10 +10916,6 @@ func (t *tICefCustomResolveCallback_147) RawCEF147ICefCustomResolveCallback() vc
 func (t *tICefCustomResolveCallback_147) AsIntfResolveCallback() uintptr {
 	r0 := t.raw.AsIntfResolveCallback()
 	return r0
-}
-
-type ICefCustomResourceBundleHandler_147 interface {
-	ICefCustomResourceBundleHandler
 }
 
 type tICefCustomResourceBundleHandler_147 struct {
@@ -11964,10 +10965,6 @@ func (t *tICefCustomResourceBundleHandler_147) AsIntfResourceBundleHandler() uin
 	return r0
 }
 
-type ICefCustomSetCookieCallback_147 interface {
-	ICefCustomSetCookieCallback
-}
-
 type tICefCustomSetCookieCallback_147 struct {
 	raw vcef.ICefCustomSetCookieCallback
 	*tICefSetCookieCallbackOwn_147
@@ -12013,10 +11010,6 @@ func (t *tICefCustomSetCookieCallback_147) RawCEF147ICefCustomSetCookieCallback(
 func (t *tICefCustomSetCookieCallback_147) AsIntfSetCookieCallback() uintptr {
 	r0 := t.raw.AsIntfSetCookieCallback()
 	return r0
-}
-
-type ICefCustomStreamReader_147 interface {
-	ICefCustomStreamReader
 }
 
 type tICefCustomStreamReader_147 struct {
@@ -12091,10 +11084,6 @@ func (t *tICefCustomStreamReader_147) Tell() int64 {
 	return r0
 }
 
-type ICefCustomStringList_147 interface {
-	ICefCustomStringList
-}
-
 type tICefCustomStringList_147 struct {
 	raw vcef.ICefCustomStringList
 	*tICefStringList_147
@@ -12142,10 +11131,6 @@ func (t *tICefCustomStringList_147) RawCEF147ICefCustomStringList() vcef.ICefCus
 func (t *tICefCustomStringList_147) AsIntfStringList() uintptr {
 	r0 := t.raw.AsIntfStringList()
 	return r0
-}
-
-type ICefCustomStringMap_147 interface {
-	ICefCustomStringMap
 }
 
 type tICefCustomStringMap_147 struct {
@@ -12197,10 +11182,6 @@ func (t *tICefCustomStringMap_147) AsIntfStringMap() uintptr {
 	return r0
 }
 
-type ICefCustomStringMultimap_147 interface {
-	ICefCustomStringMultimap
-}
-
 type tICefCustomStringMultimap_147 struct {
 	raw vcef.ICefCustomStringMultimap
 	*tICefStringMultimap_147
@@ -12248,14 +11229,6 @@ func (t *tICefCustomStringMultimap_147) RawCEF147ICefCustomStringMultimap() vcef
 func (t *tICefCustomStringMultimap_147) AsIntfStringMultimap() uintptr {
 	r0 := t.raw.AsIntfStringMultimap()
 	return r0
-}
-
-type ICefCustomUserData_147 interface {
-	ICefCustomUserData
-	ICefBaseRefCountedOwn
-	AsIntfCustomUserData() uintptr
-	GetUserDataType() uintptr
-	GetUserData() uintptr
 }
 
 type tICefCustomUserData_147 struct {
@@ -12315,10 +11288,6 @@ func (t *tICefCustomUserData_147) GetUserData() uintptr {
 	return r0
 }
 
-type ICefDeleteCookiesCallback_147 interface {
-	ICefDeleteCookiesCallback
-}
-
 type tICefDeleteCookiesCallback_147 struct {
 	raw vcef.ICefDeleteCookiesCallback
 	*tICefBaseRefCounted_147
@@ -12359,10 +11328,6 @@ func (t *tICefDeleteCookiesCallback_147) CEFVersion() string {
 
 func (t *tICefDeleteCookiesCallback_147) RawCEF147ICefDeleteCookiesCallback() vcef.ICefDeleteCookiesCallback {
 	return t.raw
-}
-
-type ICefDeleteCookiesCallbackOwn_147 interface {
-	ICefDeleteCookiesCallbackOwn
 }
 
 type tICefDeleteCookiesCallbackOwn_147 struct {
@@ -12407,10 +11372,6 @@ func (t *tICefDeleteCookiesCallbackOwn_147) RawCEF147ICefDeleteCookiesCallbackOw
 	return t.raw
 }
 
-type ICefDevToolsMessageObserver_147 interface {
-	ICefDevToolsMessageObserver
-}
-
 type tICefDevToolsMessageObserver_147 struct {
 	raw vcef.ICefDevToolsMessageObserver
 	*tICefBaseRefCounted_147
@@ -12453,10 +11414,6 @@ func (t *tICefDevToolsMessageObserver_147) RawCEF147ICefDevToolsMessageObserver(
 	return t.raw
 }
 
-type ICefDialogHandler_147 interface {
-	ICefDialogHandler
-}
-
 type tICefDialogHandler_147 struct {
 	raw vcef.ICefDialogHandler
 	*tICefBaseRefCounted_147
@@ -12495,10 +11452,6 @@ func (t *tICefDialogHandler_147) CEFVersion() string {
 
 func (t *tICefDialogHandler_147) RawCEF147ICefDialogHandler() vcef.ICefDialogHandler {
 	return t.raw
-}
-
-type ICefDialogHandlerOwn_147 interface {
-	ICefDialogHandlerOwn
 }
 
 type tICefDialogHandlerOwn_147 struct {
@@ -12541,10 +11494,6 @@ func (t *tICefDialogHandlerOwn_147) CEFVersion() string {
 
 func (t *tICefDialogHandlerOwn_147) RawCEF147ICefDialogHandlerOwn() vcef.ICefDialogHandlerOwn {
 	return t.raw
-}
-
-type ICefDictionaryValue_147 interface {
-	ICefDictionaryValue
 }
 
 type tICefDictionaryValue_147 struct {
@@ -12732,10 +11681,6 @@ func (t *tICefDictionaryValue_147) SetString(key string, value string) bool {
 func (t *tICefDictionaryValue_147) SetValue(key string, value ICefValue) bool {
 	r0 := t.raw.SetValue(key, unwrapICefValue(value))
 	return r0
-}
-
-type ICefDictionaryValueRef_147 interface {
-	ICefDictionaryValueRef
 }
 
 type tICefDictionaryValueRef_147 struct {
@@ -12930,10 +11875,6 @@ func (t *tICefDictionaryValueRef_147) SetValue(key string, value ICefValue) bool
 	return r0
 }
 
-type ICefDisplay_147 interface {
-	ICefDisplay
-}
-
 type tICefDisplay_147 struct {
 	raw vcef.ICefDisplay
 	*tICefBaseRefCounted_147
@@ -13007,10 +11948,6 @@ func (t *tICefDisplay_147) GetWorkArea() TCefRect {
 	return r0
 }
 
-type ICefDisplayHandler_147 interface {
-	ICefDisplayHandler
-}
-
 type tICefDisplayHandler_147 struct {
 	raw vcef.ICefDisplayHandler
 	*tICefBaseRefCounted_147
@@ -13053,10 +11990,6 @@ func (t *tICefDisplayHandler_147) RawCEF147ICefDisplayHandler() vcef.ICefDisplay
 	return t.raw
 }
 
-type ICefDisplayHandlerOwn_147 interface {
-	ICefDisplayHandlerOwn
-}
-
 type tICefDisplayHandlerOwn_147 struct {
 	raw vcef.ICefDisplayHandlerOwn
 	*tICefBaseRefCountedOwn_147
@@ -13097,10 +12030,6 @@ func (t *tICefDisplayHandlerOwn_147) CEFVersion() string {
 
 func (t *tICefDisplayHandlerOwn_147) RawCEF147ICefDisplayHandlerOwn() vcef.ICefDisplayHandlerOwn {
 	return t.raw
-}
-
-type ICefDisplayRef_147 interface {
-	ICefDisplayRef
 }
 
 type tICefDisplayRef_147 struct {
@@ -13179,10 +12108,6 @@ func (t *tICefDisplayRef_147) GetRotation() int32 {
 func (t *tICefDisplayRef_147) GetWorkArea() TCefRect {
 	r0 := t.raw.GetWorkArea()
 	return r0
-}
-
-type ICefDomDocument_147 interface {
-	ICefDomDocument
 }
 
 type tICefDomDocument_147 struct {
@@ -13293,10 +12218,6 @@ func (t *tICefDomDocument_147) GetType() cefTypes.TCefDomDocumentType {
 func (t *tICefDomDocument_147) HasSelection() bool {
 	r0 := t.raw.HasSelection()
 	return r0
-}
-
-type ICefDomDocumentRef_147 interface {
-	ICefDomDocumentRef
 }
 
 type tICefDomDocumentRef_147 struct {
@@ -13414,13 +12335,6 @@ func (t *tICefDomDocumentRef_147) GetType() cefTypes.TCefDomDocumentType {
 func (t *tICefDomDocumentRef_147) HasSelection() bool {
 	r0 := t.raw.HasSelection()
 	return r0
-}
-
-type ICefDomNode_147 interface {
-	ICefDomNode
-	// GetFormControlElementType
-	// Returns the type of this form control element node.
-	GetFormControlElementType() cefTypes.TCefDomFormControlType
 }
 
 type tICefDomNode_147 struct {
@@ -13590,10 +12504,6 @@ func (t *tICefDomNode_147) SetElementAttribute(attrName string, value string) bo
 func (t *tICefDomNode_147) SetValue(value string) bool {
 	r0 := t.raw.SetValue(value)
 	return r0
-}
-
-type ICefDomNodeRef_147 interface {
-	ICefDomNodeRef
 }
 
 type tICefDomNodeRef_147 struct {
@@ -13770,10 +12680,6 @@ func (t *tICefDomNodeRef_147) SetValue(value string) bool {
 	return r0
 }
 
-type ICefDomVisitor_147 interface {
-	ICefDomVisitor
-}
-
 type tICefDomVisitor_147 struct {
 	raw vcef.ICefDomVisitor
 	*tICefBaseRefCounted_147
@@ -13814,10 +12720,6 @@ func (t *tICefDomVisitor_147) RawCEF147ICefDomVisitor() vcef.ICefDomVisitor {
 	return t.raw
 }
 
-type ICefDomVisitorOwn_147 interface {
-	ICefDomVisitorOwn
-}
-
 type tICefDomVisitorOwn_147 struct {
 	raw vcef.ICefDomVisitorOwn
 	*tICefBaseRefCountedOwn_147
@@ -13856,10 +12758,6 @@ func (t *tICefDomVisitorOwn_147) CEFVersion() string {
 
 func (t *tICefDomVisitorOwn_147) RawCEF147ICefDomVisitorOwn() vcef.ICefDomVisitorOwn {
 	return t.raw
-}
-
-type ICefDownloadHandler_147 interface {
-	ICefDownloadHandler
 }
 
 type tICefDownloadHandler_147 struct {
@@ -13904,10 +12802,6 @@ func (t *tICefDownloadHandler_147) RawCEF147ICefDownloadHandler() vcef.ICefDownl
 	return t.raw
 }
 
-type ICefDownloadHandlerOwn_147 interface {
-	ICefDownloadHandlerOwn
-}
-
 type tICefDownloadHandlerOwn_147 struct {
 	raw vcef.ICefDownloadHandlerOwn
 	*tICefBaseRefCountedOwn_147
@@ -13948,10 +12842,6 @@ func (t *tICefDownloadHandlerOwn_147) CEFVersion() string {
 
 func (t *tICefDownloadHandlerOwn_147) RawCEF147ICefDownloadHandlerOwn() vcef.ICefDownloadHandlerOwn {
 	return t.raw
-}
-
-type ICefDownloadImageCallback_147 interface {
-	ICefDownloadImageCallback
 }
 
 type tICefDownloadImageCallback_147 struct {
@@ -13996,10 +12886,6 @@ func (t *tICefDownloadImageCallback_147) RawCEF147ICefDownloadImageCallback() vc
 	return t.raw
 }
 
-type ICefDownloadImageCallbackOwn_147 interface {
-	ICefDownloadImageCallbackOwn
-}
-
 type tICefDownloadImageCallbackOwn_147 struct {
 	raw vcef.ICefDownloadImageCallbackOwn
 	*tICefBaseRefCountedOwn_147
@@ -14040,19 +12926,6 @@ func (t *tICefDownloadImageCallbackOwn_147) CEFVersion() string {
 
 func (t *tICefDownloadImageCallbackOwn_147) RawCEF147ICefDownloadImageCallbackOwn() vcef.ICefDownloadImageCallbackOwn {
 	return t.raw
-}
-
-type ICefDownloadItem_147 interface {
-	ICefDownloadItem
-	// GetInterruptReason
-	// Returns the most recent interrupt reason.
-	GetInterruptReason() cefTypes.TCefDownloadInterruptReason
-	// IsInterrupted
-	// Returns true (1) if the download has been interrupted.
-	IsInterrupted() bool
-	// IsPaused
-	// Returns true (1) if the download has been paused.
-	IsPaused() bool
 }
 
 type tICefDownloadItem_147 struct {
@@ -14195,10 +13068,6 @@ func (t *tICefDownloadItem_147) IsValid() bool {
 	return r0
 }
 
-type ICefDownloadItemCallback_147 interface {
-	ICefDownloadItemCallback
-}
-
 type tICefDownloadItemCallback_147 struct {
 	raw vcef.ICefDownloadItemCallback
 	*tICefBaseRefCounted_147
@@ -14251,10 +13120,6 @@ func (t *tICefDownloadItemCallback_147) Pause() {
 
 func (t *tICefDownloadItemCallback_147) Resume() {
 	t.raw.Resume()
-}
-
-type ICefDownloadItemCallbackRef_147 interface {
-	ICefDownloadItemCallbackRef
 }
 
 type tICefDownloadItemCallbackRef_147 struct {
@@ -14314,13 +13179,6 @@ func (t *tICefDownloadItemCallbackRef_147) Pause() {
 
 func (t *tICefDownloadItemCallbackRef_147) Resume() {
 	t.raw.Resume()
-}
-
-type ICefDownloadItemRef_147 interface {
-	ICefDownloadItemRef
-	ICefBaseRefCountedRef
-	ICefDownloadItem
-	AsIntfDownloadItem() uintptr
 }
 
 type tICefDownloadItemRef_147 struct {
@@ -14468,14 +13326,6 @@ func (t *tICefDownloadItemRef_147) IsPaused() bool {
 func (t *tICefDownloadItemRef_147) IsValid() bool {
 	r0 := t.raw.IsValid()
 	return r0
-}
-
-type ICefDragData_147 interface {
-	ICefDragData
-	// GetFilePaths
-	// Retrieve the list of file paths that are being dragged into the browser
-	// window.
-	GetFilePaths(paths *lcl.IStrings) int32
 }
 
 type tICefDragData_147 struct {
@@ -14642,10 +13492,6 @@ func (t *tICefDragData_147) SetLinkTitle(title string) {
 
 func (t *tICefDragData_147) SetLinkUrl(url string) {
 	t.raw.SetLinkUrl(url)
-}
-
-type ICefDragDataRef_147 interface {
-	ICefDragDataRef
 }
 
 type tICefDragDataRef_147 struct {
@@ -14819,10 +13665,6 @@ func (t *tICefDragDataRef_147) SetLinkUrl(url string) {
 	t.raw.SetLinkUrl(url)
 }
 
-type ICefDragHandler_147 interface {
-	ICefDragHandler
-}
-
 type tICefDragHandler_147 struct {
 	raw vcef.ICefDragHandler
 	*tICefBaseRefCounted_147
@@ -14861,10 +13703,6 @@ func (t *tICefDragHandler_147) CEFVersion() string {
 
 func (t *tICefDragHandler_147) RawCEF147ICefDragHandler() vcef.ICefDragHandler {
 	return t.raw
-}
-
-type ICefDragHandlerOwn_147 interface {
-	ICefDragHandlerOwn
 }
 
 type tICefDragHandlerOwn_147 struct {
@@ -14909,10 +13747,6 @@ func (t *tICefDragHandlerOwn_147) RawCEF147ICefDragHandlerOwn() vcef.ICefDragHan
 	return t.raw
 }
 
-type ICefEndTracingCallback_147 interface {
-	ICefEndTracingCallback
-}
-
 type tICefEndTracingCallback_147 struct {
 	raw vcef.ICefEndTracingCallback
 	*tICefBaseRefCounted_147
@@ -14955,10 +13789,6 @@ func (t *tICefEndTracingCallback_147) RawCEF147ICefEndTracingCallback() vcef.ICe
 	return t.raw
 }
 
-type ICefEndTracingCallbackOwn_147 interface {
-	ICefEndTracingCallbackOwn
-}
-
 type tICefEndTracingCallbackOwn_147 struct {
 	raw vcef.ICefEndTracingCallbackOwn
 	*tICefBaseRefCountedOwn_147
@@ -14999,10 +13829,6 @@ func (t *tICefEndTracingCallbackOwn_147) CEFVersion() string {
 
 func (t *tICefEndTracingCallbackOwn_147) RawCEF147ICefEndTracingCallbackOwn() vcef.ICefEndTracingCallbackOwn {
 	return t.raw
-}
-
-type ICefEventCompletionCallback_147 interface {
-	ICefEventCompletionCallback
 }
 
 type tICefEventCompletionCallback_147 struct {
@@ -15050,10 +13876,6 @@ func (t *tICefEventCompletionCallback_147) RawCEF147ICefEventCompletionCallback(
 func (t *tICefEventCompletionCallback_147) AsIntfCompletionCallback() uintptr {
 	r0 := t.raw.AsIntfCompletionCallback()
 	return r0
-}
-
-type ICefFileDialogCallback_147 interface {
-	ICefFileDialogCallback
 }
 
 type tICefFileDialogCallback_147 struct {
@@ -15104,10 +13926,6 @@ func (t *tICefFileDialogCallback_147) Cancel() {
 
 func (t *tICefFileDialogCallback_147) Cont(filePaths lcl.IStrings) {
 	t.raw.Cont(filePaths)
-}
-
-type ICefFileDialogCallbackRef_147 interface {
-	ICefFileDialogCallbackRef
 }
 
 type tICefFileDialogCallbackRef_147 struct {
@@ -15165,10 +13983,6 @@ func (t *tICefFileDialogCallbackRef_147) Cont(filePaths lcl.IStrings) {
 	t.raw.Cont(filePaths)
 }
 
-type ICefFillLayout_147 interface {
-	ICefFillLayout
-}
-
 type tICefFillLayout_147 struct {
 	raw vcef.ICefFillLayout
 	*tICefLayout_147
@@ -15207,10 +14021,6 @@ func (t *tICefFillLayout_147) CEFVersion() string {
 
 func (t *tICefFillLayout_147) RawCEF147ICefFillLayout() vcef.ICefFillLayout {
 	return t.raw
-}
-
-type ICefFillLayoutRef_147 interface {
-	ICefFillLayoutRef
 }
 
 type tICefFillLayoutRef_147 struct {
@@ -15263,10 +14073,6 @@ func (t *tICefFillLayoutRef_147) AsIntfLayout() uintptr {
 	return r0
 }
 
-type ICefFindHandler_147 interface {
-	ICefFindHandler
-}
-
 type tICefFindHandler_147 struct {
 	raw vcef.ICefFindHandler
 	*tICefBaseRefCounted_147
@@ -15305,10 +14111,6 @@ func (t *tICefFindHandler_147) CEFVersion() string {
 
 func (t *tICefFindHandler_147) RawCEF147ICefFindHandler() vcef.ICefFindHandler {
 	return t.raw
-}
-
-type ICefFindHandlerOwn_147 interface {
-	ICefFindHandlerOwn
 }
 
 type tICefFindHandlerOwn_147 struct {
@@ -15353,10 +14155,6 @@ func (t *tICefFindHandlerOwn_147) RawCEF147ICefFindHandlerOwn() vcef.ICefFindHan
 	return t.raw
 }
 
-type ICefFocusHandler_147 interface {
-	ICefFocusHandler
-}
-
 type tICefFocusHandler_147 struct {
 	raw vcef.ICefFocusHandler
 	*tICefBaseRefCounted_147
@@ -15395,10 +14193,6 @@ func (t *tICefFocusHandler_147) CEFVersion() string {
 
 func (t *tICefFocusHandler_147) RawCEF147ICefFocusHandler() vcef.ICefFocusHandler {
 	return t.raw
-}
-
-type ICefFocusHandlerOwn_147 interface {
-	ICefFocusHandlerOwn
 }
 
 type tICefFocusHandlerOwn_147 struct {
@@ -15441,17 +14235,6 @@ func (t *tICefFocusHandlerOwn_147) CEFVersion() string {
 
 func (t *tICefFocusHandlerOwn_147) RawCEF147ICefFocusHandlerOwn() vcef.ICefFocusHandlerOwn {
 	return t.raw
-}
-
-type ICefFrame_147 interface {
-	ICefFrame
-	// GetIdentifier
-	// Returns the globally unique identifier for this frame or empty if the
-	// underlying frame does not yet exist.
-	GetIdentifier() string
-	// PasteAndMatchStyle
-	// Execute paste and match style in this frame.
-	PasteAndMatchStyle()
 }
 
 type tICefFrame_147 struct {
@@ -15608,10 +14391,6 @@ func (t *tICefFrame_147) VisitDom(visitor IEngDomVisitor) {
 	t.raw.VisitDom(unwrapIEngDomVisitor(visitor))
 }
 
-type ICefFrameHandler_147 interface {
-	ICefFrameHandler
-}
-
 type tICefFrameHandler_147 struct {
 	raw vcef.ICefFrameHandler
 	*tICefBaseRefCounted_147
@@ -15650,10 +14429,6 @@ func (t *tICefFrameHandler_147) CEFVersion() string {
 
 func (t *tICefFrameHandler_147) RawCEF147ICefFrameHandler() vcef.ICefFrameHandler {
 	return t.raw
-}
-
-type ICefFrameHandlerOwn_147 interface {
-	ICefFrameHandlerOwn
 }
 
 type tICefFrameHandlerOwn_147 struct {
@@ -15696,10 +14471,6 @@ func (t *tICefFrameHandlerOwn_147) CEFVersion() string {
 
 func (t *tICefFrameHandlerOwn_147) RawCEF147ICefFrameHandlerOwn() vcef.ICefFrameHandlerOwn {
 	return t.raw
-}
-
-type ICefFrameRef_147 interface {
-	ICefFrameRef
 }
 
 type tICefFrameRef_147 struct {
@@ -15861,11 +14632,6 @@ func (t *tICefFrameRef_147) VisitDom(visitor IEngDomVisitor) {
 	t.raw.VisitDom(unwrapIEngDomVisitor(visitor))
 }
 
-type ICefGenericTask_147 interface {
-	ICefGenericTask
-	ICefChromiumTask
-}
-
 type tICefGenericTask_147 struct {
 	raw vcef.ICefGenericTask
 	*tICefChromiumTask_147
@@ -15909,10 +14675,6 @@ func (t *tICefGenericTask_147) RawCEF147ICefGenericTask() vcef.ICefGenericTask {
 func (t *tICefGenericTask_147) AsIntfTask() uintptr {
 	r0 := t.raw.AsIntfTask()
 	return r0
-}
-
-type ICefImage_147 interface {
-	ICefImage
 }
 
 type tICefImage_147 struct {
@@ -16018,10 +14780,6 @@ func (t *tICefImage_147) IsSame(that ICefImage) bool {
 func (t *tICefImage_147) RemoveRepresentation(scaleFactor float32) bool {
 	r0 := t.raw.RemoveRepresentation(scaleFactor)
 	return r0
-}
-
-type ICefImageRef_147 interface {
-	ICefImageRef
 }
 
 type tICefImageRef_147 struct {
@@ -16134,10 +14892,6 @@ func (t *tICefImageRef_147) RemoveRepresentation(scaleFactor float32) bool {
 	return r0
 }
 
-type ICefJsDialogCallback_147 interface {
-	ICefJsDialogCallback
-}
-
 type tICefJsDialogCallback_147 struct {
 	raw vcef.ICefJsDialogCallback
 	*tICefBaseRefCounted_147
@@ -16182,10 +14936,6 @@ func (t *tICefJsDialogCallback_147) RawCEF147ICefJsDialogCallback() vcef.ICefJsD
 
 func (t *tICefJsDialogCallback_147) Cont(success bool, userInput string) {
 	t.raw.Cont(success, userInput)
-}
-
-type ICefJsDialogCallbackRef_147 interface {
-	ICefJsDialogCallbackRef
 }
 
 type tICefJsDialogCallbackRef_147 struct {
@@ -16239,10 +14989,6 @@ func (t *tICefJsDialogCallbackRef_147) Cont(success bool, userInput string) {
 	t.raw.Cont(success, userInput)
 }
 
-type ICefJsDialogHandler_147 interface {
-	ICefJsDialogHandler
-}
-
 type tICefJsDialogHandler_147 struct {
 	raw vcef.ICefJsDialogHandler
 	*tICefBaseRefCounted_147
@@ -16283,10 +15029,6 @@ func (t *tICefJsDialogHandler_147) CEFVersion() string {
 
 func (t *tICefJsDialogHandler_147) RawCEF147ICefJsDialogHandler() vcef.ICefJsDialogHandler {
 	return t.raw
-}
-
-type ICefJsDialogHandlerOwn_147 interface {
-	ICefJsDialogHandlerOwn
 }
 
 type tICefJsDialogHandlerOwn_147 struct {
@@ -16331,10 +15073,6 @@ func (t *tICefJsDialogHandlerOwn_147) RawCEF147ICefJsDialogHandlerOwn() vcef.ICe
 	return t.raw
 }
 
-type ICefKeyboardHandler_147 interface {
-	ICefKeyboardHandler
-}
-
 type tICefKeyboardHandler_147 struct {
 	raw vcef.ICefKeyboardHandler
 	*tICefBaseRefCounted_147
@@ -16377,10 +15115,6 @@ func (t *tICefKeyboardHandler_147) RawCEF147ICefKeyboardHandler() vcef.ICefKeybo
 	return t.raw
 }
 
-type ICefKeyboardHandlerOwn_147 interface {
-	ICefKeyboardHandlerOwn
-}
-
 type tICefKeyboardHandlerOwn_147 struct {
 	raw vcef.ICefKeyboardHandlerOwn
 	*tICefBaseRefCountedOwn_147
@@ -16421,10 +15155,6 @@ func (t *tICefKeyboardHandlerOwn_147) CEFVersion() string {
 
 func (t *tICefKeyboardHandlerOwn_147) RawCEF147ICefKeyboardHandlerOwn() vcef.ICefKeyboardHandlerOwn {
 	return t.raw
-}
-
-type ICefLabelButton_147 interface {
-	ICefLabelButton
 }
 
 type tICefLabelButton_147 struct {
@@ -16512,10 +15242,6 @@ func (t *tICefLabelButton_147) SetTextColor(forState cefTypes.TCefButtonState, c
 
 func (t *tICefLabelButton_147) SetText(text string) {
 	t.raw.SetText(text)
-}
-
-type ICefLabelButtonRef_147 interface {
-	ICefLabelButtonRef
 }
 
 type tICefLabelButtonRef_147 struct {
@@ -16622,10 +15348,6 @@ func (t *tICefLabelButtonRef_147) SetText(text string) {
 	t.raw.SetText(text)
 }
 
-type ICefLayout_147 interface {
-	ICefLayout
-}
-
 type tICefLayout_147 struct {
 	raw vcef.ICefLayout
 	*tICefBaseRefCounted_147
@@ -16679,10 +15401,6 @@ func (t *tICefLayout_147) AsFillLayout() ICefFillLayout {
 func (t *tICefLayout_147) IsValid() bool {
 	r0 := t.raw.IsValid()
 	return r0
-}
-
-type ICefLayoutRef_147 interface {
-	ICefLayoutRef
 }
 
 type tICefLayoutRef_147 struct {
@@ -16745,10 +15463,6 @@ func (t *tICefLayoutRef_147) IsValid() bool {
 	return r0
 }
 
-type ICefLifeSpanHandler_147 interface {
-	ICefLifeSpanHandler
-}
-
 type tICefLifeSpanHandler_147 struct {
 	raw vcef.ICefLifeSpanHandler
 	*tICefBaseRefCounted_147
@@ -16791,10 +15505,6 @@ func (t *tICefLifeSpanHandler_147) RawCEF147ICefLifeSpanHandler() vcef.ICefLifeS
 	return t.raw
 }
 
-type ICefLifeSpanHandlerOwn_147 interface {
-	ICefLifeSpanHandlerOwn
-}
-
 type tICefLifeSpanHandlerOwn_147 struct {
 	raw vcef.ICefLifeSpanHandlerOwn
 	*tICefBaseRefCountedOwn_147
@@ -16835,10 +15545,6 @@ func (t *tICefLifeSpanHandlerOwn_147) CEFVersion() string {
 
 func (t *tICefLifeSpanHandlerOwn_147) RawCEF147ICefLifeSpanHandlerOwn() vcef.ICefLifeSpanHandlerOwn {
 	return t.raw
-}
-
-type ICefListValue_147 interface {
-	ICefListValue
 }
 
 type tICefListValue_147 struct {
@@ -17019,10 +15725,6 @@ func (t *tICefListValue_147) SetString(index cefTypes.NativeUInt, value string) 
 func (t *tICefListValue_147) SetValue(index cefTypes.NativeUInt, value ICefValue) bool {
 	r0 := t.raw.SetValue(index, unwrapICefValue(value))
 	return r0
-}
-
-type ICefListValueRef_147 interface {
-	ICefListValueRef
 }
 
 type tICefListValueRef_147 struct {
@@ -17210,10 +15912,6 @@ func (t *tICefListValueRef_147) SetValue(index cefTypes.NativeUInt, value ICefVa
 	return r0
 }
 
-type ICefLoadHandler_147 interface {
-	ICefLoadHandler
-}
-
 type tICefLoadHandler_147 struct {
 	raw vcef.ICefLoadHandler
 	*tICefBaseRefCounted_147
@@ -17252,10 +15950,6 @@ func (t *tICefLoadHandler_147) CEFVersion() string {
 
 func (t *tICefLoadHandler_147) RawCEF147ICefLoadHandler() vcef.ICefLoadHandler {
 	return t.raw
-}
-
-type ICefLoadHandlerOwn_147 interface {
-	ICefLoadHandlerOwn
 }
 
 type tICefLoadHandlerOwn_147 struct {
@@ -17298,12 +15992,6 @@ func (t *tICefLoadHandlerOwn_147) CEFVersion() string {
 
 func (t *tICefLoadHandlerOwn_147) RawCEF147ICefLoadHandlerOwn() vcef.ICefLoadHandlerOwn {
 	return t.raw
-}
-
-type ICefManagedTask_147 interface {
-	ICefManagedTask
-	ICefTaskOwn
-	AsIntfTask() uintptr
 }
 
 type tICefManagedTask_147 struct {
@@ -17349,10 +16037,6 @@ func (t *tICefManagedTask_147) RawCEF147ICefManagedTask() vcef.ICefManagedTask {
 func (t *tICefManagedTask_147) AsIntfTask() uintptr {
 	r0 := t.raw.AsIntfTask()
 	return r0
-}
-
-type ICefMediaAccessCallback_147 interface {
-	ICefMediaAccessCallback
 }
 
 type tICefMediaAccessCallback_147 struct {
@@ -17403,10 +16087,6 @@ func (t *tICefMediaAccessCallback_147) Cancel() {
 
 func (t *tICefMediaAccessCallback_147) Cont(allowedPermissions cefTypes.TCefMediaAccessPermissionTypes) {
 	t.raw.Cont(allowedPermissions)
-}
-
-type ICefMediaAccessCallbackRef_147 interface {
-	ICefMediaAccessCallbackRef
 }
 
 type tICefMediaAccessCallbackRef_147 struct {
@@ -17464,10 +16144,6 @@ func (t *tICefMediaAccessCallbackRef_147) Cont(allowedPermissions cefTypes.TCefM
 	t.raw.Cont(allowedPermissions)
 }
 
-type ICefMediaObserver_147 interface {
-	ICefMediaObserver
-}
-
 type tICefMediaObserver_147 struct {
 	raw vcef.ICefMediaObserver
 	*tICefBaseRefCounted_147
@@ -17506,10 +16182,6 @@ func (t *tICefMediaObserver_147) CEFVersion() string {
 
 func (t *tICefMediaObserver_147) RawCEF147ICefMediaObserver() vcef.ICefMediaObserver {
 	return t.raw
-}
-
-type ICefMediaObserverOwn_147 interface {
-	ICefMediaObserverOwn
 }
 
 type tICefMediaObserverOwn_147 struct {
@@ -17552,10 +16224,6 @@ func (t *tICefMediaObserverOwn_147) CEFVersion() string {
 
 func (t *tICefMediaObserverOwn_147) RawCEF147ICefMediaObserverOwn() vcef.ICefMediaObserverOwn {
 	return t.raw
-}
-
-type ICefMediaRoute_147 interface {
-	ICefMediaRoute
 }
 
 type tICefMediaRoute_147 struct {
@@ -17621,10 +16289,6 @@ func (t *tICefMediaRoute_147) Terminate() {
 	t.raw.Terminate()
 }
 
-type ICefMediaRouteCreateCallback_147 interface {
-	ICefMediaRouteCreateCallback
-}
-
 type tICefMediaRouteCreateCallback_147 struct {
 	raw vcef.ICefMediaRouteCreateCallback
 	*tICefBaseRefCounted_147
@@ -17667,10 +16331,6 @@ func (t *tICefMediaRouteCreateCallback_147) RawCEF147ICefMediaRouteCreateCallbac
 	return t.raw
 }
 
-type ICefMediaRouteCreateCallbackOwn_147 interface {
-	ICefMediaRouteCreateCallbackOwn
-}
-
 type tICefMediaRouteCreateCallbackOwn_147 struct {
 	raw vcef.ICefMediaRouteCreateCallbackOwn
 	*tICefBaseRefCountedOwn_147
@@ -17711,10 +16371,6 @@ func (t *tICefMediaRouteCreateCallbackOwn_147) CEFVersion() string {
 
 func (t *tICefMediaRouteCreateCallbackOwn_147) RawCEF147ICefMediaRouteCreateCallbackOwn() vcef.ICefMediaRouteCreateCallbackOwn {
 	return t.raw
-}
-
-type ICefMediaRouteRef_147 interface {
-	ICefMediaRouteRef
 }
 
 type tICefMediaRouteRef_147 struct {
@@ -17785,10 +16441,6 @@ func (t *tICefMediaRouteRef_147) Terminate() {
 	t.raw.Terminate()
 }
 
-type ICefMediaRouter_147 interface {
-	ICefMediaRouter
-}
-
 type tICefMediaRouter_147 struct {
 	raw vcef.ICefMediaRouter
 	*tICefBaseRefCounted_147
@@ -17849,10 +16501,6 @@ func (t *tICefMediaRouter_147) NotifyCurrentRoutes() {
 
 func (t *tICefMediaRouter_147) NotifyCurrentSinks() {
 	t.raw.NotifyCurrentSinks()
-}
-
-type ICefMediaRouterRef_147 interface {
-	ICefMediaRouterRef
 }
 
 type tICefMediaRouterRef_147 struct {
@@ -17922,10 +16570,6 @@ func (t *tICefMediaRouterRef_147) NotifyCurrentRoutes() {
 
 func (t *tICefMediaRouterRef_147) NotifyCurrentSinks() {
 	t.raw.NotifyCurrentSinks()
-}
-
-type ICefMediaSink_147 interface {
-	ICefMediaSink
 }
 
 type tICefMediaSink_147 struct {
@@ -18002,10 +16646,6 @@ func (t *tICefMediaSink_147) IsDialSink() bool {
 	return r0
 }
 
-type ICefMediaSinkDeviceInfoCallback_147 interface {
-	ICefMediaSinkDeviceInfoCallback
-}
-
 type tICefMediaSinkDeviceInfoCallback_147 struct {
 	raw vcef.ICefMediaSinkDeviceInfoCallback
 	*tICefBaseRefCounted_147
@@ -18048,10 +16688,6 @@ func (t *tICefMediaSinkDeviceInfoCallback_147) RawCEF147ICefMediaSinkDeviceInfoC
 	return t.raw
 }
 
-type ICefMediaSinkDeviceInfoCallbackOwn_147 interface {
-	ICefMediaSinkDeviceInfoCallbackOwn
-}
-
 type tICefMediaSinkDeviceInfoCallbackOwn_147 struct {
 	raw vcef.ICefMediaSinkDeviceInfoCallbackOwn
 	*tICefBaseRefCountedOwn_147
@@ -18092,10 +16728,6 @@ func (t *tICefMediaSinkDeviceInfoCallbackOwn_147) CEFVersion() string {
 
 func (t *tICefMediaSinkDeviceInfoCallbackOwn_147) RawCEF147ICefMediaSinkDeviceInfoCallbackOwn() vcef.ICefMediaSinkDeviceInfoCallbackOwn {
 	return t.raw
-}
-
-type ICefMediaSinkRef_147 interface {
-	ICefMediaSinkRef
 }
 
 type tICefMediaSinkRef_147 struct {
@@ -18177,10 +16809,6 @@ func (t *tICefMediaSinkRef_147) IsDialSink() bool {
 	return r0
 }
 
-type ICefMediaSource_147 interface {
-	ICefMediaSource
-}
-
 type tICefMediaSource_147 struct {
 	raw vcef.ICefMediaSource
 	*tICefBaseRefCounted_147
@@ -18234,10 +16862,6 @@ func (t *tICefMediaSource_147) IsCastSource() bool {
 func (t *tICefMediaSource_147) IsDialSource() bool {
 	r0 := t.raw.IsDialSource()
 	return r0
-}
-
-type ICefMediaSourceRef_147 interface {
-	ICefMediaSourceRef
 }
 
 type tICefMediaSourceRef_147 struct {
@@ -18302,10 +16926,6 @@ func (t *tICefMediaSourceRef_147) IsDialSource() bool {
 	return r0
 }
 
-type ICefMenuButton_147 interface {
-	ICefMenuButton
-}
-
 type tICefMenuButton_147 struct {
 	raw vcef.ICefMenuButton
 	*tICefLabelButton_147
@@ -18354,10 +16974,6 @@ func (t *tICefMenuButton_147) TriggerMenu() {
 	t.raw.TriggerMenu()
 }
 
-type ICefMenuButtonDelegate_147 interface {
-	ICefMenuButtonDelegate
-}
-
 type tICefMenuButtonDelegate_147 struct {
 	raw vcef.ICefMenuButtonDelegate
 	*tICefButtonDelegate_147
@@ -18398,10 +17014,6 @@ func (t *tICefMenuButtonDelegate_147) CEFVersion() string {
 
 func (t *tICefMenuButtonDelegate_147) RawCEF147ICefMenuButtonDelegate() vcef.ICefMenuButtonDelegate {
 	return t.raw
-}
-
-type ICefMenuButtonDelegateEvents_147 interface {
-	ICefMenuButtonDelegateEvents
 }
 
 type tICefMenuButtonDelegateEvents_147 struct {
@@ -18446,10 +17058,6 @@ func (t *tICefMenuButtonDelegateEvents_147) RawCEF147ICefMenuButtonDelegateEvent
 	return t.raw
 }
 
-type ICefMenuButtonDelegateOwn_147 interface {
-	ICefMenuButtonDelegateOwn
-}
-
 type tICefMenuButtonDelegateOwn_147 struct {
 	raw vcef.ICefMenuButtonDelegateOwn
 	*tICefButtonDelegateOwn_147
@@ -18490,10 +17098,6 @@ func (t *tICefMenuButtonDelegateOwn_147) CEFVersion() string {
 
 func (t *tICefMenuButtonDelegateOwn_147) RawCEF147ICefMenuButtonDelegateOwn() vcef.ICefMenuButtonDelegateOwn {
 	return t.raw
-}
-
-type ICefMenuButtonDelegateRef_147 interface {
-	ICefMenuButtonDelegateRef
 }
 
 type tICefMenuButtonDelegateRef_147 struct {
@@ -18553,10 +17157,6 @@ func (t *tICefMenuButtonDelegateRef_147) AsIntfViewDelegate() uintptr {
 	return r0
 }
 
-type ICefMenuButtonPressedLock_147 interface {
-	ICefMenuButtonPressedLock
-}
-
 type tICefMenuButtonPressedLock_147 struct {
 	raw vcef.ICefMenuButtonPressedLock
 	*tICefBaseRefCounted_147
@@ -18597,10 +17197,6 @@ func (t *tICefMenuButtonPressedLock_147) CEFVersion() string {
 
 func (t *tICefMenuButtonPressedLock_147) RawCEF147ICefMenuButtonPressedLock() vcef.ICefMenuButtonPressedLock {
 	return t.raw
-}
-
-type ICefMenuButtonPressedLockRef_147 interface {
-	ICefMenuButtonPressedLockRef
 }
 
 type tICefMenuButtonPressedLockRef_147 struct {
@@ -18648,10 +17244,6 @@ func (t *tICefMenuButtonPressedLockRef_147) RawCEF147ICefMenuButtonPressedLockRe
 func (t *tICefMenuButtonPressedLockRef_147) AsIntfMenuButtonPressedLock() uintptr {
 	r0 := t.raw.AsIntfMenuButtonPressedLock()
 	return r0
-}
-
-type ICefMenuButtonRef_147 interface {
-	ICefMenuButtonRef
 }
 
 type tICefMenuButtonRef_147 struct {
@@ -18720,10 +17312,6 @@ func (t *tICefMenuButtonRef_147) ShowMenu(menuModel ICefMenuModel, screenPoint T
 
 func (t *tICefMenuButtonRef_147) TriggerMenu() {
 	t.raw.TriggerMenu()
-}
-
-type ICefMenuModel_147 interface {
-	ICefMenuModel
 }
 
 type tICefMenuModel_147 struct {
@@ -19046,10 +17634,6 @@ func (t *tICefMenuModel_147) SetVisible(commandId int32, visible bool) bool {
 	return r0
 }
 
-type ICefMenuModelDelegate_147 interface {
-	ICefMenuModelDelegate
-}
-
 type tICefMenuModelDelegate_147 struct {
 	raw vcef.ICefMenuModelDelegate
 	*tICefBaseRefCounted_147
@@ -19092,10 +17676,6 @@ func (t *tICefMenuModelDelegate_147) RawCEF147ICefMenuModelDelegate() vcef.ICefM
 	return t.raw
 }
 
-type ICefMenuModelDelegateOwn_147 interface {
-	ICefMenuModelDelegateOwn
-}
-
 type tICefMenuModelDelegateOwn_147 struct {
 	raw vcef.ICefMenuModelDelegateOwn
 	*tICefBaseRefCountedOwn_147
@@ -19136,10 +17716,6 @@ func (t *tICefMenuModelDelegateOwn_147) CEFVersion() string {
 
 func (t *tICefMenuModelDelegateOwn_147) RawCEF147ICefMenuModelDelegateOwn() vcef.ICefMenuModelDelegateOwn {
 	return t.raw
-}
-
-type ICefMenuModelRef_147 interface {
-	ICefMenuModelRef
 }
 
 type tICefMenuModelRef_147 struct {
@@ -19467,10 +18043,6 @@ func (t *tICefMenuModelRef_147) SetVisible(commandId int32, visible bool) bool {
 	return r0
 }
 
-type ICefNavigationEntry_147 interface {
-	ICefNavigationEntry
-}
-
 type tICefNavigationEntry_147 struct {
 	raw vcef.ICefNavigationEntry
 	*tICefBaseRefCounted_147
@@ -19561,10 +18133,6 @@ func (t *tICefNavigationEntry_147) HasPostData() bool {
 func (t *tICefNavigationEntry_147) IsValid() bool {
 	r0 := t.raw.IsValid()
 	return r0
-}
-
-type ICefNavigationEntryRef_147 interface {
-	ICefNavigationEntryRef
 }
 
 type tICefNavigationEntryRef_147 struct {
@@ -19664,10 +18232,6 @@ func (t *tICefNavigationEntryRef_147) IsValid() bool {
 	return r0
 }
 
-type ICefNavigationEntryVisitor_147 interface {
-	ICefNavigationEntryVisitor
-}
-
 type tICefNavigationEntryVisitor_147 struct {
 	raw vcef.ICefNavigationEntryVisitor
 	*tICefBaseRefCounted_147
@@ -19710,10 +18274,6 @@ func (t *tICefNavigationEntryVisitor_147) RawCEF147ICefNavigationEntryVisitor() 
 	return t.raw
 }
 
-type ICefNavigationEntryVisitorOwn_147 interface {
-	ICefNavigationEntryVisitorOwn
-}
-
 type tICefNavigationEntryVisitorOwn_147 struct {
 	raw vcef.ICefNavigationEntryVisitorOwn
 	*tICefBaseRefCountedOwn_147
@@ -19754,10 +18314,6 @@ func (t *tICefNavigationEntryVisitorOwn_147) CEFVersion() string {
 
 func (t *tICefNavigationEntryVisitorOwn_147) RawCEF147ICefNavigationEntryVisitorOwn() vcef.ICefNavigationEntryVisitorOwn {
 	return t.raw
-}
-
-type ICefOverlayController_147 interface {
-	ICefOverlayController
 }
 
 type tICefOverlayController_147 struct {
@@ -19888,10 +18444,6 @@ func (t *tICefOverlayController_147) SetVisible(visible bool) {
 
 func (t *tICefOverlayController_147) SizeToPreferredSize() {
 	t.raw.SizeToPreferredSize()
-}
-
-type ICefOverlayControllerRef_147 interface {
-	ICefOverlayControllerRef
 }
 
 type tICefOverlayControllerRef_147 struct {
@@ -20029,10 +18581,6 @@ func (t *tICefOverlayControllerRef_147) SizeToPreferredSize() {
 	t.raw.SizeToPreferredSize()
 }
 
-type ICefPanel_147 interface {
-	ICefPanel
-}
-
 type tICefPanel_147 struct {
 	raw vcef.ICefPanel
 	*tICefView_147
@@ -20127,10 +18675,6 @@ func (t *tICefPanel_147) SetToFillLayout() ICefFillLayout {
 	return wrapICefFillLayout(r0)
 }
 
-type ICefPanelDelegate_147 interface {
-	ICefPanelDelegate
-}
-
 type tICefPanelDelegate_147 struct {
 	raw vcef.ICefPanelDelegate
 	*tICefViewDelegate_147
@@ -20169,10 +18713,6 @@ func (t *tICefPanelDelegate_147) CEFVersion() string {
 
 func (t *tICefPanelDelegate_147) RawCEF147ICefPanelDelegate() vcef.ICefPanelDelegate {
 	return t.raw
-}
-
-type ICefPanelDelegateEvents_147 interface {
-	ICefPanelDelegateEvents
 }
 
 type tICefPanelDelegateEvents_147 struct {
@@ -20217,10 +18757,6 @@ func (t *tICefPanelDelegateEvents_147) RawCEF147ICefPanelDelegateEvents() vcef.I
 	return t.raw
 }
 
-type ICefPanelDelegateOwn_147 interface {
-	ICefPanelDelegateOwn
-}
-
 type tICefPanelDelegateOwn_147 struct {
 	raw vcef.ICefPanelDelegateOwn
 	*tICefViewDelegateOwn_147
@@ -20261,10 +18797,6 @@ func (t *tICefPanelDelegateOwn_147) CEFVersion() string {
 
 func (t *tICefPanelDelegateOwn_147) RawCEF147ICefPanelDelegateOwn() vcef.ICefPanelDelegateOwn {
 	return t.raw
-}
-
-type ICefPanelDelegateRef_147 interface {
-	ICefPanelDelegateRef
 }
 
 type tICefPanelDelegateRef_147 struct {
@@ -20317,10 +18849,6 @@ func (t *tICefPanelDelegateRef_147) AsIntfPanelDelegate() uintptr {
 func (t *tICefPanelDelegateRef_147) AsIntfViewDelegate() uintptr {
 	r0 := t.raw.AsIntfViewDelegate()
 	return r0
-}
-
-type ICefPanelRef_147 interface {
-	ICefPanelRef
 }
 
 type tICefPanelRef_147 struct {
@@ -20427,10 +18955,6 @@ func (t *tICefPanelRef_147) SetToFillLayout() ICefFillLayout {
 	return wrapICefFillLayout(r0)
 }
 
-type ICefPdfPrintCallback_147 interface {
-	ICefPdfPrintCallback
-}
-
 type tICefPdfPrintCallback_147 struct {
 	raw vcef.ICefPdfPrintCallback
 	*tICefBaseRefCounted_147
@@ -20471,10 +18995,6 @@ func (t *tICefPdfPrintCallback_147) CEFVersion() string {
 
 func (t *tICefPdfPrintCallback_147) RawCEF147ICefPdfPrintCallback() vcef.ICefPdfPrintCallback {
 	return t.raw
-}
-
-type ICefPdfPrintCallbackOwn_147 interface {
-	ICefPdfPrintCallbackOwn
 }
 
 type tICefPdfPrintCallbackOwn_147 struct {
@@ -20519,10 +19039,6 @@ func (t *tICefPdfPrintCallbackOwn_147) RawCEF147ICefPdfPrintCallbackOwn() vcef.I
 	return t.raw
 }
 
-type ICefPermissionHandler_147 interface {
-	ICefPermissionHandler
-}
-
 type tICefPermissionHandler_147 struct {
 	raw vcef.ICefPermissionHandler
 	*tICefBaseRefCounted_147
@@ -20565,10 +19081,6 @@ func (t *tICefPermissionHandler_147) RawCEF147ICefPermissionHandler() vcef.ICefP
 	return t.raw
 }
 
-type ICefPermissionHandlerOwn_147 interface {
-	ICefPermissionHandlerOwn
-}
-
 type tICefPermissionHandlerOwn_147 struct {
 	raw vcef.ICefPermissionHandlerOwn
 	*tICefBaseRefCountedOwn_147
@@ -20609,10 +19121,6 @@ func (t *tICefPermissionHandlerOwn_147) CEFVersion() string {
 
 func (t *tICefPermissionHandlerOwn_147) RawCEF147ICefPermissionHandlerOwn() vcef.ICefPermissionHandlerOwn {
 	return t.raw
-}
-
-type ICefPermissionPromptCallback_147 interface {
-	ICefPermissionPromptCallback
 }
 
 type tICefPermissionPromptCallback_147 struct {
@@ -20659,10 +19167,6 @@ func (t *tICefPermissionPromptCallback_147) RawCEF147ICefPermissionPromptCallbac
 
 func (t *tICefPermissionPromptCallback_147) Cont(result cefTypes.TCefPermissionRequestResult) {
 	t.raw.Cont(result)
-}
-
-type ICefPermissionPromptCallbackRef_147 interface {
-	ICefPermissionPromptCallbackRef
 }
 
 type tICefPermissionPromptCallbackRef_147 struct {
@@ -20714,10 +19218,6 @@ func (t *tICefPermissionPromptCallbackRef_147) AsIntfPermissionPromptCallback() 
 
 func (t *tICefPermissionPromptCallbackRef_147) Cont(result cefTypes.TCefPermissionRequestResult) {
 	t.raw.Cont(result)
-}
-
-type ICefPostData_147 interface {
-	ICefPostData
 }
 
 type tICefPostData_147 struct {
@@ -20800,10 +19300,6 @@ func (t *tICefPostData_147) RemoveElement(element ICefPostDataElement) bool {
 	return r0
 }
 
-type ICefPostDataElement_147 interface {
-	ICefPostDataElement
-}
-
 type tICefPostDataElement_147 struct {
 	raw vcef.ICefPostDataElement
 	*tICefBaseRefCounted_147
@@ -20881,10 +19377,6 @@ func (t *tICefPostDataElement_147) SetToEmpty() {
 
 func (t *tICefPostDataElement_147) SetToFile(fileName string) {
 	t.raw.SetToFile(fileName)
-}
-
-type ICefPostDataElementRef_147 interface {
-	ICefPostDataElementRef
 }
 
 type tICefPostDataElementRef_147 struct {
@@ -20969,10 +19461,6 @@ func (t *tICefPostDataElementRef_147) SetToEmpty() {
 
 func (t *tICefPostDataElementRef_147) SetToFile(fileName string) {
 	t.raw.SetToFile(fileName)
-}
-
-type ICefPostDataRef_147 interface {
-	ICefPostDataRef
 }
 
 type tICefPostDataRef_147 struct {
@@ -21060,18 +19548,6 @@ func (t *tICefPostDataRef_147) RemoveElement(element ICefPostDataElement) bool {
 	return r0
 }
 
-type ICefPreferenceManager_147 interface {
-	ICefPreferenceManager
-	// AddPreferenceObserver
-	// Add an observer for preference changes. |name| is the name of the
-	// preference to observe. If |name| is NULL then all preferences will be
-	// observed. Observing all preferences has performance consequences and is
-	// not recommended outside of testing scenarios. The observer will remain
-	// registered until the returned Registration object is destroyed. This
-	// function must be called on the browser process UI thread.
-	AddPreferenceObserver(name string, observer IEngPreferenceObserver) ICefRegistration
-}
-
 type tICefPreferenceManager_147 struct {
 	raw vcef.ICefPreferenceManager
 	*tICefBaseRefCounted_147
@@ -21142,10 +19618,6 @@ func (t *tICefPreferenceManager_147) HasPreference(name string) bool {
 func (t *tICefPreferenceManager_147) SetPreference(name string, value ICefValue, outError_ *string) bool {
 	r0 := t.raw.SetPreference(name, unwrapICefValue(value), outError_)
 	return r0
-}
-
-type ICefPreferenceManagerRef_147 interface {
-	ICefPreferenceManagerRef
 }
 
 type tICefPreferenceManagerRef_147 struct {
@@ -21225,11 +19697,6 @@ func (t *tICefPreferenceManagerRef_147) SetPreference(name string, value ICefVal
 	return r0
 }
 
-type ICefPreferenceObserver_147 interface {
-	ICefPreferenceObserver
-	ICefBaseRefCounted
-}
-
 type tICefPreferenceObserver_147 struct {
 	raw vcef.ICefPreferenceObserver
 	*tICefBaseRefCounted_147
@@ -21272,12 +19739,6 @@ func (t *tICefPreferenceObserver_147) RawCEF147ICefPreferenceObserver() vcef.ICe
 	return t.raw
 }
 
-type ICefPreferenceObserverOwn_147 interface {
-	ICefPreferenceObserverOwn
-	ICefBaseRefCountedOwn
-	ICefPreferenceObserver
-}
-
 type tICefPreferenceObserverOwn_147 struct {
 	raw vcef.ICefPreferenceObserverOwn
 	*tICefBaseRefCountedOwn_147
@@ -21318,10 +19779,6 @@ func (t *tICefPreferenceObserverOwn_147) CEFVersion() string {
 
 func (t *tICefPreferenceObserverOwn_147) RawCEF147ICefPreferenceObserverOwn() vcef.ICefPreferenceObserverOwn {
 	return t.raw
-}
-
-type ICefPreferenceRegistrarRef_147 interface {
-	ICefPreferenceRegistrarRef
 }
 
 type tICefPreferenceRegistrarRef_147 struct {
@@ -21369,10 +19826,6 @@ func (t *tICefPreferenceRegistrarRef_147) RawCEF147ICefPreferenceRegistrarRef() 
 func (t *tICefPreferenceRegistrarRef_147) AddPreference(name string, defaultValue ICefValue) bool {
 	r0 := t.raw.AddPreference(name, unwrapICefValue(defaultValue))
 	return r0
-}
-
-type ICefPrintDialogCallback_147 interface {
-	ICefPrintDialogCallback
 }
 
 type tICefPrintDialogCallback_147 struct {
@@ -21423,10 +19876,6 @@ func (t *tICefPrintDialogCallback_147) Cancel() {
 
 func (t *tICefPrintDialogCallback_147) Cont(settings ICefPrintSettings) {
 	t.raw.Cont(unwrapICefPrintSettings(settings))
-}
-
-type ICefPrintDialogCallbackRef_147 interface {
-	ICefPrintDialogCallbackRef
 }
 
 type tICefPrintDialogCallbackRef_147 struct {
@@ -21484,10 +19933,6 @@ func (t *tICefPrintDialogCallbackRef_147) Cont(settings ICefPrintSettings) {
 	t.raw.Cont(unwrapICefPrintSettings(settings))
 }
 
-type ICefPrintHandler_147 interface {
-	ICefPrintHandler
-}
-
 type tICefPrintHandler_147 struct {
 	raw vcef.ICefPrintHandler
 	*tICefBaseRefCounted_147
@@ -21526,10 +19971,6 @@ func (t *tICefPrintHandler_147) CEFVersion() string {
 
 func (t *tICefPrintHandler_147) RawCEF147ICefPrintHandler() vcef.ICefPrintHandler {
 	return t.raw
-}
-
-type ICefPrintHandlerOwn_147 interface {
-	ICefPrintHandlerOwn
 }
 
 type tICefPrintHandlerOwn_147 struct {
@@ -21572,10 +20013,6 @@ func (t *tICefPrintHandlerOwn_147) CEFVersion() string {
 
 func (t *tICefPrintHandlerOwn_147) RawCEF147ICefPrintHandlerOwn() vcef.ICefPrintHandlerOwn {
 	return t.raw
-}
-
-type ICefPrintJobCallback_147 interface {
-	ICefPrintJobCallback
 }
 
 type tICefPrintJobCallback_147 struct {
@@ -21622,10 +20059,6 @@ func (t *tICefPrintJobCallback_147) RawCEF147ICefPrintJobCallback() vcef.ICefPri
 
 func (t *tICefPrintJobCallback_147) Cont() {
 	t.raw.Cont()
-}
-
-type ICefPrintJobCallbackRef_147 interface {
-	ICefPrintJobCallbackRef
 }
 
 type tICefPrintJobCallbackRef_147 struct {
@@ -21677,10 +20110,6 @@ func (t *tICefPrintJobCallbackRef_147) AsIntfPrintJobCallback() uintptr {
 
 func (t *tICefPrintJobCallbackRef_147) Cont() {
 	t.raw.Cont()
-}
-
-type ICefPrintSettings_147 interface {
-	ICefPrintSettings
 }
 
 type tICefPrintSettings_147 struct {
@@ -21820,10 +20249,6 @@ func (t *tICefPrintSettings_147) SetSelectionOnly(selectionOnly bool) {
 func (t *tICefPrintSettings_147) WillCollate() bool {
 	r0 := t.raw.WillCollate()
 	return r0
-}
-
-type ICefPrintSettingsRef_147 interface {
-	ICefPrintSettingsRef
 }
 
 type tICefPrintSettingsRef_147 struct {
@@ -21972,10 +20397,6 @@ func (t *tICefPrintSettingsRef_147) WillCollate() bool {
 	return r0
 }
 
-type ICefProcessMessage_147 interface {
-	ICefProcessMessage
-}
-
 type tICefProcessMessage_147 struct {
 	raw vcef.ICefProcessMessage
 	*tICefBaseRefCounted_147
@@ -22046,10 +20467,6 @@ func (t *tICefProcessMessage_147) IsReadOnly() bool {
 func (t *tICefProcessMessage_147) IsValid() bool {
 	r0 := t.raw.IsValid()
 	return r0
-}
-
-type ICefProcessMessageRef_147 interface {
-	ICefProcessMessageRef
 }
 
 type tICefProcessMessageRef_147 struct {
@@ -22129,10 +20546,6 @@ func (t *tICefProcessMessageRef_147) IsValid() bool {
 	return r0
 }
 
-type ICefRegistration_147 interface {
-	ICefRegistration
-}
-
 type tICefRegistration_147 struct {
 	raw vcef.ICefRegistration
 	*tICefBaseRefCounted_147
@@ -22171,10 +20584,6 @@ func (t *tICefRegistration_147) CEFVersion() string {
 
 func (t *tICefRegistration_147) RawCEF147ICefRegistration() vcef.ICefRegistration {
 	return t.raw
-}
-
-type ICefRegistrationRef_147 interface {
-	ICefRegistrationRef
 }
 
 type tICefRegistrationRef_147 struct {
@@ -22224,10 +20633,6 @@ func (t *tICefRegistrationRef_147) AsIntfRegistration() uintptr {
 	return r0
 }
 
-type ICefRenderHandler_147 interface {
-	ICefRenderHandler
-}
-
 type tICefRenderHandler_147 struct {
 	raw vcef.ICefRenderHandler
 	*tICefBaseRefCounted_147
@@ -22266,10 +20671,6 @@ func (t *tICefRenderHandler_147) CEFVersion() string {
 
 func (t *tICefRenderHandler_147) RawCEF147ICefRenderHandler() vcef.ICefRenderHandler {
 	return t.raw
-}
-
-type ICefRenderHandlerOwn_147 interface {
-	ICefRenderHandlerOwn
 }
 
 type tICefRenderHandlerOwn_147 struct {
@@ -22314,10 +20715,6 @@ func (t *tICefRenderHandlerOwn_147) RawCEF147ICefRenderHandlerOwn() vcef.ICefRen
 	return t.raw
 }
 
-type ICefRenderProcessHandler_147 interface {
-	ICefRenderProcessHandler
-}
-
 type tICefRenderProcessHandler_147 struct {
 	raw vcef.ICefRenderProcessHandler
 	*tICefBaseRefCounted_147
@@ -22360,10 +20757,6 @@ func (t *tICefRenderProcessHandler_147) RawCEF147ICefRenderProcessHandler() vcef
 	return t.raw
 }
 
-type ICefRenderProcessHandlerOwn_147 interface {
-	ICefRenderProcessHandlerOwn
-}
-
 type tICefRenderProcessHandlerOwn_147 struct {
 	raw vcef.ICefRenderProcessHandlerOwn
 	*tICefBaseRefCountedOwn_147
@@ -22404,10 +20797,6 @@ func (t *tICefRenderProcessHandlerOwn_147) CEFVersion() string {
 
 func (t *tICefRenderProcessHandlerOwn_147) RawCEF147ICefRenderProcessHandlerOwn() vcef.ICefRenderProcessHandlerOwn {
 	return t.raw
-}
-
-type ICefRequest_147 interface {
-	ICefRequest
 }
 
 type tICefRequest_147 struct {
@@ -22548,76 +20937,6 @@ func (t *tICefRequest_147) SetReferrer(referrerUrl string, policy cefTypes.TCefR
 
 func (t *tICefRequest_147) SetUrl(value string) {
 	t.raw.SetUrl(value)
-}
-
-type ICefRequestContext_147 interface {
-	ICefRequestContext
-	// AddSettingObserver
-	// Add an observer for content and website setting changes. The observer will
-	// remain registered until the returned Registration object is destroyed.
-	// This function must be called on the browser process UI thread.
-	AddSettingObserver(observer IEngSettingObserver) ICefRegistration
-	// ClearHttpCache
-	// Clears the HTTP cache. If |callback| is non-NULL it will be executed on
-	// the UI thread after completion.
-	ClearHttpCache(callback IEngCompletionCallback)
-	// GetChromeColorSchemeColor
-	// Returns the current Chrome color scheme color, or transparent (0) for the
-	// default color. Must be called on the browser process UI thread.
-	GetChromeColorSchemeColor() cefTypes.TCefColor
-	// GetChromeColorSchemeMode
-	// Returns the current Chrome color scheme mode (SYSTEM, LIGHT or DARK). Must
-	// be called on the browser process UI thread.
-	GetChromeColorSchemeMode() cefTypes.TCefColorVariant
-	// GetChromeColorSchemeVariant
-	// Returns the current Chrome color scheme variant. Must be called on the
-	// browser process UI thread.
-	GetChromeColorSchemeVariant() cefTypes.TCefColorVariant
-	// GetContentSetting
-	// Returns the current value for |content_type| that applies for the
-	// specified URLs. If both URLs are NULL the default value will be returned.
-	// Returns CEF_CONTENT_SETTING_VALUE_DEFAULT if no value is configured. Must
-	// be called on the browser process UI thread.
-	GetContentSetting(requestingUrl string, topLevelUrl string, contentType cefTypes.TCefContentSettingTypes) cefTypes.TCefContentSettingValues
-	// GetWebsiteSetting
-	// Returns the current value for |content_type| that applies for the
-	// specified URLs. If both URLs are NULL the default value will be returned.
-	// Returns nullptr if no value is configured. Must be called on the browser
-	// process UI thread.
-	GetWebsiteSetting(requestingUrl string, topLevelUrl string, contentType cefTypes.TCefContentSettingTypes) ICefValue
-	// SetChromeColorScheme
-	// Sets the Chrome color scheme for all browsers that share this request
-	// context. |variant| values of SYSTEM, LIGHT and DARK change the underlying
-	// color mode (e.g. light vs dark). Other |variant| values determine how
-	// |user_color| will be applied in the current color mode. If |user_color| is
-	// transparent (0) the default color will be used.
-	SetChromeColorScheme(variant cefTypes.TCefColorVariant, userColor cefTypes.TCefColor)
-	// SetContentSetting
-	// Sets the current value for |content_type| for the specified URLs in the
-	// default scope. If both URLs are NULL, and the context is not incognito,
-	// the default value will be set. Pass CEF_CONTENT_SETTING_VALUE_DEFAULT for
-	// |value| to use the default value for this content type.
-	// WARNING: Incorrect usage of this function may cause instability or
-	// security issues in Chromium. Make sure that you first understand the
-	// potential impact of any changes to |content_type| by reviewing the related
-	// source code in Chromium. For example, if you plan to modify
-	// CEF_CONTENT_SETTING_TYPE_POPUPS, first review and understand the usage of
-	// ContentSettingsType::POPUPS in Chromium:
-	// https://source.chromium.org/search?q=ContentSettingsType::POPUPS
-	SetContentSetting(requestingUrl string, topLevelUrl string, contentType cefTypes.TCefContentSettingTypes, value cefTypes.TCefContentSettingValues)
-	// SetWebsiteSetting
-	// Sets the current value for |content_type| for the specified URLs in the
-	// default scope. If both URLs are NULL, and the context is not incognito,
-	// the default value will be set. Pass nullptr for |value| to remove the
-	// default value for this content type.
-	// WARNING: Incorrect usage of this function may cause instability or
-	// security issues in Chromium. Make sure that you first understand the
-	// potential impact of any changes to |content_type| by reviewing the related
-	// source code in Chromium. For example, if you plan to modify
-	// CEF_CONTENT_SETTING_TYPE_POPUPS, first review and understand the usage of
-	// ContentSettingsType::POPUPS in Chromium:
-	// https://source.chromium.org/search?q=ContentSettingsType::POPUPS
-	SetWebsiteSetting(requestingUrl string, topLevelUrl string, contentType cefTypes.TCefContentSettingTypes, value ICefValue)
 }
 
 type tICefRequestContext_147 struct {
@@ -22769,10 +21088,6 @@ func (t *tICefRequestContext_147) SetWebsiteSetting(requestingUrl string, topLev
 	t.raw.SetWebsiteSetting(requestingUrl, topLevelUrl, contentType, unwrapICefValue(value))
 }
 
-type ICefRequestContextHandler_147 interface {
-	ICefRequestContextHandler
-}
-
 type tICefRequestContextHandler_147 struct {
 	raw vcef.ICefRequestContextHandler
 	*tICefBaseRefCounted_147
@@ -22815,10 +21130,6 @@ func (t *tICefRequestContextHandler_147) RawCEF147ICefRequestContextHandler() vc
 	return t.raw
 }
 
-type ICefRequestContextHandlerOwn_147 interface {
-	ICefRequestContextHandlerOwn
-}
-
 type tICefRequestContextHandlerOwn_147 struct {
 	raw vcef.ICefRequestContextHandlerOwn
 	*tICefBaseRefCountedOwn_147
@@ -22859,10 +21170,6 @@ func (t *tICefRequestContextHandlerOwn_147) CEFVersion() string {
 
 func (t *tICefRequestContextHandlerOwn_147) RawCEF147ICefRequestContextHandlerOwn() vcef.ICefRequestContextHandlerOwn {
 	return t.raw
-}
-
-type ICefRequestContextRef_147 interface {
-	ICefRequestContextRef
 }
 
 type tICefRequestContextRef_147 struct {
@@ -23024,10 +21331,6 @@ func (t *tICefRequestContextRef_147) SetWebsiteSetting(requestingUrl string, top
 	t.raw.SetWebsiteSetting(requestingUrl, topLevelUrl, contentType, unwrapICefValue(value))
 }
 
-type ICefRequestHandler_147 interface {
-	ICefRequestHandler
-}
-
 type tICefRequestHandler_147 struct {
 	raw vcef.ICefRequestHandler
 	*tICefBaseRefCounted_147
@@ -23070,10 +21373,6 @@ func (t *tICefRequestHandler_147) RawCEF147ICefRequestHandler() vcef.ICefRequest
 	return t.raw
 }
 
-type ICefRequestHandlerOwn_147 interface {
-	ICefRequestHandlerOwn
-}
-
 type tICefRequestHandlerOwn_147 struct {
 	raw vcef.ICefRequestHandlerOwn
 	*tICefBaseRefCountedOwn_147
@@ -23114,10 +21413,6 @@ func (t *tICefRequestHandlerOwn_147) CEFVersion() string {
 
 func (t *tICefRequestHandlerOwn_147) RawCEF147ICefRequestHandlerOwn() vcef.ICefRequestHandlerOwn {
 	return t.raw
-}
-
-type ICefRequestRef_147 interface {
-	ICefRequestRef
 }
 
 type tICefRequestRef_147 struct {
@@ -23265,10 +21560,6 @@ func (t *tICefRequestRef_147) SetUrl(value string) {
 	t.raw.SetUrl(value)
 }
 
-type ICefResolveCallback_147 interface {
-	ICefResolveCallback
-}
-
 type tICefResolveCallback_147 struct {
 	raw vcef.ICefResolveCallback
 	*tICefBaseRefCounted_147
@@ -23311,10 +21602,6 @@ func (t *tICefResolveCallback_147) RawCEF147ICefResolveCallback() vcef.ICefResol
 	return t.raw
 }
 
-type ICefResolveCallbackOwn_147 interface {
-	ICefResolveCallbackOwn
-}
-
 type tICefResolveCallbackOwn_147 struct {
 	raw vcef.ICefResolveCallbackOwn
 	*tICefBaseRefCountedOwn_147
@@ -23355,10 +21642,6 @@ func (t *tICefResolveCallbackOwn_147) CEFVersion() string {
 
 func (t *tICefResolveCallbackOwn_147) RawCEF147ICefResolveCallbackOwn() vcef.ICefResolveCallbackOwn {
 	return t.raw
-}
-
-type ICefResourceBundle_147 interface {
-	ICefResourceBundle
 }
 
 type tICefResourceBundle_147 struct {
@@ -23418,10 +21701,6 @@ func (t *tICefResourceBundle_147) GetLocalizedString(stringId int32) string {
 	return r0
 }
 
-type ICefResourceBundleHandler_147 interface {
-	ICefResourceBundleHandler
-}
-
 type tICefResourceBundleHandler_147 struct {
 	raw vcef.ICefResourceBundleHandler
 	*tICefBaseRefCounted_147
@@ -23464,10 +21743,6 @@ func (t *tICefResourceBundleHandler_147) RawCEF147ICefResourceBundleHandler() vc
 	return t.raw
 }
 
-type ICefResourceBundleHandlerOwn_147 interface {
-	ICefResourceBundleHandlerOwn
-}
-
 type tICefResourceBundleHandlerOwn_147 struct {
 	raw vcef.ICefResourceBundleHandlerOwn
 	*tICefBaseRefCountedOwn_147
@@ -23508,10 +21783,6 @@ func (t *tICefResourceBundleHandlerOwn_147) CEFVersion() string {
 
 func (t *tICefResourceBundleHandlerOwn_147) RawCEF147ICefResourceBundleHandlerOwn() vcef.ICefResourceBundleHandlerOwn {
 	return t.raw
-}
-
-type ICefResourceBundleRef_147 interface {
-	ICefResourceBundleRef
 }
 
 type tICefResourceBundleRef_147 struct {
@@ -23576,10 +21847,6 @@ func (t *tICefResourceBundleRef_147) GetLocalizedString(stringId int32) string {
 	return r0
 }
 
-type ICefResourceHandler_147 interface {
-	ICefResourceHandler
-}
-
 type tICefResourceHandler_147 struct {
 	raw vcef.ICefResourceHandler
 	*tICefBaseRefCounted_147
@@ -23622,10 +21889,6 @@ func (t *tICefResourceHandler_147) RawCEF147ICefResourceHandler() vcef.ICefResou
 	return t.raw
 }
 
-type ICefResourceHandlerOwn_147 interface {
-	ICefResourceHandlerOwn
-}
-
 type tICefResourceHandlerOwn_147 struct {
 	raw vcef.ICefResourceHandlerOwn
 	*tICefBaseRefCountedOwn_147
@@ -23666,10 +21929,6 @@ func (t *tICefResourceHandlerOwn_147) CEFVersion() string {
 
 func (t *tICefResourceHandlerOwn_147) RawCEF147ICefResourceHandlerOwn() vcef.ICefResourceHandlerOwn {
 	return t.raw
-}
-
-type ICefResourceHandlerRef_147 interface {
-	ICefResourceHandlerRef
 }
 
 type tICefResourceHandlerRef_147 struct {
@@ -23719,10 +21978,6 @@ func (t *tICefResourceHandlerRef_147) AsIntfResourceHandler() uintptr {
 	return r0
 }
 
-type ICefResourceReadCallback_147 interface {
-	ICefResourceReadCallback
-}
-
 type tICefResourceReadCallback_147 struct {
 	raw vcef.ICefResourceReadCallback
 	*tICefBaseRefCounted_147
@@ -23767,10 +22022,6 @@ func (t *tICefResourceReadCallback_147) RawCEF147ICefResourceReadCallback() vcef
 
 func (t *tICefResourceReadCallback_147) Cont(bytesRead int64) {
 	t.raw.Cont(bytesRead)
-}
-
-type ICefResourceReadCallbackRef_147 interface {
-	ICefResourceReadCallbackRef
 }
 
 type tICefResourceReadCallbackRef_147 struct {
@@ -23824,10 +22075,6 @@ func (t *tICefResourceReadCallbackRef_147) Cont(bytesRead int64) {
 	t.raw.Cont(bytesRead)
 }
 
-type ICefResourceRequestHandler_147 interface {
-	ICefResourceRequestHandler
-}
-
 type tICefResourceRequestHandler_147 struct {
 	raw vcef.ICefResourceRequestHandler
 	*tICefBaseRefCounted_147
@@ -23870,10 +22117,6 @@ func (t *tICefResourceRequestHandler_147) RawCEF147ICefResourceRequestHandler() 
 	return t.raw
 }
 
-type ICefResourceRequestHandlerOwn_147 interface {
-	ICefResourceRequestHandlerOwn
-}
-
 type tICefResourceRequestHandlerOwn_147 struct {
 	raw vcef.ICefResourceRequestHandlerOwn
 	*tICefBaseRefCountedOwn_147
@@ -23914,10 +22157,6 @@ func (t *tICefResourceRequestHandlerOwn_147) CEFVersion() string {
 
 func (t *tICefResourceRequestHandlerOwn_147) RawCEF147ICefResourceRequestHandlerOwn() vcef.ICefResourceRequestHandlerOwn {
 	return t.raw
-}
-
-type ICefResourceRequestHandlerRef_147 interface {
-	ICefResourceRequestHandlerRef
 }
 
 type tICefResourceRequestHandlerRef_147 struct {
@@ -23967,10 +22206,6 @@ func (t *tICefResourceRequestHandlerRef_147) AsIntfResourceRequestHandler() uint
 	return r0
 }
 
-type ICefResourceSkipCallback_147 interface {
-	ICefResourceSkipCallback
-}
-
 type tICefResourceSkipCallback_147 struct {
 	raw vcef.ICefResourceSkipCallback
 	*tICefBaseRefCounted_147
@@ -24015,10 +22250,6 @@ func (t *tICefResourceSkipCallback_147) RawCEF147ICefResourceSkipCallback() vcef
 
 func (t *tICefResourceSkipCallback_147) Cont(bytesSkipped int64) {
 	t.raw.Cont(bytesSkipped)
-}
-
-type ICefResourceSkipCallbackRef_147 interface {
-	ICefResourceSkipCallbackRef
 }
 
 type tICefResourceSkipCallbackRef_147 struct {
@@ -24070,10 +22301,6 @@ func (t *tICefResourceSkipCallbackRef_147) AsIntfResourceSkipCallback() uintptr 
 
 func (t *tICefResourceSkipCallbackRef_147) Cont(bytesSkipped int64) {
 	t.raw.Cont(bytesSkipped)
-}
-
-type ICefResponse_147 interface {
-	ICefResponse
 }
 
 type tICefResponse_147 struct {
@@ -24192,10 +22419,6 @@ func (t *tICefResponse_147) SetURL(url string) {
 	t.raw.SetURL(url)
 }
 
-type ICefResponseFilter_147 interface {
-	ICefResponseFilter
-}
-
 type tICefResponseFilter_147 struct {
 	raw vcef.ICefResponseFilter
 	*tICefBaseRefCounted_147
@@ -24238,10 +22461,6 @@ func (t *tICefResponseFilter_147) RawCEF147ICefResponseFilter() vcef.ICefRespons
 	return t.raw
 }
 
-type ICefResponseFilterOwn_147 interface {
-	ICefResponseFilterOwn
-}
-
 type tICefResponseFilterOwn_147 struct {
 	raw vcef.ICefResponseFilterOwn
 	*tICefBaseRefCountedOwn_147
@@ -24282,10 +22501,6 @@ func (t *tICefResponseFilterOwn_147) CEFVersion() string {
 
 func (t *tICefResponseFilterOwn_147) RawCEF147ICefResponseFilterOwn() vcef.ICefResponseFilterOwn {
 	return t.raw
-}
-
-type ICefResponseFilterRef_147 interface {
-	ICefResponseFilterRef
 }
 
 type tICefResponseFilterRef_147 struct {
@@ -24333,10 +22548,6 @@ func (t *tICefResponseFilterRef_147) RawCEF147ICefResponseFilterRef() vcef.ICefR
 func (t *tICefResponseFilterRef_147) AsIntfResponseFilter() uintptr {
 	r0 := t.raw.AsIntfResponseFilter()
 	return r0
-}
-
-type ICefResponseRef_147 interface {
-	ICefResponseRef
 }
 
 type tICefResponseRef_147 struct {
@@ -24460,10 +22671,6 @@ func (t *tICefResponseRef_147) SetURL(url string) {
 	t.raw.SetURL(url)
 }
 
-type ICefRunContextMenuCallback_147 interface {
-	ICefRunContextMenuCallback
-}
-
 type tICefRunContextMenuCallback_147 struct {
 	raw vcef.ICefRunContextMenuCallback
 	*tICefBaseRefCounted_147
@@ -24512,10 +22719,6 @@ func (t *tICefRunContextMenuCallback_147) Cancel() {
 
 func (t *tICefRunContextMenuCallback_147) Cont(commandId int32, eventFlags cefTypes.TCefEventFlags) {
 	t.raw.Cont(commandId, eventFlags)
-}
-
-type ICefRunContextMenuCallbackRef_147 interface {
-	ICefRunContextMenuCallbackRef
 }
 
 type tICefRunContextMenuCallbackRef_147 struct {
@@ -24573,10 +22776,6 @@ func (t *tICefRunContextMenuCallbackRef_147) Cont(commandId int32, eventFlags ce
 	t.raw.Cont(commandId, eventFlags)
 }
 
-type ICefRunFileDialogCallback_147 interface {
-	ICefRunFileDialogCallback
-}
-
 type tICefRunFileDialogCallback_147 struct {
 	raw vcef.ICefRunFileDialogCallback
 	*tICefBaseRefCounted_147
@@ -24619,10 +22818,6 @@ func (t *tICefRunFileDialogCallback_147) RawCEF147ICefRunFileDialogCallback() vc
 	return t.raw
 }
 
-type ICefRunFileDialogCallbackOwn_147 interface {
-	ICefRunFileDialogCallbackOwn
-}
-
 type tICefRunFileDialogCallbackOwn_147 struct {
 	raw vcef.ICefRunFileDialogCallbackOwn
 	*tICefBaseRefCountedOwn_147
@@ -24663,10 +22858,6 @@ func (t *tICefRunFileDialogCallbackOwn_147) CEFVersion() string {
 
 func (t *tICefRunFileDialogCallbackOwn_147) RawCEF147ICefRunFileDialogCallbackOwn() vcef.ICefRunFileDialogCallbackOwn {
 	return t.raw
-}
-
-type ICefRunQuickMenuCallback_147 interface {
-	ICefRunQuickMenuCallback
 }
 
 type tICefRunQuickMenuCallback_147 struct {
@@ -24717,10 +22908,6 @@ func (t *tICefRunQuickMenuCallback_147) Cancel() {
 
 func (t *tICefRunQuickMenuCallback_147) Cont(commandId int32, eventFlags cefTypes.TCefEventFlags) {
 	t.raw.Cont(commandId, eventFlags)
-}
-
-type ICefRunQuickMenuCallbackRef_147 interface {
-	ICefRunQuickMenuCallbackRef
 }
 
 type tICefRunQuickMenuCallbackRef_147 struct {
@@ -24776,10 +22963,6 @@ func (t *tICefRunQuickMenuCallbackRef_147) Cancel() {
 
 func (t *tICefRunQuickMenuCallbackRef_147) Cont(commandId int32, eventFlags cefTypes.TCefEventFlags) {
 	t.raw.Cont(commandId, eventFlags)
-}
-
-type ICefSSLStatus_147 interface {
-	ICefSSLStatus
 }
 
 type tICefSSLStatus_147 struct {
@@ -24845,10 +23028,6 @@ func (t *tICefSSLStatus_147) GetX509Certificate() ICefX509Certificate {
 func (t *tICefSSLStatus_147) IsSecureConnection() bool {
 	r0 := t.raw.IsSecureConnection()
 	return r0
-}
-
-type ICefSSLStatusRef_147 interface {
-	ICefSSLStatusRef
 }
 
 type tICefSSLStatusRef_147 struct {
@@ -24921,10 +23100,6 @@ func (t *tICefSSLStatusRef_147) IsSecureConnection() bool {
 	return r0
 }
 
-type ICefSchemeHandlerFactory_147 interface {
-	ICefSchemeHandlerFactory
-}
-
 type tICefSchemeHandlerFactory_147 struct {
 	raw vcef.ICefSchemeHandlerFactory
 	*tICefBaseRefCounted_147
@@ -24967,10 +23142,6 @@ func (t *tICefSchemeHandlerFactory_147) RawCEF147ICefSchemeHandlerFactory() vcef
 	return t.raw
 }
 
-type ICefSchemeHandlerFactoryOwn_147 interface {
-	ICefSchemeHandlerFactoryOwn
-}
-
 type tICefSchemeHandlerFactoryOwn_147 struct {
 	raw vcef.ICefSchemeHandlerFactoryOwn
 	*tICefBaseRefCountedOwn_147
@@ -25011,10 +23182,6 @@ func (t *tICefSchemeHandlerFactoryOwn_147) CEFVersion() string {
 
 func (t *tICefSchemeHandlerFactoryOwn_147) RawCEF147ICefSchemeHandlerFactoryOwn() vcef.ICefSchemeHandlerFactoryOwn {
 	return t.raw
-}
-
-type ICefSchemeRegistrarRef_147 interface {
-	ICefSchemeRegistrarRef
 }
 
 type tICefSchemeRegistrarRef_147 struct {
@@ -25062,10 +23229,6 @@ func (t *tICefSchemeRegistrarRef_147) RawCEF147ICefSchemeRegistrarRef() vcef.ICe
 func (t *tICefSchemeRegistrarRef_147) AddCustomScheme(schemeName string, options cefTypes.TCefSchemeOptions) bool {
 	r0 := t.raw.AddCustomScheme(schemeName, options)
 	return r0
-}
-
-type ICefScrollView_147 interface {
-	ICefScrollView
 }
 
 type tICefScrollView_147 struct {
@@ -25140,10 +23303,6 @@ func (t *tICefScrollView_147) HasVerticalScrollbar() bool {
 
 func (t *tICefScrollView_147) SetContentView(view ICefView) {
 	t.raw.SetContentView(unwrapICefView(view))
-}
-
-type ICefScrollViewRef_147 interface {
-	ICefScrollViewRef
 }
 
 type tICefScrollViewRef_147 struct {
@@ -25230,10 +23389,6 @@ func (t *tICefScrollViewRef_147) SetContentView(view ICefView) {
 	t.raw.SetContentView(unwrapICefView(view))
 }
 
-type ICefSelectClientCertificateCallback_147 interface {
-	ICefSelectClientCertificateCallback
-}
-
 type tICefSelectClientCertificateCallback_147 struct {
 	raw vcef.ICefSelectClientCertificateCallback
 	*tICefBaseRefCounted_147
@@ -25278,10 +23433,6 @@ func (t *tICefSelectClientCertificateCallback_147) RawCEF147ICefSelectClientCert
 
 func (t *tICefSelectClientCertificateCallback_147) Select(cert ICefX509Certificate) {
 	t.raw.Select(unwrapICefX509Certificate(cert))
-}
-
-type ICefSelectClientCertificateCallbackRef_147 interface {
-	ICefSelectClientCertificateCallbackRef
 }
 
 type tICefSelectClientCertificateCallbackRef_147 struct {
@@ -25333,10 +23484,6 @@ func (t *tICefSelectClientCertificateCallbackRef_147) AsIntfSelectClientCertific
 
 func (t *tICefSelectClientCertificateCallbackRef_147) Select(cert ICefX509Certificate) {
 	t.raw.Select(unwrapICefX509Certificate(cert))
-}
-
-type ICefServer_147 interface {
-	ICefServer
 }
 
 type tICefServer_147 struct {
@@ -25436,10 +23583,6 @@ func (t *tICefServer_147) Shutdown() {
 	t.raw.Shutdown()
 }
 
-type ICefServerHandler_147 interface {
-	ICefServerHandler
-}
-
 type tICefServerHandler_147 struct {
 	raw vcef.ICefServerHandler
 	*tICefBaseRefCounted_147
@@ -25478,10 +23621,6 @@ func (t *tICefServerHandler_147) CEFVersion() string {
 
 func (t *tICefServerHandler_147) RawCEF147ICefServerHandler() vcef.ICefServerHandler {
 	return t.raw
-}
-
-type ICefSetCookieCallback_147 interface {
-	ICefSetCookieCallback
 }
 
 type tICefSetCookieCallback_147 struct {
@@ -25526,10 +23665,6 @@ func (t *tICefSetCookieCallback_147) RawCEF147ICefSetCookieCallback() vcef.ICefS
 	return t.raw
 }
 
-type ICefSetCookieCallbackOwn_147 interface {
-	ICefSetCookieCallbackOwn
-}
-
 type tICefSetCookieCallbackOwn_147 struct {
 	raw vcef.ICefSetCookieCallbackOwn
 	*tICefBaseRefCountedOwn_147
@@ -25570,11 +23705,6 @@ func (t *tICefSetCookieCallbackOwn_147) CEFVersion() string {
 
 func (t *tICefSetCookieCallbackOwn_147) RawCEF147ICefSetCookieCallbackOwn() vcef.ICefSetCookieCallbackOwn {
 	return t.raw
-}
-
-type ICefSettingObserver_147 interface {
-	ICefSettingObserver
-	ICefBaseRefCounted
 }
 
 type tICefSettingObserver_147 struct {
@@ -25619,12 +23749,6 @@ func (t *tICefSettingObserver_147) RawCEF147ICefSettingObserver() vcef.ICefSetti
 	return t.raw
 }
 
-type ICefSettingObserverOwn_147 interface {
-	ICefSettingObserverOwn
-	ICefBaseRefCountedOwn
-	ICefSettingObserver
-}
-
 type tICefSettingObserverOwn_147 struct {
 	raw vcef.ICefSettingObserverOwn
 	*tICefBaseRefCountedOwn_147
@@ -25665,10 +23789,6 @@ func (t *tICefSettingObserverOwn_147) CEFVersion() string {
 
 func (t *tICefSettingObserverOwn_147) RawCEF147ICefSettingObserverOwn() vcef.ICefSettingObserverOwn {
 	return t.raw
-}
-
-type ICefSharedMemoryRegion_147 interface {
-	ICefSharedMemoryRegion
 }
 
 type tICefSharedMemoryRegion_147 struct {
@@ -25726,10 +23846,6 @@ func (t *tICefSharedMemoryRegion_147) Memory() uintptr {
 func (t *tICefSharedMemoryRegion_147) Size() cefTypes.NativeUInt {
 	r0 := t.raw.Size()
 	return r0
-}
-
-type ICefSharedMemoryRegionRef_147 interface {
-	ICefSharedMemoryRegionRef
 }
 
 type tICefSharedMemoryRegionRef_147 struct {
@@ -25794,10 +23910,6 @@ func (t *tICefSharedMemoryRegionRef_147) Size() cefTypes.NativeUInt {
 	return r0
 }
 
-type ICefSharedProcessMessageBuilder_147 interface {
-	ICefSharedProcessMessageBuilder
-}
-
 type tICefSharedProcessMessageBuilder_147 struct {
 	raw vcef.ICefSharedProcessMessageBuilder
 	*tICefBaseRefCounted_147
@@ -25858,10 +23970,6 @@ func (t *tICefSharedProcessMessageBuilder_147) Memory() uintptr {
 func (t *tICefSharedProcessMessageBuilder_147) Size() cefTypes.NativeUInt {
 	r0 := t.raw.Size()
 	return r0
-}
-
-type ICefSharedProcessMessageBuilderRef_147 interface {
-	ICefSharedProcessMessageBuilderRef
 }
 
 type tICefSharedProcessMessageBuilderRef_147 struct {
@@ -25931,10 +24039,6 @@ func (t *tICefSharedProcessMessageBuilderRef_147) Size() cefTypes.NativeUInt {
 	return r0
 }
 
-type ICefSslInfo_147 interface {
-	ICefSslInfo
-}
-
 type tICefSslInfo_147 struct {
 	raw vcef.ICefSslInfo
 	*tICefBaseRefCounted_147
@@ -25983,10 +24087,6 @@ func (t *tICefSslInfo_147) GetCertStatus() cefTypes.TCefCertStatus {
 func (t *tICefSslInfo_147) GetX509Certificate() ICefX509Certificate {
 	r0 := t.raw.GetX509Certificate()
 	return wrapICefX509Certificate(r0)
-}
-
-type ICefSslInfoRef_147 interface {
-	ICefSslInfoRef
 }
 
 type tICefSslInfoRef_147 struct {
@@ -26042,10 +24142,6 @@ func (t *tICefSslInfoRef_147) GetCertStatus() cefTypes.TCefCertStatus {
 func (t *tICefSslInfoRef_147) GetX509Certificate() ICefX509Certificate {
 	r0 := t.raw.GetX509Certificate()
 	return wrapICefX509Certificate(r0)
-}
-
-type ICefStreamReader_147 interface {
-	ICefStreamReader
 }
 
 type tICefStreamReader_147 struct {
@@ -26111,10 +24207,6 @@ func (t *tICefStreamReader_147) Seek(offset int64, whence int32) int32 {
 func (t *tICefStreamReader_147) Tell() int64 {
 	r0 := t.raw.Tell()
 	return r0
-}
-
-type ICefStreamReaderRef_147 interface {
-	ICefStreamReaderRef
 }
 
 type tICefStreamReaderRef_147 struct {
@@ -26189,10 +24281,6 @@ func (t *tICefStreamReaderRef_147) Tell() int64 {
 	return r0
 }
 
-type ICefStreamWriter_147 interface {
-	ICefStreamWriter
-}
-
 type tICefStreamWriter_147 struct {
 	raw vcef.ICefStreamWriter
 	*tICefBaseRefCounted_147
@@ -26256,10 +24344,6 @@ func (t *tICefStreamWriter_147) Tell() int64 {
 func (t *tICefStreamWriter_147) Write(ptr uintptr, size cefTypes.NativeUInt, N cefTypes.NativeUInt) cefTypes.NativeUInt {
 	r0 := t.raw.Write(ptr, size, N)
 	return r0
-}
-
-type ICefStreamWriterRef_147 interface {
-	ICefStreamWriterRef
 }
 
 type tICefStreamWriterRef_147 struct {
@@ -26332,11 +24416,6 @@ func (t *tICefStreamWriterRef_147) Tell() int64 {
 func (t *tICefStreamWriterRef_147) Write(ptr uintptr, size cefTypes.NativeUInt, N cefTypes.NativeUInt) cefTypes.NativeUInt {
 	r0 := t.raw.Write(ptr, size, N)
 	return r0
-}
-
-type ICefStringList_147 interface {
-	ICefStringList
-	GetHandle() cefTypes.TCefStringList
 }
 
 type tICefStringList_147 struct {
@@ -26415,10 +24494,6 @@ func (t *tICefStringList_147) GetValue(index cefTypes.NativeUInt) string {
 	return r0
 }
 
-type ICefStringListOwn_147 interface {
-	ICefStringListOwn
-}
-
 type tICefStringListOwn_147 struct {
 	raw vcef.ICefStringListOwn
 	*tICefCustomStringList_147
@@ -26464,10 +24539,6 @@ func (t *tICefStringListOwn_147) AsIntfStringList() uintptr {
 	return r0
 }
 
-type ICefStringListRef_147 interface {
-	ICefStringListRef
-}
-
 type tICefStringListRef_147 struct {
 	raw vcef.ICefStringListRef
 	*tICefCustomStringList_147
@@ -26511,10 +24582,6 @@ func (t *tICefStringListRef_147) RawCEF147ICefStringListRef() vcef.ICefStringLis
 func (t *tICefStringListRef_147) AsIntfStringList() uintptr {
 	r0 := t.raw.AsIntfStringList()
 	return r0
-}
-
-type ICefStringMap_147 interface {
-	ICefStringMap
 }
 
 type tICefStringMap_147 struct {
@@ -26591,10 +24658,6 @@ func (t *tICefStringMap_147) GetValue(index cefTypes.NativeUInt) string {
 	return r0
 }
 
-type ICefStringMapOwn_147 interface {
-	ICefStringMapOwn
-}
-
 type tICefStringMapOwn_147 struct {
 	raw vcef.ICefStringMapOwn
 	*tICefCustomStringMap_147
@@ -26640,10 +24703,6 @@ func (t *tICefStringMapOwn_147) AsIntfStringMap() uintptr {
 	return r0
 }
 
-type ICefStringMapRef_147 interface {
-	ICefStringMapRef
-}
-
 type tICefStringMapRef_147 struct {
 	raw vcef.ICefStringMapRef
 	*tICefCustomStringMap_147
@@ -26687,10 +24746,6 @@ func (t *tICefStringMapRef_147) RawCEF147ICefStringMapRef() vcef.ICefStringMapRe
 func (t *tICefStringMapRef_147) AsIntfStringMap() uintptr {
 	r0 := t.raw.AsIntfStringMap()
 	return r0
-}
-
-type ICefStringMultimap_147 interface {
-	ICefStringMultimap
 }
 
 type tICefStringMultimap_147 struct {
@@ -26774,10 +24829,6 @@ func (t *tICefStringMultimap_147) GetValue(index cefTypes.NativeUInt) string {
 	return r0
 }
 
-type ICefStringMultimapOwn_147 interface {
-	ICefStringMultimapOwn
-}
-
 type tICefStringMultimapOwn_147 struct {
 	raw vcef.ICefStringMultimapOwn
 	*tICefCustomStringMultimap_147
@@ -26825,10 +24876,6 @@ func (t *tICefStringMultimapOwn_147) AsIntfStringMultimap() uintptr {
 	return r0
 }
 
-type ICefStringVisitor_147 interface {
-	ICefStringVisitor
-}
-
 type tICefStringVisitor_147 struct {
 	raw vcef.ICefStringVisitor
 	*tICefBaseRefCounted_147
@@ -26867,10 +24914,6 @@ func (t *tICefStringVisitor_147) CEFVersion() string {
 
 func (t *tICefStringVisitor_147) RawCEF147ICefStringVisitor() vcef.ICefStringVisitor {
 	return t.raw
-}
-
-type ICefStringVisitorOwn_147 interface {
-	ICefStringVisitorOwn
 }
 
 type tICefStringVisitorOwn_147 struct {
@@ -26915,10 +24958,6 @@ func (t *tICefStringVisitorOwn_147) RawCEF147ICefStringVisitorOwn() vcef.ICefStr
 	return t.raw
 }
 
-type ICefTask_147 interface {
-	ICefTask
-}
-
 type tICefTask_147 struct {
 	raw vcef.ICefTask
 	*tICefBaseRefCounted_147
@@ -26957,41 +24996,6 @@ func (t *tICefTask_147) CEFVersion() string {
 
 func (t *tICefTask_147) RawCEF147ICefTask() vcef.ICefTask {
 	return t.raw
-}
-
-type ICefTaskManager_147 interface {
-	ICefTaskManager
-	ICefBaseRefCounted
-	// GetTaskIdForBrowserId
-	// Returns the task ID associated with the main task for |browser_id| (value
-	// from cef_browser_t::GetIdentifier). Returns -1 if |browser_id| is invalid,
-	// does not currently have an associated task, or the function was called
-	// from the incorrect thread.
-	GetTaskIdForBrowserId(browserId int32) int64
-	// GetTaskIdsList
-	// Gets the list of task IDs currently tracked by the task manager. Tasks
-	// that share the same process id will always be consecutive. The list will
-	// be sorted in a way that reflects the process tree: the browser process
-	// will be first, followed by the gpu process if it exists. Related processes
-	// (e.g., a subframe process and its parent) will be kept together if
-	// possible. Callers can expect this ordering to be stable when a process is
-	// added or removed. The task IDs are unique within the application lifespan.
-	// Returns false (0) if the function was called from the incorrect thread.
-	GetTaskIdsList(taskIds *lcl.IInt64ArrayWrap) bool
-	// GetTaskInfo
-	// Gets information about the task with |task_id|. Returns true (1) if the
-	// information about the task was successfully retrieved and false (0) if the
-	// |task_id| is invalid or the function was called from the incorrect thread.
-	GetTaskInfo(taskId int64, info *TCustomTaskInfo) bool
-	// GetTasksCount
-	// Returns the number of tasks currently tracked by the task manager. Returns
-	// 0 if the function was called from the incorrect thread.
-	GetTasksCount() cefTypes.NativeUInt
-	// KillTask
-	// Attempts to terminate a task with |task_id|. Returns false (0) if the
-	// |task_id| is invalid, the call is made from an incorrect thread, or if the
-	// task cannot be terminated.
-	KillTask(taskId int64) bool
 }
 
 type tICefTaskManager_147 struct {
@@ -27057,13 +25061,6 @@ func (t *tICefTaskManager_147) GetTasksCount() cefTypes.NativeUInt {
 func (t *tICefTaskManager_147) KillTask(taskId int64) bool {
 	r0 := t.raw.KillTask(taskId)
 	return r0
-}
-
-type ICefTaskManagerRef_147 interface {
-	ICefTaskManagerRef
-	ICefBaseRefCountedRef
-	ICefTaskManager
-	AsIntfTaskManager() uintptr
 }
 
 type tICefTaskManagerRef_147 struct {
@@ -27138,10 +25135,6 @@ func (t *tICefTaskManagerRef_147) KillTask(taskId int64) bool {
 	return r0
 }
 
-type ICefTaskOwn_147 interface {
-	ICefTaskOwn
-}
-
 type tICefTaskOwn_147 struct {
 	raw vcef.ICefTaskOwn
 	*tICefBaseRefCountedOwn_147
@@ -27180,13 +25173,6 @@ func (t *tICefTaskOwn_147) CEFVersion() string {
 
 func (t *tICefTaskOwn_147) RawCEF147ICefTaskOwn() vcef.ICefTaskOwn {
 	return t.raw
-}
-
-type ICefTaskRef_147 interface {
-	ICefTaskRef
-	ICefBaseRefCountedRef
-	ICefTask
-	AsIntfTask() uintptr
 }
 
 type tICefTaskRef_147 struct {
@@ -27232,10 +25218,6 @@ func (t *tICefTaskRef_147) RawCEF147ICefTaskRef() vcef.ICefTaskRef {
 func (t *tICefTaskRef_147) AsIntfTask() uintptr {
 	r0 := t.raw.AsIntfTask()
 	return r0
-}
-
-type ICefTaskRunner_147 interface {
-	ICefTaskRunner
 }
 
 type tICefTaskRunner_147 struct {
@@ -27301,10 +25283,6 @@ func (t *tICefTaskRunner_147) PostDelayedTask(task IEngTask, delayMs int64) bool
 func (t *tICefTaskRunner_147) PostTask(task IEngTask) bool {
 	r0 := t.raw.PostTask(unwrapIEngTask(task))
 	return r0
-}
-
-type ICefTaskRunnerRef_147 interface {
-	ICefTaskRunnerRef
 }
 
 type tICefTaskRunnerRef_147 struct {
@@ -27375,10 +25353,6 @@ func (t *tICefTaskRunnerRef_147) PostDelayedTask(task IEngTask, delayMs int64) b
 func (t *tICefTaskRunnerRef_147) PostTask(task IEngTask) bool {
 	r0 := t.raw.PostTask(unwrapIEngTask(task))
 	return r0
-}
-
-type ICefTextfield_147 interface {
-	ICefTextfield
 }
 
 type tICefTextfield_147 struct {
@@ -27557,10 +25531,6 @@ func (t *tICefTextfield_147) SetText(text string) {
 	t.raw.SetText(text)
 }
 
-type ICefTextfieldDelegate_147 interface {
-	ICefTextfieldDelegate
-}
-
 type tICefTextfieldDelegate_147 struct {
 	raw vcef.ICefTextfieldDelegate
 	*tICefViewDelegate_147
@@ -27601,10 +25571,6 @@ func (t *tICefTextfieldDelegate_147) CEFVersion() string {
 
 func (t *tICefTextfieldDelegate_147) RawCEF147ICefTextfieldDelegate() vcef.ICefTextfieldDelegate {
 	return t.raw
-}
-
-type ICefTextfieldDelegateEvents_147 interface {
-	ICefTextfieldDelegateEvents
 }
 
 type tICefTextfieldDelegateEvents_147 struct {
@@ -27649,10 +25615,6 @@ func (t *tICefTextfieldDelegateEvents_147) RawCEF147ICefTextfieldDelegateEvents(
 	return t.raw
 }
 
-type ICefTextfieldDelegateOwn_147 interface {
-	ICefTextfieldDelegateOwn
-}
-
 type tICefTextfieldDelegateOwn_147 struct {
 	raw vcef.ICefTextfieldDelegateOwn
 	*tICefViewDelegateOwn_147
@@ -27693,10 +25655,6 @@ func (t *tICefTextfieldDelegateOwn_147) CEFVersion() string {
 
 func (t *tICefTextfieldDelegateOwn_147) RawCEF147ICefTextfieldDelegateOwn() vcef.ICefTextfieldDelegateOwn {
 	return t.raw
-}
-
-type ICefTextfieldDelegateRef_147 interface {
-	ICefTextfieldDelegateRef
 }
 
 type tICefTextfieldDelegateRef_147 struct {
@@ -27749,10 +25707,6 @@ func (t *tICefTextfieldDelegateRef_147) AsIntfTextfieldDelegate() uintptr {
 func (t *tICefTextfieldDelegateRef_147) AsIntfViewDelegate() uintptr {
 	r0 := t.raw.AsIntfViewDelegate()
 	return r0
-}
-
-type ICefTextfieldRef_147 interface {
-	ICefTextfieldRef
 }
 
 type tICefTextfieldRef_147 struct {
@@ -27941,10 +25895,6 @@ func (t *tICefTextfieldRef_147) SetText(text string) {
 	t.raw.SetText(text)
 }
 
-type ICefThread_147 interface {
-	ICefThread
-}
-
 type tICefThread_147 struct {
 	raw vcef.ICefThread
 	*tICefBaseRefCounted_147
@@ -28002,10 +25952,6 @@ func (t *tICefThread_147) IsRunning() bool {
 
 func (t *tICefThread_147) Stop() {
 	t.raw.Stop()
-}
-
-type ICefThreadRef_147 interface {
-	ICefThreadRef
 }
 
 type tICefThreadRef_147 struct {
@@ -28072,12 +26018,6 @@ func (t *tICefThreadRef_147) Stop() {
 	t.raw.Stop()
 }
 
-type ICefURLRequestClientTask_147 interface {
-	ICefURLRequestClientTask
-	ICefManagedTask
-	AsIntfTask() uintptr
-}
-
 type tICefURLRequestClientTask_147 struct {
 	raw vcef.ICefURLRequestClientTask
 	*tICefManagedTask_147
@@ -28123,17 +26063,6 @@ func (t *tICefURLRequestClientTask_147) RawCEF147ICefURLRequestClientTask() vcef
 func (t *tICefURLRequestClientTask_147) AsIntfTask() uintptr {
 	r0 := t.raw.AsIntfTask()
 	return r0
-}
-
-type ICefUnresponsiveProcessCallback_147 interface {
-	ICefUnresponsiveProcessCallback
-	ICefBaseRefCounted
-	// Terminate
-	// Terminate the unresponsive process.
-	Terminate()
-	// Wait
-	// Reset the timeout for the unresponsive process.
-	Wait()
 }
 
 type tICefUnresponsiveProcessCallback_147 struct {
@@ -28184,13 +26113,6 @@ func (t *tICefUnresponsiveProcessCallback_147) Terminate() {
 
 func (t *tICefUnresponsiveProcessCallback_147) Wait() {
 	t.raw.Wait()
-}
-
-type ICefUnresponsiveProcessCallbackRef_147 interface {
-	ICefUnresponsiveProcessCallbackRef
-	ICefBaseRefCountedRef
-	ICefUnresponsiveProcessCallback
-	AsIntfUnresponsiveProcessCallback() uintptr
 }
 
 type tICefUnresponsiveProcessCallbackRef_147 struct {
@@ -28246,13 +26168,6 @@ func (t *tICefUnresponsiveProcessCallbackRef_147) Terminate() {
 
 func (t *tICefUnresponsiveProcessCallbackRef_147) Wait() {
 	t.raw.Wait()
-}
-
-type ICefUrlRequest_147 interface {
-	ICefUrlRequest
-	// GetClient
-	// Returns the client.
-	GetClient() IEngUrlrequestClient
 }
 
 type tICefUrlRequest_147 struct {
@@ -28327,10 +26242,6 @@ func (t *tICefUrlRequest_147) GetResponseWasCached() bool {
 func (t *tICefUrlRequest_147) GetResponse() ICefResponse {
 	r0 := t.raw.GetResponse()
 	return wrapICefResponse(r0)
-}
-
-type ICefUrlRequestRef_147 interface {
-	ICefUrlRequestRef
 }
 
 type tICefUrlRequestRef_147 struct {
@@ -28412,10 +26323,6 @@ func (t *tICefUrlRequestRef_147) GetResponse() ICefResponse {
 	return wrapICefResponse(r0)
 }
 
-type ICefUrlrequestClient_147 interface {
-	ICefUrlrequestClient
-}
-
 type tICefUrlrequestClient_147 struct {
 	raw vcef.ICefUrlrequestClient
 	*tICefBaseRefCounted_147
@@ -28458,10 +26365,6 @@ func (t *tICefUrlrequestClient_147) RawCEF147ICefUrlrequestClient() vcef.ICefUrl
 	return t.raw
 }
 
-type ICefUrlrequestClientOwn_147 interface {
-	ICefUrlrequestClientOwn
-}
-
 type tICefUrlrequestClientOwn_147 struct {
 	raw vcef.ICefUrlrequestClientOwn
 	*tICefBaseRefCountedOwn_147
@@ -28502,13 +26405,6 @@ func (t *tICefUrlrequestClientOwn_147) CEFVersion() string {
 
 func (t *tICefUrlrequestClientOwn_147) RawCEF147ICefUrlrequestClientOwn() vcef.ICefUrlrequestClientOwn {
 	return t.raw
-}
-
-type ICefUrlrequestClientRef_147 interface {
-	ICefUrlrequestClientRef
-	ICefBaseRefCountedRef
-	ICefUrlrequestClient
-	AsIntfUrlrequestClient() uintptr
 }
 
 type tICefUrlrequestClientRef_147 struct {
@@ -28558,10 +26454,6 @@ func (t *tICefUrlrequestClientRef_147) AsIntfUrlrequestClient() uintptr {
 	return r0
 }
 
-type ICefV8Accessor_147 interface {
-	ICefV8Accessor
-}
-
 type tICefV8Accessor_147 struct {
 	raw vcef.ICefV8Accessor
 	*tICefBaseRefCounted_147
@@ -28602,10 +26494,6 @@ func (t *tICefV8Accessor_147) RawCEF147ICefV8Accessor() vcef.ICefV8Accessor {
 	return t.raw
 }
 
-type ICefV8AccessorOwn_147 interface {
-	ICefV8AccessorOwn
-}
-
 type tICefV8AccessorOwn_147 struct {
 	raw vcef.ICefV8AccessorOwn
 	*tICefBaseRefCountedOwn_147
@@ -28644,10 +26532,6 @@ func (t *tICefV8AccessorOwn_147) CEFVersion() string {
 
 func (t *tICefV8AccessorOwn_147) RawCEF147ICefV8AccessorOwn() vcef.ICefV8AccessorOwn {
 	return t.raw
-}
-
-type ICefV8Exception_147 interface {
-	ICefV8Exception
 }
 
 type tICefV8Exception_147 struct {
@@ -28728,10 +26612,6 @@ func (t *tICefV8Exception_147) GetStartColumn() int32 {
 func (t *tICefV8Exception_147) GetStartPosition() int32 {
 	r0 := t.raw.GetStartPosition()
 	return r0
-}
-
-type ICefV8ExceptionRef_147 interface {
-	ICefV8ExceptionRef
 }
 
 type tICefV8ExceptionRef_147 struct {
@@ -28821,10 +26701,6 @@ func (t *tICefV8ExceptionRef_147) GetStartPosition() int32 {
 	return r0
 }
 
-type ICefV8Interceptor_147 interface {
-	ICefV8Interceptor
-}
-
 type tICefV8Interceptor_147 struct {
 	raw vcef.ICefV8Interceptor
 	*tICefBaseRefCounted_147
@@ -28863,10 +26739,6 @@ func (t *tICefV8Interceptor_147) CEFVersion() string {
 
 func (t *tICefV8Interceptor_147) RawCEF147ICefV8Interceptor() vcef.ICefV8Interceptor {
 	return t.raw
-}
-
-type ICefV8InterceptorOwn_147 interface {
-	ICefV8InterceptorOwn
 }
 
 type tICefV8InterceptorOwn_147 struct {
@@ -28909,10 +26781,6 @@ func (t *tICefV8InterceptorOwn_147) CEFVersion() string {
 
 func (t *tICefV8InterceptorOwn_147) RawCEF147ICefV8InterceptorOwn() vcef.ICefV8InterceptorOwn {
 	return t.raw
-}
-
-type ICefV8StackFrame_147 interface {
-	ICefV8StackFrame
 }
 
 type tICefV8StackFrame_147 struct {
@@ -28993,10 +26861,6 @@ func (t *tICefV8StackFrame_147) IsEval() bool {
 func (t *tICefV8StackFrame_147) IsValid() bool {
 	r0 := t.raw.IsValid()
 	return r0
-}
-
-type ICefV8StackFrameRef_147 interface {
-	ICefV8StackFrameRef
 }
 
 type tICefV8StackFrameRef_147 struct {
@@ -29086,10 +26950,6 @@ func (t *tICefV8StackFrameRef_147) IsValid() bool {
 	return r0
 }
 
-type ICefV8StackTrace_147 interface {
-	ICefV8StackTrace
-}
-
 type tICefV8StackTrace_147 struct {
 	raw vcef.ICefV8StackTrace
 	*tICefBaseRefCounted_147
@@ -29143,10 +27003,6 @@ func (t *tICefV8StackTrace_147) GetFrame(index int32) ICefV8StackFrame {
 func (t *tICefV8StackTrace_147) IsValid() bool {
 	r0 := t.raw.IsValid()
 	return r0
-}
-
-type ICefV8StackTraceRef_147 interface {
-	ICefV8StackTraceRef
 }
 
 type tICefV8StackTraceRef_147 struct {
@@ -29209,10 +27065,6 @@ func (t *tICefV8StackTraceRef_147) GetFrame(index int32) ICefV8StackFrame {
 func (t *tICefV8StackTraceRef_147) IsValid() bool {
 	r0 := t.raw.IsValid()
 	return r0
-}
-
-type ICefValue_147 interface {
-	ICefValue
 }
 
 type tICefValue_147 struct {
@@ -29363,10 +27215,6 @@ func (t *tICefValue_147) SetNull() bool {
 func (t *tICefValue_147) SetString(value string) bool {
 	r0 := t.raw.SetString(value)
 	return r0
-}
-
-type ICefValueRef_147 interface {
-	ICefValueRef
 }
 
 type tICefValueRef_147 struct {
@@ -29522,21 +27370,6 @@ func (t *tICefValueRef_147) SetNull() bool {
 func (t *tICefValueRef_147) SetString(value string) bool {
 	r0 := t.raw.SetString(value)
 	return r0
-}
-
-type ICefView_147 interface {
-	ICefView
-	// GetThemeColor
-	// Returns the current theme color associated with |color_id|, or the
-	// placeholder color (red) if unset. See cef_color_ids.h for standard ID
-	// values. Standard colors can be overridden and custom colors can be added
-	// using ICefWindow.SetThemeColor.
-	GetThemeColor(colorId int32) cefTypes.TCefColor
-	// HasFocus
-	// Returns true (1) if this View has focus in the context of the containing
-	// Window. Check both this function and ICefWindow.IsActive to determine
-	// global keyboard focus.
-	HasFocus() bool
 }
 
 type tICefView_147 struct {
@@ -29826,10 +27659,6 @@ func (t *tICefView_147) ToStringEx(includeChildren bool) string {
 	return r0
 }
 
-type ICefViewDelegate_147 interface {
-	ICefViewDelegate
-}
-
 type tICefViewDelegate_147 struct {
 	raw vcef.ICefViewDelegate
 	*tICefBaseRefCounted_147
@@ -29868,10 +27697,6 @@ func (t *tICefViewDelegate_147) CEFVersion() string {
 
 func (t *tICefViewDelegate_147) RawCEF147ICefViewDelegate() vcef.ICefViewDelegate {
 	return t.raw
-}
-
-type ICefViewDelegateEvents_147 interface {
-	ICefViewDelegateEvents
 }
 
 type tICefViewDelegateEvents_147 struct {
@@ -29916,10 +27741,6 @@ func (t *tICefViewDelegateEvents_147) RawCEF147ICefViewDelegateEvents() vcef.ICe
 	return t.raw
 }
 
-type ICefViewDelegateOwn_147 interface {
-	ICefViewDelegateOwn
-}
-
 type tICefViewDelegateOwn_147 struct {
 	raw vcef.ICefViewDelegateOwn
 	*tICefBaseRefCountedOwn_147
@@ -29960,10 +27781,6 @@ func (t *tICefViewDelegateOwn_147) CEFVersion() string {
 
 func (t *tICefViewDelegateOwn_147) RawCEF147ICefViewDelegateOwn() vcef.ICefViewDelegateOwn {
 	return t.raw
-}
-
-type ICefViewDelegateRef_147 interface {
-	ICefViewDelegateRef
 }
 
 type tICefViewDelegateRef_147 struct {
@@ -30013,12 +27830,6 @@ func (t *tICefViewDelegateRef_147) AsIntfViewDelegate() uintptr {
 	return r0
 }
 
-type ICefViewDelegateTask_147 interface {
-	ICefViewDelegateTask
-	ICefManagedTask
-	AsIntfTask() uintptr
-}
-
 type tICefViewDelegateTask_147 struct {
 	raw vcef.ICefViewDelegateTask
 	*tICefManagedTask_147
@@ -30064,10 +27875,6 @@ func (t *tICefViewDelegateTask_147) RawCEF147ICefViewDelegateTask() vcef.ICefVie
 func (t *tICefViewDelegateTask_147) AsIntfTask() uintptr {
 	r0 := t.raw.AsIntfTask()
 	return r0
-}
-
-type ICefViewRef_147 interface {
-	ICefViewRef
 }
 
 type tICefViewRef_147 struct {
@@ -30362,10 +28169,6 @@ func (t *tICefViewRef_147) ToStringEx(includeChildren bool) string {
 	return r0
 }
 
-type ICefWaitableEvent_147 interface {
-	ICefWaitableEvent
-}
-
 type tICefWaitableEvent_147 struct {
 	raw vcef.ICefWaitableEvent
 	*tICefBaseRefCounted_147
@@ -30426,10 +28229,6 @@ func (t *tICefWaitableEvent_147) TimedWait(maxMs int64) bool {
 
 func (t *tICefWaitableEvent_147) Wait() {
 	t.raw.Wait()
-}
-
-type ICefWaitableEventRef_147 interface {
-	ICefWaitableEventRef
 }
 
 type tICefWaitableEventRef_147 struct {
@@ -30499,100 +28298,6 @@ func (t *tICefWaitableEventRef_147) TimedWait(maxMs int64) bool {
 
 func (t *tICefWaitableEventRef_147) Wait() {
 	t.raw.Wait()
-}
-
-type ICefWindow_147 interface {
-	ICefWindow
-	// AddOverlayView
-	// Add a View that will be overlayed on the Window contents with absolute
-	// positioning and high z-order. Positioning is controlled by |docking_mode|
-	// as described below. Setting |can_activate| to true (1) will allow the
-	// overlay view to receive input focus. The returned cef_overlay_controller_t
-	// object is used to control the overlay. Overlays are hidden by default.
-	// With CEF_DOCKING_MODE_CUSTOM:
-	// 1. The overlay is initially hidden, sized to |view|'s preferred size,
-	// and positioned in the top-left corner.
-	// 2. Optionally change the overlay position and/or size by calling
-	// CefOverlayController methods.
-	// 3. Call ICefOverlayController.SetVisible(true) to show the overlay.
-	// 4. The overlay will be automatically re-sized if |view|'s layout
-	// changes. Optionally change the overlay position and/or size when
-	// OnLayoutChanged is called on the Window's delegate to indicate a
-	// change in Window bounds.
-	// With other docking modes:
-	// 1. The overlay is initially hidden, sized to |view|'s preferred size,
-	// and positioned based on |docking_mode|.
-	// 2. Call ICefOverlayController.SetVisible(true) to show the overlay.
-	// 3. The overlay will be automatically re-sized if |view|'s layout changes
-	// and re-positioned as appropriate when the Window resizes.
-	// Overlays created by this function will receive a higher z-order then any
-	// child Views added previously. It is therefore recommended to call this
-	// function last after all other child Views have been added so that the
-	// overlay displays as the top-most child of the Window.
-	AddOverlayView(view ICefView, dockingMode cefTypes.TCefDockingMode, canActivate bool) ICefOverlayController
-	// GetFocusedView
-	// Returns the View that currently has focus in this Window, or nullptr if no
-	// View currently has focus. A Window may have a focused View even if it is
-	// not currently active. Any focus changes while a Window is not active may
-	// be applied after that Window next becomes active.
-	GetFocusedView() ICefView
-	// GetRuntimeStyle
-	// Returns the runtime style for this Window (ALLOY or CHROME). See
-	// TCefRuntimeStyle documentation for details.
-	GetRuntimeStyle() cefTypes.TCefRuntimeStyle
-	// SetAccelerator
-	// Set the keyboard accelerator for the specified |command_id|. |key_code|
-	// can be any virtual key or character value. Required modifier keys are
-	// specified by |shift_pressed|, |ctrl_pressed| and/or |alt_pressed|.
-	// ICefWindowDelegate.OnAccelerator will be called if the keyboard
-	// combination is triggered while this window has focus.
-	// The |high_priority| value will be considered if a child ICefBrowserView
-	// has focus when the keyboard combination is triggered. If |high_priority|
-	// is true (1) then the key event will not be forwarded to the web content
-	// (`keydown` event handler) or ICefKeyboardHandler first. If
-	// |high_priority| is false (0) then the behavior will depend on the
-	// ICefBrowserView.SetPreferAccelerators configuration.
-	SetAccelerator(commandId int32, keyCode int32, shiftPressed bool, ctrlPressed bool, altPressed bool, highPriority bool)
-	// SetThemeColor
-	// Override a standard theme color or add a custom color associated with
-	// |color_id|. See cef_color_ids.h for standard ID values. Recommended usage
-	// is as follows:
-	// <code>
-	// 1. Customize the default native/OS theme by calling SetThemeColor before
-	// showing the first Window. When done setting colors call
-	// ICefWindow.ThemeChanged to trigger ICefViewDelegate.OnThemeChanged
-	// notifications.
-	// 2. Customize the current native/OS or Chrome theme after it changes by
-	// calling SetThemeColor from the ICefWindowDelegate.OnThemeColorsChanged
-	// callback. ICefViewDelegate.OnThemeChanged notifications will then be
-	// triggered automatically.
-	// </code>
-	// The configured color will be available immediately via
-	// ICefView.GetThemeColor and will be applied to each View in this
-	// Window's component hierarchy when ICefViewDelegate.OnThemeChanged is
-	// called. See OnThemeColorsChanged documentation for additional details.
-	// Clients wishing to add custom colors should use |color_id| values >=
-	// CEF_ChromeColorsEnd.
-	SetThemeColor(colorId int32, color cefTypes.TCefColor)
-	// ShowAsBrowserModalDialog
-	// Show the Window as a browser modal dialog relative to |browser_view|. A
-	// parent Window must be returned via
-	// ICefWindowDelegate.GetParentWindow() and |browser_view| must belong
-	// to that parent Window. While this Window is visible, |browser_view| will
-	// be disabled while other controls in the parent Window remain enabled.
-	// Navigating or destroying the |browser_view| will close this Window
-	// automatically. Alternately, use show() and return true (1) from
-	// ICefWindowDelegate.IsWindowModalDialog() for a window modal dialog
-	// where all controls in the parent Window are disabled.
-	ShowAsBrowserModalDialog(browserView ICefBrowserView)
-	// ThemeChanged
-	// Trigger ICefViewDelegate.OnThemeChanged callbacks for each View in
-	// this Window's component hierarchy. Unlike a native/OS or Chrome theme
-	// change this function does not reset theme colors to standard values and
-	// does not result in a call to ICefWindowDelegate.OnThemeColorsChanged.
-	// Do not call this function from ICefWindowDelegate.OnThemeColorsChanged
-	// or ICefViewDelegate.OnThemeChanged.
-	ThemeChanged()
 }
 
 type tICefWindow_147 struct {
@@ -30818,10 +28523,6 @@ func (t *tICefWindow_147) ThemeChanged() {
 	t.raw.ThemeChanged()
 }
 
-type ICefWindowDelegate_147 interface {
-	ICefWindowDelegate
-}
-
 type tICefWindowDelegate_147 struct {
 	raw vcef.ICefWindowDelegate
 	*tICefPanelDelegate_147
@@ -30862,10 +28563,6 @@ func (t *tICefWindowDelegate_147) CEFVersion() string {
 
 func (t *tICefWindowDelegate_147) RawCEF147ICefWindowDelegate() vcef.ICefWindowDelegate {
 	return t.raw
-}
-
-type ICefWindowDelegateEvents_147 interface {
-	ICefWindowDelegateEvents
 }
 
 type tICefWindowDelegateEvents_147 struct {
@@ -30910,10 +28607,6 @@ func (t *tICefWindowDelegateEvents_147) RawCEF147ICefWindowDelegateEvents() vcef
 	return t.raw
 }
 
-type ICefWindowDelegateOwn_147 interface {
-	ICefWindowDelegateOwn
-}
-
 type tICefWindowDelegateOwn_147 struct {
 	raw vcef.ICefWindowDelegateOwn
 	*tICefPanelDelegateOwn_147
@@ -30954,10 +28647,6 @@ func (t *tICefWindowDelegateOwn_147) CEFVersion() string {
 
 func (t *tICefWindowDelegateOwn_147) RawCEF147ICefWindowDelegateOwn() vcef.ICefWindowDelegateOwn {
 	return t.raw
-}
-
-type ICefWindowDelegateRef_147 interface {
-	ICefWindowDelegateRef
 }
 
 type tICefWindowDelegateRef_147 struct {
@@ -31015,10 +28704,6 @@ func (t *tICefWindowDelegateRef_147) AsIntfViewDelegate() uintptr {
 func (t *tICefWindowDelegateRef_147) AsIntfWindowDelegate() uintptr {
 	r0 := t.raw.AsIntfWindowDelegate()
 	return r0
-}
-
-type ICefWindowRef_147 interface {
-	ICefWindowRef
 }
 
 type tICefWindowRef_147 struct {
@@ -31259,10 +28944,6 @@ func (t *tICefWindowRef_147) ThemeChanged() {
 	t.raw.ThemeChanged()
 }
 
-type ICefWriteHandler_147 interface {
-	ICefWriteHandler
-}
-
 type tICefWriteHandler_147 struct {
 	raw vcef.ICefWriteHandler
 	*tICefBaseRefCounted_147
@@ -31301,10 +28982,6 @@ func (t *tICefWriteHandler_147) CEFVersion() string {
 
 func (t *tICefWriteHandler_147) RawCEF147ICefWriteHandler() vcef.ICefWriteHandler {
 	return t.raw
-}
-
-type ICefWriteHandlerOwn_147 interface {
-	ICefWriteHandlerOwn
 }
 
 type tICefWriteHandlerOwn_147 struct {
@@ -31347,10 +29024,6 @@ func (t *tICefWriteHandlerOwn_147) CEFVersion() string {
 
 func (t *tICefWriteHandlerOwn_147) RawCEF147ICefWriteHandlerOwn() vcef.ICefWriteHandlerOwn {
 	return t.raw
-}
-
-type ICefX509CertPrincipal_147 interface {
-	ICefX509CertPrincipal
 }
 
 type tICefX509CertPrincipal_147 struct {
@@ -31426,10 +29099,6 @@ func (t *tICefX509CertPrincipal_147) GetOrganizationUnitNames(names lcl.IStrings
 func (t *tICefX509CertPrincipal_147) GetStateOrProvinceName() string {
 	r0 := t.raw.GetStateOrProvinceName()
 	return r0
-}
-
-type ICefX509CertPrincipalRef_147 interface {
-	ICefX509CertPrincipalRef
 }
 
 type tICefX509CertPrincipalRef_147 struct {
@@ -31510,10 +29179,6 @@ func (t *tICefX509CertPrincipalRef_147) GetOrganizationUnitNames(names lcl.IStri
 func (t *tICefX509CertPrincipalRef_147) GetStateOrProvinceName() string {
 	r0 := t.raw.GetStateOrProvinceName()
 	return r0
-}
-
-type ICefX509Certificate_147 interface {
-	ICefX509Certificate
 }
 
 type tICefX509Certificate_147 struct {
@@ -31628,10 +29293,6 @@ func (t *tICefX509Certificate_147) GetValidStartAsDateTime() types.TDateTime {
 func (t *tICefX509Certificate_147) GetValidStart() int64 {
 	r0 := t.raw.GetValidStart()
 	return r0
-}
-
-type ICefXmlReader_147 interface {
-	ICefXmlReader
 }
 
 type tICefXmlReader_147 struct {
@@ -31817,10 +29478,6 @@ func (t *tICefXmlReader_147) MoveToNextAttribute() bool {
 func (t *tICefXmlReader_147) MoveToNextNode() bool {
 	r0 := t.raw.MoveToNextNode()
 	return r0
-}
-
-type ICefXmlReaderRef_147 interface {
-	ICefXmlReaderRef
 }
 
 type tICefXmlReaderRef_147 struct {
@@ -32013,10 +29670,6 @@ func (t *tICefXmlReaderRef_147) MoveToNextNode() bool {
 	return r0
 }
 
-type ICefZipReader_147 interface {
-	ICefZipReader
-}
-
 type tICefZipReader_147 struct {
 	raw vcef.ICefZipReader
 	*tICefBaseRefCounted_147
@@ -32115,10 +29768,6 @@ func (t *tICefZipReader_147) ReadFile(buffer uintptr, bufferSize cefTypes.Native
 func (t *tICefZipReader_147) Tell() int64 {
 	r0 := t.raw.Tell()
 	return r0
-}
-
-type ICefZipReaderRef_147 interface {
-	ICefZipReaderRef
 }
 
 type tICefZipReaderRef_147 struct {
@@ -32226,10 +29875,6 @@ func (t *tICefZipReaderRef_147) Tell() int64 {
 	return r0
 }
 
-type ICefv8ArrayBufferReleaseCallback_147 interface {
-	ICefv8ArrayBufferReleaseCallback
-}
-
 type tICefv8ArrayBufferReleaseCallback_147 struct {
 	raw vcef.ICefv8ArrayBufferReleaseCallback
 	*tICefBaseRefCounted_147
@@ -32272,10 +29917,6 @@ func (t *tICefv8ArrayBufferReleaseCallback_147) RawCEF147ICefv8ArrayBufferReleas
 	return t.raw
 }
 
-type ICefv8ArrayBufferReleaseCallbackOwn_147 interface {
-	ICefv8ArrayBufferReleaseCallbackOwn
-}
-
 type tICefv8ArrayBufferReleaseCallbackOwn_147 struct {
 	raw vcef.ICefv8ArrayBufferReleaseCallbackOwn
 	*tICefBaseRefCountedOwn_147
@@ -32316,10 +29957,6 @@ func (t *tICefv8ArrayBufferReleaseCallbackOwn_147) CEFVersion() string {
 
 func (t *tICefv8ArrayBufferReleaseCallbackOwn_147) RawCEF147ICefv8ArrayBufferReleaseCallbackOwn() vcef.ICefv8ArrayBufferReleaseCallbackOwn {
 	return t.raw
-}
-
-type ICefv8ArrayBufferReleaseCallbackRef_147 interface {
-	ICefv8ArrayBufferReleaseCallbackRef
 }
 
 type tICefv8ArrayBufferReleaseCallbackRef_147 struct {
@@ -32367,29 +30004,6 @@ func (t *tICefv8ArrayBufferReleaseCallbackRef_147) RawCEF147ICefv8ArrayBufferRel
 func (t *tICefv8ArrayBufferReleaseCallbackRef_147) AsIntfV8ArrayBufferReleaseCallback() uintptr {
 	r0 := t.raw.AsIntfV8ArrayBufferReleaseCallback()
 	return r0
-}
-
-type ICefv8BackingStore_147 interface {
-	ICefv8BackingStore
-	ICefBaseRefCounted
-	// ByteLength
-	// Returns the size of the allocated memory in bytes, or 0 if the backing
-	// store has been consumed.
-	ByteLength() cefTypes.NativeUInt
-	// Data
-	// Returns a pointer to the allocated memory, or nullptr if the backing store
-	// has been consumed or is otherwise invalid. The pointer is safe to
-	// read/write from any thread. The caller must ensure all writes are complete
-	// before passing this object to
-	// TCefv8ValueRef.NewArrayBufferFromBackingStore(). Pointers obtained
-	// from this function should not be retained after calling
-	// TCefv8ValueRef.NewArrayBufferFromBackingStore(), as the memory will
-	// then be owned by the ArrayBuffer and subject to V8 garbage collection.
-	Data() uintptr
-	// IsValid
-	// Returns true (1) if this backing store has not yet been consumed by
-	// TCefv8ValueRef.NewArrayBufferFromBackingStore().
-	IsValid() bool
 }
 
 type tICefv8BackingStore_147 struct {
@@ -32447,13 +30061,6 @@ func (t *tICefv8BackingStore_147) Data() uintptr {
 func (t *tICefv8BackingStore_147) IsValid() bool {
 	r0 := t.raw.IsValid()
 	return r0
-}
-
-type ICefv8BackingStoreRef_147 interface {
-	ICefv8BackingStoreRef
-	ICefBaseRefCountedRef
-	ICefv8BackingStore
-	AsIntfV8BackingStore() uintptr
 }
 
 type tICefv8BackingStoreRef_147 struct {
@@ -32516,10 +30123,6 @@ func (t *tICefv8BackingStoreRef_147) Data() uintptr {
 func (t *tICefv8BackingStoreRef_147) IsValid() bool {
 	r0 := t.raw.IsValid()
 	return r0
-}
-
-type ICefv8Context_147 interface {
-	ICefv8Context
 }
 
 type tICefv8Context_147 struct {
@@ -32619,10 +30222,6 @@ func (t *tICefv8Context_147) IsSame(that ICefv8Context) bool {
 func (t *tICefv8Context_147) IsValid() bool {
 	r0 := t.raw.IsValid()
 	return r0
-}
-
-type ICefv8ContextRef_147 interface {
-	ICefv8ContextRef
 }
 
 type tICefv8ContextRef_147 struct {
@@ -32729,10 +30328,6 @@ func (t *tICefv8ContextRef_147) IsValid() bool {
 	return r0
 }
 
-type ICefv8Handler_147 interface {
-	ICefv8Handler
-}
-
 type tICefv8Handler_147 struct {
 	raw vcef.ICefv8Handler
 	*tICefBaseRefCounted_147
@@ -32773,10 +30368,6 @@ func (t *tICefv8Handler_147) RawCEF147ICefv8Handler() vcef.ICefv8Handler {
 	return t.raw
 }
 
-type ICefv8HandlerOwn_147 interface {
-	ICefv8HandlerOwn
-}
-
 type tICefv8HandlerOwn_147 struct {
 	raw vcef.ICefv8HandlerOwn
 	*tICefBaseRefCountedOwn_147
@@ -32815,10 +30406,6 @@ func (t *tICefv8HandlerOwn_147) CEFVersion() string {
 
 func (t *tICefv8HandlerOwn_147) RawCEF147ICefv8HandlerOwn() vcef.ICefv8HandlerOwn {
 	return t.raw
-}
-
-type ICefv8HandlerRef_147 interface {
-	ICefv8HandlerRef
 }
 
 type tICefv8HandlerRef_147 struct {
@@ -32864,33 +30451,6 @@ func (t *tICefv8HandlerRef_147) RawCEF147ICefv8HandlerRef() vcef.ICefv8HandlerRe
 func (t *tICefv8HandlerRef_147) AsIntfV8Handler() uintptr {
 	r0 := t.raw.AsIntfV8Handler()
 	return r0
-}
-
-type ICefv8Value_147 interface {
-	ICefv8Value
-	// GetArrayBufferByteLength
-	// Returns the length (in bytes) of the ArrayBuffer.
-	GetArrayBufferByteLength() cefTypes.NativeUInt
-	// GetArrayBufferData
-	// Returns a pointer to the beginning of the memory block for this
-	// ArrayBuffer backing store. The returned pointer is valid as long as the
-	// ICefv8value is alive.
-	GetArrayBufferData() uintptr
-	// GetUserData
-	// Returns the user data, if any, assigned to this object.
-	GetUserData() ICefCustomUserData
-	// SetUserData
-	// Sets the user data for this object and returns true (1) on success.
-	// Returns false (0) if this function is called incorrectly. This function
-	// can only be called on user created objects.
-	SetUserData(data ICefCustomUserData) bool
-	// SetValueByAccessor
-	// Registers an identifier and returns true (1) on success. Access to the
-	// identifier will be forwarded to the ICefV8Accessor instance passed to
-	// cef_v8_value_create_object(). Returns false (0) if this
-	// function is called incorrectly or an exception is thrown. For read-only
-	// values this function will return true (1) even though assignment failed.
-	SetValueByAccessor(key string, attribute cefTypes.TCefV8PropertyAttributes) bool
 }
 
 type tICefv8Value_147 struct {
@@ -33191,10 +30751,6 @@ func (t *tICefv8Value_147) SetValueByKey(key string, value ICefv8Value, attribut
 func (t *tICefv8Value_147) WillRethrowExceptions() bool {
 	r0 := t.raw.WillRethrowExceptions()
 	return r0
-}
-
-type ICefv8ValueRef_147 interface {
-	ICefv8ValueRef
 }
 
 type tICefv8ValueRef_147 struct {
@@ -33502,10 +31058,6 @@ func (t *tICefv8ValueRef_147) WillRethrowExceptions() bool {
 	return r0
 }
 
-type IChromium_147 interface {
-	IChromium
-}
-
 type tIChromium_147 struct {
 	raw vcef.IChromium
 	*tIChromiumCore_147
@@ -33600,417 +31152,6 @@ func (t *tIChromium_147) ShowDevToolsWithPointWinControl(inspectElementAt types.
 func (t *tIChromium_147) TakeSnapshot(bitmap *lcl.IBitmap) bool {
 	r0 := t.raw.TakeSnapshot(bitmap)
 	return r0
-}
-
-type IChromiumCore_147 interface {
-	IChromiumCore
-	// AddPreferenceObserver
-	// Add an observer for preference changes. |name| is the name of the
-	// preference to observe. If |name| is NULL then all preferences will be
-	// observed. Observing all preferences has performance consequences and is
-	// not recommended outside of testing scenarios. The observer will remain
-	// registered until the returned Registration object is destroyed. This
-	// function must be called on the browser process UI thread.
-	// <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_preference_capi.h">CEF source file: /include/capi/cef_preference_capi.h (cef_preference_manager_t)</see>
-	AddPreferenceObserver(name string)
-	// AddSettingObserver
-	// Add an observer for content and website setting changes. The observer will
-	// remain registered until the returned Registration object is destroyed.
-	// This function must be called on the browser process UI thread.
-	// <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_request_context_capi.h">CEF source file: /include/capi/cef_request_context_capi.h (cef_request_context_t)</see>
-	AddSettingObserver(observer IEngSettingObserver) ICefRegistration
-	// AutofillCreditCard
-	// Browser preference used to enable the autofill feature for credit card information.
-	// Disabling this property is a suggested workaround for some autofill crashes in Alloy style.
-	AutofillCreditCard() cefTypes.TCefState
-	// AutofillProfile
-	// Browser preference used to enable the autofill feature for profile information.
-	// Disabling this property is a suggested workaround for some autofill crashes in Alloy style.
-	AutofillProfile() cefTypes.TCefState
-	// AutofillSaveData
-	// Browser preference used to enable the autofill feature for saving data.
-	// Disabling this property is a suggested workaround for some autofill crashes in Alloy style.
-	AutofillSaveData() cefTypes.TCefState
-	// CanDecZoom
-	// Returns true (1) if this browser can execute the zoom OUT command.
-	// This function can only be called on the CEF UI thread.
-	CanDecZoom() bool
-	// CanExecuteChromeCommand
-	// Returns true (1) if a Chrome command is supported and enabled. Use the
-	// cef_id_for_command_id_name() function for version-safe mapping of command
-	// IDC names from cef_command_ids.h to version-specific numerical
-	// |command_id| values. This function can only be called on the UI thread.
-	// Only used with Chrome style.
-	// <see cref="uCEFConstants">See the IDC_* constants in uCEFConstants.pas for all the |command_id| values.</see>
-	// <see href="https://source.chromium.org/chromium/chromium/src/+/main:chrome/app/chrome_command_ids.h">The command_id values are also available in chrome/app/chrome_command_ids.h</see>
-	CanExecuteChromeCommand(commandId int32) bool
-	// CanFocus
-	// Indicates whether the browser can receive focus.
-	CanFocus() bool
-	// CanIncZoom
-	// Returns true (1) if this browser can execute the zoom IN command.
-	// This function can only be called on the CEF UI thread.
-	CanIncZoom() bool
-	// CanMakePayment
-	// Browser preference used to enable saving information about payments.
-	// Disabling this property is a suggested workaround for some autofill crashes in Alloy style.
-	CanMakePayment() cefTypes.TCefState
-	// CanResetZoom
-	// Returns true (1) if this browser can execute the zoom RESET command.
-	// This function can only be called on the CEF UI thread.
-	CanResetZoom() bool
-	// ChromeColorSchemeColor
-	// Returns the current Chrome color scheme color, or transparent (0) for the
-	// default color. Must be called on the browser process UI thread.
-	ChromeColorSchemeColor() cefTypes.TCefColor
-	// ChromeColorSchemeMode
-	// Returns the current Chrome color scheme mode (SYSTEM, LIGHT or DARK). Must
-	// be called on the browser process UI thread.
-	ChromeColorSchemeMode() cefTypes.TCefColorVariant
-	// ChromeColorSchemeVariant
-	// Returns the current Chrome color scheme variant. Must be called on the
-	// browser process UI thread.
-	ChromeColorSchemeVariant() cefTypes.TCefColorVariant
-	// ClearHttpCache
-	// Clears the HTTP cache.
-	// If aClearImmediately is false then OnHttpCacheCleared is triggered
-	// when the http cache is cleared.
-	ClearHttpCache(clearImmediately bool) bool
-	// ClipboardPasteAndMatchStyle
-	// Execute paste and match style on the focused frame.
-	ClipboardPasteAndMatchStyle()
-	// CreateUrlRequestWithRequestUClientStrX2
-	// Create a new URL request that will be treated as originating from this
-	// frame and the associated browser. Use TCustomCefUrlrequestClient.Create instead if
-	// you do not want the request to have this association, in which case it may
-	// be handled differently (see documentation on that function). A request
-	// created with this function may only originate from the browser process,
-	// and will behave as follows:
-	// <code>
-	// - It may be intercepted by the client via CefResourceRequestHandler or
-	// CefSchemeHandlerFactory.
-	// - POST data may only contain a single element of type PDE_TYPE_FILE or
-	// PDE_TYPE_BYTES.
-	// </code>
-	// The |request| object will be marked as read-only after calling this
-	// function.
-	CreateUrlRequestWithRequestUClientStrX2(request ICefRequest, client IEngUrlrequestClient, frameName string, frameIdentifier string) ICefUrlRequest
-	// CredentialsService
-	// This service shows a dialog to save the usernames and passwords in Chrome style.
-	CredentialsService() cefTypes.TCefState
-	// DecZoomCommand
-	// Execute a zoom OUT command in this browser. If called on the CEF UI thread the
-	// change will be applied immediately. Otherwise, the change will be applied
-	// asynchronously on the CEF UI thread.
-	DecZoomCommand()
-	// DefaultZoomLevel
-	// Get the default zoom level. This value will be 0.0 by default but can be
-	// configured. This function can only be called on the UI thread.
-	DefaultZoomLevel() float64
-	// DownloadBubble
-	// Enable the file download bubble when using Chrome style.
-	DownloadBubble() cefTypes.TCefState
-	// EnableFocusDelayMs
-	// Delay in milliseconds to enable browser focus.
-	EnableFocusDelayMs() uint32
-	// ExecuteChromeCommand
-	// Returns true (1) if a Chrome command is supported and enabled. Use the
-	// cef_id_for_command_id_name() function for version-safe mapping of command
-	// IDC names from cef_command_ids.h to version-specific numerical
-	// |command_id| values. This function can only be called on the UI thread.
-	// Only used with Chrome style.
-	// <see cref="uCEFConstants">See the IDC_* constants in uCEFConstants.pas for all the |command_id| values.</see>
-	// <see href="https://source.chromium.org/chromium/chromium/src/+/main:chrome/app/chrome_command_ids.h">The command_id values are also available in chrome/app/chrome_command_ids.h</see>
-	ExecuteChromeCommand(commandId int32, disposition cefTypes.TCefWindowOpenDisposition)
-	// ExecuteJavaScriptWithStrX4Int
-	// Execute a string of JavaScript code in the specified frame or the main frame.
-	// <param name="aCode">JavaScript code.</param>
-	// <param name="aScriptURL">The URL where the script in question can be found, if any. The renderer may request this URL to show the developer the source of the error.</param>
-	// <param name="aFrameName">Name of the frame where the JavaScript code will be executed. This name is generated automatically by Chromium. See ICefBrowser.GetFrameNames.</param>
-	// <param name="aFrameIdentifier">Identifier of the frame where the JavaScript code will be executed.</param>
-	// <param name="aStartLine">The base line number to use for error reporting.</param>
-	ExecuteJavaScriptWithStrX4Int(code string, scriptURL string, frameName string, frameIdentifier string, startLine int32)
-	// ExitFullscreen
-	// Requests the renderer to exit browser fullscreen. In most cases exiting
-	// window fullscreen should also exit browser fullscreen. With Alloy style
-	// this function should be called in response to a user action such as
-	// clicking the green traffic light button on MacOS
-	// (ICefWindowDelegate.OnWindowFullscreenTransition callback) or pressing
-	// the "ESC" key (ICefKeyboardHandler.OnPreKeyEvent callback). With
-	// Chrome style these standard exit actions are handled internally but
-	// new/additional user actions can use this function. Set |will_cause_resize|
-	// to true (1) if exiting browser fullscreen will cause a view resize.
-	ExitFullscreen(willCauseResize bool)
-	// Fullscreen
-	// Returns true (1) if the renderer is currently in browser fullscreen. This
-	// differs from window fullscreen in that browser fullscreen is entered using
-	// the JavaScript Fullscreen API and modifies CSS attributes such as the
-	// ::backdrop pseudo-element and :fullscreen pseudo-structure. This property
-	// can only be called on the UI thread.
-	Fullscreen() bool
-	// GetComponentById
-	// Returns the component with the specified |component_id|, or nullptr if not
-	// found or the service is not available.
-	// This function may only be called on the browser process UI thread.
-	// <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_component_updater_capi.h">CEF source file: /include/capi/cef_component_updater_capi.h (cef_component_updater_t)</see>
-	GetComponentById(componentId string, result *ICefComponent) bool
-	// GetComponentCount
-	// Returns the number of registered components, or 0 if the service is not
-	// available.
-	// This function may only be called on the browser process UI thread.
-	// <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_component_updater_capi.h">CEF source file: /include/capi/cef_component_updater_capi.h (cef_component_updater_t)</see>
-	GetComponentCount() cefTypes.NativeUInt
-	// GetComponents
-	// Populates |components_| with all registered components. Any existing
-	// contents will be cleared first.
-	// This function may only be called on the browser process UI thread.
-	// <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_component_updater_capi.h">CEF source file: /include/capi/cef_component_updater_capi.h (cef_component_updater_t)</see>
-	GetComponents(components *ICefComponentArray) bool
-	// GetContentSetting
-	// Returns the current value for |content_type| that applies for the
-	// specified URLs. If both URLs are NULL the default value will be returned.
-	// Returns CEF_CONTENT_SETTING_VALUE_DEFAULT if no value is configured. Must
-	// be called on the browser process UI thread.
-	GetContentSetting(requestingUrl string, topLevelUrl string, contentType cefTypes.TCefContentSettingTypes) cefTypes.TCefContentSettingValues
-	// GetFrameIdentifiers
-	// Returns the identifiers of all existing frames.
-	GetFrameIdentifiers(frameIdentifiers *lcl.IStrings) bool
-	// GetWebsiteSetting
-	// Returns the current value for |content_type| that applies for the
-	// specified URLs. If both URLs are NULL the default value will be returned.
-	// Returns nullptr if no value is configured. Must be called on the browser
-	// process UI thread.
-	GetWebsiteSetting(requestingUrl string, topLevelUrl string, contentType cefTypes.TCefContentSettingTypes) ICefValue
-	// HSTSPolicyBypassList
-	// List of comma-delimited single-label hostnames that will skip the check to possibly upgrade from http to https.
-	HSTSPolicyBypassList() string
-	// HTTPSUpgrade
-	// Automatically upgrade to HTTPS connections.
-	HTTPSUpgrade() cefTypes.TCefState
-	// IncZoomCommand
-	// Execute a zoom IN command in this browser. If called on the CEF UI thread the
-	// change will be applied immediately. Otherwise, the change will be applied
-	// asynchronously on the CEF UI thread.
-	IncZoomCommand()
-	// IsReadyToBeClosed
-	// Returns true (1) if the browser is ready to be closed, meaning that the
-	// close has already been initiated and that JavaScript unload handlers have
-	// already executed or should be ignored. This can be used from a top-level
-	// window close handler such as TCEFWindowComponent.OnCanClose (or platform-
-	// specific equivalent) to distringuish between potentially cancelable
-	// browser close events (like the user clicking the top-level window close
-	// button before browser close has started) and mandatory browser close
-	// events (like JavaScript `window.close()` or after browser close has
-	// started in response to [Try]CloseBrowser()). Not completing the browser
-	// close for mandatory close events (when this function returns true (1))
-	// will leave the browser in a partially closed state that interferes with
-	// proper functioning. See CloseBrowser() documentation for additional usage
-	// information. This function must be called on the browser process UI
-	// thread.
-	IsReadyToBeClosed() bool
-	// IsRenderProcessUnresponsive
-	// Returns true (1) if the render process associated with this browser is
-	// currently unresponsive as indicated by a lack of input event processing
-	// for at least 15 seconds. To receive associated state change notifications
-	// and optionally handle an unresponsive render process implement
-	// ICefRequestHandler.OnRenderProcessUnresponsive.
-	// This property can only be read on the CEF UI thread.
-	IsRenderProcessUnresponsive() bool
-	// LoadResourceWithCMStreamStrX4
-	// Used to load a DATA URI with the stream contents in the specified frame or the main frame.
-	// The DATA URI will be configured with the mime type and charset specified in the parameters.
-	LoadResourceWithCMStreamStrX4(stream lcl.ICustomMemoryStream, mimeType string, charset string, frameName string, frameIdentifier string)
-	// LoadStringWithStrX3
-	// Used to load a DATA URI with the HTML string contents in the specified frame or the main frame.
-	LoadStringWithStrX3(hTML string, frameName string, frameIdentifier string)
-	// LoadURLWithStrX3
-	// Used to navigate to a URL in the specified frame or the main frame.
-	LoadURLWithStrX3(uRL string, frameName string, frameIdentifier string)
-	// OpenerIdentifier
-	// Retrieve the unique identifier of the browser that opened this browser.
-	// Will return 0 for non-popup browsers.
-	OpenerIdentifier() int32
-	// RemovePreferenceObserver
-	// Remove an observer for preference changes.
-	// <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_preference_capi.h">CEF source file: /include/capi/cef_preference_capi.h (cef_preference_manager_t)</see>
-	RemovePreferenceObserver(name string)
-	// ResetZoomCommand
-	// Execute a zoom RESET command in this browser. If called on the CEF UI thread the
-	// change will be applied immediately. Otherwise, the change will be applied
-	// asynchronously on the CEF UI thread.
-	ResetZoomCommand()
-	// RetrieveHTMLWithStrX2
-	// Retrieve all the HTML content from the specified frame or the main frame.
-	// Leave aFrameName empty to get the HTML source from the main frame.
-	// It uses a CefStringVisitor to get the HTML content asynchronously and the
-	// result will be received in the TChromiumCore.OnTextResultAvailable event.
-	RetrieveHTMLWithStrX2(frameName string, frameIdentifier string)
-	// RetrieveTextWithStrX2
-	// Retrieve all the text content from the specified frame or the main frame.
-	// Leave aFrameName empty to get the text from the main frame.
-	// It uses a CefStringVisitor to get the text asynchronously and the
-	// result will be received in the TChromiumCore.OnTextResultAvailable event.
-	RetrieveTextWithStrX2(frameName string, frameIdentifier string)
-	// RuntimeStyle
-	// Returns the runtime style for this browser (ALLOY or CHROME). See
-	// TCefRuntimeStyle documentation for details.
-	// This property can only be read on the CEF UI thread.
-	RuntimeStyle() cefTypes.TCefRuntimeStyle
-	// SearchSuggestEnabled
-	// Browser preference used to enable search suggestions.
-	// Disabling this property is a suggested workaround for some autofill crashes in Alloy style.
-	SearchSuggestEnabled() cefTypes.TCefState
-	// SendProcessMessageWithPIdPMessageStrX2
-	// Send a message to the specified |targetProcess|. Ownership of the message
-	// contents will be transferred and the |ProcMessage| reference will be
-	// invalidated. Message delivery is not guaranteed in all cases (for example,
-	// if the browser is closing, navigating, or if the target process crashes).
-	// Send an ACK message back from the target process if confirmation is
-	// required.
-	SendProcessMessageWithPIdPMessageStrX2(targetProcess cefTypes.TCefProcessId, procMessage ICefProcessMessage, frameName string, frameIdentifier string)
-	SetAutofillCreditCard(value cefTypes.TCefState)
-	SetAutofillProfile(value cefTypes.TCefState)
-	SetAutofillSaveData(value cefTypes.TCefState)
-	// SetAxViewportCollapse
-	// Enable or disable CDP accessibility tree viewport collapse for this
-	// browser. When enabled, off-screen landmarks and headings are serialized as
-	// summaries and other off-screen nodes are pruned. Overrides the
-	// TChromiumOptions.AxViewportCollapse value. If called on the UI
-	// thread the change will be applied immediately. Otherwise, the change will
-	// be applied asynchronously on the UI thread. WARNING: This collapses the
-	// CDP accessibility tree and disables CDP dynamic tree updates (nodesUpdated
-	// events). The DevTools Accessibility panel will show an incomplete tree.
-	// Platform screen readers (NVDA, JAWS, VoiceOver) are unaffected they use
-	// a separate code path.
-	SetAxViewportCollapse(enabled bool)
-	SetCanMakePayment(value cefTypes.TCefState)
-	// SetChromeColorScheme
-	// Sets the Chrome color scheme for all browsers that share this request
-	// context. |variant| values of SYSTEM, LIGHT and DARK change the underlying
-	// color mode (e.g. light vs dark). Other |variant| values determine how
-	// |user_color| will be applied in the current color mode. If |user_color| is
-	// transparent (0) the default color will be used.
-	SetChromeColorScheme(variant cefTypes.TCefColorVariant, userColor cefTypes.TCefColor)
-	// SetContentSetting
-	// Sets the current value for |content_type| for the specified URLs in the
-	// default scope. If both URLs are NULL, and the context is not incognito,
-	// the default value will be set. Pass CEF_CONTENT_SETTING_VALUE_DEFAULT for
-	// |value| to use the default value for this content type.
-	// WARNING: Incorrect usage of this function may cause instability or
-	// security issues in Chromium. Make sure that you first understand the
-	// potential impact of any changes to |content_type| by reviewing the related
-	// source code in Chromium. For example, if you plan to modify
-	// CEF_CONTENT_SETTING_TYPE_POPUPS, first review and understand the usage of
-	// ContentSettingsType::POPUPS in Chromium:
-	// https://source.chromium.org/search?q=ContentSettingsType::POPUPS
-	SetContentSetting(requestingUrl string, topLevelUrl string, contentType cefTypes.TCefContentSettingTypes, value cefTypes.TCefContentSettingValues)
-	SetCredentialsService(value cefTypes.TCefState)
-	SetDownloadBubble(value cefTypes.TCefState)
-	SetEnableFocusDelayMs(value uint32)
-	SetHSTSPolicyBypassList(value string)
-	SetHTTPSUpgrade(value cefTypes.TCefState)
-	SetOnBeforeDevToolsPopup(fn TOnBeforeDevToolsPopup)
-	SetOnBeforePopupAborted(fn TOnBeforePopupAborted)
-	SetOnCanFocus(fn TNotifyEvent)
-	SetOnComponentUpdateCompleted(fn TOnComponentUpdateCompletedEvent)
-	SetOnContentsBoundsChange(fn TOnContentsBoundsChange)
-	SetOnFrameDestroyed(fn TOnFrameDestroyed)
-	SetOnGetRootWindowScreenRect(fn TOnGetRootWindowScreenRect)
-	SetOnHttpCacheCleared(fn TNotifyEvent)
-	SetOnIsChromeAppMenuItemEnabled(fn TOnIsChromeAppMenuItemEnabledEvent)
-	SetOnIsChromeAppMenuItemVisible(fn TOnIsChromeAppMenuItemVisibleEvent)
-	SetOnIsChromePageActionIconVisible(fn TOnIsChromePageActionIconVisibleEvent)
-	SetOnIsChromeToolbarButtonVisible(fn TOnIsChromeToolbarButtonVisibleEvent)
-	SetOnPreferenceChanged(fn TOnPreferenceChangedEvent)
-	SetOnRenderProcessResponsive(fn TOnRenderProcessResponsive)
-	SetOnRenderProcessUnresponsive(fn TOnRenderProcessUnresponsive)
-	SetOnSettingChanged(fn TOnSettingChangedEvent)
-	SetRuntimeStyle(value cefTypes.TCefRuntimeStyle)
-	SetSearchSuggestEnabled(value cefTypes.TCefState)
-	SetStorageNotificationService(value cefTypes.TCefState)
-	SetURLDataCollection(value cefTypes.TCefState)
-	// SetWebsiteSetting
-	// Sets the current value for |content_type| for the specified URLs in the
-	// default scope. If both URLs are NULL, and the context is not incognito,
-	// the default value will be set. Pass nullptr for |value| to remove the
-	// default value for this content type.
-	// WARNING: Incorrect usage of this function may cause instability or
-	// security issues in Chromium. Make sure that you first understand the
-	// potential impact of any changes to |content_type| by reviewing the related
-	// source code in Chromium. For example, if you plan to modify
-	// CEF_CONTENT_SETTING_TYPE_POPUPS, first review and understand the usage of
-	// ContentSettingsType::POPUPS in Chromium:
-	// https://source.chromium.org/search?q=ContentSettingsType::POPUPS
-	SetWebsiteSetting(requestingUrl string, topLevelUrl string, contentType cefTypes.TCefContentSettingTypes, value ICefValue)
-	// SimulateEditingCommand
-	// Simulate editing commands using the "Input.dispatchKeyEvent" DevTools method.
-	// <see href="https://chromedevtools.github.io/devtools-protocol/1-3/Input/#method-dispatchKeyEvent">See the "Input.dispatchKeyEvent" DevTools method.</see>
-	// <see href="https://source.chromium.org/chromium/chromium/src/+/master:third_party/blink/renderer/core/editing/commands/editor_command_names.h">See the Chromium sources.</see>
-	SimulateEditingCommand(command cefTypes.TCefEditingCommand)
-	// SimulateKeyEvent
-	// Dispatches a key event to the page using the "Input.dispatchKeyEvent"
-	// DevTools method. The browser has to be focused before simulating any
-	// key event.
-	// <param name="type_">Type of the key event.</param>
-	// <param name="modifiers">Bit field representing pressed modifier keys. Alt=1, Ctrl=2, Meta/Command=4, Shift=8.(default: 0).</param>
-	// <param name="timestamp">Time at which the event occurred.</param>
-	// <param name="text">Text as generated by processing a virtual key code with a keyboard layout. Not needed for for keyUp and rawKeyDown events.(default: "")</param>
-	// <param name="unmodifiedtext">Text that would have been generated by the keyboard if no modifiers were pressed (except for shift). Useful for shortcut (accelerator) key handling.(default: "").</param>
-	// <param name="keyIdentifier">Unique key identifier (e.g., 'U+0041').(default: "").</param>
-	// <param name="code">Unique DOM defined string value for each physical key (e.g., 'KeyA').(default: "").</param>
-	// <param name="key">Unique DOM defined string value describing the meaning of the key in the context of active modifiers, keyboard layout, etc (e.g., 'AltGr').(default: "").</param>
-	// <param name="windowsVirtualKeyCode">Windows virtual key code.(default: 0).</param>
-	// <param name="nativeVirtualKeyCode">Native virtual key code.(default: 0).</param>
-	// <param name="autoRepeat">Whether the event was generated from auto repeat.(default: false).</param>
-	// <param name="isKeypad">Whether the event was generated from the keypad.(default: false).</param>
-	// <param name="isSystemKey">Whether the event was a system key event.(default: false).</param>
-	// <param name="location">Whether the event was from the left or right side of the keyboard. 1=Left, 2=Right.(default: 0).</param>
-	// <param name="commands">Editing commands to send with the key event (e.g., 'selectAll') (default: []). These are related to but not equal the command names used in document.execCommand and NSStandardKeyBindingResponding. See https://source.chromium.org/chromium/chromium/src/+/main:third_party/blink/renderer/core/editing/commands/editor_command_names.h for valid command names.</param>
-	// <see href="https://chromedevtools.github.io/devtools-protocol/1-3/Input/#method-dispatchKeyEvent">See the "Input.dispatchKeyEvent" DevTools method.</see>
-	SimulateKeyEvent(args TChromiumCoreSimulateKeyEventArgs)
-	// SimulateMouseEvent
-	// Dispatches a key event to the page using the "Input.dispatchKeyEvent"
-	// DevTools method. The browser has to be focused before simulating any
-	// key event.
-	// <param name="type_">Type of the mouse event.</param>
-	// <param name="x">X coordinate of the event relative to the main frame's viewport in CSS pixels.</param>
-	// <param name="y">Y coordinate of the event relative to the main frame's viewport in CSS pixels. 0 refers to the top of the viewport and Y increases as it proceeds towards the bottom of the viewport.</param>
-	// <param name="modifiers">Bit field representing pressed modifier keys. Alt=1, Ctrl=2, Meta/Command=4, Shift=8 (default: 0). See the CEF_MOUSETOUCH_EVENT_MODIFIERS_* constants.</param>
-	// <param name="timestamp">Time at which the event occurred.</param>
-	// <param name="button">Mouse button (default: "none").</param>
-	// <param name="buttons">A number indicating which buttons are pressed on the mouse when a mouse event is triggered. Left=1, Right=2, Middle=4, Back=8, Forward=16, None=0.</param>
-	// <param name="clickCount">Number of times the mouse button was clicked (default: 0).</param>
-	// <param name="force">The normalized pressure, which has a range of [0,1] (default: 0). </param>
-	// <param name="tangentialPressure">The normalized tangential pressure, which has a range of [-1,1] (default: 0).</param>
-	// <param name="tiltX">The plane angle between the Y-Z plane and the plane containing both the stylus axis and the Y axis, in degrees of the range [-90,90], a positive tiltX is to the right (default: 0).</param>
-	// <param name="tiltY">The plane angle between the X-Z plane and the plane containing both the stylus axis and the X axis, in degrees of the range [-90,90], a positive tiltY is towards the user (default: 0).</param>
-	// <param name="twist">The clockwise rotation of a pen stylus around its own major axis, in degrees in the range [0,359] (default: 0).</param>
-	// <param name="deltaX">X delta in CSS pixels for mouse wheel event (default: 0).</param>
-	// <param name="deltaY">Y delta in CSS pixels for mouse wheel event (default: 0).</param>
-	// <param name="pointerType">Pointer type (default: "mouse").</param>
-	// <see href="https://chromedevtools.github.io/devtools-protocol/1-3/Input/#method-dispatchKeyEvent">See the "Input.dispatchKeyEvent" DevTools method.</see>
-	SimulateMouseEvent(args TChromiumCoreSimulateMouseEventArgs)
-	// StorageNotificationService
-	// Used to disable the "Free up space to continue" notification for the current profile.
-	StorageNotificationService() cefTypes.TCefState
-	// URLDataCollection
-	// Browser preference used to enable url keyed anonymized data collection.
-	// Disabling this property is a suggested workaround for some autofill crashes in Alloy style.
-	URLDataCollection() cefTypes.TCefState
-	// UpdateComponent
-	// Triggers an on-demand update for the component with the specified
-	// |component_id|. |priority| specifies whether the update should be
-	// processed in the background or foreground. Use
-	// CEF_COMPONENT_UPDATE_PRIORITY_FOREGROUND for user-initiated updates.
-	// TChromiumCore.OnComponentUpdateCompleted will be triggered
-	// asynchronously on the UI thread when the update
-	// operation completes. The event is always executed, including when the
-	// component is already up-to-date (returns CEF_COMPONENT_UPDATE_ERROR_NONE),
-	// when the requested component doesn't exist, or when the service is
-	// unavailable (returns CEF_COMPONENT_UPDATE_ERROR_SERVICE_ERROR).
-	// This function may only be called on the browser process UI thread.
-	// <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_component_updater_capi.h">CEF source file: /include/capi/cef_component_updater_capi.h (cef_component_updater_t)</see>
-	UpdateComponent(componentId string, priority cefTypes.TCefComponentUpdatePriority)
 }
 
 type tIChromiumCore_147 struct {
@@ -36309,10 +33450,6 @@ func (t *tIChromiumCore_147) ZoomStep() byte {
 	return r0
 }
 
-type IChromiumEvents_147 interface {
-	IChromiumEvents
-}
-
 type tIChromiumEvents_147 struct {
 	raw vcef.IChromiumEvents
 	IObject
@@ -36351,10 +33488,6 @@ func (t *tIChromiumEvents_147) CEFVersion() string {
 
 func (t *tIChromiumEvents_147) RawCEF147IChromiumEvents() vcef.IChromiumEvents {
 	return t.raw
-}
-
-type IChromiumFontOptions_147 interface {
-	IChromiumFontOptions
 }
 
 type tIChromiumFontOptions_147 struct {
@@ -36496,28 +33629,6 @@ func (t *tIChromiumFontOptions_147) SetStandardFontFamily(value string) {
 func (t *tIChromiumFontOptions_147) StandardFontFamily() string {
 	r0 := t.raw.StandardFontFamily()
 	return r0
-}
-
-type IChromiumOptions_147 interface {
-	IChromiumOptions
-	// AxViewportCollapse
-	// Controls whether CDP accessibility tree serialization collapses off-screen
-	// nodes. When enabled, off-screen landmarks and headings are serialized as
-	// summaries (role + name only) and other off-screen nodes are pruned.
-	// This reduces snapshot size for AI agents using Playwright ariaSnapshot().
-	// WARNING: This collapses the CDP accessibility tree and disables CDP
-	// dynamic tree updates (nodesUpdated events). The DevTools Accessibility
-	// panel will show an incomplete tree. Platform screen readers (NVDA, JAWS,
-	// VoiceOver) are unaffected they use a separate code path.
-	// Can also be configured at runtime using
-	// ICefBrowserHost.SetAxViewportCollapse.
-	AxViewportCollapse() cefTypes.TCefState
-	// ChromeZoomBubble
-	// Controls whether the Chrome zoom bubble will be shown when zooming. Only
-	// supported with Chrome style.
-	ChromeZoomBubble() cefTypes.TCefState
-	SetAxViewportCollapse(value cefTypes.TCefState)
-	SetChromeZoomBubble(value cefTypes.TCefState)
 }
 
 type tIChromiumOptions_147 struct {
@@ -36704,10 +33815,6 @@ func (t *tIChromiumOptions_147) WindowlessFrameRate() int32 {
 	return r0
 }
 
-type IChromiumWindow_147 interface {
-	IChromiumWindow
-}
-
 type tIChromiumWindow_147 struct {
 	raw vcef.IChromiumWindow
 	*tICEFLinkedWinControlBase_147
@@ -36787,10 +33894,6 @@ func (t *tIChromiumWindow_147) SetOnClose(fn TNotifyEvent) {
 	t.raw.SetOnClose(func(sender lcl.IObject) { fn(sender) })
 }
 
-type IEngAccessibilityHandler_147 interface {
-	IEngAccessibilityHandler
-}
-
 type tIEngAccessibilityHandler_147 struct {
 	raw vcef.IEngAccessibilityHandler
 	*tICEFAccessibilityHandlerOwn_147
@@ -36844,10 +33947,6 @@ func (t *tIEngAccessibilityHandler_147) SetOnAccessibilityAccessibilityLocationC
 
 func (t *tIEngAccessibilityHandler_147) SetOnAccessibilityAccessibilityTreeChange(fn TOnAccessibilityAccessibilityTreeChangeEvent) {
 	t.raw.SetOnAccessibilityAccessibilityTreeChange(func(value vcef.ICefValue) { fn(wrapICefValue(value)) })
-}
-
-type IEngApp_147 interface {
-	IEngApp
 }
 
 type tIEngApp_147 struct {
@@ -36935,10 +34034,6 @@ func (t *tIEngApp_147) SetOnAppRegisterCustomSchemes(fn TOnAppRegisterCustomSche
 	t.raw.SetOnAppRegisterCustomSchemes(func(registrar vcef.ICefSchemeRegistrarRef) { fn(wrapICefSchemeRegistrarRef(registrar)) })
 }
 
-type IEngAudioHandler_147 interface {
-	IEngAudioHandler
-}
-
 type tIEngAudioHandler_147 struct {
 	raw vcef.IEngAudioHandler
 	*tICefAudioHandlerOwn_147
@@ -37008,12 +34103,6 @@ func (t *tIEngAudioHandler_147) SetOnAudioGetAudioParameters(fn TOnAudioGetAudio
 	t.raw.SetOnAudioGetAudioParameters(func(browser vcef.ICefBrowser, params *TCefAudioParameters, result *bool) {
 		fn(wrapICefBrowser(browser), params, result)
 	})
-}
-
-type IEngBrowserProcessHandler_147 interface {
-	IEngBrowserProcessHandler
-	SetOnBrowserProcessAlreadyRunningAppRelaunch(fn TOnBrowserProcessAlreadyRunningAppRelaunchEvent)
-	SetOnBrowserProcessGetDefaultRequestContextHandler(fn TOnBrowserProcessGetDefaultRequestContextHandlerEvent)
 }
 
 type tIEngBrowserProcessHandler_147 struct {
@@ -37103,15 +34192,6 @@ func (t *tIEngBrowserProcessHandler_147) SetOnBrowserProcessRegisterCustomPrefer
 
 func (t *tIEngBrowserProcessHandler_147) SetOnBrowserProcessScheduleMessagePumpWork(fn TOnBrowserProcessScheduleMessagePumpWorkEvent) {
 	t.raw.SetOnBrowserProcessScheduleMessagePumpWork(func(delayMs int64) { fn(delayMs) })
-}
-
-type IEngBrowserViewDelegate_147 interface {
-	IEngBrowserViewDelegate
-	SetOnBrowserViewAllowMoveForPictureInPicture(fn TOnBrowserViewAllowMoveForPictureInPictureEvent)
-	SetOnBrowserViewAllowPictureInPictureWithoutUserActivation(fn TOnBrowserViewAllowPictureInPictureWithoutUserActivationEvent)
-	SetOnBrowserViewGestureCommand(fn TOnBrowserViewGestureCommandEvent)
-	SetOnBrowserViewGetBrowserRuntimeStyle(fn TOnBrowserViewGetBrowserRuntimeStyleEvent)
-	SetOnBrowserViewUseFramelessWindowForPictureInPicture(fn TOnBrowserViewUseFramelessWindowForPictureInPictureEvent)
 }
 
 type tIEngBrowserViewDelegate_147 struct {
@@ -37222,10 +34302,6 @@ func (t *tIEngBrowserViewDelegate_147) SetOnBrowserViewUseFramelessWindowForPict
 	t.raw.SetOnBrowserViewUseFramelessWindowForPictureInPicture(func(browserView vcef.ICefBrowserView, result *bool) { fn(wrapICefBrowserView(browserView), result) })
 }
 
-type IEngButtonDelegate_147 interface {
-	IEngButtonDelegate
-}
-
 type tIEngButtonDelegate_147 struct {
 	raw vcef.IEngButtonDelegate
 	*tICefButtonDelegateOwn_147
@@ -37284,10 +34360,6 @@ func (t *tIEngButtonDelegate_147) SetOnButtonButtonPressed(fn TOnButtonButtonPre
 
 func (t *tIEngButtonDelegate_147) SetOnButtonButtonStateChanged(fn TOnButtonButtonStateChangedEvent) {
 	t.raw.SetOnButtonButtonStateChanged(func(button vcef.ICefButton) { fn(wrapICefButton(button)) })
-}
-
-type IEngClient_147 interface {
-	IEngClient
 }
 
 type tIEngClient_147 struct {
@@ -37522,14 +34594,6 @@ func (t *tIEngClient_147) SetOnClientProcessMessageReceived(fn TOnClientProcessM
 	})
 }
 
-type IEngCommandHandler_147 interface {
-	IEngCommandHandler
-	SetOnCommandIsChromeAppMenuItemEnabled(fn TOnCommandIsChromeAppMenuItemEnabledEvent)
-	SetOnCommandIsChromeAppMenuItemVisible(fn TOnCommandIsChromeAppMenuItemVisibleEvent)
-	SetOnCommandIsChromePageActionIconVisible(fn TOnCommandIsChromePageActionIconVisibleEvent)
-	SetOnCommandIsChromeToolbarButtonVisible(fn TOnCommandIsChromeToolbarButtonVisibleEvent)
-}
-
 type tIEngCommandHandler_147 struct {
 	raw vcef.IEngCommandHandler
 	*tICefCommandHandlerOwn_147
@@ -37612,10 +34676,6 @@ func (t *tIEngCommandHandler_147) SetOnCommandIsChromeToolbarButtonVisible(fn TO
 	})
 }
 
-type IEngCompletionCallback_147 interface {
-	IEngCompletionCallback
-}
-
 type tIEngCompletionCallback_147 struct {
 	raw vcef.IEngCompletionCallback
 	*tICefCompletionCallbackOwn_147
@@ -37665,10 +34725,6 @@ func (t *tIEngCompletionCallback_147) AsIntfCompletionCallback() uintptr {
 
 func (t *tIEngCompletionCallback_147) SetOnCompletionCallbackComplete(fn TOnCompletionCallbackCompleteEvent) {
 	t.raw.SetOnCompletionCallbackComplete(func() { fn() })
-}
-
-type IEngContextMenuHandler_147 interface {
-	IEngContextMenuHandler
 }
 
 type tIEngContextMenuHandler_147 struct {
@@ -37764,10 +34820,6 @@ func (t *tIEngContextMenuHandler_147) SetOnContextMenuRunQuickMenu(fn TOnContext
 	})
 }
 
-type IEngCookieAccessFilter_147 interface {
-	IEngCookieAccessFilter
-}
-
 type tIEngCookieAccessFilter_147 struct {
 	raw vcef.IEngCookieAccessFilter
 	*tICefCookieAccessFilterOwn_147
@@ -37829,10 +34881,6 @@ func (t *tIEngCookieAccessFilter_147) SetOnCookieAccessFilterCanSendCookie(fn TO
 	})
 }
 
-type IEngCookieVisitor_147 interface {
-	IEngCookieVisitor
-}
-
 type tIEngCookieVisitor_147 struct {
 	raw vcef.IEngCookieVisitor
 	*tICefCookieVisitorOwn_147
@@ -37885,10 +34933,6 @@ func (t *tIEngCookieVisitor_147) SetOnCookieVisitorVisit(fn TOnCookieVisitorVisi
 	})
 }
 
-type IEngDeleteCookiesCallback_147 interface {
-	IEngDeleteCookiesCallback
-}
-
 type tIEngDeleteCookiesCallback_147 struct {
 	raw vcef.IEngDeleteCookiesCallback
 	*tICefDeleteCookiesCallbackOwn_147
@@ -37938,10 +34982,6 @@ func (t *tIEngDeleteCookiesCallback_147) AsIntfDeleteCookiesCallback() uintptr {
 
 func (t *tIEngDeleteCookiesCallback_147) SetOnDeleteCookiesCallbackComplete(fn TOnDeleteCookiesCallbackCompleteEvent) {
 	t.raw.SetOnDeleteCookiesCallbackComplete(func(numDeleted int32) { fn(numDeleted) })
-}
-
-type IEngDevToolsMessageObserver_147 interface {
-	IEngDevToolsMessageObserver
 }
 
 type tIEngDevToolsMessageObserver_147 struct {
@@ -38017,10 +35057,6 @@ func (t *tIEngDevToolsMessageObserver_147) SetOnDevToolsMessageObserverDevTools(
 	})
 }
 
-type IEngDialogHandler_147 interface {
-	IEngDialogHandler
-}
-
 type tIEngDialogHandler_147 struct {
 	raw vcef.IEngDialogHandler
 	*tICefDialogHandlerOwn_147
@@ -38071,12 +35107,6 @@ func (t *tIEngDialogHandler_147) SetOnDialogFileDialog(fn TOnDialogFileDialogEve
 		r0 := fn(wrapICefBrowser(browser), mode, title, defaultFilePath, acceptFilters, acceptExtensions, acceptDescriptions, wrapICefFileDialogCallback(callback))
 		return r0
 	})
-}
-
-type IEngDisplayHandler_147 interface {
-	IEngDisplayHandler
-	SetOnDisplayContentsBoundsChange(fn TOnDisplayContentsBoundsChangeEvent)
-	SetOnDisplayGetRootWindowScreenRect(fn TOnDisplayGetRootWindowScreenRectEvent)
 }
 
 type tIEngDisplayHandler_147 struct {
@@ -38199,10 +35229,6 @@ func (t *tIEngDisplayHandler_147) SetOnDisplayTooltip(fn TOnDisplayTooltipEvent)
 	})
 }
 
-type IEngDomVisitor_147 interface {
-	IEngDomVisitor
-}
-
 type tIEngDomVisitor_147 struct {
 	raw vcef.IEngDomVisitor
 	*tICefDomVisitorOwn_147
@@ -38250,10 +35276,6 @@ func (t *tIEngDomVisitor_147) AsIntfDomVisitor() uintptr {
 
 func (t *tIEngDomVisitor_147) SetOnDomVisitorVisit(fn TOnDomVisitorVisitEvent) {
 	t.raw.SetOnDomVisitorVisit(func(document vcef.ICefDomDocument) { fn(wrapICefDomDocument(document)) })
-}
-
-type IEngDownloadHandler_147 interface {
-	IEngDownloadHandler
 }
 
 type tIEngDownloadHandler_147 struct {
@@ -38323,10 +35345,6 @@ func (t *tIEngDownloadHandler_147) SetOnDownloadDownloadUpdated(fn TOnDownloadDo
 	})
 }
 
-type IEngDownloadImageCallback_147 interface {
-	IEngDownloadImageCallback
-}
-
 type tIEngDownloadImageCallback_147 struct {
 	raw vcef.IEngDownloadImageCallback
 	*tICefDownloadImageCallbackOwn_147
@@ -38378,10 +35396,6 @@ func (t *tIEngDownloadImageCallback_147) SetOnDownloadImageCallbackDownloadImage
 	t.raw.SetOnDownloadImageCallbackDownloadImageFinished(func(imageUrl string, httpStatusCode int32, image vcef.ICefImage) {
 		fn(imageUrl, httpStatusCode, wrapICefImage(image))
 	})
-}
-
-type IEngDragHandler_147 interface {
-	IEngDragHandler
 }
 
 type tIEngDragHandler_147 struct {
@@ -38442,10 +35456,6 @@ func (t *tIEngDragHandler_147) SetOnDragDraggableRegionsChanged(fn TOnDragDragga
 	})
 }
 
-type IEngEndTracingCallback_147 interface {
-	IEngEndTracingCallback
-}
-
 type tIEngEndTracingCallback_147 struct {
 	raw vcef.IEngEndTracingCallback
 	*tICefEndTracingCallbackOwn_147
@@ -38497,10 +35507,6 @@ func (t *tIEngEndTracingCallback_147) SetOnEndTracingCallbackEndTracingComplete(
 	t.raw.SetOnEndTracingCallbackEndTracingComplete(func(tracingFile string) { fn(tracingFile) })
 }
 
-type IEngFindHandler_147 interface {
-	IEngFindHandler
-}
-
 type tIEngFindHandler_147 struct {
 	raw vcef.IEngFindHandler
 	*tICefFindHandlerOwn_147
@@ -38550,10 +35556,6 @@ func (t *tIEngFindHandler_147) SetOnFindFindResult(fn TOnFindFindResultEvent) {
 	t.raw.SetOnFindFindResult(func(browser vcef.ICefBrowser, identifier int32, count int32, selectionRect TCefRect, activeMatchOrdinal int32, finalUpdate bool) {
 		fn(wrapICefBrowser(browser), identifier, count, selectionRect, activeMatchOrdinal, finalUpdate)
 	})
-}
-
-type IEngFocusHandler_147 interface {
-	IEngFocusHandler
 }
 
 type tIEngFocusHandler_147 struct {
@@ -38614,11 +35616,6 @@ func (t *tIEngFocusHandler_147) SetOnFocusSetFocus(fn TOnFocusSetFocusEvent) {
 
 func (t *tIEngFocusHandler_147) SetOnFocusTakeFocus(fn TOnFocusTakeFocusEvent) {
 	t.raw.SetOnFocusTakeFocus(func(browser vcef.ICefBrowser, next bool) { fn(wrapICefBrowser(browser), next) })
-}
-
-type IEngFrameHandler_147 interface {
-	IEngFrameHandler
-	SetOnFrameFrameDestroyed(fn TOnFrameFrameDestroyedEvent)
 }
 
 type tIEngFrameHandler_147 struct {
@@ -38696,10 +35693,6 @@ func (t *tIEngFrameHandler_147) SetOnFrameMainFrameChanged(fn TOnFrameMainFrameC
 	})
 }
 
-type IEngJsDialogHandler_147 interface {
-	IEngJsDialogHandler
-}
-
 type tIEngJsDialogHandler_147 struct {
 	raw vcef.IEngJsDialogHandler
 	*tICefJsDialogHandlerOwn_147
@@ -38769,10 +35762,6 @@ func (t *tIEngJsDialogHandler_147) SetOnJsDialogResetDialogState(fn TOnJsDialogR
 	t.raw.SetOnJsDialogResetDialogState(func(browser vcef.ICefBrowser) { fn(wrapICefBrowser(browser)) })
 }
 
-type IEngKeyboardHandler_147 interface {
-	IEngKeyboardHandler
-}
-
 type tIEngKeyboardHandler_147 struct {
 	raw vcef.IEngKeyboardHandler
 	*tICefKeyboardHandlerOwn_147
@@ -38832,12 +35821,6 @@ func (t *tIEngKeyboardHandler_147) SetOnKeyboardPreKey(fn TOnKeyboardPreKeyEvent
 		r0 := fn(wrapICefBrowser(browser), event, osEvent, outIsKeyboardShortcut)
 		return r0
 	})
-}
-
-type IEngLifeSpanHandler_147 interface {
-	IEngLifeSpanHandler
-	SetOnLifeSpanBeforeDevToolsPopup(fn TOnLifeSpanBeforeDevToolsPopupEvent)
-	SetOnLifeSpanBeforePopupAborted(fn TOnLifeSpanBeforePopupAbortedEvent)
 }
 
 type tIEngLifeSpanHandler_147 struct {
@@ -38935,10 +35918,6 @@ func (t *tIEngLifeSpanHandler_147) SetOnLifeSpanDoClose(fn TOnLifeSpanDoCloseEve
 	})
 }
 
-type IEngLoadHandler_147 interface {
-	IEngLoadHandler
-}
-
 type tIEngLoadHandler_147 struct {
 	raw vcef.IEngLoadHandler
 	*tICefLoadHandlerOwn_147
@@ -39008,10 +35987,6 @@ func (t *tIEngLoadHandler_147) SetOnLoadLoadingStateChange(fn TOnLoadLoadingStat
 	})
 }
 
-type IEngMediaObserver_147 interface {
-	IEngMediaObserver
-}
-
 type tIEngMediaObserver_147 struct {
 	raw vcef.IEngMediaObserver
 	*tICefMediaObserverOwn_147
@@ -39075,10 +36050,6 @@ func (t *tIEngMediaObserver_147) SetOnMediaObserverSinks(fn TOnMediaObserverSink
 	t.raw.SetOnMediaObserverSinks(func(sinks vcef.ICefMediaSinkArray) { fn(wrapICefMediaSinkArray(sinks)) })
 }
 
-type IEngMediaRouteCreateCallback_147 interface {
-	IEngMediaRouteCreateCallback
-}
-
 type tIEngMediaRouteCreateCallback_147 struct {
 	raw vcef.IEngMediaRouteCreateCallback
 	*tICefMediaRouteCreateCallbackOwn_147
@@ -39132,10 +36103,6 @@ func (t *tIEngMediaRouteCreateCallback_147) SetOnMediaRouteCreateCallbackMediaRo
 	})
 }
 
-type IEngMediaSinkDeviceInfoCallback_147 interface {
-	IEngMediaSinkDeviceInfoCallback
-}
-
 type tIEngMediaSinkDeviceInfoCallback_147 struct {
 	raw vcef.IEngMediaSinkDeviceInfoCallback
 	*tICefMediaSinkDeviceInfoCallbackOwn_147
@@ -39185,10 +36152,6 @@ func (t *tIEngMediaSinkDeviceInfoCallback_147) AsIntfMediaSinkDeviceInfoCallback
 
 func (t *tIEngMediaSinkDeviceInfoCallback_147) SetOnMediaSinkDeviceInfoCallbackMediaSinkDeviceInfo(fn TOnMediaSinkDeviceInfoCallbackMediaSinkDeviceInfoEvent) {
 	t.raw.SetOnMediaSinkDeviceInfoCallbackMediaSinkDeviceInfo(func(ipAddress string, port int32, modelName string) { fn(ipAddress, port, modelName) })
-}
-
-type IEngMenuButtonDelegate_147 interface {
-	IEngMenuButtonDelegate
 }
 
 type tIEngMenuButtonDelegate_147 struct {
@@ -39252,10 +36215,6 @@ func (t *tIEngMenuButtonDelegate_147) SetOnMenuButtonMenuButtonPressed(fn TOnMen
 	t.raw.SetOnMenuButtonMenuButtonPressed(func(menuButton vcef.ICefMenuButton, screenPoint TCefPoint, buttonPressedLock vcef.ICefMenuButtonPressedLock) {
 		fn(wrapICefMenuButton(menuButton), screenPoint, wrapICefMenuButtonPressedLock(buttonPressedLock))
 	})
-}
-
-type IEngMenuModelDelegate_147 interface {
-	IEngMenuModelDelegate
 }
 
 type tIEngMenuModelDelegate_147 struct {
@@ -39340,10 +36299,6 @@ func (t *tIEngMenuModelDelegate_147) SetOnMenuModelUnhandledOpenSubmenu(fn TOnMe
 	t.raw.SetOnMenuModelUnhandledOpenSubmenu(func(menuModel vcef.ICefMenuModel, isRTL bool) { fn(wrapICefMenuModel(menuModel), isRTL) })
 }
 
-type IEngNavigationEntryVisitor_147 interface {
-	IEngNavigationEntryVisitor
-}
-
 type tIEngNavigationEntryVisitor_147 struct {
 	raw vcef.IEngNavigationEntryVisitor
 	*tICefNavigationEntryVisitorOwn_147
@@ -39398,10 +36353,6 @@ func (t *tIEngNavigationEntryVisitor_147) SetOnNavigationEntryVisitorVisit(fn TO
 	})
 }
 
-type IEngPanelDelegate_147 interface {
-	IEngPanelDelegate
-}
-
 type tIEngPanelDelegate_147 struct {
 	raw vcef.IEngPanelDelegate
 	*tICefPanelDelegateOwn_147
@@ -39450,10 +36401,6 @@ func (t *tIEngPanelDelegate_147) AsIntfPanelDelegate() uintptr {
 func (t *tIEngPanelDelegate_147) AsIntfViewDelegate() uintptr {
 	r0 := t.raw.AsIntfViewDelegate()
 	return r0
-}
-
-type IEngPdfPrintCallback_147 interface {
-	IEngPdfPrintCallback
 }
 
 type tIEngPdfPrintCallback_147 struct {
@@ -39505,10 +36452,6 @@ func (t *tIEngPdfPrintCallback_147) AsIntfPdfPrintCallback() uintptr {
 
 func (t *tIEngPdfPrintCallback_147) SetOnPdfPrintCallbackPdfPrintFinished(fn TOnPdfPrintCallbackPdfPrintFinishedEvent) {
 	t.raw.SetOnPdfPrintCallbackPdfPrintFinished(func(path string, ok bool) { fn(path, ok) })
-}
-
-type IEngPermissionHandler_147 interface {
-	IEngPermissionHandler
 }
 
 type tIEngPermissionHandler_147 struct {
@@ -39578,13 +36521,6 @@ func (t *tIEngPermissionHandler_147) SetOnPermissionShowPermissionPrompt(fn TOnP
 	})
 }
 
-type IEngPreferenceObserver_147 interface {
-	IEngPreferenceObserver
-	ICefPreferenceObserverOwn
-	AsIntfPreferenceObserver() uintptr
-	SetOnPreferenceObserverPreferenceChanged(fn TOnPreferenceObserverPreferenceChangedEvent)
-}
-
 type tIEngPreferenceObserver_147 struct {
 	raw vcef.IEngPreferenceObserver
 	*tICefPreferenceObserverOwn_147
@@ -39634,10 +36570,6 @@ func (t *tIEngPreferenceObserver_147) AsIntfPreferenceObserver() uintptr {
 
 func (t *tIEngPreferenceObserver_147) SetOnPreferenceObserverPreferenceChanged(fn TOnPreferenceObserverPreferenceChangedEvent) {
 	t.raw.SetOnPreferenceObserverPreferenceChanged(func(name string) { fn(name) })
-}
-
-type IEngPrintHandler_147 interface {
-	IEngPrintHandler
 }
 
 type tIEngPrintHandler_147 struct {
@@ -39715,10 +36647,6 @@ func (t *tIEngPrintHandler_147) SetOnPrintPrintSettings(fn TOnPrintPrintSettings
 
 func (t *tIEngPrintHandler_147) SetOnPrintPrintStart(fn TOnPrintPrintStartEvent) {
 	t.raw.SetOnPrintPrintStart(func(browser vcef.ICefBrowser) { fn(wrapICefBrowser(browser)) })
-}
-
-type IEngRenderHandler_147 interface {
-	IEngRenderHandler
 }
 
 type tIEngRenderHandler_147 struct {
@@ -39866,10 +36794,6 @@ func (t *tIEngRenderHandler_147) SetOnRenderVirtualKeyboardRequested(fn TOnRende
 	})
 }
 
-type IEngRenderProcessHandler_147 interface {
-	IEngRenderProcessHandler
-}
-
 type tIEngRenderProcessHandler_147 struct {
 	raw vcef.IEngRenderProcessHandler
 	*tICefRenderProcessHandlerOwn_147
@@ -39969,10 +36893,6 @@ func (t *tIEngRenderProcessHandler_147) SetOnRenderProcessWebKitInitialized(fn T
 	t.raw.SetOnRenderProcessWebKitInitialized(func() { fn() })
 }
 
-type IEngRequestContextHandler_147 interface {
-	IEngRequestContextHandler
-}
-
 type tIEngRequestContextHandler_147 struct {
 	raw vcef.IEngRequestContextHandler
 	*tICefRequestContextHandlerOwn_147
@@ -40032,12 +36952,6 @@ func (t *tIEngRequestContextHandler_147) SetOnRequestContextGetResourceRequestHa
 
 func (t *tIEngRequestContextHandler_147) SetOnRequestContextRequestContextInitialized(fn TOnRequestContextRequestContextInitializedEvent) {
 	t.raw.SetOnRequestContextRequestContextInitialized(func(requestContext vcef.ICefRequestContext) { fn(wrapICefRequestContext(requestContext)) })
-}
-
-type IEngRequestHandler_147 interface {
-	IEngRequestHandler
-	SetOnRequestRenderProcessResponsive(fn TOnRequestRenderProcessResponsiveEvent)
-	SetOnRequestRenderProcessUnresponsive(fn TOnRequestRenderProcessUnresponsiveEvent)
 }
 
 type tIEngRequestHandler_147 struct {
@@ -40157,10 +37071,6 @@ func (t *tIEngRequestHandler_147) SetOnRequestSelectClientCertificate(fn TOnRequ
 	})
 }
 
-type IEngResolveCallback_147 interface {
-	IEngResolveCallback
-}
-
 type tIEngResolveCallback_147 struct {
 	raw vcef.IEngResolveCallback
 	*tICefResolveCallbackOwn_147
@@ -40210,10 +37120,6 @@ func (t *tIEngResolveCallback_147) AsIntfResolveCallback() uintptr {
 
 func (t *tIEngResolveCallback_147) SetOnResolveCallbackResolveCompleted(fn TOnResolveCallbackResolveCompletedEvent) {
 	t.raw.SetOnResolveCallbackResolveCompleted(func(result cefTypes.TCefErrorCode, resolvedIps lcl.IStrings) { fn(result, resolvedIps) })
-}
-
-type IEngResourceBundleHandler_147 interface {
-	IEngResourceBundleHandler
 }
 
 type tIEngResourceBundleHandler_147 struct {
@@ -40282,10 +37188,6 @@ func (t *tIEngResourceBundleHandler_147) SetOnResourceBundleGetLocalizedString(f
 		r0 := fn(stringid, stringVal)
 		return r0
 	})
-}
-
-type IEngResourceHandler_147 interface {
-	IEngResourceHandler
 }
 
 type tIEngResourceHandler_147 struct {
@@ -40378,10 +37280,6 @@ func (t *tIEngResourceHandler_147) SetOnResourceSkip(fn TOnResourceSkipEvent) {
 		r0 := fn(bytesToSkip, bytesSkipped, wrapICefResourceSkipCallback(callback))
 		return r0
 	})
-}
-
-type IEngResourceRequestHandler_147 interface {
-	IEngResourceRequestHandler
 }
 
 type tIEngResourceRequestHandler_147 struct {
@@ -40493,10 +37391,6 @@ func (t *tIEngResourceRequestHandler_147) SetOnResourceRequestResourceResponse(f
 	})
 }
 
-type IEngResponseFilter_147 interface {
-	IEngResponseFilter
-}
-
 type tIEngResponseFilter_147 struct {
 	raw vcef.IEngResponseFilter
 	*tICefResponseFilterOwn_147
@@ -40558,10 +37452,6 @@ func (t *tIEngResponseFilter_147) SetOnResponseFilterInitFilter(fn TOnResponseFi
 	})
 }
 
-type IEngRunFileDialogCallback_147 interface {
-	IEngRunFileDialogCallback
-}
-
 type tIEngRunFileDialogCallback_147 struct {
 	raw vcef.IEngRunFileDialogCallback
 	*tICefRunFileDialogCallbackOwn_147
@@ -40611,10 +37501,6 @@ func (t *tIEngRunFileDialogCallback_147) AsIntfRunFileDialogCallback() uintptr {
 
 func (t *tIEngRunFileDialogCallback_147) SetOnRunFileDialogCallbackFileDialogDismissed(fn TOnRunFileDialogCallbackFileDialogDismissedEvent) {
 	t.raw.SetOnRunFileDialogCallbackFileDialogDismissed(func(filePaths lcl.IStrings) { fn(filePaths) })
-}
-
-type IEngSchemeHandlerFactory_147 interface {
-	IEngSchemeHandlerFactory
 }
 
 type tIEngSchemeHandlerFactory_147 struct {
@@ -40669,10 +37555,6 @@ func (t *tIEngSchemeHandlerFactory_147) SetOnSchemeFactoryNew(fn TOnSchemeFactor
 		r0 := fn(wrapICefBrowser(browser), wrapICefFrame(frame), schemeName, wrapICefRequest(request))
 		return unwrapIEngResourceHandler(r0)
 	})
-}
-
-type IEngServerHandler_147 interface {
-	IEngServerHandler
 }
 
 type tIEngServerHandler_147 struct {
@@ -40758,10 +37640,6 @@ func (t *tIEngServerHandler_147) SetOnServerWebSocketRequest(fn TOnServerWebSock
 	})
 }
 
-type IEngSetCookieCallback_147 interface {
-	IEngSetCookieCallback
-}
-
 type tIEngSetCookieCallback_147 struct {
 	raw vcef.IEngSetCookieCallback
 	*tICefSetCookieCallbackOwn_147
@@ -40811,13 +37689,6 @@ func (t *tIEngSetCookieCallback_147) AsIntfSetCookieCallback() uintptr {
 
 func (t *tIEngSetCookieCallback_147) SetOnSetCookieCallbackComplete(fn TOnSetCookieCallbackCompleteEvent) {
 	t.raw.SetOnSetCookieCallbackComplete(func(success bool) { fn(success) })
-}
-
-type IEngSettingObserver_147 interface {
-	IEngSettingObserver
-	ICefSettingObserverOwn
-	AsIntfSettingObserver() uintptr
-	SetOnSettingObserverSettingChanged(fn TOnSettingObserverSettingChangedEvent)
 }
 
 type tIEngSettingObserver_147 struct {
@@ -40873,10 +37744,6 @@ func (t *tIEngSettingObserver_147) SetOnSettingObserverSettingChanged(fn TOnSett
 	})
 }
 
-type IEngStringVisitor_147 interface {
-	IEngStringVisitor
-}
-
 type tIEngStringVisitor_147 struct {
 	raw vcef.IEngStringVisitor
 	*tICefStringVisitorOwn_147
@@ -40926,10 +37793,6 @@ func (t *tIEngStringVisitor_147) SetOnStringVisitorVisit(fn TOnStringVisitorVisi
 	t.raw.SetOnStringVisitorVisit(func(str string) { fn(str) })
 }
 
-type IEngTask_147 interface {
-	IEngTask
-}
-
 type tIEngTask_147 struct {
 	raw vcef.IEngTask
 	*tICefTaskOwn_147
@@ -40977,10 +37840,6 @@ func (t *tIEngTask_147) AsIntfTask() uintptr {
 
 func (t *tIEngTask_147) SetOnTaskExecute(fn TOnTaskExecuteEvent) {
 	t.raw.SetOnTaskExecute(func() { fn() })
-}
-
-type IEngTextfieldDelegate_147 interface {
-	IEngTextfieldDelegate
 }
 
 type tIEngTextfieldDelegate_147 struct {
@@ -41043,10 +37902,6 @@ func (t *tIEngTextfieldDelegate_147) SetOnTextfieldKey(fn TOnTextfieldKeyEvent) 
 	t.raw.SetOnTextfieldKey(func(textfield vcef.ICefTextfield, event TCefKeyEvent, result *bool) {
 		fn(wrapICefTextfield(textfield), event, result)
 	})
-}
-
-type IEngUrlrequestClient_147 interface {
-	IEngUrlrequestClient
 }
 
 type tIEngUrlrequestClient_147 struct {
@@ -41125,10 +37980,6 @@ func (t *tIEngUrlrequestClient_147) SetOnUrlrequestClientUploadProgress(fn TOnUr
 	})
 }
 
-type IEngV8Accessor_147 interface {
-	IEngV8Accessor
-}
-
 type tIEngV8Accessor_147 struct {
 	raw vcef.IEngV8Accessor
 	*tICefV8AccessorOwn_147
@@ -41192,10 +38043,6 @@ func (t *tIEngV8Accessor_147) SetOnV8AccessorSet_(fn TOnV8AccessorSet_Event) {
 	})
 }
 
-type IEngV8ArrayBufferReleaseCallback_147 interface {
-	IEngV8ArrayBufferReleaseCallback
-}
-
 type tIEngV8ArrayBufferReleaseCallback_147 struct {
 	raw vcef.IEngV8ArrayBufferReleaseCallback
 	*tICefv8ArrayBufferReleaseCallbackOwn_147
@@ -41245,10 +38092,6 @@ func (t *tIEngV8ArrayBufferReleaseCallback_147) AsIntfV8ArrayBufferReleaseCallba
 
 func (t *tIEngV8ArrayBufferReleaseCallback_147) SetOnV8ArrayBufferReleaseCallbackReleaseBuffer(fn TOnV8ArrayBufferReleaseCallbackReleaseBufferEvent) {
 	t.raw.SetOnV8ArrayBufferReleaseCallbackReleaseBuffer(func(buffer uintptr) { fn(buffer) })
-}
-
-type IEngV8Handler_147 interface {
-	IEngV8Handler
 }
 
 type tIEngV8Handler_147 struct {
@@ -41305,10 +38148,6 @@ func (t *tIEngV8Handler_147) SetOnV8Execute(fn TOnV8ExecuteEvent) {
 		}
 		return r0
 	})
-}
-
-type IEngV8Interceptor_147 interface {
-	IEngV8Interceptor
 }
 
 type tIEngV8Interceptor_147 struct {
@@ -41390,11 +38229,6 @@ func (t *tIEngV8Interceptor_147) SetOnV8InterceptorSetByName(fn TOnV8Interceptor
 		r0 := fn(name, wrapICefv8Value(object), wrapICefv8Value(value), exception)
 		return r0
 	})
-}
-
-type IEngViewDelegate_147 interface {
-	IEngViewDelegate
-	SetOnViewThemeChanged(fn TOnViewThemeChangedEvent)
 }
 
 type tIEngViewDelegate_147 struct {
@@ -41488,18 +38322,6 @@ func (t *tIEngViewDelegate_147) SetOnViewThemeChanged(fn TOnViewThemeChangedEven
 
 func (t *tIEngViewDelegate_147) SetOnViewWindowChanged(fn TOnViewWindowChangedEvent) {
 	t.raw.SetOnViewWindowChanged(func(view vcef.ICefView, added bool) { fn(wrapICefView(view), added) })
-}
-
-type IEngWindowDelegate_147 interface {
-	IEngWindowDelegate
-	SetOnWindowAcceptsFirstMouse(fn TOnWindowAcceptsFirstMouseEvent)
-	SetOnWindowGetLinuxWindowProperties(fn TOnWindowGetLinuxWindowPropertiesEvent)
-	SetOnWindowGetTitlebarHeight(fn TOnWindowGetTitlebarHeightEvent)
-	SetOnWindowGetWindowRuntimeStyle(fn TOnWindowGetWindowRuntimeStyleEvent)
-	SetOnWindowIsWindowModalDialog(fn TOnWindowIsWindowModalDialogEvent)
-	SetOnWindowThemeColorsChanged(fn TOnWindowThemeColorsChangedEvent)
-	SetOnWindowWindowFullscreenTransition(fn TOnWindowWindowFullscreenTransitionEvent)
-	SetOnWindowWithStandardWindowButtons(fn TOnWindowWithStandardWindowButtonsEvent)
 }
 
 type tIEngWindowDelegate_147 struct {
@@ -41665,10 +38487,6 @@ func (t *tIEngWindowDelegate_147) SetOnWindowWithStandardWindowButtons(fn TOnWin
 	t.raw.SetOnWindowWithStandardWindowButtons(func(window vcef.ICefWindow, result *bool) { fn(wrapICefWindow(window), result) })
 }
 
-type IEngWriteHandler_147 interface {
-	IEngWriteHandler
-}
-
 type tIEngWriteHandler_147 struct {
 	raw vcef.IEngWriteHandler
 	*tICefWriteHandlerOwn_147
@@ -41747,18 +38565,6 @@ func (t *tIEngWriteHandler_147) SetOnWriteWrite(fn TOnWriteWriteEvent) {
 		r0 := fn(ptr, size, N)
 		return r0
 	})
-}
-
-type IPDFPrintOptions_147 interface {
-	IPDFPrintOptions
-	// GenerateDocumentOutline
-	// Set to true to generate a document outline.
-	GenerateDocumentOutline() bool
-	// GenerateTaggedPDF
-	// Set to true to generate tagged (accessible) PDF.
-	GenerateTaggedPDF() bool
-	SetGenerateDocumentOutline(value bool)
-	SetGenerateTaggedPDF(value bool)
 }
 
 type tIPDFPrintOptions_147 struct {
@@ -42019,10 +38825,6 @@ func (t *tIPDFPrintOptions_147) SetScalePct(value float64) {
 
 func (t *tIPDFPrintOptions_147) SetScale(value float64) {
 	t.raw.SetScale(value)
-}
-
-type IServerEvents_147 interface {
-	IServerEvents
 }
 
 type tIServerEvents_147 struct {

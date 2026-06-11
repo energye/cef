@@ -8,7 +8,7 @@
 //
 //----------------------------------------
 
-//go:build CEF109 || (!CEF109 && !CEF127 && !CEF147)
+//go:build (!CEF127 && !CEF147)
 
 package types
 

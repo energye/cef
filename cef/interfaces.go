@@ -113,6 +113,18 @@ type ICEFBrowserViewComponent interface {
 	SetPreferAccelerators(preferAccelerators bool)
 }
 
+type ICEFBrowserViewComponent_147 interface {
+	ICEFBrowserViewComponent
+	// ChromeToolbar
+	// Returns the Chrome toolbar associated with this BrowserView. Only
+	// supported when using Chrome style. The ICefBrowserViewDelegate.GetChromeToolbarType
+	// function must return a value other than
+	// CEF_CTT_NONE and the toolbar will not be available until after this
+	// BrowserView is added to a ICefWindow and
+	// ICefViewDelegate.OnWindowChanged() has been called.
+	ChromeToolbar() ICefView
+}
+
 // ICEFButtonComponent Parent: ICefButtonDelegateEvents ICEFViewComponent
 type ICEFButtonComponent interface {
 	ICEFViewComponent
@@ -173,6 +185,18 @@ type ICEFFileDialogInfo interface {
 	SetMode(value uint32)
 	SetTitle(value string)
 	Title() string
+}
+
+type ICEFFileDialogInfo_127 interface {
+	ICEFFileDialogInfo
+	SetAcceptDescriptions(value lcl.IStrings)
+	SetAcceptExtensions(value lcl.IStrings)
+}
+
+type ICEFFileDialogInfo_147 interface {
+	ICEFFileDialogInfo
+	SetAcceptDescriptions(value lcl.IStrings)
+	SetAcceptExtensions(value lcl.IStrings)
 }
 
 // ICEFJson Parent: IObject
@@ -239,6 +263,22 @@ type ICEFLabelButtonComponent interface {
 // ICEFLinkedWinControlBase Parent: ICEFWinControl
 type ICEFLinkedWinControlBase interface {
 	ICEFWinControl
+}
+
+type ICEFLinkedWinControlBase_127 interface {
+	ICEFLinkedWinControlBase
+	SetUseSetFocus(value bool)
+	// UseSetFocus
+	// Use TChromium.SetFocus when the component receives a WM_SETFOCUS message in Windows.
+	UseSetFocus() bool
+}
+
+type ICEFLinkedWinControlBase_147 interface {
+	ICEFLinkedWinControlBase
+	SetUseSetFocus(value bool)
+	// UseSetFocus
+	// Use TChromium.SetFocus when the component receives a WM_SETFOCUS message in Windows.
+	UseSetFocus() bool
 }
 
 // ICEFLinkedWindowParent Parent: ICEFLinkedWinControlBase
@@ -387,6 +427,25 @@ type ICEFOSRIMEHandler interface {
 	SubLangID() uint16
 }
 
+type ICEFOSRIMEHandler_109 interface {
+	ICEFOSRIMEHandler
+	UpdateCaretPosition(index int32)
+}
+
+type ICEFOSRIMEHandler_127 interface {
+	ICEFOSRIMEHandler
+	// UpdateCaretPosition
+	// Updates the IME caret position of the given window.
+	UpdateCaretPosition(index uint32)
+}
+
+type ICEFOSRIMEHandler_147 interface {
+	ICEFOSRIMEHandler
+	// UpdateCaretPosition
+	// Updates the IME caret position of the given window.
+	UpdateCaretPosition(index uint32)
+}
+
 // ICEFPanelComponent Parent: ICefPanelDelegateEvents ICEFViewComponent
 type ICEFPanelComponent interface {
 	ICEFViewComponent
@@ -435,8 +494,41 @@ type ICEFPanelComponent interface {
 	SetToFillLayout() ICefFillLayout
 }
 
+type ICEFPanelComponent_109 interface {
+	ICEFPanelComponent
+	GetChildViewCount() cefTypes.NativeUInt
+}
+
+type ICEFPanelComponent_127 interface {
+	ICEFPanelComponent
+	// ChildViewCount
+	// Returns the number of child Views.
+	ChildViewCount() cefTypes.NativeUInt
+}
+
+type ICEFPanelComponent_147 interface {
+	ICEFPanelComponent
+	// ChildViewCount
+	// Returns the number of child Views.
+	ChildViewCount() cefTypes.NativeUInt
+}
+
 // ICEFProxySettings Parent: IObject
 type ICEFProxySettings interface {
+}
+
+type ICEFProxySettings_147 interface {
+	ICEFProxySettings
+	AutoDetect() bool
+	ByPassList() string
+	NoProxyServer() bool
+	PacUrl() string
+	Server() string
+	SetAutoDetect(value bool)
+	SetByPassList(value string)
+	SetNoProxyServer(value bool)
+	SetPacUrl(value string)
+	SetServer(value string)
 }
 
 // ICEFScrollViewComponent Parent: ICEFViewComponent
@@ -723,6 +815,33 @@ type ICEFTextfieldComponent interface {
 	Text() string
 }
 
+type ICEFTextfieldComponent_109 interface {
+	ICEFTextfieldComponent
+	SelectRange(range_ TCefRange)
+}
+
+type ICEFTextfieldComponent_127 interface {
+	ICEFTextfieldComponent
+	// CursorPosition
+	// Returns the current cursor position.
+	CursorPosition() cefTypes.NativeUInt
+	// SelectedRange
+	// Returns the selected logical text range.
+	SelectedRange() TCefRange
+	SetSelectedRange(value TCefRange)
+}
+
+type ICEFTextfieldComponent_147 interface {
+	ICEFTextfieldComponent
+	// CursorPosition
+	// Returns the current cursor position.
+	CursorPosition() cefTypes.NativeUInt
+	// SelectedRange
+	// Returns the selected logical text range.
+	SelectedRange() TCefRange
+	SetSelectedRange(value TCefRange)
+}
+
 // ICEFTimerWorkScheduler Parent: IObject
 type ICEFTimerWorkScheduler interface {
 	IObject
@@ -973,6 +1092,41 @@ type ICEFViewComponent interface {
 	Window() ICefWindow
 }
 
+type ICEFViewComponent_127 interface {
+	ICEFViewComponent
+	// GetThemeColor
+	// Returns the current theme color associated with |color_id|, or the
+	// placeholder color (red) if unset. See cef_color_ids.h for standard ID
+	// values. Standard colors can be overridden and custom colors can be added
+	// using ICefWindow.SetThemeColor.
+	GetThemeColor(colorId int32) cefTypes.TCefColor
+	// Insets
+	// Returns the insets for this View in parent coordinates, or DIP screen
+	// coordinates if there is no parent.
+	Insets() TCefInsets
+	SetInsets(value TCefInsets)
+}
+
+type ICEFViewComponent_147 interface {
+	ICEFViewComponent
+	// GetThemeColor
+	// Returns the current theme color associated with |color_id|, or the
+	// placeholder color (red) if unset. See cef_color_ids.h for standard ID
+	// values. Standard colors can be overridden and custom colors can be added
+	// using ICefWindow.SetThemeColor.
+	GetThemeColor(colorId int32) cefTypes.TCefColor
+	// HasFocus
+	// Returns true (1) if this View has focus in the context of the containing
+	// Window. Check both this function and ICefWindow.IsActive to determine
+	// global keyboard focus.
+	HasFocus() bool
+	// Insets
+	// Returns the insets for this View in parent coordinates, or DIP screen
+	// coordinates if there is no parent.
+	Insets() TCefInsets
+	SetInsets(value TCefInsets)
+}
+
 // ICEFWinControl Parent: IWinControl
 type ICEFWinControl interface {
 	IWinControl
@@ -1152,6 +1306,190 @@ type ICEFWindowComponent interface {
 	WindowIcon() ICefImage
 }
 
+type ICEFWindowComponent_109 interface {
+	ICEFWindowComponent
+	AddOverlayView(view ICefView, dockingMode cefTypes.TCefDockingMode) ICefOverlayController
+	SetAccelerator(commandId int32, keyCode int32, shiftPressed bool, ctrlPressed bool, altPressed bool)
+}
+
+type ICEFWindowComponent_127 interface {
+	ICEFWindowComponent
+	// AddOverlayView
+	// Add a View that will be overlayed on the Window contents with absolute
+	// positioning and high z-order. Positioning is controlled by |docking_mode|
+	// as described below. Setting |can_activate| to true (1) will allow the
+	// overlay view to receive input focus. The returned cef_overlay_controller_t
+	// object is used to control the overlay. Overlays are hidden by default.
+	// With CEF_DOCKING_MODE_CUSTOM:
+	// <code>
+	// 1. The overlay is initially hidden, sized to |view|'s preferred size,
+	// and positioned in the top-left corner.
+	// 2. Optionally change the overlay position and/or size by calling
+	// CefOverlayController methods.
+	// 3. Call CefOverlayController::SetVisible(true) to show the overlay.
+	// 4. The overlay will be automatically re-sized if |view|'s layout
+	// changes. Optionally change the overlay position and/or size when
+	// OnLayoutChanged is called on the Window's delegate to indicate a
+	// change in Window bounds.</code>
+	// With other docking modes:
+	// <code>
+	// 1. The overlay is initially hidden, sized to |view|'s preferred size,
+	// and positioned based on |docking_mode|.
+	// 2. Call CefOverlayController::SetVisible(true) to show the overlay.
+	// 3. The overlay will be automatically re-sized if |view|'s layout changes
+	// and re-positioned as appropriate when the Window resizes.</code>
+	// Overlays created by this function will receive a higher z-order then any
+	// child Views added previously. It is therefore recommended to call this
+	// function last after all other child Views have been added so that the
+	// overlay displays as the top-most child of the Window.
+	AddOverlayView(view ICefView, dockingMode cefTypes.TCefDockingMode, canActivate bool) ICefOverlayController
+	// SetAccelerator
+	// Set the keyboard accelerator for the specified |command_id|. |key_code|
+	// can be any virtual key or character value. Required modifier keys are
+	// specified by |shift_pressed|, |ctrl_pressed| and/or |alt_pressed|.
+	// ICefWindowDelegate.OnAccelerator will be called if the keyboard
+	// combination is triggered while this window has focus.
+	// The |high_priority| value will be considered if a child ICefBrowserView
+	// has focus when the keyboard combination is triggered. If |high_priority|
+	// is true (1) then the key event will not be forwarded to the web content
+	// (`keydown` event handler) or ICefKeyboardHandler first. If
+	// |high_priority| is false (0) then the behavior will depend on the
+	// ICefBrowserView.SetPreferAccelerators configuration.
+	SetAccelerator(commandId int32, keyCode int32, shiftPressed bool, ctrlPressed bool, altPressed bool, highPriority bool)
+	// SetThemeColor
+	// Override a standard theme color or add a custom color associated with
+	// |color_id|. See cef_color_ids.h for standard ID values. Recommended usage
+	// is as follows:
+	// <code>
+	// 1. Customize the default native/OS theme by calling SetThemeColor before
+	// showing the first Window. When done setting colors call
+	// ICefWindow.ThemeChanged to trigger ICefViewDelegate.OnThemeChanged
+	// notifications.
+	// 2. Customize the current native/OS or Chrome theme after it changes by
+	// calling SetThemeColor from the ICefWindowDelegate.OnThemeColorsChanged
+	// callback. ICefViewDelegate.OnThemeChanged notifications will then be
+	// triggered automatically.
+	// </code>
+	// The configured color will be available immediately via
+	// ICefView.GetThemeColor and will be applied to each View in this
+	// Window's component hierarchy when ICefViewDelegate.OnThemeChanged is
+	// called. See OnThemeColorsChanged documentation for additional details.
+	// Clients wishing to add custom colors should use |color_id| values >=
+	// CEF_ChromeColorsEnd.
+	SetThemeColor(colorId int32, color cefTypes.TCefColor)
+	// ShowAsBrowserModalDialog
+	// Show the Window as a browser modal dialog relative to |browser_view|. A
+	// parent Window must be returned via
+	// ICefWindowDelegate.OnGetParentWindow and |browser_view| must belong
+	// to that parent Window. While this Window is visible, |browser_view| will
+	// be disabled while other controls in the parent Window remain enabled.
+	// Navigating or destroying the |browser_view| will close this Window
+	// automatically. Alternately, use show() and return true (1) from
+	// ICefWindowDelegate.OnIsWindowModalDialog for a window modal dialog
+	// where all controls in the parent Window are disabled.
+	ShowAsBrowserModalDialog(browserView ICefBrowserView)
+	// ThemeChanged
+	// Trigger ICefViewDelegate.OnThemeChanged callbacks for each View in
+	// this Window's component hierarchy. Unlike a native/OS or Chrome theme
+	// change this function does not reset theme colors to standard values and
+	// does not result in a call to ICefWindowDelegate.OnThemeColorsChanged.
+	// Do not call this function from ICefWindowDelegate.OnThemeColorsChanged
+	// or ICefViewDelegate.OnThemeChanged.
+	ThemeChanged()
+}
+
+type ICEFWindowComponent_147 interface {
+	ICEFWindowComponent
+	// AddOverlayView
+	// Add a View that will be overlayed on the Window contents with absolute
+	// positioning and high z-order. Positioning is controlled by |docking_mode|
+	// as described below. Setting |can_activate| to true (1) will allow the
+	// overlay view to receive input focus. The returned cef_overlay_controller_t
+	// object is used to control the overlay. Overlays are hidden by default.
+	// With CEF_DOCKING_MODE_CUSTOM:
+	// <code>
+	// 1. The overlay is initially hidden, sized to |view|'s preferred size,
+	// and positioned in the top-left corner.
+	// 2. Optionally change the overlay position and/or size by calling
+	// CefOverlayController methods.
+	// 3. Call CefOverlayController::SetVisible(true) to show the overlay.
+	// 4. The overlay will be automatically re-sized if |view|'s layout
+	// changes. Optionally change the overlay position and/or size when
+	// OnLayoutChanged is called on the Window's delegate to indicate a
+	// change in Window bounds.</code>
+	// With other docking modes:
+	// <code>
+	// 1. The overlay is initially hidden, sized to |view|'s preferred size,
+	// and positioned based on |docking_mode|.
+	// 2. Call CefOverlayController::SetVisible(true) to show the overlay.
+	// 3. The overlay will be automatically re-sized if |view|'s layout changes
+	// and re-positioned as appropriate when the Window resizes.</code>
+	// Overlays created by this function will receive a higher z-order then any
+	// child Views added previously. It is therefore recommended to call this
+	// function last after all other child Views have been added so that the
+	// overlay displays as the top-most child of the Window.
+	AddOverlayView(view ICefView, dockingMode cefTypes.TCefDockingMode, canActivate bool) ICefOverlayController
+	// FocusedView
+	// Returns the View that currently has focus in this Window, or nullptr if no
+	// View currently has focus. A Window may have a focused View even if it is
+	// not currently active. Any focus changes while a Window is not active may
+	// be applied after that Window next becomes active.
+	FocusedView() ICefView
+	// SetAccelerator
+	// Set the keyboard accelerator for the specified |command_id|. |key_code|
+	// can be any virtual key or character value. Required modifier keys are
+	// specified by |shift_pressed|, |ctrl_pressed| and/or |alt_pressed|.
+	// ICefWindowDelegate.OnAccelerator will be called if the keyboard
+	// combination is triggered while this window has focus.
+	// The |high_priority| value will be considered if a child ICefBrowserView
+	// has focus when the keyboard combination is triggered. If |high_priority|
+	// is true (1) then the key event will not be forwarded to the web content
+	// (`keydown` event handler) or ICefKeyboardHandler first. If
+	// |high_priority| is false (0) then the behavior will depend on the
+	// ICefBrowserView.SetPreferAccelerators configuration.
+	SetAccelerator(commandId int32, keyCode int32, shiftPressed bool, ctrlPressed bool, altPressed bool, highPriority bool)
+	// SetThemeColor
+	// Override a standard theme color or add a custom color associated with
+	// |color_id|. See cef_color_ids.h for standard ID values. Recommended usage
+	// is as follows:
+	// <code>
+	// 1. Customize the default native/OS theme by calling SetThemeColor before
+	// showing the first Window. When done setting colors call
+	// ICefWindow.ThemeChanged to trigger ICefViewDelegate.OnThemeChanged
+	// notifications.
+	// 2. Customize the current native/OS or Chrome theme after it changes by
+	// calling SetThemeColor from the ICefWindowDelegate.OnThemeColorsChanged
+	// callback. ICefViewDelegate.OnThemeChanged notifications will then be
+	// triggered automatically.
+	// </code>
+	// The configured color will be available immediately via
+	// ICefView.GetThemeColor and will be applied to each View in this
+	// Window's component hierarchy when ICefViewDelegate.OnThemeChanged is
+	// called. See OnThemeColorsChanged documentation for additional details.
+	// Clients wishing to add custom colors should use |color_id| values >=
+	// CEF_ChromeColorsEnd.
+	SetThemeColor(colorId int32, color cefTypes.TCefColor)
+	// ShowAsBrowserModalDialog
+	// Show the Window as a browser modal dialog relative to |browser_view|. A
+	// parent Window must be returned via
+	// ICefWindowDelegate.OnGetParentWindow and |browser_view| must belong
+	// to that parent Window. While this Window is visible, |browser_view| will
+	// be disabled while other controls in the parent Window remain enabled.
+	// Navigating or destroying the |browser_view| will close this Window
+	// automatically. Alternately, use show() and return true (1) from
+	// ICefWindowDelegate.OnIsWindowModalDialog for a window modal dialog
+	// where all controls in the parent Window are disabled.
+	ShowAsBrowserModalDialog(browserView ICefBrowserView)
+	// ThemeChanged
+	// Trigger ICefViewDelegate.OnThemeChanged callbacks for each View in
+	// this Window's component hierarchy. Unlike a native/OS or Chrome theme
+	// change this function does not reset theme colors to standard values and
+	// does not result in a call to ICefWindowDelegate.OnThemeColorsChanged.
+	// Do not call this function from ICefWindowDelegate.OnThemeColorsChanged
+	// or ICefViewDelegate.OnThemeChanged.
+	ThemeChanged()
+}
+
 // ICEFWindowParent Parent: ICEFWinControl
 type ICEFWindowParent interface {
 	ICEFWinControl
@@ -1218,6 +1556,16 @@ type ICefApplication interface {
 	DestroyApplicationObject() bool
 	SetDestroyAppWindows(value bool)
 	SetDestroyApplicationObject(value bool)
+}
+
+type ICefApplication_127 interface {
+	ICefApplication
+	AsIntfApplicationCoreEvents() uintptr
+}
+
+type ICefApplication_147 interface {
+	ICefApplication
+	AsIntfApplicationCoreEvents() uintptr
 }
 
 // ICefApplicationCore Parent: IApplicationCoreEvents IInterfacedObject
@@ -2020,6 +2368,378 @@ type ICefApplicationCore interface {
 	XDisplay() uintptr
 }
 
+type ICefApplicationCore_109 interface {
+	ICefApplicationCore
+	AfterConstruction()
+	ApiHashUniversal() string
+	ChromeRuntime() bool
+	DisableSafeBrowsing() bool
+	EnableHighDPISupport() bool
+	FastUnload() bool
+	InternalGetDataResourceForScale(resourceId int32, scaleFactor cefTypes.TCefScaleFactor, data *uintptr, dataSize *cefTypes.NativeUInt) bool
+	InternalGetDataResource(resourceId int32, data *uintptr, dataSize *cefTypes.NativeUInt) bool
+	InternalGetDefaultClient(client *IEngClient)
+	InternalGetLocalizedString(stringId int32, stringVal *string) bool
+	InternalOnBeforeChildProcessLaunch(commandLine ICefCommandLine)
+	// InternalOnBeforeCommandLineProcessing
+	// Internal procedures. Only ICefApp, ICefBrowserProcessHandler,
+	// ICefResourceBundleHandler, ICefRenderProcessHandler, ICefRegisterCDMCallback and
+	// ICefLoadHandler should use them.
+	InternalOnBeforeCommandLineProcessing(processType string, commandLine ICefCommandLine)
+	InternalOnBrowserCreated(browser ICefBrowser, extraInfo ICefDictionaryValue)
+	InternalOnBrowserDestroyed(browser ICefBrowser)
+	InternalOnContextCreated(browser ICefBrowser, frame ICefFrame, context ICefv8Context)
+	InternalOnContextInitialized()
+	InternalOnContextReleased(browser ICefBrowser, frame ICefFrame, context ICefv8Context)
+	InternalOnFocusedNodeChanged(browser ICefBrowser, frame ICefFrame, node ICefDomNode)
+	InternalOnLoadEnd(browser ICefBrowser, frame ICefFrame, httpStatusCode int32)
+	InternalOnLoadError(browser ICefBrowser, frame ICefFrame, errorCode int32, errorText string, failedUrl string)
+	InternalOnLoadStart(browser ICefBrowser, frame ICefFrame, transitionType cefTypes.TCefTransitionType)
+	InternalOnLoadingStateChange(browser ICefBrowser, isLoading bool, canGoBack bool, canGoForward bool)
+	InternalOnProcessMessageReceived(browser ICefBrowser, frame ICefFrame, sourceProcess cefTypes.TCefProcessId, message ICefProcessMessage, handled *bool)
+	InternalOnRegisterCustomPreferences(type_ cefTypes.TCefPreferencesType, registrar ICefPreferenceRegistrarRef)
+	InternalOnRegisterCustomSchemes(registrar ICefSchemeRegistrarRef)
+	InternalOnScheduleMessagePumpWork(delayMs int64)
+	InternalOnUncaughtException(browser ICefBrowser, frame ICefFrame, context ICefv8Context, exception ICefV8Exception, stackTrace ICefV8StackTrace)
+	InternalOnWebKitInitialized()
+	PackLoadingDisabled() bool
+	PersistUserPreferences() bool
+	SetChromeRuntime(value bool)
+	SetDisableSafeBrowsing(value bool)
+	SetEnableHighDPISupport(value bool)
+	SetFastUnload(value bool)
+	SetPackLoadingDisabled(value bool)
+	SetPersistUserPreferences(value bool)
+	SetUserDataPath(value string)
+	UserDataPath() string
+}
+
+type ICefApplicationCore_127 interface {
+	ICefApplicationCore
+	// ApiHashUniversal
+	// Calls cef_api_hash to get the universal hash.
+	ApiHashUniversal() string
+	AsIntfApplicationCoreEvents() uintptr
+	// AutoAcceptCamAndMicCapture
+	// Bypasses the dialog prompting the user for permission to capture cameras and microphones.
+	// Useful in automatic tests of video-conferencing Web applications. This is nearly
+	// identical to kUseFakeUIForMediaStream, with the exception being that this flag does NOT
+	// affect screen-capture.
+	// <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --auto-accept-camera-and-microphone-capture</see>
+	AutoAcceptCamAndMicCapture() bool
+	// ChromeAppIconId
+	// Specify an ID for an ICON resource that can be loaded from the main
+	// executable and used when creating default Chrome windows such as DevTools
+	// and Task Manager. If unspecified the default Chromium ICON (IDR_MAINFRAME
+	// [101]) will be loaded from libcef.dll. Only supported with the Chrome
+	// runtime on Windows.
+	ChromeAppIconId() int32
+	// ChromePolicyId
+	// Specify an ID to enable Chrome policy management via Platform and OS-user
+	// policies. On Windows, this is a registry key like
+	// "SOFTWARE\\Policies\\Google\\Chrome". On MacOS, this is a bundle ID like
+	// "com.google.Chrome". On Linux, this is an absolute directory path like
+	// "/etc/opt/chrome/policies". Only supported with the Chrome runtime. See
+	// https://support.google.com/chrome/a/answer/9037717 for details.
+	// Chrome Browser Cloud Management integration, when enabled via the
+	// "enable-chrome-browser-cloud-management" command-line flag, will also use
+	// the specified ID. See https://support.google.com/chrome/a/answer/9116814
+	// for details.
+	ChromePolicyId() string
+	// ChromeRuntime
+	// Set to true (1) to enable use of the Chrome runtime in CEF. This feature
+	// is considered experimental and is not recommended for most users at this
+	// time. See issue #2969 for details.
+	ChromeRuntime() bool
+	// DisableHangMonitor
+	// Suppresses hang monitor dialogs in renderer processes. This may allow slow unload handlers on a page to prevent the tab from closing, but the Task Manager can be used to terminate the offending process in this case.
+	// <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --disable-hang-monitor</see>
+	DisableHangMonitor() bool
+	// ExitCode
+	// This property can optionally be read on the main application thread after
+	// CefInitialize to retrieve the initialization exit code. When CefInitialize
+	// returns true (1) the exit code will be 0 (CEF_RESULT_CODE_NORMAL_EXIT).
+	// Otherwise, see TCefResultCode for possible exit code values including
+	// browser process initialization errors and normal early exit conditions (such
+	// as CEF_RESULT_CODE_NORMAL_EXIT_PROCESS_NOTIFIED for process singleton
+	// relaunch behavior).
+	ExitCode() cefTypes.TCefResultCode
+	// HideCrashRestoreBubble
+	// Does not show the "Restore pages" popup bubble after incorrect shutdown.
+	// <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --hide-crash-restore-bubble</see>
+	HideCrashRestoreBubble() bool
+	// LogItems
+	// The log items prepended to each log line. If not set the default log items
+	// will be used. Also configurable using the "log-items" command-line switch
+	// with a value of "none" for no log items, or a comma-delimited list of
+	// values "pid", "tid", "timestamp" or "tickcount" for custom log items.
+	LogItems() cefTypes.TCefLogItems
+	// NextComponentID
+	// Returns the next component ID and adds this value to the valid ID list.
+	NextComponentID() int32
+	// PackLoadingDisabled
+	// Set to true (1) to disable loading of pack files for resources and
+	// locales. A resource bundle handler must be provided for the browser and
+	// render processes via ICefApp.GetResourceBundleHandler() if loading of pack
+	// files is disabled. Also configurable using the "disable-pack-loading"
+	// command- line switch.
+	PackLoadingDisabled() bool
+	// PersistUserPreferences
+	// To persist user preferences as a JSON file in the cache path directory set
+	// this value to true (1). A |cache_path| value must also be specified
+	// to enable this feature. Also configurable using the
+	// "persist-user-preferences" command-line switch. Can be overridden for
+	// individual CefRequestContext instances via the
+	// TCefRequestContextSettings.persist_user_preferences value.
+	PersistUserPreferences() bool
+	// RemoteAllowOrigins
+	// Enables web socket connections from the specified origins only. '*' allows any origin.
+	// <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --remote-allow-origins</see>
+	RemoteAllowOrigins() string
+	// RemoveComponentID
+	// Removes a component ID from the valid ID list when a component is destroyed.
+	RemoveComponentID(componentID int32)
+	SetAutoAcceptCamAndMicCapture(value bool)
+	SetChromeAppIconId(value int32)
+	SetChromePolicyId(value string)
+	SetChromeRuntime(value bool)
+	SetDisableHangMonitor(value bool)
+	SetHideCrashRestoreBubble(value bool)
+	SetLogItems(value cefTypes.TCefLogItems)
+	SetPackLoadingDisabled(value bool)
+	SetPersistUserPreferences(value bool)
+	SetRemoteAllowOrigins(value string)
+	// ValidComponentID
+	// Returns true if a custom component ID is valid before executing a CEF task.
+	ValidComponentID(componentID int32) bool
+}
+
+type ICefApplicationCore_147 interface {
+	ICefApplicationCore
+	// ApiVersion
+	// Returns the CEF API version that was configured by the first call to
+	// cef_api_hash().
+	ApiVersion() int32
+	AsIntfApplicationCoreEvents() uintptr
+	// AutoAcceptCamAndMicCapture
+	// Bypasses the dialog prompting the user for permission to capture cameras and microphones.
+	// Useful in automatic tests of video-conferencing Web applications. This is nearly
+	// identical to kUseFakeUIForMediaStream, with the exception being that this flag does NOT
+	// affect screen-capture.
+	// <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --auto-accept-camera-and-microphone-capture</see>
+	AutoAcceptCamAndMicCapture() bool
+	// BrowserById
+	// Returns the browser (if any) with the specified identifier.
+	BrowserById(id int32) ICefBrowser
+	// ChromeAppIconId
+	// Specify an ID for an ICON resource that can be loaded from the main
+	// executable and used when creating default Chrome windows such as DevTools
+	// and Task Manager. If unspecified the default Chromium ICON (IDR_MAINFRAME
+	// [101]) will be loaded from libcef.dll. Only supported with Chrome style on
+	// Windows.
+	ChromeAppIconId() int32
+	// ChromePolicyId
+	// Specify an ID to enable Chrome policy management via Platform and OS-user
+	// policies. On Windows, this is a registry key like
+	// "SOFTWARE\\Policies\\Google\\Chrome". On MacOS, this is a bundle ID like
+	// "com.google.Chrome". On Linux, this is an absolute directory path like
+	// "/etc/opt/chrome/policies". Only supported with Chrome style. See
+	// https://support.google.com/chrome/a/answer/9037717 for details.
+	// Chrome Browser Cloud Management integration, when enabled via the
+	// "enable-chrome-browser-cloud-management" command-line flag, will also use
+	// the specified ID. See https://support.google.com/chrome/a/answer/9116814
+	// for details.
+	ChromePolicyId() string
+	// DisableHangMonitor
+	// Suppresses hang monitor dialogs in renderer processes. This may allow slow unload handlers on a page to prevent the tab from closing, but the Task Manager can be used to terminate the offending process in this case.
+	// <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --disable-hang-monitor</see>
+	DisableHangMonitor() bool
+	// DisableSignalHandlers
+	// Specify whether signal handlers must be disabled on POSIX systems.
+	DisableSignalHandlers() bool
+	// DoNotDeElevate
+	// Do not de-elevate the browser on launch. Used after de-elevating to prevent infinite loops.
+	// <see href="https://peter.sh/experiments/chromium-command-line-switches/#do-not-de-elevate">Uses the following command line switch: --do-not-de-elevate</see>
+	DoNotDeElevate() bool
+	// DumpWithoutCrashing
+	// This function allows for generating of crash dumps with a throttling
+	// mechanism, preventing frequent dumps from being generated in a short period
+	// of time from the same location. If should only be called after cef_initialize
+	// has been successfully called. The |function_name|, |file_name|, and
+	// |line_number| parameters specify the origin location of the dump. The
+	// |mseconds_between_dumps| is an interval between consecutive dumps in
+	// milliseconds from the same location.
+	// For detailed behavior, usage instructions, and considerations, refer to the
+	// documentation of DumpWithoutCrashing in base/debug/dump_without_crashing.h.
+	// <returns>
+	// Returns true if the dump was successfully generated, false otherwise.
+	// </returns>
+	// <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/base/cef_dump_without_crashing.h">CEF source file: /include/base/cef_dump_without_crashing.h (CefDumpWithoutCrashing)</see>
+	DumpWithoutCrashing(msecondsBetweenDumps int64, functionName string, fileName string, lineNumber int32) bool
+	// EnableAutomation
+	// Enable indication that browser is controlled by automation.
+	// <see href="https://peter.sh/experiments/chromium-command-line-switches/#enable-automation">Uses the following command line switch: --enable-automation</see>
+	EnableAutomation() bool
+	// ExitCode
+	// This property can optionally be read on the main application thread after
+	// cef_initialize to retrieve the initialization exit code. When cef_initialize
+	// returns true (1) the exit code will be 0 (CEF_RESULT_CODE_NORMAL_EXIT).
+	// Otherwise, see TCefResultCode for possible exit code values including
+	// browser process initialization errors and normal early exit conditions (such
+	// as CEF_RESULT_CODE_NORMAL_EXIT_PROCESS_NOTIFIED for process singleton
+	// relaunch behavior).
+	ExitCode() cefTypes.TCefResultCode
+	// ExternalBeginFrameEnabled
+	// Set to true (1) to enable the ability to issue BeginFrame requests from
+	// the client application by calling ICefBrowserHost.SendExternalBeginFrame.
+	ExternalBeginFrameEnabled() bool
+	// FieldTrialConfig
+	// Enable field trial tests configured in fieldtrial_testing_config.json.
+	// If the "disable_fieldtrial_testing_config" GN flag is set to true, then this switch is a no-op.
+	// Otherwise, for non-Chrome branded builds, the testing config is already applied by default,
+	// unless the "--disable-field-trial-config", "--force-fieldtrials", and/or "--variations-server-url"
+	// switches are passed. It is however possible to apply the testing config as well as specify
+	// additional field trials (using "--force-fieldtrials") by using this switch. For Chrome-branded
+	// builds, the testing config is not enabled by default, so this switch is required to enable it.
+	// <see href="https://peter.sh/experiments/chromium-command-line-switches/#enable-field-trial-config">Uses the following command line switch: --enable-field-trial-config</see>
+	// <see href="https://peter.sh/experiments/chromium-command-line-switches/#disable-field-trial-config">Uses the following command line switch: --disable-field-trial-config</see>
+	FieldTrialConfig() cefTypes.TCefState
+	// GetIdForCommandIdName
+	// Returns the numeric ID value for an IDC |name| from cef_command_ids.h or -1
+	// if |name| is unrecognized by the current CEF/Chromium build. This function
+	// provides version-safe mapping of command IDC names to version-specific
+	// numeric ID values. Numeric ID values are likely to change across
+	// CEF/Chromium versions but names generally remain the same.
+	// <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/cef_id_mappers.h">CEF source file: /include/cef_id_mappers.h (cef_id_for_command_id_name)</see>
+	GetIdForCommandIdName(name string) int32
+	// GetIdForPackResourceName
+	// Returns the numeric ID value for an IDR |name| from cef_pack_resources.h or
+	// -1 if |name| is unrecognized by the current CEF/Chromium build. This
+	// function provides version-safe mapping of resource IDR names to
+	// version-specific numeric ID values. Numeric ID values are likely to change
+	// across CEF/Chromium versions but names generally remain the same.
+	// <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/cef_id_mappers.h">CEF source file: /include/cef_id_mappers.h (cef_id_for_pack_resource_name)</see>
+	GetIdForPackResourceName(name string) int32
+	// GetIdForPackStringName
+	// Returns the numeric ID value for an IDS |name| from cef_pack_strings.h or -1
+	// if |name| is unrecognized by the current CEF/Chromium build. This function
+	// provides version-safe mapping of string IDS names to version-specific
+	// numeric ID values. Numeric ID values are likely to change across
+	// CEF/Chromium versions but names generally remain the same.
+	// <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/cef_id_mappers.h">CEF source file: /include/cef_id_mappers.h (cef_id_for_pack_string_name)</see>
+	GetIdForPackStringName(name string) int32
+	// HideCrashRestoreBubble
+	// Does not show the "Restore pages" popup bubble after incorrect shutdown.
+	// <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --hide-crash-restore-bubble</see>
+	HideCrashRestoreBubble() bool
+	// LogItems
+	// The log items prepended to each log line. If not set the default log items
+	// will be used. Also configurable using the "log-items" command-line switch
+	// with a value of "none" for no log items, or a comma-delimited list of
+	// values "pid", "tid", "timestamp" or "tickcount" for custom log items.
+	LogItems() cefTypes.TCefLogItems
+	// NextComponentID
+	// Returns the next component ID and adds this value to the valid ID list.
+	NextComponentID() int32
+	// NoDefaultBrowserCheck
+	// Disables the default browser check. Useful for UI/browser tests where we want to avoid having the default browser info-bar displayed.
+	// <see href="https://peter.sh/experiments/chromium-command-line-switches/#no-default-browser-check">Uses the following command line switch: --no-default-browser-check</see>
+	NoDefaultBrowserCheck() bool
+	// NoFirstRun
+	// Skip First Run tasks as well as not showing additional dialogs, prompts or bubbles. Suppressing dialogs, prompts, and bubbles is
+	// important as this switch is used by automation (including performance benchmarks) where it's important only a browser window is shown.
+	// This may not actually be the first run or the What's New page. Its effect can be partially ignored by adding kForceFirstRun (for FRE),
+	// kForceWhatsNew (for What's New) and/or kIgnoreNoFirstRunForSearchEngineChoiceScreen (for the DSE choice screen). This does not drop
+	// the First Run sentinel and thus doesn't prevent first run from occurring the next time chrome is launched without this flag.
+	// It also does not update the last What's New milestone, so does not prevent What's New from occurring the next time chrome is launched
+	// without this flag.
+	// <see href="https://peter.sh/experiments/chromium-command-line-switches/#no-first-run">Uses the following command line switch: --no-first-run</see>
+	NoFirstRun() bool
+	// ProxySettings
+	// Configure all the browsers to use a proxy server.
+	// If you use the proxy settings in GlobalCEFApp you will not be able to use the proxy properties in TChromiumCore.
+	// <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --no-proxy-server</see>
+	// <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --proxy-auto-detect</see>
+	// <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --proxy-bypass-list</see>
+	// <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --proxy-pac-url</see>
+	// <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --proxy-server</see>
+	// <see href="https://www.chromium.org/developers/design-documents/network-settings/">See the Network Settings article.</see>
+	// <see href="https://github.com/chromium/chromium/blob/main/net/docs/proxy.md"/">See the Proxy Support article.</see>
+	// <see href="https://developer.chrome.com/docs/extensions/reference/api/proxy">See the chrome.proxy API article.</see>
+	ProxySettings() ICEFProxySettings
+	// RemoteAllowOrigins
+	// Enables web socket connections from the specified origins only. '*' allows any origin.
+	// <see href="https://peter.sh/experiments/chromium-command-line-switches/">Uses the following command line switch: --remote-allow-origins</see>
+	RemoteAllowOrigins() string
+	// RemoveComponentID
+	// Removes a component ID from the valid ID list when a component is destroyed.
+	RemoveComponentID(componentID int32)
+	SetAutoAcceptCamAndMicCapture(value bool)
+	SetChromeAppIconId(value int32)
+	SetChromePolicyId(value string)
+	SetDisableHangMonitor(value bool)
+	SetDisableSignalHandlers(value bool)
+	SetDoNotDeElevate(value bool)
+	SetEnableAutomation(value bool)
+	SetExternalBeginFrameEnabled(value bool)
+	SetFieldTrialConfig(value cefTypes.TCefState)
+	SetHideCrashRestoreBubble(value bool)
+	SetLogItems(value cefTypes.TCefLogItems)
+	// SetNestableTasksAllowed
+	// Set to true (1) before calling OS APIs on the CEF UI thread that will enter
+	// a native message loop (see usage restrictions below). Set to false (0) after
+	// exiting the native message loop. On Windows, use the CefSetOSModalLoop
+	// function instead in cases like native top menus where resize of the browser
+	// content is not required, or in cases like printer APIs where reentrancy
+	// safety cannot be guaranteed.
+	// Nested processing of Chromium tasks is disabled by default because common
+	// controls and/or printer functions may use nested native message loops that
+	// lead to unplanned reentrancy. This function re-enables nested processing in
+	// the scope of an upcoming native message loop. It must only be used in cases
+	// where the stack is reentrancy safe and processing nestable tasks is
+	// explicitly safe. Do not use in cases (like the printer example) where an OS
+	// API may experience unplanned reentrancy as a result of a new task executing
+	// immediately.
+	// For instance,
+	// <code>
+	// - The UI thread is running a message loop.
+	// - It receives a task #1 and executes it.
+	// - The task #1 implicitly starts a nested message loop. For example, via
+	// Windows APIs such as MessageBox or GetSaveFileName, or default handling of
+	// a user-initiated drag/resize operation (e.g. DefWindowProc handling of
+	// WM_SYSCOMMAND for SC_MOVE/SC_SIZE).
+	// - The UI thread receives a task #2 before or while in this second message
+	// loop.
+	// - With NestableTasksAllowed set to true (1), the task #2 will run right
+	// away. Otherwise, it will be executed right after task #1 completes at
+	// "thread message loop level".
+	// </code>
+	SetNestableTasksAllowed(allowed bool)
+	SetNoDefaultBrowserCheck(value bool)
+	SetNoFirstRun(value bool)
+	SetRemoteAllowOrigins(value string)
+	SetSharedTextureEnabled(value bool)
+	SetTLS13HybridizedKyberSupport(value cefTypes.TCefState)
+	SetUseViewsDefaultPopup(value bool)
+	// SharedTextureEnabled
+	// Set to true (1) to enable shared textures for windowless rendering. Only
+	// valid if windowless_rendering_enabled above is also set to true. Currently
+	// only supported on Windows (D3D11).
+	SharedTextureEnabled() bool
+	// TLS13HybridizedKyberSupport
+	// This option enables a combination of X25519 and Kyber in TLS 1.3.
+	TLS13HybridizedKyberSupport() cefTypes.TCefState
+	// UseViewsDefaultPopup
+	// If true use a Views (bare-bones) window instead of a Chrome UI window when
+	// creating default popups for Chrome style native-hosted (non-Views)
+	// browsers. This applies when ICefLifeSpanHandler.OnBeforePopup has not been
+	// implemented to provide parent window information for the new popup.
+	UseViewsDefaultPopup() bool
+	// ValidComponentID
+	// Returns true if a custom component ID is valid before executing a CEF task.
+	ValidComponentID(componentID int32) bool
+}
+
 // ICefAudioHandler Parent: ICefBaseRefCounted
 type ICefAudioHandler interface {
 	ICefBaseRefCounted
@@ -2130,6 +2850,22 @@ type ICefBinaryValue interface {
 	IsValid() bool
 }
 
+type ICefBinaryValue_127 interface {
+	ICefBinaryValue
+	// GetRawData
+	// Returns a pointer to the beginning of the memory block. The returned
+	// pointer is valid as long as the ICefBinaryValue is alive.
+	GetRawData() uintptr
+}
+
+type ICefBinaryValue_147 interface {
+	ICefBinaryValue
+	// GetRawData
+	// Returns a pointer to the beginning of the memory block. The returned
+	// pointer is valid as long as the ICefBinaryValue is alive.
+	GetRawData() uintptr
+}
+
 // ICefBinaryValueRef Parent: ICefBinaryValue ICefBaseRefCountedRef
 type ICefBinaryValueRef interface {
 	ICefBaseRefCountedRef
@@ -2228,6 +2964,38 @@ type ICefBrowser interface {
 	// StopLoad
 	// Stop loading the page.
 	StopLoad()
+}
+
+type ICefBrowser_109 interface {
+	ICefBrowser
+	GetFrameByident(identifier int64) ICefFrame
+	GetFrame(name string) ICefFrame
+}
+
+type ICefBrowser_127 interface {
+	ICefBrowser
+	// GetFrameByIdentifier
+	// Returns the frame with the specified identifier, or NULL if not found.
+	GetFrameByIdentifier(identifier string) ICefFrame
+	// GetFrameByName
+	// Returns the frame with the specified name, or NULL if not found.
+	GetFrameByName(name string) ICefFrame
+	// GetFrameIdentifiers
+	// Returns the identifiers of all existing frames.
+	GetFrameIdentifiers(frameIdentifiers *lcl.IStrings) bool
+}
+
+type ICefBrowser_147 interface {
+	ICefBrowser
+	// GetFrameByIdentifier
+	// Returns the frame with the specified identifier, or NULL if not found.
+	GetFrameByIdentifier(identifier string) ICefFrame
+	// GetFrameByName
+	// Returns the frame with the specified name, or NULL if not found.
+	GetFrameByName(name string) ICefFrame
+	// GetFrameIdentifiers
+	// Returns the identifiers of all existing frames.
+	GetFrameIdentifiers(frameIdentifiers *lcl.IStrings) bool
 }
 
 // ICefBrowserHost Parent: ICefBaseRefCounted
@@ -2641,6 +3409,162 @@ type ICefBrowserHost interface {
 	WasResized()
 }
 
+type ICefBrowserHost_109 interface {
+	ICefBrowserHost
+	GetExtension() ICefExtension
+	IsBackgroundHost() bool
+}
+
+type ICefBrowserHost_127 interface {
+	ICefBrowserHost
+	// CanExecuteChromeCommand
+	// Returns true (1) if a Chrome command is supported and enabled. Values for
+	// |command_id| can be found in the cef_command_ids.h file. This function can
+	// only be called on the UI thread. Only used with the Chrome runtime.
+	// <see cref="uCEFConstants">See the IDC_* constants in uCEFConstants.pas for all the |command_id| values.</see>
+	// <see href="https://source.chromium.org/chromium/chromium/src/+/main:chrome/app/chrome_command_ids.h">The command_id values are also available in chrome/app/chrome_command_ids.h</see>
+	CanExecuteChromeCommand(commandId int32) bool
+	// ExecuteChromeCommand
+	// Execute a Chrome command. Values for |command_id| can be found in the
+	// cef_command_ids.h file. |disposition| provides information about the
+	// intended command target. Only used with the Chrome runtime.
+	// <see cref="uCEFConstants">See the IDC_* constants in uCEFConstants.pas for all the |command_id| values.</see>
+	// <see href="https://source.chromium.org/chromium/chromium/src/+/main:chrome/app/chrome_command_ids.h">The command_id values are also available in chrome/app/chrome_command_ids.h</see>
+	ExecuteChromeCommand(commandId int32, disposition cefTypes.TCefWindowOpenDisposition)
+	// ExitFullscreen
+	// Requests the renderer to exit browser fullscreen. In most cases exiting
+	// window fullscreen should also exit browser fullscreen. With the Alloy
+	// runtime this function should be called in response to a user action such
+	// as clicking the green traffic light button on MacOS
+	// (ICefWindowDelegate.OnWindowFullscreenTransition callback) or pressing
+	// the "ESC" key (ICefKeyboardHandler.OnPreKeyEvent callback). With the
+	// Chrome runtime these standard exit actions are handled internally but
+	// new/additional user actions can use this function. Set |will_cause_resize|
+	// to true (1) if exiting browser fullscreen will cause a view resize.
+	ExitFullscreen(willCauseResize bool)
+	// GetClient
+	// Returns the client for this browser.
+	GetClient() IEngClient
+	// GetDefaultZoomLevel
+	// Get the default zoom level. This value will be 0.0 by default but can be
+	// configured with the Chrome runtime. This function can only be called on
+	// the UI thread.
+	GetDefaultZoomLevel() float64
+	// GetExtension
+	// Returns the extension hosted in this browser or NULL if no extension is
+	// hosted. See ICefRequestContext.LoadExtension for details.
+	// WARNING: This API is deprecated and will be removed in ~M127.
+	GetExtension() ICefExtension
+	// IsBackgroundHost
+	// Returns true (1) if this browser is hosting an extension background
+	// script. Background hosts do not have a window and are not displayable. See
+	// ICefRequestContext.LoadExtension for details.
+	// WARNING: This API is deprecated and will be removed in ~M127.
+	IsBackgroundHost() bool
+	// IsFullscreen
+	// Returns true (1) if the renderer is currently in browser fullscreen. This
+	// differs from window fullscreen in that browser fullscreen is entered using
+	// the JavaScript Fullscreen API and modifies CSS attributes such as the
+	// ::backdrop pseudo-element and :fullscreen pseudo-structure. This function
+	// can only be called on the UI thread.
+	IsFullscreen() bool
+	// IsRenderProcessUnresponsive
+	// Returns true (1) if the render process associated with this browser is
+	// currently unresponsive as indicated by a lack of input event processing
+	// for at least 15 seconds. To receive associated state change notifications
+	// and optionally handle an unresponsive render process implement
+	// ICefRequestHandler.OnRenderProcessUnresponsive.
+	// This function can only be called on the CEF UI thread.
+	IsRenderProcessUnresponsive() bool
+}
+
+type ICefBrowserHost_147 interface {
+	ICefBrowserHost
+	// CanExecuteChromeCommand
+	// Returns true (1) if a Chrome command is supported and enabled. Use the
+	// cef_id_for_command_id_name() function for version-safe mapping of command
+	// IDC names from cef_command_ids.h to version-specific numerical
+	// |command_id| values. This function can only be called on the UI thread.
+	// Only used with Chrome style.
+	// <see cref="uCEFConstants">See the IDC_* constants in uCEFConstants.pas for all the |command_id| values.</see>
+	// <see href="https://source.chromium.org/chromium/chromium/src/+/main:chrome/app/chrome_command_ids.h">The command_id values are also available in chrome/app/chrome_command_ids.h</see>
+	CanExecuteChromeCommand(commandId int32) bool
+	// ExecuteChromeCommand
+	// Returns true (1) if a Chrome command is supported and enabled. Use the
+	// cef_id_for_command_id_name() function for version-safe mapping of command
+	// IDC names from cef_command_ids.h to version-specific numerical
+	// |command_id| values. This function can only be called on the UI thread.
+	// Only used with Chrome style.
+	// <see cref="uCEFConstants">See the IDC_* constants in uCEFConstants.pas for all the |command_id| values.</see>
+	// <see href="https://source.chromium.org/chromium/chromium/src/+/main:chrome/app/chrome_command_ids.h">The command_id values are also available in chrome/app/chrome_command_ids.h</see>
+	ExecuteChromeCommand(commandId int32, disposition cefTypes.TCefWindowOpenDisposition)
+	// ExitFullscreen
+	// Requests the renderer to exit browser fullscreen. In most cases exiting
+	// window fullscreen should also exit browser fullscreen. With Alloy style
+	// this function should be called in response to a user action such as
+	// clicking the green traffic light button on MacOS
+	// (ICefWindowDelegate.OnWindowFullscreenTransition callback) or pressing
+	// the "ESC" key (ICefKeyboardHandler.OnPreKeyEvent callback). With
+	// Chrome style these standard exit actions are handled internally but
+	// new/additional user actions can use this function. Set |will_cause_resize|
+	// to true (1) if exiting browser fullscreen will cause a view resize.
+	ExitFullscreen(willCauseResize bool)
+	// GetClient
+	// Returns the client for this browser.
+	GetClient() IEngClient
+	// GetDefaultZoomLevel
+	// Get the default zoom level. This value will be 0.0 by default but can be
+	// configured. This function can only be called on the UI thread.
+	GetDefaultZoomLevel() float64
+	// GetOpenerIdentifier
+	// Retrieve the unique identifier of the browser that opened this browser.
+	// Will return 0 for non-popup browsers.
+	GetOpenerIdentifier() int32
+	// IsFullscreen
+	// Returns true (1) if the renderer is currently in browser fullscreen. This
+	// differs from window fullscreen in that browser fullscreen is entered using
+	// the JavaScript Fullscreen API and modifies CSS attributes such as the
+	// ::backdrop pseudo-element and :fullscreen pseudo-structure. This function
+	// can only be called on the UI thread.
+	IsFullscreen() bool
+	// IsReadyToBeClosed
+	// Returns true (1) if the browser is ready to be closed, meaning that the
+	// close has already been initiated and that JavaScript unload handlers have
+	// already executed or should be ignored. This can be used from a top-level
+	// window close handler such as TCEFWindowComponent.OnCanClose (or platform-
+	// specific equivalent) to distringuish between potentially cancelable
+	// browser close events (like the user clicking the top-level window close
+	// button before browser close has started) and mandatory browser close
+	// events (like JavaScript `window.close()` or after browser close has
+	// started in response to [Try]CloseBrowser()). Not completing the browser
+	// close for mandatory close events (when this function returns true (1))
+	// will leave the browser in a partially closed state that interferes with
+	// proper functioning. See CloseBrowser() documentation for additional usage
+	// information. This function must be called on the browser process UI
+	// thread.
+	IsReadyToBeClosed() bool
+	// IsRenderProcessUnresponsive
+	// Returns true (1) if the render process associated with this browser is
+	// currently unresponsive as indicated by a lack of input event processing
+	// for at least 15 seconds. To receive associated state change notifications
+	// and optionally handle an unresponsive render process implement
+	// ICefRequestHandler.OnRenderProcessUnresponsive.
+	// This function can only be called on the CEF UI thread.
+	IsRenderProcessUnresponsive() bool
+	// SetAxViewportCollapse
+	// Enable or disable CDP accessibility tree viewport collapse for this
+	// browser. When enabled, off-screen landmarks and headings are serialized as
+	// summaries and other off-screen nodes are pruned. Overrides the
+	// TCefBrowserSettings.ax_viewport_collapse value. If called on the UI
+	// thread the change will be applied immediately. Otherwise, the change will
+	// be applied asynchronously on the UI thread. WARNING: This collapses the
+	// CDP accessibility tree and disables CDP dynamic tree updates (nodesUpdated
+	// events). The DevTools Accessibility panel will show an incomplete tree.
+	// Platform screen readers (NVDA, JAWS, VoiceOver) are unaffected they use
+	// a separate code path.
+	SetAxViewportCollapse(enabled bool)
+}
+
 // ICefBrowserHostRef Parent: ICefBrowserHost ICefBaseRefCountedRef
 type ICefBrowserHostRef interface {
 	ICefBaseRefCountedRef
@@ -2818,6 +3742,16 @@ type ICefCallbackRef interface {
 type ICefChromiumTask interface {
 }
 
+type ICefChromiumTask_127 interface {
+	ICefChromiumTask
+	AsIntfTask() uintptr
+}
+
+type ICefChromiumTask_147 interface {
+	ICefChromiumTask
+	AsIntfTask() uintptr
+}
+
 // ICefClient Parent: ICefBaseRefCounted
 type ICefClient interface {
 	ICefBaseRefCounted
@@ -2915,6 +3849,14 @@ type ICefCommandLine interface {
 	SetProgram(prog string)
 }
 
+type ICefCommandLine_147 interface {
+	ICefCommandLine
+	// RemoveSwitch
+	// Remove a switch from the command line. If no such switch is present, this
+	// has no effect.
+	RemoveSwitch(name string)
+}
+
 // ICefCommandLineRef Parent: ICefCommandLine ICefBaseRefCountedRef
 type ICefCommandLineRef interface {
 	ICefBaseRefCountedRef
@@ -2936,8 +3878,28 @@ type ICefCompletionCallbackOwn interface {
 type ICefComponent interface {
 }
 
+type ICefComponent_147 interface {
+	ICefComponent
+	// GetId
+	// Returns the unique identifier for this component.
+	GetId() string
+	// GetName
+	// Returns the human-readable name of this component. Returns an NULL string
+	// if the component is not installed.
+	GetName() string
+	// GetVersion
+	// Returns the version of this component as a string (e.g., "1.2.3.4").
+	// Returns an NULL string if the component is not installed.
+	GetVersion() string
+}
+
 // ICefComponentRef Parent: ICefComponent ICefBaseRefCountedRef
 type ICefComponentRef interface {
+}
+
+type ICefComponentRef_147 interface {
+	ICefComponentRef
+	AsIntfComponent() uintptr
 }
 
 // ICefContextMenuHandler Parent: ICefBaseRefCounted
@@ -3237,6 +4199,13 @@ type ICefCustomStringMultimap interface {
 
 // ICefCustomUserData Parent: ICefBaseRefCountedOwn
 type ICefCustomUserData interface {
+}
+
+type ICefCustomUserData_147 interface {
+	ICefCustomUserData
+	AsIntfCustomUserData() uintptr
+	GetUserDataType() uintptr
+	GetUserData() uintptr
 }
 
 // ICefDeleteCookiesCallback Parent: ICefBaseRefCounted
@@ -3593,6 +4562,11 @@ type ICefDomNode interface {
 	SetValue(value string) bool
 }
 
+type ICefDomNode_109 interface {
+	ICefDomNode
+	GetFormControlElementType() string
+}
+
 // ICefDomNodeRef Parent: ICefDomNode ICefBaseRefCountedRef
 type ICefDomNodeRef interface {
 	ICefBaseRefCountedRef
@@ -3611,6 +4585,11 @@ type ICefDomVisitorOwn interface {
 }
 
 type ICefDownLoadItemRef interface {
+}
+
+type ICefDownLoadItemRef_109 interface {
+	ICefDownLoadItemRef
+	AsIntfDownloadItem() uintptr
 }
 
 // ICefDownloadHandler Parent: ICefBaseRefCounted
@@ -3691,6 +4670,29 @@ type ICefDownloadItem interface {
 	IsValid() bool
 }
 
+type ICefDownloadItem_127 interface {
+	ICefDownloadItem
+	// GetInterruptReason
+	// Returns the most recent interrupt reason.
+	GetInterruptReason() cefTypes.TCefDownloadInterruptReason
+	// IsInterrupted
+	// Returns true (1) if the download has been interrupted.
+	IsInterrupted() bool
+}
+
+type ICefDownloadItem_147 interface {
+	ICefDownloadItem
+	// GetInterruptReason
+	// Returns the most recent interrupt reason.
+	GetInterruptReason() cefTypes.TCefDownloadInterruptReason
+	// IsInterrupted
+	// Returns true (1) if the download has been interrupted.
+	IsInterrupted() bool
+	// IsPaused
+	// Returns true (1) if the download has been paused.
+	IsPaused() bool
+}
+
 // ICefDownloadItemCallback Parent: ICefBaseRefCounted
 type ICefDownloadItemCallback interface {
 	ICefBaseRefCounted
@@ -3714,6 +4716,16 @@ type ICefDownloadItemCallbackRef interface {
 
 // ICefDownloadItemRef Parent: ICefDownloadItem ICefBaseRefCountedRef
 type ICefDownloadItemRef interface {
+}
+
+type ICefDownloadItemRef_127 interface {
+	ICefDownloadItemRef
+	AsIntfDownloadItem() uintptr
+}
+
+type ICefDownloadItemRef_147 interface {
+	ICefDownloadItemRef
+	AsIntfDownloadItem() uintptr
 }
 
 // ICefDragData Parent: ICefBaseRefCounted
@@ -3807,6 +4819,22 @@ type ICefDragData interface {
 	SetLinkUrl(url string)
 }
 
+type ICefDragData_127 interface {
+	ICefDragData
+	// GetFilePaths
+	// Retrieve the list of file paths that are being dragged into the browser
+	// window.
+	GetFilePaths(paths *lcl.IStrings) int32
+}
+
+type ICefDragData_147 interface {
+	ICefDragData
+	// GetFilePaths
+	// Retrieve the list of file paths that are being dragged into the browser
+	// window.
+	GetFilePaths(paths *lcl.IStrings) int32
+}
+
 // ICefDragDataRef Parent: ICefDragData ICefBaseRefCountedRef
 type ICefDragDataRef interface {
 	ICefBaseRefCountedRef
@@ -3843,6 +4871,77 @@ type ICefEventCompletionCallback interface {
 type ICefExtension interface {
 }
 
+type ICefExtension_109 interface {
+	ICefExtension
+	GetBackgroundPage() string
+	GetBrowserActionIcon() string
+	GetBrowserActionPopup() string
+	GetHandler() IEngExtensionHandler
+	GetIdentifier() string
+	GetLoaderContext() ICefRequestContext
+	GetManifest() ICefDictionaryValue
+	GetOptionsPage() string
+	GetOptionsUIPage() string
+	GetPageActionIcon() string
+	GetPageActionPopup() string
+	GetPath() string
+	GetURL() string
+	IsLoaded() bool
+	IsSame(that ICefExtension) bool
+	Unload()
+}
+
+type ICefExtension_127 interface {
+	ICefExtension
+	GetBackgroundPage() string
+	GetBrowserActionIcon() string
+	GetBrowserActionPopup() string
+	// GetHandler
+	// Returns the handler for this extension. Will return NULL for internal
+	// extensions or if no handler was passed to
+	// ICefRequestContext.LoadExtension.
+	GetHandler() IEngExtensionHandler
+	// GetIdentifier
+	// Returns the unique extension identifier. This is calculated based on the
+	// extension public key, if available, or on the extension path. See
+	// https://developer.chrome.com/extensions/manifest/key for details.
+	GetIdentifier() string
+	// GetLoaderContext
+	// Returns the request context that loaded this extension. Will return NULL
+	// for internal extensions or if the extension has been unloaded. See the
+	// ICefRequestContext.LoadExtension documentation for more information
+	// about loader contexts. Must be called on the browser process UI thread.
+	GetLoaderContext() ICefRequestContext
+	// GetManifest
+	// Returns the extension manifest contents as a ICefDictionaryValue
+	// object. See https://developer.chrome.com/extensions/manifest for details.
+	GetManifest() ICefDictionaryValue
+	GetOptionsPage() string
+	GetOptionsUIPage() string
+	GetPageActionIcon() string
+	GetPageActionPopup() string
+	// GetPath
+	// Returns the absolute path to the extension directory on disk. This value
+	// will be prefixed with PK_DIR_RESOURCES if a relative path was passed to
+	// ICefRequestContext.LoadExtension.
+	GetPath() string
+	GetURL() string
+	// IsLoaded
+	// Returns true (1) if this extension is currently loaded. Must be called on
+	// the browser process UI thread.
+	IsLoaded() bool
+	// IsSame
+	// Returns true (1) if this object is the same extension as |that| object.
+	// Extensions are considered the same if identifier, path and loader context
+	// match.
+	IsSame(that ICefExtension) bool
+	// Unload
+	// Unload this extension if it is not an internal extension and is currently
+	// loaded. Will result in a call to
+	// ICefExtensionHandler.OnExtensionUnloaded on success.
+	Unload()
+}
+
 type ICefExtensionHandler interface {
 }
 
@@ -3850,6 +4949,16 @@ type ICefExtensionHandlerOwn interface {
 }
 
 type ICefExtensionRef interface {
+}
+
+type ICefExtensionRef_109 interface {
+	ICefExtensionRef
+	AsIntfExtension() uintptr
+}
+
+type ICefExtensionRef_127 interface {
+	ICefExtensionRef
+	AsIntfExtension() uintptr
 }
 
 // ICefFileDialogCallback Parent: ICefBaseRefCounted
@@ -4016,6 +5125,30 @@ type ICefFrame interface {
 	VisitDom(visitor IEngDomVisitor)
 }
 
+type ICefFrame_109 interface {
+	ICefFrame
+	GetIdentifier() int64
+}
+
+type ICefFrame_127 interface {
+	ICefFrame
+	// GetIdentifier
+	// Returns the globally unique identifier for this frame or empty if the
+	// underlying frame does not yet exist.
+	GetIdentifier() string
+}
+
+type ICefFrame_147 interface {
+	ICefFrame
+	// GetIdentifier
+	// Returns the globally unique identifier for this frame or empty if the
+	// underlying frame does not yet exist.
+	GetIdentifier() string
+	// PasteAndMatchStyle
+	// Execute paste and match style in this frame.
+	PasteAndMatchStyle()
+}
+
 // ICefFrameHandler Parent: ICefBaseRefCounted
 type ICefFrameHandler interface {
 	ICefBaseRefCounted
@@ -4042,7 +5175,33 @@ type ICefGenericTask interface {
 type ICefGetExtensionResourceCallback interface {
 }
 
+type ICefGetExtensionResourceCallback_109 interface {
+	ICefGetExtensionResourceCallback
+	Cancel()
+	Cont(stream ICefStreamReader)
+}
+
+type ICefGetExtensionResourceCallback_127 interface {
+	ICefGetExtensionResourceCallback
+	// Cancel
+	// Cancel the request.
+	Cancel()
+	// Cont
+	// Continue the request. Read the resource contents from |stream|.
+	Cont(stream ICefStreamReader)
+}
+
 type ICefGetExtensionResourceCallbackRef interface {
+}
+
+type ICefGetExtensionResourceCallbackRef_109 interface {
+	ICefGetExtensionResourceCallbackRef
+	AsIntfGetExtensionResourceCallback() uintptr
+}
+
+type ICefGetExtensionResourceCallbackRef_127 interface {
+	ICefGetExtensionResourceCallbackRef
+	AsIntfGetExtensionResourceCallback() uintptr
 }
 
 // ICefImage Parent: ICefBaseRefCounted
@@ -4404,6 +5563,16 @@ type ICefLoadHandlerOwn interface {
 type ICefManagedTask interface {
 }
 
+type ICefManagedTask_127 interface {
+	ICefManagedTask
+	AsIntfTask() uintptr
+}
+
+type ICefManagedTask_147 interface {
+	ICefManagedTask
+	AsIntfTask() uintptr
+}
+
 // ICefMediaAccessCallback Parent: ICefBaseRefCounted
 type ICefMediaAccessCallback interface {
 	ICefBaseRefCounted
@@ -4542,6 +5711,11 @@ type ICefMediaSink interface {
 	// IsDialSink
 	// Returns true (1) if this sink accepts content via DIAL.
 	IsDialSink() bool
+}
+
+type ICefMediaSink_109 interface {
+	ICefMediaSink
+	GetDescription() string
 }
 
 // ICefMediaSinkDeviceInfoCallback Parent: ICefBaseRefCounted
@@ -5286,6 +6460,18 @@ type ICefPreferenceManager interface {
 	SetPreference(name string, value ICefValue, outError_ *string) bool
 }
 
+type ICefPreferenceManager_147 interface {
+	ICefPreferenceManager
+	// AddPreferenceObserver
+	// Add an observer for preference changes. |name| is the name of the
+	// preference to observe. If |name| is NULL then all preferences will be
+	// observed. Observing all preferences has performance consequences and is
+	// not recommended outside of testing scenarios. The observer will remain
+	// registered until the returned Registration object is destroyed. This
+	// function must be called on the browser process UI thread.
+	AddPreferenceObserver(name string, observer IEngPreferenceObserver) ICefRegistration
+}
+
 // ICefPreferenceManagerRef Parent: ICefPreferenceManager ICefBaseRefCountedRef
 type ICefPreferenceManagerRef interface {
 	ICefBaseRefCountedRef
@@ -5671,6 +6857,109 @@ type ICefRequestContext interface {
 	// Attempts to resolve |origin| to a list of associated IP addresses.
 	// |callback| will be executed on the UI thread after completion.
 	ResolveHost(origin string, callback IEngResolveCallback)
+}
+
+type ICefRequestContext_109 interface {
+	ICefRequestContext
+	DidLoadExtension(extensionId string) bool
+	GetExtensions(extensionIds lcl.IStringList) bool
+	GetExtension(extensionId string) ICefExtension
+	HasExtension(extensionId string) bool
+	LoadExtension(rootDirectory string, manifest ICefDictionaryValue, handler IEngExtensionHandler)
+}
+
+type ICefRequestContext_127 interface {
+	ICefRequestContext
+	// DidLoadExtension
+	// Returns true (1) if this context was used to load the extension identified
+	// by |extension_id|. Other contexts sharing the same storage will also have
+	// access to the extension (see HasExtension). This function must be called
+	// on the browser process UI thread.
+	// WARNING: This function is deprecated and will be removed in ~M127.
+	DidLoadExtension(extensionId string) bool
+	// GetChromeColorSchemeColor
+	// Returns the current Chrome color scheme color, or transparent (0) for the
+	// default color. Must be called on the browser process UI thread.
+	GetChromeColorSchemeColor() cefTypes.TCefColor
+	// GetExtensions
+	// Retrieve the list of all extensions that this context has access to (see
+	// HasExtension). |extension_ids| will be populated with the list of
+	// extension ID values. Returns true (1) on success. This function must be
+	// called on the browser process UI thread.
+	// WARNING: This function is deprecated and will be removed in ~M127.
+	GetExtensions(extensionIds lcl.IStringList) bool
+	// GetExtension
+	// Returns the extension matching |extension_id| or NULL if no matching
+	// extension is accessible in this context (see HasExtension). This function
+	// must be called on the browser process UI thread.
+	// WARNING: This function is deprecated and will be removed in ~M127.
+	GetExtension(extensionId string) ICefExtension
+	// HasExtension
+	// Returns true (1) if this context has access to the extension identified by
+	// |extension_id|. This may not be the context that was used to load the
+	// extension (see DidLoadExtension). This function must be called on the
+	// browser process UI thread.
+	// WARNING: This function is deprecated and will be removed in ~M127.
+	HasExtension(extensionId string) bool
+	// LoadExtension
+	// Load an extension.
+	// If extension resources will be read from disk using the default load
+	// implementation then |root_directory| should be the absolute path to the
+	// extension resources directory and |manifest| should be NULL. If extension
+	// resources will be provided by the client (e.g. via ICefRequestHandler
+	// and/or ICefExtensionHandler) then |root_directory| should be a path
+	// component unique to the extension (if not absolute this will be internally
+	// prefixed with the PK_DIR_RESOURCES path) and |manifest| should contain the
+	// contents that would otherwise be read from the "manifest.json" file on
+	// disk.
+	// The loaded extension will be accessible in all contexts sharing the same
+	// storage (HasExtension returns true (1)). However, only the context on
+	// which this function was called is considered the loader (DidLoadExtension
+	// returns true (1)) and only the loader will receive
+	// ICefRequestContextHandler callbacks for the extension.
+	// ICefExtensionHandler.OnExtensionLoaded will be called on load success
+	// or ICefExtensionHandler.OnExtensionLoadFailed will be called on load
+	// failure.
+	// If the extension specifies a background script via the "background"
+	// manifest key then ICefExtensionHandler.OnBeforeBackgroundBrowser will
+	// be called to create the background browser. See that function for
+	// additional information about background scripts.
+	// For visible extension views the client application should evaluate the
+	// manifest to determine the correct extension URL to load and then pass that
+	// URL to the ICefBrowserHost.CreateBrowser* function after the extension
+	// has loaded. For example, the client can look for the "browser_action"
+	// manifest key as documented at
+	// https://developer.chrome.com/extensions/browserAction. Extension URLs take
+	// the form "chrome-extension://<extension_id>/<path>".
+	// Browsers that host extensions differ from normal browsers as follows:
+	// - Can access chrome.* JavaScript APIs if allowed by the manifest. Visit
+	// chrome://extensions-support for the list of extension APIs currently
+	// supported by CEF.
+	// - Main frame navigation to non-extension content is blocked.
+	// - Pinch-zooming is disabled.
+	// - CefBrowserHost::GetExtension returns the hosted extension.
+	// - CefBrowserHost::IsBackgroundHost returns true for background hosts.
+	// See https://developer.chrome.com/extensions for extension implementation
+	// and usage documentation.
+	// WARNING: This function is deprecated and will be removed in ~M127.
+	LoadExtension(rootDirectory string, manifest ICefDictionaryValue, handler IEngExtensionHandler)
+}
+
+type ICefRequestContext_147 interface {
+	ICefRequestContext
+	// AddSettingObserver
+	// Add an observer for content and website setting changes. The observer will
+	// remain registered until the returned Registration object is destroyed.
+	// This function must be called on the browser process UI thread.
+	AddSettingObserver(observer IEngSettingObserver) ICefRegistration
+	// ClearHttpCache
+	// Clears the HTTP cache. If |callback| is non-NULL it will be executed on
+	// the UI thread after completion.
+	ClearHttpCache(callback IEngCompletionCallback)
+	// GetChromeColorSchemeColor
+	// Returns the current Chrome color scheme color, or transparent (0) for the
+	// default color. Must be called on the browser process UI thread.
+	GetChromeColorSchemeColor() cefTypes.TCefColor
 }
 
 // ICefRequestContextHandler Parent: ICefBaseRefCounted
@@ -6311,6 +7600,21 @@ type ICefStringList interface {
 	GetValue(index cefTypes.NativeUInt) string
 }
 
+type ICefStringList_109 interface {
+	ICefStringList
+	GetHandle() cefTypes.TCefStringMap
+}
+
+type ICefStringList_127 interface {
+	ICefStringList
+	GetHandle() cefTypes.TCefStringList
+}
+
+type ICefStringList_147 interface {
+	ICefStringList
+	GetHandle() cefTypes.TCefStringList
+}
+
 // ICefStringListOwn Parent: ICefCustomStringList
 type ICefStringListOwn interface {
 	ICefCustomStringList
@@ -6385,8 +7689,42 @@ type ICefTask interface {
 type ICefTaskManager interface {
 }
 
+type ICefTaskManager_147 interface {
+	ICefTaskManager
+	// GetTaskIdForBrowserId
+	// Returns the task ID associated with the main task for |browser_id| (value
+	// from cef_browser_t::GetIdentifier). Returns -1 if |browser_id| is invalid,
+	// does not currently have an associated task, or the function was called
+	// from the incorrect thread.
+	GetTaskIdForBrowserId(browserId int32) int64
+	// GetTaskIdsList
+	// Gets the list of task IDs currently tracked by the task manager. Tasks
+	// that share the same process id will always be consecutive. The list will
+	// be sorted in a way that reflects the process tree: the browser process
+	// will be first, followed by the gpu process if it exists. Related processes
+	// (e.g., a subframe process and its parent) will be kept together if
+	// possible. Callers can expect this ordering to be stable when a process is
+	// added or removed. The task IDs are unique within the application lifespan.
+	// Returns false (0) if the function was called from the incorrect thread.
+	GetTaskIdsList(taskIds *lcl.IInt64ArrayWrap) bool
+	// GetTasksCount
+	// Returns the number of tasks currently tracked by the task manager. Returns
+	// 0 if the function was called from the incorrect thread.
+	GetTasksCount() cefTypes.NativeUInt
+	// KillTask
+	// Attempts to terminate a task with |task_id|. Returns false (0) if the
+	// |task_id| is invalid, the call is made from an incorrect thread, or if the
+	// task cannot be terminated.
+	KillTask(taskId int64) bool
+}
+
 // ICefTaskManagerRef Parent: ICefTaskManager ICefBaseRefCountedRef
 type ICefTaskManagerRef interface {
+}
+
+type ICefTaskManagerRef_147 interface {
+	ICefTaskManagerRef
+	AsIntfTaskManager() uintptr
 }
 
 type ICefTaskOwn interface {
@@ -6396,6 +7734,11 @@ type ICefTaskOwn interface {
 
 // ICefTaskRef Parent: ICefTask ICefBaseRefCountedRef
 type ICefTaskRef interface {
+}
+
+type ICefTaskRef_147 interface {
+	ICefTaskRef
+	AsIntfTask() uintptr
 }
 
 // ICefTaskRunner Parent: ICefBaseRefCounted
@@ -6611,12 +7954,52 @@ type ICefThreadRef interface {
 type ICefURLRequestClientTask interface {
 }
 
+type ICefURLRequestClientTask_127 interface {
+	ICefURLRequestClientTask
+	AsIntfTask() uintptr
+}
+
+type ICefURLRequestClientTask_147 interface {
+	ICefURLRequestClientTask
+	AsIntfTask() uintptr
+}
+
 // ICefUnresponsiveProcessCallback Parent: ICefBaseRefCounted
 type ICefUnresponsiveProcessCallback interface {
 }
 
+type ICefUnresponsiveProcessCallback_127 interface {
+	ICefUnresponsiveProcessCallback
+	// Terminate
+	// Terminate the unresponsive process.
+	Terminate()
+	// Wait
+	// Reset the timeout for the unresponsive process.
+	Wait()
+}
+
+type ICefUnresponsiveProcessCallback_147 interface {
+	ICefUnresponsiveProcessCallback
+	// Terminate
+	// Terminate the unresponsive process.
+	Terminate()
+	// Wait
+	// Reset the timeout for the unresponsive process.
+	Wait()
+}
+
 // ICefUnresponsiveProcessCallbackRef Parent: ICefUnresponsiveProcessCallback ICefBaseRefCountedRef
 type ICefUnresponsiveProcessCallbackRef interface {
+}
+
+type ICefUnresponsiveProcessCallbackRef_127 interface {
+	ICefUnresponsiveProcessCallbackRef
+	AsIntfUnresponsiveProcessCallback() uintptr
+}
+
+type ICefUnresponsiveProcessCallbackRef_147 interface {
+	ICefUnresponsiveProcessCallbackRef
+	AsIntfUnresponsiveProcessCallback() uintptr
 }
 
 // ICefUrlRequest Parent: ICefBaseRefCounted
@@ -6647,6 +8030,20 @@ type ICefUrlRequest interface {
 	GetResponse() ICefResponse
 }
 
+type ICefUrlRequest_127 interface {
+	ICefUrlRequest
+	// GetClient
+	// Returns the client.
+	GetClient() IEngUrlrequestClient
+}
+
+type ICefUrlRequest_147 interface {
+	ICefUrlRequest
+	// GetClient
+	// Returns the client.
+	GetClient() IEngUrlrequestClient
+}
+
 // ICefUrlRequestRef Parent: ICefUrlRequest ICefBaseRefCountedRef
 type ICefUrlRequestRef interface {
 	ICefBaseRefCountedRef
@@ -6666,6 +8063,16 @@ type ICefUrlrequestClientOwn interface {
 
 // ICefUrlrequestClientRef Parent: ICefUrlrequestClient ICefBaseRefCountedRef
 type ICefUrlrequestClientRef interface {
+}
+
+type ICefUrlrequestClientRef_127 interface {
+	ICefUrlrequestClientRef
+	AsIntfUrlrequestClient() uintptr
+}
+
+type ICefUrlrequestClientRef_147 interface {
+	ICefUrlrequestClientRef
+	AsIntfUrlrequestClient() uintptr
 }
 
 // ICefV8Accessor Parent: ICefBaseRefCounted
@@ -7136,6 +8543,31 @@ type ICefView interface {
 	ToStringEx(includeChildren bool) string
 }
 
+type ICefView_127 interface {
+	ICefView
+	// GetThemeColor
+	// Returns the current theme color associated with |color_id|, or the
+	// placeholder color (red) if unset. See cef_color_ids.h for standard ID
+	// values. Standard colors can be overridden and custom colors can be added
+	// using ICefWindow.SetThemeColor.
+	GetThemeColor(colorId int32) cefTypes.TCefColor
+}
+
+type ICefView_147 interface {
+	ICefView
+	// GetThemeColor
+	// Returns the current theme color associated with |color_id|, or the
+	// placeholder color (red) if unset. See cef_color_ids.h for standard ID
+	// values. Standard colors can be overridden and custom colors can be added
+	// using ICefWindow.SetThemeColor.
+	GetThemeColor(colorId int32) cefTypes.TCefColor
+	// HasFocus
+	// Returns true (1) if this View has focus in the context of the containing
+	// Window. Check both this function and ICefWindow.IsActive to determine
+	// global keyboard focus.
+	HasFocus() bool
+}
+
 // ICefViewDelegate Parent: ICefBaseRefCounted
 type ICefViewDelegate interface {
 	ICefBaseRefCounted
@@ -7160,6 +8592,16 @@ type ICefViewDelegateRef interface {
 
 // ICefViewDelegateTask Parent: ICefManagedTask
 type ICefViewDelegateTask interface {
+}
+
+type ICefViewDelegateTask_127 interface {
+	ICefViewDelegateTask
+	AsIntfTask() uintptr
+}
+
+type ICefViewDelegateTask_147 interface {
+	ICefViewDelegateTask
+	AsIntfTask() uintptr
 }
 
 // ICefViewRef Parent: ICefView ICefBaseRefCountedRef
@@ -7342,6 +8784,186 @@ type ICefWindow interface {
 	Show()
 }
 
+type ICefWindow_109 interface {
+	ICefWindow
+	AddOverlayView(view ICefView, dockingMode cefTypes.TCefDockingMode) ICefOverlayController
+	SetAccelerator(commandId int32, keyCode int32, shiftPressed bool, ctrlPressed bool, altPressed bool)
+}
+
+type ICefWindow_127 interface {
+	ICefWindow
+	// AddOverlayView
+	// Add a View that will be overlayed on the Window contents with absolute
+	// positioning and high z-order. Positioning is controlled by |docking_mode|
+	// as described below. Setting |can_activate| to true (1) will allow the
+	// overlay view to receive input focus. The returned cef_overlay_controller_t
+	// object is used to control the overlay. Overlays are hidden by default.
+	// With CEF_DOCKING_MODE_CUSTOM:
+	// 1. The overlay is initially hidden, sized to |view|'s preferred size,
+	// and positioned in the top-left corner.
+	// 2. Optionally change the overlay position and/or size by calling
+	// CefOverlayController methods.
+	// 3. Call ICefOverlayController.SetVisible(true) to show the overlay.
+	// 4. The overlay will be automatically re-sized if |view|'s layout
+	// changes. Optionally change the overlay position and/or size when
+	// OnLayoutChanged is called on the Window's delegate to indicate a
+	// change in Window bounds.
+	// With other docking modes:
+	// 1. The overlay is initially hidden, sized to |view|'s preferred size,
+	// and positioned based on |docking_mode|.
+	// 2. Call ICefOverlayController.SetVisible(true) to show the overlay.
+	// 3. The overlay will be automatically re-sized if |view|'s layout changes
+	// and re-positioned as appropriate when the Window resizes.
+	// Overlays created by this function will receive a higher z-order then any
+	// child Views added previously. It is therefore recommended to call this
+	// function last after all other child Views have been added so that the
+	// overlay displays as the top-most child of the Window.
+	AddOverlayView(view ICefView, dockingMode cefTypes.TCefDockingMode, canActivate bool) ICefOverlayController
+	// SetAccelerator
+	// Set the keyboard accelerator for the specified |command_id|. |key_code|
+	// can be any virtual key or character value. Required modifier keys are
+	// specified by |shift_pressed|, |ctrl_pressed| and/or |alt_pressed|.
+	// ICefWindowDelegate.OnAccelerator will be called if the keyboard
+	// combination is triggered while this window has focus.
+	// The |high_priority| value will be considered if a child ICefBrowserView
+	// has focus when the keyboard combination is triggered. If |high_priority|
+	// is true (1) then the key event will not be forwarded to the web content
+	// (`keydown` event handler) or ICefKeyboardHandler first. If
+	// |high_priority| is false (0) then the behavior will depend on the
+	// ICefBrowserView.SetPreferAccelerators configuration.
+	SetAccelerator(commandId int32, keyCode int32, shiftPressed bool, ctrlPressed bool, altPressed bool, highPriority bool)
+	// SetThemeColor
+	// Override a standard theme color or add a custom color associated with
+	// |color_id|. See cef_color_ids.h for standard ID values. Recommended usage
+	// is as follows:
+	// <code>
+	// 1. Customize the default native/OS theme by calling SetThemeColor before
+	// showing the first Window. When done setting colors call
+	// ICefWindow.ThemeChanged to trigger ICefViewDelegate.OnThemeChanged
+	// notifications.
+	// 2. Customize the current native/OS or Chrome theme after it changes by
+	// calling SetThemeColor from the ICefWindowDelegate.OnThemeColorsChanged
+	// callback. ICefViewDelegate.OnThemeChanged notifications will then be
+	// triggered automatically.
+	// </code>
+	// The configured color will be available immediately via
+	// ICefView.GetThemeColor and will be applied to each View in this
+	// Window's component hierarchy when ICefViewDelegate.OnThemeChanged is
+	// called. See OnThemeColorsChanged documentation for additional details.
+	// Clients wishing to add custom colors should use |color_id| values >=
+	// CEF_ChromeColorsEnd.
+	SetThemeColor(colorId int32, color cefTypes.TCefColor)
+	// ShowAsBrowserModalDialog
+	// Show the Window as a browser modal dialog relative to |browser_view|. A
+	// parent Window must be returned via
+	// ICefWindowDelegate.GetParentWindow() and |browser_view| must belong
+	// to that parent Window. While this Window is visible, |browser_view| will
+	// be disabled while other controls in the parent Window remain enabled.
+	// Navigating or destroying the |browser_view| will close this Window
+	// automatically. Alternately, use show() and return true (1) from
+	// ICefWindowDelegate.IsWindowModalDialog() for a window modal dialog
+	// where all controls in the parent Window are disabled.
+	ShowAsBrowserModalDialog(browserView ICefBrowserView)
+	// ThemeChanged
+	// Trigger ICefViewDelegate.OnThemeChanged callbacks for each View in
+	// this Window's component hierarchy. Unlike a native/OS or Chrome theme
+	// change this function does not reset theme colors to standard values and
+	// does not result in a call to ICefWindowDelegate.OnThemeColorsChanged.
+	// Do not call this function from ICefWindowDelegate.OnThemeColorsChanged
+	// or ICefViewDelegate.OnThemeChanged.
+	ThemeChanged()
+}
+
+type ICefWindow_147 interface {
+	ICefWindow
+	// AddOverlayView
+	// Add a View that will be overlayed on the Window contents with absolute
+	// positioning and high z-order. Positioning is controlled by |docking_mode|
+	// as described below. Setting |can_activate| to true (1) will allow the
+	// overlay view to receive input focus. The returned cef_overlay_controller_t
+	// object is used to control the overlay. Overlays are hidden by default.
+	// With CEF_DOCKING_MODE_CUSTOM:
+	// 1. The overlay is initially hidden, sized to |view|'s preferred size,
+	// and positioned in the top-left corner.
+	// 2. Optionally change the overlay position and/or size by calling
+	// CefOverlayController methods.
+	// 3. Call ICefOverlayController.SetVisible(true) to show the overlay.
+	// 4. The overlay will be automatically re-sized if |view|'s layout
+	// changes. Optionally change the overlay position and/or size when
+	// OnLayoutChanged is called on the Window's delegate to indicate a
+	// change in Window bounds.
+	// With other docking modes:
+	// 1. The overlay is initially hidden, sized to |view|'s preferred size,
+	// and positioned based on |docking_mode|.
+	// 2. Call ICefOverlayController.SetVisible(true) to show the overlay.
+	// 3. The overlay will be automatically re-sized if |view|'s layout changes
+	// and re-positioned as appropriate when the Window resizes.
+	// Overlays created by this function will receive a higher z-order then any
+	// child Views added previously. It is therefore recommended to call this
+	// function last after all other child Views have been added so that the
+	// overlay displays as the top-most child of the Window.
+	AddOverlayView(view ICefView, dockingMode cefTypes.TCefDockingMode, canActivate bool) ICefOverlayController
+	// GetFocusedView
+	// Returns the View that currently has focus in this Window, or nullptr if no
+	// View currently has focus. A Window may have a focused View even if it is
+	// not currently active. Any focus changes while a Window is not active may
+	// be applied after that Window next becomes active.
+	GetFocusedView() ICefView
+	// SetAccelerator
+	// Set the keyboard accelerator for the specified |command_id|. |key_code|
+	// can be any virtual key or character value. Required modifier keys are
+	// specified by |shift_pressed|, |ctrl_pressed| and/or |alt_pressed|.
+	// ICefWindowDelegate.OnAccelerator will be called if the keyboard
+	// combination is triggered while this window has focus.
+	// The |high_priority| value will be considered if a child ICefBrowserView
+	// has focus when the keyboard combination is triggered. If |high_priority|
+	// is true (1) then the key event will not be forwarded to the web content
+	// (`keydown` event handler) or ICefKeyboardHandler first. If
+	// |high_priority| is false (0) then the behavior will depend on the
+	// ICefBrowserView.SetPreferAccelerators configuration.
+	SetAccelerator(commandId int32, keyCode int32, shiftPressed bool, ctrlPressed bool, altPressed bool, highPriority bool)
+	// SetThemeColor
+	// Override a standard theme color or add a custom color associated with
+	// |color_id|. See cef_color_ids.h for standard ID values. Recommended usage
+	// is as follows:
+	// <code>
+	// 1. Customize the default native/OS theme by calling SetThemeColor before
+	// showing the first Window. When done setting colors call
+	// ICefWindow.ThemeChanged to trigger ICefViewDelegate.OnThemeChanged
+	// notifications.
+	// 2. Customize the current native/OS or Chrome theme after it changes by
+	// calling SetThemeColor from the ICefWindowDelegate.OnThemeColorsChanged
+	// callback. ICefViewDelegate.OnThemeChanged notifications will then be
+	// triggered automatically.
+	// </code>
+	// The configured color will be available immediately via
+	// ICefView.GetThemeColor and will be applied to each View in this
+	// Window's component hierarchy when ICefViewDelegate.OnThemeChanged is
+	// called. See OnThemeColorsChanged documentation for additional details.
+	// Clients wishing to add custom colors should use |color_id| values >=
+	// CEF_ChromeColorsEnd.
+	SetThemeColor(colorId int32, color cefTypes.TCefColor)
+	// ShowAsBrowserModalDialog
+	// Show the Window as a browser modal dialog relative to |browser_view|. A
+	// parent Window must be returned via
+	// ICefWindowDelegate.GetParentWindow() and |browser_view| must belong
+	// to that parent Window. While this Window is visible, |browser_view| will
+	// be disabled while other controls in the parent Window remain enabled.
+	// Navigating or destroying the |browser_view| will close this Window
+	// automatically. Alternately, use show() and return true (1) from
+	// ICefWindowDelegate.IsWindowModalDialog() for a window modal dialog
+	// where all controls in the parent Window are disabled.
+	ShowAsBrowserModalDialog(browserView ICefBrowserView)
+	// ThemeChanged
+	// Trigger ICefViewDelegate.OnThemeChanged callbacks for each View in
+	// this Window's component hierarchy. Unlike a native/OS or Chrome theme
+	// change this function does not reset theme colors to standard values and
+	// does not result in a call to ICefWindowDelegate.OnThemeColorsChanged.
+	// Do not call this function from ICefWindowDelegate.OnThemeColorsChanged
+	// or ICefViewDelegate.OnThemeChanged.
+	ThemeChanged()
+}
+
 // ICefWindowDelegate Parent: ICefPanelDelegate
 type ICefWindowDelegate interface {
 	ICefPanelDelegate
@@ -7411,6 +9033,12 @@ type ICefX509CertPrincipal interface {
 	// GetStateOrProvinceName
 	// Returns the state or province name.
 	GetStateOrProvinceName() string
+}
+
+type ICefX509CertPrincipal_109 interface {
+	ICefX509CertPrincipal
+	GetDomainComponents(components lcl.IStrings)
+	GetStreetAddresses(addresses lcl.IStrings)
 }
 
 // ICefX509CertPrincipalRef Parent: ICefX509CertPrincipal ICefBaseRefCountedRef
@@ -7666,8 +9294,35 @@ type ICefv8ArrayBufferReleaseCallbackRef interface {
 type ICefv8BackingStore interface {
 }
 
+type ICefv8BackingStore_147 interface {
+	ICefv8BackingStore
+	// ByteLength
+	// Returns the size of the allocated memory in bytes, or 0 if the backing
+	// store has been consumed.
+	ByteLength() cefTypes.NativeUInt
+	// Data
+	// Returns a pointer to the allocated memory, or nullptr if the backing store
+	// has been consumed or is otherwise invalid. The pointer is safe to
+	// read/write from any thread. The caller must ensure all writes are complete
+	// before passing this object to
+	// TCefv8ValueRef.NewArrayBufferFromBackingStore(). Pointers obtained
+	// from this function should not be retained after calling
+	// TCefv8ValueRef.NewArrayBufferFromBackingStore(), as the memory will
+	// then be owned by the ArrayBuffer and subject to V8 garbage collection.
+	Data() uintptr
+	// IsValid
+	// Returns true (1) if this backing store has not yet been consumed by
+	// TCefv8ValueRef.NewArrayBufferFromBackingStore().
+	IsValid() bool
+}
+
 // ICefv8BackingStoreRef Parent: ICefv8BackingStore ICefBaseRefCountedRef
 type ICefv8BackingStoreRef interface {
+}
+
+type ICefv8BackingStoreRef_147 interface {
+	ICefv8BackingStoreRef
+	AsIntfV8BackingStore() uintptr
 }
 
 // ICefv8Context Parent: ICefBaseRefCounted
@@ -7949,6 +9604,66 @@ type ICefv8Value interface {
 	// Returns true (1) if this object will re-throw future exceptions. This
 	// attribute exists only in the scope of the current CEF value object.
 	WillRethrowExceptions() bool
+}
+
+type ICefv8Value_109 interface {
+	ICefv8Value
+	GetUserData() ICefv8Value
+	SetUserData(data ICefv8Value) bool
+}
+
+type ICefv8Value_127 interface {
+	ICefv8Value
+	// GetArrayBufferByteLength
+	// Returns the length (in bytes) of the ArrayBuffer.
+	GetArrayBufferByteLength() cefTypes.NativeUInt
+	// GetArrayBufferData
+	// Returns a pointer to the beginning of the memory block for this
+	// ArrayBuffer backing store. The returned pointer is valid as long as the
+	// ICefv8value is alive.
+	GetArrayBufferData() uintptr
+	// GetUserData
+	// Returns the user data, if any, assigned to this object.
+	GetUserData() ICefv8Value
+	// SetUserData
+	// Sets the user data for this object and returns true (1) on success.
+	// Returns false (0) if this function is called incorrectly. This function
+	// can only be called on user created objects.
+	SetUserData(data ICefv8Value) bool
+	// SetValueByAccessor
+	// Registers an identifier and returns true (1) on success. Access to the
+	// identifier will be forwarded to the ICefV8Accessor instance passed to
+	// cef_v8value_create_object(). Returns false (0) if this
+	// function is called incorrectly or an exception is thrown. For read-only
+	// values this function will return true (1) even though assignment failed.
+	SetValueByAccessor(key string, attribute cefTypes.TCefV8PropertyAttributes) bool
+}
+
+type ICefv8Value_147 interface {
+	ICefv8Value
+	// GetArrayBufferByteLength
+	// Returns the length (in bytes) of the ArrayBuffer.
+	GetArrayBufferByteLength() cefTypes.NativeUInt
+	// GetArrayBufferData
+	// Returns a pointer to the beginning of the memory block for this
+	// ArrayBuffer backing store. The returned pointer is valid as long as the
+	// ICefv8value is alive.
+	GetArrayBufferData() uintptr
+	// GetUserData
+	// Returns the user data, if any, assigned to this object.
+	GetUserData() ICefCustomUserData
+	// SetUserData
+	// Sets the user data for this object and returns true (1) on success.
+	// Returns false (0) if this function is called incorrectly. This function
+	// can only be called on user created objects.
+	SetUserData(data ICefCustomUserData) bool
+	// SetValueByAccessor
+	// Registers an identifier and returns true (1) on success. Access to the
+	// identifier will be forwarded to the ICefV8Accessor instance passed to
+	// cef_v8_value_create_object(). Returns false (0) if this
+	// function is called incorrectly or an exception is thrown. For read-only
+	// values this function will return true (1) even though assignment failed.
+	SetValueByAccessor(key string, attribute cefTypes.TCefV8PropertyAttributes) bool
 }
 
 // ICefv8ValueRef Parent: ICefv8Value ICefBaseRefCountedRef
@@ -9084,6 +10799,478 @@ type IChromiumCore interface {
 	ZoomStep() byte
 }
 
+type IChromiumCore_109 interface {
+	IChromiumCore
+	AcceptLanguageList() string
+	CreateUrlRequestWithRequestUClientInt64(request ICefRequest, client IEngUrlrequestClient, frameIdentifier int64) ICefUrlRequest
+	CreateUrlRequestWithRequestUClientStr(request ICefRequest, client IEngUrlrequestClient, frameName string) ICefUrlRequest
+	DidLoadExtension(extensionId string) bool
+	ExecuteJavaScriptWithStrX2Int64Int(code string, scriptURL string, frameIdentifier int64, startLine int32)
+	ExecuteJavaScriptWithStrX3Int(code string, scriptURL string, frameName string, startLine int32)
+	ExtensionHandler() IEngExtensionHandler
+	GetExtensions(extensionIds lcl.IStringList) bool
+	GetExtension(extensionId string) ICefExtension
+	HasExtension(extensionId string) bool
+	HighEfficiencyMode() cefTypes.TCefState
+	// LoadExtension
+	// ICefRequestContext methods for extensions
+	LoadExtension(rootDirectory string, manifest ICefDictionaryValue, handler IEngExtensionHandler, requestContext ICefRequestContext) bool
+	LoadResourceWithCMStreamStrX2Int64(stream lcl.ICustomMemoryStream, mimeType string, charset string, frameIdentifier int64)
+	LoadResourceWithCMStreamStrX3(stream lcl.ICustomMemoryStream, mimeType string, charset string, frameName string)
+	LoadStringWithStrInt64(hTML string, frameIdentifier int64)
+	LoadStringWithStrX2(hTML string, frameName string)
+	LoadURLWithStrInt64(uRL string, frameIdentifier int64)
+	LoadURLWithStrX2(uRL string, frameName string)
+	RetrieveHTMLWithInt64(frameIdentifier int64)
+	RetrieveHTMLWithStr(frameName string)
+	RetrieveTextWithInt64(frameIdentifier int64)
+	RetrieveTextWithStr(frameName string)
+	SendProcessMessageWithPIdPMessageInt64(targetProcess cefTypes.TCefProcessId, procMessage ICefProcessMessage, frameIdentifier int64)
+	SendProcessMessageWithPIdPMessageStr(targetProcess cefTypes.TCefProcessId, procMessage ICefProcessMessage, frameName string)
+	SetAcceptLanguageList(value string)
+	SetHighEfficiencyMode(value cefTypes.TCefState)
+	SetOnWidgetCompMsg(fn TOnCompMsgEvent)
+	WidgetHandle() types.THandle
+}
+
+type IChromiumCore_127 interface {
+	IChromiumCore
+	// AcceptLanguageList
+	// Set the accept language list in the browser preferences.
+	AcceptLanguageList() string
+	// CanDecZoom
+	// Returns true (1) if this browser can execute the zoom OUT command.
+	// This function can only be called on the CEF UI thread.
+	CanDecZoom() bool
+	// CanExecuteChromeCommand
+	// Returns true (1) if a Chrome command is supported and enabled. Values for
+	// |command_id| can be found in the cef_command_ids.h file. This function can
+	// only be called on the UI thread. Only used with the Chrome runtime.
+	// <see cref="uCEFConstants">See the IDC_* constants in uCEFConstants.pas for all the |command_id| values.</see>
+	// <see href="https://source.chromium.org/chromium/chromium/src/+/main:chrome/app/chrome_command_ids.h">The command_id values are also available in chrome/app/chrome_command_ids.h</see>
+	CanExecuteChromeCommand(commandId int32) bool
+	// CanFocus
+	// Indicates whether the browser can receive focus.
+	CanFocus() bool
+	// CanIncZoom
+	// Returns true (1) if this browser can execute the zoom IN command.
+	// This function can only be called on the CEF UI thread.
+	CanIncZoom() bool
+	// CanResetZoom
+	// Returns true (1) if this browser can execute the zoom RESET command.
+	// This function can only be called on the CEF UI thread.
+	CanResetZoom() bool
+	// ChromeColorSchemeColor
+	// Returns the current Chrome color scheme color, or transparent (0) for the
+	// default color. Must be called on the browser process UI thread.
+	ChromeColorSchemeColor() cefTypes.TCefColor
+	// CreateUrlRequestWithRequestUClientStrX2
+	// Create a new URL request that will be treated as originating from this
+	// frame and the associated browser. Use TCustomCefUrlrequestClient.Create instead if
+	// you do not want the request to have this association, in which case it may
+	// be handled differently (see documentation on that function). A request
+	// created with this function may only originate from the browser process,
+	// and will behave as follows:
+	// <code>
+	// - It may be intercepted by the client via CefResourceRequestHandler or
+	// CefSchemeHandlerFactory.
+	// - POST data may only contain a single element of type PDE_TYPE_FILE or
+	// PDE_TYPE_BYTES.
+	// </code>
+	// The |request| object will be marked as read-only after calling this
+	// function.
+	CreateUrlRequestWithRequestUClientStrX2(request ICefRequest, client IEngUrlrequestClient, frameName string, frameIdentifier string) ICefUrlRequest
+	// DecZoomCommand
+	// Execute a zoom OUT command in this browser. If called on the CEF UI thread the
+	// change will be applied immediately. Otherwise, the change will be applied
+	// asynchronously on the CEF UI thread.
+	DecZoomCommand()
+	// DefaultZoomLevel
+	// Get the default zoom level. This value will be 0.0 by default but can be
+	// configured with the Chrome runtime. This function can only be called on
+	// the CEF UI thread.
+	DefaultZoomLevel() float64
+	// DownloadBubble
+	// Enable the file download bubble when using the Chrome runtime.
+	DownloadBubble() cefTypes.TCefState
+	// EnableFocusDelayMs
+	// Delay in milliseconds to enable browser focus.
+	EnableFocusDelayMs() uint32
+	// ExecuteChromeCommand
+	// Execute a Chrome command. Values for |command_id| can be found in the
+	// cef_command_ids.h file. |disposition| provides information about the
+	// intended command target. Only used with the Chrome runtime.
+	// <see cref="uCEFConstants">See the IDC_* constants in uCEFConstants.pas for all the |command_id| values.</see>
+	// <see href="https://source.chromium.org/chromium/chromium/src/+/main:chrome/app/chrome_command_ids.h">The command_id values are also available in chrome/app/chrome_command_ids.h</see>
+	ExecuteChromeCommand(commandId int32, disposition cefTypes.TCefWindowOpenDisposition)
+	// ExecuteJavaScriptWithStrX4Int
+	// Execute a string of JavaScript code in the specified frame or the main frame.
+	// <param name="aCode">JavaScript code.</param>
+	// <param name="aScriptURL">The URL where the script in question can be found, if any. The renderer may request this URL to show the developer the source of the error.</param>
+	// <param name="aFrameName">Name of the frame where the JavaScript code will be executed. This name is generated automatically by Chromium. See ICefBrowser.GetFrameNames.</param>
+	// <param name="aFrameIdentifier">Identifier of the frame where the JavaScript code will be executed.</param>
+	// <param name="aStartLine">The base line number to use for error reporting.</param>
+	ExecuteJavaScriptWithStrX4Int(code string, scriptURL string, frameName string, frameIdentifier string, startLine int32)
+	// ExitFullscreen
+	// Requests the renderer to exit browser fullscreen. In most cases exiting
+	// window fullscreen should also exit browser fullscreen. With the Alloy
+	// runtime this function should be called in response to a user action such
+	// as clicking the green traffic light button on MacOS
+	// (ICefWindowDelegate.OnWindowFullscreenTransition callback) or pressing
+	// the "ESC" key (ICefKeyboardHandler.OnPreKeyEvent callback). With the
+	// Chrome runtime these standard exit actions are handled internally but
+	// new/additional user actions can use this function. Set |will_cause_resize|
+	// to true (1) if exiting browser fullscreen will cause a view resize.
+	ExitFullscreen(willCauseResize bool)
+	// ExtensionHandler
+	// Returns a ICefExtensionHandler instance used by the selected browser.
+	ExtensionHandler() IEngExtensionHandler
+	// Fullscreen
+	// Returns true (1) if the renderer is currently in browser fullscreen. This
+	// differs from window fullscreen in that browser fullscreen is entered using
+	// the JavaScript Fullscreen API and modifies CSS attributes such as the
+	// ::backdrop pseudo-element and :fullscreen pseudo-structure. This property
+	// can only be called on the UI thread.
+	Fullscreen() bool
+	// GetFrameIdentifiers
+	// Returns the identifiers of all existing frames.
+	GetFrameIdentifiers(frameIdentifiers *lcl.IStrings) bool
+	// HSTSPolicyBypassList
+	// List of comma-delimited single-label hostnames that will skip the check to possibly upgrade from http to https.
+	HSTSPolicyBypassList() string
+	// HTTPSUpgrade
+	// Automatically upgrade to HTTPS connections.
+	HTTPSUpgrade() cefTypes.TCefState
+	// IncZoomCommand
+	// Execute a zoom IN command in this browser. If called on the CEF UI thread the
+	// change will be applied immediately. Otherwise, the change will be applied
+	// asynchronously on the CEF UI thread.
+	IncZoomCommand()
+	// IsRenderProcessUnresponsive
+	// Returns true (1) if the render process associated with this browser is
+	// currently unresponsive as indicated by a lack of input event processing
+	// for at least 15 seconds. To receive associated state change notifications
+	// and optionally handle an unresponsive render process implement
+	// ICefRequestHandler.OnRenderProcessUnresponsive.
+	// This property can only be read on the CEF UI thread.
+	IsRenderProcessUnresponsive() bool
+	// LoadResourceWithCMStreamStrX4
+	// Used to load a DATA URI with the stream contents in the specified frame or the main frame.
+	// The DATA URI will be configured with the mime type and charset specified in the parameters.
+	LoadResourceWithCMStreamStrX4(stream lcl.ICustomMemoryStream, mimeType string, charset string, frameName string, frameIdentifier string)
+	// LoadStringWithStrX3
+	// Used to load a DATA URI with the HTML string contents in the specified frame or the main frame.
+	LoadStringWithStrX3(hTML string, frameName string, frameIdentifier string)
+	// LoadURLWithStrX3
+	// Used to navigate to a URL in the specified frame or the main frame.
+	LoadURLWithStrX3(uRL string, frameName string, frameIdentifier string)
+	// ResetZoomCommand
+	// Execute a zoom RESET command in this browser. If called on the CEF UI thread the
+	// change will be applied immediately. Otherwise, the change will be applied
+	// asynchronously on the CEF UI thread.
+	ResetZoomCommand()
+	// RetrieveHTMLWithStrX2
+	// Retrieve all the HTML content from the specified frame or the main frame.
+	// Leave aFrameName empty to get the HTML source from the main frame.
+	// It uses a CefStringVisitor to get the HTML content asynchronously and the
+	// result will be received in the TChromiumCore.OnTextResultAvailable event.
+	RetrieveHTMLWithStrX2(frameName string, frameIdentifier string)
+	// RetrieveTextWithStrX2
+	// Retrieve all the text content from the specified frame or the main frame.
+	// Leave aFrameName empty to get the text from the main frame.
+	// It uses a CefStringVisitor to get the text asynchronously and the
+	// result will be received in the TChromiumCore.OnTextResultAvailable event.
+	RetrieveTextWithStrX2(frameName string, frameIdentifier string)
+	// SendProcessMessageWithPIdPMessageStrX2
+	// Send a message to the specified |targetProcess|. Ownership of the message
+	// contents will be transferred and the |ProcMessage| reference will be
+	// invalidated. Message delivery is not guaranteed in all cases (for example,
+	// if the browser is closing, navigating, or if the target process crashes).
+	// Send an ACK message back from the target process if confirmation is
+	// required.
+	SendProcessMessageWithPIdPMessageStrX2(targetProcess cefTypes.TCefProcessId, procMessage ICefProcessMessage, frameName string, frameIdentifier string)
+	SetAcceptLanguageList(value string)
+	SetDownloadBubble(value cefTypes.TCefState)
+	SetEnableFocusDelayMs(value uint32)
+	SetHSTSPolicyBypassList(value string)
+	SetHTTPSUpgrade(value cefTypes.TCefState)
+	SetOnCanFocus(fn TNotifyEvent)
+	SetOnWidgetCompMsg(fn TOnCompMsgEvent)
+	// WidgetHandle
+	// Handle of one to the child controls created automatically by CEF to show the web contents.
+	WidgetHandle() types.THandle
+}
+
+type IChromiumCore_147 interface {
+	IChromiumCore
+	// AddPreferenceObserver
+	// Add an observer for preference changes. |name| is the name of the
+	// preference to observe. If |name| is NULL then all preferences will be
+	// observed. Observing all preferences has performance consequences and is
+	// not recommended outside of testing scenarios. The observer will remain
+	// registered until the returned Registration object is destroyed. This
+	// function must be called on the browser process UI thread.
+	// <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_preference_capi.h">CEF source file: /include/capi/cef_preference_capi.h (cef_preference_manager_t)</see>
+	AddPreferenceObserver(name string)
+	// AddSettingObserver
+	// Add an observer for content and website setting changes. The observer will
+	// remain registered until the returned Registration object is destroyed.
+	// This function must be called on the browser process UI thread.
+	// <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_request_context_capi.h">CEF source file: /include/capi/cef_request_context_capi.h (cef_request_context_t)</see>
+	AddSettingObserver(observer IEngSettingObserver) ICefRegistration
+	// AutofillCreditCard
+	// Browser preference used to enable the autofill feature for credit card information.
+	// Disabling this property is a suggested workaround for some autofill crashes in Alloy style.
+	AutofillCreditCard() cefTypes.TCefState
+	// AutofillProfile
+	// Browser preference used to enable the autofill feature for profile information.
+	// Disabling this property is a suggested workaround for some autofill crashes in Alloy style.
+	AutofillProfile() cefTypes.TCefState
+	// AutofillSaveData
+	// Browser preference used to enable the autofill feature for saving data.
+	// Disabling this property is a suggested workaround for some autofill crashes in Alloy style.
+	AutofillSaveData() cefTypes.TCefState
+	// CanDecZoom
+	// Returns true (1) if this browser can execute the zoom OUT command.
+	// This function can only be called on the CEF UI thread.
+	CanDecZoom() bool
+	// CanExecuteChromeCommand
+	// Returns true (1) if a Chrome command is supported and enabled. Use the
+	// cef_id_for_command_id_name() function for version-safe mapping of command
+	// IDC names from cef_command_ids.h to version-specific numerical
+	// |command_id| values. This function can only be called on the UI thread.
+	// Only used with Chrome style.
+	// <see cref="uCEFConstants">See the IDC_* constants in uCEFConstants.pas for all the |command_id| values.</see>
+	// <see href="https://source.chromium.org/chromium/chromium/src/+/main:chrome/app/chrome_command_ids.h">The command_id values are also available in chrome/app/chrome_command_ids.h</see>
+	CanExecuteChromeCommand(commandId int32) bool
+	// CanFocus
+	// Indicates whether the browser can receive focus.
+	CanFocus() bool
+	// CanIncZoom
+	// Returns true (1) if this browser can execute the zoom IN command.
+	// This function can only be called on the CEF UI thread.
+	CanIncZoom() bool
+	// CanMakePayment
+	// Browser preference used to enable saving information about payments.
+	// Disabling this property is a suggested workaround for some autofill crashes in Alloy style.
+	CanMakePayment() cefTypes.TCefState
+	// CanResetZoom
+	// Returns true (1) if this browser can execute the zoom RESET command.
+	// This function can only be called on the CEF UI thread.
+	CanResetZoom() bool
+	// ChromeColorSchemeColor
+	// Returns the current Chrome color scheme color, or transparent (0) for the
+	// default color. Must be called on the browser process UI thread.
+	ChromeColorSchemeColor() cefTypes.TCefColor
+	// ClearHttpCache
+	// Clears the HTTP cache.
+	// If aClearImmediately is false then OnHttpCacheCleared is triggered
+	// when the http cache is cleared.
+	ClearHttpCache(clearImmediately bool) bool
+	// ClipboardPasteAndMatchStyle
+	// Execute paste and match style on the focused frame.
+	ClipboardPasteAndMatchStyle()
+	// CreateUrlRequestWithRequestUClientStrX2
+	// Create a new URL request that will be treated as originating from this
+	// frame and the associated browser. Use TCustomCefUrlrequestClient.Create instead if
+	// you do not want the request to have this association, in which case it may
+	// be handled differently (see documentation on that function). A request
+	// created with this function may only originate from the browser process,
+	// and will behave as follows:
+	// <code>
+	// - It may be intercepted by the client via CefResourceRequestHandler or
+	// CefSchemeHandlerFactory.
+	// - POST data may only contain a single element of type PDE_TYPE_FILE or
+	// PDE_TYPE_BYTES.
+	// </code>
+	// The |request| object will be marked as read-only after calling this
+	// function.
+	CreateUrlRequestWithRequestUClientStrX2(request ICefRequest, client IEngUrlrequestClient, frameName string, frameIdentifier string) ICefUrlRequest
+	// CredentialsService
+	// This service shows a dialog to save the usernames and passwords in Chrome style.
+	CredentialsService() cefTypes.TCefState
+	// DecZoomCommand
+	// Execute a zoom OUT command in this browser. If called on the CEF UI thread the
+	// change will be applied immediately. Otherwise, the change will be applied
+	// asynchronously on the CEF UI thread.
+	DecZoomCommand()
+	// DefaultZoomLevel
+	// Get the default zoom level. This value will be 0.0 by default but can be
+	// configured. This function can only be called on the UI thread.
+	DefaultZoomLevel() float64
+	// DownloadBubble
+	// Enable the file download bubble when using Chrome style.
+	DownloadBubble() cefTypes.TCefState
+	// EnableFocusDelayMs
+	// Delay in milliseconds to enable browser focus.
+	EnableFocusDelayMs() uint32
+	// ExecuteChromeCommand
+	// Returns true (1) if a Chrome command is supported and enabled. Use the
+	// cef_id_for_command_id_name() function for version-safe mapping of command
+	// IDC names from cef_command_ids.h to version-specific numerical
+	// |command_id| values. This function can only be called on the UI thread.
+	// Only used with Chrome style.
+	// <see cref="uCEFConstants">See the IDC_* constants in uCEFConstants.pas for all the |command_id| values.</see>
+	// <see href="https://source.chromium.org/chromium/chromium/src/+/main:chrome/app/chrome_command_ids.h">The command_id values are also available in chrome/app/chrome_command_ids.h</see>
+	ExecuteChromeCommand(commandId int32, disposition cefTypes.TCefWindowOpenDisposition)
+	// ExecuteJavaScriptWithStrX4Int
+	// Execute a string of JavaScript code in the specified frame or the main frame.
+	// <param name="aCode">JavaScript code.</param>
+	// <param name="aScriptURL">The URL where the script in question can be found, if any. The renderer may request this URL to show the developer the source of the error.</param>
+	// <param name="aFrameName">Name of the frame where the JavaScript code will be executed. This name is generated automatically by Chromium. See ICefBrowser.GetFrameNames.</param>
+	// <param name="aFrameIdentifier">Identifier of the frame where the JavaScript code will be executed.</param>
+	// <param name="aStartLine">The base line number to use for error reporting.</param>
+	ExecuteJavaScriptWithStrX4Int(code string, scriptURL string, frameName string, frameIdentifier string, startLine int32)
+	// ExitFullscreen
+	// Requests the renderer to exit browser fullscreen. In most cases exiting
+	// window fullscreen should also exit browser fullscreen. With Alloy style
+	// this function should be called in response to a user action such as
+	// clicking the green traffic light button on MacOS
+	// (ICefWindowDelegate.OnWindowFullscreenTransition callback) or pressing
+	// the "ESC" key (ICefKeyboardHandler.OnPreKeyEvent callback). With
+	// Chrome style these standard exit actions are handled internally but
+	// new/additional user actions can use this function. Set |will_cause_resize|
+	// to true (1) if exiting browser fullscreen will cause a view resize.
+	ExitFullscreen(willCauseResize bool)
+	// Fullscreen
+	// Returns true (1) if the renderer is currently in browser fullscreen. This
+	// differs from window fullscreen in that browser fullscreen is entered using
+	// the JavaScript Fullscreen API and modifies CSS attributes such as the
+	// ::backdrop pseudo-element and :fullscreen pseudo-structure. This property
+	// can only be called on the UI thread.
+	Fullscreen() bool
+	// GetComponentById
+	// Returns the component with the specified |component_id|, or nullptr if not
+	// found or the service is not available.
+	// This function may only be called on the browser process UI thread.
+	// <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_component_updater_capi.h">CEF source file: /include/capi/cef_component_updater_capi.h (cef_component_updater_t)</see>
+	GetComponentById(componentId string, result *ICefComponent) bool
+	// GetComponentCount
+	// Returns the number of registered components, or 0 if the service is not
+	// available.
+	// This function may only be called on the browser process UI thread.
+	// <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_component_updater_capi.h">CEF source file: /include/capi/cef_component_updater_capi.h (cef_component_updater_t)</see>
+	GetComponentCount() cefTypes.NativeUInt
+	// GetFrameIdentifiers
+	// Returns the identifiers of all existing frames.
+	GetFrameIdentifiers(frameIdentifiers *lcl.IStrings) bool
+	// HSTSPolicyBypassList
+	// List of comma-delimited single-label hostnames that will skip the check to possibly upgrade from http to https.
+	HSTSPolicyBypassList() string
+	// HTTPSUpgrade
+	// Automatically upgrade to HTTPS connections.
+	HTTPSUpgrade() cefTypes.TCefState
+	// IncZoomCommand
+	// Execute a zoom IN command in this browser. If called on the CEF UI thread the
+	// change will be applied immediately. Otherwise, the change will be applied
+	// asynchronously on the CEF UI thread.
+	IncZoomCommand()
+	// IsReadyToBeClosed
+	// Returns true (1) if the browser is ready to be closed, meaning that the
+	// close has already been initiated and that JavaScript unload handlers have
+	// already executed or should be ignored. This can be used from a top-level
+	// window close handler such as TCEFWindowComponent.OnCanClose (or platform-
+	// specific equivalent) to distringuish between potentially cancelable
+	// browser close events (like the user clicking the top-level window close
+	// button before browser close has started) and mandatory browser close
+	// events (like JavaScript `window.close()` or after browser close has
+	// started in response to [Try]CloseBrowser()). Not completing the browser
+	// close for mandatory close events (when this function returns true (1))
+	// will leave the browser in a partially closed state that interferes with
+	// proper functioning. See CloseBrowser() documentation for additional usage
+	// information. This function must be called on the browser process UI
+	// thread.
+	IsReadyToBeClosed() bool
+	// IsRenderProcessUnresponsive
+	// Returns true (1) if the render process associated with this browser is
+	// currently unresponsive as indicated by a lack of input event processing
+	// for at least 15 seconds. To receive associated state change notifications
+	// and optionally handle an unresponsive render process implement
+	// ICefRequestHandler.OnRenderProcessUnresponsive.
+	// This property can only be read on the CEF UI thread.
+	IsRenderProcessUnresponsive() bool
+	// LoadResourceWithCMStreamStrX4
+	// Used to load a DATA URI with the stream contents in the specified frame or the main frame.
+	// The DATA URI will be configured with the mime type and charset specified in the parameters.
+	LoadResourceWithCMStreamStrX4(stream lcl.ICustomMemoryStream, mimeType string, charset string, frameName string, frameIdentifier string)
+	// LoadStringWithStrX3
+	// Used to load a DATA URI with the HTML string contents in the specified frame or the main frame.
+	LoadStringWithStrX3(hTML string, frameName string, frameIdentifier string)
+	// LoadURLWithStrX3
+	// Used to navigate to a URL in the specified frame or the main frame.
+	LoadURLWithStrX3(uRL string, frameName string, frameIdentifier string)
+	// OpenerIdentifier
+	// Retrieve the unique identifier of the browser that opened this browser.
+	// Will return 0 for non-popup browsers.
+	OpenerIdentifier() int32
+	// RemovePreferenceObserver
+	// Remove an observer for preference changes.
+	// <see href="https://bitbucket.org/chromiumembedded/cef/src/master/include/capi/cef_preference_capi.h">CEF source file: /include/capi/cef_preference_capi.h (cef_preference_manager_t)</see>
+	RemovePreferenceObserver(name string)
+	// ResetZoomCommand
+	// Execute a zoom RESET command in this browser. If called on the CEF UI thread the
+	// change will be applied immediately. Otherwise, the change will be applied
+	// asynchronously on the CEF UI thread.
+	ResetZoomCommand()
+	// RetrieveHTMLWithStrX2
+	// Retrieve all the HTML content from the specified frame or the main frame.
+	// Leave aFrameName empty to get the HTML source from the main frame.
+	// It uses a CefStringVisitor to get the HTML content asynchronously and the
+	// result will be received in the TChromiumCore.OnTextResultAvailable event.
+	RetrieveHTMLWithStrX2(frameName string, frameIdentifier string)
+	// RetrieveTextWithStrX2
+	// Retrieve all the text content from the specified frame or the main frame.
+	// Leave aFrameName empty to get the text from the main frame.
+	// It uses a CefStringVisitor to get the text asynchronously and the
+	// result will be received in the TChromiumCore.OnTextResultAvailable event.
+	RetrieveTextWithStrX2(frameName string, frameIdentifier string)
+	// SearchSuggestEnabled
+	// Browser preference used to enable search suggestions.
+	// Disabling this property is a suggested workaround for some autofill crashes in Alloy style.
+	SearchSuggestEnabled() cefTypes.TCefState
+	// SendProcessMessageWithPIdPMessageStrX2
+	// Send a message to the specified |targetProcess|. Ownership of the message
+	// contents will be transferred and the |ProcMessage| reference will be
+	// invalidated. Message delivery is not guaranteed in all cases (for example,
+	// if the browser is closing, navigating, or if the target process crashes).
+	// Send an ACK message back from the target process if confirmation is
+	// required.
+	SendProcessMessageWithPIdPMessageStrX2(targetProcess cefTypes.TCefProcessId, procMessage ICefProcessMessage, frameName string, frameIdentifier string)
+	SetAutofillCreditCard(value cefTypes.TCefState)
+	SetAutofillProfile(value cefTypes.TCefState)
+	SetAutofillSaveData(value cefTypes.TCefState)
+	// SetAxViewportCollapse
+	// Enable or disable CDP accessibility tree viewport collapse for this
+	// browser. When enabled, off-screen landmarks and headings are serialized as
+	// summaries and other off-screen nodes are pruned. Overrides the
+	// TChromiumOptions.AxViewportCollapse value. If called on the UI
+	// thread the change will be applied immediately. Otherwise, the change will
+	// be applied asynchronously on the UI thread. WARNING: This collapses the
+	// CDP accessibility tree and disables CDP dynamic tree updates (nodesUpdated
+	// events). The DevTools Accessibility panel will show an incomplete tree.
+	// Platform screen readers (NVDA, JAWS, VoiceOver) are unaffected they use
+	// a separate code path.
+	SetAxViewportCollapse(enabled bool)
+	SetCanMakePayment(value cefTypes.TCefState)
+	SetCredentialsService(value cefTypes.TCefState)
+	SetDownloadBubble(value cefTypes.TCefState)
+	SetEnableFocusDelayMs(value uint32)
+	SetHSTSPolicyBypassList(value string)
+	SetHTTPSUpgrade(value cefTypes.TCefState)
+	SetOnCanFocus(fn TNotifyEvent)
+	SetOnHttpCacheCleared(fn TNotifyEvent)
+	SetSearchSuggestEnabled(value cefTypes.TCefState)
+	SetStorageNotificationService(value cefTypes.TCefState)
+	SetURLDataCollection(value cefTypes.TCefState)
+	// StorageNotificationService
+	// Used to disable the "Free up space to continue" notification for the current profile.
+	StorageNotificationService() cefTypes.TCefState
+	// URLDataCollection
+	// Browser preference used to enable url keyed anonymized data collection.
+	// Disabling this property is a suggested workaround for some autofill crashes in Alloy style.
+	URLDataCollection() cefTypes.TCefState
+}
+
 // IChromiumEvents Parent: IObject
 type IChromiumEvents interface {
 	IObject
@@ -9235,6 +11422,43 @@ type IChromiumOptions interface {
 	WindowlessFrameRate() int32
 }
 
+type IChromiumOptions_109 interface {
+	IChromiumOptions
+	AcceptLanguageList() string
+	SetAcceptLanguageList(value string)
+}
+
+type IChromiumOptions_127 interface {
+	IChromiumOptions
+	// ChromeZoomBubble
+	// Controls whether the Chrome zoom bubble will be shown when zooming. Only
+	// supported with the Chrome runtime.
+	ChromeZoomBubble() cefTypes.TCefState
+	SetChromeZoomBubble(value cefTypes.TCefState)
+}
+
+type IChromiumOptions_147 interface {
+	IChromiumOptions
+	// AxViewportCollapse
+	// Controls whether CDP accessibility tree serialization collapses off-screen
+	// nodes. When enabled, off-screen landmarks and headings are serialized as
+	// summaries (role + name only) and other off-screen nodes are pruned.
+	// This reduces snapshot size for AI agents using Playwright ariaSnapshot().
+	// WARNING: This collapses the CDP accessibility tree and disables CDP
+	// dynamic tree updates (nodesUpdated events). The DevTools Accessibility
+	// panel will show an incomplete tree. Platform screen readers (NVDA, JAWS,
+	// VoiceOver) are unaffected they use a separate code path.
+	// Can also be configured at runtime using
+	// ICefBrowserHost.SetAxViewportCollapse.
+	AxViewportCollapse() cefTypes.TCefState
+	// ChromeZoomBubble
+	// Controls whether the Chrome zoom bubble will be shown when zooming. Only
+	// supported with Chrome style.
+	ChromeZoomBubble() cefTypes.TCefState
+	SetAxViewportCollapse(value cefTypes.TCefState)
+	SetChromeZoomBubble(value cefTypes.TCefState)
+}
+
 // IChromiumWindow Parent: ICEFLinkedWinControlBase
 type IChromiumWindow interface {
 	ICEFLinkedWinControlBase
@@ -9273,6 +11497,12 @@ type IChromiumWindow interface {
 	SetOnAfterCreated(fn TNotifyEvent)
 	SetOnBeforeClose(fn TNotifyEvent)
 	SetOnClose(fn TNotifyEvent)
+}
+
+type IChromiumWindow_109 interface {
+	IChromiumWindow
+	SetUseSetFocus(value bool)
+	UseSetFocus() bool
 }
 
 // IEngAccessibilityHandler Parent: ICEFAccessibilityHandlerOwn
@@ -9487,6 +11717,16 @@ type IEngEndTracingCallback interface {
 type IEngExtensionHandler interface {
 }
 
+type IEngExtensionHandler_109 interface {
+	IEngExtensionHandler
+	AsIntfExtensionHandler() uintptr
+}
+
+type IEngExtensionHandler_127 interface {
+	IEngExtensionHandler
+	AsIntfExtensionHandler() uintptr
+}
+
 // IEngFindHandler Parent: ICefFindHandlerOwn
 type IEngFindHandler interface {
 	ICefFindHandlerOwn
@@ -9552,6 +11792,16 @@ type IEngLoadHandler interface {
 }
 
 type IEngMediaAccessHandler interface {
+}
+
+type IEngMediaAccessHandler_109 interface {
+	IEngMediaAccessHandler
+	AsIntfMediaAccessHandler() uintptr
+}
+
+type IEngMediaAccessHandler_127 interface {
+	IEngMediaAccessHandler
+	AsIntfMediaAccessHandler() uintptr
 }
 
 // IEngMediaObserver Parent: ICefMediaObserverOwn
@@ -9632,6 +11882,11 @@ type IEngPermissionHandler interface {
 
 // IEngPreferenceObserver Parent: ICefPreferenceObserverOwn
 type IEngPreferenceObserver interface {
+}
+
+type IEngPreferenceObserver_147 interface {
+	IEngPreferenceObserver
+	AsIntfPreferenceObserver() uintptr
 }
 
 // IEngPrintHandler Parent: ICefPrintHandlerOwn
@@ -9795,6 +12050,11 @@ type IEngSetCookieCallback interface {
 
 // IEngSettingObserver Parent: ICefSettingObserverOwn
 type IEngSettingObserver interface {
+}
+
+type IEngSettingObserver_147 interface {
+	IEngSettingObserver
+	AsIntfSettingObserver() uintptr
 }
 
 // IEngStringVisitor Parent: ICefStringVisitorOwn
@@ -10036,6 +12296,30 @@ type IPDFPrintOptions interface {
 	SetPrintBackground(value bool)
 	SetScalePct(value float64)
 	SetScale(value float64)
+}
+
+type IPDFPrintOptions_127 interface {
+	IPDFPrintOptions
+	// GenerateDocumentOutline
+	// Set to true to generate a document outline.
+	GenerateDocumentOutline() bool
+	// GenerateTaggedPDF
+	// Set to true to generate tagged (accessible) PDF.
+	GenerateTaggedPDF() bool
+	SetGenerateDocumentOutline(value bool)
+	SetGenerateTaggedPDF(value bool)
+}
+
+type IPDFPrintOptions_147 interface {
+	IPDFPrintOptions
+	// GenerateDocumentOutline
+	// Set to true to generate a document outline.
+	GenerateDocumentOutline() bool
+	// GenerateTaggedPDF
+	// Set to true to generate tagged (accessible) PDF.
+	GenerateTaggedPDF() bool
+	SetGenerateDocumentOutline(value bool)
+	SetGenerateTaggedPDF(value bool)
 }
 
 // IServerEvents Parent: IObject
