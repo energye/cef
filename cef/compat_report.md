@@ -1,7 +1,7 @@
 # CEF compatibility report
 
 - Versions: 109, 127, 147
-- Interfaces: 482
+- Interfaces: 469
 
 ## ICEFBaseScopedWrapperRef
 

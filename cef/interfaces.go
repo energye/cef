@@ -16,6 +16,12 @@ import (
 	"github.com/energye/lcl/types"
 )
 
+type IComponent = lcl.IComponent
+type IInterfacedObject = lcl.IInterfacedObject
+type IObject = lcl.IObject
+type IPersistent = lcl.IPersistent
+type IWinControl = lcl.IWinControl
+
 // IApplicationCoreEvents Parent: IObject
 type IApplicationCoreEvents interface {
 }
@@ -27,11 +33,13 @@ type ICEFAccessibilityHandlerOwn interface {
 
 // ICEFBaseScopedWrapperRef Parent: IObject
 type ICEFBaseScopedWrapperRef interface {
+	IObject
 	Wrap() uintptr
 }
 
 // ICEFBitmapBitBuffer Parent: IObject
 type ICEFBitmapBitBuffer interface {
+	IObject
 	// BufferBits
 	// Returns a pointer to the buffer that stores the image.
 	BufferBits() uintptr
@@ -140,6 +148,7 @@ type ICEFDevToolsMessageObserverOwn interface {
 
 // ICEFFileDialogInfo Parent: IObject
 type ICEFFileDialogInfo interface {
+	IObject
 	Callback() ICefFileDialogCallback
 	Clear()
 	DefaultAllFileDesc() string
@@ -168,6 +177,7 @@ type ICEFFileDialogInfo interface {
 
 // ICEFJson Parent: IObject
 type ICEFJson interface {
+	IObject
 }
 
 // ICEFLabelButtonComponent Parent: ICEFButtonComponent
@@ -265,6 +275,7 @@ type ICEFMenuButtonComponent interface {
 
 // ICEFOAuth2Helper Parent: IObject
 type ICEFOAuth2Helper interface {
+	IObject
 	AccessToken() string
 	AuthCodeURI() string
 	AuthEndpoint() string
@@ -303,6 +314,7 @@ type ICEFOAuth2Helper interface {
 
 // ICEFOSRIMEHandler Parent: IObject
 type ICEFOSRIMEHandler interface {
+	IObject
 	// CancelIME
 	// Cancels an ongoing composition of the IME.
 	CancelIME()
@@ -458,6 +470,7 @@ type ICEFScrollViewComponent interface {
 
 // ICEFSentinel Parent: IComponent
 type ICEFSentinel interface {
+	IComponent
 	// ChildProcCount
 	// Number of CEF subprocesses.
 	ChildProcCount() int32
@@ -492,6 +505,7 @@ type ICEFSentinel interface {
 
 // ICEFServerComponent Parent: IServerEvents IComponent
 type ICEFServerComponent interface {
+	IComponent
 	IServerEvents
 	// Address
 	// Returns the server address including the port number.
@@ -711,6 +725,7 @@ type ICEFTextfieldComponent interface {
 
 // ICEFTimerWorkScheduler Parent: IObject
 type ICEFTimerWorkScheduler interface {
+	IObject
 	DepleteWorkCycles() uint32
 	DepleteWorkDelay() uint32
 	IsTimerPending() bool
@@ -724,6 +739,7 @@ type ICEFTimerWorkScheduler interface {
 // ICEFUrlRequestClientComponent Parent: ICEFUrlRequestClientEvents IComponent
 type ICEFUrlRequestClientComponent interface {
 	ICEFUrlRequestClientEvents
+	IComponent
 	// AddURLRequest
 	// Create the URLRequest in the context of TCEFUrlRequestClientComponent.ThreadId, which is the CEF UI thread by default.
 	AddURLRequest()
@@ -745,11 +761,13 @@ type ICEFUrlRequestClientComponent interface {
 
 // ICEFUrlRequestClientEvents Parent: IObject
 type ICEFUrlRequestClientEvents interface {
+	IObject
 }
 
 // ICEFViewComponent Parent: ICefViewDelegateEvents IComponent
 type ICEFViewComponent interface {
 	ICefViewDelegateEvents
+	IComponent
 	// AccessibilityFocusable
 	// Return whether this View is focusable when the user requires full keyboard
 	// access, even though it may not be normally focusable.
@@ -957,6 +975,7 @@ type ICEFViewComponent interface {
 
 // ICEFWinControl Parent: IWinControl
 type ICEFWinControl interface {
+	IWinControl
 	// ChildWindowHandle
 	// Handle of the first child window created by the browser.
 	ChildWindowHandle() types.THandle
@@ -1140,6 +1159,7 @@ type ICEFWindowParent interface {
 
 // ICEFWorkScheduler Parent: IComponent
 type ICEFWorkScheduler interface {
+	IComponent
 	// CreateThread
 	// Creates all the internal threads used by TCEFWorkScheduler.
 	CreateThread()
@@ -1202,6 +1222,7 @@ type ICefApplication interface {
 
 // ICefApplicationCore Parent: IApplicationCoreEvents IInterfacedObject
 type ICefApplicationCore interface {
+	IObject
 	// AcceptLanguageList
 	// Comma delimited ordered list of language codes without any whitespace that
 	// will be used in the "Accept-Language" HTTP request header and
@@ -2029,6 +2050,7 @@ type ICefAuthCallbackRef interface {
 
 // ICefBaseRefCounted Parent: IInterfacedObject
 type ICefBaseRefCounted interface {
+	IInterfacedObject
 	// DestroyOtherRefs
 	// Releases all other instances.
 	DestroyOtherRefs()
@@ -2106,10 +2128,6 @@ type ICefBinaryValue interface {
 	// dictionary) and that other object is then modified or destroyed. Do not
 	// call any other functions if this function returns false (0).
 	IsValid() bool
-}
-
-// ICefBinaryValueArray = array of ICefBinaryValue
-type ICefBinaryValueArray interface {
 }
 
 // ICefBinaryValueRef Parent: ICefBinaryValue ICefBaseRefCountedRef
@@ -2918,17 +2936,8 @@ type ICefCompletionCallbackOwn interface {
 type ICefComponent interface {
 }
 
-// ICefComponentArray = array of ICefComponent
-type ICefComponentArray interface {
-}
-
 // ICefComponentRef Parent: ICefComponent ICefBaseRefCountedRef
 type ICefComponentRef interface {
-}
-
-// ICefCompositionUnderlineArray = array[0..(High(integer) div SizeOf(TCefCompositionUnderline)) - 1] of TCefCompositionUnderline;
-// 内部和外部数组维护
-type ICefCompositionUnderlineArray interface {
 }
 
 // ICefContextMenuHandler Parent: ICefBaseRefCounted
@@ -3208,18 +3217,21 @@ type ICefCustomStreamReader interface {
 // ICefCustomStringList Parent: ICefStringList IInterfacedObject
 type ICefCustomStringList interface {
 	ICefStringList
+	IInterfacedObject
 	AsIntfStringList() uintptr
 }
 
 // ICefCustomStringMap Parent: ICefStringMap IInterfacedObject
 type ICefCustomStringMap interface {
 	ICefStringMap
+	IInterfacedObject
 	AsIntfStringMap() uintptr
 }
 
 // ICefCustomStringMultimap Parent: ICefStringMultimap IInterfacedObject
 type ICefCustomStringMultimap interface {
 	ICefStringMultimap
+	IInterfacedObject
 	AsIntfStringMultimap() uintptr
 }
 
@@ -3424,10 +3436,6 @@ type ICefDisplay interface {
 	// Returns this Display's work area in DIP screen coordinates. This excludes
 	// areas of the display that are occupied with window manager toolbars, etc.
 	GetWorkArea() TCefRect
-}
-
-// ICefDisplayArray = array of ICefDisplay
-type ICefDisplayArray interface {
 }
 
 // ICefDisplayHandler Parent: ICefBaseRefCounted
@@ -3816,11 +3824,6 @@ type ICefDragHandlerOwn interface {
 	ICefDragHandler
 }
 
-// ICefDraggableRegionArray = array[0..(High(integer) div SizeOf(TCefDraggableRegion)) - 1] of TCefDraggableRegion;
-// 内部和外部数组维护
-type ICefDraggableRegionArray interface {
-}
-
 // ICefEndTracingCallback Parent: ICefBaseRefCounted
 type ICefEndTracingCallback interface {
 	ICefBaseRefCounted
@@ -4023,9 +4026,6 @@ type ICefFrameHandlerOwn interface {
 	ICefFrameHandler
 }
 
-type ICefFrameIdentifierArray interface {
-}
-
 // ICefFrameRef Parent: ICefFrame ICefBaseRefCountedRef
 type ICefFrameRef interface {
 	ICefBaseRefCountedRef
@@ -4035,6 +4035,7 @@ type ICefFrameRef interface {
 
 // ICefGenericTask Parent: ICefChromiumTask
 type ICefGenericTask interface {
+	IInterfacedObject
 	AsIntfTask() uintptr
 }
 
@@ -4463,10 +4464,6 @@ type ICefMediaRoute interface {
 	Terminate()
 }
 
-// ICefMediaRouteArray = array of ICefMediaRoute
-type ICefMediaRouteArray interface {
-}
-
 // ICefMediaRouteCreateCallback Parent: ICefBaseRefCounted
 type ICefMediaRouteCreateCallback interface {
 	ICefBaseRefCounted
@@ -4545,10 +4542,6 @@ type ICefMediaSink interface {
 	// IsDialSink
 	// Returns true (1) if this sink accepts content via DIAL.
 	IsDialSink() bool
-}
-
-// ICefMediaSinkArray = array of ICefMediaSink
-type ICefMediaSinkArray interface {
 }
 
 // ICefMediaSinkDeviceInfoCallback Parent: ICefBaseRefCounted
@@ -5241,10 +5234,6 @@ type ICefPostDataElement interface {
 	SetToFile(fileName string)
 }
 
-// ICefPostDataElementArray = array of ICefPostDataElement
-type ICefPostDataElementArray interface {
-}
-
 // ICefPostDataElementRef Parent: ICefPostDataElement ICefBaseRefCountedRef
 type ICefPostDataElementRef interface {
 	ICefBaseRefCountedRef
@@ -5485,15 +5474,6 @@ type ICefProcessMessageRef interface {
 	ICefBaseRefCountedRef
 	ICefProcessMessage
 	AsIntfProcessMessage() uintptr
-}
-
-// ICefRangeArray = array[0..(High(integer) div SizeOf(TCefRange)) - 1] of TCefRange;
-// 内部和外部数组维护
-type ICefRangeArray interface {
-}
-
-// ICefRectArray = array[0..(High(integer) div SizeOf(TCefRect)) - 1] of TCefRect;
-type ICefRectArray interface {
 }
 
 // ICefRegistration Parent: ICefBaseRefCounted
@@ -6321,6 +6301,7 @@ type ICefStreamWriterRef interface {
 
 // ICefStringList Parent: IObject
 type ICefStringList interface {
+	IObject
 	AddStrings(strings lcl.IStrings)
 	Append(value string)
 	Clear()
@@ -6344,6 +6325,7 @@ type ICefStringListRef interface {
 
 // ICefStringMap Parent: IObject
 type ICefStringMap interface {
+	IObject
 	Append(key string, value string) bool
 	Clear()
 	Find(key string) string
@@ -6367,6 +6349,7 @@ type ICefStringMapRef interface {
 
 // ICefStringMultimap Parent: IObject
 type ICefStringMultimap interface {
+	IObject
 	Append(key string, value string) bool
 	Clear()
 	FindCount(key string) cefTypes.NativeUInt
@@ -7160,6 +7143,7 @@ type ICefViewDelegate interface {
 
 // ICefViewDelegateEvents Parent: IObject
 type ICefViewDelegateEvents interface {
+	IObject
 }
 
 type ICefViewDelegateOwn interface {
@@ -7487,10 +7471,6 @@ type ICefX509Certificate interface {
 	// Returns the date before which the X.509 certificate is invalid.
 	// CefBaseTime.GetTimeT() will return 0 if no date was specified.
 	GetValidStart() int64
-}
-
-// ICefX509CertificateArray = array of ICefX509Certificate
-type ICefX509CertificateArray interface {
 }
 
 // ICefXmlReader Parent: ICefBaseRefCounted
@@ -7971,10 +7951,6 @@ type ICefv8Value interface {
 	WillRethrowExceptions() bool
 }
 
-// ICefv8ValueArray = array of ICefv8Value
-type ICefv8ValueArray interface {
-}
-
 // ICefv8ValueRef Parent: ICefv8Value ICefBaseRefCountedRef
 type ICefv8ValueRef interface {
 	ICefBaseRefCountedRef
@@ -8037,6 +8013,7 @@ type IChromium interface {
 // IChromiumCore Parent: IChromiumEvents IComponent
 type IChromiumCore interface {
 	IChromiumEvents
+	IComponent
 	// AcceptCookies
 	// Sets the cookies policy value in the browser preferences.
 	AcceptCookies() cefTypes.TCefCookiePref
@@ -9109,10 +9086,12 @@ type IChromiumCore interface {
 
 // IChromiumEvents Parent: IObject
 type IChromiumEvents interface {
+	IObject
 }
 
 // IChromiumFontOptions Parent: IPersistent
 type IChromiumFontOptions interface {
+	IPersistent
 	// CursiveFontFamily
 	// Cursive font family name.
 	CursiveFontFamily() string
@@ -9162,6 +9141,7 @@ type IChromiumFontOptions interface {
 
 // IChromiumOptions Parent: IPersistent
 type IChromiumOptions interface {
+	IPersistent
 	// BackgroundColor
 	// Background color used for the browser before a document is loaded and when
 	// no document color is specified. The alpha component must be either fully
@@ -9935,6 +9915,7 @@ type IEngWriteHandler interface {
 
 // IPDFPrintOptions Parent: IObject
 type IPDFPrintOptions interface {
+	IObject
 	CopyToSettings(settings *TCefPdfPrintSettings)
 	// DisplayHeaderFooter
 	// Set to true to display the header and/or footer. Modify
@@ -10059,4 +10040,5 @@ type IPDFPrintOptions interface {
 
 // IServerEvents Parent: IObject
 type IServerEvents interface {
+	IObject
 }
