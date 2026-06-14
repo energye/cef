@@ -385,12 +385,17 @@ func (t *tICefBinaryValueArray) Get(index int) ICefBinaryValue {
 func (t *tICefBinaryValueArray) Add(value ICefBinaryValue) { t.raw.Add(unwrapICefBinaryValue(value)) }
 func (t *tICefBinaryValueArray) Free()                     { t.raw.Free() }
 
+func (t *tICefBinaryValueArray) Raw() Raw { return t.raw }
+
 func unwrapICefBinaryValueArray(value ICefBinaryValueArray) vcef.ICefBinaryValueArray {
 	if value == nil {
 		return nil
 	}
 	if wrapped, ok := value.(*tICefBinaryValueArray); ok {
 		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICefBinaryValueArray](value); ok {
+		return raw
 	}
 	return nil
 }
@@ -433,12 +438,17 @@ func (t *tICefComponentArray) Get(index int) ICefComponent {
 func (t *tICefComponentArray) Add(value ICefComponent) { t.raw.Add(unwrapICefComponent(value)) }
 func (t *tICefComponentArray) Free()                   { t.raw.Free() }
 
+func (t *tICefComponentArray) Raw() Raw { return t.raw }
+
 func unwrapICefComponentArray(value ICefComponentArray) vcef.ICefComponentArray {
 	if value == nil {
 		return nil
 	}
 	if wrapped, ok := value.(*tICefComponentArray); ok {
 		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICefComponentArray](value); ok {
+		return raw
 	}
 	return nil
 }
@@ -479,12 +489,17 @@ func (t *tICefDisplayArray) Get(index int) ICefDisplay { return wrapICefDisplay(
 func (t *tICefDisplayArray) Add(value ICefDisplay)     { t.raw.Add(unwrapICefDisplay(value)) }
 func (t *tICefDisplayArray) Free()                     { t.raw.Free() }
 
+func (t *tICefDisplayArray) Raw() Raw { return t.raw }
+
 func unwrapICefDisplayArray(value ICefDisplayArray) vcef.ICefDisplayArray {
 	if value == nil {
 		return nil
 	}
 	if wrapped, ok := value.(*tICefDisplayArray); ok {
 		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICefDisplayArray](value); ok {
+		return raw
 	}
 	return nil
 }
@@ -527,12 +542,17 @@ func (t *tICefMediaRouteArray) Get(index int) ICefMediaRoute {
 func (t *tICefMediaRouteArray) Add(value ICefMediaRoute) { t.raw.Add(unwrapICefMediaRoute(value)) }
 func (t *tICefMediaRouteArray) Free()                    { t.raw.Free() }
 
+func (t *tICefMediaRouteArray) Raw() Raw { return t.raw }
+
 func unwrapICefMediaRouteArray(value ICefMediaRouteArray) vcef.ICefMediaRouteArray {
 	if value == nil {
 		return nil
 	}
 	if wrapped, ok := value.(*tICefMediaRouteArray); ok {
 		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICefMediaRouteArray](value); ok {
+		return raw
 	}
 	return nil
 }
@@ -575,12 +595,17 @@ func (t *tICefMediaSinkArray) Get(index int) ICefMediaSink {
 func (t *tICefMediaSinkArray) Add(value ICefMediaSink) { t.raw.Add(unwrapICefMediaSink(value)) }
 func (t *tICefMediaSinkArray) Free()                   { t.raw.Free() }
 
+func (t *tICefMediaSinkArray) Raw() Raw { return t.raw }
+
 func unwrapICefMediaSinkArray(value ICefMediaSinkArray) vcef.ICefMediaSinkArray {
 	if value == nil {
 		return nil
 	}
 	if wrapped, ok := value.(*tICefMediaSinkArray); ok {
 		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICefMediaSinkArray](value); ok {
+		return raw
 	}
 	return nil
 }
@@ -625,12 +650,17 @@ func (t *tICefPostDataElementArray) Add(value ICefPostDataElement) {
 }
 func (t *tICefPostDataElementArray) Free() { t.raw.Free() }
 
+func (t *tICefPostDataElementArray) Raw() Raw { return t.raw }
+
 func unwrapICefPostDataElementArray(value ICefPostDataElementArray) vcef.ICefPostDataElementArray {
 	if value == nil {
 		return nil
 	}
 	if wrapped, ok := value.(*tICefPostDataElementArray); ok {
 		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICefPostDataElementArray](value); ok {
+		return raw
 	}
 	return nil
 }
@@ -675,12 +705,17 @@ func (t *tICefX509CertificateArray) Add(value ICefX509Certificate) {
 }
 func (t *tICefX509CertificateArray) Free() { t.raw.Free() }
 
+func (t *tICefX509CertificateArray) Raw() Raw { return t.raw }
+
 func unwrapICefX509CertificateArray(value ICefX509CertificateArray) vcef.ICefX509CertificateArray {
 	if value == nil {
 		return nil
 	}
 	if wrapped, ok := value.(*tICefX509CertificateArray); ok {
 		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICefX509CertificateArray](value); ok {
+		return raw
 	}
 	return nil
 }
@@ -721,12 +756,17 @@ func (t *tICefv8ValueArray) Get(index int) ICefv8Value { return wrapICefv8Value(
 func (t *tICefv8ValueArray) Add(value ICefv8Value)     { t.raw.Add(unwrapICefv8Value(value)) }
 func (t *tICefv8ValueArray) Free()                     { t.raw.Free() }
 
+func (t *tICefv8ValueArray) Raw() Raw { return t.raw }
+
 func unwrapICefv8ValueArray(value ICefv8ValueArray) vcef.ICefv8ValueArray {
 	if value == nil {
 		return nil
 	}
 	if wrapped, ok := value.(*tICefv8ValueArray); ok {
 		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICefv8ValueArray](value); ok {
+		return raw
 	}
 	return nil
 }
@@ -1289,19 +1329,13 @@ func unwrapIApplicationCoreEvents(value IApplicationCoreEvents) vcef.IApplicatio
 	if wrapped, ok := value.(*tIApplicationCoreEvents_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IApplicationCoreEvents() vcef.IApplicationCoreEvents
-	}); ok {
-		return raw.RawCEF147IApplicationCoreEvents()
+	if raw, ok := RawAs[vcef.IApplicationCoreEvents](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIApplicationCoreEvents_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIApplicationCoreEvents_147) RawCEF147IApplicationCoreEvents() vcef.IApplicationCoreEvents {
+func (t *tIApplicationCoreEvents_147) Raw() Raw {
 	return t.raw
 }
 
@@ -1331,19 +1365,13 @@ func unwrapICEFAccessibilityHandlerOwn(value ICEFAccessibilityHandlerOwn) vcef.I
 	if wrapped, ok := value.(*tICEFAccessibilityHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICEFAccessibilityHandlerOwn() vcef.ICEFAccessibilityHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICEFAccessibilityHandlerOwn()
+	if raw, ok := RawAs[vcef.ICEFAccessibilityHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFAccessibilityHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFAccessibilityHandlerOwn_147) RawCEF147ICEFAccessibilityHandlerOwn() vcef.ICEFAccessibilityHandlerOwn {
+func (t *tICEFAccessibilityHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -1373,19 +1401,13 @@ func unwrapICEFBaseScopedWrapperRef(value ICEFBaseScopedWrapperRef) vcef.ICEFBas
 	if wrapped, ok := value.(*tICEFBaseScopedWrapperRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICEFBaseScopedWrapperRef() vcef.ICEFBaseScopedWrapperRef
-	}); ok {
-		return raw.RawCEF147ICEFBaseScopedWrapperRef()
+	if raw, ok := RawAs[vcef.ICEFBaseScopedWrapperRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFBaseScopedWrapperRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFBaseScopedWrapperRef_147) RawCEF147ICEFBaseScopedWrapperRef() vcef.ICEFBaseScopedWrapperRef {
+func (t *tICEFBaseScopedWrapperRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -1420,19 +1442,13 @@ func unwrapICEFBitmapBitBuffer(value ICEFBitmapBitBuffer) vcef.ICEFBitmapBitBuff
 	if wrapped, ok := value.(*tICEFBitmapBitBuffer_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICEFBitmapBitBuffer() vcef.ICEFBitmapBitBuffer
-	}); ok {
-		return raw.RawCEF147ICEFBitmapBitBuffer()
+	if raw, ok := RawAs[vcef.ICEFBitmapBitBuffer](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFBitmapBitBuffer_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFBitmapBitBuffer_147) RawCEF147ICEFBitmapBitBuffer() vcef.ICEFBitmapBitBuffer {
+func (t *tICEFBitmapBitBuffer_147) Raw() Raw {
 	return t.raw
 }
 
@@ -1506,19 +1522,13 @@ func unwrapICEFBrowserViewComponent(value ICEFBrowserViewComponent) vcef.ICEFBro
 	if wrapped, ok := value.(*tICEFBrowserViewComponent_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICEFBrowserViewComponent() vcef.ICEFBrowserViewComponent
-	}); ok {
-		return raw.RawCEF147ICEFBrowserViewComponent()
+	if raw, ok := RawAs[vcef.ICEFBrowserViewComponent](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFBrowserViewComponent_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFBrowserViewComponent_147) RawCEF147ICEFBrowserViewComponent() vcef.ICEFBrowserViewComponent {
+func (t *tICEFBrowserViewComponent_147) Raw() Raw {
 	return t.raw
 }
 
@@ -1652,19 +1662,13 @@ func unwrapICEFButtonComponent(value ICEFButtonComponent) vcef.ICEFButtonCompone
 	if wrapped, ok := value.(*tICEFButtonComponent_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICEFButtonComponent() vcef.ICEFButtonComponent
-	}); ok {
-		return raw.RawCEF147ICEFButtonComponent()
+	if raw, ok := RawAs[vcef.ICEFButtonComponent](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFButtonComponent_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFButtonComponent_147) RawCEF147ICEFButtonComponent() vcef.ICEFButtonComponent {
+func (t *tICEFButtonComponent_147) Raw() Raw {
 	return t.raw
 }
 
@@ -1738,19 +1742,13 @@ func unwrapICEFDevToolsMessageObserverOwn(value ICEFDevToolsMessageObserverOwn) 
 	if wrapped, ok := value.(*tICEFDevToolsMessageObserverOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICEFDevToolsMessageObserverOwn() vcef.ICEFDevToolsMessageObserverOwn
-	}); ok {
-		return raw.RawCEF147ICEFDevToolsMessageObserverOwn()
+	if raw, ok := RawAs[vcef.ICEFDevToolsMessageObserverOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFDevToolsMessageObserverOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFDevToolsMessageObserverOwn_147) RawCEF147ICEFDevToolsMessageObserverOwn() vcef.ICEFDevToolsMessageObserverOwn {
+func (t *tICEFDevToolsMessageObserverOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -1780,19 +1778,13 @@ func unwrapICEFFileDialogInfo(value ICEFFileDialogInfo) vcef.ICEFFileDialogInfo 
 	if wrapped, ok := value.(*tICEFFileDialogInfo_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICEFFileDialogInfo() vcef.ICEFFileDialogInfo
-	}); ok {
-		return raw.RawCEF147ICEFFileDialogInfo()
+	if raw, ok := RawAs[vcef.ICEFFileDialogInfo](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFFileDialogInfo_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFFileDialogInfo_147) RawCEF147ICEFFileDialogInfo() vcef.ICEFFileDialogInfo {
+func (t *tICEFFileDialogInfo_147) Raw() Raw {
 	return t.raw
 }
 
@@ -1938,17 +1930,13 @@ func unwrapICEFJson(value ICEFJson) vcef.ICEFJson {
 	if wrapped, ok := value.(*tICEFJson_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICEFJson() vcef.ICEFJson }); ok {
-		return raw.RawCEF147ICEFJson()
+	if raw, ok := RawAs[vcef.ICEFJson](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFJson_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFJson_147) RawCEF147ICEFJson() vcef.ICEFJson {
+func (t *tICEFJson_147) Raw() Raw {
 	return t.raw
 }
 
@@ -1978,19 +1966,13 @@ func unwrapICEFLabelButtonComponent(value ICEFLabelButtonComponent) vcef.ICEFLab
 	if wrapped, ok := value.(*tICEFLabelButtonComponent_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICEFLabelButtonComponent() vcef.ICEFLabelButtonComponent
-	}); ok {
-		return raw.RawCEF147ICEFLabelButtonComponent()
+	if raw, ok := RawAs[vcef.ICEFLabelButtonComponent](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFLabelButtonComponent_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFLabelButtonComponent_147) RawCEF147ICEFLabelButtonComponent() vcef.ICEFLabelButtonComponent {
+func (t *tICEFLabelButtonComponent_147) Raw() Raw {
 	return t.raw
 }
 
@@ -2081,19 +2063,13 @@ func unwrapICEFLinkedWinControlBase(value ICEFLinkedWinControlBase) vcef.ICEFLin
 	if wrapped, ok := value.(*tICEFLinkedWinControlBase_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICEFLinkedWinControlBase() vcef.ICEFLinkedWinControlBase
-	}); ok {
-		return raw.RawCEF147ICEFLinkedWinControlBase()
+	if raw, ok := RawAs[vcef.ICEFLinkedWinControlBase](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFLinkedWinControlBase_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFLinkedWinControlBase_147) RawCEF147ICEFLinkedWinControlBase() vcef.ICEFLinkedWinControlBase {
+func (t *tICEFLinkedWinControlBase_147) Raw() Raw {
 	return t.raw
 }
 
@@ -2132,19 +2108,13 @@ func unwrapICEFLinkedWindowParent(value ICEFLinkedWindowParent) vcef.ICEFLinkedW
 	if wrapped, ok := value.(*tICEFLinkedWindowParent_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICEFLinkedWindowParent() vcef.ICEFLinkedWindowParent
-	}); ok {
-		return raw.RawCEF147ICEFLinkedWindowParent()
+	if raw, ok := RawAs[vcef.ICEFLinkedWindowParent](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFLinkedWindowParent_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFLinkedWindowParent_147) RawCEF147ICEFLinkedWindowParent() vcef.ICEFLinkedWindowParent {
+func (t *tICEFLinkedWindowParent_147) Raw() Raw {
 	return t.raw
 }
 
@@ -2183,19 +2153,13 @@ func unwrapICEFMenuButtonComponent(value ICEFMenuButtonComponent) vcef.ICEFMenuB
 	if wrapped, ok := value.(*tICEFMenuButtonComponent_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICEFMenuButtonComponent() vcef.ICEFMenuButtonComponent
-	}); ok {
-		return raw.RawCEF147ICEFMenuButtonComponent()
+	if raw, ok := RawAs[vcef.ICEFMenuButtonComponent](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFMenuButtonComponent_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFMenuButtonComponent_147) RawCEF147ICEFMenuButtonComponent() vcef.ICEFMenuButtonComponent {
+func (t *tICEFMenuButtonComponent_147) Raw() Raw {
 	return t.raw
 }
 
@@ -2258,17 +2222,13 @@ func unwrapICEFOAuth2Helper(value ICEFOAuth2Helper) vcef.ICEFOAuth2Helper {
 	if wrapped, ok := value.(*tICEFOAuth2Helper_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICEFOAuth2Helper() vcef.ICEFOAuth2Helper }); ok {
-		return raw.RawCEF147ICEFOAuth2Helper()
+	if raw, ok := RawAs[vcef.ICEFOAuth2Helper](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFOAuth2Helper_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFOAuth2Helper_147) RawCEF147ICEFOAuth2Helper() vcef.ICEFOAuth2Helper {
+func (t *tICEFOAuth2Helper_147) Raw() Raw {
 	return t.raw
 }
 
@@ -2459,17 +2419,13 @@ func unwrapICEFOSRIMEHandler(value ICEFOSRIMEHandler) vcef.ICEFOSRIMEHandler {
 	if wrapped, ok := value.(*tICEFOSRIMEHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICEFOSRIMEHandler() vcef.ICEFOSRIMEHandler }); ok {
-		return raw.RawCEF147ICEFOSRIMEHandler()
+	if raw, ok := RawAs[vcef.ICEFOSRIMEHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFOSRIMEHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFOSRIMEHandler_147) RawCEF147ICEFOSRIMEHandler() vcef.ICEFOSRIMEHandler {
+func (t *tICEFOSRIMEHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -2578,19 +2534,13 @@ func unwrapICEFPanelComponent(value ICEFPanelComponent) vcef.ICEFPanelComponent 
 	if wrapped, ok := value.(*tICEFPanelComponent_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICEFPanelComponent() vcef.ICEFPanelComponent
-	}); ok {
-		return raw.RawCEF147ICEFPanelComponent()
+	if raw, ok := RawAs[vcef.ICEFPanelComponent](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFPanelComponent_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFPanelComponent_147) RawCEF147ICEFPanelComponent() vcef.ICEFPanelComponent {
+func (t *tICEFPanelComponent_147) Raw() Raw {
 	return t.raw
 }
 
@@ -2688,17 +2638,13 @@ func unwrapICEFProxySettings(value ICEFProxySettings) vcef.ICEFProxySettings {
 	if wrapped, ok := value.(*tICEFProxySettings_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICEFProxySettings() vcef.ICEFProxySettings }); ok {
-		return raw.RawCEF147ICEFProxySettings()
+	if raw, ok := RawAs[vcef.ICEFProxySettings](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFProxySettings_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFProxySettings_147) RawCEF147ICEFProxySettings() vcef.ICEFProxySettings {
+func (t *tICEFProxySettings_147) Raw() Raw {
 	return t.raw
 }
 
@@ -2773,19 +2719,13 @@ func unwrapICEFScrollViewComponent(value ICEFScrollViewComponent) vcef.ICEFScrol
 	if wrapped, ok := value.(*tICEFScrollViewComponent_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICEFScrollViewComponent() vcef.ICEFScrollViewComponent
-	}); ok {
-		return raw.RawCEF147ICEFScrollViewComponent()
+	if raw, ok := RawAs[vcef.ICEFScrollViewComponent](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFScrollViewComponent_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFScrollViewComponent_147) RawCEF147ICEFScrollViewComponent() vcef.ICEFScrollViewComponent {
+func (t *tICEFScrollViewComponent_147) Raw() Raw {
 	return t.raw
 }
 
@@ -2858,17 +2798,13 @@ func unwrapICEFSentinel(value ICEFSentinel) vcef.ICEFSentinel {
 	if wrapped, ok := value.(*tICEFSentinel_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICEFSentinel() vcef.ICEFSentinel }); ok {
-		return raw.RawCEF147ICEFSentinel()
+	if raw, ok := RawAs[vcef.ICEFSentinel](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFSentinel_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFSentinel_147) RawCEF147ICEFSentinel() vcef.ICEFSentinel {
+func (t *tICEFSentinel_147) Raw() Raw {
 	return t.raw
 }
 
@@ -2963,19 +2899,13 @@ func unwrapICEFServerComponent(value ICEFServerComponent) vcef.ICEFServerCompone
 	if wrapped, ok := value.(*tICEFServerComponent_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICEFServerComponent() vcef.ICEFServerComponent
-	}); ok {
-		return raw.RawCEF147ICEFServerComponent()
+	if raw, ok := RawAs[vcef.ICEFServerComponent](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFServerComponent_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFServerComponent_147) RawCEF147ICEFServerComponent() vcef.ICEFServerComponent {
+func (t *tICEFServerComponent_147) Raw() Raw {
 	return t.raw
 }
 
@@ -3115,19 +3045,13 @@ func unwrapICEFServerHandlerOwn(value ICEFServerHandlerOwn) vcef.ICEFServerHandl
 	if wrapped, ok := value.(*tICEFServerHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICEFServerHandlerOwn() vcef.ICEFServerHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICEFServerHandlerOwn()
+	if raw, ok := RawAs[vcef.ICEFServerHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFServerHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFServerHandlerOwn_147) RawCEF147ICEFServerHandlerOwn() vcef.ICEFServerHandlerOwn {
+func (t *tICEFServerHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -3157,17 +3081,13 @@ func unwrapICEFServerRef(value ICEFServerRef) vcef.ICEFServerRef {
 	if wrapped, ok := value.(*tICEFServerRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICEFServerRef() vcef.ICEFServerRef }); ok {
-		return raw.RawCEF147ICEFServerRef()
+	if raw, ok := RawAs[vcef.ICEFServerRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFServerRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFServerRef_147) RawCEF147ICEFServerRef() vcef.ICEFServerRef {
+func (t *tICEFServerRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -3259,19 +3179,13 @@ func unwrapICEFTextfieldComponent(value ICEFTextfieldComponent) vcef.ICEFTextfie
 	if wrapped, ok := value.(*tICEFTextfieldComponent_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICEFTextfieldComponent() vcef.ICEFTextfieldComponent
-	}); ok {
-		return raw.RawCEF147ICEFTextfieldComponent()
+	if raw, ok := RawAs[vcef.ICEFTextfieldComponent](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFTextfieldComponent_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFTextfieldComponent_147) RawCEF147ICEFTextfieldComponent() vcef.ICEFTextfieldComponent {
+func (t *tICEFTextfieldComponent_147) Raw() Raw {
 	return t.raw
 }
 
@@ -3461,19 +3375,13 @@ func unwrapICEFTimerWorkScheduler(value ICEFTimerWorkScheduler) vcef.ICEFTimerWo
 	if wrapped, ok := value.(*tICEFTimerWorkScheduler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICEFTimerWorkScheduler() vcef.ICEFTimerWorkScheduler
-	}); ok {
-		return raw.RawCEF147ICEFTimerWorkScheduler()
+	if raw, ok := RawAs[vcef.ICEFTimerWorkScheduler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFTimerWorkScheduler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFTimerWorkScheduler_147) RawCEF147ICEFTimerWorkScheduler() vcef.ICEFTimerWorkScheduler {
+func (t *tICEFTimerWorkScheduler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -3540,19 +3448,13 @@ func unwrapICEFUrlRequestClientComponent(value ICEFUrlRequestClientComponent) vc
 	if wrapped, ok := value.(*tICEFUrlRequestClientComponent_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICEFUrlRequestClientComponent() vcef.ICEFUrlRequestClientComponent
-	}); ok {
-		return raw.RawCEF147ICEFUrlRequestClientComponent()
+	if raw, ok := RawAs[vcef.ICEFUrlRequestClientComponent](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFUrlRequestClientComponent_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFUrlRequestClientComponent_147) RawCEF147ICEFUrlRequestClientComponent() vcef.ICEFUrlRequestClientComponent {
+func (t *tICEFUrlRequestClientComponent_147) Raw() Raw {
 	return t.raw
 }
 
@@ -3637,19 +3539,13 @@ func unwrapICEFUrlRequestClientEvents(value ICEFUrlRequestClientEvents) vcef.ICE
 	if wrapped, ok := value.(*tICEFUrlRequestClientEvents_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICEFUrlRequestClientEvents() vcef.ICEFUrlRequestClientEvents
-	}); ok {
-		return raw.RawCEF147ICEFUrlRequestClientEvents()
+	if raw, ok := RawAs[vcef.ICEFUrlRequestClientEvents](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFUrlRequestClientEvents_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFUrlRequestClientEvents_147) RawCEF147ICEFUrlRequestClientEvents() vcef.ICEFUrlRequestClientEvents {
+func (t *tICEFUrlRequestClientEvents_147) Raw() Raw {
 	return t.raw
 }
 
@@ -3681,17 +3577,13 @@ func unwrapICEFViewComponent(value ICEFViewComponent) vcef.ICEFViewComponent {
 	if wrapped, ok := value.(*tICEFViewComponent_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICEFViewComponent() vcef.ICEFViewComponent }); ok {
-		return raw.RawCEF147ICEFViewComponent()
+	if raw, ok := RawAs[vcef.ICEFViewComponent](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFViewComponent_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFViewComponent_147) RawCEF147ICEFViewComponent() vcef.ICEFViewComponent {
+func (t *tICEFViewComponent_147) Raw() Raw {
 	return t.raw
 }
 
@@ -4035,17 +3927,13 @@ func unwrapICEFWinControl(value ICEFWinControl) vcef.ICEFWinControl {
 	if wrapped, ok := value.(*tICEFWinControl_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICEFWinControl() vcef.ICEFWinControl }); ok {
-		return raw.RawCEF147ICEFWinControl()
+	if raw, ok := RawAs[vcef.ICEFWinControl](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFWinControl_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFWinControl_147) RawCEF147ICEFWinControl() vcef.ICEFWinControl {
+func (t *tICEFWinControl_147) Raw() Raw {
 	return t.raw
 }
 
@@ -4147,19 +4035,13 @@ func unwrapICEFWindowComponent(value ICEFWindowComponent) vcef.ICEFWindowCompone
 	if wrapped, ok := value.(*tICEFWindowComponent_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICEFWindowComponent() vcef.ICEFWindowComponent
-	}); ok {
-		return raw.RawCEF147ICEFWindowComponent()
+	if raw, ok := RawAs[vcef.ICEFWindowComponent](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFWindowComponent_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFWindowComponent_147) RawCEF147ICEFWindowComponent() vcef.ICEFWindowComponent {
+func (t *tICEFWindowComponent_147) Raw() Raw {
 	return t.raw
 }
 
@@ -4525,17 +4407,13 @@ func unwrapICEFWindowParent(value ICEFWindowParent) vcef.ICEFWindowParent {
 	if wrapped, ok := value.(*tICEFWindowParent_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICEFWindowParent() vcef.ICEFWindowParent }); ok {
-		return raw.RawCEF147ICEFWindowParent()
+	if raw, ok := RawAs[vcef.ICEFWindowParent](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFWindowParent_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFWindowParent_147) RawCEF147ICEFWindowParent() vcef.ICEFWindowParent {
+func (t *tICEFWindowParent_147) Raw() Raw {
 	return t.raw
 }
 
@@ -4565,17 +4443,13 @@ func unwrapICEFWorkScheduler(value ICEFWorkScheduler) vcef.ICEFWorkScheduler {
 	if wrapped, ok := value.(*tICEFWorkScheduler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICEFWorkScheduler() vcef.ICEFWorkScheduler }); ok {
-		return raw.RawCEF147ICEFWorkScheduler()
+	if raw, ok := RawAs[vcef.ICEFWorkScheduler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFWorkScheduler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFWorkScheduler_147) RawCEF147ICEFWorkScheduler() vcef.ICEFWorkScheduler {
+func (t *tICEFWorkScheduler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -4662,19 +4536,13 @@ func unwrapICEFX509CertificateRef(value ICEFX509CertificateRef) vcef.ICEFX509Cer
 	if wrapped, ok := value.(*tICEFX509CertificateRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICEFX509CertificateRef() vcef.ICEFX509CertificateRef
-	}); ok {
-		return raw.RawCEF147ICEFX509CertificateRef()
+	if raw, ok := RawAs[vcef.ICEFX509CertificateRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICEFX509CertificateRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICEFX509CertificateRef_147) RawCEF147ICEFX509CertificateRef() vcef.ICEFX509CertificateRef {
+func (t *tICEFX509CertificateRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -4781,19 +4649,13 @@ func unwrapICefAccessibilityHandler(value ICefAccessibilityHandler) vcef.ICefAcc
 	if wrapped, ok := value.(*tICefAccessibilityHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefAccessibilityHandler() vcef.ICefAccessibilityHandler
-	}); ok {
-		return raw.RawCEF147ICefAccessibilityHandler()
+	if raw, ok := RawAs[vcef.ICefAccessibilityHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefAccessibilityHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefAccessibilityHandler_147) RawCEF147ICefAccessibilityHandler() vcef.ICefAccessibilityHandler {
+func (t *tICefAccessibilityHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -4823,17 +4685,13 @@ func unwrapICefApp(value ICefApp) vcef.ICefApp {
 	if wrapped, ok := value.(*tICefApp_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefApp() vcef.ICefApp }); ok {
-		return raw.RawCEF147ICefApp()
+	if raw, ok := RawAs[vcef.ICefApp](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefApp_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefApp_147) RawCEF147ICefApp() vcef.ICefApp {
+func (t *tICefApp_147) Raw() Raw {
 	return t.raw
 }
 
@@ -4863,17 +4721,13 @@ func unwrapICefAppOwn(value ICefAppOwn) vcef.ICefAppOwn {
 	if wrapped, ok := value.(*tICefAppOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefAppOwn() vcef.ICefAppOwn }); ok {
-		return raw.RawCEF147ICefAppOwn()
+	if raw, ok := RawAs[vcef.ICefAppOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefAppOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefAppOwn_147) RawCEF147ICefAppOwn() vcef.ICefAppOwn {
+func (t *tICefAppOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -4903,17 +4757,13 @@ func unwrapICefApplication(value ICefApplication) vcef.ICefApplication {
 	if wrapped, ok := value.(*tICefApplication_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefApplication() vcef.ICefApplication }); ok {
-		return raw.RawCEF147ICefApplication()
+	if raw, ok := RawAs[vcef.ICefApplication](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefApplication_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefApplication_147) RawCEF147ICefApplication() vcef.ICefApplication {
+func (t *tICefApplication_147) Raw() Raw {
 	return t.raw
 }
 
@@ -4968,19 +4818,13 @@ func unwrapICefApplicationCore(value ICefApplicationCore) vcef.ICefApplicationCo
 	if wrapped, ok := value.(*tICefApplicationCore_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefApplicationCore() vcef.ICefApplicationCore
-	}); ok {
-		return raw.RawCEF147ICefApplicationCore()
+	if raw, ok := RawAs[vcef.ICefApplicationCore](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefApplicationCore_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefApplicationCore_147) RawCEF147ICefApplicationCore() vcef.ICefApplicationCore {
+func (t *tICefApplicationCore_147) Raw() Raw {
 	return t.raw
 }
 
@@ -6486,17 +6330,13 @@ func unwrapICefAudioHandler(value ICefAudioHandler) vcef.ICefAudioHandler {
 	if wrapped, ok := value.(*tICefAudioHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefAudioHandler() vcef.ICefAudioHandler }); ok {
-		return raw.RawCEF147ICefAudioHandler()
+	if raw, ok := RawAs[vcef.ICefAudioHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefAudioHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefAudioHandler_147) RawCEF147ICefAudioHandler() vcef.ICefAudioHandler {
+func (t *tICefAudioHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -6526,19 +6366,13 @@ func unwrapICefAudioHandlerOwn(value ICefAudioHandlerOwn) vcef.ICefAudioHandlerO
 	if wrapped, ok := value.(*tICefAudioHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefAudioHandlerOwn() vcef.ICefAudioHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefAudioHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefAudioHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefAudioHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefAudioHandlerOwn_147) RawCEF147ICefAudioHandlerOwn() vcef.ICefAudioHandlerOwn {
+func (t *tICefAudioHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -6568,17 +6402,13 @@ func unwrapICefAuthCallback(value ICefAuthCallback) vcef.ICefAuthCallback {
 	if wrapped, ok := value.(*tICefAuthCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefAuthCallback() vcef.ICefAuthCallback }); ok {
-		return raw.RawCEF147ICefAuthCallback()
+	if raw, ok := RawAs[vcef.ICefAuthCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefAuthCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefAuthCallback_147) RawCEF147ICefAuthCallback() vcef.ICefAuthCallback {
+func (t *tICefAuthCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -6616,19 +6446,13 @@ func unwrapICefAuthCallbackRef(value ICefAuthCallbackRef) vcef.ICefAuthCallbackR
 	if wrapped, ok := value.(*tICefAuthCallbackRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefAuthCallbackRef() vcef.ICefAuthCallbackRef
-	}); ok {
-		return raw.RawCEF147ICefAuthCallbackRef()
+	if raw, ok := RawAs[vcef.ICefAuthCallbackRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefAuthCallbackRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefAuthCallbackRef_147) RawCEF147ICefAuthCallbackRef() vcef.ICefAuthCallbackRef {
+func (t *tICefAuthCallbackRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -6671,19 +6495,13 @@ func unwrapICefBaseRefCounted(value ICefBaseRefCounted) vcef.ICefBaseRefCounted 
 	if wrapped, ok := value.(*tICefBaseRefCounted_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefBaseRefCounted() vcef.ICefBaseRefCounted
-	}); ok {
-		return raw.RawCEF147ICefBaseRefCounted()
+	if raw, ok := RawAs[vcef.ICefBaseRefCounted](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefBaseRefCounted_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefBaseRefCounted_147) RawCEF147ICefBaseRefCounted() vcef.ICefBaseRefCounted {
+func (t *tICefBaseRefCounted_147) Raw() Raw {
 	return t.raw
 }
 
@@ -6737,19 +6555,13 @@ func unwrapICefBaseRefCountedOwn(value ICefBaseRefCountedOwn) vcef.ICefBaseRefCo
 	if wrapped, ok := value.(*tICefBaseRefCountedOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefBaseRefCountedOwn() vcef.ICefBaseRefCountedOwn
-	}); ok {
-		return raw.RawCEF147ICefBaseRefCountedOwn()
+	if raw, ok := RawAs[vcef.ICefBaseRefCountedOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefBaseRefCountedOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefBaseRefCountedOwn_147) RawCEF147ICefBaseRefCountedOwn() vcef.ICefBaseRefCountedOwn {
+func (t *tICefBaseRefCountedOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -6779,19 +6591,13 @@ func unwrapICefBaseRefCountedRef(value ICefBaseRefCountedRef) vcef.ICefBaseRefCo
 	if wrapped, ok := value.(*tICefBaseRefCountedRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefBaseRefCountedRef() vcef.ICefBaseRefCountedRef
-	}); ok {
-		return raw.RawCEF147ICefBaseRefCountedRef()
+	if raw, ok := RawAs[vcef.ICefBaseRefCountedRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefBaseRefCountedRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefBaseRefCountedRef_147) RawCEF147ICefBaseRefCountedRef() vcef.ICefBaseRefCountedRef {
+func (t *tICefBaseRefCountedRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -6821,19 +6627,13 @@ func unwrapICefBeforeDownloadCallback(value ICefBeforeDownloadCallback) vcef.ICe
 	if wrapped, ok := value.(*tICefBeforeDownloadCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefBeforeDownloadCallback() vcef.ICefBeforeDownloadCallback
-	}); ok {
-		return raw.RawCEF147ICefBeforeDownloadCallback()
+	if raw, ok := RawAs[vcef.ICefBeforeDownloadCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefBeforeDownloadCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefBeforeDownloadCallback_147) RawCEF147ICefBeforeDownloadCallback() vcef.ICefBeforeDownloadCallback {
+func (t *tICefBeforeDownloadCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -6867,19 +6667,13 @@ func unwrapICefBeforeDownloadCallbackRef(value ICefBeforeDownloadCallbackRef) vc
 	if wrapped, ok := value.(*tICefBeforeDownloadCallbackRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefBeforeDownloadCallbackRef() vcef.ICefBeforeDownloadCallbackRef
-	}); ok {
-		return raw.RawCEF147ICefBeforeDownloadCallbackRef()
+	if raw, ok := RawAs[vcef.ICefBeforeDownloadCallbackRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefBeforeDownloadCallbackRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefBeforeDownloadCallbackRef_147) RawCEF147ICefBeforeDownloadCallbackRef() vcef.ICefBeforeDownloadCallbackRef {
+func (t *tICefBeforeDownloadCallbackRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -6918,17 +6712,13 @@ func unwrapICefBinaryValue(value ICefBinaryValue) vcef.ICefBinaryValue {
 	if wrapped, ok := value.(*tICefBinaryValue_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefBinaryValue() vcef.ICefBinaryValue }); ok {
-		return raw.RawCEF147ICefBinaryValue()
+	if raw, ok := RawAs[vcef.ICefBinaryValue](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefBinaryValue_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefBinaryValue_147) RawCEF147ICefBinaryValue() vcef.ICefBinaryValue {
+func (t *tICefBinaryValue_147) Raw() Raw {
 	return t.raw
 }
 
@@ -6998,19 +6788,13 @@ func unwrapICefBinaryValueRef(value ICefBinaryValueRef) vcef.ICefBinaryValueRef 
 	if wrapped, ok := value.(*tICefBinaryValueRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefBinaryValueRef() vcef.ICefBinaryValueRef
-	}); ok {
-		return raw.RawCEF147ICefBinaryValueRef()
+	if raw, ok := RawAs[vcef.ICefBinaryValueRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefBinaryValueRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefBinaryValueRef_147) RawCEF147ICefBinaryValueRef() vcef.ICefBinaryValueRef {
+func (t *tICefBinaryValueRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -7085,17 +6869,13 @@ func unwrapICefBoxLayout(value ICefBoxLayout) vcef.ICefBoxLayout {
 	if wrapped, ok := value.(*tICefBoxLayout_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefBoxLayout() vcef.ICefBoxLayout }); ok {
-		return raw.RawCEF147ICefBoxLayout()
+	if raw, ok := RawAs[vcef.ICefBoxLayout](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefBoxLayout_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefBoxLayout_147) RawCEF147ICefBoxLayout() vcef.ICefBoxLayout {
+func (t *tICefBoxLayout_147) Raw() Raw {
 	return t.raw
 }
 
@@ -7133,17 +6913,13 @@ func unwrapICefBoxLayoutRef(value ICefBoxLayoutRef) vcef.ICefBoxLayoutRef {
 	if wrapped, ok := value.(*tICefBoxLayoutRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefBoxLayoutRef() vcef.ICefBoxLayoutRef }); ok {
-		return raw.RawCEF147ICefBoxLayoutRef()
+	if raw, ok := RawAs[vcef.ICefBoxLayoutRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefBoxLayoutRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefBoxLayoutRef_147) RawCEF147ICefBoxLayoutRef() vcef.ICefBoxLayoutRef {
+func (t *tICefBoxLayoutRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -7191,17 +6967,13 @@ func unwrapICefBrowser(value ICefBrowser) vcef.ICefBrowser {
 	if wrapped, ok := value.(*tICefBrowser_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefBrowser() vcef.ICefBrowser }); ok {
-		return raw.RawCEF147ICefBrowser()
+	if raw, ok := RawAs[vcef.ICefBrowser](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefBrowser_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefBrowser_147) RawCEF147ICefBrowser() vcef.ICefBrowser {
+func (t *tICefBrowser_147) Raw() Raw {
 	return t.raw
 }
 
@@ -7331,17 +7103,13 @@ func unwrapICefBrowserHost(value ICefBrowserHost) vcef.ICefBrowserHost {
 	if wrapped, ok := value.(*tICefBrowserHost_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefBrowserHost() vcef.ICefBrowserHost }); ok {
-		return raw.RawCEF147ICefBrowserHost()
+	if raw, ok := RawAs[vcef.ICefBrowserHost](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefBrowserHost_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefBrowserHost_147) RawCEF147ICefBrowserHost() vcef.ICefBrowserHost {
+func (t *tICefBrowserHost_147) Raw() Raw {
 	return t.raw
 }
 
@@ -7671,19 +7439,13 @@ func unwrapICefBrowserHostRef(value ICefBrowserHostRef) vcef.ICefBrowserHostRef 
 	if wrapped, ok := value.(*tICefBrowserHostRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefBrowserHostRef() vcef.ICefBrowserHostRef
-	}); ok {
-		return raw.RawCEF147ICefBrowserHostRef()
+	if raw, ok := RawAs[vcef.ICefBrowserHostRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefBrowserHostRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefBrowserHostRef_147) RawCEF147ICefBrowserHostRef() vcef.ICefBrowserHostRef {
+func (t *tICefBrowserHostRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -8018,19 +7780,13 @@ func unwrapICefBrowserProcessHandler(value ICefBrowserProcessHandler) vcef.ICefB
 	if wrapped, ok := value.(*tICefBrowserProcessHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefBrowserProcessHandler() vcef.ICefBrowserProcessHandler
-	}); ok {
-		return raw.RawCEF147ICefBrowserProcessHandler()
+	if raw, ok := RawAs[vcef.ICefBrowserProcessHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefBrowserProcessHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefBrowserProcessHandler_147) RawCEF147ICefBrowserProcessHandler() vcef.ICefBrowserProcessHandler {
+func (t *tICefBrowserProcessHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -8060,19 +7816,13 @@ func unwrapICefBrowserProcessHandlerOwn(value ICefBrowserProcessHandlerOwn) vcef
 	if wrapped, ok := value.(*tICefBrowserProcessHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefBrowserProcessHandlerOwn() vcef.ICefBrowserProcessHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefBrowserProcessHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefBrowserProcessHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefBrowserProcessHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefBrowserProcessHandlerOwn_147) RawCEF147ICefBrowserProcessHandlerOwn() vcef.ICefBrowserProcessHandlerOwn {
+func (t *tICefBrowserProcessHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -8102,17 +7852,13 @@ func unwrapICefBrowserRef(value ICefBrowserRef) vcef.ICefBrowserRef {
 	if wrapped, ok := value.(*tICefBrowserRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefBrowserRef() vcef.ICefBrowserRef }); ok {
-		return raw.RawCEF147ICefBrowserRef()
+	if raw, ok := RawAs[vcef.ICefBrowserRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefBrowserRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefBrowserRef_147) RawCEF147ICefBrowserRef() vcef.ICefBrowserRef {
+func (t *tICefBrowserRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -8247,17 +7993,13 @@ func unwrapICefBrowserView(value ICefBrowserView) vcef.ICefBrowserView {
 	if wrapped, ok := value.(*tICefBrowserView_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefBrowserView() vcef.ICefBrowserView }); ok {
-		return raw.RawCEF147ICefBrowserView()
+	if raw, ok := RawAs[vcef.ICefBrowserView](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefBrowserView_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefBrowserView_147) RawCEF147ICefBrowserView() vcef.ICefBrowserView {
+func (t *tICefBrowserView_147) Raw() Raw {
 	return t.raw
 }
 
@@ -8306,19 +8048,13 @@ func unwrapICefBrowserViewDelegate(value ICefBrowserViewDelegate) vcef.ICefBrows
 	if wrapped, ok := value.(*tICefBrowserViewDelegate_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefBrowserViewDelegate() vcef.ICefBrowserViewDelegate
-	}); ok {
-		return raw.RawCEF147ICefBrowserViewDelegate()
+	if raw, ok := RawAs[vcef.ICefBrowserViewDelegate](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefBrowserViewDelegate_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefBrowserViewDelegate_147) RawCEF147ICefBrowserViewDelegate() vcef.ICefBrowserViewDelegate {
+func (t *tICefBrowserViewDelegate_147) Raw() Raw {
 	return t.raw
 }
 
@@ -8348,19 +8084,13 @@ func unwrapICefBrowserViewDelegateEvents(value ICefBrowserViewDelegateEvents) vc
 	if wrapped, ok := value.(*tICefBrowserViewDelegateEvents_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefBrowserViewDelegateEvents() vcef.ICefBrowserViewDelegateEvents
-	}); ok {
-		return raw.RawCEF147ICefBrowserViewDelegateEvents()
+	if raw, ok := RawAs[vcef.ICefBrowserViewDelegateEvents](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefBrowserViewDelegateEvents_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefBrowserViewDelegateEvents_147) RawCEF147ICefBrowserViewDelegateEvents() vcef.ICefBrowserViewDelegateEvents {
+func (t *tICefBrowserViewDelegateEvents_147) Raw() Raw {
 	return t.raw
 }
 
@@ -8390,19 +8120,13 @@ func unwrapICefBrowserViewDelegateOwn(value ICefBrowserViewDelegateOwn) vcef.ICe
 	if wrapped, ok := value.(*tICefBrowserViewDelegateOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefBrowserViewDelegateOwn() vcef.ICefBrowserViewDelegateOwn
-	}); ok {
-		return raw.RawCEF147ICefBrowserViewDelegateOwn()
+	if raw, ok := RawAs[vcef.ICefBrowserViewDelegateOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefBrowserViewDelegateOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefBrowserViewDelegateOwn_147) RawCEF147ICefBrowserViewDelegateOwn() vcef.ICefBrowserViewDelegateOwn {
+func (t *tICefBrowserViewDelegateOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -8432,19 +8156,13 @@ func unwrapICefBrowserViewDelegateRef(value ICefBrowserViewDelegateRef) vcef.ICe
 	if wrapped, ok := value.(*tICefBrowserViewDelegateRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefBrowserViewDelegateRef() vcef.ICefBrowserViewDelegateRef
-	}); ok {
-		return raw.RawCEF147ICefBrowserViewDelegateRef()
+	if raw, ok := RawAs[vcef.ICefBrowserViewDelegateRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefBrowserViewDelegateRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefBrowserViewDelegateRef_147) RawCEF147ICefBrowserViewDelegateRef() vcef.ICefBrowserViewDelegateRef {
+func (t *tICefBrowserViewDelegateRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -8484,19 +8202,13 @@ func unwrapICefBrowserViewRef(value ICefBrowserViewRef) vcef.ICefBrowserViewRef 
 	if wrapped, ok := value.(*tICefBrowserViewRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefBrowserViewRef() vcef.ICefBrowserViewRef
-	}); ok {
-		return raw.RawCEF147ICefBrowserViewRef()
+	if raw, ok := RawAs[vcef.ICefBrowserViewRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefBrowserViewRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefBrowserViewRef_147) RawCEF147ICefBrowserViewRef() vcef.ICefBrowserViewRef {
+func (t *tICefBrowserViewRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -8555,17 +8267,13 @@ func unwrapICefButton(value ICefButton) vcef.ICefButton {
 	if wrapped, ok := value.(*tICefButton_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefButton() vcef.ICefButton }); ok {
-		return raw.RawCEF147ICefButton()
+	if raw, ok := RawAs[vcef.ICefButton](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefButton_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefButton_147) RawCEF147ICefButton() vcef.ICefButton {
+func (t *tICefButton_147) Raw() Raw {
 	return t.raw
 }
 
@@ -8621,19 +8329,13 @@ func unwrapICefButtonDelegate(value ICefButtonDelegate) vcef.ICefButtonDelegate 
 	if wrapped, ok := value.(*tICefButtonDelegate_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefButtonDelegate() vcef.ICefButtonDelegate
-	}); ok {
-		return raw.RawCEF147ICefButtonDelegate()
+	if raw, ok := RawAs[vcef.ICefButtonDelegate](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefButtonDelegate_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefButtonDelegate_147) RawCEF147ICefButtonDelegate() vcef.ICefButtonDelegate {
+func (t *tICefButtonDelegate_147) Raw() Raw {
 	return t.raw
 }
 
@@ -8663,19 +8365,13 @@ func unwrapICefButtonDelegateEvents(value ICefButtonDelegateEvents) vcef.ICefBut
 	if wrapped, ok := value.(*tICefButtonDelegateEvents_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefButtonDelegateEvents() vcef.ICefButtonDelegateEvents
-	}); ok {
-		return raw.RawCEF147ICefButtonDelegateEvents()
+	if raw, ok := RawAs[vcef.ICefButtonDelegateEvents](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefButtonDelegateEvents_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefButtonDelegateEvents_147) RawCEF147ICefButtonDelegateEvents() vcef.ICefButtonDelegateEvents {
+func (t *tICefButtonDelegateEvents_147) Raw() Raw {
 	return t.raw
 }
 
@@ -8705,19 +8401,13 @@ func unwrapICefButtonDelegateOwn(value ICefButtonDelegateOwn) vcef.ICefButtonDel
 	if wrapped, ok := value.(*tICefButtonDelegateOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefButtonDelegateOwn() vcef.ICefButtonDelegateOwn
-	}); ok {
-		return raw.RawCEF147ICefButtonDelegateOwn()
+	if raw, ok := RawAs[vcef.ICefButtonDelegateOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefButtonDelegateOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefButtonDelegateOwn_147) RawCEF147ICefButtonDelegateOwn() vcef.ICefButtonDelegateOwn {
+func (t *tICefButtonDelegateOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -8747,19 +8437,13 @@ func unwrapICefButtonDelegateRef(value ICefButtonDelegateRef) vcef.ICefButtonDel
 	if wrapped, ok := value.(*tICefButtonDelegateRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefButtonDelegateRef() vcef.ICefButtonDelegateRef
-	}); ok {
-		return raw.RawCEF147ICefButtonDelegateRef()
+	if raw, ok := RawAs[vcef.ICefButtonDelegateRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefButtonDelegateRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefButtonDelegateRef_147) RawCEF147ICefButtonDelegateRef() vcef.ICefButtonDelegateRef {
+func (t *tICefButtonDelegateRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -8799,17 +8483,13 @@ func unwrapICefButtonRef(value ICefButtonRef) vcef.ICefButtonRef {
 	if wrapped, ok := value.(*tICefButtonRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefButtonRef() vcef.ICefButtonRef }); ok {
-		return raw.RawCEF147ICefButtonRef()
+	if raw, ok := RawAs[vcef.ICefButtonRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefButtonRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefButtonRef_147) RawCEF147ICefButtonRef() vcef.ICefButtonRef {
+func (t *tICefButtonRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -8875,19 +8555,13 @@ func unwrapICefBytesWriteHandler(value ICefBytesWriteHandler) vcef.ICefBytesWrit
 	if wrapped, ok := value.(*tICefBytesWriteHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefBytesWriteHandler() vcef.ICefBytesWriteHandler
-	}); ok {
-		return raw.RawCEF147ICefBytesWriteHandler()
+	if raw, ok := RawAs[vcef.ICefBytesWriteHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefBytesWriteHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefBytesWriteHandler_147) RawCEF147ICefBytesWriteHandler() vcef.ICefBytesWriteHandler {
+func (t *tICefBytesWriteHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -8957,17 +8631,13 @@ func unwrapICefCallback(value ICefCallback) vcef.ICefCallback {
 	if wrapped, ok := value.(*tICefCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefCallback() vcef.ICefCallback }); ok {
-		return raw.RawCEF147ICefCallback()
+	if raw, ok := RawAs[vcef.ICefCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCallback_147) RawCEF147ICefCallback() vcef.ICefCallback {
+func (t *tICefCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -9005,17 +8675,13 @@ func unwrapICefCallbackRef(value ICefCallbackRef) vcef.ICefCallbackRef {
 	if wrapped, ok := value.(*tICefCallbackRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefCallbackRef() vcef.ICefCallbackRef }); ok {
-		return raw.RawCEF147ICefCallbackRef()
+	if raw, ok := RawAs[vcef.ICefCallbackRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCallbackRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCallbackRef_147) RawCEF147ICefCallbackRef() vcef.ICefCallbackRef {
+func (t *tICefCallbackRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -9058,17 +8724,13 @@ func unwrapICefChromiumTask(value ICefChromiumTask) vcef.ICefChromiumTask {
 	if wrapped, ok := value.(*tICefChromiumTask_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefChromiumTask() vcef.ICefChromiumTask }); ok {
-		return raw.RawCEF147ICefChromiumTask()
+	if raw, ok := RawAs[vcef.ICefChromiumTask](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefChromiumTask_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefChromiumTask_147) RawCEF147ICefChromiumTask() vcef.ICefChromiumTask {
+func (t *tICefChromiumTask_147) Raw() Raw {
 	return t.raw
 }
 
@@ -9103,17 +8765,13 @@ func unwrapICefClient(value ICefClient) vcef.ICefClient {
 	if wrapped, ok := value.(*tICefClient_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefClient() vcef.ICefClient }); ok {
-		return raw.RawCEF147ICefClient()
+	if raw, ok := RawAs[vcef.ICefClient](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefClient_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefClient_147) RawCEF147ICefClient() vcef.ICefClient {
+func (t *tICefClient_147) Raw() Raw {
 	return t.raw
 }
 
@@ -9143,17 +8801,13 @@ func unwrapICefClientOwn(value ICefClientOwn) vcef.ICefClientOwn {
 	if wrapped, ok := value.(*tICefClientOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefClientOwn() vcef.ICefClientOwn }); ok {
-		return raw.RawCEF147ICefClientOwn()
+	if raw, ok := RawAs[vcef.ICefClientOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefClientOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefClientOwn_147) RawCEF147ICefClientOwn() vcef.ICefClientOwn {
+func (t *tICefClientOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -9183,19 +8837,13 @@ func unwrapICefCommandHandler(value ICefCommandHandler) vcef.ICefCommandHandler 
 	if wrapped, ok := value.(*tICefCommandHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCommandHandler() vcef.ICefCommandHandler
-	}); ok {
-		return raw.RawCEF147ICefCommandHandler()
+	if raw, ok := RawAs[vcef.ICefCommandHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCommandHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCommandHandler_147) RawCEF147ICefCommandHandler() vcef.ICefCommandHandler {
+func (t *tICefCommandHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -9225,19 +8873,13 @@ func unwrapICefCommandHandlerOwn(value ICefCommandHandlerOwn) vcef.ICefCommandHa
 	if wrapped, ok := value.(*tICefCommandHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCommandHandlerOwn() vcef.ICefCommandHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefCommandHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefCommandHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCommandHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCommandHandlerOwn_147) RawCEF147ICefCommandHandlerOwn() vcef.ICefCommandHandlerOwn {
+func (t *tICefCommandHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -9267,17 +8909,13 @@ func unwrapICefCommandLine(value ICefCommandLine) vcef.ICefCommandLine {
 	if wrapped, ok := value.(*tICefCommandLine_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefCommandLine() vcef.ICefCommandLine }); ok {
-		return raw.RawCEF147ICefCommandLine()
+	if raw, ok := RawAs[vcef.ICefCommandLine](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCommandLine_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCommandLine_147) RawCEF147ICefCommandLine() vcef.ICefCommandLine {
+func (t *tICefCommandLine_147) Raw() Raw {
 	return t.raw
 }
 
@@ -9401,19 +9039,13 @@ func unwrapICefCommandLineRef(value ICefCommandLineRef) vcef.ICefCommandLineRef 
 	if wrapped, ok := value.(*tICefCommandLineRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCommandLineRef() vcef.ICefCommandLineRef
-	}); ok {
-		return raw.RawCEF147ICefCommandLineRef()
+	if raw, ok := RawAs[vcef.ICefCommandLineRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCommandLineRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCommandLineRef_147) RawCEF147ICefCommandLineRef() vcef.ICefCommandLineRef {
+func (t *tICefCommandLineRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -9542,19 +9174,13 @@ func unwrapICefCompletionCallback(value ICefCompletionCallback) vcef.ICefComplet
 	if wrapped, ok := value.(*tICefCompletionCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCompletionCallback() vcef.ICefCompletionCallback
-	}); ok {
-		return raw.RawCEF147ICefCompletionCallback()
+	if raw, ok := RawAs[vcef.ICefCompletionCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCompletionCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCompletionCallback_147) RawCEF147ICefCompletionCallback() vcef.ICefCompletionCallback {
+func (t *tICefCompletionCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -9584,19 +9210,13 @@ func unwrapICefCompletionCallbackOwn(value ICefCompletionCallbackOwn) vcef.ICefC
 	if wrapped, ok := value.(*tICefCompletionCallbackOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCompletionCallbackOwn() vcef.ICefCompletionCallbackOwn
-	}); ok {
-		return raw.RawCEF147ICefCompletionCallbackOwn()
+	if raw, ok := RawAs[vcef.ICefCompletionCallbackOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCompletionCallbackOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCompletionCallbackOwn_147) RawCEF147ICefCompletionCallbackOwn() vcef.ICefCompletionCallbackOwn {
+func (t *tICefCompletionCallbackOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -9626,17 +9246,13 @@ func unwrapICefComponent(value ICefComponent) vcef.ICefComponent {
 	if wrapped, ok := value.(*tICefComponent_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefComponent() vcef.ICefComponent }); ok {
-		return raw.RawCEF147ICefComponent()
+	if raw, ok := RawAs[vcef.ICefComponent](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefComponent_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefComponent_147) RawCEF147ICefComponent() vcef.ICefComponent {
+func (t *tICefComponent_147) Raw() Raw {
 	return t.raw
 }
 
@@ -9686,17 +9302,13 @@ func unwrapICefComponentRef(value ICefComponentRef) vcef.ICefComponentRef {
 	if wrapped, ok := value.(*tICefComponentRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefComponentRef() vcef.ICefComponentRef }); ok {
-		return raw.RawCEF147ICefComponentRef()
+	if raw, ok := RawAs[vcef.ICefComponentRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefComponentRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefComponentRef_147) RawCEF147ICefComponentRef() vcef.ICefComponentRef {
+func (t *tICefComponentRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -9751,19 +9363,13 @@ func unwrapICefContextMenuHandler(value ICefContextMenuHandler) vcef.ICefContext
 	if wrapped, ok := value.(*tICefContextMenuHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefContextMenuHandler() vcef.ICefContextMenuHandler
-	}); ok {
-		return raw.RawCEF147ICefContextMenuHandler()
+	if raw, ok := RawAs[vcef.ICefContextMenuHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefContextMenuHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefContextMenuHandler_147) RawCEF147ICefContextMenuHandler() vcef.ICefContextMenuHandler {
+func (t *tICefContextMenuHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -9793,19 +9399,13 @@ func unwrapICefContextMenuHandlerOwn(value ICefContextMenuHandlerOwn) vcef.ICefC
 	if wrapped, ok := value.(*tICefContextMenuHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefContextMenuHandlerOwn() vcef.ICefContextMenuHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefContextMenuHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefContextMenuHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefContextMenuHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefContextMenuHandlerOwn_147) RawCEF147ICefContextMenuHandlerOwn() vcef.ICefContextMenuHandlerOwn {
+func (t *tICefContextMenuHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -9835,19 +9435,13 @@ func unwrapICefContextMenuParams(value ICefContextMenuParams) vcef.ICefContextMe
 	if wrapped, ok := value.(*tICefContextMenuParams_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefContextMenuParams() vcef.ICefContextMenuParams
-	}); ok {
-		return raw.RawCEF147ICefContextMenuParams()
+	if raw, ok := RawAs[vcef.ICefContextMenuParams](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefContextMenuParams_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefContextMenuParams_147) RawCEF147ICefContextMenuParams() vcef.ICefContextMenuParams {
+func (t *tICefContextMenuParams_147) Raw() Raw {
 	return t.raw
 }
 
@@ -9977,19 +9571,13 @@ func unwrapICefContextMenuParamsRef(value ICefContextMenuParamsRef) vcef.ICefCon
 	if wrapped, ok := value.(*tICefContextMenuParamsRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefContextMenuParamsRef() vcef.ICefContextMenuParamsRef
-	}); ok {
-		return raw.RawCEF147ICefContextMenuParamsRef()
+	if raw, ok := RawAs[vcef.ICefContextMenuParamsRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefContextMenuParamsRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefContextMenuParamsRef_147) RawCEF147ICefContextMenuParamsRef() vcef.ICefContextMenuParamsRef {
+func (t *tICefContextMenuParamsRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -10124,19 +9712,13 @@ func unwrapICefCookieAccessFilter(value ICefCookieAccessFilter) vcef.ICefCookieA
 	if wrapped, ok := value.(*tICefCookieAccessFilter_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCookieAccessFilter() vcef.ICefCookieAccessFilter
-	}); ok {
-		return raw.RawCEF147ICefCookieAccessFilter()
+	if raw, ok := RawAs[vcef.ICefCookieAccessFilter](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCookieAccessFilter_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCookieAccessFilter_147) RawCEF147ICefCookieAccessFilter() vcef.ICefCookieAccessFilter {
+func (t *tICefCookieAccessFilter_147) Raw() Raw {
 	return t.raw
 }
 
@@ -10166,19 +9748,13 @@ func unwrapICefCookieAccessFilterOwn(value ICefCookieAccessFilterOwn) vcef.ICefC
 	if wrapped, ok := value.(*tICefCookieAccessFilterOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCookieAccessFilterOwn() vcef.ICefCookieAccessFilterOwn
-	}); ok {
-		return raw.RawCEF147ICefCookieAccessFilterOwn()
+	if raw, ok := RawAs[vcef.ICefCookieAccessFilterOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCookieAccessFilterOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCookieAccessFilterOwn_147) RawCEF147ICefCookieAccessFilterOwn() vcef.ICefCookieAccessFilterOwn {
+func (t *tICefCookieAccessFilterOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -10208,19 +9784,13 @@ func unwrapICefCookieAccessFilterRef(value ICefCookieAccessFilterRef) vcef.ICefC
 	if wrapped, ok := value.(*tICefCookieAccessFilterRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCookieAccessFilterRef() vcef.ICefCookieAccessFilterRef
-	}); ok {
-		return raw.RawCEF147ICefCookieAccessFilterRef()
+	if raw, ok := RawAs[vcef.ICefCookieAccessFilterRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCookieAccessFilterRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCookieAccessFilterRef_147) RawCEF147ICefCookieAccessFilterRef() vcef.ICefCookieAccessFilterRef {
+func (t *tICefCookieAccessFilterRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -10255,17 +9825,13 @@ func unwrapICefCookieManager(value ICefCookieManager) vcef.ICefCookieManager {
 	if wrapped, ok := value.(*tICefCookieManager_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefCookieManager() vcef.ICefCookieManager }); ok {
-		return raw.RawCEF147ICefCookieManager()
+	if raw, ok := RawAs[vcef.ICefCookieManager](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCookieManager_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCookieManager_147) RawCEF147ICefCookieManager() vcef.ICefCookieManager {
+func (t *tICefCookieManager_147) Raw() Raw {
 	return t.raw
 }
 
@@ -10320,19 +9886,13 @@ func unwrapICefCookieManagerRef(value ICefCookieManagerRef) vcef.ICefCookieManag
 	if wrapped, ok := value.(*tICefCookieManagerRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCookieManagerRef() vcef.ICefCookieManagerRef
-	}); ok {
-		return raw.RawCEF147ICefCookieManagerRef()
+	if raw, ok := RawAs[vcef.ICefCookieManagerRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCookieManagerRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCookieManagerRef_147) RawCEF147ICefCookieManagerRef() vcef.ICefCookieManagerRef {
+func (t *tICefCookieManagerRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -10392,17 +9952,13 @@ func unwrapICefCookieVisitor(value ICefCookieVisitor) vcef.ICefCookieVisitor {
 	if wrapped, ok := value.(*tICefCookieVisitor_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefCookieVisitor() vcef.ICefCookieVisitor }); ok {
-		return raw.RawCEF147ICefCookieVisitor()
+	if raw, ok := RawAs[vcef.ICefCookieVisitor](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCookieVisitor_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCookieVisitor_147) RawCEF147ICefCookieVisitor() vcef.ICefCookieVisitor {
+func (t *tICefCookieVisitor_147) Raw() Raw {
 	return t.raw
 }
 
@@ -10432,19 +9988,13 @@ func unwrapICefCookieVisitorOwn(value ICefCookieVisitorOwn) vcef.ICefCookieVisit
 	if wrapped, ok := value.(*tICefCookieVisitorOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCookieVisitorOwn() vcef.ICefCookieVisitorOwn
-	}); ok {
-		return raw.RawCEF147ICefCookieVisitorOwn()
+	if raw, ok := RawAs[vcef.ICefCookieVisitorOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCookieVisitorOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCookieVisitorOwn_147) RawCEF147ICefCookieVisitorOwn() vcef.ICefCookieVisitorOwn {
+func (t *tICefCookieVisitorOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -10474,19 +10024,13 @@ func unwrapICefCustomBrowserProcessHandler(value ICefCustomBrowserProcessHandler
 	if wrapped, ok := value.(*tICefCustomBrowserProcessHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCustomBrowserProcessHandler() vcef.ICefCustomBrowserProcessHandler
-	}); ok {
-		return raw.RawCEF147ICefCustomBrowserProcessHandler()
+	if raw, ok := RawAs[vcef.ICefCustomBrowserProcessHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCustomBrowserProcessHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCustomBrowserProcessHandler_147) RawCEF147ICefCustomBrowserProcessHandler() vcef.ICefCustomBrowserProcessHandler {
+func (t *tICefCustomBrowserProcessHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -10521,19 +10065,13 @@ func unwrapICefCustomCompletionCallback(value ICefCustomCompletionCallback) vcef
 	if wrapped, ok := value.(*tICefCustomCompletionCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCustomCompletionCallback() vcef.ICefCustomCompletionCallback
-	}); ok {
-		return raw.RawCEF147ICefCustomCompletionCallback()
+	if raw, ok := RawAs[vcef.ICefCustomCompletionCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCustomCompletionCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCustomCompletionCallback_147) RawCEF147ICefCustomCompletionCallback() vcef.ICefCustomCompletionCallback {
+func (t *tICefCustomCompletionCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -10568,19 +10106,13 @@ func unwrapICefCustomCookieVisitor(value ICefCustomCookieVisitor) vcef.ICefCusto
 	if wrapped, ok := value.(*tICefCustomCookieVisitor_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCustomCookieVisitor() vcef.ICefCustomCookieVisitor
-	}); ok {
-		return raw.RawCEF147ICefCustomCookieVisitor()
+	if raw, ok := RawAs[vcef.ICefCustomCookieVisitor](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCustomCookieVisitor_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCustomCookieVisitor_147) RawCEF147ICefCustomCookieVisitor() vcef.ICefCustomCookieVisitor {
+func (t *tICefCustomCookieVisitor_147) Raw() Raw {
 	return t.raw
 }
 
@@ -10615,19 +10147,13 @@ func unwrapICefCustomDeleteCookiesCallback(value ICefCustomDeleteCookiesCallback
 	if wrapped, ok := value.(*tICefCustomDeleteCookiesCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCustomDeleteCookiesCallback() vcef.ICefCustomDeleteCookiesCallback
-	}); ok {
-		return raw.RawCEF147ICefCustomDeleteCookiesCallback()
+	if raw, ok := RawAs[vcef.ICefCustomDeleteCookiesCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCustomDeleteCookiesCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCustomDeleteCookiesCallback_147) RawCEF147ICefCustomDeleteCookiesCallback() vcef.ICefCustomDeleteCookiesCallback {
+func (t *tICefCustomDeleteCookiesCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -10662,19 +10188,13 @@ func unwrapICefCustomDownloadImageCallback(value ICefCustomDownloadImageCallback
 	if wrapped, ok := value.(*tICefCustomDownloadImageCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCustomDownloadImageCallback() vcef.ICefCustomDownloadImageCallback
-	}); ok {
-		return raw.RawCEF147ICefCustomDownloadImageCallback()
+	if raw, ok := RawAs[vcef.ICefCustomDownloadImageCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCustomDownloadImageCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCustomDownloadImageCallback_147) RawCEF147ICefCustomDownloadImageCallback() vcef.ICefCustomDownloadImageCallback {
+func (t *tICefCustomDownloadImageCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -10709,19 +10229,13 @@ func unwrapICefCustomMediaRouteCreateCallback(value ICefCustomMediaRouteCreateCa
 	if wrapped, ok := value.(*tICefCustomMediaRouteCreateCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCustomMediaRouteCreateCallback() vcef.ICefCustomMediaRouteCreateCallback
-	}); ok {
-		return raw.RawCEF147ICefCustomMediaRouteCreateCallback()
+	if raw, ok := RawAs[vcef.ICefCustomMediaRouteCreateCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCustomMediaRouteCreateCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCustomMediaRouteCreateCallback_147) RawCEF147ICefCustomMediaRouteCreateCallback() vcef.ICefCustomMediaRouteCreateCallback {
+func (t *tICefCustomMediaRouteCreateCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -10756,19 +10270,13 @@ func unwrapICefCustomMediaSinkDeviceInfoCallback(value ICefCustomMediaSinkDevice
 	if wrapped, ok := value.(*tICefCustomMediaSinkDeviceInfoCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCustomMediaSinkDeviceInfoCallback() vcef.ICefCustomMediaSinkDeviceInfoCallback
-	}); ok {
-		return raw.RawCEF147ICefCustomMediaSinkDeviceInfoCallback()
+	if raw, ok := RawAs[vcef.ICefCustomMediaSinkDeviceInfoCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCustomMediaSinkDeviceInfoCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCustomMediaSinkDeviceInfoCallback_147) RawCEF147ICefCustomMediaSinkDeviceInfoCallback() vcef.ICefCustomMediaSinkDeviceInfoCallback {
+func (t *tICefCustomMediaSinkDeviceInfoCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -10803,19 +10311,13 @@ func unwrapICefCustomPDFPrintCallBack(value ICefCustomPDFPrintCallBack) vcef.ICe
 	if wrapped, ok := value.(*tICefCustomPDFPrintCallBack_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCustomPDFPrintCallBack() vcef.ICefCustomPDFPrintCallBack
-	}); ok {
-		return raw.RawCEF147ICefCustomPDFPrintCallBack()
+	if raw, ok := RawAs[vcef.ICefCustomPDFPrintCallBack](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCustomPDFPrintCallBack_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCustomPDFPrintCallBack_147) RawCEF147ICefCustomPDFPrintCallBack() vcef.ICefCustomPDFPrintCallBack {
+func (t *tICefCustomPDFPrintCallBack_147) Raw() Raw {
 	return t.raw
 }
 
@@ -10850,19 +10352,13 @@ func unwrapICefCustomRenderProcessHandler(value ICefCustomRenderProcessHandler) 
 	if wrapped, ok := value.(*tICefCustomRenderProcessHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCustomRenderProcessHandler() vcef.ICefCustomRenderProcessHandler
-	}); ok {
-		return raw.RawCEF147ICefCustomRenderProcessHandler()
+	if raw, ok := RawAs[vcef.ICefCustomRenderProcessHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCustomRenderProcessHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCustomRenderProcessHandler_147) RawCEF147ICefCustomRenderProcessHandler() vcef.ICefCustomRenderProcessHandler {
+func (t *tICefCustomRenderProcessHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -10897,19 +10393,13 @@ func unwrapICefCustomResolveCallback(value ICefCustomResolveCallback) vcef.ICefC
 	if wrapped, ok := value.(*tICefCustomResolveCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCustomResolveCallback() vcef.ICefCustomResolveCallback
-	}); ok {
-		return raw.RawCEF147ICefCustomResolveCallback()
+	if raw, ok := RawAs[vcef.ICefCustomResolveCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCustomResolveCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCustomResolveCallback_147) RawCEF147ICefCustomResolveCallback() vcef.ICefCustomResolveCallback {
+func (t *tICefCustomResolveCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -10944,19 +10434,13 @@ func unwrapICefCustomResourceBundleHandler(value ICefCustomResourceBundleHandler
 	if wrapped, ok := value.(*tICefCustomResourceBundleHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCustomResourceBundleHandler() vcef.ICefCustomResourceBundleHandler
-	}); ok {
-		return raw.RawCEF147ICefCustomResourceBundleHandler()
+	if raw, ok := RawAs[vcef.ICefCustomResourceBundleHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCustomResourceBundleHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCustomResourceBundleHandler_147) RawCEF147ICefCustomResourceBundleHandler() vcef.ICefCustomResourceBundleHandler {
+func (t *tICefCustomResourceBundleHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -10991,19 +10475,13 @@ func unwrapICefCustomSetCookieCallback(value ICefCustomSetCookieCallback) vcef.I
 	if wrapped, ok := value.(*tICefCustomSetCookieCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCustomSetCookieCallback() vcef.ICefCustomSetCookieCallback
-	}); ok {
-		return raw.RawCEF147ICefCustomSetCookieCallback()
+	if raw, ok := RawAs[vcef.ICefCustomSetCookieCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCustomSetCookieCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCustomSetCookieCallback_147) RawCEF147ICefCustomSetCookieCallback() vcef.ICefCustomSetCookieCallback {
+func (t *tICefCustomSetCookieCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -11038,19 +10516,13 @@ func unwrapICefCustomStreamReader(value ICefCustomStreamReader) vcef.ICefCustomS
 	if wrapped, ok := value.(*tICefCustomStreamReader_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCustomStreamReader() vcef.ICefCustomStreamReader
-	}); ok {
-		return raw.RawCEF147ICefCustomStreamReader()
+	if raw, ok := RawAs[vcef.ICefCustomStreamReader](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCustomStreamReader_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCustomStreamReader_147) RawCEF147ICefCustomStreamReader() vcef.ICefCustomStreamReader {
+func (t *tICefCustomStreamReader_147) Raw() Raw {
 	return t.raw
 }
 
@@ -11112,19 +10584,13 @@ func unwrapICefCustomStringList(value ICefCustomStringList) vcef.ICefCustomStrin
 	if wrapped, ok := value.(*tICefCustomStringList_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCustomStringList() vcef.ICefCustomStringList
-	}); ok {
-		return raw.RawCEF147ICefCustomStringList()
+	if raw, ok := RawAs[vcef.ICefCustomStringList](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCustomStringList_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCustomStringList_147) RawCEF147ICefCustomStringList() vcef.ICefCustomStringList {
+func (t *tICefCustomStringList_147) Raw() Raw {
 	return t.raw
 }
 
@@ -11161,19 +10627,13 @@ func unwrapICefCustomStringMap(value ICefCustomStringMap) vcef.ICefCustomStringM
 	if wrapped, ok := value.(*tICefCustomStringMap_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCustomStringMap() vcef.ICefCustomStringMap
-	}); ok {
-		return raw.RawCEF147ICefCustomStringMap()
+	if raw, ok := RawAs[vcef.ICefCustomStringMap](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCustomStringMap_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCustomStringMap_147) RawCEF147ICefCustomStringMap() vcef.ICefCustomStringMap {
+func (t *tICefCustomStringMap_147) Raw() Raw {
 	return t.raw
 }
 
@@ -11210,19 +10670,13 @@ func unwrapICefCustomStringMultimap(value ICefCustomStringMultimap) vcef.ICefCus
 	if wrapped, ok := value.(*tICefCustomStringMultimap_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCustomStringMultimap() vcef.ICefCustomStringMultimap
-	}); ok {
-		return raw.RawCEF147ICefCustomStringMultimap()
+	if raw, ok := RawAs[vcef.ICefCustomStringMultimap](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCustomStringMultimap_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCustomStringMultimap_147) RawCEF147ICefCustomStringMultimap() vcef.ICefCustomStringMultimap {
+func (t *tICefCustomStringMultimap_147) Raw() Raw {
 	return t.raw
 }
 
@@ -11257,19 +10711,13 @@ func unwrapICefCustomUserData(value ICefCustomUserData) vcef.ICefCustomUserData 
 	if wrapped, ok := value.(*tICefCustomUserData_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefCustomUserData() vcef.ICefCustomUserData
-	}); ok {
-		return raw.RawCEF147ICefCustomUserData()
+	if raw, ok := RawAs[vcef.ICefCustomUserData](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefCustomUserData_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefCustomUserData_147) RawCEF147ICefCustomUserData() vcef.ICefCustomUserData {
+func (t *tICefCustomUserData_147) Raw() Raw {
 	return t.raw
 }
 
@@ -11314,19 +10762,13 @@ func unwrapICefDeleteCookiesCallback(value ICefDeleteCookiesCallback) vcef.ICefD
 	if wrapped, ok := value.(*tICefDeleteCookiesCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefDeleteCookiesCallback() vcef.ICefDeleteCookiesCallback
-	}); ok {
-		return raw.RawCEF147ICefDeleteCookiesCallback()
+	if raw, ok := RawAs[vcef.ICefDeleteCookiesCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDeleteCookiesCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDeleteCookiesCallback_147) RawCEF147ICefDeleteCookiesCallback() vcef.ICefDeleteCookiesCallback {
+func (t *tICefDeleteCookiesCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -11356,19 +10798,13 @@ func unwrapICefDeleteCookiesCallbackOwn(value ICefDeleteCookiesCallbackOwn) vcef
 	if wrapped, ok := value.(*tICefDeleteCookiesCallbackOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefDeleteCookiesCallbackOwn() vcef.ICefDeleteCookiesCallbackOwn
-	}); ok {
-		return raw.RawCEF147ICefDeleteCookiesCallbackOwn()
+	if raw, ok := RawAs[vcef.ICefDeleteCookiesCallbackOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDeleteCookiesCallbackOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDeleteCookiesCallbackOwn_147) RawCEF147ICefDeleteCookiesCallbackOwn() vcef.ICefDeleteCookiesCallbackOwn {
+func (t *tICefDeleteCookiesCallbackOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -11398,19 +10834,13 @@ func unwrapICefDevToolsMessageObserver(value ICefDevToolsMessageObserver) vcef.I
 	if wrapped, ok := value.(*tICefDevToolsMessageObserver_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefDevToolsMessageObserver() vcef.ICefDevToolsMessageObserver
-	}); ok {
-		return raw.RawCEF147ICefDevToolsMessageObserver()
+	if raw, ok := RawAs[vcef.ICefDevToolsMessageObserver](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDevToolsMessageObserver_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDevToolsMessageObserver_147) RawCEF147ICefDevToolsMessageObserver() vcef.ICefDevToolsMessageObserver {
+func (t *tICefDevToolsMessageObserver_147) Raw() Raw {
 	return t.raw
 }
 
@@ -11440,17 +10870,13 @@ func unwrapICefDialogHandler(value ICefDialogHandler) vcef.ICefDialogHandler {
 	if wrapped, ok := value.(*tICefDialogHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefDialogHandler() vcef.ICefDialogHandler }); ok {
-		return raw.RawCEF147ICefDialogHandler()
+	if raw, ok := RawAs[vcef.ICefDialogHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDialogHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDialogHandler_147) RawCEF147ICefDialogHandler() vcef.ICefDialogHandler {
+func (t *tICefDialogHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -11480,19 +10906,13 @@ func unwrapICefDialogHandlerOwn(value ICefDialogHandlerOwn) vcef.ICefDialogHandl
 	if wrapped, ok := value.(*tICefDialogHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefDialogHandlerOwn() vcef.ICefDialogHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefDialogHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefDialogHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDialogHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDialogHandlerOwn_147) RawCEF147ICefDialogHandlerOwn() vcef.ICefDialogHandlerOwn {
+func (t *tICefDialogHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -11522,19 +10942,13 @@ func unwrapICefDictionaryValue(value ICefDictionaryValue) vcef.ICefDictionaryVal
 	if wrapped, ok := value.(*tICefDictionaryValue_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefDictionaryValue() vcef.ICefDictionaryValue
-	}); ok {
-		return raw.RawCEF147ICefDictionaryValue()
+	if raw, ok := RawAs[vcef.ICefDictionaryValue](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDictionaryValue_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDictionaryValue_147) RawCEF147ICefDictionaryValue() vcef.ICefDictionaryValue {
+func (t *tICefDictionaryValue_147) Raw() Raw {
 	return t.raw
 }
 
@@ -11709,19 +11123,13 @@ func unwrapICefDictionaryValueRef(value ICefDictionaryValueRef) vcef.ICefDiction
 	if wrapped, ok := value.(*tICefDictionaryValueRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefDictionaryValueRef() vcef.ICefDictionaryValueRef
-	}); ok {
-		return raw.RawCEF147ICefDictionaryValueRef()
+	if raw, ok := RawAs[vcef.ICefDictionaryValueRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDictionaryValueRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDictionaryValueRef_147) RawCEF147ICefDictionaryValueRef() vcef.ICefDictionaryValueRef {
+func (t *tICefDictionaryValueRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -11901,17 +11309,13 @@ func unwrapICefDisplay(value ICefDisplay) vcef.ICefDisplay {
 	if wrapped, ok := value.(*tICefDisplay_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefDisplay() vcef.ICefDisplay }); ok {
-		return raw.RawCEF147ICefDisplay()
+	if raw, ok := RawAs[vcef.ICefDisplay](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDisplay_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDisplay_147) RawCEF147ICefDisplay() vcef.ICefDisplay {
+func (t *tICefDisplay_147) Raw() Raw {
 	return t.raw
 }
 
@@ -11974,19 +11378,13 @@ func unwrapICefDisplayHandler(value ICefDisplayHandler) vcef.ICefDisplayHandler 
 	if wrapped, ok := value.(*tICefDisplayHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefDisplayHandler() vcef.ICefDisplayHandler
-	}); ok {
-		return raw.RawCEF147ICefDisplayHandler()
+	if raw, ok := RawAs[vcef.ICefDisplayHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDisplayHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDisplayHandler_147) RawCEF147ICefDisplayHandler() vcef.ICefDisplayHandler {
+func (t *tICefDisplayHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -12016,19 +11414,13 @@ func unwrapICefDisplayHandlerOwn(value ICefDisplayHandlerOwn) vcef.ICefDisplayHa
 	if wrapped, ok := value.(*tICefDisplayHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefDisplayHandlerOwn() vcef.ICefDisplayHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefDisplayHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefDisplayHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDisplayHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDisplayHandlerOwn_147) RawCEF147ICefDisplayHandlerOwn() vcef.ICefDisplayHandlerOwn {
+func (t *tICefDisplayHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -12058,17 +11450,13 @@ func unwrapICefDisplayRef(value ICefDisplayRef) vcef.ICefDisplayRef {
 	if wrapped, ok := value.(*tICefDisplayRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefDisplayRef() vcef.ICefDisplayRef }); ok {
-		return raw.RawCEF147ICefDisplayRef()
+	if raw, ok := RawAs[vcef.ICefDisplayRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDisplayRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDisplayRef_147) RawCEF147ICefDisplayRef() vcef.ICefDisplayRef {
+func (t *tICefDisplayRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -12136,17 +11524,13 @@ func unwrapICefDomDocument(value ICefDomDocument) vcef.ICefDomDocument {
 	if wrapped, ok := value.(*tICefDomDocument_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefDomDocument() vcef.ICefDomDocument }); ok {
-		return raw.RawCEF147ICefDomDocument()
+	if raw, ok := RawAs[vcef.ICefDomDocument](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDomDocument_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDomDocument_147) RawCEF147ICefDomDocument() vcef.ICefDomDocument {
+func (t *tICefDomDocument_147) Raw() Raw {
 	return t.raw
 }
 
@@ -12246,19 +11630,13 @@ func unwrapICefDomDocumentRef(value ICefDomDocumentRef) vcef.ICefDomDocumentRef 
 	if wrapped, ok := value.(*tICefDomDocumentRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefDomDocumentRef() vcef.ICefDomDocumentRef
-	}); ok {
-		return raw.RawCEF147ICefDomDocumentRef()
+	if raw, ok := RawAs[vcef.ICefDomDocumentRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDomDocumentRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDomDocumentRef_147) RawCEF147ICefDomDocumentRef() vcef.ICefDomDocumentRef {
+func (t *tICefDomDocumentRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -12363,17 +11741,13 @@ func unwrapICefDomNode(value ICefDomNode) vcef.ICefDomNode {
 	if wrapped, ok := value.(*tICefDomNode_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefDomNode() vcef.ICefDomNode }); ok {
-		return raw.RawCEF147ICefDomNode()
+	if raw, ok := RawAs[vcef.ICefDomNode](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDomNode_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDomNode_147) RawCEF147ICefDomNode() vcef.ICefDomNode {
+func (t *tICefDomNode_147) Raw() Raw {
 	return t.raw
 }
 
@@ -12532,17 +11906,13 @@ func unwrapICefDomNodeRef(value ICefDomNodeRef) vcef.ICefDomNodeRef {
 	if wrapped, ok := value.(*tICefDomNodeRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefDomNodeRef() vcef.ICefDomNodeRef }); ok {
-		return raw.RawCEF147ICefDomNodeRef()
+	if raw, ok := RawAs[vcef.ICefDomNodeRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDomNodeRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDomNodeRef_147) RawCEF147ICefDomNodeRef() vcef.ICefDomNodeRef {
+func (t *tICefDomNodeRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -12706,17 +12076,13 @@ func unwrapICefDomVisitor(value ICefDomVisitor) vcef.ICefDomVisitor {
 	if wrapped, ok := value.(*tICefDomVisitor_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefDomVisitor() vcef.ICefDomVisitor }); ok {
-		return raw.RawCEF147ICefDomVisitor()
+	if raw, ok := RawAs[vcef.ICefDomVisitor](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDomVisitor_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDomVisitor_147) RawCEF147ICefDomVisitor() vcef.ICefDomVisitor {
+func (t *tICefDomVisitor_147) Raw() Raw {
 	return t.raw
 }
 
@@ -12746,17 +12112,13 @@ func unwrapICefDomVisitorOwn(value ICefDomVisitorOwn) vcef.ICefDomVisitorOwn {
 	if wrapped, ok := value.(*tICefDomVisitorOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefDomVisitorOwn() vcef.ICefDomVisitorOwn }); ok {
-		return raw.RawCEF147ICefDomVisitorOwn()
+	if raw, ok := RawAs[vcef.ICefDomVisitorOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDomVisitorOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDomVisitorOwn_147) RawCEF147ICefDomVisitorOwn() vcef.ICefDomVisitorOwn {
+func (t *tICefDomVisitorOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -12786,19 +12148,13 @@ func unwrapICefDownloadHandler(value ICefDownloadHandler) vcef.ICefDownloadHandl
 	if wrapped, ok := value.(*tICefDownloadHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefDownloadHandler() vcef.ICefDownloadHandler
-	}); ok {
-		return raw.RawCEF147ICefDownloadHandler()
+	if raw, ok := RawAs[vcef.ICefDownloadHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDownloadHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDownloadHandler_147) RawCEF147ICefDownloadHandler() vcef.ICefDownloadHandler {
+func (t *tICefDownloadHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -12828,19 +12184,13 @@ func unwrapICefDownloadHandlerOwn(value ICefDownloadHandlerOwn) vcef.ICefDownloa
 	if wrapped, ok := value.(*tICefDownloadHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefDownloadHandlerOwn() vcef.ICefDownloadHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefDownloadHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefDownloadHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDownloadHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDownloadHandlerOwn_147) RawCEF147ICefDownloadHandlerOwn() vcef.ICefDownloadHandlerOwn {
+func (t *tICefDownloadHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -12870,19 +12220,13 @@ func unwrapICefDownloadImageCallback(value ICefDownloadImageCallback) vcef.ICefD
 	if wrapped, ok := value.(*tICefDownloadImageCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefDownloadImageCallback() vcef.ICefDownloadImageCallback
-	}); ok {
-		return raw.RawCEF147ICefDownloadImageCallback()
+	if raw, ok := RawAs[vcef.ICefDownloadImageCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDownloadImageCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDownloadImageCallback_147) RawCEF147ICefDownloadImageCallback() vcef.ICefDownloadImageCallback {
+func (t *tICefDownloadImageCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -12912,19 +12256,13 @@ func unwrapICefDownloadImageCallbackOwn(value ICefDownloadImageCallbackOwn) vcef
 	if wrapped, ok := value.(*tICefDownloadImageCallbackOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefDownloadImageCallbackOwn() vcef.ICefDownloadImageCallbackOwn
-	}); ok {
-		return raw.RawCEF147ICefDownloadImageCallbackOwn()
+	if raw, ok := RawAs[vcef.ICefDownloadImageCallbackOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDownloadImageCallbackOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDownloadImageCallbackOwn_147) RawCEF147ICefDownloadImageCallbackOwn() vcef.ICefDownloadImageCallbackOwn {
+func (t *tICefDownloadImageCallbackOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -12954,17 +12292,13 @@ func unwrapICefDownloadItem(value ICefDownloadItem) vcef.ICefDownloadItem {
 	if wrapped, ok := value.(*tICefDownloadItem_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefDownloadItem() vcef.ICefDownloadItem }); ok {
-		return raw.RawCEF147ICefDownloadItem()
+	if raw, ok := RawAs[vcef.ICefDownloadItem](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDownloadItem_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDownloadItem_147) RawCEF147ICefDownloadItem() vcef.ICefDownloadItem {
+func (t *tICefDownloadItem_147) Raw() Raw {
 	return t.raw
 }
 
@@ -13094,19 +12428,13 @@ func unwrapICefDownloadItemCallback(value ICefDownloadItemCallback) vcef.ICefDow
 	if wrapped, ok := value.(*tICefDownloadItemCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefDownloadItemCallback() vcef.ICefDownloadItemCallback
-	}); ok {
-		return raw.RawCEF147ICefDownloadItemCallback()
+	if raw, ok := RawAs[vcef.ICefDownloadItemCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDownloadItemCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDownloadItemCallback_147) RawCEF147ICefDownloadItemCallback() vcef.ICefDownloadItemCallback {
+func (t *tICefDownloadItemCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -13148,19 +12476,13 @@ func unwrapICefDownloadItemCallbackRef(value ICefDownloadItemCallbackRef) vcef.I
 	if wrapped, ok := value.(*tICefDownloadItemCallbackRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefDownloadItemCallbackRef() vcef.ICefDownloadItemCallbackRef
-	}); ok {
-		return raw.RawCEF147ICefDownloadItemCallbackRef()
+	if raw, ok := RawAs[vcef.ICefDownloadItemCallbackRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDownloadItemCallbackRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDownloadItemCallbackRef_147) RawCEF147ICefDownloadItemCallbackRef() vcef.ICefDownloadItemCallbackRef {
+func (t *tICefDownloadItemCallbackRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -13207,19 +12529,13 @@ func unwrapICefDownloadItemRef(value ICefDownloadItemRef) vcef.ICefDownloadItemR
 	if wrapped, ok := value.(*tICefDownloadItemRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefDownloadItemRef() vcef.ICefDownloadItemRef
-	}); ok {
-		return raw.RawCEF147ICefDownloadItemRef()
+	if raw, ok := RawAs[vcef.ICefDownloadItemRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDownloadItemRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDownloadItemRef_147) RawCEF147ICefDownloadItemRef() vcef.ICefDownloadItemRef {
+func (t *tICefDownloadItemRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -13354,17 +12670,13 @@ func unwrapICefDragData(value ICefDragData) vcef.ICefDragData {
 	if wrapped, ok := value.(*tICefDragData_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefDragData() vcef.ICefDragData }); ok {
-		return raw.RawCEF147ICefDragData()
+	if raw, ok := RawAs[vcef.ICefDragData](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDragData_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDragData_147) RawCEF147ICefDragData() vcef.ICefDragData {
+func (t *tICefDragData_147) Raw() Raw {
 	return t.raw
 }
 
@@ -13520,17 +12832,13 @@ func unwrapICefDragDataRef(value ICefDragDataRef) vcef.ICefDragDataRef {
 	if wrapped, ok := value.(*tICefDragDataRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefDragDataRef() vcef.ICefDragDataRef }); ok {
-		return raw.RawCEF147ICefDragDataRef()
+	if raw, ok := RawAs[vcef.ICefDragDataRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDragDataRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDragDataRef_147) RawCEF147ICefDragDataRef() vcef.ICefDragDataRef {
+func (t *tICefDragDataRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -13691,17 +12999,13 @@ func unwrapICefDragHandler(value ICefDragHandler) vcef.ICefDragHandler {
 	if wrapped, ok := value.(*tICefDragHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefDragHandler() vcef.ICefDragHandler }); ok {
-		return raw.RawCEF147ICefDragHandler()
+	if raw, ok := RawAs[vcef.ICefDragHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDragHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDragHandler_147) RawCEF147ICefDragHandler() vcef.ICefDragHandler {
+func (t *tICefDragHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -13731,19 +13035,13 @@ func unwrapICefDragHandlerOwn(value ICefDragHandlerOwn) vcef.ICefDragHandlerOwn 
 	if wrapped, ok := value.(*tICefDragHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefDragHandlerOwn() vcef.ICefDragHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefDragHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefDragHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefDragHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefDragHandlerOwn_147) RawCEF147ICefDragHandlerOwn() vcef.ICefDragHandlerOwn {
+func (t *tICefDragHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -13773,19 +13071,13 @@ func unwrapICefEndTracingCallback(value ICefEndTracingCallback) vcef.ICefEndTrac
 	if wrapped, ok := value.(*tICefEndTracingCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefEndTracingCallback() vcef.ICefEndTracingCallback
-	}); ok {
-		return raw.RawCEF147ICefEndTracingCallback()
+	if raw, ok := RawAs[vcef.ICefEndTracingCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefEndTracingCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefEndTracingCallback_147) RawCEF147ICefEndTracingCallback() vcef.ICefEndTracingCallback {
+func (t *tICefEndTracingCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -13815,19 +13107,13 @@ func unwrapICefEndTracingCallbackOwn(value ICefEndTracingCallbackOwn) vcef.ICefE
 	if wrapped, ok := value.(*tICefEndTracingCallbackOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefEndTracingCallbackOwn() vcef.ICefEndTracingCallbackOwn
-	}); ok {
-		return raw.RawCEF147ICefEndTracingCallbackOwn()
+	if raw, ok := RawAs[vcef.ICefEndTracingCallbackOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefEndTracingCallbackOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefEndTracingCallbackOwn_147) RawCEF147ICefEndTracingCallbackOwn() vcef.ICefEndTracingCallbackOwn {
+func (t *tICefEndTracingCallbackOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -13857,19 +13143,13 @@ func unwrapICefEventCompletionCallback(value ICefEventCompletionCallback) vcef.I
 	if wrapped, ok := value.(*tICefEventCompletionCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefEventCompletionCallback() vcef.ICefEventCompletionCallback
-	}); ok {
-		return raw.RawCEF147ICefEventCompletionCallback()
+	if raw, ok := RawAs[vcef.ICefEventCompletionCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefEventCompletionCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefEventCompletionCallback_147) RawCEF147ICefEventCompletionCallback() vcef.ICefEventCompletionCallback {
+func (t *tICefEventCompletionCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -13904,19 +13184,13 @@ func unwrapICefFileDialogCallback(value ICefFileDialogCallback) vcef.ICefFileDia
 	if wrapped, ok := value.(*tICefFileDialogCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefFileDialogCallback() vcef.ICefFileDialogCallback
-	}); ok {
-		return raw.RawCEF147ICefFileDialogCallback()
+	if raw, ok := RawAs[vcef.ICefFileDialogCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefFileDialogCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefFileDialogCallback_147) RawCEF147ICefFileDialogCallback() vcef.ICefFileDialogCallback {
+func (t *tICefFileDialogCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -13954,19 +13228,13 @@ func unwrapICefFileDialogCallbackRef(value ICefFileDialogCallbackRef) vcef.ICefF
 	if wrapped, ok := value.(*tICefFileDialogCallbackRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefFileDialogCallbackRef() vcef.ICefFileDialogCallbackRef
-	}); ok {
-		return raw.RawCEF147ICefFileDialogCallbackRef()
+	if raw, ok := RawAs[vcef.ICefFileDialogCallbackRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefFileDialogCallbackRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefFileDialogCallbackRef_147) RawCEF147ICefFileDialogCallbackRef() vcef.ICefFileDialogCallbackRef {
+func (t *tICefFileDialogCallbackRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -14009,17 +13277,13 @@ func unwrapICefFillLayout(value ICefFillLayout) vcef.ICefFillLayout {
 	if wrapped, ok := value.(*tICefFillLayout_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefFillLayout() vcef.ICefFillLayout }); ok {
-		return raw.RawCEF147ICefFillLayout()
+	if raw, ok := RawAs[vcef.ICefFillLayout](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefFillLayout_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefFillLayout_147) RawCEF147ICefFillLayout() vcef.ICefFillLayout {
+func (t *tICefFillLayout_147) Raw() Raw {
 	return t.raw
 }
 
@@ -14049,17 +13313,13 @@ func unwrapICefFillLayoutRef(value ICefFillLayoutRef) vcef.ICefFillLayoutRef {
 	if wrapped, ok := value.(*tICefFillLayoutRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefFillLayoutRef() vcef.ICefFillLayoutRef }); ok {
-		return raw.RawCEF147ICefFillLayoutRef()
+	if raw, ok := RawAs[vcef.ICefFillLayoutRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefFillLayoutRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefFillLayoutRef_147) RawCEF147ICefFillLayoutRef() vcef.ICefFillLayoutRef {
+func (t *tICefFillLayoutRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -14099,17 +13359,13 @@ func unwrapICefFindHandler(value ICefFindHandler) vcef.ICefFindHandler {
 	if wrapped, ok := value.(*tICefFindHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefFindHandler() vcef.ICefFindHandler }); ok {
-		return raw.RawCEF147ICefFindHandler()
+	if raw, ok := RawAs[vcef.ICefFindHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefFindHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefFindHandler_147) RawCEF147ICefFindHandler() vcef.ICefFindHandler {
+func (t *tICefFindHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -14139,19 +13395,13 @@ func unwrapICefFindHandlerOwn(value ICefFindHandlerOwn) vcef.ICefFindHandlerOwn 
 	if wrapped, ok := value.(*tICefFindHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefFindHandlerOwn() vcef.ICefFindHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefFindHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefFindHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefFindHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefFindHandlerOwn_147) RawCEF147ICefFindHandlerOwn() vcef.ICefFindHandlerOwn {
+func (t *tICefFindHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -14181,17 +13431,13 @@ func unwrapICefFocusHandler(value ICefFocusHandler) vcef.ICefFocusHandler {
 	if wrapped, ok := value.(*tICefFocusHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefFocusHandler() vcef.ICefFocusHandler }); ok {
-		return raw.RawCEF147ICefFocusHandler()
+	if raw, ok := RawAs[vcef.ICefFocusHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefFocusHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefFocusHandler_147) RawCEF147ICefFocusHandler() vcef.ICefFocusHandler {
+func (t *tICefFocusHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -14221,19 +13467,13 @@ func unwrapICefFocusHandlerOwn(value ICefFocusHandlerOwn) vcef.ICefFocusHandlerO
 	if wrapped, ok := value.(*tICefFocusHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefFocusHandlerOwn() vcef.ICefFocusHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefFocusHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefFocusHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefFocusHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefFocusHandlerOwn_147) RawCEF147ICefFocusHandlerOwn() vcef.ICefFocusHandlerOwn {
+func (t *tICefFocusHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -14263,17 +13503,13 @@ func unwrapICefFrame(value ICefFrame) vcef.ICefFrame {
 	if wrapped, ok := value.(*tICefFrame_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefFrame() vcef.ICefFrame }); ok {
-		return raw.RawCEF147ICefFrame()
+	if raw, ok := RawAs[vcef.ICefFrame](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefFrame_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefFrame_147) RawCEF147ICefFrame() vcef.ICefFrame {
+func (t *tICefFrame_147) Raw() Raw {
 	return t.raw
 }
 
@@ -14417,17 +13653,13 @@ func unwrapICefFrameHandler(value ICefFrameHandler) vcef.ICefFrameHandler {
 	if wrapped, ok := value.(*tICefFrameHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefFrameHandler() vcef.ICefFrameHandler }); ok {
-		return raw.RawCEF147ICefFrameHandler()
+	if raw, ok := RawAs[vcef.ICefFrameHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefFrameHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefFrameHandler_147) RawCEF147ICefFrameHandler() vcef.ICefFrameHandler {
+func (t *tICefFrameHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -14457,19 +13689,13 @@ func unwrapICefFrameHandlerOwn(value ICefFrameHandlerOwn) vcef.ICefFrameHandlerO
 	if wrapped, ok := value.(*tICefFrameHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefFrameHandlerOwn() vcef.ICefFrameHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefFrameHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefFrameHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefFrameHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefFrameHandlerOwn_147) RawCEF147ICefFrameHandlerOwn() vcef.ICefFrameHandlerOwn {
+func (t *tICefFrameHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -14499,17 +13725,13 @@ func unwrapICefFrameRef(value ICefFrameRef) vcef.ICefFrameRef {
 	if wrapped, ok := value.(*tICefFrameRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefFrameRef() vcef.ICefFrameRef }); ok {
-		return raw.RawCEF147ICefFrameRef()
+	if raw, ok := RawAs[vcef.ICefFrameRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefFrameRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefFrameRef_147) RawCEF147ICefFrameRef() vcef.ICefFrameRef {
+func (t *tICefFrameRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -14658,17 +13880,13 @@ func unwrapICefGenericTask(value ICefGenericTask) vcef.ICefGenericTask {
 	if wrapped, ok := value.(*tICefGenericTask_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefGenericTask() vcef.ICefGenericTask }); ok {
-		return raw.RawCEF147ICefGenericTask()
+	if raw, ok := RawAs[vcef.ICefGenericTask](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefGenericTask_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefGenericTask_147) RawCEF147ICefGenericTask() vcef.ICefGenericTask {
+func (t *tICefGenericTask_147) Raw() Raw {
 	return t.raw
 }
 
@@ -14703,17 +13921,13 @@ func unwrapICefImage(value ICefImage) vcef.ICefImage {
 	if wrapped, ok := value.(*tICefImage_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefImage() vcef.ICefImage }); ok {
-		return raw.RawCEF147ICefImage()
+	if raw, ok := RawAs[vcef.ICefImage](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefImage_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefImage_147) RawCEF147ICefImage() vcef.ICefImage {
+func (t *tICefImage_147) Raw() Raw {
 	return t.raw
 }
 
@@ -14808,17 +14022,13 @@ func unwrapICefImageRef(value ICefImageRef) vcef.ICefImageRef {
 	if wrapped, ok := value.(*tICefImageRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefImageRef() vcef.ICefImageRef }); ok {
-		return raw.RawCEF147ICefImageRef()
+	if raw, ok := RawAs[vcef.ICefImageRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefImageRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefImageRef_147) RawCEF147ICefImageRef() vcef.ICefImageRef {
+func (t *tICefImageRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -14918,19 +14128,13 @@ func unwrapICefJsDialogCallback(value ICefJsDialogCallback) vcef.ICefJsDialogCal
 	if wrapped, ok := value.(*tICefJsDialogCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefJsDialogCallback() vcef.ICefJsDialogCallback
-	}); ok {
-		return raw.RawCEF147ICefJsDialogCallback()
+	if raw, ok := RawAs[vcef.ICefJsDialogCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefJsDialogCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefJsDialogCallback_147) RawCEF147ICefJsDialogCallback() vcef.ICefJsDialogCallback {
+func (t *tICefJsDialogCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -14964,19 +14168,13 @@ func unwrapICefJsDialogCallbackRef(value ICefJsDialogCallbackRef) vcef.ICefJsDia
 	if wrapped, ok := value.(*tICefJsDialogCallbackRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefJsDialogCallbackRef() vcef.ICefJsDialogCallbackRef
-	}); ok {
-		return raw.RawCEF147ICefJsDialogCallbackRef()
+	if raw, ok := RawAs[vcef.ICefJsDialogCallbackRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefJsDialogCallbackRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefJsDialogCallbackRef_147) RawCEF147ICefJsDialogCallbackRef() vcef.ICefJsDialogCallbackRef {
+func (t *tICefJsDialogCallbackRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -15015,19 +14213,13 @@ func unwrapICefJsDialogHandler(value ICefJsDialogHandler) vcef.ICefJsDialogHandl
 	if wrapped, ok := value.(*tICefJsDialogHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefJsDialogHandler() vcef.ICefJsDialogHandler
-	}); ok {
-		return raw.RawCEF147ICefJsDialogHandler()
+	if raw, ok := RawAs[vcef.ICefJsDialogHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefJsDialogHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefJsDialogHandler_147) RawCEF147ICefJsDialogHandler() vcef.ICefJsDialogHandler {
+func (t *tICefJsDialogHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -15057,19 +14249,13 @@ func unwrapICefJsDialogHandlerOwn(value ICefJsDialogHandlerOwn) vcef.ICefJsDialo
 	if wrapped, ok := value.(*tICefJsDialogHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefJsDialogHandlerOwn() vcef.ICefJsDialogHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefJsDialogHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefJsDialogHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefJsDialogHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefJsDialogHandlerOwn_147) RawCEF147ICefJsDialogHandlerOwn() vcef.ICefJsDialogHandlerOwn {
+func (t *tICefJsDialogHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -15099,19 +14285,13 @@ func unwrapICefKeyboardHandler(value ICefKeyboardHandler) vcef.ICefKeyboardHandl
 	if wrapped, ok := value.(*tICefKeyboardHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefKeyboardHandler() vcef.ICefKeyboardHandler
-	}); ok {
-		return raw.RawCEF147ICefKeyboardHandler()
+	if raw, ok := RawAs[vcef.ICefKeyboardHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefKeyboardHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefKeyboardHandler_147) RawCEF147ICefKeyboardHandler() vcef.ICefKeyboardHandler {
+func (t *tICefKeyboardHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -15141,19 +14321,13 @@ func unwrapICefKeyboardHandlerOwn(value ICefKeyboardHandlerOwn) vcef.ICefKeyboar
 	if wrapped, ok := value.(*tICefKeyboardHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefKeyboardHandlerOwn() vcef.ICefKeyboardHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefKeyboardHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefKeyboardHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefKeyboardHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefKeyboardHandlerOwn_147) RawCEF147ICefKeyboardHandlerOwn() vcef.ICefKeyboardHandlerOwn {
+func (t *tICefKeyboardHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -15183,17 +14357,13 @@ func unwrapICefLabelButton(value ICefLabelButton) vcef.ICefLabelButton {
 	if wrapped, ok := value.(*tICefLabelButton_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefLabelButton() vcef.ICefLabelButton }); ok {
-		return raw.RawCEF147ICefLabelButton()
+	if raw, ok := RawAs[vcef.ICefLabelButton](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefLabelButton_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefLabelButton_147) RawCEF147ICefLabelButton() vcef.ICefLabelButton {
+func (t *tICefLabelButton_147) Raw() Raw {
 	return t.raw
 }
 
@@ -15270,19 +14440,13 @@ func unwrapICefLabelButtonRef(value ICefLabelButtonRef) vcef.ICefLabelButtonRef 
 	if wrapped, ok := value.(*tICefLabelButtonRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefLabelButtonRef() vcef.ICefLabelButtonRef
-	}); ok {
-		return raw.RawCEF147ICefLabelButtonRef()
+	if raw, ok := RawAs[vcef.ICefLabelButtonRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefLabelButtonRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefLabelButtonRef_147) RawCEF147ICefLabelButtonRef() vcef.ICefLabelButtonRef {
+func (t *tICefLabelButtonRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -15374,17 +14538,13 @@ func unwrapICefLayout(value ICefLayout) vcef.ICefLayout {
 	if wrapped, ok := value.(*tICefLayout_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefLayout() vcef.ICefLayout }); ok {
-		return raw.RawCEF147ICefLayout()
+	if raw, ok := RawAs[vcef.ICefLayout](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefLayout_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefLayout_147) RawCEF147ICefLayout() vcef.ICefLayout {
+func (t *tICefLayout_147) Raw() Raw {
 	return t.raw
 }
 
@@ -15429,17 +14589,13 @@ func unwrapICefLayoutRef(value ICefLayoutRef) vcef.ICefLayoutRef {
 	if wrapped, ok := value.(*tICefLayoutRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefLayoutRef() vcef.ICefLayoutRef }); ok {
-		return raw.RawCEF147ICefLayoutRef()
+	if raw, ok := RawAs[vcef.ICefLayoutRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefLayoutRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefLayoutRef_147) RawCEF147ICefLayoutRef() vcef.ICefLayoutRef {
+func (t *tICefLayoutRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -15489,19 +14645,13 @@ func unwrapICefLifeSpanHandler(value ICefLifeSpanHandler) vcef.ICefLifeSpanHandl
 	if wrapped, ok := value.(*tICefLifeSpanHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefLifeSpanHandler() vcef.ICefLifeSpanHandler
-	}); ok {
-		return raw.RawCEF147ICefLifeSpanHandler()
+	if raw, ok := RawAs[vcef.ICefLifeSpanHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefLifeSpanHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefLifeSpanHandler_147) RawCEF147ICefLifeSpanHandler() vcef.ICefLifeSpanHandler {
+func (t *tICefLifeSpanHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -15531,19 +14681,13 @@ func unwrapICefLifeSpanHandlerOwn(value ICefLifeSpanHandlerOwn) vcef.ICefLifeSpa
 	if wrapped, ok := value.(*tICefLifeSpanHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefLifeSpanHandlerOwn() vcef.ICefLifeSpanHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefLifeSpanHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefLifeSpanHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefLifeSpanHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefLifeSpanHandlerOwn_147) RawCEF147ICefLifeSpanHandlerOwn() vcef.ICefLifeSpanHandlerOwn {
+func (t *tICefLifeSpanHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -15573,17 +14717,13 @@ func unwrapICefListValue(value ICefListValue) vcef.ICefListValue {
 	if wrapped, ok := value.(*tICefListValue_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefListValue() vcef.ICefListValue }); ok {
-		return raw.RawCEF147ICefListValue()
+	if raw, ok := RawAs[vcef.ICefListValue](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefListValue_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefListValue_147) RawCEF147ICefListValue() vcef.ICefListValue {
+func (t *tICefListValue_147) Raw() Raw {
 	return t.raw
 }
 
@@ -15753,17 +14893,13 @@ func unwrapICefListValueRef(value ICefListValueRef) vcef.ICefListValueRef {
 	if wrapped, ok := value.(*tICefListValueRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefListValueRef() vcef.ICefListValueRef }); ok {
-		return raw.RawCEF147ICefListValueRef()
+	if raw, ok := RawAs[vcef.ICefListValueRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefListValueRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefListValueRef_147) RawCEF147ICefListValueRef() vcef.ICefListValueRef {
+func (t *tICefListValueRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -15938,17 +15074,13 @@ func unwrapICefLoadHandler(value ICefLoadHandler) vcef.ICefLoadHandler {
 	if wrapped, ok := value.(*tICefLoadHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefLoadHandler() vcef.ICefLoadHandler }); ok {
-		return raw.RawCEF147ICefLoadHandler()
+	if raw, ok := RawAs[vcef.ICefLoadHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefLoadHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefLoadHandler_147) RawCEF147ICefLoadHandler() vcef.ICefLoadHandler {
+func (t *tICefLoadHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -15978,19 +15110,13 @@ func unwrapICefLoadHandlerOwn(value ICefLoadHandlerOwn) vcef.ICefLoadHandlerOwn 
 	if wrapped, ok := value.(*tICefLoadHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefLoadHandlerOwn() vcef.ICefLoadHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefLoadHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefLoadHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefLoadHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefLoadHandlerOwn_147) RawCEF147ICefLoadHandlerOwn() vcef.ICefLoadHandlerOwn {
+func (t *tICefLoadHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -16020,17 +15146,13 @@ func unwrapICefManagedTask(value ICefManagedTask) vcef.ICefManagedTask {
 	if wrapped, ok := value.(*tICefManagedTask_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefManagedTask() vcef.ICefManagedTask }); ok {
-		return raw.RawCEF147ICefManagedTask()
+	if raw, ok := RawAs[vcef.ICefManagedTask](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefManagedTask_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefManagedTask_147) RawCEF147ICefManagedTask() vcef.ICefManagedTask {
+func (t *tICefManagedTask_147) Raw() Raw {
 	return t.raw
 }
 
@@ -16065,19 +15187,13 @@ func unwrapICefMediaAccessCallback(value ICefMediaAccessCallback) vcef.ICefMedia
 	if wrapped, ok := value.(*tICefMediaAccessCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefMediaAccessCallback() vcef.ICefMediaAccessCallback
-	}); ok {
-		return raw.RawCEF147ICefMediaAccessCallback()
+	if raw, ok := RawAs[vcef.ICefMediaAccessCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMediaAccessCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMediaAccessCallback_147) RawCEF147ICefMediaAccessCallback() vcef.ICefMediaAccessCallback {
+func (t *tICefMediaAccessCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -16115,19 +15231,13 @@ func unwrapICefMediaAccessCallbackRef(value ICefMediaAccessCallbackRef) vcef.ICe
 	if wrapped, ok := value.(*tICefMediaAccessCallbackRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefMediaAccessCallbackRef() vcef.ICefMediaAccessCallbackRef
-	}); ok {
-		return raw.RawCEF147ICefMediaAccessCallbackRef()
+	if raw, ok := RawAs[vcef.ICefMediaAccessCallbackRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMediaAccessCallbackRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMediaAccessCallbackRef_147) RawCEF147ICefMediaAccessCallbackRef() vcef.ICefMediaAccessCallbackRef {
+func (t *tICefMediaAccessCallbackRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -16170,17 +15280,13 @@ func unwrapICefMediaObserver(value ICefMediaObserver) vcef.ICefMediaObserver {
 	if wrapped, ok := value.(*tICefMediaObserver_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefMediaObserver() vcef.ICefMediaObserver }); ok {
-		return raw.RawCEF147ICefMediaObserver()
+	if raw, ok := RawAs[vcef.ICefMediaObserver](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMediaObserver_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMediaObserver_147) RawCEF147ICefMediaObserver() vcef.ICefMediaObserver {
+func (t *tICefMediaObserver_147) Raw() Raw {
 	return t.raw
 }
 
@@ -16210,19 +15316,13 @@ func unwrapICefMediaObserverOwn(value ICefMediaObserverOwn) vcef.ICefMediaObserv
 	if wrapped, ok := value.(*tICefMediaObserverOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefMediaObserverOwn() vcef.ICefMediaObserverOwn
-	}); ok {
-		return raw.RawCEF147ICefMediaObserverOwn()
+	if raw, ok := RawAs[vcef.ICefMediaObserverOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMediaObserverOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMediaObserverOwn_147) RawCEF147ICefMediaObserverOwn() vcef.ICefMediaObserverOwn {
+func (t *tICefMediaObserverOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -16252,17 +15352,13 @@ func unwrapICefMediaRoute(value ICefMediaRoute) vcef.ICefMediaRoute {
 	if wrapped, ok := value.(*tICefMediaRoute_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefMediaRoute() vcef.ICefMediaRoute }); ok {
-		return raw.RawCEF147ICefMediaRoute()
+	if raw, ok := RawAs[vcef.ICefMediaRoute](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMediaRoute_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMediaRoute_147) RawCEF147ICefMediaRoute() vcef.ICefMediaRoute {
+func (t *tICefMediaRoute_147) Raw() Raw {
 	return t.raw
 }
 
@@ -16315,19 +15411,13 @@ func unwrapICefMediaRouteCreateCallback(value ICefMediaRouteCreateCallback) vcef
 	if wrapped, ok := value.(*tICefMediaRouteCreateCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefMediaRouteCreateCallback() vcef.ICefMediaRouteCreateCallback
-	}); ok {
-		return raw.RawCEF147ICefMediaRouteCreateCallback()
+	if raw, ok := RawAs[vcef.ICefMediaRouteCreateCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMediaRouteCreateCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMediaRouteCreateCallback_147) RawCEF147ICefMediaRouteCreateCallback() vcef.ICefMediaRouteCreateCallback {
+func (t *tICefMediaRouteCreateCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -16357,19 +15447,13 @@ func unwrapICefMediaRouteCreateCallbackOwn(value ICefMediaRouteCreateCallbackOwn
 	if wrapped, ok := value.(*tICefMediaRouteCreateCallbackOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefMediaRouteCreateCallbackOwn() vcef.ICefMediaRouteCreateCallbackOwn
-	}); ok {
-		return raw.RawCEF147ICefMediaRouteCreateCallbackOwn()
+	if raw, ok := RawAs[vcef.ICefMediaRouteCreateCallbackOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMediaRouteCreateCallbackOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMediaRouteCreateCallbackOwn_147) RawCEF147ICefMediaRouteCreateCallbackOwn() vcef.ICefMediaRouteCreateCallbackOwn {
+func (t *tICefMediaRouteCreateCallbackOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -16399,17 +15483,13 @@ func unwrapICefMediaRouteRef(value ICefMediaRouteRef) vcef.ICefMediaRouteRef {
 	if wrapped, ok := value.(*tICefMediaRouteRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefMediaRouteRef() vcef.ICefMediaRouteRef }); ok {
-		return raw.RawCEF147ICefMediaRouteRef()
+	if raw, ok := RawAs[vcef.ICefMediaRouteRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMediaRouteRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMediaRouteRef_147) RawCEF147ICefMediaRouteRef() vcef.ICefMediaRouteRef {
+func (t *tICefMediaRouteRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -16467,17 +15547,13 @@ func unwrapICefMediaRouter(value ICefMediaRouter) vcef.ICefMediaRouter {
 	if wrapped, ok := value.(*tICefMediaRouter_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefMediaRouter() vcef.ICefMediaRouter }); ok {
-		return raw.RawCEF147ICefMediaRouter()
+	if raw, ok := RawAs[vcef.ICefMediaRouter](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMediaRouter_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMediaRouter_147) RawCEF147ICefMediaRouter() vcef.ICefMediaRouter {
+func (t *tICefMediaRouter_147) Raw() Raw {
 	return t.raw
 }
 
@@ -16529,19 +15605,13 @@ func unwrapICefMediaRouterRef(value ICefMediaRouterRef) vcef.ICefMediaRouterRef 
 	if wrapped, ok := value.(*tICefMediaRouterRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefMediaRouterRef() vcef.ICefMediaRouterRef
-	}); ok {
-		return raw.RawCEF147ICefMediaRouterRef()
+	if raw, ok := RawAs[vcef.ICefMediaRouterRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMediaRouterRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMediaRouterRef_147) RawCEF147ICefMediaRouterRef() vcef.ICefMediaRouterRef {
+func (t *tICefMediaRouterRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -16598,17 +15668,13 @@ func unwrapICefMediaSink(value ICefMediaSink) vcef.ICefMediaSink {
 	if wrapped, ok := value.(*tICefMediaSink_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefMediaSink() vcef.ICefMediaSink }); ok {
-		return raw.RawCEF147ICefMediaSink()
+	if raw, ok := RawAs[vcef.ICefMediaSink](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMediaSink_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMediaSink_147) RawCEF147ICefMediaSink() vcef.ICefMediaSink {
+func (t *tICefMediaSink_147) Raw() Raw {
 	return t.raw
 }
 
@@ -16672,19 +15738,13 @@ func unwrapICefMediaSinkDeviceInfoCallback(value ICefMediaSinkDeviceInfoCallback
 	if wrapped, ok := value.(*tICefMediaSinkDeviceInfoCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefMediaSinkDeviceInfoCallback() vcef.ICefMediaSinkDeviceInfoCallback
-	}); ok {
-		return raw.RawCEF147ICefMediaSinkDeviceInfoCallback()
+	if raw, ok := RawAs[vcef.ICefMediaSinkDeviceInfoCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMediaSinkDeviceInfoCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMediaSinkDeviceInfoCallback_147) RawCEF147ICefMediaSinkDeviceInfoCallback() vcef.ICefMediaSinkDeviceInfoCallback {
+func (t *tICefMediaSinkDeviceInfoCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -16714,19 +15774,13 @@ func unwrapICefMediaSinkDeviceInfoCallbackOwn(value ICefMediaSinkDeviceInfoCallb
 	if wrapped, ok := value.(*tICefMediaSinkDeviceInfoCallbackOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefMediaSinkDeviceInfoCallbackOwn() vcef.ICefMediaSinkDeviceInfoCallbackOwn
-	}); ok {
-		return raw.RawCEF147ICefMediaSinkDeviceInfoCallbackOwn()
+	if raw, ok := RawAs[vcef.ICefMediaSinkDeviceInfoCallbackOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMediaSinkDeviceInfoCallbackOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMediaSinkDeviceInfoCallbackOwn_147) RawCEF147ICefMediaSinkDeviceInfoCallbackOwn() vcef.ICefMediaSinkDeviceInfoCallbackOwn {
+func (t *tICefMediaSinkDeviceInfoCallbackOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -16756,17 +15810,13 @@ func unwrapICefMediaSinkRef(value ICefMediaSinkRef) vcef.ICefMediaSinkRef {
 	if wrapped, ok := value.(*tICefMediaSinkRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefMediaSinkRef() vcef.ICefMediaSinkRef }); ok {
-		return raw.RawCEF147ICefMediaSinkRef()
+	if raw, ok := RawAs[vcef.ICefMediaSinkRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMediaSinkRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMediaSinkRef_147) RawCEF147ICefMediaSinkRef() vcef.ICefMediaSinkRef {
+func (t *tICefMediaSinkRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -16835,17 +15885,13 @@ func unwrapICefMediaSource(value ICefMediaSource) vcef.ICefMediaSource {
 	if wrapped, ok := value.(*tICefMediaSource_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefMediaSource() vcef.ICefMediaSource }); ok {
-		return raw.RawCEF147ICefMediaSource()
+	if raw, ok := RawAs[vcef.ICefMediaSource](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMediaSource_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMediaSource_147) RawCEF147ICefMediaSource() vcef.ICefMediaSource {
+func (t *tICefMediaSource_147) Raw() Raw {
 	return t.raw
 }
 
@@ -16890,19 +15936,13 @@ func unwrapICefMediaSourceRef(value ICefMediaSourceRef) vcef.ICefMediaSourceRef 
 	if wrapped, ok := value.(*tICefMediaSourceRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefMediaSourceRef() vcef.ICefMediaSourceRef
-	}); ok {
-		return raw.RawCEF147ICefMediaSourceRef()
+	if raw, ok := RawAs[vcef.ICefMediaSourceRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMediaSourceRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMediaSourceRef_147) RawCEF147ICefMediaSourceRef() vcef.ICefMediaSourceRef {
+func (t *tICefMediaSourceRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -16952,17 +15992,13 @@ func unwrapICefMenuButton(value ICefMenuButton) vcef.ICefMenuButton {
 	if wrapped, ok := value.(*tICefMenuButton_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefMenuButton() vcef.ICefMenuButton }); ok {
-		return raw.RawCEF147ICefMenuButton()
+	if raw, ok := RawAs[vcef.ICefMenuButton](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMenuButton_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMenuButton_147) RawCEF147ICefMenuButton() vcef.ICefMenuButton {
+func (t *tICefMenuButton_147) Raw() Raw {
 	return t.raw
 }
 
@@ -17000,19 +16036,13 @@ func unwrapICefMenuButtonDelegate(value ICefMenuButtonDelegate) vcef.ICefMenuBut
 	if wrapped, ok := value.(*tICefMenuButtonDelegate_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefMenuButtonDelegate() vcef.ICefMenuButtonDelegate
-	}); ok {
-		return raw.RawCEF147ICefMenuButtonDelegate()
+	if raw, ok := RawAs[vcef.ICefMenuButtonDelegate](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMenuButtonDelegate_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMenuButtonDelegate_147) RawCEF147ICefMenuButtonDelegate() vcef.ICefMenuButtonDelegate {
+func (t *tICefMenuButtonDelegate_147) Raw() Raw {
 	return t.raw
 }
 
@@ -17042,19 +16072,13 @@ func unwrapICefMenuButtonDelegateEvents(value ICefMenuButtonDelegateEvents) vcef
 	if wrapped, ok := value.(*tICefMenuButtonDelegateEvents_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefMenuButtonDelegateEvents() vcef.ICefMenuButtonDelegateEvents
-	}); ok {
-		return raw.RawCEF147ICefMenuButtonDelegateEvents()
+	if raw, ok := RawAs[vcef.ICefMenuButtonDelegateEvents](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMenuButtonDelegateEvents_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMenuButtonDelegateEvents_147) RawCEF147ICefMenuButtonDelegateEvents() vcef.ICefMenuButtonDelegateEvents {
+func (t *tICefMenuButtonDelegateEvents_147) Raw() Raw {
 	return t.raw
 }
 
@@ -17084,19 +16108,13 @@ func unwrapICefMenuButtonDelegateOwn(value ICefMenuButtonDelegateOwn) vcef.ICefM
 	if wrapped, ok := value.(*tICefMenuButtonDelegateOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefMenuButtonDelegateOwn() vcef.ICefMenuButtonDelegateOwn
-	}); ok {
-		return raw.RawCEF147ICefMenuButtonDelegateOwn()
+	if raw, ok := RawAs[vcef.ICefMenuButtonDelegateOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMenuButtonDelegateOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMenuButtonDelegateOwn_147) RawCEF147ICefMenuButtonDelegateOwn() vcef.ICefMenuButtonDelegateOwn {
+func (t *tICefMenuButtonDelegateOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -17126,19 +16144,13 @@ func unwrapICefMenuButtonDelegateRef(value ICefMenuButtonDelegateRef) vcef.ICefM
 	if wrapped, ok := value.(*tICefMenuButtonDelegateRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefMenuButtonDelegateRef() vcef.ICefMenuButtonDelegateRef
-	}); ok {
-		return raw.RawCEF147ICefMenuButtonDelegateRef()
+	if raw, ok := RawAs[vcef.ICefMenuButtonDelegateRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMenuButtonDelegateRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMenuButtonDelegateRef_147) RawCEF147ICefMenuButtonDelegateRef() vcef.ICefMenuButtonDelegateRef {
+func (t *tICefMenuButtonDelegateRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -17183,19 +16195,13 @@ func unwrapICefMenuButtonPressedLock(value ICefMenuButtonPressedLock) vcef.ICefM
 	if wrapped, ok := value.(*tICefMenuButtonPressedLock_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefMenuButtonPressedLock() vcef.ICefMenuButtonPressedLock
-	}); ok {
-		return raw.RawCEF147ICefMenuButtonPressedLock()
+	if raw, ok := RawAs[vcef.ICefMenuButtonPressedLock](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMenuButtonPressedLock_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMenuButtonPressedLock_147) RawCEF147ICefMenuButtonPressedLock() vcef.ICefMenuButtonPressedLock {
+func (t *tICefMenuButtonPressedLock_147) Raw() Raw {
 	return t.raw
 }
 
@@ -17225,19 +16231,13 @@ func unwrapICefMenuButtonPressedLockRef(value ICefMenuButtonPressedLockRef) vcef
 	if wrapped, ok := value.(*tICefMenuButtonPressedLockRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefMenuButtonPressedLockRef() vcef.ICefMenuButtonPressedLockRef
-	}); ok {
-		return raw.RawCEF147ICefMenuButtonPressedLockRef()
+	if raw, ok := RawAs[vcef.ICefMenuButtonPressedLockRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMenuButtonPressedLockRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMenuButtonPressedLockRef_147) RawCEF147ICefMenuButtonPressedLockRef() vcef.ICefMenuButtonPressedLockRef {
+func (t *tICefMenuButtonPressedLockRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -17272,17 +16272,13 @@ func unwrapICefMenuButtonRef(value ICefMenuButtonRef) vcef.ICefMenuButtonRef {
 	if wrapped, ok := value.(*tICefMenuButtonRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefMenuButtonRef() vcef.ICefMenuButtonRef }); ok {
-		return raw.RawCEF147ICefMenuButtonRef()
+	if raw, ok := RawAs[vcef.ICefMenuButtonRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMenuButtonRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMenuButtonRef_147) RawCEF147ICefMenuButtonRef() vcef.ICefMenuButtonRef {
+func (t *tICefMenuButtonRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -17340,17 +16336,13 @@ func unwrapICefMenuModel(value ICefMenuModel) vcef.ICefMenuModel {
 	if wrapped, ok := value.(*tICefMenuModel_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefMenuModel() vcef.ICefMenuModel }); ok {
-		return raw.RawCEF147ICefMenuModel()
+	if raw, ok := RawAs[vcef.ICefMenuModel](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMenuModel_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMenuModel_147) RawCEF147ICefMenuModel() vcef.ICefMenuModel {
+func (t *tICefMenuModel_147) Raw() Raw {
 	return t.raw
 }
 
@@ -17660,19 +16652,13 @@ func unwrapICefMenuModelDelegate(value ICefMenuModelDelegate) vcef.ICefMenuModel
 	if wrapped, ok := value.(*tICefMenuModelDelegate_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefMenuModelDelegate() vcef.ICefMenuModelDelegate
-	}); ok {
-		return raw.RawCEF147ICefMenuModelDelegate()
+	if raw, ok := RawAs[vcef.ICefMenuModelDelegate](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMenuModelDelegate_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMenuModelDelegate_147) RawCEF147ICefMenuModelDelegate() vcef.ICefMenuModelDelegate {
+func (t *tICefMenuModelDelegate_147) Raw() Raw {
 	return t.raw
 }
 
@@ -17702,19 +16688,13 @@ func unwrapICefMenuModelDelegateOwn(value ICefMenuModelDelegateOwn) vcef.ICefMen
 	if wrapped, ok := value.(*tICefMenuModelDelegateOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefMenuModelDelegateOwn() vcef.ICefMenuModelDelegateOwn
-	}); ok {
-		return raw.RawCEF147ICefMenuModelDelegateOwn()
+	if raw, ok := RawAs[vcef.ICefMenuModelDelegateOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMenuModelDelegateOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMenuModelDelegateOwn_147) RawCEF147ICefMenuModelDelegateOwn() vcef.ICefMenuModelDelegateOwn {
+func (t *tICefMenuModelDelegateOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -17744,17 +16724,13 @@ func unwrapICefMenuModelRef(value ICefMenuModelRef) vcef.ICefMenuModelRef {
 	if wrapped, ok := value.(*tICefMenuModelRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefMenuModelRef() vcef.ICefMenuModelRef }); ok {
-		return raw.RawCEF147ICefMenuModelRef()
+	if raw, ok := RawAs[vcef.ICefMenuModelRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefMenuModelRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefMenuModelRef_147) RawCEF147ICefMenuModelRef() vcef.ICefMenuModelRef {
+func (t *tICefMenuModelRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -18069,19 +17045,13 @@ func unwrapICefNavigationEntry(value ICefNavigationEntry) vcef.ICefNavigationEnt
 	if wrapped, ok := value.(*tICefNavigationEntry_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefNavigationEntry() vcef.ICefNavigationEntry
-	}); ok {
-		return raw.RawCEF147ICefNavigationEntry()
+	if raw, ok := RawAs[vcef.ICefNavigationEntry](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefNavigationEntry_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefNavigationEntry_147) RawCEF147ICefNavigationEntry() vcef.ICefNavigationEntry {
+func (t *tICefNavigationEntry_147) Raw() Raw {
 	return t.raw
 }
 
@@ -18161,19 +17131,13 @@ func unwrapICefNavigationEntryRef(value ICefNavigationEntryRef) vcef.ICefNavigat
 	if wrapped, ok := value.(*tICefNavigationEntryRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefNavigationEntryRef() vcef.ICefNavigationEntryRef
-	}); ok {
-		return raw.RawCEF147ICefNavigationEntryRef()
+	if raw, ok := RawAs[vcef.ICefNavigationEntryRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefNavigationEntryRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefNavigationEntryRef_147) RawCEF147ICefNavigationEntryRef() vcef.ICefNavigationEntryRef {
+func (t *tICefNavigationEntryRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -18258,19 +17222,13 @@ func unwrapICefNavigationEntryVisitor(value ICefNavigationEntryVisitor) vcef.ICe
 	if wrapped, ok := value.(*tICefNavigationEntryVisitor_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefNavigationEntryVisitor() vcef.ICefNavigationEntryVisitor
-	}); ok {
-		return raw.RawCEF147ICefNavigationEntryVisitor()
+	if raw, ok := RawAs[vcef.ICefNavigationEntryVisitor](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefNavigationEntryVisitor_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefNavigationEntryVisitor_147) RawCEF147ICefNavigationEntryVisitor() vcef.ICefNavigationEntryVisitor {
+func (t *tICefNavigationEntryVisitor_147) Raw() Raw {
 	return t.raw
 }
 
@@ -18300,19 +17258,13 @@ func unwrapICefNavigationEntryVisitorOwn(value ICefNavigationEntryVisitorOwn) vc
 	if wrapped, ok := value.(*tICefNavigationEntryVisitorOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefNavigationEntryVisitorOwn() vcef.ICefNavigationEntryVisitorOwn
-	}); ok {
-		return raw.RawCEF147ICefNavigationEntryVisitorOwn()
+	if raw, ok := RawAs[vcef.ICefNavigationEntryVisitorOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefNavigationEntryVisitorOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefNavigationEntryVisitorOwn_147) RawCEF147ICefNavigationEntryVisitorOwn() vcef.ICefNavigationEntryVisitorOwn {
+func (t *tICefNavigationEntryVisitorOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -18342,19 +17294,13 @@ func unwrapICefOverlayController(value ICefOverlayController) vcef.ICefOverlayCo
 	if wrapped, ok := value.(*tICefOverlayController_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefOverlayController() vcef.ICefOverlayController
-	}); ok {
-		return raw.RawCEF147ICefOverlayController()
+	if raw, ok := RawAs[vcef.ICefOverlayController](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefOverlayController_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefOverlayController_147) RawCEF147ICefOverlayController() vcef.ICefOverlayController {
+func (t *tICefOverlayController_147) Raw() Raw {
 	return t.raw
 }
 
@@ -18472,19 +17418,13 @@ func unwrapICefOverlayControllerRef(value ICefOverlayControllerRef) vcef.ICefOve
 	if wrapped, ok := value.(*tICefOverlayControllerRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefOverlayControllerRef() vcef.ICefOverlayControllerRef
-	}); ok {
-		return raw.RawCEF147ICefOverlayControllerRef()
+	if raw, ok := RawAs[vcef.ICefOverlayControllerRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefOverlayControllerRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefOverlayControllerRef_147) RawCEF147ICefOverlayControllerRef() vcef.ICefOverlayControllerRef {
+func (t *tICefOverlayControllerRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -18607,17 +17547,13 @@ func unwrapICefPanel(value ICefPanel) vcef.ICefPanel {
 	if wrapped, ok := value.(*tICefPanel_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefPanel() vcef.ICefPanel }); ok {
-		return raw.RawCEF147ICefPanel()
+	if raw, ok := RawAs[vcef.ICefPanel](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPanel_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPanel_147) RawCEF147ICefPanel() vcef.ICefPanel {
+func (t *tICefPanel_147) Raw() Raw {
 	return t.raw
 }
 
@@ -18701,17 +17637,13 @@ func unwrapICefPanelDelegate(value ICefPanelDelegate) vcef.ICefPanelDelegate {
 	if wrapped, ok := value.(*tICefPanelDelegate_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefPanelDelegate() vcef.ICefPanelDelegate }); ok {
-		return raw.RawCEF147ICefPanelDelegate()
+	if raw, ok := RawAs[vcef.ICefPanelDelegate](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPanelDelegate_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPanelDelegate_147) RawCEF147ICefPanelDelegate() vcef.ICefPanelDelegate {
+func (t *tICefPanelDelegate_147) Raw() Raw {
 	return t.raw
 }
 
@@ -18741,19 +17673,13 @@ func unwrapICefPanelDelegateEvents(value ICefPanelDelegateEvents) vcef.ICefPanel
 	if wrapped, ok := value.(*tICefPanelDelegateEvents_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefPanelDelegateEvents() vcef.ICefPanelDelegateEvents
-	}); ok {
-		return raw.RawCEF147ICefPanelDelegateEvents()
+	if raw, ok := RawAs[vcef.ICefPanelDelegateEvents](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPanelDelegateEvents_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPanelDelegateEvents_147) RawCEF147ICefPanelDelegateEvents() vcef.ICefPanelDelegateEvents {
+func (t *tICefPanelDelegateEvents_147) Raw() Raw {
 	return t.raw
 }
 
@@ -18783,19 +17709,13 @@ func unwrapICefPanelDelegateOwn(value ICefPanelDelegateOwn) vcef.ICefPanelDelega
 	if wrapped, ok := value.(*tICefPanelDelegateOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefPanelDelegateOwn() vcef.ICefPanelDelegateOwn
-	}); ok {
-		return raw.RawCEF147ICefPanelDelegateOwn()
+	if raw, ok := RawAs[vcef.ICefPanelDelegateOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPanelDelegateOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPanelDelegateOwn_147) RawCEF147ICefPanelDelegateOwn() vcef.ICefPanelDelegateOwn {
+func (t *tICefPanelDelegateOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -18825,19 +17745,13 @@ func unwrapICefPanelDelegateRef(value ICefPanelDelegateRef) vcef.ICefPanelDelega
 	if wrapped, ok := value.(*tICefPanelDelegateRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefPanelDelegateRef() vcef.ICefPanelDelegateRef
-	}); ok {
-		return raw.RawCEF147ICefPanelDelegateRef()
+	if raw, ok := RawAs[vcef.ICefPanelDelegateRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPanelDelegateRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPanelDelegateRef_147) RawCEF147ICefPanelDelegateRef() vcef.ICefPanelDelegateRef {
+func (t *tICefPanelDelegateRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -18877,17 +17791,13 @@ func unwrapICefPanelRef(value ICefPanelRef) vcef.ICefPanelRef {
 	if wrapped, ok := value.(*tICefPanelRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefPanelRef() vcef.ICefPanelRef }); ok {
-		return raw.RawCEF147ICefPanelRef()
+	if raw, ok := RawAs[vcef.ICefPanelRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPanelRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPanelRef_147) RawCEF147ICefPanelRef() vcef.ICefPanelRef {
+func (t *tICefPanelRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -18981,19 +17891,13 @@ func unwrapICefPdfPrintCallback(value ICefPdfPrintCallback) vcef.ICefPdfPrintCal
 	if wrapped, ok := value.(*tICefPdfPrintCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefPdfPrintCallback() vcef.ICefPdfPrintCallback
-	}); ok {
-		return raw.RawCEF147ICefPdfPrintCallback()
+	if raw, ok := RawAs[vcef.ICefPdfPrintCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPdfPrintCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPdfPrintCallback_147) RawCEF147ICefPdfPrintCallback() vcef.ICefPdfPrintCallback {
+func (t *tICefPdfPrintCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -19023,19 +17927,13 @@ func unwrapICefPdfPrintCallbackOwn(value ICefPdfPrintCallbackOwn) vcef.ICefPdfPr
 	if wrapped, ok := value.(*tICefPdfPrintCallbackOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefPdfPrintCallbackOwn() vcef.ICefPdfPrintCallbackOwn
-	}); ok {
-		return raw.RawCEF147ICefPdfPrintCallbackOwn()
+	if raw, ok := RawAs[vcef.ICefPdfPrintCallbackOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPdfPrintCallbackOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPdfPrintCallbackOwn_147) RawCEF147ICefPdfPrintCallbackOwn() vcef.ICefPdfPrintCallbackOwn {
+func (t *tICefPdfPrintCallbackOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -19065,19 +17963,13 @@ func unwrapICefPermissionHandler(value ICefPermissionHandler) vcef.ICefPermissio
 	if wrapped, ok := value.(*tICefPermissionHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefPermissionHandler() vcef.ICefPermissionHandler
-	}); ok {
-		return raw.RawCEF147ICefPermissionHandler()
+	if raw, ok := RawAs[vcef.ICefPermissionHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPermissionHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPermissionHandler_147) RawCEF147ICefPermissionHandler() vcef.ICefPermissionHandler {
+func (t *tICefPermissionHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -19107,19 +17999,13 @@ func unwrapICefPermissionHandlerOwn(value ICefPermissionHandlerOwn) vcef.ICefPer
 	if wrapped, ok := value.(*tICefPermissionHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefPermissionHandlerOwn() vcef.ICefPermissionHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefPermissionHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefPermissionHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPermissionHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPermissionHandlerOwn_147) RawCEF147ICefPermissionHandlerOwn() vcef.ICefPermissionHandlerOwn {
+func (t *tICefPermissionHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -19149,19 +18035,13 @@ func unwrapICefPermissionPromptCallback(value ICefPermissionPromptCallback) vcef
 	if wrapped, ok := value.(*tICefPermissionPromptCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefPermissionPromptCallback() vcef.ICefPermissionPromptCallback
-	}); ok {
-		return raw.RawCEF147ICefPermissionPromptCallback()
+	if raw, ok := RawAs[vcef.ICefPermissionPromptCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPermissionPromptCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPermissionPromptCallback_147) RawCEF147ICefPermissionPromptCallback() vcef.ICefPermissionPromptCallback {
+func (t *tICefPermissionPromptCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -19195,19 +18075,13 @@ func unwrapICefPermissionPromptCallbackRef(value ICefPermissionPromptCallbackRef
 	if wrapped, ok := value.(*tICefPermissionPromptCallbackRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefPermissionPromptCallbackRef() vcef.ICefPermissionPromptCallbackRef
-	}); ok {
-		return raw.RawCEF147ICefPermissionPromptCallbackRef()
+	if raw, ok := RawAs[vcef.ICefPermissionPromptCallbackRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPermissionPromptCallbackRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPermissionPromptCallbackRef_147) RawCEF147ICefPermissionPromptCallbackRef() vcef.ICefPermissionPromptCallbackRef {
+func (t *tICefPermissionPromptCallbackRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -19246,17 +18120,13 @@ func unwrapICefPostData(value ICefPostData) vcef.ICefPostData {
 	if wrapped, ok := value.(*tICefPostData_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefPostData() vcef.ICefPostData }); ok {
-		return raw.RawCEF147ICefPostData()
+	if raw, ok := RawAs[vcef.ICefPostData](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPostData_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPostData_147) RawCEF147ICefPostData() vcef.ICefPostData {
+func (t *tICefPostData_147) Raw() Raw {
 	return t.raw
 }
 
@@ -19326,19 +18196,13 @@ func unwrapICefPostDataElement(value ICefPostDataElement) vcef.ICefPostDataEleme
 	if wrapped, ok := value.(*tICefPostDataElement_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefPostDataElement() vcef.ICefPostDataElement
-	}); ok {
-		return raw.RawCEF147ICefPostDataElement()
+	if raw, ok := RawAs[vcef.ICefPostDataElement](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPostDataElement_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPostDataElement_147) RawCEF147ICefPostDataElement() vcef.ICefPostDataElement {
+func (t *tICefPostDataElement_147) Raw() Raw {
 	return t.raw
 }
 
@@ -19405,19 +18269,13 @@ func unwrapICefPostDataElementRef(value ICefPostDataElementRef) vcef.ICefPostDat
 	if wrapped, ok := value.(*tICefPostDataElementRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefPostDataElementRef() vcef.ICefPostDataElementRef
-	}); ok {
-		return raw.RawCEF147ICefPostDataElementRef()
+	if raw, ok := RawAs[vcef.ICefPostDataElementRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPostDataElementRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPostDataElementRef_147) RawCEF147ICefPostDataElementRef() vcef.ICefPostDataElementRef {
+func (t *tICefPostDataElementRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -19489,17 +18347,13 @@ func unwrapICefPostDataRef(value ICefPostDataRef) vcef.ICefPostDataRef {
 	if wrapped, ok := value.(*tICefPostDataRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefPostDataRef() vcef.ICefPostDataRef }); ok {
-		return raw.RawCEF147ICefPostDataRef()
+	if raw, ok := RawAs[vcef.ICefPostDataRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPostDataRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPostDataRef_147) RawCEF147ICefPostDataRef() vcef.ICefPostDataRef {
+func (t *tICefPostDataRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -19574,19 +18428,13 @@ func unwrapICefPreferenceManager(value ICefPreferenceManager) vcef.ICefPreferenc
 	if wrapped, ok := value.(*tICefPreferenceManager_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefPreferenceManager() vcef.ICefPreferenceManager
-	}); ok {
-		return raw.RawCEF147ICefPreferenceManager()
+	if raw, ok := RawAs[vcef.ICefPreferenceManager](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPreferenceManager_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPreferenceManager_147) RawCEF147ICefPreferenceManager() vcef.ICefPreferenceManager {
+func (t *tICefPreferenceManager_147) Raw() Raw {
 	return t.raw
 }
 
@@ -19646,19 +18494,13 @@ func unwrapICefPreferenceManagerRef(value ICefPreferenceManagerRef) vcef.ICefPre
 	if wrapped, ok := value.(*tICefPreferenceManagerRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefPreferenceManagerRef() vcef.ICefPreferenceManagerRef
-	}); ok {
-		return raw.RawCEF147ICefPreferenceManagerRef()
+	if raw, ok := RawAs[vcef.ICefPreferenceManagerRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPreferenceManagerRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPreferenceManagerRef_147) RawCEF147ICefPreferenceManagerRef() vcef.ICefPreferenceManagerRef {
+func (t *tICefPreferenceManagerRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -19723,19 +18565,13 @@ func unwrapICefPreferenceObserver(value ICefPreferenceObserver) vcef.ICefPrefere
 	if wrapped, ok := value.(*tICefPreferenceObserver_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefPreferenceObserver() vcef.ICefPreferenceObserver
-	}); ok {
-		return raw.RawCEF147ICefPreferenceObserver()
+	if raw, ok := RawAs[vcef.ICefPreferenceObserver](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPreferenceObserver_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPreferenceObserver_147) RawCEF147ICefPreferenceObserver() vcef.ICefPreferenceObserver {
+func (t *tICefPreferenceObserver_147) Raw() Raw {
 	return t.raw
 }
 
@@ -19765,19 +18601,13 @@ func unwrapICefPreferenceObserverOwn(value ICefPreferenceObserverOwn) vcef.ICefP
 	if wrapped, ok := value.(*tICefPreferenceObserverOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefPreferenceObserverOwn() vcef.ICefPreferenceObserverOwn
-	}); ok {
-		return raw.RawCEF147ICefPreferenceObserverOwn()
+	if raw, ok := RawAs[vcef.ICefPreferenceObserverOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPreferenceObserverOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPreferenceObserverOwn_147) RawCEF147ICefPreferenceObserverOwn() vcef.ICefPreferenceObserverOwn {
+func (t *tICefPreferenceObserverOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -19807,19 +18637,13 @@ func unwrapICefPreferenceRegistrarRef(value ICefPreferenceRegistrarRef) vcef.ICe
 	if wrapped, ok := value.(*tICefPreferenceRegistrarRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefPreferenceRegistrarRef() vcef.ICefPreferenceRegistrarRef
-	}); ok {
-		return raw.RawCEF147ICefPreferenceRegistrarRef()
+	if raw, ok := RawAs[vcef.ICefPreferenceRegistrarRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPreferenceRegistrarRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPreferenceRegistrarRef_147) RawCEF147ICefPreferenceRegistrarRef() vcef.ICefPreferenceRegistrarRef {
+func (t *tICefPreferenceRegistrarRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -19854,19 +18678,13 @@ func unwrapICefPrintDialogCallback(value ICefPrintDialogCallback) vcef.ICefPrint
 	if wrapped, ok := value.(*tICefPrintDialogCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefPrintDialogCallback() vcef.ICefPrintDialogCallback
-	}); ok {
-		return raw.RawCEF147ICefPrintDialogCallback()
+	if raw, ok := RawAs[vcef.ICefPrintDialogCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPrintDialogCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPrintDialogCallback_147) RawCEF147ICefPrintDialogCallback() vcef.ICefPrintDialogCallback {
+func (t *tICefPrintDialogCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -19904,19 +18722,13 @@ func unwrapICefPrintDialogCallbackRef(value ICefPrintDialogCallbackRef) vcef.ICe
 	if wrapped, ok := value.(*tICefPrintDialogCallbackRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefPrintDialogCallbackRef() vcef.ICefPrintDialogCallbackRef
-	}); ok {
-		return raw.RawCEF147ICefPrintDialogCallbackRef()
+	if raw, ok := RawAs[vcef.ICefPrintDialogCallbackRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPrintDialogCallbackRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPrintDialogCallbackRef_147) RawCEF147ICefPrintDialogCallbackRef() vcef.ICefPrintDialogCallbackRef {
+func (t *tICefPrintDialogCallbackRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -19959,17 +18771,13 @@ func unwrapICefPrintHandler(value ICefPrintHandler) vcef.ICefPrintHandler {
 	if wrapped, ok := value.(*tICefPrintHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefPrintHandler() vcef.ICefPrintHandler }); ok {
-		return raw.RawCEF147ICefPrintHandler()
+	if raw, ok := RawAs[vcef.ICefPrintHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPrintHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPrintHandler_147) RawCEF147ICefPrintHandler() vcef.ICefPrintHandler {
+func (t *tICefPrintHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -19999,19 +18807,13 @@ func unwrapICefPrintHandlerOwn(value ICefPrintHandlerOwn) vcef.ICefPrintHandlerO
 	if wrapped, ok := value.(*tICefPrintHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefPrintHandlerOwn() vcef.ICefPrintHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefPrintHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefPrintHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPrintHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPrintHandlerOwn_147) RawCEF147ICefPrintHandlerOwn() vcef.ICefPrintHandlerOwn {
+func (t *tICefPrintHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -20041,19 +18843,13 @@ func unwrapICefPrintJobCallback(value ICefPrintJobCallback) vcef.ICefPrintJobCal
 	if wrapped, ok := value.(*tICefPrintJobCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefPrintJobCallback() vcef.ICefPrintJobCallback
-	}); ok {
-		return raw.RawCEF147ICefPrintJobCallback()
+	if raw, ok := RawAs[vcef.ICefPrintJobCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPrintJobCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPrintJobCallback_147) RawCEF147ICefPrintJobCallback() vcef.ICefPrintJobCallback {
+func (t *tICefPrintJobCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -20087,19 +18883,13 @@ func unwrapICefPrintJobCallbackRef(value ICefPrintJobCallbackRef) vcef.ICefPrint
 	if wrapped, ok := value.(*tICefPrintJobCallbackRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefPrintJobCallbackRef() vcef.ICefPrintJobCallbackRef
-	}); ok {
-		return raw.RawCEF147ICefPrintJobCallbackRef()
+	if raw, ok := RawAs[vcef.ICefPrintJobCallbackRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPrintJobCallbackRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPrintJobCallbackRef_147) RawCEF147ICefPrintJobCallbackRef() vcef.ICefPrintJobCallbackRef {
+func (t *tICefPrintJobCallbackRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -20138,17 +18928,13 @@ func unwrapICefPrintSettings(value ICefPrintSettings) vcef.ICefPrintSettings {
 	if wrapped, ok := value.(*tICefPrintSettings_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefPrintSettings() vcef.ICefPrintSettings }); ok {
-		return raw.RawCEF147ICefPrintSettings()
+	if raw, ok := RawAs[vcef.ICefPrintSettings](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPrintSettings_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPrintSettings_147) RawCEF147ICefPrintSettings() vcef.ICefPrintSettings {
+func (t *tICefPrintSettings_147) Raw() Raw {
 	return t.raw
 }
 
@@ -20277,19 +19063,13 @@ func unwrapICefPrintSettingsRef(value ICefPrintSettingsRef) vcef.ICefPrintSettin
 	if wrapped, ok := value.(*tICefPrintSettingsRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefPrintSettingsRef() vcef.ICefPrintSettingsRef
-	}); ok {
-		return raw.RawCEF147ICefPrintSettingsRef()
+	if raw, ok := RawAs[vcef.ICefPrintSettingsRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefPrintSettingsRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefPrintSettingsRef_147) RawCEF147ICefPrintSettingsRef() vcef.ICefPrintSettingsRef {
+func (t *tICefPrintSettingsRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -20423,19 +19203,13 @@ func unwrapICefProcessMessage(value ICefProcessMessage) vcef.ICefProcessMessage 
 	if wrapped, ok := value.(*tICefProcessMessage_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefProcessMessage() vcef.ICefProcessMessage
-	}); ok {
-		return raw.RawCEF147ICefProcessMessage()
+	if raw, ok := RawAs[vcef.ICefProcessMessage](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefProcessMessage_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefProcessMessage_147) RawCEF147ICefProcessMessage() vcef.ICefProcessMessage {
+func (t *tICefProcessMessage_147) Raw() Raw {
 	return t.raw
 }
 
@@ -20495,19 +19269,13 @@ func unwrapICefProcessMessageRef(value ICefProcessMessageRef) vcef.ICefProcessMe
 	if wrapped, ok := value.(*tICefProcessMessageRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefProcessMessageRef() vcef.ICefProcessMessageRef
-	}); ok {
-		return raw.RawCEF147ICefProcessMessageRef()
+	if raw, ok := RawAs[vcef.ICefProcessMessageRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefProcessMessageRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefProcessMessageRef_147) RawCEF147ICefProcessMessageRef() vcef.ICefProcessMessageRef {
+func (t *tICefProcessMessageRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -20572,17 +19340,13 @@ func unwrapICefRegistration(value ICefRegistration) vcef.ICefRegistration {
 	if wrapped, ok := value.(*tICefRegistration_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefRegistration() vcef.ICefRegistration }); ok {
-		return raw.RawCEF147ICefRegistration()
+	if raw, ok := RawAs[vcef.ICefRegistration](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefRegistration_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefRegistration_147) RawCEF147ICefRegistration() vcef.ICefRegistration {
+func (t *tICefRegistration_147) Raw() Raw {
 	return t.raw
 }
 
@@ -20612,19 +19376,13 @@ func unwrapICefRegistrationRef(value ICefRegistrationRef) vcef.ICefRegistrationR
 	if wrapped, ok := value.(*tICefRegistrationRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefRegistrationRef() vcef.ICefRegistrationRef
-	}); ok {
-		return raw.RawCEF147ICefRegistrationRef()
+	if raw, ok := RawAs[vcef.ICefRegistrationRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefRegistrationRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefRegistrationRef_147) RawCEF147ICefRegistrationRef() vcef.ICefRegistrationRef {
+func (t *tICefRegistrationRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -20659,17 +19417,13 @@ func unwrapICefRenderHandler(value ICefRenderHandler) vcef.ICefRenderHandler {
 	if wrapped, ok := value.(*tICefRenderHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefRenderHandler() vcef.ICefRenderHandler }); ok {
-		return raw.RawCEF147ICefRenderHandler()
+	if raw, ok := RawAs[vcef.ICefRenderHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefRenderHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefRenderHandler_147) RawCEF147ICefRenderHandler() vcef.ICefRenderHandler {
+func (t *tICefRenderHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -20699,19 +19453,13 @@ func unwrapICefRenderHandlerOwn(value ICefRenderHandlerOwn) vcef.ICefRenderHandl
 	if wrapped, ok := value.(*tICefRenderHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefRenderHandlerOwn() vcef.ICefRenderHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefRenderHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefRenderHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefRenderHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefRenderHandlerOwn_147) RawCEF147ICefRenderHandlerOwn() vcef.ICefRenderHandlerOwn {
+func (t *tICefRenderHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -20741,19 +19489,13 @@ func unwrapICefRenderProcessHandler(value ICefRenderProcessHandler) vcef.ICefRen
 	if wrapped, ok := value.(*tICefRenderProcessHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefRenderProcessHandler() vcef.ICefRenderProcessHandler
-	}); ok {
-		return raw.RawCEF147ICefRenderProcessHandler()
+	if raw, ok := RawAs[vcef.ICefRenderProcessHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefRenderProcessHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefRenderProcessHandler_147) RawCEF147ICefRenderProcessHandler() vcef.ICefRenderProcessHandler {
+func (t *tICefRenderProcessHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -20783,19 +19525,13 @@ func unwrapICefRenderProcessHandlerOwn(value ICefRenderProcessHandlerOwn) vcef.I
 	if wrapped, ok := value.(*tICefRenderProcessHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefRenderProcessHandlerOwn() vcef.ICefRenderProcessHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefRenderProcessHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefRenderProcessHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefRenderProcessHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefRenderProcessHandlerOwn_147) RawCEF147ICefRenderProcessHandlerOwn() vcef.ICefRenderProcessHandlerOwn {
+func (t *tICefRenderProcessHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -20825,17 +19561,13 @@ func unwrapICefRequest(value ICefRequest) vcef.ICefRequest {
 	if wrapped, ok := value.(*tICefRequest_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefRequest() vcef.ICefRequest }); ok {
-		return raw.RawCEF147ICefRequest()
+	if raw, ok := RawAs[vcef.ICefRequest](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefRequest_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefRequest_147) RawCEF147ICefRequest() vcef.ICefRequest {
+func (t *tICefRequest_147) Raw() Raw {
 	return t.raw
 }
 
@@ -20965,19 +19697,13 @@ func unwrapICefRequestContext(value ICefRequestContext) vcef.ICefRequestContext 
 	if wrapped, ok := value.(*tICefRequestContext_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefRequestContext() vcef.ICefRequestContext
-	}); ok {
-		return raw.RawCEF147ICefRequestContext()
+	if raw, ok := RawAs[vcef.ICefRequestContext](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefRequestContext_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefRequestContext_147) RawCEF147ICefRequestContext() vcef.ICefRequestContext {
+func (t *tICefRequestContext_147) Raw() Raw {
 	return t.raw
 }
 
@@ -21114,19 +19840,13 @@ func unwrapICefRequestContextHandler(value ICefRequestContextHandler) vcef.ICefR
 	if wrapped, ok := value.(*tICefRequestContextHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefRequestContextHandler() vcef.ICefRequestContextHandler
-	}); ok {
-		return raw.RawCEF147ICefRequestContextHandler()
+	if raw, ok := RawAs[vcef.ICefRequestContextHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefRequestContextHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefRequestContextHandler_147) RawCEF147ICefRequestContextHandler() vcef.ICefRequestContextHandler {
+func (t *tICefRequestContextHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -21156,19 +19876,13 @@ func unwrapICefRequestContextHandlerOwn(value ICefRequestContextHandlerOwn) vcef
 	if wrapped, ok := value.(*tICefRequestContextHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefRequestContextHandlerOwn() vcef.ICefRequestContextHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefRequestContextHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefRequestContextHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefRequestContextHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefRequestContextHandlerOwn_147) RawCEF147ICefRequestContextHandlerOwn() vcef.ICefRequestContextHandlerOwn {
+func (t *tICefRequestContextHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -21198,19 +19912,13 @@ func unwrapICefRequestContextRef(value ICefRequestContextRef) vcef.ICefRequestCo
 	if wrapped, ok := value.(*tICefRequestContextRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefRequestContextRef() vcef.ICefRequestContextRef
-	}); ok {
-		return raw.RawCEF147ICefRequestContextRef()
+	if raw, ok := RawAs[vcef.ICefRequestContextRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefRequestContextRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefRequestContextRef_147) RawCEF147ICefRequestContextRef() vcef.ICefRequestContextRef {
+func (t *tICefRequestContextRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -21357,19 +20065,13 @@ func unwrapICefRequestHandler(value ICefRequestHandler) vcef.ICefRequestHandler 
 	if wrapped, ok := value.(*tICefRequestHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefRequestHandler() vcef.ICefRequestHandler
-	}); ok {
-		return raw.RawCEF147ICefRequestHandler()
+	if raw, ok := RawAs[vcef.ICefRequestHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefRequestHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefRequestHandler_147) RawCEF147ICefRequestHandler() vcef.ICefRequestHandler {
+func (t *tICefRequestHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -21399,19 +20101,13 @@ func unwrapICefRequestHandlerOwn(value ICefRequestHandlerOwn) vcef.ICefRequestHa
 	if wrapped, ok := value.(*tICefRequestHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefRequestHandlerOwn() vcef.ICefRequestHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefRequestHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefRequestHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefRequestHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefRequestHandlerOwn_147) RawCEF147ICefRequestHandlerOwn() vcef.ICefRequestHandlerOwn {
+func (t *tICefRequestHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -21441,17 +20137,13 @@ func unwrapICefRequestRef(value ICefRequestRef) vcef.ICefRequestRef {
 	if wrapped, ok := value.(*tICefRequestRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefRequestRef() vcef.ICefRequestRef }); ok {
-		return raw.RawCEF147ICefRequestRef()
+	if raw, ok := RawAs[vcef.ICefRequestRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefRequestRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefRequestRef_147) RawCEF147ICefRequestRef() vcef.ICefRequestRef {
+func (t *tICefRequestRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -21586,19 +20278,13 @@ func unwrapICefResolveCallback(value ICefResolveCallback) vcef.ICefResolveCallba
 	if wrapped, ok := value.(*tICefResolveCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefResolveCallback() vcef.ICefResolveCallback
-	}); ok {
-		return raw.RawCEF147ICefResolveCallback()
+	if raw, ok := RawAs[vcef.ICefResolveCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefResolveCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefResolveCallback_147) RawCEF147ICefResolveCallback() vcef.ICefResolveCallback {
+func (t *tICefResolveCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -21628,19 +20314,13 @@ func unwrapICefResolveCallbackOwn(value ICefResolveCallbackOwn) vcef.ICefResolve
 	if wrapped, ok := value.(*tICefResolveCallbackOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefResolveCallbackOwn() vcef.ICefResolveCallbackOwn
-	}); ok {
-		return raw.RawCEF147ICefResolveCallbackOwn()
+	if raw, ok := RawAs[vcef.ICefResolveCallbackOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefResolveCallbackOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefResolveCallbackOwn_147) RawCEF147ICefResolveCallbackOwn() vcef.ICefResolveCallbackOwn {
+func (t *tICefResolveCallbackOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -21670,19 +20350,13 @@ func unwrapICefResourceBundle(value ICefResourceBundle) vcef.ICefResourceBundle 
 	if wrapped, ok := value.(*tICefResourceBundle_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefResourceBundle() vcef.ICefResourceBundle
-	}); ok {
-		return raw.RawCEF147ICefResourceBundle()
+	if raw, ok := RawAs[vcef.ICefResourceBundle](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefResourceBundle_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefResourceBundle_147) RawCEF147ICefResourceBundle() vcef.ICefResourceBundle {
+func (t *tICefResourceBundle_147) Raw() Raw {
 	return t.raw
 }
 
@@ -21727,19 +20401,13 @@ func unwrapICefResourceBundleHandler(value ICefResourceBundleHandler) vcef.ICefR
 	if wrapped, ok := value.(*tICefResourceBundleHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefResourceBundleHandler() vcef.ICefResourceBundleHandler
-	}); ok {
-		return raw.RawCEF147ICefResourceBundleHandler()
+	if raw, ok := RawAs[vcef.ICefResourceBundleHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefResourceBundleHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefResourceBundleHandler_147) RawCEF147ICefResourceBundleHandler() vcef.ICefResourceBundleHandler {
+func (t *tICefResourceBundleHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -21769,19 +20437,13 @@ func unwrapICefResourceBundleHandlerOwn(value ICefResourceBundleHandlerOwn) vcef
 	if wrapped, ok := value.(*tICefResourceBundleHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefResourceBundleHandlerOwn() vcef.ICefResourceBundleHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefResourceBundleHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefResourceBundleHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefResourceBundleHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefResourceBundleHandlerOwn_147) RawCEF147ICefResourceBundleHandlerOwn() vcef.ICefResourceBundleHandlerOwn {
+func (t *tICefResourceBundleHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -21811,19 +20473,13 @@ func unwrapICefResourceBundleRef(value ICefResourceBundleRef) vcef.ICefResourceB
 	if wrapped, ok := value.(*tICefResourceBundleRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefResourceBundleRef() vcef.ICefResourceBundleRef
-	}); ok {
-		return raw.RawCEF147ICefResourceBundleRef()
+	if raw, ok := RawAs[vcef.ICefResourceBundleRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefResourceBundleRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefResourceBundleRef_147) RawCEF147ICefResourceBundleRef() vcef.ICefResourceBundleRef {
+func (t *tICefResourceBundleRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -21873,19 +20529,13 @@ func unwrapICefResourceHandler(value ICefResourceHandler) vcef.ICefResourceHandl
 	if wrapped, ok := value.(*tICefResourceHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefResourceHandler() vcef.ICefResourceHandler
-	}); ok {
-		return raw.RawCEF147ICefResourceHandler()
+	if raw, ok := RawAs[vcef.ICefResourceHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefResourceHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefResourceHandler_147) RawCEF147ICefResourceHandler() vcef.ICefResourceHandler {
+func (t *tICefResourceHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -21915,19 +20565,13 @@ func unwrapICefResourceHandlerOwn(value ICefResourceHandlerOwn) vcef.ICefResourc
 	if wrapped, ok := value.(*tICefResourceHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefResourceHandlerOwn() vcef.ICefResourceHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefResourceHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefResourceHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefResourceHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefResourceHandlerOwn_147) RawCEF147ICefResourceHandlerOwn() vcef.ICefResourceHandlerOwn {
+func (t *tICefResourceHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -21957,19 +20601,13 @@ func unwrapICefResourceHandlerRef(value ICefResourceHandlerRef) vcef.ICefResourc
 	if wrapped, ok := value.(*tICefResourceHandlerRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefResourceHandlerRef() vcef.ICefResourceHandlerRef
-	}); ok {
-		return raw.RawCEF147ICefResourceHandlerRef()
+	if raw, ok := RawAs[vcef.ICefResourceHandlerRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefResourceHandlerRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefResourceHandlerRef_147) RawCEF147ICefResourceHandlerRef() vcef.ICefResourceHandlerRef {
+func (t *tICefResourceHandlerRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -22004,19 +20642,13 @@ func unwrapICefResourceReadCallback(value ICefResourceReadCallback) vcef.ICefRes
 	if wrapped, ok := value.(*tICefResourceReadCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefResourceReadCallback() vcef.ICefResourceReadCallback
-	}); ok {
-		return raw.RawCEF147ICefResourceReadCallback()
+	if raw, ok := RawAs[vcef.ICefResourceReadCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefResourceReadCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefResourceReadCallback_147) RawCEF147ICefResourceReadCallback() vcef.ICefResourceReadCallback {
+func (t *tICefResourceReadCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -22050,19 +20682,13 @@ func unwrapICefResourceReadCallbackRef(value ICefResourceReadCallbackRef) vcef.I
 	if wrapped, ok := value.(*tICefResourceReadCallbackRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefResourceReadCallbackRef() vcef.ICefResourceReadCallbackRef
-	}); ok {
-		return raw.RawCEF147ICefResourceReadCallbackRef()
+	if raw, ok := RawAs[vcef.ICefResourceReadCallbackRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefResourceReadCallbackRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefResourceReadCallbackRef_147) RawCEF147ICefResourceReadCallbackRef() vcef.ICefResourceReadCallbackRef {
+func (t *tICefResourceReadCallbackRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -22101,19 +20727,13 @@ func unwrapICefResourceRequestHandler(value ICefResourceRequestHandler) vcef.ICe
 	if wrapped, ok := value.(*tICefResourceRequestHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefResourceRequestHandler() vcef.ICefResourceRequestHandler
-	}); ok {
-		return raw.RawCEF147ICefResourceRequestHandler()
+	if raw, ok := RawAs[vcef.ICefResourceRequestHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefResourceRequestHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefResourceRequestHandler_147) RawCEF147ICefResourceRequestHandler() vcef.ICefResourceRequestHandler {
+func (t *tICefResourceRequestHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -22143,19 +20763,13 @@ func unwrapICefResourceRequestHandlerOwn(value ICefResourceRequestHandlerOwn) vc
 	if wrapped, ok := value.(*tICefResourceRequestHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefResourceRequestHandlerOwn() vcef.ICefResourceRequestHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefResourceRequestHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefResourceRequestHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefResourceRequestHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefResourceRequestHandlerOwn_147) RawCEF147ICefResourceRequestHandlerOwn() vcef.ICefResourceRequestHandlerOwn {
+func (t *tICefResourceRequestHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -22185,19 +20799,13 @@ func unwrapICefResourceRequestHandlerRef(value ICefResourceRequestHandlerRef) vc
 	if wrapped, ok := value.(*tICefResourceRequestHandlerRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefResourceRequestHandlerRef() vcef.ICefResourceRequestHandlerRef
-	}); ok {
-		return raw.RawCEF147ICefResourceRequestHandlerRef()
+	if raw, ok := RawAs[vcef.ICefResourceRequestHandlerRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefResourceRequestHandlerRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefResourceRequestHandlerRef_147) RawCEF147ICefResourceRequestHandlerRef() vcef.ICefResourceRequestHandlerRef {
+func (t *tICefResourceRequestHandlerRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -22232,19 +20840,13 @@ func unwrapICefResourceSkipCallback(value ICefResourceSkipCallback) vcef.ICefRes
 	if wrapped, ok := value.(*tICefResourceSkipCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefResourceSkipCallback() vcef.ICefResourceSkipCallback
-	}); ok {
-		return raw.RawCEF147ICefResourceSkipCallback()
+	if raw, ok := RawAs[vcef.ICefResourceSkipCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefResourceSkipCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefResourceSkipCallback_147) RawCEF147ICefResourceSkipCallback() vcef.ICefResourceSkipCallback {
+func (t *tICefResourceSkipCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -22278,19 +20880,13 @@ func unwrapICefResourceSkipCallbackRef(value ICefResourceSkipCallbackRef) vcef.I
 	if wrapped, ok := value.(*tICefResourceSkipCallbackRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefResourceSkipCallbackRef() vcef.ICefResourceSkipCallbackRef
-	}); ok {
-		return raw.RawCEF147ICefResourceSkipCallbackRef()
+	if raw, ok := RawAs[vcef.ICefResourceSkipCallbackRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefResourceSkipCallbackRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefResourceSkipCallbackRef_147) RawCEF147ICefResourceSkipCallbackRef() vcef.ICefResourceSkipCallbackRef {
+func (t *tICefResourceSkipCallbackRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -22329,17 +20925,13 @@ func unwrapICefResponse(value ICefResponse) vcef.ICefResponse {
 	if wrapped, ok := value.(*tICefResponse_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefResponse() vcef.ICefResponse }); ok {
-		return raw.RawCEF147ICefResponse()
+	if raw, ok := RawAs[vcef.ICefResponse](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefResponse_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefResponse_147) RawCEF147ICefResponse() vcef.ICefResponse {
+func (t *tICefResponse_147) Raw() Raw {
 	return t.raw
 }
 
@@ -22445,19 +21037,13 @@ func unwrapICefResponseFilter(value ICefResponseFilter) vcef.ICefResponseFilter 
 	if wrapped, ok := value.(*tICefResponseFilter_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefResponseFilter() vcef.ICefResponseFilter
-	}); ok {
-		return raw.RawCEF147ICefResponseFilter()
+	if raw, ok := RawAs[vcef.ICefResponseFilter](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefResponseFilter_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefResponseFilter_147) RawCEF147ICefResponseFilter() vcef.ICefResponseFilter {
+func (t *tICefResponseFilter_147) Raw() Raw {
 	return t.raw
 }
 
@@ -22487,19 +21073,13 @@ func unwrapICefResponseFilterOwn(value ICefResponseFilterOwn) vcef.ICefResponseF
 	if wrapped, ok := value.(*tICefResponseFilterOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefResponseFilterOwn() vcef.ICefResponseFilterOwn
-	}); ok {
-		return raw.RawCEF147ICefResponseFilterOwn()
+	if raw, ok := RawAs[vcef.ICefResponseFilterOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefResponseFilterOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefResponseFilterOwn_147) RawCEF147ICefResponseFilterOwn() vcef.ICefResponseFilterOwn {
+func (t *tICefResponseFilterOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -22529,19 +21109,13 @@ func unwrapICefResponseFilterRef(value ICefResponseFilterRef) vcef.ICefResponseF
 	if wrapped, ok := value.(*tICefResponseFilterRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefResponseFilterRef() vcef.ICefResponseFilterRef
-	}); ok {
-		return raw.RawCEF147ICefResponseFilterRef()
+	if raw, ok := RawAs[vcef.ICefResponseFilterRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefResponseFilterRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefResponseFilterRef_147) RawCEF147ICefResponseFilterRef() vcef.ICefResponseFilterRef {
+func (t *tICefResponseFilterRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -22576,17 +21150,13 @@ func unwrapICefResponseRef(value ICefResponseRef) vcef.ICefResponseRef {
 	if wrapped, ok := value.(*tICefResponseRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefResponseRef() vcef.ICefResponseRef }); ok {
-		return raw.RawCEF147ICefResponseRef()
+	if raw, ok := RawAs[vcef.ICefResponseRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefResponseRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefResponseRef_147) RawCEF147ICefResponseRef() vcef.ICefResponseRef {
+func (t *tICefResponseRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -22697,19 +21267,13 @@ func unwrapICefRunContextMenuCallback(value ICefRunContextMenuCallback) vcef.ICe
 	if wrapped, ok := value.(*tICefRunContextMenuCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefRunContextMenuCallback() vcef.ICefRunContextMenuCallback
-	}); ok {
-		return raw.RawCEF147ICefRunContextMenuCallback()
+	if raw, ok := RawAs[vcef.ICefRunContextMenuCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefRunContextMenuCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefRunContextMenuCallback_147) RawCEF147ICefRunContextMenuCallback() vcef.ICefRunContextMenuCallback {
+func (t *tICefRunContextMenuCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -22747,19 +21311,13 @@ func unwrapICefRunContextMenuCallbackRef(value ICefRunContextMenuCallbackRef) vc
 	if wrapped, ok := value.(*tICefRunContextMenuCallbackRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefRunContextMenuCallbackRef() vcef.ICefRunContextMenuCallbackRef
-	}); ok {
-		return raw.RawCEF147ICefRunContextMenuCallbackRef()
+	if raw, ok := RawAs[vcef.ICefRunContextMenuCallbackRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefRunContextMenuCallbackRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefRunContextMenuCallbackRef_147) RawCEF147ICefRunContextMenuCallbackRef() vcef.ICefRunContextMenuCallbackRef {
+func (t *tICefRunContextMenuCallbackRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -22802,19 +21360,13 @@ func unwrapICefRunFileDialogCallback(value ICefRunFileDialogCallback) vcef.ICefR
 	if wrapped, ok := value.(*tICefRunFileDialogCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefRunFileDialogCallback() vcef.ICefRunFileDialogCallback
-	}); ok {
-		return raw.RawCEF147ICefRunFileDialogCallback()
+	if raw, ok := RawAs[vcef.ICefRunFileDialogCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefRunFileDialogCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefRunFileDialogCallback_147) RawCEF147ICefRunFileDialogCallback() vcef.ICefRunFileDialogCallback {
+func (t *tICefRunFileDialogCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -22844,19 +21396,13 @@ func unwrapICefRunFileDialogCallbackOwn(value ICefRunFileDialogCallbackOwn) vcef
 	if wrapped, ok := value.(*tICefRunFileDialogCallbackOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefRunFileDialogCallbackOwn() vcef.ICefRunFileDialogCallbackOwn
-	}); ok {
-		return raw.RawCEF147ICefRunFileDialogCallbackOwn()
+	if raw, ok := RawAs[vcef.ICefRunFileDialogCallbackOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefRunFileDialogCallbackOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefRunFileDialogCallbackOwn_147) RawCEF147ICefRunFileDialogCallbackOwn() vcef.ICefRunFileDialogCallbackOwn {
+func (t *tICefRunFileDialogCallbackOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -22886,19 +21432,13 @@ func unwrapICefRunQuickMenuCallback(value ICefRunQuickMenuCallback) vcef.ICefRun
 	if wrapped, ok := value.(*tICefRunQuickMenuCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefRunQuickMenuCallback() vcef.ICefRunQuickMenuCallback
-	}); ok {
-		return raw.RawCEF147ICefRunQuickMenuCallback()
+	if raw, ok := RawAs[vcef.ICefRunQuickMenuCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefRunQuickMenuCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefRunQuickMenuCallback_147) RawCEF147ICefRunQuickMenuCallback() vcef.ICefRunQuickMenuCallback {
+func (t *tICefRunQuickMenuCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -22936,19 +21476,13 @@ func unwrapICefRunQuickMenuCallbackRef(value ICefRunQuickMenuCallbackRef) vcef.I
 	if wrapped, ok := value.(*tICefRunQuickMenuCallbackRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefRunQuickMenuCallbackRef() vcef.ICefRunQuickMenuCallbackRef
-	}); ok {
-		return raw.RawCEF147ICefRunQuickMenuCallbackRef()
+	if raw, ok := RawAs[vcef.ICefRunQuickMenuCallbackRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefRunQuickMenuCallbackRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefRunQuickMenuCallbackRef_147) RawCEF147ICefRunQuickMenuCallbackRef() vcef.ICefRunQuickMenuCallbackRef {
+func (t *tICefRunQuickMenuCallbackRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -22991,17 +21525,13 @@ func unwrapICefSSLStatus(value ICefSSLStatus) vcef.ICefSSLStatus {
 	if wrapped, ok := value.(*tICefSSLStatus_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefSSLStatus() vcef.ICefSSLStatus }); ok {
-		return raw.RawCEF147ICefSSLStatus()
+	if raw, ok := RawAs[vcef.ICefSSLStatus](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefSSLStatus_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefSSLStatus_147) RawCEF147ICefSSLStatus() vcef.ICefSSLStatus {
+func (t *tICefSSLStatus_147) Raw() Raw {
 	return t.raw
 }
 
@@ -23056,17 +21586,13 @@ func unwrapICefSSLStatusRef(value ICefSSLStatusRef) vcef.ICefSSLStatusRef {
 	if wrapped, ok := value.(*tICefSSLStatusRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefSSLStatusRef() vcef.ICefSSLStatusRef }); ok {
-		return raw.RawCEF147ICefSSLStatusRef()
+	if raw, ok := RawAs[vcef.ICefSSLStatusRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefSSLStatusRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefSSLStatusRef_147) RawCEF147ICefSSLStatusRef() vcef.ICefSSLStatusRef {
+func (t *tICefSSLStatusRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -23126,19 +21652,13 @@ func unwrapICefSchemeHandlerFactory(value ICefSchemeHandlerFactory) vcef.ICefSch
 	if wrapped, ok := value.(*tICefSchemeHandlerFactory_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefSchemeHandlerFactory() vcef.ICefSchemeHandlerFactory
-	}); ok {
-		return raw.RawCEF147ICefSchemeHandlerFactory()
+	if raw, ok := RawAs[vcef.ICefSchemeHandlerFactory](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefSchemeHandlerFactory_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefSchemeHandlerFactory_147) RawCEF147ICefSchemeHandlerFactory() vcef.ICefSchemeHandlerFactory {
+func (t *tICefSchemeHandlerFactory_147) Raw() Raw {
 	return t.raw
 }
 
@@ -23168,19 +21688,13 @@ func unwrapICefSchemeHandlerFactoryOwn(value ICefSchemeHandlerFactoryOwn) vcef.I
 	if wrapped, ok := value.(*tICefSchemeHandlerFactoryOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefSchemeHandlerFactoryOwn() vcef.ICefSchemeHandlerFactoryOwn
-	}); ok {
-		return raw.RawCEF147ICefSchemeHandlerFactoryOwn()
+	if raw, ok := RawAs[vcef.ICefSchemeHandlerFactoryOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefSchemeHandlerFactoryOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefSchemeHandlerFactoryOwn_147) RawCEF147ICefSchemeHandlerFactoryOwn() vcef.ICefSchemeHandlerFactoryOwn {
+func (t *tICefSchemeHandlerFactoryOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -23210,19 +21724,13 @@ func unwrapICefSchemeRegistrarRef(value ICefSchemeRegistrarRef) vcef.ICefSchemeR
 	if wrapped, ok := value.(*tICefSchemeRegistrarRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefSchemeRegistrarRef() vcef.ICefSchemeRegistrarRef
-	}); ok {
-		return raw.RawCEF147ICefSchemeRegistrarRef()
+	if raw, ok := RawAs[vcef.ICefSchemeRegistrarRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefSchemeRegistrarRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefSchemeRegistrarRef_147) RawCEF147ICefSchemeRegistrarRef() vcef.ICefSchemeRegistrarRef {
+func (t *tICefSchemeRegistrarRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -23257,17 +21765,13 @@ func unwrapICefScrollView(value ICefScrollView) vcef.ICefScrollView {
 	if wrapped, ok := value.(*tICefScrollView_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefScrollView() vcef.ICefScrollView }); ok {
-		return raw.RawCEF147ICefScrollView()
+	if raw, ok := RawAs[vcef.ICefScrollView](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefScrollView_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefScrollView_147) RawCEF147ICefScrollView() vcef.ICefScrollView {
+func (t *tICefScrollView_147) Raw() Raw {
 	return t.raw
 }
 
@@ -23331,17 +21835,13 @@ func unwrapICefScrollViewRef(value ICefScrollViewRef) vcef.ICefScrollViewRef {
 	if wrapped, ok := value.(*tICefScrollViewRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefScrollViewRef() vcef.ICefScrollViewRef }); ok {
-		return raw.RawCEF147ICefScrollViewRef()
+	if raw, ok := RawAs[vcef.ICefScrollViewRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefScrollViewRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefScrollViewRef_147) RawCEF147ICefScrollViewRef() vcef.ICefScrollViewRef {
+func (t *tICefScrollViewRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -23415,19 +21915,13 @@ func unwrapICefSelectClientCertificateCallback(value ICefSelectClientCertificate
 	if wrapped, ok := value.(*tICefSelectClientCertificateCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefSelectClientCertificateCallback() vcef.ICefSelectClientCertificateCallback
-	}); ok {
-		return raw.RawCEF147ICefSelectClientCertificateCallback()
+	if raw, ok := RawAs[vcef.ICefSelectClientCertificateCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefSelectClientCertificateCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefSelectClientCertificateCallback_147) RawCEF147ICefSelectClientCertificateCallback() vcef.ICefSelectClientCertificateCallback {
+func (t *tICefSelectClientCertificateCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -23461,19 +21955,13 @@ func unwrapICefSelectClientCertificateCallbackRef(value ICefSelectClientCertific
 	if wrapped, ok := value.(*tICefSelectClientCertificateCallbackRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefSelectClientCertificateCallbackRef() vcef.ICefSelectClientCertificateCallbackRef
-	}); ok {
-		return raw.RawCEF147ICefSelectClientCertificateCallbackRef()
+	if raw, ok := RawAs[vcef.ICefSelectClientCertificateCallbackRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefSelectClientCertificateCallbackRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefSelectClientCertificateCallbackRef_147) RawCEF147ICefSelectClientCertificateCallbackRef() vcef.ICefSelectClientCertificateCallbackRef {
+func (t *tICefSelectClientCertificateCallbackRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -23512,17 +22000,13 @@ func unwrapICefServer(value ICefServer) vcef.ICefServer {
 	if wrapped, ok := value.(*tICefServer_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefServer() vcef.ICefServer }); ok {
-		return raw.RawCEF147ICefServer()
+	if raw, ok := RawAs[vcef.ICefServer](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefServer_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefServer_147) RawCEF147ICefServer() vcef.ICefServer {
+func (t *tICefServer_147) Raw() Raw {
 	return t.raw
 }
 
@@ -23609,17 +22093,13 @@ func unwrapICefServerHandler(value ICefServerHandler) vcef.ICefServerHandler {
 	if wrapped, ok := value.(*tICefServerHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefServerHandler() vcef.ICefServerHandler }); ok {
-		return raw.RawCEF147ICefServerHandler()
+	if raw, ok := RawAs[vcef.ICefServerHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefServerHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefServerHandler_147) RawCEF147ICefServerHandler() vcef.ICefServerHandler {
+func (t *tICefServerHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -23649,19 +22129,13 @@ func unwrapICefSetCookieCallback(value ICefSetCookieCallback) vcef.ICefSetCookie
 	if wrapped, ok := value.(*tICefSetCookieCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefSetCookieCallback() vcef.ICefSetCookieCallback
-	}); ok {
-		return raw.RawCEF147ICefSetCookieCallback()
+	if raw, ok := RawAs[vcef.ICefSetCookieCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefSetCookieCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefSetCookieCallback_147) RawCEF147ICefSetCookieCallback() vcef.ICefSetCookieCallback {
+func (t *tICefSetCookieCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -23691,19 +22165,13 @@ func unwrapICefSetCookieCallbackOwn(value ICefSetCookieCallbackOwn) vcef.ICefSet
 	if wrapped, ok := value.(*tICefSetCookieCallbackOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefSetCookieCallbackOwn() vcef.ICefSetCookieCallbackOwn
-	}); ok {
-		return raw.RawCEF147ICefSetCookieCallbackOwn()
+	if raw, ok := RawAs[vcef.ICefSetCookieCallbackOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefSetCookieCallbackOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefSetCookieCallbackOwn_147) RawCEF147ICefSetCookieCallbackOwn() vcef.ICefSetCookieCallbackOwn {
+func (t *tICefSetCookieCallbackOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -23733,19 +22201,13 @@ func unwrapICefSettingObserver(value ICefSettingObserver) vcef.ICefSettingObserv
 	if wrapped, ok := value.(*tICefSettingObserver_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefSettingObserver() vcef.ICefSettingObserver
-	}); ok {
-		return raw.RawCEF147ICefSettingObserver()
+	if raw, ok := RawAs[vcef.ICefSettingObserver](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefSettingObserver_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefSettingObserver_147) RawCEF147ICefSettingObserver() vcef.ICefSettingObserver {
+func (t *tICefSettingObserver_147) Raw() Raw {
 	return t.raw
 }
 
@@ -23775,19 +22237,13 @@ func unwrapICefSettingObserverOwn(value ICefSettingObserverOwn) vcef.ICefSetting
 	if wrapped, ok := value.(*tICefSettingObserverOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefSettingObserverOwn() vcef.ICefSettingObserverOwn
-	}); ok {
-		return raw.RawCEF147ICefSettingObserverOwn()
+	if raw, ok := RawAs[vcef.ICefSettingObserverOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefSettingObserverOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefSettingObserverOwn_147) RawCEF147ICefSettingObserverOwn() vcef.ICefSettingObserverOwn {
+func (t *tICefSettingObserverOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -23817,19 +22273,13 @@ func unwrapICefSharedMemoryRegion(value ICefSharedMemoryRegion) vcef.ICefSharedM
 	if wrapped, ok := value.(*tICefSharedMemoryRegion_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefSharedMemoryRegion() vcef.ICefSharedMemoryRegion
-	}); ok {
-		return raw.RawCEF147ICefSharedMemoryRegion()
+	if raw, ok := RawAs[vcef.ICefSharedMemoryRegion](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefSharedMemoryRegion_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefSharedMemoryRegion_147) RawCEF147ICefSharedMemoryRegion() vcef.ICefSharedMemoryRegion {
+func (t *tICefSharedMemoryRegion_147) Raw() Raw {
 	return t.raw
 }
 
@@ -23874,19 +22324,13 @@ func unwrapICefSharedMemoryRegionRef(value ICefSharedMemoryRegionRef) vcef.ICefS
 	if wrapped, ok := value.(*tICefSharedMemoryRegionRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefSharedMemoryRegionRef() vcef.ICefSharedMemoryRegionRef
-	}); ok {
-		return raw.RawCEF147ICefSharedMemoryRegionRef()
+	if raw, ok := RawAs[vcef.ICefSharedMemoryRegionRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefSharedMemoryRegionRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefSharedMemoryRegionRef_147) RawCEF147ICefSharedMemoryRegionRef() vcef.ICefSharedMemoryRegionRef {
+func (t *tICefSharedMemoryRegionRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -23936,19 +22380,13 @@ func unwrapICefSharedProcessMessageBuilder(value ICefSharedProcessMessageBuilder
 	if wrapped, ok := value.(*tICefSharedProcessMessageBuilder_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefSharedProcessMessageBuilder() vcef.ICefSharedProcessMessageBuilder
-	}); ok {
-		return raw.RawCEF147ICefSharedProcessMessageBuilder()
+	if raw, ok := RawAs[vcef.ICefSharedProcessMessageBuilder](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefSharedProcessMessageBuilder_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefSharedProcessMessageBuilder_147) RawCEF147ICefSharedProcessMessageBuilder() vcef.ICefSharedProcessMessageBuilder {
+func (t *tICefSharedProcessMessageBuilder_147) Raw() Raw {
 	return t.raw
 }
 
@@ -23998,19 +22436,13 @@ func unwrapICefSharedProcessMessageBuilderRef(value ICefSharedProcessMessageBuil
 	if wrapped, ok := value.(*tICefSharedProcessMessageBuilderRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefSharedProcessMessageBuilderRef() vcef.ICefSharedProcessMessageBuilderRef
-	}); ok {
-		return raw.RawCEF147ICefSharedProcessMessageBuilderRef()
+	if raw, ok := RawAs[vcef.ICefSharedProcessMessageBuilderRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefSharedProcessMessageBuilderRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefSharedProcessMessageBuilderRef_147) RawCEF147ICefSharedProcessMessageBuilderRef() vcef.ICefSharedProcessMessageBuilderRef {
+func (t *tICefSharedProcessMessageBuilderRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -24065,17 +22497,13 @@ func unwrapICefSslInfo(value ICefSslInfo) vcef.ICefSslInfo {
 	if wrapped, ok := value.(*tICefSslInfo_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefSslInfo() vcef.ICefSslInfo }); ok {
-		return raw.RawCEF147ICefSslInfo()
+	if raw, ok := RawAs[vcef.ICefSslInfo](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefSslInfo_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefSslInfo_147) RawCEF147ICefSslInfo() vcef.ICefSslInfo {
+func (t *tICefSslInfo_147) Raw() Raw {
 	return t.raw
 }
 
@@ -24115,17 +22543,13 @@ func unwrapICefSslInfoRef(value ICefSslInfoRef) vcef.ICefSslInfoRef {
 	if wrapped, ok := value.(*tICefSslInfoRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefSslInfoRef() vcef.ICefSslInfoRef }); ok {
-		return raw.RawCEF147ICefSslInfoRef()
+	if raw, ok := RawAs[vcef.ICefSslInfoRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefSslInfoRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefSslInfoRef_147) RawCEF147ICefSslInfoRef() vcef.ICefSslInfoRef {
+func (t *tICefSslInfoRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -24170,17 +22594,13 @@ func unwrapICefStreamReader(value ICefStreamReader) vcef.ICefStreamReader {
 	if wrapped, ok := value.(*tICefStreamReader_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefStreamReader() vcef.ICefStreamReader }); ok {
-		return raw.RawCEF147ICefStreamReader()
+	if raw, ok := RawAs[vcef.ICefStreamReader](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefStreamReader_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefStreamReader_147) RawCEF147ICefStreamReader() vcef.ICefStreamReader {
+func (t *tICefStreamReader_147) Raw() Raw {
 	return t.raw
 }
 
@@ -24235,19 +22655,13 @@ func unwrapICefStreamReaderRef(value ICefStreamReaderRef) vcef.ICefStreamReaderR
 	if wrapped, ok := value.(*tICefStreamReaderRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefStreamReaderRef() vcef.ICefStreamReaderRef
-	}); ok {
-		return raw.RawCEF147ICefStreamReaderRef()
+	if raw, ok := RawAs[vcef.ICefStreamReaderRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefStreamReaderRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefStreamReaderRef_147) RawCEF147ICefStreamReaderRef() vcef.ICefStreamReaderRef {
+func (t *tICefStreamReaderRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -24307,17 +22721,13 @@ func unwrapICefStreamWriter(value ICefStreamWriter) vcef.ICefStreamWriter {
 	if wrapped, ok := value.(*tICefStreamWriter_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefStreamWriter() vcef.ICefStreamWriter }); ok {
-		return raw.RawCEF147ICefStreamWriter()
+	if raw, ok := RawAs[vcef.ICefStreamWriter](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefStreamWriter_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefStreamWriter_147) RawCEF147ICefStreamWriter() vcef.ICefStreamWriter {
+func (t *tICefStreamWriter_147) Raw() Raw {
 	return t.raw
 }
 
@@ -24372,19 +22782,13 @@ func unwrapICefStreamWriterRef(value ICefStreamWriterRef) vcef.ICefStreamWriterR
 	if wrapped, ok := value.(*tICefStreamWriterRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefStreamWriterRef() vcef.ICefStreamWriterRef
-	}); ok {
-		return raw.RawCEF147ICefStreamWriterRef()
+	if raw, ok := RawAs[vcef.ICefStreamWriterRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefStreamWriterRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefStreamWriterRef_147) RawCEF147ICefStreamWriterRef() vcef.ICefStreamWriterRef {
+func (t *tICefStreamWriterRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -24444,17 +22848,13 @@ func unwrapICefStringList(value ICefStringList) vcef.ICefStringList {
 	if wrapped, ok := value.(*tICefStringList_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefStringList() vcef.ICefStringList }); ok {
-		return raw.RawCEF147ICefStringList()
+	if raw, ok := RawAs[vcef.ICefStringList](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefStringList_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefStringList_147) RawCEF147ICefStringList() vcef.ICefStringList {
+func (t *tICefStringList_147) Raw() Raw {
 	return t.raw
 }
 
@@ -24520,17 +22920,13 @@ func unwrapICefStringListOwn(value ICefStringListOwn) vcef.ICefStringListOwn {
 	if wrapped, ok := value.(*tICefStringListOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefStringListOwn() vcef.ICefStringListOwn }); ok {
-		return raw.RawCEF147ICefStringListOwn()
+	if raw, ok := RawAs[vcef.ICefStringListOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefStringListOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefStringListOwn_147) RawCEF147ICefStringListOwn() vcef.ICefStringListOwn {
+func (t *tICefStringListOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -24565,17 +22961,13 @@ func unwrapICefStringListRef(value ICefStringListRef) vcef.ICefStringListRef {
 	if wrapped, ok := value.(*tICefStringListRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefStringListRef() vcef.ICefStringListRef }); ok {
-		return raw.RawCEF147ICefStringListRef()
+	if raw, ok := RawAs[vcef.ICefStringListRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefStringListRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefStringListRef_147) RawCEF147ICefStringListRef() vcef.ICefStringListRef {
+func (t *tICefStringListRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -24610,17 +23002,13 @@ func unwrapICefStringMap(value ICefStringMap) vcef.ICefStringMap {
 	if wrapped, ok := value.(*tICefStringMap_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefStringMap() vcef.ICefStringMap }); ok {
-		return raw.RawCEF147ICefStringMap()
+	if raw, ok := RawAs[vcef.ICefStringMap](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefStringMap_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefStringMap_147) RawCEF147ICefStringMap() vcef.ICefStringMap {
+func (t *tICefStringMap_147) Raw() Raw {
 	return t.raw
 }
 
@@ -24684,17 +23072,13 @@ func unwrapICefStringMapOwn(value ICefStringMapOwn) vcef.ICefStringMapOwn {
 	if wrapped, ok := value.(*tICefStringMapOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefStringMapOwn() vcef.ICefStringMapOwn }); ok {
-		return raw.RawCEF147ICefStringMapOwn()
+	if raw, ok := RawAs[vcef.ICefStringMapOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefStringMapOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefStringMapOwn_147) RawCEF147ICefStringMapOwn() vcef.ICefStringMapOwn {
+func (t *tICefStringMapOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -24729,17 +23113,13 @@ func unwrapICefStringMapRef(value ICefStringMapRef) vcef.ICefStringMapRef {
 	if wrapped, ok := value.(*tICefStringMapRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefStringMapRef() vcef.ICefStringMapRef }); ok {
-		return raw.RawCEF147ICefStringMapRef()
+	if raw, ok := RawAs[vcef.ICefStringMapRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefStringMapRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefStringMapRef_147) RawCEF147ICefStringMapRef() vcef.ICefStringMapRef {
+func (t *tICefStringMapRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -24774,19 +23154,13 @@ func unwrapICefStringMultimap(value ICefStringMultimap) vcef.ICefStringMultimap 
 	if wrapped, ok := value.(*tICefStringMultimap_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefStringMultimap() vcef.ICefStringMultimap
-	}); ok {
-		return raw.RawCEF147ICefStringMultimap()
+	if raw, ok := RawAs[vcef.ICefStringMultimap](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefStringMultimap_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefStringMultimap_147) RawCEF147ICefStringMultimap() vcef.ICefStringMultimap {
+func (t *tICefStringMultimap_147) Raw() Raw {
 	return t.raw
 }
 
@@ -24855,19 +23229,13 @@ func unwrapICefStringMultimapOwn(value ICefStringMultimapOwn) vcef.ICefStringMul
 	if wrapped, ok := value.(*tICefStringMultimapOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefStringMultimapOwn() vcef.ICefStringMultimapOwn
-	}); ok {
-		return raw.RawCEF147ICefStringMultimapOwn()
+	if raw, ok := RawAs[vcef.ICefStringMultimapOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefStringMultimapOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefStringMultimapOwn_147) RawCEF147ICefStringMultimapOwn() vcef.ICefStringMultimapOwn {
+func (t *tICefStringMultimapOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -24902,17 +23270,13 @@ func unwrapICefStringVisitor(value ICefStringVisitor) vcef.ICefStringVisitor {
 	if wrapped, ok := value.(*tICefStringVisitor_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefStringVisitor() vcef.ICefStringVisitor }); ok {
-		return raw.RawCEF147ICefStringVisitor()
+	if raw, ok := RawAs[vcef.ICefStringVisitor](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefStringVisitor_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefStringVisitor_147) RawCEF147ICefStringVisitor() vcef.ICefStringVisitor {
+func (t *tICefStringVisitor_147) Raw() Raw {
 	return t.raw
 }
 
@@ -24942,19 +23306,13 @@ func unwrapICefStringVisitorOwn(value ICefStringVisitorOwn) vcef.ICefStringVisit
 	if wrapped, ok := value.(*tICefStringVisitorOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefStringVisitorOwn() vcef.ICefStringVisitorOwn
-	}); ok {
-		return raw.RawCEF147ICefStringVisitorOwn()
+	if raw, ok := RawAs[vcef.ICefStringVisitorOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefStringVisitorOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefStringVisitorOwn_147) RawCEF147ICefStringVisitorOwn() vcef.ICefStringVisitorOwn {
+func (t *tICefStringVisitorOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -24984,17 +23342,13 @@ func unwrapICefTask(value ICefTask) vcef.ICefTask {
 	if wrapped, ok := value.(*tICefTask_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefTask() vcef.ICefTask }); ok {
-		return raw.RawCEF147ICefTask()
+	if raw, ok := RawAs[vcef.ICefTask](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefTask_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefTask_147) RawCEF147ICefTask() vcef.ICefTask {
+func (t *tICefTask_147) Raw() Raw {
 	return t.raw
 }
 
@@ -25024,17 +23378,13 @@ func unwrapICefTaskManager(value ICefTaskManager) vcef.ICefTaskManager {
 	if wrapped, ok := value.(*tICefTaskManager_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefTaskManager() vcef.ICefTaskManager }); ok {
-		return raw.RawCEF147ICefTaskManager()
+	if raw, ok := RawAs[vcef.ICefTaskManager](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefTaskManager_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefTaskManager_147) RawCEF147ICefTaskManager() vcef.ICefTaskManager {
+func (t *tICefTaskManager_147) Raw() Raw {
 	return t.raw
 }
 
@@ -25089,19 +23439,13 @@ func unwrapICefTaskManagerRef(value ICefTaskManagerRef) vcef.ICefTaskManagerRef 
 	if wrapped, ok := value.(*tICefTaskManagerRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefTaskManagerRef() vcef.ICefTaskManagerRef
-	}); ok {
-		return raw.RawCEF147ICefTaskManagerRef()
+	if raw, ok := RawAs[vcef.ICefTaskManagerRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefTaskManagerRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefTaskManagerRef_147) RawCEF147ICefTaskManagerRef() vcef.ICefTaskManagerRef {
+func (t *tICefTaskManagerRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -25161,17 +23505,13 @@ func unwrapICefTaskOwn(value ICefTaskOwn) vcef.ICefTaskOwn {
 	if wrapped, ok := value.(*tICefTaskOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefTaskOwn() vcef.ICefTaskOwn }); ok {
-		return raw.RawCEF147ICefTaskOwn()
+	if raw, ok := RawAs[vcef.ICefTaskOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefTaskOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefTaskOwn_147) RawCEF147ICefTaskOwn() vcef.ICefTaskOwn {
+func (t *tICefTaskOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -25201,17 +23541,13 @@ func unwrapICefTaskRef(value ICefTaskRef) vcef.ICefTaskRef {
 	if wrapped, ok := value.(*tICefTaskRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefTaskRef() vcef.ICefTaskRef }); ok {
-		return raw.RawCEF147ICefTaskRef()
+	if raw, ok := RawAs[vcef.ICefTaskRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefTaskRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefTaskRef_147) RawCEF147ICefTaskRef() vcef.ICefTaskRef {
+func (t *tICefTaskRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -25246,17 +23582,13 @@ func unwrapICefTaskRunner(value ICefTaskRunner) vcef.ICefTaskRunner {
 	if wrapped, ok := value.(*tICefTaskRunner_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefTaskRunner() vcef.ICefTaskRunner }); ok {
-		return raw.RawCEF147ICefTaskRunner()
+	if raw, ok := RawAs[vcef.ICefTaskRunner](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefTaskRunner_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefTaskRunner_147) RawCEF147ICefTaskRunner() vcef.ICefTaskRunner {
+func (t *tICefTaskRunner_147) Raw() Raw {
 	return t.raw
 }
 
@@ -25311,17 +23643,13 @@ func unwrapICefTaskRunnerRef(value ICefTaskRunnerRef) vcef.ICefTaskRunnerRef {
 	if wrapped, ok := value.(*tICefTaskRunnerRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefTaskRunnerRef() vcef.ICefTaskRunnerRef }); ok {
-		return raw.RawCEF147ICefTaskRunnerRef()
+	if raw, ok := RawAs[vcef.ICefTaskRunnerRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefTaskRunnerRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefTaskRunnerRef_147) RawCEF147ICefTaskRunnerRef() vcef.ICefTaskRunnerRef {
+func (t *tICefTaskRunnerRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -25381,17 +23709,13 @@ func unwrapICefTextfield(value ICefTextfield) vcef.ICefTextfield {
 	if wrapped, ok := value.(*tICefTextfield_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefTextfield() vcef.ICefTextfield }); ok {
-		return raw.RawCEF147ICefTextfield()
+	if raw, ok := RawAs[vcef.ICefTextfield](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefTextfield_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefTextfield_147) RawCEF147ICefTextfield() vcef.ICefTextfield {
+func (t *tICefTextfield_147) Raw() Raw {
 	return t.raw
 }
 
@@ -25557,19 +23881,13 @@ func unwrapICefTextfieldDelegate(value ICefTextfieldDelegate) vcef.ICefTextfield
 	if wrapped, ok := value.(*tICefTextfieldDelegate_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefTextfieldDelegate() vcef.ICefTextfieldDelegate
-	}); ok {
-		return raw.RawCEF147ICefTextfieldDelegate()
+	if raw, ok := RawAs[vcef.ICefTextfieldDelegate](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefTextfieldDelegate_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefTextfieldDelegate_147) RawCEF147ICefTextfieldDelegate() vcef.ICefTextfieldDelegate {
+func (t *tICefTextfieldDelegate_147) Raw() Raw {
 	return t.raw
 }
 
@@ -25599,19 +23917,13 @@ func unwrapICefTextfieldDelegateEvents(value ICefTextfieldDelegateEvents) vcef.I
 	if wrapped, ok := value.(*tICefTextfieldDelegateEvents_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefTextfieldDelegateEvents() vcef.ICefTextfieldDelegateEvents
-	}); ok {
-		return raw.RawCEF147ICefTextfieldDelegateEvents()
+	if raw, ok := RawAs[vcef.ICefTextfieldDelegateEvents](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefTextfieldDelegateEvents_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefTextfieldDelegateEvents_147) RawCEF147ICefTextfieldDelegateEvents() vcef.ICefTextfieldDelegateEvents {
+func (t *tICefTextfieldDelegateEvents_147) Raw() Raw {
 	return t.raw
 }
 
@@ -25641,19 +23953,13 @@ func unwrapICefTextfieldDelegateOwn(value ICefTextfieldDelegateOwn) vcef.ICefTex
 	if wrapped, ok := value.(*tICefTextfieldDelegateOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefTextfieldDelegateOwn() vcef.ICefTextfieldDelegateOwn
-	}); ok {
-		return raw.RawCEF147ICefTextfieldDelegateOwn()
+	if raw, ok := RawAs[vcef.ICefTextfieldDelegateOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefTextfieldDelegateOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefTextfieldDelegateOwn_147) RawCEF147ICefTextfieldDelegateOwn() vcef.ICefTextfieldDelegateOwn {
+func (t *tICefTextfieldDelegateOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -25683,19 +23989,13 @@ func unwrapICefTextfieldDelegateRef(value ICefTextfieldDelegateRef) vcef.ICefTex
 	if wrapped, ok := value.(*tICefTextfieldDelegateRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefTextfieldDelegateRef() vcef.ICefTextfieldDelegateRef
-	}); ok {
-		return raw.RawCEF147ICefTextfieldDelegateRef()
+	if raw, ok := RawAs[vcef.ICefTextfieldDelegateRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefTextfieldDelegateRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefTextfieldDelegateRef_147) RawCEF147ICefTextfieldDelegateRef() vcef.ICefTextfieldDelegateRef {
+func (t *tICefTextfieldDelegateRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -25735,17 +24035,13 @@ func unwrapICefTextfieldRef(value ICefTextfieldRef) vcef.ICefTextfieldRef {
 	if wrapped, ok := value.(*tICefTextfieldRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefTextfieldRef() vcef.ICefTextfieldRef }); ok {
-		return raw.RawCEF147ICefTextfieldRef()
+	if raw, ok := RawAs[vcef.ICefTextfieldRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefTextfieldRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefTextfieldRef_147) RawCEF147ICefTextfieldRef() vcef.ICefTextfieldRef {
+func (t *tICefTextfieldRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -25921,17 +24217,13 @@ func unwrapICefThread(value ICefThread) vcef.ICefThread {
 	if wrapped, ok := value.(*tICefThread_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefThread() vcef.ICefThread }); ok {
-		return raw.RawCEF147ICefThread()
+	if raw, ok := RawAs[vcef.ICefThread](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefThread_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefThread_147) RawCEF147ICefThread() vcef.ICefThread {
+func (t *tICefThread_147) Raw() Raw {
 	return t.raw
 }
 
@@ -25980,17 +24272,13 @@ func unwrapICefThreadRef(value ICefThreadRef) vcef.ICefThreadRef {
 	if wrapped, ok := value.(*tICefThreadRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefThreadRef() vcef.ICefThreadRef }); ok {
-		return raw.RawCEF147ICefThreadRef()
+	if raw, ok := RawAs[vcef.ICefThreadRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefThreadRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefThreadRef_147) RawCEF147ICefThreadRef() vcef.ICefThreadRef {
+func (t *tICefThreadRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -26044,19 +24332,13 @@ func unwrapICefURLRequestClientTask(value ICefURLRequestClientTask) vcef.ICefURL
 	if wrapped, ok := value.(*tICefURLRequestClientTask_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefURLRequestClientTask() vcef.ICefURLRequestClientTask
-	}); ok {
-		return raw.RawCEF147ICefURLRequestClientTask()
+	if raw, ok := RawAs[vcef.ICefURLRequestClientTask](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefURLRequestClientTask_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefURLRequestClientTask_147) RawCEF147ICefURLRequestClientTask() vcef.ICefURLRequestClientTask {
+func (t *tICefURLRequestClientTask_147) Raw() Raw {
 	return t.raw
 }
 
@@ -26091,19 +24373,13 @@ func unwrapICefUnresponsiveProcessCallback(value ICefUnresponsiveProcessCallback
 	if wrapped, ok := value.(*tICefUnresponsiveProcessCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefUnresponsiveProcessCallback() vcef.ICefUnresponsiveProcessCallback
-	}); ok {
-		return raw.RawCEF147ICefUnresponsiveProcessCallback()
+	if raw, ok := RawAs[vcef.ICefUnresponsiveProcessCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefUnresponsiveProcessCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefUnresponsiveProcessCallback_147) RawCEF147ICefUnresponsiveProcessCallback() vcef.ICefUnresponsiveProcessCallback {
+func (t *tICefUnresponsiveProcessCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -26141,19 +24417,13 @@ func unwrapICefUnresponsiveProcessCallbackRef(value ICefUnresponsiveProcessCallb
 	if wrapped, ok := value.(*tICefUnresponsiveProcessCallbackRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefUnresponsiveProcessCallbackRef() vcef.ICefUnresponsiveProcessCallbackRef
-	}); ok {
-		return raw.RawCEF147ICefUnresponsiveProcessCallbackRef()
+	if raw, ok := RawAs[vcef.ICefUnresponsiveProcessCallbackRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefUnresponsiveProcessCallbackRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefUnresponsiveProcessCallbackRef_147) RawCEF147ICefUnresponsiveProcessCallbackRef() vcef.ICefUnresponsiveProcessCallbackRef {
+func (t *tICefUnresponsiveProcessCallbackRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -26196,17 +24466,13 @@ func unwrapICefUrlRequest(value ICefUrlRequest) vcef.ICefUrlRequest {
 	if wrapped, ok := value.(*tICefUrlRequest_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefUrlRequest() vcef.ICefUrlRequest }); ok {
-		return raw.RawCEF147ICefUrlRequest()
+	if raw, ok := RawAs[vcef.ICefUrlRequest](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefUrlRequest_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefUrlRequest_147) RawCEF147ICefUrlRequest() vcef.ICefUrlRequest {
+func (t *tICefUrlRequest_147) Raw() Raw {
 	return t.raw
 }
 
@@ -26270,17 +24536,13 @@ func unwrapICefUrlRequestRef(value ICefUrlRequestRef) vcef.ICefUrlRequestRef {
 	if wrapped, ok := value.(*tICefUrlRequestRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefUrlRequestRef() vcef.ICefUrlRequestRef }); ok {
-		return raw.RawCEF147ICefUrlRequestRef()
+	if raw, ok := RawAs[vcef.ICefUrlRequestRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefUrlRequestRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefUrlRequestRef_147) RawCEF147ICefUrlRequestRef() vcef.ICefUrlRequestRef {
+func (t *tICefUrlRequestRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -26349,19 +24611,13 @@ func unwrapICefUrlrequestClient(value ICefUrlrequestClient) vcef.ICefUrlrequestC
 	if wrapped, ok := value.(*tICefUrlrequestClient_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefUrlrequestClient() vcef.ICefUrlrequestClient
-	}); ok {
-		return raw.RawCEF147ICefUrlrequestClient()
+	if raw, ok := RawAs[vcef.ICefUrlrequestClient](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefUrlrequestClient_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefUrlrequestClient_147) RawCEF147ICefUrlrequestClient() vcef.ICefUrlrequestClient {
+func (t *tICefUrlrequestClient_147) Raw() Raw {
 	return t.raw
 }
 
@@ -26391,19 +24647,13 @@ func unwrapICefUrlrequestClientOwn(value ICefUrlrequestClientOwn) vcef.ICefUrlre
 	if wrapped, ok := value.(*tICefUrlrequestClientOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefUrlrequestClientOwn() vcef.ICefUrlrequestClientOwn
-	}); ok {
-		return raw.RawCEF147ICefUrlrequestClientOwn()
+	if raw, ok := RawAs[vcef.ICefUrlrequestClientOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefUrlrequestClientOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefUrlrequestClientOwn_147) RawCEF147ICefUrlrequestClientOwn() vcef.ICefUrlrequestClientOwn {
+func (t *tICefUrlrequestClientOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -26433,19 +24683,13 @@ func unwrapICefUrlrequestClientRef(value ICefUrlrequestClientRef) vcef.ICefUrlre
 	if wrapped, ok := value.(*tICefUrlrequestClientRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefUrlrequestClientRef() vcef.ICefUrlrequestClientRef
-	}); ok {
-		return raw.RawCEF147ICefUrlrequestClientRef()
+	if raw, ok := RawAs[vcef.ICefUrlrequestClientRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefUrlrequestClientRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefUrlrequestClientRef_147) RawCEF147ICefUrlrequestClientRef() vcef.ICefUrlrequestClientRef {
+func (t *tICefUrlrequestClientRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -26480,17 +24724,13 @@ func unwrapICefV8Accessor(value ICefV8Accessor) vcef.ICefV8Accessor {
 	if wrapped, ok := value.(*tICefV8Accessor_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefV8Accessor() vcef.ICefV8Accessor }); ok {
-		return raw.RawCEF147ICefV8Accessor()
+	if raw, ok := RawAs[vcef.ICefV8Accessor](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefV8Accessor_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefV8Accessor_147) RawCEF147ICefV8Accessor() vcef.ICefV8Accessor {
+func (t *tICefV8Accessor_147) Raw() Raw {
 	return t.raw
 }
 
@@ -26520,17 +24760,13 @@ func unwrapICefV8AccessorOwn(value ICefV8AccessorOwn) vcef.ICefV8AccessorOwn {
 	if wrapped, ok := value.(*tICefV8AccessorOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefV8AccessorOwn() vcef.ICefV8AccessorOwn }); ok {
-		return raw.RawCEF147ICefV8AccessorOwn()
+	if raw, ok := RawAs[vcef.ICefV8AccessorOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefV8AccessorOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefV8AccessorOwn_147) RawCEF147ICefV8AccessorOwn() vcef.ICefV8AccessorOwn {
+func (t *tICefV8AccessorOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -26560,17 +24796,13 @@ func unwrapICefV8Exception(value ICefV8Exception) vcef.ICefV8Exception {
 	if wrapped, ok := value.(*tICefV8Exception_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefV8Exception() vcef.ICefV8Exception }); ok {
-		return raw.RawCEF147ICefV8Exception()
+	if raw, ok := RawAs[vcef.ICefV8Exception](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefV8Exception_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefV8Exception_147) RawCEF147ICefV8Exception() vcef.ICefV8Exception {
+func (t *tICefV8Exception_147) Raw() Raw {
 	return t.raw
 }
 
@@ -26640,19 +24872,13 @@ func unwrapICefV8ExceptionRef(value ICefV8ExceptionRef) vcef.ICefV8ExceptionRef 
 	if wrapped, ok := value.(*tICefV8ExceptionRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefV8ExceptionRef() vcef.ICefV8ExceptionRef
-	}); ok {
-		return raw.RawCEF147ICefV8ExceptionRef()
+	if raw, ok := RawAs[vcef.ICefV8ExceptionRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefV8ExceptionRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefV8ExceptionRef_147) RawCEF147ICefV8ExceptionRef() vcef.ICefV8ExceptionRef {
+func (t *tICefV8ExceptionRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -26727,17 +24953,13 @@ func unwrapICefV8Interceptor(value ICefV8Interceptor) vcef.ICefV8Interceptor {
 	if wrapped, ok := value.(*tICefV8Interceptor_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefV8Interceptor() vcef.ICefV8Interceptor }); ok {
-		return raw.RawCEF147ICefV8Interceptor()
+	if raw, ok := RawAs[vcef.ICefV8Interceptor](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefV8Interceptor_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefV8Interceptor_147) RawCEF147ICefV8Interceptor() vcef.ICefV8Interceptor {
+func (t *tICefV8Interceptor_147) Raw() Raw {
 	return t.raw
 }
 
@@ -26767,19 +24989,13 @@ func unwrapICefV8InterceptorOwn(value ICefV8InterceptorOwn) vcef.ICefV8Intercept
 	if wrapped, ok := value.(*tICefV8InterceptorOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefV8InterceptorOwn() vcef.ICefV8InterceptorOwn
-	}); ok {
-		return raw.RawCEF147ICefV8InterceptorOwn()
+	if raw, ok := RawAs[vcef.ICefV8InterceptorOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefV8InterceptorOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefV8InterceptorOwn_147) RawCEF147ICefV8InterceptorOwn() vcef.ICefV8InterceptorOwn {
+func (t *tICefV8InterceptorOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -26809,17 +25025,13 @@ func unwrapICefV8StackFrame(value ICefV8StackFrame) vcef.ICefV8StackFrame {
 	if wrapped, ok := value.(*tICefV8StackFrame_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefV8StackFrame() vcef.ICefV8StackFrame }); ok {
-		return raw.RawCEF147ICefV8StackFrame()
+	if raw, ok := RawAs[vcef.ICefV8StackFrame](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefV8StackFrame_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefV8StackFrame_147) RawCEF147ICefV8StackFrame() vcef.ICefV8StackFrame {
+func (t *tICefV8StackFrame_147) Raw() Raw {
 	return t.raw
 }
 
@@ -26889,19 +25101,13 @@ func unwrapICefV8StackFrameRef(value ICefV8StackFrameRef) vcef.ICefV8StackFrameR
 	if wrapped, ok := value.(*tICefV8StackFrameRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefV8StackFrameRef() vcef.ICefV8StackFrameRef
-	}); ok {
-		return raw.RawCEF147ICefV8StackFrameRef()
+	if raw, ok := RawAs[vcef.ICefV8StackFrameRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefV8StackFrameRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefV8StackFrameRef_147) RawCEF147ICefV8StackFrameRef() vcef.ICefV8StackFrameRef {
+func (t *tICefV8StackFrameRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -26976,17 +25182,13 @@ func unwrapICefV8StackTrace(value ICefV8StackTrace) vcef.ICefV8StackTrace {
 	if wrapped, ok := value.(*tICefV8StackTrace_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefV8StackTrace() vcef.ICefV8StackTrace }); ok {
-		return raw.RawCEF147ICefV8StackTrace()
+	if raw, ok := RawAs[vcef.ICefV8StackTrace](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefV8StackTrace_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefV8StackTrace_147) RawCEF147ICefV8StackTrace() vcef.ICefV8StackTrace {
+func (t *tICefV8StackTrace_147) Raw() Raw {
 	return t.raw
 }
 
@@ -27031,19 +25233,13 @@ func unwrapICefV8StackTraceRef(value ICefV8StackTraceRef) vcef.ICefV8StackTraceR
 	if wrapped, ok := value.(*tICefV8StackTraceRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefV8StackTraceRef() vcef.ICefV8StackTraceRef
-	}); ok {
-		return raw.RawCEF147ICefV8StackTraceRef()
+	if raw, ok := RawAs[vcef.ICefV8StackTraceRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefV8StackTraceRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefV8StackTraceRef_147) RawCEF147ICefV8StackTraceRef() vcef.ICefV8StackTraceRef {
+func (t *tICefV8StackTraceRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -27093,17 +25289,13 @@ func unwrapICefValue(value ICefValue) vcef.ICefValue {
 	if wrapped, ok := value.(*tICefValue_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefValue() vcef.ICefValue }); ok {
-		return raw.RawCEF147ICefValue()
+	if raw, ok := RawAs[vcef.ICefValue](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefValue_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefValue_147) RawCEF147ICefValue() vcef.ICefValue {
+func (t *tICefValue_147) Raw() Raw {
 	return t.raw
 }
 
@@ -27243,17 +25435,13 @@ func unwrapICefValueRef(value ICefValueRef) vcef.ICefValueRef {
 	if wrapped, ok := value.(*tICefValueRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefValueRef() vcef.ICefValueRef }); ok {
-		return raw.RawCEF147ICefValueRef()
+	if raw, ok := RawAs[vcef.ICefValueRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefValueRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefValueRef_147) RawCEF147ICefValueRef() vcef.ICefValueRef {
+func (t *tICefValueRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -27398,17 +25586,13 @@ func unwrapICefView(value ICefView) vcef.ICefView {
 	if wrapped, ok := value.(*tICefView_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefView() vcef.ICefView }); ok {
-		return raw.RawCEF147ICefView()
+	if raw, ok := RawAs[vcef.ICefView](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefView_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefView_147) RawCEF147ICefView() vcef.ICefView {
+func (t *tICefView_147) Raw() Raw {
 	return t.raw
 }
 
@@ -27685,17 +25869,13 @@ func unwrapICefViewDelegate(value ICefViewDelegate) vcef.ICefViewDelegate {
 	if wrapped, ok := value.(*tICefViewDelegate_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefViewDelegate() vcef.ICefViewDelegate }); ok {
-		return raw.RawCEF147ICefViewDelegate()
+	if raw, ok := RawAs[vcef.ICefViewDelegate](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefViewDelegate_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefViewDelegate_147) RawCEF147ICefViewDelegate() vcef.ICefViewDelegate {
+func (t *tICefViewDelegate_147) Raw() Raw {
 	return t.raw
 }
 
@@ -27725,19 +25905,13 @@ func unwrapICefViewDelegateEvents(value ICefViewDelegateEvents) vcef.ICefViewDel
 	if wrapped, ok := value.(*tICefViewDelegateEvents_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefViewDelegateEvents() vcef.ICefViewDelegateEvents
-	}); ok {
-		return raw.RawCEF147ICefViewDelegateEvents()
+	if raw, ok := RawAs[vcef.ICefViewDelegateEvents](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefViewDelegateEvents_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefViewDelegateEvents_147) RawCEF147ICefViewDelegateEvents() vcef.ICefViewDelegateEvents {
+func (t *tICefViewDelegateEvents_147) Raw() Raw {
 	return t.raw
 }
 
@@ -27767,19 +25941,13 @@ func unwrapICefViewDelegateOwn(value ICefViewDelegateOwn) vcef.ICefViewDelegateO
 	if wrapped, ok := value.(*tICefViewDelegateOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefViewDelegateOwn() vcef.ICefViewDelegateOwn
-	}); ok {
-		return raw.RawCEF147ICefViewDelegateOwn()
+	if raw, ok := RawAs[vcef.ICefViewDelegateOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefViewDelegateOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefViewDelegateOwn_147) RawCEF147ICefViewDelegateOwn() vcef.ICefViewDelegateOwn {
+func (t *tICefViewDelegateOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -27809,19 +25977,13 @@ func unwrapICefViewDelegateRef(value ICefViewDelegateRef) vcef.ICefViewDelegateR
 	if wrapped, ok := value.(*tICefViewDelegateRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefViewDelegateRef() vcef.ICefViewDelegateRef
-	}); ok {
-		return raw.RawCEF147ICefViewDelegateRef()
+	if raw, ok := RawAs[vcef.ICefViewDelegateRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefViewDelegateRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefViewDelegateRef_147) RawCEF147ICefViewDelegateRef() vcef.ICefViewDelegateRef {
+func (t *tICefViewDelegateRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -27856,19 +26018,13 @@ func unwrapICefViewDelegateTask(value ICefViewDelegateTask) vcef.ICefViewDelegat
 	if wrapped, ok := value.(*tICefViewDelegateTask_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefViewDelegateTask() vcef.ICefViewDelegateTask
-	}); ok {
-		return raw.RawCEF147ICefViewDelegateTask()
+	if raw, ok := RawAs[vcef.ICefViewDelegateTask](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefViewDelegateTask_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefViewDelegateTask_147) RawCEF147ICefViewDelegateTask() vcef.ICefViewDelegateTask {
+func (t *tICefViewDelegateTask_147) Raw() Raw {
 	return t.raw
 }
 
@@ -27903,17 +26059,13 @@ func unwrapICefViewRef(value ICefViewRef) vcef.ICefViewRef {
 	if wrapped, ok := value.(*tICefViewRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefViewRef() vcef.ICefViewRef }); ok {
-		return raw.RawCEF147ICefViewRef()
+	if raw, ok := RawAs[vcef.ICefViewRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefViewRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefViewRef_147) RawCEF147ICefViewRef() vcef.ICefViewRef {
+func (t *tICefViewRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -28195,17 +26347,13 @@ func unwrapICefWaitableEvent(value ICefWaitableEvent) vcef.ICefWaitableEvent {
 	if wrapped, ok := value.(*tICefWaitableEvent_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefWaitableEvent() vcef.ICefWaitableEvent }); ok {
-		return raw.RawCEF147ICefWaitableEvent()
+	if raw, ok := RawAs[vcef.ICefWaitableEvent](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefWaitableEvent_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefWaitableEvent_147) RawCEF147ICefWaitableEvent() vcef.ICefWaitableEvent {
+func (t *tICefWaitableEvent_147) Raw() Raw {
 	return t.raw
 }
 
@@ -28257,19 +26405,13 @@ func unwrapICefWaitableEventRef(value ICefWaitableEventRef) vcef.ICefWaitableEve
 	if wrapped, ok := value.(*tICefWaitableEventRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefWaitableEventRef() vcef.ICefWaitableEventRef
-	}); ok {
-		return raw.RawCEF147ICefWaitableEventRef()
+	if raw, ok := RawAs[vcef.ICefWaitableEventRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefWaitableEventRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefWaitableEventRef_147) RawCEF147ICefWaitableEventRef() vcef.ICefWaitableEventRef {
+func (t *tICefWaitableEventRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -28326,17 +26468,13 @@ func unwrapICefWindow(value ICefWindow) vcef.ICefWindow {
 	if wrapped, ok := value.(*tICefWindow_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefWindow() vcef.ICefWindow }); ok {
-		return raw.RawCEF147ICefWindow()
+	if raw, ok := RawAs[vcef.ICefWindow](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefWindow_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefWindow_147) RawCEF147ICefWindow() vcef.ICefWindow {
+func (t *tICefWindow_147) Raw() Raw {
 	return t.raw
 }
 
@@ -28549,19 +26687,13 @@ func unwrapICefWindowDelegate(value ICefWindowDelegate) vcef.ICefWindowDelegate 
 	if wrapped, ok := value.(*tICefWindowDelegate_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefWindowDelegate() vcef.ICefWindowDelegate
-	}); ok {
-		return raw.RawCEF147ICefWindowDelegate()
+	if raw, ok := RawAs[vcef.ICefWindowDelegate](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefWindowDelegate_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefWindowDelegate_147) RawCEF147ICefWindowDelegate() vcef.ICefWindowDelegate {
+func (t *tICefWindowDelegate_147) Raw() Raw {
 	return t.raw
 }
 
@@ -28591,19 +26723,13 @@ func unwrapICefWindowDelegateEvents(value ICefWindowDelegateEvents) vcef.ICefWin
 	if wrapped, ok := value.(*tICefWindowDelegateEvents_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefWindowDelegateEvents() vcef.ICefWindowDelegateEvents
-	}); ok {
-		return raw.RawCEF147ICefWindowDelegateEvents()
+	if raw, ok := RawAs[vcef.ICefWindowDelegateEvents](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefWindowDelegateEvents_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefWindowDelegateEvents_147) RawCEF147ICefWindowDelegateEvents() vcef.ICefWindowDelegateEvents {
+func (t *tICefWindowDelegateEvents_147) Raw() Raw {
 	return t.raw
 }
 
@@ -28633,19 +26759,13 @@ func unwrapICefWindowDelegateOwn(value ICefWindowDelegateOwn) vcef.ICefWindowDel
 	if wrapped, ok := value.(*tICefWindowDelegateOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefWindowDelegateOwn() vcef.ICefWindowDelegateOwn
-	}); ok {
-		return raw.RawCEF147ICefWindowDelegateOwn()
+	if raw, ok := RawAs[vcef.ICefWindowDelegateOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefWindowDelegateOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefWindowDelegateOwn_147) RawCEF147ICefWindowDelegateOwn() vcef.ICefWindowDelegateOwn {
+func (t *tICefWindowDelegateOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -28675,19 +26795,13 @@ func unwrapICefWindowDelegateRef(value ICefWindowDelegateRef) vcef.ICefWindowDel
 	if wrapped, ok := value.(*tICefWindowDelegateRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefWindowDelegateRef() vcef.ICefWindowDelegateRef
-	}); ok {
-		return raw.RawCEF147ICefWindowDelegateRef()
+	if raw, ok := RawAs[vcef.ICefWindowDelegateRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefWindowDelegateRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefWindowDelegateRef_147) RawCEF147ICefWindowDelegateRef() vcef.ICefWindowDelegateRef {
+func (t *tICefWindowDelegateRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -28732,17 +26846,13 @@ func unwrapICefWindowRef(value ICefWindowRef) vcef.ICefWindowRef {
 	if wrapped, ok := value.(*tICefWindowRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefWindowRef() vcef.ICefWindowRef }); ok {
-		return raw.RawCEF147ICefWindowRef()
+	if raw, ok := RawAs[vcef.ICefWindowRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefWindowRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefWindowRef_147) RawCEF147ICefWindowRef() vcef.ICefWindowRef {
+func (t *tICefWindowRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -28970,17 +27080,13 @@ func unwrapICefWriteHandler(value ICefWriteHandler) vcef.ICefWriteHandler {
 	if wrapped, ok := value.(*tICefWriteHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefWriteHandler() vcef.ICefWriteHandler }); ok {
-		return raw.RawCEF147ICefWriteHandler()
+	if raw, ok := RawAs[vcef.ICefWriteHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefWriteHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefWriteHandler_147) RawCEF147ICefWriteHandler() vcef.ICefWriteHandler {
+func (t *tICefWriteHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -29010,19 +27116,13 @@ func unwrapICefWriteHandlerOwn(value ICefWriteHandlerOwn) vcef.ICefWriteHandlerO
 	if wrapped, ok := value.(*tICefWriteHandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefWriteHandlerOwn() vcef.ICefWriteHandlerOwn
-	}); ok {
-		return raw.RawCEF147ICefWriteHandlerOwn()
+	if raw, ok := RawAs[vcef.ICefWriteHandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefWriteHandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefWriteHandlerOwn_147) RawCEF147ICefWriteHandlerOwn() vcef.ICefWriteHandlerOwn {
+func (t *tICefWriteHandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -29052,19 +27152,13 @@ func unwrapICefX509CertPrincipal(value ICefX509CertPrincipal) vcef.ICefX509CertP
 	if wrapped, ok := value.(*tICefX509CertPrincipal_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefX509CertPrincipal() vcef.ICefX509CertPrincipal
-	}); ok {
-		return raw.RawCEF147ICefX509CertPrincipal()
+	if raw, ok := RawAs[vcef.ICefX509CertPrincipal](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefX509CertPrincipal_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefX509CertPrincipal_147) RawCEF147ICefX509CertPrincipal() vcef.ICefX509CertPrincipal {
+func (t *tICefX509CertPrincipal_147) Raw() Raw {
 	return t.raw
 }
 
@@ -29127,19 +27221,13 @@ func unwrapICefX509CertPrincipalRef(value ICefX509CertPrincipalRef) vcef.ICefX50
 	if wrapped, ok := value.(*tICefX509CertPrincipalRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefX509CertPrincipalRef() vcef.ICefX509CertPrincipalRef
-	}); ok {
-		return raw.RawCEF147ICefX509CertPrincipalRef()
+	if raw, ok := RawAs[vcef.ICefX509CertPrincipalRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefX509CertPrincipalRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefX509CertPrincipalRef_147) RawCEF147ICefX509CertPrincipalRef() vcef.ICefX509CertPrincipalRef {
+func (t *tICefX509CertPrincipalRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -29207,19 +27295,13 @@ func unwrapICefX509Certificate(value ICefX509Certificate) vcef.ICefX509Certifica
 	if wrapped, ok := value.(*tICefX509Certificate_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefX509Certificate() vcef.ICefX509Certificate
-	}); ok {
-		return raw.RawCEF147ICefX509Certificate()
+	if raw, ok := RawAs[vcef.ICefX509Certificate](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefX509Certificate_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefX509Certificate_147) RawCEF147ICefX509Certificate() vcef.ICefX509Certificate {
+func (t *tICefX509Certificate_147) Raw() Raw {
 	return t.raw
 }
 
@@ -29321,17 +27403,13 @@ func unwrapICefXmlReader(value ICefXmlReader) vcef.ICefXmlReader {
 	if wrapped, ok := value.(*tICefXmlReader_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefXmlReader() vcef.ICefXmlReader }); ok {
-		return raw.RawCEF147ICefXmlReader()
+	if raw, ok := RawAs[vcef.ICefXmlReader](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefXmlReader_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefXmlReader_147) RawCEF147ICefXmlReader() vcef.ICefXmlReader {
+func (t *tICefXmlReader_147) Raw() Raw {
 	return t.raw
 }
 
@@ -29506,17 +27584,13 @@ func unwrapICefXmlReaderRef(value ICefXmlReaderRef) vcef.ICefXmlReaderRef {
 	if wrapped, ok := value.(*tICefXmlReaderRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefXmlReaderRef() vcef.ICefXmlReaderRef }); ok {
-		return raw.RawCEF147ICefXmlReaderRef()
+	if raw, ok := RawAs[vcef.ICefXmlReaderRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefXmlReaderRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefXmlReaderRef_147) RawCEF147ICefXmlReaderRef() vcef.ICefXmlReaderRef {
+func (t *tICefXmlReaderRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -29696,17 +27770,13 @@ func unwrapICefZipReader(value ICefZipReader) vcef.ICefZipReader {
 	if wrapped, ok := value.(*tICefZipReader_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefZipReader() vcef.ICefZipReader }); ok {
-		return raw.RawCEF147ICefZipReader()
+	if raw, ok := RawAs[vcef.ICefZipReader](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefZipReader_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefZipReader_147) RawCEF147ICefZipReader() vcef.ICefZipReader {
+func (t *tICefZipReader_147) Raw() Raw {
 	return t.raw
 }
 
@@ -29796,17 +27866,13 @@ func unwrapICefZipReaderRef(value ICefZipReaderRef) vcef.ICefZipReaderRef {
 	if wrapped, ok := value.(*tICefZipReaderRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefZipReaderRef() vcef.ICefZipReaderRef }); ok {
-		return raw.RawCEF147ICefZipReaderRef()
+	if raw, ok := RawAs[vcef.ICefZipReaderRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefZipReaderRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefZipReaderRef_147) RawCEF147ICefZipReaderRef() vcef.ICefZipReaderRef {
+func (t *tICefZipReaderRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -29901,19 +27967,13 @@ func unwrapICefv8ArrayBufferReleaseCallback(value ICefv8ArrayBufferReleaseCallba
 	if wrapped, ok := value.(*tICefv8ArrayBufferReleaseCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefv8ArrayBufferReleaseCallback() vcef.ICefv8ArrayBufferReleaseCallback
-	}); ok {
-		return raw.RawCEF147ICefv8ArrayBufferReleaseCallback()
+	if raw, ok := RawAs[vcef.ICefv8ArrayBufferReleaseCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefv8ArrayBufferReleaseCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefv8ArrayBufferReleaseCallback_147) RawCEF147ICefv8ArrayBufferReleaseCallback() vcef.ICefv8ArrayBufferReleaseCallback {
+func (t *tICefv8ArrayBufferReleaseCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -29943,19 +28003,13 @@ func unwrapICefv8ArrayBufferReleaseCallbackOwn(value ICefv8ArrayBufferReleaseCal
 	if wrapped, ok := value.(*tICefv8ArrayBufferReleaseCallbackOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefv8ArrayBufferReleaseCallbackOwn() vcef.ICefv8ArrayBufferReleaseCallbackOwn
-	}); ok {
-		return raw.RawCEF147ICefv8ArrayBufferReleaseCallbackOwn()
+	if raw, ok := RawAs[vcef.ICefv8ArrayBufferReleaseCallbackOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefv8ArrayBufferReleaseCallbackOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefv8ArrayBufferReleaseCallbackOwn_147) RawCEF147ICefv8ArrayBufferReleaseCallbackOwn() vcef.ICefv8ArrayBufferReleaseCallbackOwn {
+func (t *tICefv8ArrayBufferReleaseCallbackOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -29985,19 +28039,13 @@ func unwrapICefv8ArrayBufferReleaseCallbackRef(value ICefv8ArrayBufferReleaseCal
 	if wrapped, ok := value.(*tICefv8ArrayBufferReleaseCallbackRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefv8ArrayBufferReleaseCallbackRef() vcef.ICefv8ArrayBufferReleaseCallbackRef
-	}); ok {
-		return raw.RawCEF147ICefv8ArrayBufferReleaseCallbackRef()
+	if raw, ok := RawAs[vcef.ICefv8ArrayBufferReleaseCallbackRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefv8ArrayBufferReleaseCallbackRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefv8ArrayBufferReleaseCallbackRef_147) RawCEF147ICefv8ArrayBufferReleaseCallbackRef() vcef.ICefv8ArrayBufferReleaseCallbackRef {
+func (t *tICefv8ArrayBufferReleaseCallbackRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -30032,19 +28080,13 @@ func unwrapICefv8BackingStore(value ICefv8BackingStore) vcef.ICefv8BackingStore 
 	if wrapped, ok := value.(*tICefv8BackingStore_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefv8BackingStore() vcef.ICefv8BackingStore
-	}); ok {
-		return raw.RawCEF147ICefv8BackingStore()
+	if raw, ok := RawAs[vcef.ICefv8BackingStore](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefv8BackingStore_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefv8BackingStore_147) RawCEF147ICefv8BackingStore() vcef.ICefv8BackingStore {
+func (t *tICefv8BackingStore_147) Raw() Raw {
 	return t.raw
 }
 
@@ -30089,19 +28131,13 @@ func unwrapICefv8BackingStoreRef(value ICefv8BackingStoreRef) vcef.ICefv8Backing
 	if wrapped, ok := value.(*tICefv8BackingStoreRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147ICefv8BackingStoreRef() vcef.ICefv8BackingStoreRef
-	}); ok {
-		return raw.RawCEF147ICefv8BackingStoreRef()
+	if raw, ok := RawAs[vcef.ICefv8BackingStoreRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefv8BackingStoreRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefv8BackingStoreRef_147) RawCEF147ICefv8BackingStoreRef() vcef.ICefv8BackingStoreRef {
+func (t *tICefv8BackingStoreRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -30151,17 +28187,13 @@ func unwrapICefv8Context(value ICefv8Context) vcef.ICefv8Context {
 	if wrapped, ok := value.(*tICefv8Context_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefv8Context() vcef.ICefv8Context }); ok {
-		return raw.RawCEF147ICefv8Context()
+	if raw, ok := RawAs[vcef.ICefv8Context](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefv8Context_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefv8Context_147) RawCEF147ICefv8Context() vcef.ICefv8Context {
+func (t *tICefv8Context_147) Raw() Raw {
 	return t.raw
 }
 
@@ -30250,17 +28282,13 @@ func unwrapICefv8ContextRef(value ICefv8ContextRef) vcef.ICefv8ContextRef {
 	if wrapped, ok := value.(*tICefv8ContextRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefv8ContextRef() vcef.ICefv8ContextRef }); ok {
-		return raw.RawCEF147ICefv8ContextRef()
+	if raw, ok := RawAs[vcef.ICefv8ContextRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefv8ContextRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefv8ContextRef_147) RawCEF147ICefv8ContextRef() vcef.ICefv8ContextRef {
+func (t *tICefv8ContextRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -30354,17 +28382,13 @@ func unwrapICefv8Handler(value ICefv8Handler) vcef.ICefv8Handler {
 	if wrapped, ok := value.(*tICefv8Handler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefv8Handler() vcef.ICefv8Handler }); ok {
-		return raw.RawCEF147ICefv8Handler()
+	if raw, ok := RawAs[vcef.ICefv8Handler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefv8Handler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefv8Handler_147) RawCEF147ICefv8Handler() vcef.ICefv8Handler {
+func (t *tICefv8Handler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -30394,17 +28418,13 @@ func unwrapICefv8HandlerOwn(value ICefv8HandlerOwn) vcef.ICefv8HandlerOwn {
 	if wrapped, ok := value.(*tICefv8HandlerOwn_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefv8HandlerOwn() vcef.ICefv8HandlerOwn }); ok {
-		return raw.RawCEF147ICefv8HandlerOwn()
+	if raw, ok := RawAs[vcef.ICefv8HandlerOwn](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefv8HandlerOwn_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefv8HandlerOwn_147) RawCEF147ICefv8HandlerOwn() vcef.ICefv8HandlerOwn {
+func (t *tICefv8HandlerOwn_147) Raw() Raw {
 	return t.raw
 }
 
@@ -30434,17 +28454,13 @@ func unwrapICefv8HandlerRef(value ICefv8HandlerRef) vcef.ICefv8HandlerRef {
 	if wrapped, ok := value.(*tICefv8HandlerRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefv8HandlerRef() vcef.ICefv8HandlerRef }); ok {
-		return raw.RawCEF147ICefv8HandlerRef()
+	if raw, ok := RawAs[vcef.ICefv8HandlerRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefv8HandlerRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefv8HandlerRef_147) RawCEF147ICefv8HandlerRef() vcef.ICefv8HandlerRef {
+func (t *tICefv8HandlerRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -30479,17 +28495,13 @@ func unwrapICefv8Value(value ICefv8Value) vcef.ICefv8Value {
 	if wrapped, ok := value.(*tICefv8Value_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefv8Value() vcef.ICefv8Value }); ok {
-		return raw.RawCEF147ICefv8Value()
+	if raw, ok := RawAs[vcef.ICefv8Value](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefv8Value_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefv8Value_147) RawCEF147ICefv8Value() vcef.ICefv8Value {
+func (t *tICefv8Value_147) Raw() Raw {
 	return t.raw
 }
 
@@ -30779,17 +28791,13 @@ func unwrapICefv8ValueRef(value ICefv8ValueRef) vcef.ICefv8ValueRef {
 	if wrapped, ok := value.(*tICefv8ValueRef_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147ICefv8ValueRef() vcef.ICefv8ValueRef }); ok {
-		return raw.RawCEF147ICefv8ValueRef()
+	if raw, ok := RawAs[vcef.ICefv8ValueRef](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tICefv8ValueRef_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tICefv8ValueRef_147) RawCEF147ICefv8ValueRef() vcef.ICefv8ValueRef {
+func (t *tICefv8ValueRef_147) Raw() Raw {
 	return t.raw
 }
 
@@ -31084,17 +29092,13 @@ func unwrapIChromium(value IChromium) vcef.IChromium {
 	if wrapped, ok := value.(*tIChromium_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IChromium() vcef.IChromium }); ok {
-		return raw.RawCEF147IChromium()
+	if raw, ok := RawAs[vcef.IChromium](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIChromium_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIChromium_147) RawCEF147IChromium() vcef.IChromium {
+func (t *tIChromium_147) Raw() Raw {
 	return t.raw
 }
 
@@ -31182,17 +29186,13 @@ func unwrapIChromiumCore(value IChromiumCore) vcef.IChromiumCore {
 	if wrapped, ok := value.(*tIChromiumCore_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IChromiumCore() vcef.IChromiumCore }); ok {
-		return raw.RawCEF147IChromiumCore()
+	if raw, ok := RawAs[vcef.IChromiumCore](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIChromiumCore_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIChromiumCore_147) RawCEF147IChromiumCore() vcef.IChromiumCore {
+func (t *tIChromiumCore_147) Raw() Raw {
 	return t.raw
 }
 
@@ -33476,17 +31476,13 @@ func unwrapIChromiumEvents(value IChromiumEvents) vcef.IChromiumEvents {
 	if wrapped, ok := value.(*tIChromiumEvents_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IChromiumEvents() vcef.IChromiumEvents }); ok {
-		return raw.RawCEF147IChromiumEvents()
+	if raw, ok := RawAs[vcef.IChromiumEvents](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIChromiumEvents_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIChromiumEvents_147) RawCEF147IChromiumEvents() vcef.IChromiumEvents {
+func (t *tIChromiumEvents_147) Raw() Raw {
 	return t.raw
 }
 
@@ -33516,19 +31512,13 @@ func unwrapIChromiumFontOptions(value IChromiumFontOptions) vcef.IChromiumFontOp
 	if wrapped, ok := value.(*tIChromiumFontOptions_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IChromiumFontOptions() vcef.IChromiumFontOptions
-	}); ok {
-		return raw.RawCEF147IChromiumFontOptions()
+	if raw, ok := RawAs[vcef.IChromiumFontOptions](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIChromiumFontOptions_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIChromiumFontOptions_147) RawCEF147IChromiumFontOptions() vcef.IChromiumFontOptions {
+func (t *tIChromiumFontOptions_147) Raw() Raw {
 	return t.raw
 }
 
@@ -33657,17 +31647,13 @@ func unwrapIChromiumOptions(value IChromiumOptions) vcef.IChromiumOptions {
 	if wrapped, ok := value.(*tIChromiumOptions_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IChromiumOptions() vcef.IChromiumOptions }); ok {
-		return raw.RawCEF147IChromiumOptions()
+	if raw, ok := RawAs[vcef.IChromiumOptions](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIChromiumOptions_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIChromiumOptions_147) RawCEF147IChromiumOptions() vcef.IChromiumOptions {
+func (t *tIChromiumOptions_147) Raw() Raw {
 	return t.raw
 }
 
@@ -33841,17 +31827,13 @@ func unwrapIChromiumWindow(value IChromiumWindow) vcef.IChromiumWindow {
 	if wrapped, ok := value.(*tIChromiumWindow_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IChromiumWindow() vcef.IChromiumWindow }); ok {
-		return raw.RawCEF147IChromiumWindow()
+	if raw, ok := RawAs[vcef.IChromiumWindow](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIChromiumWindow_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIChromiumWindow_147) RawCEF147IChromiumWindow() vcef.IChromiumWindow {
+func (t *tIChromiumWindow_147) Raw() Raw {
 	return t.raw
 }
 
@@ -33920,19 +31902,13 @@ func unwrapIEngAccessibilityHandler(value IEngAccessibilityHandler) vcef.IEngAcc
 	if wrapped, ok := value.(*tIEngAccessibilityHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngAccessibilityHandler() vcef.IEngAccessibilityHandler
-	}); ok {
-		return raw.RawCEF147IEngAccessibilityHandler()
+	if raw, ok := RawAs[vcef.IEngAccessibilityHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngAccessibilityHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngAccessibilityHandler_147) RawCEF147IEngAccessibilityHandler() vcef.IEngAccessibilityHandler {
+func (t *tIEngAccessibilityHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -33975,17 +31951,13 @@ func unwrapIEngApp(value IEngApp) vcef.IEngApp {
 	if wrapped, ok := value.(*tIEngApp_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IEngApp() vcef.IEngApp }); ok {
-		return raw.RawCEF147IEngApp()
+	if raw, ok := RawAs[vcef.IEngApp](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngApp_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngApp_147) RawCEF147IEngApp() vcef.IEngApp {
+func (t *tIEngApp_147) Raw() Raw {
 	return t.raw
 }
 
@@ -34060,17 +32032,13 @@ func unwrapIEngAudioHandler(value IEngAudioHandler) vcef.IEngAudioHandler {
 	if wrapped, ok := value.(*tIEngAudioHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IEngAudioHandler() vcef.IEngAudioHandler }); ok {
-		return raw.RawCEF147IEngAudioHandler()
+	if raw, ok := RawAs[vcef.IEngAudioHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngAudioHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngAudioHandler_147) RawCEF147IEngAudioHandler() vcef.IEngAudioHandler {
+func (t *tIEngAudioHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -34131,19 +32099,13 @@ func unwrapIEngBrowserProcessHandler(value IEngBrowserProcessHandler) vcef.IEngB
 	if wrapped, ok := value.(*tIEngBrowserProcessHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngBrowserProcessHandler() vcef.IEngBrowserProcessHandler
-	}); ok {
-		return raw.RawCEF147IEngBrowserProcessHandler()
+	if raw, ok := RawAs[vcef.IEngBrowserProcessHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngBrowserProcessHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngBrowserProcessHandler_147) RawCEF147IEngBrowserProcessHandler() vcef.IEngBrowserProcessHandler {
+func (t *tIEngBrowserProcessHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -34220,19 +32182,13 @@ func unwrapIEngBrowserViewDelegate(value IEngBrowserViewDelegate) vcef.IEngBrows
 	if wrapped, ok := value.(*tIEngBrowserViewDelegate_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngBrowserViewDelegate() vcef.IEngBrowserViewDelegate
-	}); ok {
-		return raw.RawCEF147IEngBrowserViewDelegate()
+	if raw, ok := RawAs[vcef.IEngBrowserViewDelegate](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngBrowserViewDelegate_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngBrowserViewDelegate_147) RawCEF147IEngBrowserViewDelegate() vcef.IEngBrowserViewDelegate {
+func (t *tIEngBrowserViewDelegate_147) Raw() Raw {
 	return t.raw
 }
 
@@ -34328,19 +32284,13 @@ func unwrapIEngButtonDelegate(value IEngButtonDelegate) vcef.IEngButtonDelegate 
 	if wrapped, ok := value.(*tIEngButtonDelegate_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngButtonDelegate() vcef.IEngButtonDelegate
-	}); ok {
-		return raw.RawCEF147IEngButtonDelegate()
+	if raw, ok := RawAs[vcef.IEngButtonDelegate](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngButtonDelegate_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngButtonDelegate_147) RawCEF147IEngButtonDelegate() vcef.IEngButtonDelegate {
+func (t *tIEngButtonDelegate_147) Raw() Raw {
 	return t.raw
 }
 
@@ -34388,17 +32338,13 @@ func unwrapIEngClient(value IEngClient) vcef.IEngClient {
 	if wrapped, ok := value.(*tIEngClient_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IEngClient() vcef.IEngClient }); ok {
-		return raw.RawCEF147IEngClient()
+	if raw, ok := RawAs[vcef.IEngClient](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngClient_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngClient_147) RawCEF147IEngClient() vcef.IEngClient {
+func (t *tIEngClient_147) Raw() Raw {
 	return t.raw
 }
 
@@ -34620,19 +32566,13 @@ func unwrapIEngCommandHandler(value IEngCommandHandler) vcef.IEngCommandHandler 
 	if wrapped, ok := value.(*tIEngCommandHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngCommandHandler() vcef.IEngCommandHandler
-	}); ok {
-		return raw.RawCEF147IEngCommandHandler()
+	if raw, ok := RawAs[vcef.IEngCommandHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngCommandHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngCommandHandler_147) RawCEF147IEngCommandHandler() vcef.IEngCommandHandler {
+func (t *tIEngCommandHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -34702,19 +32642,13 @@ func unwrapIEngCompletionCallback(value IEngCompletionCallback) vcef.IEngComplet
 	if wrapped, ok := value.(*tIEngCompletionCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngCompletionCallback() vcef.IEngCompletionCallback
-	}); ok {
-		return raw.RawCEF147IEngCompletionCallback()
+	if raw, ok := RawAs[vcef.IEngCompletionCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngCompletionCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngCompletionCallback_147) RawCEF147IEngCompletionCallback() vcef.IEngCompletionCallback {
+func (t *tIEngCompletionCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -34753,19 +32687,13 @@ func unwrapIEngContextMenuHandler(value IEngContextMenuHandler) vcef.IEngContext
 	if wrapped, ok := value.(*tIEngContextMenuHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngContextMenuHandler() vcef.IEngContextMenuHandler
-	}); ok {
-		return raw.RawCEF147IEngContextMenuHandler()
+	if raw, ok := RawAs[vcef.IEngContextMenuHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngContextMenuHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngContextMenuHandler_147) RawCEF147IEngContextMenuHandler() vcef.IEngContextMenuHandler {
+func (t *tIEngContextMenuHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -34846,19 +32774,13 @@ func unwrapIEngCookieAccessFilter(value IEngCookieAccessFilter) vcef.IEngCookieA
 	if wrapped, ok := value.(*tIEngCookieAccessFilter_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngCookieAccessFilter() vcef.IEngCookieAccessFilter
-	}); ok {
-		return raw.RawCEF147IEngCookieAccessFilter()
+	if raw, ok := RawAs[vcef.IEngCookieAccessFilter](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngCookieAccessFilter_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngCookieAccessFilter_147) RawCEF147IEngCookieAccessFilter() vcef.IEngCookieAccessFilter {
+func (t *tIEngCookieAccessFilter_147) Raw() Raw {
 	return t.raw
 }
 
@@ -34907,17 +32829,13 @@ func unwrapIEngCookieVisitor(value IEngCookieVisitor) vcef.IEngCookieVisitor {
 	if wrapped, ok := value.(*tIEngCookieVisitor_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IEngCookieVisitor() vcef.IEngCookieVisitor }); ok {
-		return raw.RawCEF147IEngCookieVisitor()
+	if raw, ok := RawAs[vcef.IEngCookieVisitor](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngCookieVisitor_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngCookieVisitor_147) RawCEF147IEngCookieVisitor() vcef.IEngCookieVisitor {
+func (t *tIEngCookieVisitor_147) Raw() Raw {
 	return t.raw
 }
 
@@ -34959,19 +32877,13 @@ func unwrapIEngDeleteCookiesCallback(value IEngDeleteCookiesCallback) vcef.IEngD
 	if wrapped, ok := value.(*tIEngDeleteCookiesCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngDeleteCookiesCallback() vcef.IEngDeleteCookiesCallback
-	}); ok {
-		return raw.RawCEF147IEngDeleteCookiesCallback()
+	if raw, ok := RawAs[vcef.IEngDeleteCookiesCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngDeleteCookiesCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngDeleteCookiesCallback_147) RawCEF147IEngDeleteCookiesCallback() vcef.IEngDeleteCookiesCallback {
+func (t *tIEngDeleteCookiesCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -35010,19 +32922,13 @@ func unwrapIEngDevToolsMessageObserver(value IEngDevToolsMessageObserver) vcef.I
 	if wrapped, ok := value.(*tIEngDevToolsMessageObserver_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngDevToolsMessageObserver() vcef.IEngDevToolsMessageObserver
-	}); ok {
-		return raw.RawCEF147IEngDevToolsMessageObserver()
+	if raw, ok := RawAs[vcef.IEngDevToolsMessageObserver](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngDevToolsMessageObserver_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngDevToolsMessageObserver_147) RawCEF147IEngDevToolsMessageObserver() vcef.IEngDevToolsMessageObserver {
+func (t *tIEngDevToolsMessageObserver_147) Raw() Raw {
 	return t.raw
 }
 
@@ -35083,17 +32989,13 @@ func unwrapIEngDialogHandler(value IEngDialogHandler) vcef.IEngDialogHandler {
 	if wrapped, ok := value.(*tIEngDialogHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IEngDialogHandler() vcef.IEngDialogHandler }); ok {
-		return raw.RawCEF147IEngDialogHandler()
+	if raw, ok := RawAs[vcef.IEngDialogHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngDialogHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngDialogHandler_147) RawCEF147IEngDialogHandler() vcef.IEngDialogHandler {
+func (t *tIEngDialogHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -35135,19 +33037,13 @@ func unwrapIEngDisplayHandler(value IEngDisplayHandler) vcef.IEngDisplayHandler 
 	if wrapped, ok := value.(*tIEngDisplayHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngDisplayHandler() vcef.IEngDisplayHandler
-	}); ok {
-		return raw.RawCEF147IEngDisplayHandler()
+	if raw, ok := RawAs[vcef.IEngDisplayHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngDisplayHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngDisplayHandler_147) RawCEF147IEngDisplayHandler() vcef.IEngDisplayHandler {
+func (t *tIEngDisplayHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -35255,17 +33151,13 @@ func unwrapIEngDomVisitor(value IEngDomVisitor) vcef.IEngDomVisitor {
 	if wrapped, ok := value.(*tIEngDomVisitor_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IEngDomVisitor() vcef.IEngDomVisitor }); ok {
-		return raw.RawCEF147IEngDomVisitor()
+	if raw, ok := RawAs[vcef.IEngDomVisitor](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngDomVisitor_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngDomVisitor_147) RawCEF147IEngDomVisitor() vcef.IEngDomVisitor {
+func (t *tIEngDomVisitor_147) Raw() Raw {
 	return t.raw
 }
 
@@ -35304,19 +33196,13 @@ func unwrapIEngDownloadHandler(value IEngDownloadHandler) vcef.IEngDownloadHandl
 	if wrapped, ok := value.(*tIEngDownloadHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngDownloadHandler() vcef.IEngDownloadHandler
-	}); ok {
-		return raw.RawCEF147IEngDownloadHandler()
+	if raw, ok := RawAs[vcef.IEngDownloadHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngDownloadHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngDownloadHandler_147) RawCEF147IEngDownloadHandler() vcef.IEngDownloadHandler {
+func (t *tIEngDownloadHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -35371,19 +33257,13 @@ func unwrapIEngDownloadImageCallback(value IEngDownloadImageCallback) vcef.IEngD
 	if wrapped, ok := value.(*tIEngDownloadImageCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngDownloadImageCallback() vcef.IEngDownloadImageCallback
-	}); ok {
-		return raw.RawCEF147IEngDownloadImageCallback()
+	if raw, ok := RawAs[vcef.IEngDownloadImageCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngDownloadImageCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngDownloadImageCallback_147) RawCEF147IEngDownloadImageCallback() vcef.IEngDownloadImageCallback {
+func (t *tIEngDownloadImageCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -35424,17 +33304,13 @@ func unwrapIEngDragHandler(value IEngDragHandler) vcef.IEngDragHandler {
 	if wrapped, ok := value.(*tIEngDragHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IEngDragHandler() vcef.IEngDragHandler }); ok {
-		return raw.RawCEF147IEngDragHandler()
+	if raw, ok := RawAs[vcef.IEngDragHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngDragHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngDragHandler_147) RawCEF147IEngDragHandler() vcef.IEngDragHandler {
+func (t *tIEngDragHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -35482,19 +33358,13 @@ func unwrapIEngEndTracingCallback(value IEngEndTracingCallback) vcef.IEngEndTrac
 	if wrapped, ok := value.(*tIEngEndTracingCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngEndTracingCallback() vcef.IEngEndTracingCallback
-	}); ok {
-		return raw.RawCEF147IEngEndTracingCallback()
+	if raw, ok := RawAs[vcef.IEngEndTracingCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngEndTracingCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngEndTracingCallback_147) RawCEF147IEngEndTracingCallback() vcef.IEngEndTracingCallback {
+func (t *tIEngEndTracingCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -35533,17 +33403,13 @@ func unwrapIEngFindHandler(value IEngFindHandler) vcef.IEngFindHandler {
 	if wrapped, ok := value.(*tIEngFindHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IEngFindHandler() vcef.IEngFindHandler }); ok {
-		return raw.RawCEF147IEngFindHandler()
+	if raw, ok := RawAs[vcef.IEngFindHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngFindHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngFindHandler_147) RawCEF147IEngFindHandler() vcef.IEngFindHandler {
+func (t *tIEngFindHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -35584,17 +33450,13 @@ func unwrapIEngFocusHandler(value IEngFocusHandler) vcef.IEngFocusHandler {
 	if wrapped, ok := value.(*tIEngFocusHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IEngFocusHandler() vcef.IEngFocusHandler }); ok {
-		return raw.RawCEF147IEngFocusHandler()
+	if raw, ok := RawAs[vcef.IEngFocusHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngFocusHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngFocusHandler_147) RawCEF147IEngFocusHandler() vcef.IEngFocusHandler {
+func (t *tIEngFocusHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -35644,17 +33506,13 @@ func unwrapIEngFrameHandler(value IEngFrameHandler) vcef.IEngFrameHandler {
 	if wrapped, ok := value.(*tIEngFrameHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IEngFrameHandler() vcef.IEngFrameHandler }); ok {
-		return raw.RawCEF147IEngFrameHandler()
+	if raw, ok := RawAs[vcef.IEngFrameHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngFrameHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngFrameHandler_147) RawCEF147IEngFrameHandler() vcef.IEngFrameHandler {
+func (t *tIEngFrameHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -35719,19 +33577,13 @@ func unwrapIEngJsDialogHandler(value IEngJsDialogHandler) vcef.IEngJsDialogHandl
 	if wrapped, ok := value.(*tIEngJsDialogHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngJsDialogHandler() vcef.IEngJsDialogHandler
-	}); ok {
-		return raw.RawCEF147IEngJsDialogHandler()
+	if raw, ok := RawAs[vcef.IEngJsDialogHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngJsDialogHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngJsDialogHandler_147) RawCEF147IEngJsDialogHandler() vcef.IEngJsDialogHandler {
+func (t *tIEngJsDialogHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -35788,19 +33640,13 @@ func unwrapIEngKeyboardHandler(value IEngKeyboardHandler) vcef.IEngKeyboardHandl
 	if wrapped, ok := value.(*tIEngKeyboardHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngKeyboardHandler() vcef.IEngKeyboardHandler
-	}); ok {
-		return raw.RawCEF147IEngKeyboardHandler()
+	if raw, ok := RawAs[vcef.IEngKeyboardHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngKeyboardHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngKeyboardHandler_147) RawCEF147IEngKeyboardHandler() vcef.IEngKeyboardHandler {
+func (t *tIEngKeyboardHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -35849,19 +33695,13 @@ func unwrapIEngLifeSpanHandler(value IEngLifeSpanHandler) vcef.IEngLifeSpanHandl
 	if wrapped, ok := value.(*tIEngLifeSpanHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngLifeSpanHandler() vcef.IEngLifeSpanHandler
-	}); ok {
-		return raw.RawCEF147IEngLifeSpanHandler()
+	if raw, ok := RawAs[vcef.IEngLifeSpanHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngLifeSpanHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngLifeSpanHandler_147) RawCEF147IEngLifeSpanHandler() vcef.IEngLifeSpanHandler {
+func (t *tIEngLifeSpanHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -35944,17 +33784,13 @@ func unwrapIEngLoadHandler(value IEngLoadHandler) vcef.IEngLoadHandler {
 	if wrapped, ok := value.(*tIEngLoadHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IEngLoadHandler() vcef.IEngLoadHandler }); ok {
-		return raw.RawCEF147IEngLoadHandler()
+	if raw, ok := RawAs[vcef.IEngLoadHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngLoadHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngLoadHandler_147) RawCEF147IEngLoadHandler() vcef.IEngLoadHandler {
+func (t *tIEngLoadHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -36013,17 +33849,13 @@ func unwrapIEngMediaObserver(value IEngMediaObserver) vcef.IEngMediaObserver {
 	if wrapped, ok := value.(*tIEngMediaObserver_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IEngMediaObserver() vcef.IEngMediaObserver }); ok {
-		return raw.RawCEF147IEngMediaObserver()
+	if raw, ok := RawAs[vcef.IEngMediaObserver](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngMediaObserver_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngMediaObserver_147) RawCEF147IEngMediaObserver() vcef.IEngMediaObserver {
+func (t *tIEngMediaObserver_147) Raw() Raw {
 	return t.raw
 }
 
@@ -36076,19 +33908,13 @@ func unwrapIEngMediaRouteCreateCallback(value IEngMediaRouteCreateCallback) vcef
 	if wrapped, ok := value.(*tIEngMediaRouteCreateCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngMediaRouteCreateCallback() vcef.IEngMediaRouteCreateCallback
-	}); ok {
-		return raw.RawCEF147IEngMediaRouteCreateCallback()
+	if raw, ok := RawAs[vcef.IEngMediaRouteCreateCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngMediaRouteCreateCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngMediaRouteCreateCallback_147) RawCEF147IEngMediaRouteCreateCallback() vcef.IEngMediaRouteCreateCallback {
+func (t *tIEngMediaRouteCreateCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -36129,19 +33955,13 @@ func unwrapIEngMediaSinkDeviceInfoCallback(value IEngMediaSinkDeviceInfoCallback
 	if wrapped, ok := value.(*tIEngMediaSinkDeviceInfoCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngMediaSinkDeviceInfoCallback() vcef.IEngMediaSinkDeviceInfoCallback
-	}); ok {
-		return raw.RawCEF147IEngMediaSinkDeviceInfoCallback()
+	if raw, ok := RawAs[vcef.IEngMediaSinkDeviceInfoCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngMediaSinkDeviceInfoCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngMediaSinkDeviceInfoCallback_147) RawCEF147IEngMediaSinkDeviceInfoCallback() vcef.IEngMediaSinkDeviceInfoCallback {
+func (t *tIEngMediaSinkDeviceInfoCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -36180,19 +34000,13 @@ func unwrapIEngMenuButtonDelegate(value IEngMenuButtonDelegate) vcef.IEngMenuBut
 	if wrapped, ok := value.(*tIEngMenuButtonDelegate_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngMenuButtonDelegate() vcef.IEngMenuButtonDelegate
-	}); ok {
-		return raw.RawCEF147IEngMenuButtonDelegate()
+	if raw, ok := RawAs[vcef.IEngMenuButtonDelegate](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngMenuButtonDelegate_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngMenuButtonDelegate_147) RawCEF147IEngMenuButtonDelegate() vcef.IEngMenuButtonDelegate {
+func (t *tIEngMenuButtonDelegate_147) Raw() Raw {
 	return t.raw
 }
 
@@ -36243,19 +34057,13 @@ func unwrapIEngMenuModelDelegate(value IEngMenuModelDelegate) vcef.IEngMenuModel
 	if wrapped, ok := value.(*tIEngMenuModelDelegate_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngMenuModelDelegate() vcef.IEngMenuModelDelegate
-	}); ok {
-		return raw.RawCEF147IEngMenuModelDelegate()
+	if raw, ok := RawAs[vcef.IEngMenuModelDelegate](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngMenuModelDelegate_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngMenuModelDelegate_147) RawCEF147IEngMenuModelDelegate() vcef.IEngMenuModelDelegate {
+func (t *tIEngMenuModelDelegate_147) Raw() Raw {
 	return t.raw
 }
 
@@ -36325,19 +34133,13 @@ func unwrapIEngNavigationEntryVisitor(value IEngNavigationEntryVisitor) vcef.IEn
 	if wrapped, ok := value.(*tIEngNavigationEntryVisitor_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngNavigationEntryVisitor() vcef.IEngNavigationEntryVisitor
-	}); ok {
-		return raw.RawCEF147IEngNavigationEntryVisitor()
+	if raw, ok := RawAs[vcef.IEngNavigationEntryVisitor](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngNavigationEntryVisitor_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngNavigationEntryVisitor_147) RawCEF147IEngNavigationEntryVisitor() vcef.IEngNavigationEntryVisitor {
+func (t *tIEngNavigationEntryVisitor_147) Raw() Raw {
 	return t.raw
 }
 
@@ -36379,17 +34181,13 @@ func unwrapIEngPanelDelegate(value IEngPanelDelegate) vcef.IEngPanelDelegate {
 	if wrapped, ok := value.(*tIEngPanelDelegate_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IEngPanelDelegate() vcef.IEngPanelDelegate }); ok {
-		return raw.RawCEF147IEngPanelDelegate()
+	if raw, ok := RawAs[vcef.IEngPanelDelegate](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngPanelDelegate_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngPanelDelegate_147) RawCEF147IEngPanelDelegate() vcef.IEngPanelDelegate {
+func (t *tIEngPanelDelegate_147) Raw() Raw {
 	return t.raw
 }
 
@@ -36429,19 +34227,13 @@ func unwrapIEngPdfPrintCallback(value IEngPdfPrintCallback) vcef.IEngPdfPrintCal
 	if wrapped, ok := value.(*tIEngPdfPrintCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngPdfPrintCallback() vcef.IEngPdfPrintCallback
-	}); ok {
-		return raw.RawCEF147IEngPdfPrintCallback()
+	if raw, ok := RawAs[vcef.IEngPdfPrintCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngPdfPrintCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngPdfPrintCallback_147) RawCEF147IEngPdfPrintCallback() vcef.IEngPdfPrintCallback {
+func (t *tIEngPdfPrintCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -36480,19 +34272,13 @@ func unwrapIEngPermissionHandler(value IEngPermissionHandler) vcef.IEngPermissio
 	if wrapped, ok := value.(*tIEngPermissionHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngPermissionHandler() vcef.IEngPermissionHandler
-	}); ok {
-		return raw.RawCEF147IEngPermissionHandler()
+	if raw, ok := RawAs[vcef.IEngPermissionHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngPermissionHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngPermissionHandler_147) RawCEF147IEngPermissionHandler() vcef.IEngPermissionHandler {
+func (t *tIEngPermissionHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -36547,19 +34333,13 @@ func unwrapIEngPreferenceObserver(value IEngPreferenceObserver) vcef.IEngPrefere
 	if wrapped, ok := value.(*tIEngPreferenceObserver_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngPreferenceObserver() vcef.IEngPreferenceObserver
-	}); ok {
-		return raw.RawCEF147IEngPreferenceObserver()
+	if raw, ok := RawAs[vcef.IEngPreferenceObserver](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngPreferenceObserver_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngPreferenceObserver_147) RawCEF147IEngPreferenceObserver() vcef.IEngPreferenceObserver {
+func (t *tIEngPreferenceObserver_147) Raw() Raw {
 	return t.raw
 }
 
@@ -36598,17 +34378,13 @@ func unwrapIEngPrintHandler(value IEngPrintHandler) vcef.IEngPrintHandler {
 	if wrapped, ok := value.(*tIEngPrintHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IEngPrintHandler() vcef.IEngPrintHandler }); ok {
-		return raw.RawCEF147IEngPrintHandler()
+	if raw, ok := RawAs[vcef.IEngPrintHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngPrintHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngPrintHandler_147) RawCEF147IEngPrintHandler() vcef.IEngPrintHandler {
+func (t *tIEngPrintHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -36675,17 +34451,13 @@ func unwrapIEngRenderHandler(value IEngRenderHandler) vcef.IEngRenderHandler {
 	if wrapped, ok := value.(*tIEngRenderHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IEngRenderHandler() vcef.IEngRenderHandler }); ok {
-		return raw.RawCEF147IEngRenderHandler()
+	if raw, ok := RawAs[vcef.IEngRenderHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngRenderHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngRenderHandler_147) RawCEF147IEngRenderHandler() vcef.IEngRenderHandler {
+func (t *tIEngRenderHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -36820,19 +34592,13 @@ func unwrapIEngRenderProcessHandler(value IEngRenderProcessHandler) vcef.IEngRen
 	if wrapped, ok := value.(*tIEngRenderProcessHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngRenderProcessHandler() vcef.IEngRenderProcessHandler
-	}); ok {
-		return raw.RawCEF147IEngRenderProcessHandler()
+	if raw, ok := RawAs[vcef.IEngRenderProcessHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngRenderProcessHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngRenderProcessHandler_147) RawCEF147IEngRenderProcessHandler() vcef.IEngRenderProcessHandler {
+func (t *tIEngRenderProcessHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -36919,19 +34685,13 @@ func unwrapIEngRequestContextHandler(value IEngRequestContextHandler) vcef.IEngR
 	if wrapped, ok := value.(*tIEngRequestContextHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngRequestContextHandler() vcef.IEngRequestContextHandler
-	}); ok {
-		return raw.RawCEF147IEngRequestContextHandler()
+	if raw, ok := RawAs[vcef.IEngRequestContextHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngRequestContextHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngRequestContextHandler_147) RawCEF147IEngRequestContextHandler() vcef.IEngRequestContextHandler {
+func (t *tIEngRequestContextHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -36980,19 +34740,13 @@ func unwrapIEngRequestHandler(value IEngRequestHandler) vcef.IEngRequestHandler 
 	if wrapped, ok := value.(*tIEngRequestHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngRequestHandler() vcef.IEngRequestHandler
-	}); ok {
-		return raw.RawCEF147IEngRequestHandler()
+	if raw, ok := RawAs[vcef.IEngRequestHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngRequestHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngRequestHandler_147) RawCEF147IEngRequestHandler() vcef.IEngRequestHandler {
+func (t *tIEngRequestHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -37097,19 +34851,13 @@ func unwrapIEngResolveCallback(value IEngResolveCallback) vcef.IEngResolveCallba
 	if wrapped, ok := value.(*tIEngResolveCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngResolveCallback() vcef.IEngResolveCallback
-	}); ok {
-		return raw.RawCEF147IEngResolveCallback()
+	if raw, ok := RawAs[vcef.IEngResolveCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngResolveCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngResolveCallback_147) RawCEF147IEngResolveCallback() vcef.IEngResolveCallback {
+func (t *tIEngResolveCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -37148,19 +34896,13 @@ func unwrapIEngResourceBundleHandler(value IEngResourceBundleHandler) vcef.IEngR
 	if wrapped, ok := value.(*tIEngResourceBundleHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngResourceBundleHandler() vcef.IEngResourceBundleHandler
-	}); ok {
-		return raw.RawCEF147IEngResourceBundleHandler()
+	if raw, ok := RawAs[vcef.IEngResourceBundleHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngResourceBundleHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngResourceBundleHandler_147) RawCEF147IEngResourceBundleHandler() vcef.IEngResourceBundleHandler {
+func (t *tIEngResourceBundleHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -37216,19 +34958,13 @@ func unwrapIEngResourceHandler(value IEngResourceHandler) vcef.IEngResourceHandl
 	if wrapped, ok := value.(*tIEngResourceHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngResourceHandler() vcef.IEngResourceHandler
-	}); ok {
-		return raw.RawCEF147IEngResourceHandler()
+	if raw, ok := RawAs[vcef.IEngResourceHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngResourceHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngResourceHandler_147) RawCEF147IEngResourceHandler() vcef.IEngResourceHandler {
+func (t *tIEngResourceHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -37308,19 +35044,13 @@ func unwrapIEngResourceRequestHandler(value IEngResourceRequestHandler) vcef.IEn
 	if wrapped, ok := value.(*tIEngResourceRequestHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngResourceRequestHandler() vcef.IEngResourceRequestHandler
-	}); ok {
-		return raw.RawCEF147IEngResourceRequestHandler()
+	if raw, ok := RawAs[vcef.IEngResourceRequestHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngResourceRequestHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngResourceRequestHandler_147) RawCEF147IEngResourceRequestHandler() vcef.IEngResourceRequestHandler {
+func (t *tIEngResourceRequestHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -37417,19 +35147,13 @@ func unwrapIEngResponseFilter(value IEngResponseFilter) vcef.IEngResponseFilter 
 	if wrapped, ok := value.(*tIEngResponseFilter_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngResponseFilter() vcef.IEngResponseFilter
-	}); ok {
-		return raw.RawCEF147IEngResponseFilter()
+	if raw, ok := RawAs[vcef.IEngResponseFilter](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngResponseFilter_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngResponseFilter_147) RawCEF147IEngResponseFilter() vcef.IEngResponseFilter {
+func (t *tIEngResponseFilter_147) Raw() Raw {
 	return t.raw
 }
 
@@ -37478,19 +35202,13 @@ func unwrapIEngRunFileDialogCallback(value IEngRunFileDialogCallback) vcef.IEngR
 	if wrapped, ok := value.(*tIEngRunFileDialogCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngRunFileDialogCallback() vcef.IEngRunFileDialogCallback
-	}); ok {
-		return raw.RawCEF147IEngRunFileDialogCallback()
+	if raw, ok := RawAs[vcef.IEngRunFileDialogCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngRunFileDialogCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngRunFileDialogCallback_147) RawCEF147IEngRunFileDialogCallback() vcef.IEngRunFileDialogCallback {
+func (t *tIEngRunFileDialogCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -37529,19 +35247,13 @@ func unwrapIEngSchemeHandlerFactory(value IEngSchemeHandlerFactory) vcef.IEngSch
 	if wrapped, ok := value.(*tIEngSchemeHandlerFactory_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngSchemeHandlerFactory() vcef.IEngSchemeHandlerFactory
-	}); ok {
-		return raw.RawCEF147IEngSchemeHandlerFactory()
+	if raw, ok := RawAs[vcef.IEngSchemeHandlerFactory](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngSchemeHandlerFactory_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngSchemeHandlerFactory_147) RawCEF147IEngSchemeHandlerFactory() vcef.IEngSchemeHandlerFactory {
+func (t *tIEngSchemeHandlerFactory_147) Raw() Raw {
 	return t.raw
 }
 
@@ -37583,17 +35295,13 @@ func unwrapIEngServerHandler(value IEngServerHandler) vcef.IEngServerHandler {
 	if wrapped, ok := value.(*tIEngServerHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IEngServerHandler() vcef.IEngServerHandler }); ok {
-		return raw.RawCEF147IEngServerHandler()
+	if raw, ok := RawAs[vcef.IEngServerHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngServerHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngServerHandler_147) RawCEF147IEngServerHandler() vcef.IEngServerHandler {
+func (t *tIEngServerHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -37666,19 +35374,13 @@ func unwrapIEngSetCookieCallback(value IEngSetCookieCallback) vcef.IEngSetCookie
 	if wrapped, ok := value.(*tIEngSetCookieCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngSetCookieCallback() vcef.IEngSetCookieCallback
-	}); ok {
-		return raw.RawCEF147IEngSetCookieCallback()
+	if raw, ok := RawAs[vcef.IEngSetCookieCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngSetCookieCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngSetCookieCallback_147) RawCEF147IEngSetCookieCallback() vcef.IEngSetCookieCallback {
+func (t *tIEngSetCookieCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -37717,19 +35419,13 @@ func unwrapIEngSettingObserver(value IEngSettingObserver) vcef.IEngSettingObserv
 	if wrapped, ok := value.(*tIEngSettingObserver_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngSettingObserver() vcef.IEngSettingObserver
-	}); ok {
-		return raw.RawCEF147IEngSettingObserver()
+	if raw, ok := RawAs[vcef.IEngSettingObserver](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngSettingObserver_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngSettingObserver_147) RawCEF147IEngSettingObserver() vcef.IEngSettingObserver {
+func (t *tIEngSettingObserver_147) Raw() Raw {
 	return t.raw
 }
 
@@ -37770,17 +35466,13 @@ func unwrapIEngStringVisitor(value IEngStringVisitor) vcef.IEngStringVisitor {
 	if wrapped, ok := value.(*tIEngStringVisitor_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IEngStringVisitor() vcef.IEngStringVisitor }); ok {
-		return raw.RawCEF147IEngStringVisitor()
+	if raw, ok := RawAs[vcef.IEngStringVisitor](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngStringVisitor_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngStringVisitor_147) RawCEF147IEngStringVisitor() vcef.IEngStringVisitor {
+func (t *tIEngStringVisitor_147) Raw() Raw {
 	return t.raw
 }
 
@@ -37819,17 +35511,13 @@ func unwrapIEngTask(value IEngTask) vcef.IEngTask {
 	if wrapped, ok := value.(*tIEngTask_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IEngTask() vcef.IEngTask }); ok {
-		return raw.RawCEF147IEngTask()
+	if raw, ok := RawAs[vcef.IEngTask](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngTask_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngTask_147) RawCEF147IEngTask() vcef.IEngTask {
+func (t *tIEngTask_147) Raw() Raw {
 	return t.raw
 }
 
@@ -37868,19 +35556,13 @@ func unwrapIEngTextfieldDelegate(value IEngTextfieldDelegate) vcef.IEngTextfield
 	if wrapped, ok := value.(*tIEngTextfieldDelegate_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngTextfieldDelegate() vcef.IEngTextfieldDelegate
-	}); ok {
-		return raw.RawCEF147IEngTextfieldDelegate()
+	if raw, ok := RawAs[vcef.IEngTextfieldDelegate](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngTextfieldDelegate_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngTextfieldDelegate_147) RawCEF147IEngTextfieldDelegate() vcef.IEngTextfieldDelegate {
+func (t *tIEngTextfieldDelegate_147) Raw() Raw {
 	return t.raw
 }
 
@@ -37930,19 +35612,13 @@ func unwrapIEngUrlrequestClient(value IEngUrlrequestClient) vcef.IEngUrlrequestC
 	if wrapped, ok := value.(*tIEngUrlrequestClient_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngUrlrequestClient() vcef.IEngUrlrequestClient
-	}); ok {
-		return raw.RawCEF147IEngUrlrequestClient()
+	if raw, ok := RawAs[vcef.IEngUrlrequestClient](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngUrlrequestClient_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngUrlrequestClient_147) RawCEF147IEngUrlrequestClient() vcef.IEngUrlrequestClient {
+func (t *tIEngUrlrequestClient_147) Raw() Raw {
 	return t.raw
 }
 
@@ -38006,17 +35682,13 @@ func unwrapIEngV8Accessor(value IEngV8Accessor) vcef.IEngV8Accessor {
 	if wrapped, ok := value.(*tIEngV8Accessor_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IEngV8Accessor() vcef.IEngV8Accessor }); ok {
-		return raw.RawCEF147IEngV8Accessor()
+	if raw, ok := RawAs[vcef.IEngV8Accessor](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngV8Accessor_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngV8Accessor_147) RawCEF147IEngV8Accessor() vcef.IEngV8Accessor {
+func (t *tIEngV8Accessor_147) Raw() Raw {
 	return t.raw
 }
 
@@ -38069,19 +35741,13 @@ func unwrapIEngV8ArrayBufferReleaseCallback(value IEngV8ArrayBufferReleaseCallba
 	if wrapped, ok := value.(*tIEngV8ArrayBufferReleaseCallback_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngV8ArrayBufferReleaseCallback() vcef.IEngV8ArrayBufferReleaseCallback
-	}); ok {
-		return raw.RawCEF147IEngV8ArrayBufferReleaseCallback()
+	if raw, ok := RawAs[vcef.IEngV8ArrayBufferReleaseCallback](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngV8ArrayBufferReleaseCallback_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngV8ArrayBufferReleaseCallback_147) RawCEF147IEngV8ArrayBufferReleaseCallback() vcef.IEngV8ArrayBufferReleaseCallback {
+func (t *tIEngV8ArrayBufferReleaseCallback_147) Raw() Raw {
 	return t.raw
 }
 
@@ -38120,17 +35786,13 @@ func unwrapIEngV8Handler(value IEngV8Handler) vcef.IEngV8Handler {
 	if wrapped, ok := value.(*tIEngV8Handler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IEngV8Handler() vcef.IEngV8Handler }); ok {
-		return raw.RawCEF147IEngV8Handler()
+	if raw, ok := RawAs[vcef.IEngV8Handler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngV8Handler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngV8Handler_147) RawCEF147IEngV8Handler() vcef.IEngV8Handler {
+func (t *tIEngV8Handler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -38176,17 +35838,13 @@ func unwrapIEngV8Interceptor(value IEngV8Interceptor) vcef.IEngV8Interceptor {
 	if wrapped, ok := value.(*tIEngV8Interceptor_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IEngV8Interceptor() vcef.IEngV8Interceptor }); ok {
-		return raw.RawCEF147IEngV8Interceptor()
+	if raw, ok := RawAs[vcef.IEngV8Interceptor](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngV8Interceptor_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngV8Interceptor_147) RawCEF147IEngV8Interceptor() vcef.IEngV8Interceptor {
+func (t *tIEngV8Interceptor_147) Raw() Raw {
 	return t.raw
 }
 
@@ -38257,17 +35915,13 @@ func unwrapIEngViewDelegate(value IEngViewDelegate) vcef.IEngViewDelegate {
 	if wrapped, ok := value.(*tIEngViewDelegate_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IEngViewDelegate() vcef.IEngViewDelegate }); ok {
-		return raw.RawCEF147IEngViewDelegate()
+	if raw, ok := RawAs[vcef.IEngViewDelegate](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngViewDelegate_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngViewDelegate_147) RawCEF147IEngViewDelegate() vcef.IEngViewDelegate {
+func (t *tIEngViewDelegate_147) Raw() Raw {
 	return t.raw
 }
 
@@ -38350,19 +36004,13 @@ func unwrapIEngWindowDelegate(value IEngWindowDelegate) vcef.IEngWindowDelegate 
 	if wrapped, ok := value.(*tIEngWindowDelegate_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface {
-		RawCEF147IEngWindowDelegate() vcef.IEngWindowDelegate
-	}); ok {
-		return raw.RawCEF147IEngWindowDelegate()
+	if raw, ok := RawAs[vcef.IEngWindowDelegate](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngWindowDelegate_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngWindowDelegate_147) RawCEF147IEngWindowDelegate() vcef.IEngWindowDelegate {
+func (t *tIEngWindowDelegate_147) Raw() Raw {
 	return t.raw
 }
 
@@ -38513,17 +36161,13 @@ func unwrapIEngWriteHandler(value IEngWriteHandler) vcef.IEngWriteHandler {
 	if wrapped, ok := value.(*tIEngWriteHandler_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IEngWriteHandler() vcef.IEngWriteHandler }); ok {
-		return raw.RawCEF147IEngWriteHandler()
+	if raw, ok := RawAs[vcef.IEngWriteHandler](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIEngWriteHandler_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIEngWriteHandler_147) RawCEF147IEngWriteHandler() vcef.IEngWriteHandler {
+func (t *tIEngWriteHandler_147) Raw() Raw {
 	return t.raw
 }
 
@@ -38593,17 +36237,13 @@ func unwrapIPDFPrintOptions(value IPDFPrintOptions) vcef.IPDFPrintOptions {
 	if wrapped, ok := value.(*tIPDFPrintOptions_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IPDFPrintOptions() vcef.IPDFPrintOptions }); ok {
-		return raw.RawCEF147IPDFPrintOptions()
+	if raw, ok := RawAs[vcef.IPDFPrintOptions](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIPDFPrintOptions_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIPDFPrintOptions_147) RawCEF147IPDFPrintOptions() vcef.IPDFPrintOptions {
+func (t *tIPDFPrintOptions_147) Raw() Raw {
 	return t.raw
 }
 
@@ -38853,17 +36493,13 @@ func unwrapIServerEvents(value IServerEvents) vcef.IServerEvents {
 	if wrapped, ok := value.(*tIServerEvents_147); ok {
 		return wrapped.raw
 	}
-	if raw, ok := value.(interface{ RawCEF147IServerEvents() vcef.IServerEvents }); ok {
-		return raw.RawCEF147IServerEvents()
+	if raw, ok := RawAs[vcef.IServerEvents](value); ok {
+		return raw
 	}
 	return nil
 }
 
-func (t *tIServerEvents_147) CEFVersion() string {
-	return CEFVersion
-}
-
-func (t *tIServerEvents_147) RawCEF147IServerEvents() vcef.IServerEvents {
+func (t *tIServerEvents_147) Raw() Raw {
 	return t.raw
 }
 

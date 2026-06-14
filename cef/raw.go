@@ -10,6 +10,21 @@
 
 package cef
 
-type Raw interface {
-	CEFVersion() string
+type Raw = any
+
+type IRaw interface {
+	Raw() Raw
+}
+
+func RawAs[T any](value any) (T, bool) {
+	var zero T
+	raw, ok := value.(IRaw)
+	if !ok {
+		return zero, false
+	}
+	out, ok := raw.Raw().(T)
+	if !ok {
+		return zero, false
+	}
+	return out, true
 }
