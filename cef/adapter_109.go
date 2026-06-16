@@ -19,7 +19,7 @@ import (
 	"github.com/energye/lcl/types"
 )
 
-const CEFVersion = "109"
+const CEFVersion = 109
 
 type ICustomPanel = vcef.ICustomPanel
 type PPSingle = vcef.PPSingle

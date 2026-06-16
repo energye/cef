@@ -42,6 +42,21 @@ func DestroyGlobalCEFWorkSchedule() {
 	cefApplicationDefAPI().SysCallN(5)
 }
 
+func CEFLibVersion() (major, minor, release, build int32) {
+	/*
+		procedure CEFLibVersion(out AMajor, AMinor, ARelease, ABuild: Integer); extdecl;
+		begin
+		  AMajor := Integer(CEF_SUPPORTED_VERSION_MAJOR);
+		  AMinor := Integer(CEF_SUPPORTED_VERSION_MINOR);
+		  ARelease := Integer(CEF_SUPPORTED_VERSION_RELEASE);
+		  ABuild := Integer(CEF_SUPPORTED_VERSION_BUILD);
+		end;
+	*/
+	cefApplicationDefAPI().SysCallN(6, uintptr(base.UnsafePointer(&major)), uintptr(base.UnsafePointer(&minor)),
+		uintptr(base.UnsafePointer(&release)), uintptr(base.UnsafePointer(&build)))
+	return
+}
+
 var (
 	cefApplicationDefOnce   base.Once
 	cefApplicationDefImport *imports.Imports = nil
@@ -57,6 +72,7 @@ func cefApplicationDefAPI() *imports.Imports {
 			/* 3 */ imports.NewTable("DestroyGlobalCEFApplication", 0),
 			/* 4 */ imports.NewTable("SetGlobalCEFWorkSchedule", 0),
 			/* 5 */ imports.NewTable("DestroyGlobalCEFWorkSchedule", 0),
+			/* 6 */ imports.NewTable("CEFLibVersion", 0),
 		}
 	})
 	return cefApplicationDefImport
