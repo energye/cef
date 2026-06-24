@@ -17,6 +17,7 @@ import (
 	cefTypes "github.com/energye/cef/cef/types"
 	"github.com/energye/lcl/lcl"
 	"github.com/energye/lcl/types"
+	"strconv"
 )
 
 const CEFVersion = 109
@@ -753,9 +754,9 @@ type TOnAudioStreamPacketEvent func(sender lcl.IObject, browser ICefBrowser, dat
 type TOnAudioStreamStartedEvent func(sender lcl.IObject, browser ICefBrowser, params TCefAudioParameters, channels int32)
 type TOnAudioStreamStoppedEvent func(sender lcl.IObject, browser ICefBrowser)
 type TOnAutoResize func(sender lcl.IObject, browser ICefBrowser, newSize TCefSize, outResult *bool)
-type TOnBeforeBackgroundBrowserEvent func(sender lcl.IObject, extension ICefExtension, url string, client *IEngClient, settings *TCefBrowserSettings, result *bool)
+type TOnBeforeBackgroundBrowserEvent func(sender lcl.IObject, extension ICefExtension_109, url string, client *IEngClient, settings *TCefBrowserSettings, result *bool)
 type TOnBeforeBrowse func(sender lcl.IObject, browser ICefBrowser, frame ICefFrame, request ICefRequest, userGesture bool, isRedirect bool, outResult *bool)
-type TOnBeforeBrowserEvent func(sender lcl.IObject, extension ICefExtension, browser ICefBrowser, activeBrowser ICefBrowser, index int32, url string, active bool, windowInfo *TCefWindowInfo, client *IEngClient, settings *TCefBrowserSettings, result *bool)
+type TOnBeforeBrowserEvent func(sender lcl.IObject, extension ICefExtension_109, browser ICefBrowser, activeBrowser ICefBrowser, index int32, url string, active bool, windowInfo *TCefWindowInfo, client *IEngClient, settings *TCefBrowserSettings, result *bool)
 type TOnBeforeChildProcessLaunchEvent func(commandLine ICefCommandLine)
 type TOnBeforeClose func(sender lcl.IObject, browser ICefBrowser)
 type TOnBeforeContextMenu func(sender lcl.IObject, browser ICefBrowser, frame ICefFrame, params ICefContextMenuParams, model ICefMenuModel)
@@ -780,7 +781,7 @@ type TOnButtonButtonPressedEvent func(button ICefButton)
 type TOnButtonButtonStateChangedEvent func(button ICefButton)
 type TOnButtonPressedEvent func(sender lcl.IObject, button ICefButton)
 type TOnButtonStateChangedEvent func(sender lcl.IObject, button ICefButton)
-type TOnCanAccessBrowserEvent func(sender lcl.IObject, extension ICefExtension, browser ICefBrowser, includeIncognito bool, targetBrowser ICefBrowser, result *bool)
+type TOnCanAccessBrowserEvent func(sender lcl.IObject, extension ICefExtension_109, browser ICefBrowser, includeIncognito bool, targetBrowser ICefBrowser, result *bool)
 type TOnCanCloseEvent func(sender lcl.IObject, window ICefWindow, result *bool)
 type TOnCanDownloadEvent func(sender lcl.IObject, browser ICefBrowser, url string, requestMethod string, result *bool)
 type TOnCanMaximizeEvent func(sender lcl.IObject, window ICefWindow, result *bool)
@@ -881,17 +882,17 @@ type TOnDragEnter func(sender lcl.IObject, browser ICefBrowser, dragData ICefDra
 type TOnDraggableRegionsChanged func(sender lcl.IObject, browser ICefBrowser, frame ICefFrame, regionsCount cefTypes.NativeUInt, regions ICefDraggableRegionArray)
 type TOnEndTracingCallbackEndTracingCompleteEvent func(tracingFile string)
 type TOnExecuteTaskOnCefThread func(sender lcl.IObject, taskID uint32)
-type TOnExtensionBeforeBackgroundBrowserEvent func(extension ICefExtension, url string, client *IEngClient, settings *TCefBrowserSettings) bool
-type TOnExtensionBeforeBrowserEvent func(extension ICefExtension, browser ICefBrowser, activeBrowser ICefBrowser, index int32, url string, active bool, windowInfo *TCefWindowInfo, client *IEngClient, settings *TCefBrowserSettings) bool
-type TOnExtensionCanAccessBrowserEvent func(extension ICefExtension, browser ICefBrowser, includeIncognito bool, targetBrowser ICefBrowser) bool
+type TOnExtensionBeforeBackgroundBrowserEvent func(extension ICefExtension_109, url string, client *IEngClient, settings *TCefBrowserSettings) bool
+type TOnExtensionBeforeBrowserEvent func(extension ICefExtension_109, browser ICefBrowser, activeBrowser ICefBrowser, index int32, url string, active bool, windowInfo *TCefWindowInfo, client *IEngClient, settings *TCefBrowserSettings) bool
+type TOnExtensionCanAccessBrowserEvent func(extension ICefExtension_109, browser ICefBrowser, includeIncognito bool, targetBrowser ICefBrowser) bool
 type TOnExtensionExtensionLoadFailedEvent func(result cefTypes.TCefErrorCode)
-type TOnExtensionExtensionLoadedEvent func(extension ICefExtension)
-type TOnExtensionExtensionUnloadedEvent func(extension ICefExtension)
-type TOnExtensionGetActiveBrowserEvent func(extension ICefExtension, browser ICefBrowser, includeIncognito bool, rsltBrowser *ICefBrowser)
-type TOnExtensionGetExtensionResourceEvent func(extension ICefExtension, browser ICefBrowser, file string, callback ICefGetExtensionResourceCallback) bool
+type TOnExtensionExtensionLoadedEvent func(extension ICefExtension_109)
+type TOnExtensionExtensionUnloadedEvent func(extension ICefExtension_109)
+type TOnExtensionGetActiveBrowserEvent func(extension ICefExtension_109, browser ICefBrowser, includeIncognito bool, rsltBrowser *ICefBrowser)
+type TOnExtensionGetExtensionResourceEvent func(extension ICefExtension_109, browser ICefBrowser, file string, callback ICefGetExtensionResourceCallback_109) bool
 type TOnExtensionLoadFailedEvent func(sender lcl.IObject, result cefTypes.TCefErrorCode)
-type TOnExtensionLoadedEvent func(sender lcl.IObject, extension ICefExtension)
-type TOnExtensionUnloadedEvent func(sender lcl.IObject, extension ICefExtension)
+type TOnExtensionLoadedEvent func(sender lcl.IObject, extension ICefExtension_109)
+type TOnExtensionUnloadedEvent func(sender lcl.IObject, extension ICefExtension_109)
 type TOnFavIconUrlChange func(sender lcl.IObject, browser ICefBrowser, iconUrls lcl.IStrings)
 type TOnFileDialog func(sender lcl.IObject, browser ICefBrowser, mode cefTypes.TCefFileDialogMode, title string, defaultFilePath string, acceptFilters lcl.IStrings, callback ICefFileDialogCallback, result *bool)
 type TOnFilterEvent func(sender lcl.IObject, dataIn uintptr, dataInSize cefTypes.NativeUInt, dataInRead *cefTypes.NativeUInt, dataOut uintptr, dataOutSize cefTypes.NativeUInt, dataOutWritten *cefTypes.NativeUInt, result *cefTypes.TCefResponseFilterStatus)
@@ -911,7 +912,7 @@ type TOnFrameFrameDetachedEvent func(browser ICefBrowser, frame ICefFrame)
 type TOnFrameMainFrameChangedEvent func(browser ICefBrowser, oldFrame ICefFrame, newFrame ICefFrame)
 type TOnFullScreenModeChange func(sender lcl.IObject, browser ICefBrowser, fullscreen bool)
 type TOnGetAccessibilityHandler func(sender lcl.IObject, accessibilityHandler *IEngAccessibilityHandler)
-type TOnGetActiveBrowserEvent func(sender lcl.IObject, extension ICefExtension, browser ICefBrowser, includeIncognito bool, rsltBrowser *ICefBrowser)
+type TOnGetActiveBrowserEvent func(sender lcl.IObject, extension ICefExtension_109, browser ICefBrowser, includeIncognito bool, rsltBrowser *ICefBrowser)
 type TOnGetAudioParametersEvent func(sender lcl.IObject, browser ICefBrowser, params *TCefAudioParameters, result *bool)
 type TOnGetAuthCredentials func(sender lcl.IObject, browser ICefBrowser, originUrl string, isProxy bool, host string, port int32, realm string, scheme string, callback ICefAuthCallback, outResult *bool)
 type TOnGetChromeToolbarTypeEvent func(sender lcl.IObject, chromeToolbarType *TCefChromeToolbarType)
@@ -919,7 +920,7 @@ type TOnGetDataResourceEvent func(resourceId int32, outData *uintptr, outDataSiz
 type TOnGetDataResourceForScaleEvent func(resourceId int32, scaleFactor cefTypes.TCefScaleFactor, outData *uintptr, outDataSize *cefTypes.NativeUInt, result *bool)
 type TOnGetDefaultClientEvent func(client *IEngClient)
 type TOnGetDelegateForPopupBrowserViewEvent func(sender lcl.IObject, browserView ICefBrowserView, settings TCefBrowserSettings, client IEngClient, isDevtools bool, result *IEngBrowserViewDelegate)
-type TOnGetExtensionResourceEvent func(sender lcl.IObject, extension ICefExtension, browser ICefBrowser, file string, callback ICefGetExtensionResourceCallback, result *bool)
+type TOnGetExtensionResourceEvent func(sender lcl.IObject, extension ICefExtension_109, browser ICefBrowser, file string, callback ICefGetExtensionResourceCallback_109, result *bool)
 type TOnGetHeightForWidthEvent func(sender lcl.IObject, view ICefView, width int32, result *int32)
 type TOnGetInitialBoundsEvent func(sender lcl.IObject, window ICefWindow, result *TCefRect)
 type TOnGetInitialShowStateEvent func(sender lcl.IObject, window ICefWindow, result *cefTypes.TCefShowState)
@@ -2299,8 +2300,8 @@ func (t *tICEFOSRIMEHandler_109) SubLangID() uint16 {
 	return r0
 }
 
-func (t *tICEFOSRIMEHandler_109) UpdateCaretPosition(index int32) {
-	t.raw.UpdateCaretPosition(index)
+func (t *tICEFOSRIMEHandler_109) UpdateCaretPosition(index uint32) {
+	t.raw.UpdateCaretPosition(int32(index))
 }
 
 type tICEFPanelComponent_109 struct {
@@ -6637,7 +6638,7 @@ func (t *tICefBrowserHost_109) GetBrowser() ICefBrowser {
 	return wrapICefBrowser(r0)
 }
 
-func (t *tICefBrowserHost_109) GetExtension() ICefExtension {
+func (t *tICefBrowserHost_109) GetExtension() ICefExtension_109 {
 	r0 := t.raw.GetExtension()
 	return wrapICefExtension(r0)
 }
@@ -6927,7 +6928,7 @@ func (t *tICefBrowserHostRef_109) GetBrowser() ICefBrowser {
 	return wrapICefBrowser(r0)
 }
 
-func (t *tICefBrowserHostRef_109) GetExtension() ICefExtension {
+func (t *tICefBrowserHostRef_109) GetExtension() ICefExtension_109 {
 	r0 := t.raw.GetExtension()
 	return wrapICefExtension(r0)
 }
@@ -11273,11 +11274,11 @@ func newtICefDownLoadItemRef_109(raw vcef.ICefDownLoadItemRef) *tICefDownLoadIte
 	}
 }
 
-func wrapICefDownLoadItemRef(raw vcef.ICefDownLoadItemRef) ICefDownLoadItemRef {
+func wrapICefDownLoadItemRef(raw vcef.ICefDownLoadItemRef) ICefDownLoadItemRef_109 {
 	return newtICefDownLoadItemRef_109(raw)
 }
 
-func unwrapICefDownLoadItemRef(value ICefDownLoadItemRef) vcef.ICefDownLoadItemRef {
+func unwrapICefDownLoadItemRef(value ICefDownLoadItemRef_109) vcef.ICefDownLoadItemRef {
 	if value == nil {
 		return nil
 	}
@@ -12269,11 +12270,11 @@ func newtICefExtension_109(raw vcef.ICefExtension) *tICefExtension_109 {
 	}
 }
 
-func wrapICefExtension(raw vcef.ICefExtension) ICefExtension {
+func wrapICefExtension(raw vcef.ICefExtension) ICefExtension_109 {
 	return newtICefExtension_109(raw)
 }
 
-func unwrapICefExtension(value ICefExtension) vcef.ICefExtension {
+func unwrapICefExtension(value ICefExtension_109) vcef.ICefExtension {
 	if value == nil {
 		return nil
 	}
@@ -12305,7 +12306,7 @@ func (t *tICefExtension_109) GetBrowserActionPopup() string {
 	return r0
 }
 
-func (t *tICefExtension_109) GetHandler() IEngExtensionHandler {
+func (t *tICefExtension_109) GetHandler() IEngExtensionHandler_109 {
 	r0 := t.raw.GetHandler()
 	return wrapIEngExtensionHandler(r0)
 }
@@ -12360,7 +12361,7 @@ func (t *tICefExtension_109) IsLoaded() bool {
 	return r0
 }
 
-func (t *tICefExtension_109) IsSame(that ICefExtension) bool {
+func (t *tICefExtension_109) IsSame(that ICefExtension_109) bool {
 	r0 := t.raw.IsSame(unwrapICefExtension(that))
 	return r0
 }
@@ -12384,11 +12385,11 @@ func newtICefExtensionHandler_109(raw vcef.ICefExtensionHandler) *tICefExtension
 	}
 }
 
-func wrapICefExtensionHandler(raw vcef.ICefExtensionHandler) ICefExtensionHandler {
+func wrapICefExtensionHandler(raw vcef.ICefExtensionHandler) ICefExtensionHandler_109 {
 	return newtICefExtensionHandler_109(raw)
 }
 
-func unwrapICefExtensionHandler(value ICefExtensionHandler) vcef.ICefExtensionHandler {
+func unwrapICefExtensionHandler(value ICefExtensionHandler_109) vcef.ICefExtensionHandler {
 	if value == nil {
 		return nil
 	}
@@ -12420,11 +12421,11 @@ func newtICefExtensionHandlerOwn_109(raw vcef.ICefExtensionHandlerOwn) *tICefExt
 	}
 }
 
-func wrapICefExtensionHandlerOwn(raw vcef.ICefExtensionHandlerOwn) ICefExtensionHandlerOwn {
+func wrapICefExtensionHandlerOwn(raw vcef.ICefExtensionHandlerOwn) ICefExtensionHandlerOwn_109 {
 	return newtICefExtensionHandlerOwn_109(raw)
 }
 
-func unwrapICefExtensionHandlerOwn(value ICefExtensionHandlerOwn) vcef.ICefExtensionHandlerOwn {
+func unwrapICefExtensionHandlerOwn(value ICefExtensionHandlerOwn_109) vcef.ICefExtensionHandlerOwn {
 	if value == nil {
 		return nil
 	}
@@ -12456,11 +12457,11 @@ func newtICefExtensionRef_109(raw vcef.ICefExtensionRef) *tICefExtensionRef_109 
 	}
 }
 
-func wrapICefExtensionRef(raw vcef.ICefExtensionRef) ICefExtensionRef {
+func wrapICefExtensionRef(raw vcef.ICefExtensionRef) ICefExtensionRef_109 {
 	return newtICefExtensionRef_109(raw)
 }
 
-func unwrapICefExtensionRef(value ICefExtensionRef) vcef.ICefExtensionRef {
+func unwrapICefExtensionRef(value ICefExtensionRef_109) vcef.ICefExtensionRef {
 	if value == nil {
 		return nil
 	}
@@ -12497,7 +12498,7 @@ func (t *tICefExtensionRef_109) GetBrowserActionPopup() string {
 	return r0
 }
 
-func (t *tICefExtensionRef_109) GetHandler() IEngExtensionHandler {
+func (t *tICefExtensionRef_109) GetHandler() IEngExtensionHandler_109 {
 	r0 := t.raw.GetHandler()
 	return wrapIEngExtensionHandler(r0)
 }
@@ -12552,7 +12553,7 @@ func (t *tICefExtensionRef_109) IsLoaded() bool {
 	return r0
 }
 
-func (t *tICefExtensionRef_109) IsSame(that ICefExtension) bool {
+func (t *tICefExtensionRef_109) IsSame(that ICefExtension_109) bool {
 	r0 := t.raw.IsSame(unwrapICefExtension(that))
 	return r0
 }
@@ -12942,9 +12943,9 @@ func (t *tICefFrame_109) GetBrowser() ICefBrowser {
 	return wrapICefBrowser(r0)
 }
 
-func (t *tICefFrame_109) GetIdentifier() int64 {
+func (t *tICefFrame_109) GetIdentifier() TCefFrameIdentifier {
 	r0 := t.raw.GetIdentifier()
-	return r0
+	return TCefFrameIdentifier(strconv.FormatInt(int64(r0), 10))
 }
 
 func (t *tICefFrame_109) GetName() string {
@@ -13165,9 +13166,9 @@ func (t *tICefFrameRef_109) GetBrowser() ICefBrowser {
 	return wrapICefBrowser(r0)
 }
 
-func (t *tICefFrameRef_109) GetIdentifier() int64 {
+func (t *tICefFrameRef_109) GetIdentifier() TCefFrameIdentifier {
 	r0 := t.raw.GetIdentifier()
-	return r0
+	return TCefFrameIdentifier(strconv.FormatInt(int64(r0), 10))
 }
 
 func (t *tICefFrameRef_109) GetName() string {
@@ -13305,11 +13306,11 @@ func newtICefGetExtensionResourceCallback_109(raw vcef.ICefGetExtensionResourceC
 	}
 }
 
-func wrapICefGetExtensionResourceCallback(raw vcef.ICefGetExtensionResourceCallback) ICefGetExtensionResourceCallback {
+func wrapICefGetExtensionResourceCallback(raw vcef.ICefGetExtensionResourceCallback) ICefGetExtensionResourceCallback_109 {
 	return newtICefGetExtensionResourceCallback_109(raw)
 }
 
-func unwrapICefGetExtensionResourceCallback(value ICefGetExtensionResourceCallback) vcef.ICefGetExtensionResourceCallback {
+func unwrapICefGetExtensionResourceCallback(value ICefGetExtensionResourceCallback_109) vcef.ICefGetExtensionResourceCallback {
 	if value == nil {
 		return nil
 	}
@@ -13349,11 +13350,11 @@ func newtICefGetExtensionResourceCallbackRef_109(raw vcef.ICefGetExtensionResour
 	}
 }
 
-func wrapICefGetExtensionResourceCallbackRef(raw vcef.ICefGetExtensionResourceCallbackRef) ICefGetExtensionResourceCallbackRef {
+func wrapICefGetExtensionResourceCallbackRef(raw vcef.ICefGetExtensionResourceCallbackRef) ICefGetExtensionResourceCallbackRef_109 {
 	return newtICefGetExtensionResourceCallbackRef_109(raw)
 }
 
-func unwrapICefGetExtensionResourceCallbackRef(value ICefGetExtensionResourceCallbackRef) vcef.ICefGetExtensionResourceCallbackRef {
+func unwrapICefGetExtensionResourceCallbackRef(value ICefGetExtensionResourceCallbackRef_109) vcef.ICefGetExtensionResourceCallbackRef {
 	if value == nil {
 		return nil
 	}
@@ -14716,11 +14717,11 @@ func newtICefMediaAccessHandler_109(raw vcef.ICefMediaAccessHandler) *tICefMedia
 	}
 }
 
-func wrapICefMediaAccessHandler(raw vcef.ICefMediaAccessHandler) ICefMediaAccessHandler {
+func wrapICefMediaAccessHandler(raw vcef.ICefMediaAccessHandler) ICefMediaAccessHandler_109 {
 	return newtICefMediaAccessHandler_109(raw)
 }
 
-func unwrapICefMediaAccessHandler(value ICefMediaAccessHandler) vcef.ICefMediaAccessHandler {
+func unwrapICefMediaAccessHandler(value ICefMediaAccessHandler_109) vcef.ICefMediaAccessHandler {
 	if value == nil {
 		return nil
 	}
@@ -14752,11 +14753,11 @@ func newtICefMediaAccessHandlerOwn_109(raw vcef.ICefMediaAccessHandlerOwn) *tICe
 	}
 }
 
-func wrapICefMediaAccessHandlerOwn(raw vcef.ICefMediaAccessHandlerOwn) ICefMediaAccessHandlerOwn {
+func wrapICefMediaAccessHandlerOwn(raw vcef.ICefMediaAccessHandlerOwn) ICefMediaAccessHandlerOwn_109 {
 	return newtICefMediaAccessHandlerOwn_109(raw)
 }
 
-func unwrapICefMediaAccessHandlerOwn(value ICefMediaAccessHandlerOwn) vcef.ICefMediaAccessHandlerOwn {
+func unwrapICefMediaAccessHandlerOwn(value ICefMediaAccessHandlerOwn_109) vcef.ICefMediaAccessHandlerOwn {
 	if value == nil {
 		return nil
 	}
@@ -19191,7 +19192,7 @@ func (t *tICefRequestContext_109) GetExtensions(extensionIds lcl.IStringList) bo
 	return r0
 }
 
-func (t *tICefRequestContext_109) GetExtension(extensionId string) ICefExtension {
+func (t *tICefRequestContext_109) GetExtension(extensionId string) ICefExtension_109 {
 	r0 := t.raw.GetExtension(extensionId)
 	return wrapICefExtension(r0)
 }
@@ -19226,7 +19227,7 @@ func (t *tICefRequestContext_109) IsSharingWith(other ICefRequestContext) bool {
 	return r0
 }
 
-func (t *tICefRequestContext_109) LoadExtension(rootDirectory string, manifest ICefDictionaryValue, handler IEngExtensionHandler) {
+func (t *tICefRequestContext_109) LoadExtension(rootDirectory string, manifest ICefDictionaryValue, handler IEngExtensionHandler_109) {
 	t.raw.LoadExtension(rootDirectory, unwrapICefDictionaryValue(manifest), unwrapIEngExtensionHandler(handler))
 }
 
@@ -19394,7 +19395,7 @@ func (t *tICefRequestContextRef_109) GetExtensions(extensionIds lcl.IStringList)
 	return r0
 }
 
-func (t *tICefRequestContextRef_109) GetExtension(extensionId string) ICefExtension {
+func (t *tICefRequestContextRef_109) GetExtension(extensionId string) ICefExtension_109 {
 	r0 := t.raw.GetExtension(extensionId)
 	return wrapICefExtension(r0)
 }
@@ -19429,7 +19430,7 @@ func (t *tICefRequestContextRef_109) IsSharingWith(other ICefRequestContext) boo
 	return r0
 }
 
-func (t *tICefRequestContextRef_109) LoadExtension(rootDirectory string, manifest ICefDictionaryValue, handler IEngExtensionHandler) {
+func (t *tICefRequestContextRef_109) LoadExtension(rootDirectory string, manifest ICefDictionaryValue, handler IEngExtensionHandler_109) {
 	t.raw.LoadExtension(rootDirectory, unwrapICefDictionaryValue(manifest), unwrapIEngExtensionHandler(handler))
 }
 
@@ -28294,7 +28295,7 @@ func (t *tIChromiumCore_109) ExecuteTaskOnCefThread(cefThreadId cefTypes.TCefThr
 	return r0
 }
 
-func (t *tIChromiumCore_109) ExtensionHandler() IEngExtensionHandler {
+func (t *tIChromiumCore_109) ExtensionHandler() IEngExtensionHandler_109 {
 	r0 := t.raw.ExtensionHandler()
 	return wrapIEngExtensionHandler(r0)
 }
@@ -28332,7 +28333,7 @@ func (t *tIChromiumCore_109) GetExtensions(extensionIds lcl.IStringList) bool {
 	return r0
 }
 
-func (t *tIChromiumCore_109) GetExtension(extensionId string) ICefExtension {
+func (t *tIChromiumCore_109) GetExtension(extensionId string) ICefExtension_109 {
 	r0 := t.raw.GetExtension(extensionId)
 	return wrapICefExtension(r0)
 }
@@ -28471,7 +28472,7 @@ func (t *tIChromiumCore_109) JavascriptEnabled() bool {
 	return r0
 }
 
-func (t *tIChromiumCore_109) LoadExtension(rootDirectory string, manifest ICefDictionaryValue, handler IEngExtensionHandler, requestContext ICefRequestContext) bool {
+func (t *tIChromiumCore_109) LoadExtension(rootDirectory string, manifest ICefDictionaryValue, handler IEngExtensionHandler_109, requestContext ICefRequestContext) bool {
 	r0 := t.raw.LoadExtension(rootDirectory, unwrapICefDictionaryValue(manifest), unwrapIEngExtensionHandler(handler), unwrapICefRequestContext(requestContext))
 	return r0
 }
@@ -31836,11 +31837,11 @@ func newtIEngExtensionHandler_109(raw vcef.IEngExtensionHandler) *tIEngExtension
 	}
 }
 
-func wrapIEngExtensionHandler(raw vcef.IEngExtensionHandler) IEngExtensionHandler {
+func wrapIEngExtensionHandler(raw vcef.IEngExtensionHandler) IEngExtensionHandler_109 {
 	return newtIEngExtensionHandler_109(raw)
 }
 
-func unwrapIEngExtensionHandler(value IEngExtensionHandler) vcef.IEngExtensionHandler {
+func unwrapIEngExtensionHandler(value IEngExtensionHandler_109) vcef.IEngExtensionHandler {
 	if value == nil {
 		return nil
 	}
@@ -32357,11 +32358,11 @@ func newtIEngMediaAccessHandler_109(raw vcef.IEngMediaAccessHandler) *tIEngMedia
 	}
 }
 
-func wrapIEngMediaAccessHandler(raw vcef.IEngMediaAccessHandler) IEngMediaAccessHandler {
+func wrapIEngMediaAccessHandler(raw vcef.IEngMediaAccessHandler) IEngMediaAccessHandler_109 {
 	return newtIEngMediaAccessHandler_109(raw)
 }
 
-func unwrapIEngMediaAccessHandler(value IEngMediaAccessHandler) vcef.IEngMediaAccessHandler {
+func unwrapIEngMediaAccessHandler(value IEngMediaAccessHandler_109) vcef.IEngMediaAccessHandler {
 	if value == nil {
 		return nil
 	}
@@ -35234,7 +35235,7 @@ func AsCefDomNodeRef(obj any) ICefDomNodeRef {
 	return wrapICefDomNodeRef(r0)
 }
 
-func AsCefDownLoadItemRef(obj any) ICefDownLoadItemRef {
+func AsCefDownLoadItemRef(obj any) ICefDownLoadItemRef_109 {
 	r0 := vcef.AsCefDownLoadItemRef(obj)
 	return wrapICefDownLoadItemRef(r0)
 }
@@ -35254,7 +35255,7 @@ func AsCefEventCompletionCallback(obj any) ICefEventCompletionCallback {
 	return wrapICefEventCompletionCallback(r0)
 }
 
-func AsCefExtensionRef(obj any) ICefExtensionRef {
+func AsCefExtensionRef(obj any) ICefExtensionRef_109 {
 	r0 := vcef.AsCefExtensionRef(obj)
 	return wrapICefExtensionRef(r0)
 }
@@ -35279,7 +35280,7 @@ func AsCefGenericTask(obj any) ICefGenericTask {
 	return wrapICefGenericTask(r0)
 }
 
-func AsCefGetExtensionResourceCallbackRef(obj any) ICefGetExtensionResourceCallbackRef {
+func AsCefGetExtensionResourceCallbackRef(obj any) ICefGetExtensionResourceCallbackRef_109 {
 	r0 := vcef.AsCefGetExtensionResourceCallbackRef(obj)
 	return wrapICefGetExtensionResourceCallbackRef(r0)
 }
@@ -35784,7 +35785,7 @@ func AsEngEndTracingCallback(obj any) IEngEndTracingCallback {
 	return wrapIEngEndTracingCallback(r0)
 }
 
-func AsEngExtensionHandler(obj any) IEngExtensionHandler {
+func AsEngExtensionHandler(obj any) IEngExtensionHandler_109 {
 	r0 := vcef.AsEngExtensionHandler(obj)
 	return wrapIEngExtensionHandler(r0)
 }
@@ -35824,7 +35825,7 @@ func AsEngLoadHandler(obj any) IEngLoadHandler {
 	return wrapIEngLoadHandler(r0)
 }
 
-func AsEngMediaAccessHandler(obj any) IEngMediaAccessHandler {
+func AsEngMediaAccessHandler(obj any) IEngMediaAccessHandler_109 {
 	r0 := vcef.AsEngMediaAccessHandler(obj)
 	return wrapIEngMediaAccessHandler(r0)
 }
@@ -36310,7 +36311,7 @@ func NewDomNodeRef(data uintptr) ICefDomNodeRef {
 	return wrapICefDomNodeRef(r0)
 }
 
-func NewDownLoadItemRef(data uintptr) ICefDownLoadItemRef {
+func NewDownLoadItemRef(data uintptr) ICefDownLoadItemRef_109 {
 	r0 := vcef.NewDownLoadItemRef(data)
 	return wrapICefDownLoadItemRef(r0)
 }
@@ -36430,7 +36431,7 @@ func NewEngEndTracingCallback() IEngEndTracingCallback {
 	return wrapIEngEndTracingCallback(r0)
 }
 
-func NewEngExtensionHandler() IEngExtensionHandler {
+func NewEngExtensionHandler() IEngExtensionHandler_109 {
 	r0 := vcef.NewEngExtensionHandler()
 	return wrapIEngExtensionHandler(r0)
 }
@@ -36470,7 +36471,7 @@ func NewEngLoadHandler() IEngLoadHandler {
 	return wrapIEngLoadHandler(r0)
 }
 
-func NewEngMediaAccessHandler() IEngMediaAccessHandler {
+func NewEngMediaAccessHandler() IEngMediaAccessHandler_109 {
 	r0 := vcef.NewEngMediaAccessHandler()
 	return wrapIEngMediaAccessHandler(r0)
 }
@@ -36650,7 +36651,7 @@ func NewEventCompletionCallback(event ICefWaitableEvent) ICefEventCompletionCall
 	return wrapICefEventCompletionCallback(r0)
 }
 
-func NewExtensionRef(data uintptr) ICefExtensionRef {
+func NewExtensionRef(data uintptr) ICefExtensionRef_109 {
 	r0 := vcef.NewExtensionRef(data)
 	return wrapICefExtensionRef(r0)
 }
@@ -36680,7 +36681,7 @@ func NewGenericTask(events IChromiumCore, taskID uint32) ICefGenericTask {
 	return wrapICefGenericTask(r0)
 }
 
-func NewGetExtensionResourceCallbackRef(data uintptr) ICefGetExtensionResourceCallbackRef {
+func NewGetExtensionResourceCallbackRef(data uintptr) ICefGetExtensionResourceCallbackRef_109 {
 	r0 := vcef.NewGetExtensionResourceCallbackRef(data)
 	return wrapICefGetExtensionResourceCallbackRef(r0)
 }
@@ -37174,7 +37175,7 @@ type tAuthCallbackRef struct{}
 
 var AuthCallbackRef tAuthCallbackRef
 
-func (tAuthCallbackRef) UnWrap(data uintptr) ICefAuthCallback {
+func (tAuthCallbackRef) UnWrap(data uintptr) (result ICefAuthCallback) {
 	r0 := vcef.AuthCallbackRef.UnWrap(data)
 	return wrapICefAuthCallback(r0)
 }
@@ -37183,7 +37184,7 @@ type tBeforeDownloadCallbackRef struct{}
 
 var BeforeDownloadCallbackRef tBeforeDownloadCallbackRef
 
-func (tBeforeDownloadCallbackRef) UnWrap(data uintptr) ICefBeforeDownloadCallback {
+func (tBeforeDownloadCallbackRef) UnWrap(data uintptr) (result ICefBeforeDownloadCallback) {
 	r0 := vcef.BeforeDownloadCallbackRef.UnWrap(data)
 	return wrapICefBeforeDownloadCallback(r0)
 }
@@ -37192,12 +37193,12 @@ type tBinaryValueRef struct{}
 
 var BinaryValueRef tBinaryValueRef
 
-func (tBinaryValueRef) New(data uintptr, dataSize cefTypes.NativeUInt) ICefBinaryValue {
+func (tBinaryValueRef) New(data uintptr, dataSize cefTypes.NativeUInt) (result ICefBinaryValue) {
 	r0 := vcef.BinaryValueRef.New(data, dataSize)
 	return wrapICefBinaryValue(r0)
 }
 
-func (tBinaryValueRef) UnWrap(data uintptr) ICefBinaryValue {
+func (tBinaryValueRef) UnWrap(data uintptr) (result ICefBinaryValue) {
 	r0 := vcef.BinaryValueRef.UnWrap(data)
 	return wrapICefBinaryValue(r0)
 }
@@ -37206,7 +37207,7 @@ type tBoxLayoutRef struct{}
 
 var BoxLayoutRef tBoxLayoutRef
 
-func (tBoxLayoutRef) UnWrapWithPointer(data uintptr) ICefBoxLayout {
+func (tBoxLayoutRef) UnWrapWithPointer(data uintptr) (result ICefBoxLayout) {
 	r0 := vcef.BoxLayoutRef.UnWrapWithPointer(data)
 	return wrapICefBoxLayout(r0)
 }
@@ -37215,7 +37216,7 @@ type tBrowserHostRef struct{}
 
 var BrowserHostRef tBrowserHostRef
 
-func (tBrowserHostRef) UnWrap(data uintptr) ICefBrowserHost {
+func (tBrowserHostRef) UnWrap(data uintptr) (result ICefBrowserHost) {
 	r0 := vcef.BrowserHostRef.UnWrap(data)
 	return wrapICefBrowserHost(r0)
 }
@@ -37224,7 +37225,7 @@ type tBrowserRef struct{}
 
 var BrowserRef tBrowserRef
 
-func (tBrowserRef) UnWrap(data uintptr) ICefBrowser {
+func (tBrowserRef) UnWrap(data uintptr) (result ICefBrowser) {
 	r0 := vcef.BrowserRef.UnWrap(data)
 	return wrapICefBrowser(r0)
 }
@@ -37233,7 +37234,7 @@ type tBrowserViewDelegateRef struct{}
 
 var BrowserViewDelegateRef tBrowserViewDelegateRef
 
-func (tBrowserViewDelegateRef) UnWrapWithPointer(data uintptr) IEngBrowserViewDelegate {
+func (tBrowserViewDelegateRef) UnWrapWithPointer(data uintptr) (result IEngBrowserViewDelegate) {
 	r0 := vcef.BrowserViewDelegateRef.UnWrapWithPointer(data)
 	return wrapIEngBrowserViewDelegate(r0)
 }
@@ -37242,17 +37243,17 @@ type tBrowserViewRef struct{}
 
 var BrowserViewRef tBrowserViewRef
 
-func (tBrowserViewRef) CreateBrowserView(client IEngClient, url string, settings TCefBrowserSettings, extraInfo ICefDictionaryValue, requestContext ICefRequestContext, delegate IEngBrowserViewDelegate) ICefBrowserView {
+func (tBrowserViewRef) CreateBrowserView(client IEngClient, url string, settings TCefBrowserSettings, extraInfo ICefDictionaryValue, requestContext ICefRequestContext, delegate IEngBrowserViewDelegate) (result ICefBrowserView) {
 	r0 := vcef.BrowserViewRef.CreateBrowserView(unwrapIEngClient(client), url, settings, unwrapICefDictionaryValue(extraInfo), unwrapICefRequestContext(requestContext), unwrapIEngBrowserViewDelegate(delegate))
 	return wrapICefBrowserView(r0)
 }
 
-func (tBrowserViewRef) GetForBrowser(browser ICefBrowser) ICefBrowserView {
+func (tBrowserViewRef) GetForBrowser(browser ICefBrowser) (result ICefBrowserView) {
 	r0 := vcef.BrowserViewRef.GetForBrowser(unwrapICefBrowser(browser))
 	return wrapICefBrowserView(r0)
 }
 
-func (tBrowserViewRef) UnWrapWithPointer(data uintptr) ICefBrowserView {
+func (tBrowserViewRef) UnWrapWithPointer(data uintptr) (result ICefBrowserView) {
 	r0 := vcef.BrowserViewRef.UnWrapWithPointer(data)
 	return wrapICefBrowserView(r0)
 }
@@ -37261,7 +37262,7 @@ type tButtonDelegateRef struct{}
 
 var ButtonDelegateRef tButtonDelegateRef
 
-func (tButtonDelegateRef) UnWrapWithPointer(data uintptr) IEngButtonDelegate {
+func (tButtonDelegateRef) UnWrapWithPointer(data uintptr) (result IEngButtonDelegate) {
 	r0 := vcef.ButtonDelegateRef.UnWrapWithPointer(data)
 	return wrapIEngButtonDelegate(r0)
 }
@@ -37270,7 +37271,7 @@ type tButtonRef struct{}
 
 var ButtonRef tButtonRef
 
-func (tButtonRef) UnWrapWithPointer(data uintptr) ICefButton {
+func (tButtonRef) UnWrapWithPointer(data uintptr) (result ICefButton) {
 	r0 := vcef.ButtonRef.UnWrapWithPointer(data)
 	return wrapICefButton(r0)
 }
@@ -37279,7 +37280,7 @@ type tCallbackRef struct{}
 
 var CallbackRef tCallbackRef
 
-func (tCallbackRef) UnWrap(data uintptr) ICefCallback {
+func (tCallbackRef) UnWrap(data uintptr) (result ICefCallback) {
 	r0 := vcef.CallbackRef.UnWrap(data)
 	return wrapICefCallback(r0)
 }
@@ -37288,17 +37289,17 @@ type tCommandLineRef struct{}
 
 var CommandLineRef tCommandLineRef
 
-func (tCommandLineRef) Global() ICefCommandLine {
+func (tCommandLineRef) Global() (result ICefCommandLine) {
 	r0 := vcef.CommandLineRef.Global()
 	return wrapICefCommandLine(r0)
 }
 
-func (tCommandLineRef) New() ICefCommandLine {
+func (tCommandLineRef) New() (result ICefCommandLine) {
 	r0 := vcef.CommandLineRef.New()
 	return wrapICefCommandLine(r0)
 }
 
-func (tCommandLineRef) UnWrap(data uintptr) ICefCommandLine {
+func (tCommandLineRef) UnWrap(data uintptr) (result ICefCommandLine) {
 	r0 := vcef.CommandLineRef.UnWrap(data)
 	return wrapICefCommandLine(r0)
 }
@@ -37307,7 +37308,7 @@ type tContextMenuParamsRef struct{}
 
 var ContextMenuParamsRef tContextMenuParamsRef
 
-func (tContextMenuParamsRef) UnWrap(data uintptr) ICefContextMenuParams {
+func (tContextMenuParamsRef) UnWrap(data uintptr) (result ICefContextMenuParams) {
 	r0 := vcef.ContextMenuParamsRef.UnWrap(data)
 	return wrapICefContextMenuParams(r0)
 }
@@ -37316,7 +37317,7 @@ type tCookieAccessFilterRef struct{}
 
 var CookieAccessFilterRef tCookieAccessFilterRef
 
-func (tCookieAccessFilterRef) UnWrap(data uintptr) IEngCookieAccessFilter {
+func (tCookieAccessFilterRef) UnWrap(data uintptr) (result IEngCookieAccessFilter) {
 	r0 := vcef.CookieAccessFilterRef.UnWrap(data)
 	return wrapIEngCookieAccessFilter(r0)
 }
@@ -37325,12 +37326,12 @@ type tCookieManagerRef struct{}
 
 var CookieManagerRef tCookieManagerRef
 
-func (tCookieManagerRef) Global(callback IEngCompletionCallback) ICefCookieManager {
+func (tCookieManagerRef) Global(callback IEngCompletionCallback) (result ICefCookieManager) {
 	r0 := vcef.CookieManagerRef.Global(unwrapIEngCompletionCallback(callback))
 	return wrapICefCookieManager(r0)
 }
 
-func (tCookieManagerRef) UnWrap(data uintptr) ICefCookieManager {
+func (tCookieManagerRef) UnWrap(data uintptr) (result ICefCookieManager) {
 	r0 := vcef.CookieManagerRef.UnWrap(data)
 	return wrapICefCookieManager(r0)
 }
@@ -37339,12 +37340,12 @@ type tDictionaryValueRef struct{}
 
 var DictionaryValueRef tDictionaryValueRef
 
-func (tDictionaryValueRef) New() ICefDictionaryValue {
+func (tDictionaryValueRef) New() (result ICefDictionaryValue) {
 	r0 := vcef.DictionaryValueRef.New()
 	return wrapICefDictionaryValue(r0)
 }
 
-func (tDictionaryValueRef) UnWrap(data uintptr) ICefDictionaryValue {
+func (tDictionaryValueRef) UnWrap(data uintptr) (result ICefDictionaryValue) {
 	r0 := vcef.DictionaryValueRef.UnWrap(data)
 	return wrapICefDictionaryValue(r0)
 }
@@ -37369,38 +37370,38 @@ func (tDisplayRef) GetCount() cefTypes.NativeUInt {
 	return vcef.DisplayRef.GetCount()
 }
 
-func (tDisplayRef) MatchingBounds(bounds TCefRect, inputPixelCoords bool) ICefDisplay {
+func (tDisplayRef) MatchingBounds(bounds TCefRect, inputPixelCoords bool) (result ICefDisplay) {
 	r0 := vcef.DisplayRef.MatchingBounds(bounds, inputPixelCoords)
 	return wrapICefDisplay(r0)
 }
 
-func (tDisplayRef) NearestPoint(point TCefPoint, inputPixelCoords bool) ICefDisplay {
+func (tDisplayRef) NearestPoint(point TCefPoint, inputPixelCoords bool) (result ICefDisplay) {
 	r0 := vcef.DisplayRef.NearestPoint(point, inputPixelCoords)
 	return wrapICefDisplay(r0)
 }
 
-func (tDisplayRef) Primary() ICefDisplay {
+func (tDisplayRef) Primary() (result ICefDisplay) {
 	r0 := vcef.DisplayRef.Primary()
 	return wrapICefDisplay(r0)
 }
 
-func (tDisplayRef) ScreenPointFromPixels(pixelsPoint types.TPoint) types.TPoint {
+func (tDisplayRef) ScreenPointFromPixels(pixelsPoint types.TPoint) (result types.TPoint) {
 	return vcef.DisplayRef.ScreenPointFromPixels(pixelsPoint)
 }
 
-func (tDisplayRef) ScreenPointToPixels(screenPoint types.TPoint) types.TPoint {
+func (tDisplayRef) ScreenPointToPixels(screenPoint types.TPoint) (result types.TPoint) {
 	return vcef.DisplayRef.ScreenPointToPixels(screenPoint)
 }
 
-func (tDisplayRef) ScreenRectFromPixels(pixelsRect types.TRect) types.TRect {
+func (tDisplayRef) ScreenRectFromPixels(pixelsRect types.TRect) (result types.TRect) {
 	return vcef.DisplayRef.ScreenRectFromPixels(pixelsRect)
 }
 
-func (tDisplayRef) ScreenRectToPixels(screenRect types.TRect) types.TRect {
+func (tDisplayRef) ScreenRectToPixels(screenRect types.TRect) (result types.TRect) {
 	return vcef.DisplayRef.ScreenRectToPixels(screenRect)
 }
 
-func (tDisplayRef) UnWrap(data uintptr) ICefDisplay {
+func (tDisplayRef) UnWrap(data uintptr) (result ICefDisplay) {
 	r0 := vcef.DisplayRef.UnWrap(data)
 	return wrapICefDisplay(r0)
 }
@@ -37409,7 +37410,7 @@ type tDomDocumentRef struct{}
 
 var DomDocumentRef tDomDocumentRef
 
-func (tDomDocumentRef) UnWrap(data uintptr) ICefDomDocument {
+func (tDomDocumentRef) UnWrap(data uintptr) (result ICefDomDocument) {
 	r0 := vcef.DomDocumentRef.UnWrap(data)
 	return wrapICefDomDocument(r0)
 }
@@ -37418,7 +37419,7 @@ type tDomNodeRef struct{}
 
 var DomNodeRef tDomNodeRef
 
-func (tDomNodeRef) UnWrap(data uintptr) ICefDomNode {
+func (tDomNodeRef) UnWrap(data uintptr) (result ICefDomNode) {
 	r0 := vcef.DomNodeRef.UnWrap(data)
 	return wrapICefDomNode(r0)
 }
@@ -37427,7 +37428,7 @@ type tDownLoadItemRef struct{}
 
 var DownLoadItemRef tDownLoadItemRef
 
-func (tDownLoadItemRef) UnWrap(data uintptr) ICefDownloadItem {
+func (tDownLoadItemRef) UnWrap(data uintptr) (result ICefDownloadItem) {
 	r0 := vcef.DownLoadItemRef.UnWrap(data)
 	return wrapICefDownloadItem(r0)
 }
@@ -37436,7 +37437,7 @@ type tDownloadItemCallbackRef struct{}
 
 var DownloadItemCallbackRef tDownloadItemCallbackRef
 
-func (tDownloadItemCallbackRef) UnWrap(data uintptr) ICefDownloadItemCallback {
+func (tDownloadItemCallbackRef) UnWrap(data uintptr) (result ICefDownloadItemCallback) {
 	r0 := vcef.DownloadItemCallbackRef.UnWrap(data)
 	return wrapICefDownloadItemCallback(r0)
 }
@@ -37445,12 +37446,12 @@ type tDragDataRef struct{}
 
 var DragDataRef tDragDataRef
 
-func (tDragDataRef) New() ICefDragData {
+func (tDragDataRef) New() (result ICefDragData) {
 	r0 := vcef.DragDataRef.New()
 	return wrapICefDragData(r0)
 }
 
-func (tDragDataRef) UnWrap(data uintptr) ICefDragData {
+func (tDragDataRef) UnWrap(data uintptr) (result ICefDragData) {
 	r0 := vcef.DragDataRef.UnWrap(data)
 	return wrapICefDragData(r0)
 }
@@ -37459,7 +37460,7 @@ type tExtensionRef struct{}
 
 var ExtensionRef tExtensionRef
 
-func (tExtensionRef) UnWrap(data uintptr) ICefExtension {
+func (tExtensionRef) UnWrap(data uintptr) (result ICefExtension_109) {
 	r0 := vcef.ExtensionRef.UnWrap(data)
 	return wrapICefExtension(r0)
 }
@@ -37468,7 +37469,7 @@ type tFileDialogCallbackRef struct{}
 
 var FileDialogCallbackRef tFileDialogCallbackRef
 
-func (tFileDialogCallbackRef) UnWrap(data uintptr) ICefFileDialogCallback {
+func (tFileDialogCallbackRef) UnWrap(data uintptr) (result ICefFileDialogCallback) {
 	r0 := vcef.FileDialogCallbackRef.UnWrap(data)
 	return wrapICefFileDialogCallback(r0)
 }
@@ -37477,7 +37478,7 @@ type tFillLayoutRef struct{}
 
 var FillLayoutRef tFillLayoutRef
 
-func (tFillLayoutRef) UnWrapWithPointer(data uintptr) ICefFillLayout {
+func (tFillLayoutRef) UnWrapWithPointer(data uintptr) (result ICefFillLayout) {
 	r0 := vcef.FillLayoutRef.UnWrapWithPointer(data)
 	return wrapICefFillLayout(r0)
 }
@@ -37486,7 +37487,7 @@ type tFrameRef struct{}
 
 var FrameRef tFrameRef
 
-func (tFrameRef) UnWrap(data uintptr) ICefFrame {
+func (tFrameRef) UnWrap(data uintptr) (result ICefFrame) {
 	r0 := vcef.FrameRef.UnWrap(data)
 	return wrapICefFrame(r0)
 }
@@ -37495,7 +37496,7 @@ type tGetExtensionResourceCallbackRef struct{}
 
 var GetExtensionResourceCallbackRef tGetExtensionResourceCallbackRef
 
-func (tGetExtensionResourceCallbackRef) UnWrap(data uintptr) ICefGetExtensionResourceCallback {
+func (tGetExtensionResourceCallbackRef) UnWrap(data uintptr) (result ICefGetExtensionResourceCallback_109) {
 	r0 := vcef.GetExtensionResourceCallbackRef.UnWrap(data)
 	return wrapICefGetExtensionResourceCallback(r0)
 }
@@ -37504,12 +37505,12 @@ type tImageRef struct{}
 
 var ImageRef tImageRef
 
-func (tImageRef) New() ICefImage {
+func (tImageRef) New() (result ICefImage) {
 	r0 := vcef.ImageRef.New()
 	return wrapICefImage(r0)
 }
 
-func (tImageRef) UnWrap(data uintptr) ICefImage {
+func (tImageRef) UnWrap(data uintptr) (result ICefImage) {
 	r0 := vcef.ImageRef.UnWrap(data)
 	return wrapICefImage(r0)
 }
@@ -37518,7 +37519,7 @@ type tJsDialogCallbackRef struct{}
 
 var JsDialogCallbackRef tJsDialogCallbackRef
 
-func (tJsDialogCallbackRef) UnWrap(data uintptr) ICefJsDialogCallback {
+func (tJsDialogCallbackRef) UnWrap(data uintptr) (result ICefJsDialogCallback) {
 	r0 := vcef.JsDialogCallbackRef.UnWrap(data)
 	return wrapICefJsDialogCallback(r0)
 }
@@ -37539,17 +37540,17 @@ func (tJson) LoadFromFile(fileName string, rsltNode *ICefValue, options cefTypes
 	return r0
 }
 
-func (tJson) ParseAndReturnError(jsonString string, options cefTypes.TCefJsonParserOptions, outErrorMsgOut *string) ICefValue {
+func (tJson) ParseAndReturnError(jsonString string, options cefTypes.TCefJsonParserOptions, outErrorMsgOut *string) (result ICefValue) {
 	r0 := vcef.Json.ParseAndReturnError(jsonString, options, outErrorMsgOut)
 	return wrapICefValue(r0)
 }
 
-func (tJson) ParseWithPointerNUIntJPOptions(json uintptr, jsonSize cefTypes.NativeUInt, options cefTypes.TCefJsonParserOptions) ICefValue {
+func (tJson) ParseWithPointerNUIntJPOptions(json uintptr, jsonSize cefTypes.NativeUInt, options cefTypes.TCefJsonParserOptions) (result ICefValue) {
 	r0 := vcef.Json.ParseWithPointerNUIntJPOptions(json, jsonSize, options)
 	return wrapICefValue(r0)
 }
 
-func (tJson) ParseWithStrJsonParserOptions(jsonString string, options cefTypes.TCefJsonParserOptions) ICefValue {
+func (tJson) ParseWithStrJsonParserOptions(jsonString string, options cefTypes.TCefJsonParserOptions) (result ICefValue) {
 	r0 := vcef.Json.ParseWithStrJsonParserOptions(jsonString, options)
 	return wrapICefValue(r0)
 }
@@ -37646,12 +37647,12 @@ type tLabelButtonRef struct{}
 
 var LabelButtonRef tLabelButtonRef
 
-func (tLabelButtonRef) CreateLabelButton(delegate IEngButtonDelegate, text string) ICefLabelButton {
+func (tLabelButtonRef) CreateLabelButton(delegate IEngButtonDelegate, text string) (result ICefLabelButton) {
 	r0 := vcef.LabelButtonRef.CreateLabelButton(unwrapIEngButtonDelegate(delegate), text)
 	return wrapICefLabelButton(r0)
 }
 
-func (tLabelButtonRef) UnWrapWithPointer(data uintptr) ICefLabelButton {
+func (tLabelButtonRef) UnWrapWithPointer(data uintptr) (result ICefLabelButton) {
 	r0 := vcef.LabelButtonRef.UnWrapWithPointer(data)
 	return wrapICefLabelButton(r0)
 }
@@ -37660,7 +37661,7 @@ type tLayoutRef struct{}
 
 var LayoutRef tLayoutRef
 
-func (tLayoutRef) UnWrapWithPointer(data uintptr) ICefLayout {
+func (tLayoutRef) UnWrapWithPointer(data uintptr) (result ICefLayout) {
 	r0 := vcef.LayoutRef.UnWrapWithPointer(data)
 	return wrapICefLayout(r0)
 }
@@ -37669,12 +37670,12 @@ type tListValueRef struct{}
 
 var ListValueRef tListValueRef
 
-func (tListValueRef) New() ICefListValue {
+func (tListValueRef) New() (result ICefListValue) {
 	r0 := vcef.ListValueRef.New()
 	return wrapICefListValue(r0)
 }
 
-func (tListValueRef) UnWrap(data uintptr) ICefListValue {
+func (tListValueRef) UnWrap(data uintptr) (result ICefListValue) {
 	r0 := vcef.ListValueRef.UnWrap(data)
 	return wrapICefListValue(r0)
 }
@@ -37683,7 +37684,7 @@ type tMediaAccessCallbackRef struct{}
 
 var MediaAccessCallbackRef tMediaAccessCallbackRef
 
-func (tMediaAccessCallbackRef) UnWrap(data uintptr) ICefMediaAccessCallback {
+func (tMediaAccessCallbackRef) UnWrap(data uintptr) (result ICefMediaAccessCallback) {
 	r0 := vcef.MediaAccessCallbackRef.UnWrap(data)
 	return wrapICefMediaAccessCallback(r0)
 }
@@ -37692,7 +37693,7 @@ type tMediaRouteRef struct{}
 
 var MediaRouteRef tMediaRouteRef
 
-func (tMediaRouteRef) UnWrap(data uintptr) ICefMediaRoute {
+func (tMediaRouteRef) UnWrap(data uintptr) (result ICefMediaRoute) {
 	r0 := vcef.MediaRouteRef.UnWrap(data)
 	return wrapICefMediaRoute(r0)
 }
@@ -37701,12 +37702,12 @@ type tMediaRouterRef struct{}
 
 var MediaRouterRef tMediaRouterRef
 
-func (tMediaRouterRef) Global() ICefMediaRouter {
+func (tMediaRouterRef) Global() (result ICefMediaRouter) {
 	r0 := vcef.MediaRouterRef.Global()
 	return wrapICefMediaRouter(r0)
 }
 
-func (tMediaRouterRef) UnWrap(data uintptr) ICefMediaRouter {
+func (tMediaRouterRef) UnWrap(data uintptr) (result ICefMediaRouter) {
 	r0 := vcef.MediaRouterRef.UnWrap(data)
 	return wrapICefMediaRouter(r0)
 }
@@ -37715,7 +37716,7 @@ type tMediaSinkRef struct{}
 
 var MediaSinkRef tMediaSinkRef
 
-func (tMediaSinkRef) UnWrap(data uintptr) ICefMediaSink {
+func (tMediaSinkRef) UnWrap(data uintptr) (result ICefMediaSink) {
 	r0 := vcef.MediaSinkRef.UnWrap(data)
 	return wrapICefMediaSink(r0)
 }
@@ -37724,7 +37725,7 @@ type tMediaSourceRef struct{}
 
 var MediaSourceRef tMediaSourceRef
 
-func (tMediaSourceRef) UnWrap(data uintptr) ICefMediaSource {
+func (tMediaSourceRef) UnWrap(data uintptr) (result ICefMediaSource) {
 	r0 := vcef.MediaSourceRef.UnWrap(data)
 	return wrapICefMediaSource(r0)
 }
@@ -37733,7 +37734,7 @@ type tMenuButtonDelegateRef struct{}
 
 var MenuButtonDelegateRef tMenuButtonDelegateRef
 
-func (tMenuButtonDelegateRef) UnWrapWithPointer(data uintptr) IEngMenuButtonDelegate {
+func (tMenuButtonDelegateRef) UnWrapWithPointer(data uintptr) (result IEngMenuButtonDelegate) {
 	r0 := vcef.MenuButtonDelegateRef.UnWrapWithPointer(data)
 	return wrapIEngMenuButtonDelegate(r0)
 }
@@ -37742,7 +37743,7 @@ type tMenuButtonPressedLockRef struct{}
 
 var MenuButtonPressedLockRef tMenuButtonPressedLockRef
 
-func (tMenuButtonPressedLockRef) UnWrap(data uintptr) ICefMenuButtonPressedLock {
+func (tMenuButtonPressedLockRef) UnWrap(data uintptr) (result ICefMenuButtonPressedLock) {
 	r0 := vcef.MenuButtonPressedLockRef.UnWrap(data)
 	return wrapICefMenuButtonPressedLock(r0)
 }
@@ -37751,12 +37752,12 @@ type tMenuButtonRef struct{}
 
 var MenuButtonRef tMenuButtonRef
 
-func (tMenuButtonRef) CreateMenuButton(delegate IEngMenuButtonDelegate, text string) ICefMenuButton {
+func (tMenuButtonRef) CreateMenuButton(delegate IEngMenuButtonDelegate, text string) (result ICefMenuButton) {
 	r0 := vcef.MenuButtonRef.CreateMenuButton(unwrapIEngMenuButtonDelegate(delegate), text)
 	return wrapICefMenuButton(r0)
 }
 
-func (tMenuButtonRef) UnWrapWithPointer(data uintptr) ICefMenuButton {
+func (tMenuButtonRef) UnWrapWithPointer(data uintptr) (result ICefMenuButton) {
 	r0 := vcef.MenuButtonRef.UnWrapWithPointer(data)
 	return wrapICefMenuButton(r0)
 }
@@ -37765,12 +37766,12 @@ type tMenuModelRef struct{}
 
 var MenuModelRef tMenuModelRef
 
-func (tMenuModelRef) New(delegate IEngMenuModelDelegate) ICefMenuModel {
+func (tMenuModelRef) New(delegate IEngMenuModelDelegate) (result ICefMenuModel) {
 	r0 := vcef.MenuModelRef.New(unwrapIEngMenuModelDelegate(delegate))
 	return wrapICefMenuModel(r0)
 }
 
-func (tMenuModelRef) UnWrap(data uintptr) ICefMenuModel {
+func (tMenuModelRef) UnWrap(data uintptr) (result ICefMenuModel) {
 	r0 := vcef.MenuModelRef.UnWrap(data)
 	return wrapICefMenuModel(r0)
 }
@@ -37783,7 +37784,7 @@ func (tMiscFunc) CefAddCrossOriginWhitelistEntry(sourceOrigin string, targetProt
 	return vcef.MiscFunc.CefAddCrossOriginWhitelistEntry(sourceOrigin, targetProtocol, targetDomain, allowTargetSubdomains)
 }
 
-func (tMiscFunc) CefBase64Decode(data string) ICefBinaryValue {
+func (tMiscFunc) CefBase64Decode(data string) (result ICefBinaryValue) {
 	r0 := vcef.MiscFunc.CefBase64Decode(data)
 	return wrapICefBinaryValue(r0)
 }
@@ -37792,11 +37793,11 @@ func (tMiscFunc) CefBase64Encode(data uintptr, dataSize cefTypes.NativeUInt) str
 	return vcef.MiscFunc.CefBase64Encode(data, dataSize)
 }
 
-func (tMiscFunc) CefBaseTimeNow() int64 {
+func (tMiscFunc) CefBaseTimeNow() (result int64) {
 	return vcef.MiscFunc.CefBaseTimeNow()
 }
 
-func (tMiscFunc) CefBaseTimeToDateTime(cbt int64) types.TDateTime {
+func (tMiscFunc) CefBaseTimeToDateTime(cbt int64) (result types.TDateTime) {
 	return vcef.MiscFunc.CefBaseTimeToDateTime(cbt)
 }
 
@@ -37948,19 +37949,19 @@ func (tMiscFunc) CefSetCrashKeyValue(key string, value string) {
 	vcef.MiscFunc.CefSetCrashKeyValue(key, value)
 }
 
-func (tMiscFunc) CefTimeNow() TCefTime {
+func (tMiscFunc) CefTimeNow() (result TCefTime) {
 	return vcef.MiscFunc.CefTimeNow()
 }
 
-func (tMiscFunc) CefTimeToDateTime(dt TCefTime) types.TDateTime {
+func (tMiscFunc) CefTimeToDateTime(dt TCefTime) (result types.TDateTime) {
 	return vcef.MiscFunc.CefTimeToDateTime(dt)
 }
 
-func (tMiscFunc) CefTimeToDouble(dt TCefTime) float64 {
+func (tMiscFunc) CefTimeToDouble(dt TCefTime) (result float64) {
 	return vcef.MiscFunc.CefTimeToDouble(dt)
 }
 
-func (tMiscFunc) CefTimeToUnixTime(dt TCefTime) int64 {
+func (tMiscFunc) CefTimeToUnixTime(dt TCefTime) (result int64) {
 	return vcef.MiscFunc.CefTimeToUnixTime(dt)
 }
 
@@ -37976,11 +37977,11 @@ func (tMiscFunc) CefZipDirectory(srcDir string, destFile string, includeHiddenFi
 	return vcef.MiscFunc.CefZipDirectory(srcDir, destFile, includeHiddenFiles)
 }
 
-func (tMiscFunc) CetTimeFromCefBaseTime(cbt int64) TCefTime {
+func (tMiscFunc) CetTimeFromCefBaseTime(cbt int64) (result TCefTime) {
 	return vcef.MiscFunc.CetTimeFromCefBaseTime(cbt)
 }
 
-func (tMiscFunc) CetTimeToCefBaseTime(ct TCefTime) int64 {
+func (tMiscFunc) CetTimeToCefBaseTime(ct TCefTime) (result int64) {
 	return vcef.MiscFunc.CetTimeToCefBaseTime(ct)
 }
 
@@ -38028,11 +38029,11 @@ func (tMiscFunc) CustomPathIsURL(path string) bool {
 	return vcef.MiscFunc.CustomPathIsURL(path)
 }
 
-func (tMiscFunc) DateTimeToCefBaseTime(dt types.TDateTime) int64 {
+func (tMiscFunc) DateTimeToCefBaseTime(dt types.TDateTime) (result int64) {
 	return vcef.MiscFunc.DateTimeToCefBaseTime(dt)
 }
 
-func (tMiscFunc) DateTimeToCefTime(dt types.TDateTime) TCefTime {
+func (tMiscFunc) DateTimeToCefTime(dt types.TDateTime) (result TCefTime) {
 	return vcef.MiscFunc.DateTimeToCefTime(dt)
 }
 
@@ -38056,7 +38057,7 @@ func (tMiscFunc) DeviceToLogicalWithPointDouble(point *types.TPoint, deviceScale
 	vcef.MiscFunc.DeviceToLogicalWithPointDouble(point, deviceScaleFactor)
 }
 
-func (tMiscFunc) DeviceToLogicalWithSingleDouble(value float32, deviceScaleFactor float64) float32 {
+func (tMiscFunc) DeviceToLogicalWithSingleDouble(value float32, deviceScaleFactor float64) (result float32) {
 	return vcef.MiscFunc.DeviceToLogicalWithSingleDouble(value, deviceScaleFactor)
 }
 
@@ -38064,11 +38065,11 @@ func (tMiscFunc) DeviceToLogicalWithTouchEventDouble(event *TCefTouchEvent, devi
 	vcef.MiscFunc.DeviceToLogicalWithTouchEventDouble(event, deviceScaleFactor)
 }
 
-func (tMiscFunc) DoubleTimeNow() float64 {
+func (tMiscFunc) DoubleTimeNow() (result float64) {
 	return vcef.MiscFunc.DoubleTimeNow()
 }
 
-func (tMiscFunc) DoubleToCefTime(dt float64) TCefTime {
+func (tMiscFunc) DoubleToCefTime(dt float64) (result TCefTime) {
 	return vcef.MiscFunc.DoubleToCefTime(dt)
 }
 
@@ -38080,7 +38081,7 @@ func (tMiscFunc) DropEffectToDragOperation(effect int32, allowedOps *cefTypes.TC
 	vcef.MiscFunc.DropEffectToDragOperation(effect, allowedOps)
 }
 
-func (tMiscFunc) FixCefTime(dt TCefTime) TCefTime {
+func (tMiscFunc) FixCefTime(dt TCefTime) (result TCefTime) {
 	return vcef.MiscFunc.FixCefTime(dt)
 }
 
@@ -38116,11 +38117,11 @@ func (tMiscFunc) GetDefaultCEFUserAgent() string {
 	return vcef.MiscFunc.GetDefaultCEFUserAgent()
 }
 
-func (tMiscFunc) GetDeviceScaleFactor() float32 {
+func (tMiscFunc) GetDeviceScaleFactor() (result float32) {
 	return vcef.MiscFunc.GetDeviceScaleFactor()
 }
 
-func (tMiscFunc) GetExtendedFileVersion(fileName string) uint64 {
+func (tMiscFunc) GetExtendedFileVersion(fileName string) (result uint64) {
 	return vcef.MiscFunc.GetExtendedFileVersion(fileName)
 }
 
@@ -38180,7 +38181,7 @@ func (tMiscFunc) SplitLongString(srcString string) string {
 	return vcef.MiscFunc.SplitLongString(srcString)
 }
 
-func (tMiscFunc) UnixTimeToCefTime(dt int64) TCefTime {
+func (tMiscFunc) UnixTimeToCefTime(dt int64) (result TCefTime) {
 	return vcef.MiscFunc.UnixTimeToCefTime(dt)
 }
 
@@ -38228,7 +38229,7 @@ type tNavigationEntryRef struct{}
 
 var NavigationEntryRef tNavigationEntryRef
 
-func (tNavigationEntryRef) UnWrap(data uintptr) ICefNavigationEntry {
+func (tNavigationEntryRef) UnWrap(data uintptr) (result ICefNavigationEntry) {
 	r0 := vcef.NavigationEntryRef.UnWrap(data)
 	return wrapICefNavigationEntry(r0)
 }
@@ -38237,7 +38238,7 @@ type tOverlayControllerRef struct{}
 
 var OverlayControllerRef tOverlayControllerRef
 
-func (tOverlayControllerRef) UnWrap(data uintptr) ICefOverlayController {
+func (tOverlayControllerRef) UnWrap(data uintptr) (result ICefOverlayController) {
 	r0 := vcef.OverlayControllerRef.UnWrap(data)
 	return wrapICefOverlayController(r0)
 }
@@ -38246,7 +38247,7 @@ type tPanelDelegateRef struct{}
 
 var PanelDelegateRef tPanelDelegateRef
 
-func (tPanelDelegateRef) UnWrapWithPointer(data uintptr) IEngPanelDelegate {
+func (tPanelDelegateRef) UnWrapWithPointer(data uintptr) (result IEngPanelDelegate) {
 	r0 := vcef.PanelDelegateRef.UnWrapWithPointer(data)
 	return wrapIEngPanelDelegate(r0)
 }
@@ -38255,12 +38256,12 @@ type tPanelRef struct{}
 
 var PanelRef tPanelRef
 
-func (tPanelRef) CreatePanel(delegate IEngPanelDelegate) ICefPanel {
+func (tPanelRef) CreatePanel(delegate IEngPanelDelegate) (result ICefPanel) {
 	r0 := vcef.PanelRef.CreatePanel(unwrapIEngPanelDelegate(delegate))
 	return wrapICefPanel(r0)
 }
 
-func (tPanelRef) UnWrapWithPointer(data uintptr) ICefPanel {
+func (tPanelRef) UnWrapWithPointer(data uintptr) (result ICefPanel) {
 	r0 := vcef.PanelRef.UnWrapWithPointer(data)
 	return wrapICefPanel(r0)
 }
@@ -38269,7 +38270,7 @@ type tPermissionPromptCallbackRef struct{}
 
 var PermissionPromptCallbackRef tPermissionPromptCallbackRef
 
-func (tPermissionPromptCallbackRef) UnWrap(data uintptr) ICefPermissionPromptCallback {
+func (tPermissionPromptCallbackRef) UnWrap(data uintptr) (result ICefPermissionPromptCallback) {
 	r0 := vcef.PermissionPromptCallbackRef.UnWrap(data)
 	return wrapICefPermissionPromptCallback(r0)
 }
@@ -38278,12 +38279,12 @@ type tPostDataElementRef struct{}
 
 var PostDataElementRef tPostDataElementRef
 
-func (tPostDataElementRef) New() ICefPostDataElement {
+func (tPostDataElementRef) New() (result ICefPostDataElement) {
 	r0 := vcef.PostDataElementRef.New()
 	return wrapICefPostDataElement(r0)
 }
 
-func (tPostDataElementRef) UnWrap(data uintptr) ICefPostDataElement {
+func (tPostDataElementRef) UnWrap(data uintptr) (result ICefPostDataElement) {
 	r0 := vcef.PostDataElementRef.UnWrap(data)
 	return wrapICefPostDataElement(r0)
 }
@@ -38292,12 +38293,12 @@ type tPostDataRef struct{}
 
 var PostDataRef tPostDataRef
 
-func (tPostDataRef) New() ICefPostData {
+func (tPostDataRef) New() (result ICefPostData) {
 	r0 := vcef.PostDataRef.New()
 	return wrapICefPostData(r0)
 }
 
-func (tPostDataRef) UnWrap(data uintptr) ICefPostData {
+func (tPostDataRef) UnWrap(data uintptr) (result ICefPostData) {
 	r0 := vcef.PostDataRef.UnWrap(data)
 	return wrapICefPostData(r0)
 }
@@ -38306,12 +38307,12 @@ type tPreferenceManagerRef struct{}
 
 var PreferenceManagerRef tPreferenceManagerRef
 
-func (tPreferenceManagerRef) GlobalToPreferenceManager() ICefPreferenceManager {
+func (tPreferenceManagerRef) GlobalToPreferenceManager() (result ICefPreferenceManager) {
 	r0 := vcef.PreferenceManagerRef.GlobalToPreferenceManager()
 	return wrapICefPreferenceManager(r0)
 }
 
-func (tPreferenceManagerRef) UnWrapWithPointer(data uintptr) ICefPreferenceManager {
+func (tPreferenceManagerRef) UnWrapWithPointer(data uintptr) (result ICefPreferenceManager) {
 	r0 := vcef.PreferenceManagerRef.UnWrapWithPointer(data)
 	return wrapICefPreferenceManager(r0)
 }
@@ -38320,7 +38321,7 @@ type tPrintDialogCallbackRef struct{}
 
 var PrintDialogCallbackRef tPrintDialogCallbackRef
 
-func (tPrintDialogCallbackRef) UnWrap(data uintptr) ICefPrintDialogCallback {
+func (tPrintDialogCallbackRef) UnWrap(data uintptr) (result ICefPrintDialogCallback) {
 	r0 := vcef.PrintDialogCallbackRef.UnWrap(data)
 	return wrapICefPrintDialogCallback(r0)
 }
@@ -38329,7 +38330,7 @@ type tPrintJobCallbackRef struct{}
 
 var PrintJobCallbackRef tPrintJobCallbackRef
 
-func (tPrintJobCallbackRef) UnWrap(data uintptr) ICefPrintJobCallback {
+func (tPrintJobCallbackRef) UnWrap(data uintptr) (result ICefPrintJobCallback) {
 	r0 := vcef.PrintJobCallbackRef.UnWrap(data)
 	return wrapICefPrintJobCallback(r0)
 }
@@ -38338,12 +38339,12 @@ type tPrintSettingsRef struct{}
 
 var PrintSettingsRef tPrintSettingsRef
 
-func (tPrintSettingsRef) New() ICefPrintSettings {
+func (tPrintSettingsRef) New() (result ICefPrintSettings) {
 	r0 := vcef.PrintSettingsRef.New()
 	return wrapICefPrintSettings(r0)
 }
 
-func (tPrintSettingsRef) UnWrap(data uintptr) ICefPrintSettings {
+func (tPrintSettingsRef) UnWrap(data uintptr) (result ICefPrintSettings) {
 	r0 := vcef.PrintSettingsRef.UnWrap(data)
 	return wrapICefPrintSettings(r0)
 }
@@ -38352,12 +38353,12 @@ type tProcessMessageRef struct{}
 
 var ProcessMessageRef tProcessMessageRef
 
-func (tProcessMessageRef) New(name string) ICefProcessMessage {
+func (tProcessMessageRef) New(name string) (result ICefProcessMessage) {
 	r0 := vcef.ProcessMessageRef.New(name)
 	return wrapICefProcessMessage(r0)
 }
 
-func (tProcessMessageRef) UnWrap(data uintptr) ICefProcessMessage {
+func (tProcessMessageRef) UnWrap(data uintptr) (result ICefProcessMessage) {
 	r0 := vcef.ProcessMessageRef.UnWrap(data)
 	return wrapICefProcessMessage(r0)
 }
@@ -38366,7 +38367,7 @@ type tRegistrationRef struct{}
 
 var RegistrationRef tRegistrationRef
 
-func (tRegistrationRef) UnWrap(data uintptr) ICefRegistration {
+func (tRegistrationRef) UnWrap(data uintptr) (result ICefRegistration) {
 	r0 := vcef.RegistrationRef.UnWrap(data)
 	return wrapICefRegistration(r0)
 }
@@ -38375,27 +38376,27 @@ type tRequestContextRef struct{}
 
 var RequestContextRef tRequestContextRef
 
-func (tRequestContextRef) GlobalToRequestContext() ICefRequestContext {
+func (tRequestContextRef) GlobalToRequestContext() (result ICefRequestContext) {
 	r0 := vcef.RequestContextRef.GlobalToRequestContext()
 	return wrapICefRequestContext(r0)
 }
 
-func (tRequestContextRef) NewWithPCefRequestContextSettingsRequestContextHandler(settings TCefRequestContextSettings, handler IEngRequestContextHandler) ICefRequestContext {
+func (tRequestContextRef) NewWithPCefRequestContextSettingsRequestContextHandler(settings TCefRequestContextSettings, handler IEngRequestContextHandler) (result ICefRequestContext) {
 	r0 := vcef.RequestContextRef.NewWithPCefRequestContextSettingsRequestContextHandler(settings, unwrapIEngRequestContextHandler(handler))
 	return wrapICefRequestContext(r0)
 }
 
-func (tRequestContextRef) NewWithStrX3BoolX3RCHandler(cache string, acceptLanguageList string, cookieableSchemesList string, cookieableSchemesExcludeDefaults bool, persistSessionCookies bool, persistUserPreferences bool, handler IEngRequestContextHandler) ICefRequestContext {
+func (tRequestContextRef) NewWithStrX3BoolX3RCHandler(cache string, acceptLanguageList string, cookieableSchemesList string, cookieableSchemesExcludeDefaults bool, persistSessionCookies bool, persistUserPreferences bool, handler IEngRequestContextHandler) (result ICefRequestContext) {
 	r0 := vcef.RequestContextRef.NewWithStrX3BoolX3RCHandler(cache, acceptLanguageList, cookieableSchemesList, cookieableSchemesExcludeDefaults, persistSessionCookies, persistUserPreferences, unwrapIEngRequestContextHandler(handler))
 	return wrapICefRequestContext(r0)
 }
 
-func (tRequestContextRef) Shared(other ICefRequestContext, handler IEngRequestContextHandler) ICefRequestContext {
+func (tRequestContextRef) Shared(other ICefRequestContext, handler IEngRequestContextHandler) (result ICefRequestContext) {
 	r0 := vcef.RequestContextRef.Shared(unwrapICefRequestContext(other), unwrapIEngRequestContextHandler(handler))
 	return wrapICefRequestContext(r0)
 }
 
-func (tRequestContextRef) UnWrapWithPointer(data uintptr) ICefRequestContext {
+func (tRequestContextRef) UnWrapWithPointer(data uintptr) (result ICefRequestContext) {
 	r0 := vcef.RequestContextRef.UnWrapWithPointer(data)
 	return wrapICefRequestContext(r0)
 }
@@ -38404,12 +38405,12 @@ type tRequestRef struct{}
 
 var RequestRef tRequestRef
 
-func (tRequestRef) New() ICefRequest {
+func (tRequestRef) New() (result ICefRequest) {
 	r0 := vcef.RequestRef.New()
 	return wrapICefRequest(r0)
 }
 
-func (tRequestRef) UnWrap(data uintptr) ICefRequest {
+func (tRequestRef) UnWrap(data uintptr) (result ICefRequest) {
 	r0 := vcef.RequestRef.UnWrap(data)
 	return wrapICefRequest(r0)
 }
@@ -38418,12 +38419,12 @@ type tResourceBundleRef struct{}
 
 var ResourceBundleRef tResourceBundleRef
 
-func (tResourceBundleRef) Global() ICefResourceBundle {
+func (tResourceBundleRef) Global() (result ICefResourceBundle) {
 	r0 := vcef.ResourceBundleRef.Global()
 	return wrapICefResourceBundle(r0)
 }
 
-func (tResourceBundleRef) UnWrap(data uintptr) ICefResourceBundle {
+func (tResourceBundleRef) UnWrap(data uintptr) (result ICefResourceBundle) {
 	r0 := vcef.ResourceBundleRef.UnWrap(data)
 	return wrapICefResourceBundle(r0)
 }
@@ -38432,7 +38433,7 @@ type tResourceHandlerRef struct{}
 
 var ResourceHandlerRef tResourceHandlerRef
 
-func (tResourceHandlerRef) UnWrap(data uintptr) IEngResourceHandler {
+func (tResourceHandlerRef) UnWrap(data uintptr) (result IEngResourceHandler) {
 	r0 := vcef.ResourceHandlerRef.UnWrap(data)
 	return wrapIEngResourceHandler(r0)
 }
@@ -38441,7 +38442,7 @@ type tResourceReadCallbackRef struct{}
 
 var ResourceReadCallbackRef tResourceReadCallbackRef
 
-func (tResourceReadCallbackRef) UnWrap(data uintptr) ICefResourceReadCallback {
+func (tResourceReadCallbackRef) UnWrap(data uintptr) (result ICefResourceReadCallback) {
 	r0 := vcef.ResourceReadCallbackRef.UnWrap(data)
 	return wrapICefResourceReadCallback(r0)
 }
@@ -38450,7 +38451,7 @@ type tResourceRequestHandlerRef struct{}
 
 var ResourceRequestHandlerRef tResourceRequestHandlerRef
 
-func (tResourceRequestHandlerRef) UnWrap(data uintptr) IEngResourceRequestHandler {
+func (tResourceRequestHandlerRef) UnWrap(data uintptr) (result IEngResourceRequestHandler) {
 	r0 := vcef.ResourceRequestHandlerRef.UnWrap(data)
 	return wrapIEngResourceRequestHandler(r0)
 }
@@ -38459,7 +38460,7 @@ type tResourceSkipCallbackRef struct{}
 
 var ResourceSkipCallbackRef tResourceSkipCallbackRef
 
-func (tResourceSkipCallbackRef) UnWrap(data uintptr) ICefResourceSkipCallback {
+func (tResourceSkipCallbackRef) UnWrap(data uintptr) (result ICefResourceSkipCallback) {
 	r0 := vcef.ResourceSkipCallbackRef.UnWrap(data)
 	return wrapICefResourceSkipCallback(r0)
 }
@@ -38468,7 +38469,7 @@ type tResponseFilterRef struct{}
 
 var ResponseFilterRef tResponseFilterRef
 
-func (tResponseFilterRef) UnWrap(data uintptr) IEngResponseFilter {
+func (tResponseFilterRef) UnWrap(data uintptr) (result IEngResponseFilter) {
 	r0 := vcef.ResponseFilterRef.UnWrap(data)
 	return wrapIEngResponseFilter(r0)
 }
@@ -38477,12 +38478,12 @@ type tResponseRef struct{}
 
 var ResponseRef tResponseRef
 
-func (tResponseRef) New() ICefResponse {
+func (tResponseRef) New() (result ICefResponse) {
 	r0 := vcef.ResponseRef.New()
 	return wrapICefResponse(r0)
 }
 
-func (tResponseRef) UnWrap(data uintptr) ICefResponse {
+func (tResponseRef) UnWrap(data uintptr) (result ICefResponse) {
 	r0 := vcef.ResponseRef.UnWrap(data)
 	return wrapICefResponse(r0)
 }
@@ -38491,7 +38492,7 @@ type tRunContextMenuCallbackRef struct{}
 
 var RunContextMenuCallbackRef tRunContextMenuCallbackRef
 
-func (tRunContextMenuCallbackRef) UnWrap(data uintptr) ICefRunContextMenuCallback {
+func (tRunContextMenuCallbackRef) UnWrap(data uintptr) (result ICefRunContextMenuCallback) {
 	r0 := vcef.RunContextMenuCallbackRef.UnWrap(data)
 	return wrapICefRunContextMenuCallback(r0)
 }
@@ -38500,7 +38501,7 @@ type tRunQuickMenuCallbackRef struct{}
 
 var RunQuickMenuCallbackRef tRunQuickMenuCallbackRef
 
-func (tRunQuickMenuCallbackRef) UnWrap(data uintptr) ICefRunQuickMenuCallback {
+func (tRunQuickMenuCallbackRef) UnWrap(data uintptr) (result ICefRunQuickMenuCallback) {
 	r0 := vcef.RunQuickMenuCallbackRef.UnWrap(data)
 	return wrapICefRunQuickMenuCallback(r0)
 }
@@ -38509,7 +38510,7 @@ type tSSLStatusRef struct{}
 
 var SSLStatusRef tSSLStatusRef
 
-func (tSSLStatusRef) UnWrap(data uintptr) ICefSSLStatus {
+func (tSSLStatusRef) UnWrap(data uintptr) (result ICefSSLStatus) {
 	r0 := vcef.SSLStatusRef.UnWrap(data)
 	return wrapICefSSLStatus(r0)
 }
@@ -38518,12 +38519,12 @@ type tScrollViewRef struct{}
 
 var ScrollViewRef tScrollViewRef
 
-func (tScrollViewRef) CreateScrollView(delegate IEngViewDelegate) ICefScrollView {
+func (tScrollViewRef) CreateScrollView(delegate IEngViewDelegate) (result ICefScrollView) {
 	r0 := vcef.ScrollViewRef.CreateScrollView(unwrapIEngViewDelegate(delegate))
 	return wrapICefScrollView(r0)
 }
 
-func (tScrollViewRef) UnWrapWithPointer(data uintptr) ICefScrollView {
+func (tScrollViewRef) UnWrapWithPointer(data uintptr) (result ICefScrollView) {
 	r0 := vcef.ScrollViewRef.UnWrapWithPointer(data)
 	return wrapICefScrollView(r0)
 }
@@ -38532,7 +38533,7 @@ type tSelectClientCertificateCallbackRef struct{}
 
 var SelectClientCertificateCallbackRef tSelectClientCertificateCallbackRef
 
-func (tSelectClientCertificateCallbackRef) UnWrap(data uintptr) ICefSelectClientCertificateCallback {
+func (tSelectClientCertificateCallbackRef) UnWrap(data uintptr) (result ICefSelectClientCertificateCallback) {
 	r0 := vcef.SelectClientCertificateCallbackRef.UnWrap(data)
 	return wrapICefSelectClientCertificateCallback(r0)
 }
@@ -38541,7 +38542,7 @@ type tServerRef struct{}
 
 var ServerRef tServerRef
 
-func (tServerRef) UnWrap(data uintptr) ICefServer {
+func (tServerRef) UnWrap(data uintptr) (result ICefServer) {
 	r0 := vcef.ServerRef.UnWrap(data)
 	return wrapICefServer(r0)
 }
@@ -38550,7 +38551,7 @@ type tSharedMemoryRegionRef struct{}
 
 var SharedMemoryRegionRef tSharedMemoryRegionRef
 
-func (tSharedMemoryRegionRef) UnWrap(data uintptr) ICefSharedMemoryRegion {
+func (tSharedMemoryRegionRef) UnWrap(data uintptr) (result ICefSharedMemoryRegion) {
 	r0 := vcef.SharedMemoryRegionRef.UnWrap(data)
 	return wrapICefSharedMemoryRegion(r0)
 }
@@ -38559,12 +38560,12 @@ type tSharedProcessMessageBuilderRef struct{}
 
 var SharedProcessMessageBuilderRef tSharedProcessMessageBuilderRef
 
-func (tSharedProcessMessageBuilderRef) CreateBuilder(name string, byteSize cefTypes.NativeUInt) ICefSharedProcessMessageBuilder {
+func (tSharedProcessMessageBuilderRef) CreateBuilder(name string, byteSize cefTypes.NativeUInt) (result ICefSharedProcessMessageBuilder) {
 	r0 := vcef.SharedProcessMessageBuilderRef.CreateBuilder(name, byteSize)
 	return wrapICefSharedProcessMessageBuilder(r0)
 }
 
-func (tSharedProcessMessageBuilderRef) UnWrap(data uintptr) ICefSharedProcessMessageBuilder {
+func (tSharedProcessMessageBuilderRef) UnWrap(data uintptr) (result ICefSharedProcessMessageBuilder) {
 	r0 := vcef.SharedProcessMessageBuilderRef.UnWrap(data)
 	return wrapICefSharedProcessMessageBuilder(r0)
 }
@@ -38573,7 +38574,7 @@ type tSslInfoRef struct{}
 
 var SslInfoRef tSslInfoRef
 
-func (tSslInfoRef) UnWrap(data uintptr) ICefSslInfo {
+func (tSslInfoRef) UnWrap(data uintptr) (result ICefSslInfo) {
 	r0 := vcef.SslInfoRef.UnWrap(data)
 	return wrapICefSslInfo(r0)
 }
@@ -38582,27 +38583,27 @@ type tStreamReaderRef struct{}
 
 var StreamReaderRef tStreamReaderRef
 
-func (tStreamReaderRef) CreateForCustomStream(stream ICefCustomStreamReader) ICefStreamReader {
+func (tStreamReaderRef) CreateForCustomStream(stream ICefCustomStreamReader) (result ICefStreamReader) {
 	r0 := vcef.StreamReaderRef.CreateForCustomStream(unwrapICefCustomStreamReader(stream))
 	return wrapICefStreamReader(r0)
 }
 
-func (tStreamReaderRef) CreateForData(data uintptr, size cefTypes.NativeUInt) ICefStreamReader {
+func (tStreamReaderRef) CreateForData(data uintptr, size cefTypes.NativeUInt) (result ICefStreamReader) {
 	r0 := vcef.StreamReaderRef.CreateForData(data, size)
 	return wrapICefStreamReader(r0)
 }
 
-func (tStreamReaderRef) CreateForFile(filename string) ICefStreamReader {
+func (tStreamReaderRef) CreateForFile(filename string) (result ICefStreamReader) {
 	r0 := vcef.StreamReaderRef.CreateForFile(filename)
 	return wrapICefStreamReader(r0)
 }
 
-func (tStreamReaderRef) CreateForStream(stream lcl.IStream, owned bool) ICefStreamReader {
+func (tStreamReaderRef) CreateForStream(stream lcl.IStream, owned bool) (result ICefStreamReader) {
 	r0 := vcef.StreamReaderRef.CreateForStream(stream, owned)
 	return wrapICefStreamReader(r0)
 }
 
-func (tStreamReaderRef) UnWrap(data uintptr) ICefStreamReader {
+func (tStreamReaderRef) UnWrap(data uintptr) (result ICefStreamReader) {
 	r0 := vcef.StreamReaderRef.UnWrap(data)
 	return wrapICefStreamReader(r0)
 }
@@ -38611,12 +38612,12 @@ type tStreamWriterRef struct{}
 
 var StreamWriterRef tStreamWriterRef
 
-func (tStreamWriterRef) CreateForFile(fileName string) ICefStreamWriter {
+func (tStreamWriterRef) CreateForFile(fileName string) (result ICefStreamWriter) {
 	r0 := vcef.StreamWriterRef.CreateForFile(fileName)
 	return wrapICefStreamWriter(r0)
 }
 
-func (tStreamWriterRef) UnWrap(data uintptr) ICefStreamWriter {
+func (tStreamWriterRef) UnWrap(data uintptr) (result ICefStreamWriter) {
 	r0 := vcef.StreamWriterRef.UnWrap(data)
 	return wrapICefStreamWriter(r0)
 }
@@ -38625,17 +38626,17 @@ type tTaskRunnerRef struct{}
 
 var TaskRunnerRef tTaskRunnerRef
 
-func (tTaskRunnerRef) GetForCurrentThread() ICefTaskRunner {
+func (tTaskRunnerRef) GetForCurrentThread() (result ICefTaskRunner) {
 	r0 := vcef.TaskRunnerRef.GetForCurrentThread()
 	return wrapICefTaskRunner(r0)
 }
 
-func (tTaskRunnerRef) GetForThread(threadId cefTypes.TCefThreadId) ICefTaskRunner {
+func (tTaskRunnerRef) GetForThread(threadId cefTypes.TCefThreadId) (result ICefTaskRunner) {
 	r0 := vcef.TaskRunnerRef.GetForThread(threadId)
 	return wrapICefTaskRunner(r0)
 }
 
-func (tTaskRunnerRef) UnWrap(data uintptr) ICefTaskRunner {
+func (tTaskRunnerRef) UnWrap(data uintptr) (result ICefTaskRunner) {
 	r0 := vcef.TaskRunnerRef.UnWrap(data)
 	return wrapICefTaskRunner(r0)
 }
@@ -38644,7 +38645,7 @@ type tTextfieldDelegateRef struct{}
 
 var TextfieldDelegateRef tTextfieldDelegateRef
 
-func (tTextfieldDelegateRef) UnWrapWithPointer(data uintptr) IEngTextfieldDelegate {
+func (tTextfieldDelegateRef) UnWrapWithPointer(data uintptr) (result IEngTextfieldDelegate) {
 	r0 := vcef.TextfieldDelegateRef.UnWrapWithPointer(data)
 	return wrapIEngTextfieldDelegate(r0)
 }
@@ -38653,12 +38654,12 @@ type tTextfieldRef struct{}
 
 var TextfieldRef tTextfieldRef
 
-func (tTextfieldRef) CreateTextField(delegate IEngTextfieldDelegate) ICefTextfield {
+func (tTextfieldRef) CreateTextField(delegate IEngTextfieldDelegate) (result ICefTextfield) {
 	r0 := vcef.TextfieldRef.CreateTextField(unwrapIEngTextfieldDelegate(delegate))
 	return wrapICefTextfield(r0)
 }
 
-func (tTextfieldRef) UnWrapWithPointer(data uintptr) ICefTextfield {
+func (tTextfieldRef) UnWrapWithPointer(data uintptr) (result ICefTextfield) {
 	r0 := vcef.TextfieldRef.UnWrapWithPointer(data)
 	return wrapICefTextfield(r0)
 }
@@ -38667,12 +38668,12 @@ type tThreadRef struct{}
 
 var ThreadRef tThreadRef
 
-func (tThreadRef) New(displayName string, priority cefTypes.TCefThreadPriority, messageLoopType cefTypes.TCefMessageLoopType, stoppable int32, comInitMode cefTypes.TCefCOMInitMode) ICefThread {
+func (tThreadRef) New(displayName string, priority cefTypes.TCefThreadPriority, messageLoopType cefTypes.TCefMessageLoopType, stoppable int32, comInitMode cefTypes.TCefCOMInitMode) (result ICefThread) {
 	r0 := vcef.ThreadRef.New(displayName, priority, messageLoopType, stoppable, comInitMode)
 	return wrapICefThread(r0)
 }
 
-func (tThreadRef) UnWrap(data uintptr) ICefThread {
+func (tThreadRef) UnWrap(data uintptr) (result ICefThread) {
 	r0 := vcef.ThreadRef.UnWrap(data)
 	return wrapICefThread(r0)
 }
@@ -38681,12 +38682,12 @@ type tUrlRequestRef struct{}
 
 var UrlRequestRef tUrlRequestRef
 
-func (tUrlRequestRef) New(request ICefRequest, client IEngUrlrequestClient, requestContext ICefRequestContext) ICefUrlRequest {
+func (tUrlRequestRef) New(request ICefRequest, client IEngUrlrequestClient, requestContext ICefRequestContext) (result ICefUrlRequest) {
 	r0 := vcef.UrlRequestRef.New(unwrapICefRequest(request), unwrapIEngUrlrequestClient(client), unwrapICefRequestContext(requestContext))
 	return wrapICefUrlRequest(r0)
 }
 
-func (tUrlRequestRef) UnWrap(data uintptr) ICefUrlRequest {
+func (tUrlRequestRef) UnWrap(data uintptr) (result ICefUrlRequest) {
 	r0 := vcef.UrlRequestRef.UnWrap(data)
 	return wrapICefUrlRequest(r0)
 }
@@ -38695,7 +38696,7 @@ type tV8ArrayBufferReleaseCallbackRef struct{}
 
 var V8ArrayBufferReleaseCallbackRef tV8ArrayBufferReleaseCallbackRef
 
-func (tV8ArrayBufferReleaseCallbackRef) UnWrap(data uintptr) IEngV8ArrayBufferReleaseCallback {
+func (tV8ArrayBufferReleaseCallbackRef) UnWrap(data uintptr) (result IEngV8ArrayBufferReleaseCallback) {
 	r0 := vcef.V8ArrayBufferReleaseCallbackRef.UnWrap(data)
 	return wrapIEngV8ArrayBufferReleaseCallback(r0)
 }
@@ -38704,17 +38705,17 @@ type tV8ContextRef struct{}
 
 var V8ContextRef tV8ContextRef
 
-func (tV8ContextRef) Current() ICefv8Context {
+func (tV8ContextRef) Current() (result ICefv8Context) {
 	r0 := vcef.V8ContextRef.Current()
 	return wrapICefv8Context(r0)
 }
 
-func (tV8ContextRef) Entered() ICefv8Context {
+func (tV8ContextRef) Entered() (result ICefv8Context) {
 	r0 := vcef.V8ContextRef.Entered()
 	return wrapICefv8Context(r0)
 }
 
-func (tV8ContextRef) UnWrap(data uintptr) ICefv8Context {
+func (tV8ContextRef) UnWrap(data uintptr) (result ICefv8Context) {
 	r0 := vcef.V8ContextRef.UnWrap(data)
 	return wrapICefv8Context(r0)
 }
@@ -38723,7 +38724,7 @@ type tV8ExceptionRef struct{}
 
 var V8ExceptionRef tV8ExceptionRef
 
-func (tV8ExceptionRef) UnWrap(data uintptr) ICefV8Exception {
+func (tV8ExceptionRef) UnWrap(data uintptr) (result ICefV8Exception) {
 	r0 := vcef.V8ExceptionRef.UnWrap(data)
 	return wrapICefV8Exception(r0)
 }
@@ -38732,7 +38733,7 @@ type tV8HandlerRef struct{}
 
 var V8HandlerRef tV8HandlerRef
 
-func (tV8HandlerRef) UnWrap(data uintptr) IEngV8Handler {
+func (tV8HandlerRef) UnWrap(data uintptr) (result IEngV8Handler) {
 	r0 := vcef.V8HandlerRef.UnWrap(data)
 	return wrapIEngV8Handler(r0)
 }
@@ -38741,7 +38742,7 @@ type tV8StackFrameRef struct{}
 
 var V8StackFrameRef tV8StackFrameRef
 
-func (tV8StackFrameRef) UnWrap(data uintptr) ICefV8StackFrame {
+func (tV8StackFrameRef) UnWrap(data uintptr) (result ICefV8StackFrame) {
 	r0 := vcef.V8StackFrameRef.UnWrap(data)
 	return wrapICefV8StackFrame(r0)
 }
@@ -38750,12 +38751,12 @@ type tV8StackTraceRef struct{}
 
 var V8StackTraceRef tV8StackTraceRef
 
-func (tV8StackTraceRef) Current(frameLimit int32) ICefV8StackTrace {
+func (tV8StackTraceRef) Current(frameLimit int32) (result ICefV8StackTrace) {
 	r0 := vcef.V8StackTraceRef.Current(frameLimit)
 	return wrapICefV8StackTrace(r0)
 }
 
-func (tV8StackTraceRef) UnWrap(data uintptr) ICefV8StackTrace {
+func (tV8StackTraceRef) UnWrap(data uintptr) (result ICefV8StackTrace) {
 	r0 := vcef.V8StackTraceRef.UnWrap(data)
 	return wrapICefV8StackTrace(r0)
 }
@@ -38764,72 +38765,72 @@ type tV8ValueRef struct{}
 
 var V8ValueRef tV8ValueRef
 
-func (tV8ValueRef) NewArray(len int32) ICefv8Value {
+func (tV8ValueRef) NewArray(len int32) (result ICefv8Value) {
 	r0 := vcef.V8ValueRef.NewArray(len)
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewArrayBuffer(buffer uintptr, length cefTypes.NativeUInt, callback IEngV8ArrayBufferReleaseCallback) ICefv8Value {
+func (tV8ValueRef) NewArrayBuffer(buffer uintptr, length cefTypes.NativeUInt, callback IEngV8ArrayBufferReleaseCallback) (result ICefv8Value) {
 	r0 := vcef.V8ValueRef.NewArrayBuffer(buffer, length, unwrapIEngV8ArrayBufferReleaseCallback(callback))
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewBool(value bool) ICefv8Value {
+func (tV8ValueRef) NewBool(value bool) (result ICefv8Value) {
 	r0 := vcef.V8ValueRef.NewBool(value)
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewDate(value types.TDateTime) ICefv8Value {
+func (tV8ValueRef) NewDate(value types.TDateTime) (result ICefv8Value) {
 	r0 := vcef.V8ValueRef.NewDate(value)
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewDouble(value float64) ICefv8Value {
+func (tV8ValueRef) NewDouble(value float64) (result ICefv8Value) {
 	r0 := vcef.V8ValueRef.NewDouble(value)
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewFunction(name string, handler IEngV8Handler) ICefv8Value {
+func (tV8ValueRef) NewFunction(name string, handler IEngV8Handler) (result ICefv8Value) {
 	r0 := vcef.V8ValueRef.NewFunction(name, unwrapIEngV8Handler(handler))
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewInt(value int32) ICefv8Value {
+func (tV8ValueRef) NewInt(value int32) (result ICefv8Value) {
 	r0 := vcef.V8ValueRef.NewInt(value)
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewNull() ICefv8Value {
+func (tV8ValueRef) NewNull() (result ICefv8Value) {
 	r0 := vcef.V8ValueRef.NewNull()
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewObject(accessor IEngV8Accessor, interceptor IEngV8Interceptor) ICefv8Value {
+func (tV8ValueRef) NewObject(accessor IEngV8Accessor, interceptor IEngV8Interceptor) (result ICefv8Value) {
 	r0 := vcef.V8ValueRef.NewObject(unwrapIEngV8Accessor(accessor), unwrapIEngV8Interceptor(interceptor))
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewPromise() ICefv8Value {
+func (tV8ValueRef) NewPromise() (result ICefv8Value) {
 	r0 := vcef.V8ValueRef.NewPromise()
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewString(str string) ICefv8Value {
+func (tV8ValueRef) NewString(str string) (result ICefv8Value) {
 	r0 := vcef.V8ValueRef.NewString(str)
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewUInt(value uint32) ICefv8Value {
+func (tV8ValueRef) NewUInt(value uint32) (result ICefv8Value) {
 	r0 := vcef.V8ValueRef.NewUInt(value)
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewUndefined() ICefv8Value {
+func (tV8ValueRef) NewUndefined() (result ICefv8Value) {
 	r0 := vcef.V8ValueRef.NewUndefined()
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) UnWrap(data uintptr) ICefv8Value {
+func (tV8ValueRef) UnWrap(data uintptr) (result ICefv8Value) {
 	r0 := vcef.V8ValueRef.UnWrap(data)
 	return wrapICefv8Value(r0)
 }
@@ -38838,12 +38839,12 @@ type tValueRef struct{}
 
 var ValueRef tValueRef
 
-func (tValueRef) New() ICefValue {
+func (tValueRef) New() (result ICefValue) {
 	r0 := vcef.ValueRef.New()
 	return wrapICefValue(r0)
 }
 
-func (tValueRef) UnWrap(data uintptr) ICefValue {
+func (tValueRef) UnWrap(data uintptr) (result ICefValue) {
 	r0 := vcef.ValueRef.UnWrap(data)
 	return wrapICefValue(r0)
 }
@@ -38852,7 +38853,7 @@ type tViewDelegateRef struct{}
 
 var ViewDelegateRef tViewDelegateRef
 
-func (tViewDelegateRef) UnWrapWithPointer(data uintptr) IEngViewDelegate {
+func (tViewDelegateRef) UnWrapWithPointer(data uintptr) (result IEngViewDelegate) {
 	r0 := vcef.ViewDelegateRef.UnWrapWithPointer(data)
 	return wrapIEngViewDelegate(r0)
 }
@@ -38861,7 +38862,7 @@ type tViewRef struct{}
 
 var ViewRef tViewRef
 
-func (tViewRef) UnWrapWithPointer(data uintptr) ICefView {
+func (tViewRef) UnWrapWithPointer(data uintptr) (result ICefView) {
 	r0 := vcef.ViewRef.UnWrapWithPointer(data)
 	return wrapICefView(r0)
 }
@@ -38870,12 +38871,12 @@ type tWaitableEventRef struct{}
 
 var WaitableEventRef tWaitableEventRef
 
-func (tWaitableEventRef) New(automaticReset bool, initiallySignaled bool) ICefWaitableEvent {
+func (tWaitableEventRef) New(automaticReset bool, initiallySignaled bool) (result ICefWaitableEvent) {
 	r0 := vcef.WaitableEventRef.New(automaticReset, initiallySignaled)
 	return wrapICefWaitableEvent(r0)
 }
 
-func (tWaitableEventRef) UnWrap(data uintptr) ICefWaitableEvent {
+func (tWaitableEventRef) UnWrap(data uintptr) (result ICefWaitableEvent) {
 	r0 := vcef.WaitableEventRef.UnWrap(data)
 	return wrapICefWaitableEvent(r0)
 }
@@ -38884,7 +38885,7 @@ type tWindowDelegateRef struct{}
 
 var WindowDelegateRef tWindowDelegateRef
 
-func (tWindowDelegateRef) UnWrapWithPointer(data uintptr) IEngWindowDelegate {
+func (tWindowDelegateRef) UnWrapWithPointer(data uintptr) (result IEngWindowDelegate) {
 	r0 := vcef.WindowDelegateRef.UnWrapWithPointer(data)
 	return wrapIEngWindowDelegate(r0)
 }
@@ -38893,12 +38894,12 @@ type tWindowRef struct{}
 
 var WindowRef tWindowRef
 
-func (tWindowRef) CreateTopLevel(delegate IEngWindowDelegate) ICefWindow {
+func (tWindowRef) CreateTopLevel(delegate IEngWindowDelegate) (result ICefWindow) {
 	r0 := vcef.WindowRef.CreateTopLevel(unwrapIEngWindowDelegate(delegate))
 	return wrapICefWindow(r0)
 }
 
-func (tWindowRef) UnWrapWithPointer(data uintptr) ICefWindow {
+func (tWindowRef) UnWrapWithPointer(data uintptr) (result ICefWindow) {
 	r0 := vcef.WindowRef.UnWrapWithPointer(data)
 	return wrapICefWindow(r0)
 }
@@ -38907,7 +38908,7 @@ type tX509CertPrincipalRef struct{}
 
 var X509CertPrincipalRef tX509CertPrincipalRef
 
-func (tX509CertPrincipalRef) UnWrap(data uintptr) ICefX509CertPrincipal {
+func (tX509CertPrincipalRef) UnWrap(data uintptr) (result ICefX509CertPrincipal) {
 	r0 := vcef.X509CertPrincipalRef.UnWrap(data)
 	return wrapICefX509CertPrincipal(r0)
 }
@@ -38916,7 +38917,7 @@ type tX509CertificateRef struct{}
 
 var X509CertificateRef tX509CertificateRef
 
-func (tX509CertificateRef) UnWrap(data uintptr) ICefX509Certificate {
+func (tX509CertificateRef) UnWrap(data uintptr) (result ICefX509Certificate) {
 	r0 := vcef.X509CertificateRef.UnWrap(data)
 	return wrapICefX509Certificate(r0)
 }
@@ -38925,12 +38926,12 @@ type tXmlReaderRef struct{}
 
 var XmlReaderRef tXmlReaderRef
 
-func (tXmlReaderRef) New(stream ICefStreamReader, encodingType cefTypes.TCefXmlEncodingType, uRI string) ICefXmlReader {
+func (tXmlReaderRef) New(stream ICefStreamReader, encodingType cefTypes.TCefXmlEncodingType, uRI string) (result ICefXmlReader) {
 	r0 := vcef.XmlReaderRef.New(unwrapICefStreamReader(stream), encodingType, uRI)
 	return wrapICefXmlReader(r0)
 }
 
-func (tXmlReaderRef) UnWrap(data uintptr) ICefXmlReader {
+func (tXmlReaderRef) UnWrap(data uintptr) (result ICefXmlReader) {
 	r0 := vcef.XmlReaderRef.UnWrap(data)
 	return wrapICefXmlReader(r0)
 }
@@ -38939,12 +38940,12 @@ type tZipReaderRef struct{}
 
 var ZipReaderRef tZipReaderRef
 
-func (tZipReaderRef) New(stream ICefStreamReader) ICefZipReader {
+func (tZipReaderRef) New(stream ICefStreamReader) (result ICefZipReader) {
 	r0 := vcef.ZipReaderRef.New(unwrapICefStreamReader(stream))
 	return wrapICefZipReader(r0)
 }
 
-func (tZipReaderRef) UnWrap(data uintptr) ICefZipReader {
+func (tZipReaderRef) UnWrap(data uintptr) (result ICefZipReader) {
 	r0 := vcef.ZipReaderRef.UnWrap(data)
 	return wrapICefZipReader(r0)
 }
