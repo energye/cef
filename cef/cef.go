@@ -30,6 +30,10 @@ func RunOnMainThread(fn func()) {
 	if fn == nil {
 		return
 	}
+	if MiscFunc.CefCurrentlyOn(cefTypes.TID_UI) {
+		fn()
+		return
+	}
 	task := NewEngTask()
 	task.SetOnTaskExecute(func() {
 		fn()
