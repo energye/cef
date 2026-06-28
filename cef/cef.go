@@ -10,6 +10,7 @@ package cef
 
 import (
 	"github.com/energye/cef/base"
+	cefTypes "github.com/energye/cef/cef/types"
 	"sync"
 )
 
@@ -23,4 +24,17 @@ func LibVersion() (major, minor, release, build int) {
 		gMajor, gmMinor, gRelease, gBuild = base.CEFLibVersion()
 	})
 	return int(gMajor), int(gmMinor), int(gRelease), int(gBuild)
+}
+
+func RunOnMainThread(fn func()) {
+	if fn == nil {
+		return
+	}
+	task := NewEngTask()
+	task.SetOnTaskExecute(func() {
+		fn()
+	})
+	task = AsEngTask(task.AsIntfTask())
+	MiscFunc.CefPostTask(cefTypes.TID_UI, task)
+	task.Release()
 }
