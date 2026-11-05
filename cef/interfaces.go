@@ -676,12 +676,6 @@ type ICEFTextfieldComponent interface {
 	// SelectedText
 	// Returns the currently selected text.
 	SelectedText() string
-	// SelectionBackgroundColor
-	// Returns the selection background color.
-	SelectionBackgroundColor() cefTypes.TCefColor
-	// SelectionTextColor
-	// Returns the selection text color.
-	SelectionTextColor() cefTypes.TCefColor
 	// SetAccessibleName
 	// Set the accessible name that will be exposed to assistive technology (AT).
 	SetAccessibleName(name string)
@@ -703,18 +697,9 @@ type ICEFTextfieldComponent interface {
 	SetOnAfterUserAction(fn TOnAfterUserActionEvent)
 	SetOnTextfieldKeyEvent(fn TOnTextfieldKeyEventEvent)
 	SetPasswordInput(value bool)
-	// SetPlaceholderTextColor
-	// Sets the placeholder text color.
-	SetPlaceholderTextColor(color cefTypes.TCefColor)
 	SetPlaceholderText(value string)
 	SetReadOnly(value bool)
-	SetSelectionBackgroundColor(value cefTypes.TCefColor)
-	SetSelectionTextColor(value cefTypes.TCefColor)
-	SetTextColor(value cefTypes.TCefColor)
 	SetText(value string)
-	// TextColor
-	// Returns the text color.
-	TextColor() cefTypes.TCefColor
 	// Text
 	// Returns the currently displayed text.
 	Text() string
@@ -6393,15 +6378,6 @@ type ICefTextfield interface {
 	// GetSelectedText
 	// Returns the currently selected text.
 	GetSelectedText() string
-	// GetSelectionBackgroundColor
-	// Returns the selection background color.
-	GetSelectionBackgroundColor() cefTypes.TCefColor
-	// GetSelectionTextColor
-	// Returns the selection text color.
-	GetSelectionTextColor() cefTypes.TCefColor
-	// GetTextColor
-	// Returns the text color.
-	GetTextColor() cefTypes.TCefColor
 	// GetText
 	// Returns the currently displayed text.
 	GetText() string
@@ -6446,9 +6422,6 @@ type ICefTextfield interface {
 	// SetPasswordInput
 	// Sets whether the text will be displayed as asterisks.
 	SetPasswordInput(passwordInput bool)
-	// SetPlaceholderTextColor
-	// Sets the placeholder text color.
-	SetPlaceholderTextColor(color cefTypes.TCefColor)
 	// SetPlaceholderText
 	// Sets the placeholder text that will be displayed when the Textfield is
 	// NULL.
@@ -6456,15 +6429,6 @@ type ICefTextfield interface {
 	// SetReadOnly
 	// Sets whether the text will read-only.
 	SetReadOnly(readOnly bool)
-	// SetSelectionBackgroundColor
-	// Sets the selection background color.
-	SetSelectionBackgroundColor(color cefTypes.TCefColor)
-	// SetSelectionTextColor
-	// Sets the selection text color.
-	SetSelectionTextColor(color cefTypes.TCefColor)
-	// SetTextColor
-	// Sets the text color.
-	SetTextColor(color cefTypes.TCefColor)
 	// SetText
 	// Sets the contents to |text|. The cursor will be moved to end of the text
 	// if the current position is outside of the text range.

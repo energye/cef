@@ -8,7 +8,7 @@
 //
 //----------------------------------------
 
-//go:build CEF109 || (!CEF127 && !CEF147)
+//go:build CEF109 || (!CEF127 && !CEF147 && !CEF150)
 
 package cef
 
@@ -26,6 +26,13 @@ type ICEFPanelComponent_109 interface {
 type ICEFTextfieldComponent_109 interface {
 	ICEFTextfieldComponent
 	SelectRange(range_ TCefRange)
+	SelectionBackgroundColor() cefTypes.TCefColor
+	SelectionTextColor() cefTypes.TCefColor
+	SetPlaceholderTextColor(color cefTypes.TCefColor)
+	SetSelectionBackgroundColor(value cefTypes.TCefColor)
+	SetSelectionTextColor(value cefTypes.TCefColor)
+	SetTextColor(value cefTypes.TCefColor)
+	TextColor() cefTypes.TCefColor
 }
 
 type ICEFWindowComponent_109 interface {
@@ -228,6 +235,22 @@ type ICefStringListOwn_109 interface {
 type ICefStringListRef_109 interface {
 	ICefStringListRef
 	ICefCustomStringList_109
+}
+
+type ICefTextfield_109 interface {
+	ICefTextfield
+	GetSelectionBackgroundColor() cefTypes.TCefColor
+	GetSelectionTextColor() cefTypes.TCefColor
+	GetTextColor() cefTypes.TCefColor
+	SetPlaceholderTextColor(color cefTypes.TCefColor)
+	SetSelectionBackgroundColor(color cefTypes.TCefColor)
+	SetSelectionTextColor(color cefTypes.TCefColor)
+	SetTextColor(color cefTypes.TCefColor)
+}
+
+type ICefTextfieldRef_109 interface {
+	ICefTextfieldRef
+	ICefTextfield_109
 }
 
 type ICefWindow_109 interface {

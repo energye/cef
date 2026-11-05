@@ -90,7 +90,22 @@ type ICEFTextfieldComponent_127 interface {
 	// SelectedRange
 	// Returns the selected logical text range.
 	SelectedRange() TCefRange
+	// SelectionBackgroundColor
+	// Returns the selection background color.
+	SelectionBackgroundColor() cefTypes.TCefColor
+	// SelectionTextColor
+	// Returns the selection text color.
+	SelectionTextColor() cefTypes.TCefColor
+	// SetPlaceholderTextColor
+	// Sets the placeholder text color.
+	SetPlaceholderTextColor(color cefTypes.TCefColor)
 	SetSelectedRange(value TCefRange)
+	SetSelectionBackgroundColor(value cefTypes.TCefColor)
+	SetSelectionTextColor(value cefTypes.TCefColor)
+	SetTextColor(value cefTypes.TCefColor)
+	// TextColor
+	// Returns the text color.
+	TextColor() cefTypes.TCefColor
 }
 
 type ICEFViewComponent_127 interface {
@@ -811,6 +826,27 @@ type ICefStringListRef_127 interface {
 type ICefTextfield_127 interface {
 	ICefTextfield
 	ICefView_127
+	// GetSelectionBackgroundColor
+	// Returns the selection background color.
+	GetSelectionBackgroundColor() cefTypes.TCefColor
+	// GetSelectionTextColor
+	// Returns the selection text color.
+	GetSelectionTextColor() cefTypes.TCefColor
+	// GetTextColor
+	// Returns the text color.
+	GetTextColor() cefTypes.TCefColor
+	// SetPlaceholderTextColor
+	// Sets the placeholder text color.
+	SetPlaceholderTextColor(color cefTypes.TCefColor)
+	// SetSelectionBackgroundColor
+	// Sets the selection background color.
+	SetSelectionBackgroundColor(color cefTypes.TCefColor)
+	// SetSelectionTextColor
+	// Sets the selection text color.
+	SetSelectionTextColor(color cefTypes.TCefColor)
+	// SetTextColor
+	// Sets the text color.
+	SetTextColor(color cefTypes.TCefColor)
 }
 
 type ICefTextfieldRef_127 interface {
