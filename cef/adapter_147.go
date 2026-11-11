@@ -21,7 +21,6 @@ import (
 
 const CEFVersion = 147
 
-type ICustomPanel = vcef.ICustomPanel
 type PPSingle = vcef.PPSingle
 type TBufferPanel = vcef.TBufferPanel
 type TCEFAccessibilityHandlerOwn = vcef.TCEFAccessibilityHandlerOwn
@@ -288,8 +287,47 @@ type TChromiumOptions = vcef.TChromiumOptions
 type TChromiumVersionInfo = vcef.TChromiumVersionInfo
 type TChromiumWindow = vcef.TChromiumWindow
 type TComponent = vcef.TComponent
+type TCustomAccessibilityHandler = vcef.TCustomAccessibilityHandler
+type TCustomAudioHandler = vcef.TCustomAudioHandler
+type TCustomBrowserViewDelegate = vcef.TCustomBrowserViewDelegate
+type TCustomButtonDelegate = vcef.TCustomButtonDelegate
+type TCustomCefApp = vcef.TCustomCefApp
+type TCustomCefNavigationEntryVisitor = vcef.TCustomCefNavigationEntryVisitor
+type TCustomCefStringVisitor = vcef.TCustomCefStringVisitor
+type TCustomCefUrlrequestClient = vcef.TCustomCefUrlrequestClient
+type TCustomClientHandler = vcef.TCustomClientHandler
+type TCustomCommandHandler = vcef.TCustomCommandHandler
+type TCustomContextMenuHandler = vcef.TCustomContextMenuHandler
+type TCustomCookieAccessFilter = vcef.TCustomCookieAccessFilter
+type TCustomDevToolsMessageObserver = vcef.TCustomDevToolsMessageObserver
+type TCustomDialogHandler = vcef.TCustomDialogHandler
+type TCustomDisplayHandler = vcef.TCustomDisplayHandler
+type TCustomDownloadHandler = vcef.TCustomDownloadHandler
+type TCustomDragHandler = vcef.TCustomDragHandler
+type TCustomFindHandler = vcef.TCustomFindHandler
+type TCustomFocusHandler = vcef.TCustomFocusHandler
+type TCustomFrameHandler = vcef.TCustomFrameHandler
+type TCustomJsDialogHandler = vcef.TCustomJsDialogHandler
+type TCustomKeyboardHandler = vcef.TCustomKeyboardHandler
+type TCustomLifeSpanHandler = vcef.TCustomLifeSpanHandler
+type TCustomLoadHandler = vcef.TCustomLoadHandler
+type TCustomMediaObserver = vcef.TCustomMediaObserver
+type TCustomMenuButtonDelegate = vcef.TCustomMenuButtonDelegate
 type TCustomPanel = vcef.TCustomPanel
+type TCustomPanelDelegate = vcef.TCustomPanelDelegate
+type TCustomPermissionHandler = vcef.TCustomPermissionHandler
+type TCustomPrintHandler = vcef.TCustomPrintHandler
+type TCustomRenderHandler = vcef.TCustomRenderHandler
+type TCustomRenderLoadHandler = vcef.TCustomRenderLoadHandler
+type TCustomRequestContextHandler = vcef.TCustomRequestContextHandler
+type TCustomRequestHandler = vcef.TCustomRequestHandler
+type TCustomResourceRequestHandler = vcef.TCustomResourceRequestHandler
+type TCustomResponseFilter = vcef.TCustomResponseFilter
+type TCustomServerHandler = vcef.TCustomServerHandler
 type TCustomTaskInfo = vcef.TCustomTaskInfo
+type TCustomTextfieldDelegate = vcef.TCustomTextfieldDelegate
+type TCustomViewDelegate = vcef.TCustomViewDelegate
+type TCustomWindowDelegate = vcef.TCustomWindowDelegate
 type TEngAccessibilityHandler = vcef.TEngAccessibilityHandler
 type TEngApp = vcef.TEngApp
 type TEngAudioHandler = vcef.TEngAudioHandler
@@ -368,7 +406,7 @@ type ICefRectArray = vcef.ICefRectArray
 type ICefBinaryValueArray interface {
 	Instance() uintptr
 	Count() int
-	Get(index int) ICefBinaryValue
+	Get(index int) ICefBinaryValue_147
 	Add(value ICefBinaryValue)
 	Free()
 }
@@ -379,7 +417,7 @@ type tICefBinaryValueArray struct {
 
 func (t *tICefBinaryValueArray) Instance() uintptr { return t.raw.Instance() }
 func (t *tICefBinaryValueArray) Count() int        { return t.raw.Count() }
-func (t *tICefBinaryValueArray) Get(index int) ICefBinaryValue {
+func (t *tICefBinaryValueArray) Get(index int) ICefBinaryValue_147 {
 	return wrapICefBinaryValue(t.raw.Get(index))
 }
 func (t *tICefBinaryValueArray) Add(value ICefBinaryValue) { t.raw.Add(unwrapICefBinaryValue(value)) }
@@ -741,7 +779,7 @@ func ptrToICefX509CertificateArray(p *vcef.ICefX509CertificateArray) *ICefX509Ce
 type ICefv8ValueArray interface {
 	Instance() uintptr
 	Count() int
-	Get(index int) ICefv8Value
+	Get(index int) ICefv8Value_147
 	Add(value ICefv8Value)
 	Free()
 }
@@ -750,11 +788,11 @@ type tICefv8ValueArray struct {
 	raw vcef.ICefv8ValueArray
 }
 
-func (t *tICefv8ValueArray) Instance() uintptr         { return t.raw.Instance() }
-func (t *tICefv8ValueArray) Count() int                { return t.raw.Count() }
-func (t *tICefv8ValueArray) Get(index int) ICefv8Value { return wrapICefv8Value(t.raw.Get(index)) }
-func (t *tICefv8ValueArray) Add(value ICefv8Value)     { t.raw.Add(unwrapICefv8Value(value)) }
-func (t *tICefv8ValueArray) Free()                     { t.raw.Free() }
+func (t *tICefv8ValueArray) Instance() uintptr             { return t.raw.Instance() }
+func (t *tICefv8ValueArray) Count() int                    { return t.raw.Count() }
+func (t *tICefv8ValueArray) Get(index int) ICefv8Value_147 { return wrapICefv8Value(t.raw.Get(index)) }
+func (t *tICefv8ValueArray) Add(value ICefv8Value)         { t.raw.Add(unwrapICefv8Value(value)) }
+func (t *tICefv8ValueArray) Free()                         { t.raw.Free() }
 
 func (t *tICefv8ValueArray) Raw() Raw { return t.raw }
 
@@ -1319,6 +1357,9 @@ func newtIApplicationCoreEvents_147(raw vcef.IApplicationCoreEvents) *tIApplicat
 }
 
 func wrapIApplicationCoreEvents(raw vcef.IApplicationCoreEvents) IApplicationCoreEvents_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtIApplicationCoreEvents_147(raw)
 }
 
@@ -1339,6 +1380,385 @@ func (t *tIApplicationCoreEvents_147) Raw() Raw {
 	return t.raw
 }
 
+type tIBufferPanel_147 struct {
+	raw vcef.IBufferPanel
+	ICustomPanel
+}
+
+func newtIBufferPanel_147(raw vcef.IBufferPanel) *tIBufferPanel_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tIBufferPanel_147{
+		raw:          raw,
+		ICustomPanel: raw,
+	}
+}
+
+func wrapIBufferPanel(raw vcef.IBufferPanel) IBufferPanel_147 {
+	if raw == nil {
+		return nil
+	}
+	return newtIBufferPanel_147(raw)
+}
+
+func unwrapIBufferPanel(value IBufferPanel) vcef.IBufferPanel {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tIBufferPanel_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.IBufferPanel](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tIBufferPanel_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tIBufferPanel_147) BeginBufferDraw() bool {
+	r0 := t.raw.BeginBufferDraw()
+	return r0
+}
+
+func (t *tIBufferPanel_147) BufferBits() uintptr {
+	r0 := t.raw.BufferBits()
+	return r0
+}
+
+func (t *tIBufferPanel_147) BufferDrawWithBitmapRectX2(bitmap lcl.IBitmap, srcRect types.TRect, dstRect types.TRect) {
+	t.raw.BufferDrawWithBitmapRectX2(bitmap, srcRect, dstRect)
+}
+
+func (t *tIBufferPanel_147) BufferDrawWithIntX2Bitmap(X int32, Y int32, bitmap lcl.IBitmap) {
+	t.raw.BufferDrawWithIntX2Bitmap(X, Y, bitmap)
+}
+
+func (t *tIBufferPanel_147) BufferHeight() int32 {
+	r0 := t.raw.BufferHeight()
+	return r0
+}
+
+func (t *tIBufferPanel_147) BufferIsResized(useMutex bool) bool {
+	r0 := t.raw.BufferIsResized(useMutex)
+	return r0
+}
+
+func (t *tIBufferPanel_147) BufferWidth() int32 {
+	r0 := t.raw.BufferWidth()
+	return r0
+}
+
+func (t *tIBufferPanel_147) Buffer() lcl.IBitmap {
+	r0 := t.raw.Buffer()
+	return r0
+}
+
+func (t *tIBufferPanel_147) ChangeCompositionRange(selectionRange TCefRange, characterBounds ICefRectArray) {
+	t.raw.ChangeCompositionRange(selectionRange, characterBounds)
+}
+
+func (t *tIBufferPanel_147) CopyOriginalBuffer() bool {
+	r0 := t.raw.CopyOriginalBuffer()
+	return r0
+}
+
+func (t *tIBufferPanel_147) CreateIMEHandler() {
+	t.raw.CreateIMEHandler()
+}
+
+func (t *tIBufferPanel_147) DragCursor() types.TCursor {
+	r0 := t.raw.DragCursor()
+	return r0
+}
+
+func (t *tIBufferPanel_147) DragKind() types.TDragKind {
+	r0 := t.raw.DragKind()
+	return r0
+}
+
+func (t *tIBufferPanel_147) DragMode() types.TDragMode {
+	r0 := t.raw.DragMode()
+	return r0
+}
+
+func (t *tIBufferPanel_147) DrawOrigPopupBuffer(srcRect types.TRect, dstRect types.TRect) {
+	t.raw.DrawOrigPopupBuffer(srcRect, dstRect)
+}
+
+func (t *tIBufferPanel_147) EndBufferDraw() {
+	t.raw.EndBufferDraw()
+}
+
+func (t *tIBufferPanel_147) ForcedDeviceScaleFactor() float32 {
+	r0 := t.raw.ForcedDeviceScaleFactor()
+	return r0
+}
+
+func (t *tIBufferPanel_147) InvalidatePanel() bool {
+	r0 := t.raw.InvalidatePanel()
+	return r0
+}
+
+func (t *tIBufferPanel_147) MustInitBuffer() bool {
+	r0 := t.raw.MustInitBuffer()
+	return r0
+}
+
+func (t *tIBufferPanel_147) OrigBufferHeight() int32 {
+	r0 := t.raw.OrigBufferHeight()
+	return r0
+}
+
+func (t *tIBufferPanel_147) OrigBufferWidth() int32 {
+	r0 := t.raw.OrigBufferWidth()
+	return r0
+}
+
+func (t *tIBufferPanel_147) OrigBuffer() ICEFBitmapBitBuffer {
+	r0 := t.raw.OrigBuffer()
+	return wrapICEFBitmapBitBuffer(r0)
+}
+
+func (t *tIBufferPanel_147) OrigPopupBufferBits() uintptr {
+	r0 := t.raw.OrigPopupBufferBits()
+	return r0
+}
+
+func (t *tIBufferPanel_147) OrigPopupBufferHeight() int32 {
+	r0 := t.raw.OrigPopupBufferHeight()
+	return r0
+}
+
+func (t *tIBufferPanel_147) OrigPopupBufferWidth() int32 {
+	r0 := t.raw.OrigPopupBufferWidth()
+	return r0
+}
+
+func (t *tIBufferPanel_147) OrigPopupBuffer() ICEFBitmapBitBuffer {
+	r0 := t.raw.OrigPopupBuffer()
+	return wrapICEFBitmapBitBuffer(r0)
+}
+
+func (t *tIBufferPanel_147) OrigPopupScanlineSize() int32 {
+	r0 := t.raw.OrigPopupScanlineSize()
+	return r0
+}
+
+func (t *tIBufferPanel_147) ParentFont() bool {
+	r0 := t.raw.ParentFont()
+	return r0
+}
+
+func (t *tIBufferPanel_147) ParentFormHandle() cefTypes.TCefWindowHandle {
+	r0 := t.raw.ParentFormHandle()
+	return r0
+}
+
+func (t *tIBufferPanel_147) ParentForm() lcl.ICustomForm {
+	r0 := t.raw.ParentForm()
+	return r0
+}
+
+func (t *tIBufferPanel_147) ParentShowHint() bool {
+	r0 := t.raw.ParentShowHint()
+	return r0
+}
+
+func (t *tIBufferPanel_147) SaveToFile(filename string) bool {
+	r0 := t.raw.SaveToFile(filename)
+	return r0
+}
+
+func (t *tIBufferPanel_147) ScanlineSize() int32 {
+	r0 := t.raw.ScanlineSize()
+	return r0
+}
+
+func (t *tIBufferPanel_147) ScreenScale() float32 {
+	r0 := t.raw.ScreenScale()
+	return r0
+}
+
+func (t *tIBufferPanel_147) SendMessage(message *types.TMessage) {
+	t.raw.SendMessage(message)
+}
+
+func (t *tIBufferPanel_147) SetCopyOriginalBuffer(value bool) {
+	t.raw.SetCopyOriginalBuffer(value)
+}
+
+func (t *tIBufferPanel_147) SetDragCursor(value types.TCursor) {
+	t.raw.SetDragCursor(value)
+}
+
+func (t *tIBufferPanel_147) SetDragKind(value types.TDragKind) {
+	t.raw.SetDragKind(value)
+}
+
+func (t *tIBufferPanel_147) SetDragMode(value types.TDragMode) {
+	t.raw.SetDragMode(value)
+}
+
+func (t *tIBufferPanel_147) SetForcedDeviceScaleFactor(value float32) {
+	t.raw.SetForcedDeviceScaleFactor(value)
+}
+
+func (t *tIBufferPanel_147) SetMustInitBuffer(value bool) {
+	t.raw.SetMustInitBuffer(value)
+}
+
+func (t *tIBufferPanel_147) SetOnConstrainedResize(fn TConstrainedResizeEvent) {
+	t.raw.SetOnConstrainedResize(func(sender lcl.IObject, minWidth *types.TConstraintSize, minHeight *types.TConstraintSize, maxWidth *types.TConstraintSize, maxHeight *types.TConstraintSize) {
+		fn(sender, minWidth, minHeight, maxWidth, maxHeight)
+	})
+}
+
+func (t *tIBufferPanel_147) SetOnContextPopup(fn TContextPopupEvent) {
+	t.raw.SetOnContextPopup(func(sender lcl.IObject, mousePos types.TPoint, handled *bool) { fn(sender, mousePos, handled) })
+}
+
+func (t *tIBufferPanel_147) SetOnCustomTouch(fn TOnHandledMessageEvent) {
+	t.raw.SetOnCustomTouch(func(sender lcl.IObject, message *types.TMessage, handled *bool) { fn(sender, message, handled) })
+}
+
+func (t *tIBufferPanel_147) SetOnDblClick(fn TNotifyEvent) {
+	t.raw.SetOnDblClick(func(sender lcl.IObject) { fn(sender) })
+}
+
+func (t *tIBufferPanel_147) SetOnDragDrop(fn TDragDropEvent) {
+	t.raw.SetOnDragDrop(func(sender lcl.IObject, source lcl.IObject, X int32, Y int32) { fn(sender, source, X, Y) })
+}
+
+func (t *tIBufferPanel_147) SetOnDragOver(fn TDragOverEvent) {
+	t.raw.SetOnDragOver(func(sender lcl.IObject, source lcl.IObject, X int32, Y int32, state types.TDragState, accept *bool) {
+		fn(sender, source, X, Y, state, accept)
+	})
+}
+
+func (t *tIBufferPanel_147) SetOnEndDock(fn TEndDragEvent) {
+	t.raw.SetOnEndDock(func(sender lcl.IObject, target lcl.IObject, X int32, Y int32) { fn(sender, target, X, Y) })
+}
+
+func (t *tIBufferPanel_147) SetOnEndDrag(fn TEndDragEvent) {
+	t.raw.SetOnEndDrag(func(sender lcl.IObject, target lcl.IObject, X int32, Y int32) { fn(sender, target, X, Y) })
+}
+
+func (t *tIBufferPanel_147) SetOnGetSiteInfo(fn TGetSiteInfoEvent) {
+	t.raw.SetOnGetSiteInfo(func(sender lcl.IObject, dockClient lcl.IControl, influenceRect *types.TRect, mousePos types.TPoint, canDock *bool) {
+		fn(sender, dockClient, influenceRect, mousePos, canDock)
+	})
+}
+
+func (t *tIBufferPanel_147) SetOnIMECancelComposition(fn TNotifyEvent) {
+	t.raw.SetOnIMECancelComposition(func(sender lcl.IObject) { fn(sender) })
+}
+
+func (t *tIBufferPanel_147) SetOnIMECommitText(fn TOnIMECommitTextEvent) {
+	t.raw.SetOnIMECommitText(func(sender lcl.IObject, text string, replacementRange TCefRange, relativeCursorPos int32) {
+		fn(sender, text, replacementRange, relativeCursorPos)
+	})
+}
+
+func (t *tIBufferPanel_147) SetOnIMESetComposition(fn TOnIMESetCompositionEvent) {
+	t.raw.SetOnIMESetComposition(func(sender lcl.IObject, text string, underlines vcef.ICefCompositionUnderlineArray, replacementRange TCefRange, selectionRange TCefRange) {
+		fn(sender, text, underlines, replacementRange, selectionRange)
+	})
+}
+
+func (t *tIBufferPanel_147) SetOnMouseDown(fn TMouseEvent) {
+	t.raw.SetOnMouseDown(func(sender lcl.IObject, button types.TMouseButton, shift types.TShiftState, X int32, Y int32) {
+		fn(sender, button, shift, X, Y)
+	})
+}
+
+func (t *tIBufferPanel_147) SetOnMouseEnter(fn TNotifyEvent) {
+	t.raw.SetOnMouseEnter(func(sender lcl.IObject) { fn(sender) })
+}
+
+func (t *tIBufferPanel_147) SetOnMouseLeave(fn TNotifyEvent) {
+	t.raw.SetOnMouseLeave(func(sender lcl.IObject) { fn(sender) })
+}
+
+func (t *tIBufferPanel_147) SetOnMouseMove(fn TMouseMoveEvent) {
+	t.raw.SetOnMouseMove(func(sender lcl.IObject, shift types.TShiftState, X int32, Y int32) { fn(sender, shift, X, Y) })
+}
+
+func (t *tIBufferPanel_147) SetOnMouseUp(fn TMouseEvent) {
+	t.raw.SetOnMouseUp(func(sender lcl.IObject, button types.TMouseButton, shift types.TShiftState, X int32, Y int32) {
+		fn(sender, button, shift, X, Y)
+	})
+}
+
+func (t *tIBufferPanel_147) SetOnMouseWheel(fn TMouseWheelEvent) {
+	t.raw.SetOnMouseWheel(func(sender lcl.IObject, shift types.TShiftState, wheelDelta int32, mousePos types.TPoint, handled *bool) {
+		fn(sender, shift, wheelDelta, mousePos, handled)
+	})
+}
+
+func (t *tIBufferPanel_147) SetOnPaintParentBkg(fn TNotifyEvent) {
+	t.raw.SetOnPaintParentBkg(func(sender lcl.IObject) { fn(sender) })
+}
+
+func (t *tIBufferPanel_147) SetOnPointerDown(fn TOnHandledMessageEvent) {
+	t.raw.SetOnPointerDown(func(sender lcl.IObject, message *types.TMessage, handled *bool) { fn(sender, message, handled) })
+}
+
+func (t *tIBufferPanel_147) SetOnPointerUpdate(fn TOnHandledMessageEvent) {
+	t.raw.SetOnPointerUpdate(func(sender lcl.IObject, message *types.TMessage, handled *bool) { fn(sender, message, handled) })
+}
+
+func (t *tIBufferPanel_147) SetOnPointerUp(fn TOnHandledMessageEvent) {
+	t.raw.SetOnPointerUp(func(sender lcl.IObject, message *types.TMessage, handled *bool) { fn(sender, message, handled) })
+}
+
+func (t *tIBufferPanel_147) SetOnStartDock(fn TStartDockEvent) {
+	t.raw.SetOnStartDock(func(sender lcl.IObject, dragObject *lcl.IDragDockObject) { fn(sender, dragObject) })
+}
+
+func (t *tIBufferPanel_147) SetOnStartDrag(fn TStartDragEvent) {
+	t.raw.SetOnStartDrag(func(sender lcl.IObject, dragObject *lcl.IDragObject) { fn(sender, dragObject) })
+}
+
+func (t *tIBufferPanel_147) SetParentFont(value bool) {
+	t.raw.SetParentFont(value)
+}
+
+func (t *tIBufferPanel_147) SetParentShowHint(value bool) {
+	t.raw.SetParentShowHint(value)
+}
+
+func (t *tIBufferPanel_147) SetTransparent(value bool) {
+	t.raw.SetTransparent(value)
+}
+
+func (t *tIBufferPanel_147) Transparent() bool {
+	r0 := t.raw.Transparent()
+	return r0
+}
+
+func (t *tIBufferPanel_147) UpdateBufferDimensions(width int32, height int32) bool {
+	r0 := t.raw.UpdateBufferDimensions(width, height)
+	return r0
+}
+
+func (t *tIBufferPanel_147) UpdateDeviceScaleFactor() {
+	t.raw.UpdateDeviceScaleFactor()
+}
+
+func (t *tIBufferPanel_147) UpdateOrigBufferDimensions(width int32, height int32) bool {
+	r0 := t.raw.UpdateOrigBufferDimensions(width, height)
+	return r0
+}
+
+func (t *tIBufferPanel_147) UpdateOrigPopupBufferDimensions(width int32, height int32) bool {
+	r0 := t.raw.UpdateOrigPopupBufferDimensions(width, height)
+	return r0
+}
+
 type tICEFAccessibilityHandlerOwn_147 struct {
 	raw vcef.ICEFAccessibilityHandlerOwn
 	*tICefBaseRefCountedOwn_147
@@ -1355,6 +1775,9 @@ func newtICEFAccessibilityHandlerOwn_147(raw vcef.ICEFAccessibilityHandlerOwn) *
 }
 
 func wrapICEFAccessibilityHandlerOwn(raw vcef.ICEFAccessibilityHandlerOwn) ICEFAccessibilityHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFAccessibilityHandlerOwn_147(raw)
 }
 
@@ -1391,6 +1814,9 @@ func newtICEFBaseScopedWrapperRef_147(raw vcef.ICEFBaseScopedWrapperRef) *tICEFB
 }
 
 func wrapICEFBaseScopedWrapperRef(raw vcef.ICEFBaseScopedWrapperRef) ICEFBaseScopedWrapperRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFBaseScopedWrapperRef_147(raw)
 }
 
@@ -1432,6 +1858,9 @@ func newtICEFBitmapBitBuffer_147(raw vcef.ICEFBitmapBitBuffer) *tICEFBitmapBitBu
 }
 
 func wrapICEFBitmapBitBuffer(raw vcef.ICEFBitmapBitBuffer) ICEFBitmapBitBuffer {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFBitmapBitBuffer_147(raw)
 }
 
@@ -1511,7 +1940,10 @@ func newtICEFBrowserViewComponent_147(raw vcef.ICEFBrowserViewComponent) *tICEFB
 	}
 }
 
-func wrapICEFBrowserViewComponent(raw vcef.ICEFBrowserViewComponent) ICEFBrowserViewComponent {
+func wrapICEFBrowserViewComponent(raw vcef.ICEFBrowserViewComponent) ICEFBrowserViewComponent_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFBrowserViewComponent_147(raw)
 }
 
@@ -1552,7 +1984,7 @@ func (t *tICEFBrowserViewComponent_147) Browser() ICefBrowser {
 	return wrapICefBrowser(r0)
 }
 
-func (t *tICEFBrowserViewComponent_147) ChromeToolbar() ICefView {
+func (t *tICEFBrowserViewComponent_147) ChromeToolbar() ICefView_147 {
 	r0 := t.raw.ChromeToolbar()
 	return wrapICefView(r0)
 }
@@ -1651,7 +2083,10 @@ func newtICEFButtonComponent_147(raw vcef.ICEFButtonComponent) *tICEFButtonCompo
 	}
 }
 
-func wrapICEFButtonComponent(raw vcef.ICEFButtonComponent) ICEFButtonComponent {
+func wrapICEFButtonComponent(raw vcef.ICEFButtonComponent) ICEFButtonComponent_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFButtonComponent_147(raw)
 }
 
@@ -1732,6 +2167,9 @@ func newtICEFDevToolsMessageObserverOwn_147(raw vcef.ICEFDevToolsMessageObserver
 }
 
 func wrapICEFDevToolsMessageObserverOwn(raw vcef.ICEFDevToolsMessageObserverOwn) ICEFDevToolsMessageObserverOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFDevToolsMessageObserverOwn_147(raw)
 }
 
@@ -1767,7 +2205,10 @@ func newtICEFFileDialogInfo_147(raw vcef.ICEFFileDialogInfo) *tICEFFileDialogInf
 	}
 }
 
-func wrapICEFFileDialogInfo(raw vcef.ICEFFileDialogInfo) ICEFFileDialogInfo {
+func wrapICEFFileDialogInfo(raw vcef.ICEFFileDialogInfo) ICEFFileDialogInfo_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFFileDialogInfo_147(raw)
 }
 
@@ -1920,6 +2361,9 @@ func newtICEFJson_147(raw vcef.ICEFJson) *tICEFJson_147 {
 }
 
 func wrapICEFJson(raw vcef.ICEFJson) ICEFJson {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFJson_147(raw)
 }
 
@@ -1955,7 +2399,10 @@ func newtICEFLabelButtonComponent_147(raw vcef.ICEFLabelButtonComponent) *tICEFL
 	}
 }
 
-func wrapICEFLabelButtonComponent(raw vcef.ICEFLabelButtonComponent) ICEFLabelButtonComponent {
+func wrapICEFLabelButtonComponent(raw vcef.ICEFLabelButtonComponent) ICEFLabelButtonComponent_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFLabelButtonComponent_147(raw)
 }
 
@@ -2052,7 +2499,10 @@ func newtICEFLinkedWinControlBase_147(raw vcef.ICEFLinkedWinControlBase) *tICEFL
 	}
 }
 
-func wrapICEFLinkedWinControlBase(raw vcef.ICEFLinkedWinControlBase) ICEFLinkedWinControlBase {
+func wrapICEFLinkedWinControlBase(raw vcef.ICEFLinkedWinControlBase) ICEFLinkedWinControlBase_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFLinkedWinControlBase_147(raw)
 }
 
@@ -2097,7 +2547,10 @@ func newtICEFLinkedWindowParent_147(raw vcef.ICEFLinkedWindowParent) *tICEFLinke
 	}
 }
 
-func wrapICEFLinkedWindowParent(raw vcef.ICEFLinkedWindowParent) ICEFLinkedWindowParent {
+func wrapICEFLinkedWindowParent(raw vcef.ICEFLinkedWindowParent) ICEFLinkedWindowParent_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFLinkedWindowParent_147(raw)
 }
 
@@ -2142,7 +2595,10 @@ func newtICEFMenuButtonComponent_147(raw vcef.ICEFMenuButtonComponent) *tICEFMen
 	}
 }
 
-func wrapICEFMenuButtonComponent(raw vcef.ICEFMenuButtonComponent) ICEFMenuButtonComponent {
+func wrapICEFMenuButtonComponent(raw vcef.ICEFMenuButtonComponent) ICEFMenuButtonComponent_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFMenuButtonComponent_147(raw)
 }
 
@@ -2212,6 +2668,9 @@ func newtICEFOAuth2Helper_147(raw vcef.ICEFOAuth2Helper) *tICEFOAuth2Helper_147 
 }
 
 func wrapICEFOAuth2Helper(raw vcef.ICEFOAuth2Helper) ICEFOAuth2Helper {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFOAuth2Helper_147(raw)
 }
 
@@ -2409,6 +2868,9 @@ func newtICEFOSRIMEHandler_147(raw vcef.ICEFOSRIMEHandler) *tICEFOSRIMEHandler_1
 }
 
 func wrapICEFOSRIMEHandler(raw vcef.ICEFOSRIMEHandler) ICEFOSRIMEHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFOSRIMEHandler_147(raw)
 }
 
@@ -2523,7 +2985,10 @@ func newtICEFPanelComponent_147(raw vcef.ICEFPanelComponent) *tICEFPanelComponen
 	}
 }
 
-func wrapICEFPanelComponent(raw vcef.ICEFPanelComponent) ICEFPanelComponent {
+func wrapICEFPanelComponent(raw vcef.ICEFPanelComponent) ICEFPanelComponent_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFPanelComponent_147(raw)
 }
 
@@ -2628,6 +3093,9 @@ func newtICEFProxySettings_147(raw vcef.ICEFProxySettings) *tICEFProxySettings_1
 }
 
 func wrapICEFProxySettings(raw vcef.ICEFProxySettings) ICEFProxySettings_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFProxySettings_147(raw)
 }
 
@@ -2708,7 +3176,10 @@ func newtICEFScrollViewComponent_147(raw vcef.ICEFScrollViewComponent) *tICEFScr
 	}
 }
 
-func wrapICEFScrollViewComponent(raw vcef.ICEFScrollViewComponent) ICEFScrollViewComponent {
+func wrapICEFScrollViewComponent(raw vcef.ICEFScrollViewComponent) ICEFScrollViewComponent_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFScrollViewComponent_147(raw)
 }
 
@@ -2788,6 +3259,9 @@ func newtICEFSentinel_147(raw vcef.ICEFSentinel) *tICEFSentinel_147 {
 }
 
 func wrapICEFSentinel(raw vcef.ICEFSentinel) ICEFSentinel {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFSentinel_147(raw)
 }
 
@@ -2889,6 +3363,9 @@ func newtICEFServerComponent_147(raw vcef.ICEFServerComponent) *tICEFServerCompo
 }
 
 func wrapICEFServerComponent(raw vcef.ICEFServerComponent) ICEFServerComponent {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFServerComponent_147(raw)
 }
 
@@ -3035,6 +3512,9 @@ func newtICEFServerHandlerOwn_147(raw vcef.ICEFServerHandlerOwn) *tICEFServerHan
 }
 
 func wrapICEFServerHandlerOwn(raw vcef.ICEFServerHandlerOwn) ICEFServerHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFServerHandlerOwn_147(raw)
 }
 
@@ -3071,6 +3551,9 @@ func newtICEFServerRef_147(raw vcef.ICEFServerRef) *tICEFServerRef_147 {
 }
 
 func wrapICEFServerRef(raw vcef.ICEFServerRef) ICEFServerRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFServerRef_147(raw)
 }
 
@@ -3168,7 +3651,10 @@ func newtICEFTextfieldComponent_147(raw vcef.ICEFTextfieldComponent) *tICEFTextf
 	}
 }
 
-func wrapICEFTextfieldComponent(raw vcef.ICEFTextfieldComponent) ICEFTextfieldComponent {
+func wrapICEFTextfieldComponent(raw vcef.ICEFTextfieldComponent) ICEFTextfieldComponent_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFTextfieldComponent_147(raw)
 }
 
@@ -3365,6 +3851,9 @@ func newtICEFTimerWorkScheduler_147(raw vcef.ICEFTimerWorkScheduler) *tICEFTimer
 }
 
 func wrapICEFTimerWorkScheduler(raw vcef.ICEFTimerWorkScheduler) ICEFTimerWorkScheduler {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFTimerWorkScheduler_147(raw)
 }
 
@@ -3438,6 +3927,9 @@ func newtICEFUrlRequestClientComponent_147(raw vcef.ICEFUrlRequestClientComponen
 }
 
 func wrapICEFUrlRequestClientComponent(raw vcef.ICEFUrlRequestClientComponent) ICEFUrlRequestClientComponent {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFUrlRequestClientComponent_147(raw)
 }
 
@@ -3529,6 +4021,9 @@ func newtICEFUrlRequestClientEvents_147(raw vcef.ICEFUrlRequestClientEvents) *tI
 }
 
 func wrapICEFUrlRequestClientEvents(raw vcef.ICEFUrlRequestClientEvents) ICEFUrlRequestClientEvents {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFUrlRequestClientEvents_147(raw)
 }
 
@@ -3566,7 +4061,10 @@ func newtICEFViewComponent_147(raw vcef.ICEFViewComponent) *tICEFViewComponent_1
 	}
 }
 
-func wrapICEFViewComponent(raw vcef.ICEFViewComponent) ICEFViewComponent {
+func wrapICEFViewComponent(raw vcef.ICEFViewComponent) ICEFViewComponent_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFViewComponent_147(raw)
 }
 
@@ -3917,6 +4415,9 @@ func newtICEFWinControl_147(raw vcef.ICEFWinControl) *tICEFWinControl_147 {
 }
 
 func wrapICEFWinControl(raw vcef.ICEFWinControl) ICEFWinControl {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFWinControl_147(raw)
 }
 
@@ -4024,7 +4525,10 @@ func newtICEFWindowComponent_147(raw vcef.ICEFWindowComponent) *tICEFWindowCompo
 	}
 }
 
-func wrapICEFWindowComponent(raw vcef.ICEFWindowComponent) ICEFWindowComponent {
+func wrapICEFWindowComponent(raw vcef.ICEFWindowComponent) ICEFWindowComponent_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFWindowComponent_147(raw)
 }
 
@@ -4103,7 +4607,7 @@ func (t *tICEFWindowComponent_147) Display() ICefDisplay {
 	return wrapICefDisplay(r0)
 }
 
-func (t *tICEFWindowComponent_147) FocusedView() ICefView {
+func (t *tICEFWindowComponent_147) FocusedView() ICefView_147 {
 	r0 := t.raw.FocusedView()
 	return wrapICefView(r0)
 }
@@ -4397,6 +4901,9 @@ func newtICEFWindowParent_147(raw vcef.ICEFWindowParent) *tICEFWindowParent_147 
 }
 
 func wrapICEFWindowParent(raw vcef.ICEFWindowParent) ICEFWindowParent {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFWindowParent_147(raw)
 }
 
@@ -4433,6 +4940,9 @@ func newtICEFWorkScheduler_147(raw vcef.ICEFWorkScheduler) *tICEFWorkScheduler_1
 }
 
 func wrapICEFWorkScheduler(raw vcef.ICEFWorkScheduler) ICEFWorkScheduler {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFWorkScheduler_147(raw)
 }
 
@@ -4526,6 +5036,9 @@ func newtICEFX509CertificateRef_147(raw vcef.ICEFX509CertificateRef) *tICEFX509C
 }
 
 func wrapICEFX509CertificateRef(raw vcef.ICEFX509CertificateRef) ICEFX509CertificateRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICEFX509CertificateRef_147(raw)
 }
 
@@ -4639,6 +5152,9 @@ func newtICefAccessibilityHandler_147(raw vcef.ICefAccessibilityHandler) *tICefA
 }
 
 func wrapICefAccessibilityHandler(raw vcef.ICefAccessibilityHandler) ICefAccessibilityHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefAccessibilityHandler_147(raw)
 }
 
@@ -4675,6 +5191,9 @@ func newtICefApp_147(raw vcef.ICefApp) *tICefApp_147 {
 }
 
 func wrapICefApp(raw vcef.ICefApp) ICefApp {
+	if raw == nil {
+		return nil
+	}
 	return newtICefApp_147(raw)
 }
 
@@ -4711,6 +5230,9 @@ func newtICefAppOwn_147(raw vcef.ICefAppOwn) *tICefAppOwn_147 {
 }
 
 func wrapICefAppOwn(raw vcef.ICefAppOwn) ICefAppOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefAppOwn_147(raw)
 }
 
@@ -4746,7 +5268,10 @@ func newtICefApplication_147(raw vcef.ICefApplication) *tICefApplication_147 {
 	}
 }
 
-func wrapICefApplication(raw vcef.ICefApplication) ICefApplication {
+func wrapICefApplication(raw vcef.ICefApplication) ICefApplication_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefApplication_147(raw)
 }
 
@@ -4807,7 +5332,10 @@ func newtICefApplicationCore_147(raw vcef.ICefApplicationCore) *tICefApplication
 	}
 }
 
-func wrapICefApplicationCore(raw vcef.ICefApplicationCore) ICefApplicationCore {
+func wrapICefApplicationCore(raw vcef.ICefApplicationCore) ICefApplicationCore_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefApplicationCore_147(raw)
 }
 
@@ -4912,7 +5440,7 @@ func (t *tICefApplicationCore_147) BlinkSettings() string {
 	return r0
 }
 
-func (t *tICefApplicationCore_147) BrowserById(id int32) ICefBrowser {
+func (t *tICefApplicationCore_147) BrowserById(id int32) ICefBrowser_147 {
 	r0 := t.raw.BrowserById(id)
 	return wrapICefBrowser(r0)
 }
@@ -6320,6 +6848,9 @@ func newtICefAudioHandler_147(raw vcef.ICefAudioHandler) *tICefAudioHandler_147 
 }
 
 func wrapICefAudioHandler(raw vcef.ICefAudioHandler) ICefAudioHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefAudioHandler_147(raw)
 }
 
@@ -6356,6 +6887,9 @@ func newtICefAudioHandlerOwn_147(raw vcef.ICefAudioHandlerOwn) *tICefAudioHandle
 }
 
 func wrapICefAudioHandlerOwn(raw vcef.ICefAudioHandlerOwn) ICefAudioHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefAudioHandlerOwn_147(raw)
 }
 
@@ -6392,6 +6926,9 @@ func newtICefAuthCallback_147(raw vcef.ICefAuthCallback) *tICefAuthCallback_147 
 }
 
 func wrapICefAuthCallback(raw vcef.ICefAuthCallback) ICefAuthCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefAuthCallback_147(raw)
 }
 
@@ -6436,6 +6973,9 @@ func newtICefAuthCallbackRef_147(raw vcef.ICefAuthCallbackRef) *tICefAuthCallbac
 }
 
 func wrapICefAuthCallbackRef(raw vcef.ICefAuthCallbackRef) ICefAuthCallbackRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefAuthCallbackRef_147(raw)
 }
 
@@ -6485,6 +7025,9 @@ func newtICefBaseRefCounted_147(raw vcef.ICefBaseRefCounted) *tICefBaseRefCounte
 }
 
 func wrapICefBaseRefCounted(raw vcef.ICefBaseRefCounted) ICefBaseRefCounted {
+	if raw == nil {
+		return nil
+	}
 	return newtICefBaseRefCounted_147(raw)
 }
 
@@ -6545,6 +7088,9 @@ func newtICefBaseRefCountedOwn_147(raw vcef.ICefBaseRefCountedOwn) *tICefBaseRef
 }
 
 func wrapICefBaseRefCountedOwn(raw vcef.ICefBaseRefCountedOwn) ICefBaseRefCountedOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefBaseRefCountedOwn_147(raw)
 }
 
@@ -6581,6 +7127,9 @@ func newtICefBaseRefCountedRef_147(raw vcef.ICefBaseRefCountedRef) *tICefBaseRef
 }
 
 func wrapICefBaseRefCountedRef(raw vcef.ICefBaseRefCountedRef) ICefBaseRefCountedRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefBaseRefCountedRef_147(raw)
 }
 
@@ -6617,6 +7166,9 @@ func newtICefBeforeDownloadCallback_147(raw vcef.ICefBeforeDownloadCallback) *tI
 }
 
 func wrapICefBeforeDownloadCallback(raw vcef.ICefBeforeDownloadCallback) ICefBeforeDownloadCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefBeforeDownloadCallback_147(raw)
 }
 
@@ -6657,6 +7209,9 @@ func newtICefBeforeDownloadCallbackRef_147(raw vcef.ICefBeforeDownloadCallbackRe
 }
 
 func wrapICefBeforeDownloadCallbackRef(raw vcef.ICefBeforeDownloadCallbackRef) ICefBeforeDownloadCallbackRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefBeforeDownloadCallbackRef_147(raw)
 }
 
@@ -6701,7 +7256,10 @@ func newtICefBinaryValue_147(raw vcef.ICefBinaryValue) *tICefBinaryValue_147 {
 	}
 }
 
-func wrapICefBinaryValue(raw vcef.ICefBinaryValue) ICefBinaryValue {
+func wrapICefBinaryValue(raw vcef.ICefBinaryValue) ICefBinaryValue_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefBinaryValue_147(raw)
 }
 
@@ -6777,7 +7335,10 @@ func newtICefBinaryValueRef_147(raw vcef.ICefBinaryValueRef) *tICefBinaryValueRe
 	}
 }
 
-func wrapICefBinaryValueRef(raw vcef.ICefBinaryValueRef) ICefBinaryValueRef {
+func wrapICefBinaryValueRef(raw vcef.ICefBinaryValueRef) ICefBinaryValueRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefBinaryValueRef_147(raw)
 }
 
@@ -6859,6 +7420,9 @@ func newtICefBoxLayout_147(raw vcef.ICefBoxLayout) *tICefBoxLayout_147 {
 }
 
 func wrapICefBoxLayout(raw vcef.ICefBoxLayout) ICefBoxLayout {
+	if raw == nil {
+		return nil
+	}
 	return newtICefBoxLayout_147(raw)
 }
 
@@ -6903,6 +7467,9 @@ func newtICefBoxLayoutRef_147(raw vcef.ICefBoxLayoutRef) *tICefBoxLayoutRef_147 
 }
 
 func wrapICefBoxLayoutRef(raw vcef.ICefBoxLayoutRef) ICefBoxLayoutRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefBoxLayoutRef_147(raw)
 }
 
@@ -6956,7 +7523,10 @@ func newtICefBrowser_147(raw vcef.ICefBrowser) *tICefBrowser_147 {
 	}
 }
 
-func wrapICefBrowser(raw vcef.ICefBrowser) ICefBrowser {
+func wrapICefBrowser(raw vcef.ICefBrowser) ICefBrowser_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefBrowser_147(raw)
 }
 
@@ -6992,12 +7562,12 @@ func (t *tICefBrowser_147) GetFocusedFrame() ICefFrame {
 	return wrapICefFrame(r0)
 }
 
-func (t *tICefBrowser_147) GetFrameByIdentifier(identifier string) ICefFrame {
+func (t *tICefBrowser_147) GetFrameByIdentifier(identifier string) ICefFrame_147 {
 	r0 := t.raw.GetFrameByIdentifier(identifier)
 	return wrapICefFrame(r0)
 }
 
-func (t *tICefBrowser_147) GetFrameByName(name string) ICefFrame {
+func (t *tICefBrowser_147) GetFrameByName(name string) ICefFrame_147 {
 	r0 := t.raw.GetFrameByName(name)
 	return wrapICefFrame(r0)
 }
@@ -7092,7 +7662,10 @@ func newtICefBrowserHost_147(raw vcef.ICefBrowserHost) *tICefBrowserHost_147 {
 	}
 }
 
-func wrapICefBrowserHost(raw vcef.ICefBrowserHost) ICefBrowserHost {
+func wrapICefBrowserHost(raw vcef.ICefBrowserHost) ICefBrowserHost_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefBrowserHost_147(raw)
 }
 
@@ -7428,7 +8001,10 @@ func newtICefBrowserHostRef_147(raw vcef.ICefBrowserHostRef) *tICefBrowserHostRe
 	}
 }
 
-func wrapICefBrowserHostRef(raw vcef.ICefBrowserHostRef) ICefBrowserHostRef {
+func wrapICefBrowserHostRef(raw vcef.ICefBrowserHostRef) ICefBrowserHostRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefBrowserHostRef_147(raw)
 }
 
@@ -7770,6 +8346,9 @@ func newtICefBrowserProcessHandler_147(raw vcef.ICefBrowserProcessHandler) *tICe
 }
 
 func wrapICefBrowserProcessHandler(raw vcef.ICefBrowserProcessHandler) ICefBrowserProcessHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefBrowserProcessHandler_147(raw)
 }
 
@@ -7806,6 +8385,9 @@ func newtICefBrowserProcessHandlerOwn_147(raw vcef.ICefBrowserProcessHandlerOwn)
 }
 
 func wrapICefBrowserProcessHandlerOwn(raw vcef.ICefBrowserProcessHandlerOwn) ICefBrowserProcessHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefBrowserProcessHandlerOwn_147(raw)
 }
 
@@ -7841,7 +8423,10 @@ func newtICefBrowserRef_147(raw vcef.ICefBrowserRef) *tICefBrowserRef_147 {
 	}
 }
 
-func wrapICefBrowserRef(raw vcef.ICefBrowserRef) ICefBrowserRef {
+func wrapICefBrowserRef(raw vcef.ICefBrowserRef) ICefBrowserRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefBrowserRef_147(raw)
 }
 
@@ -7882,12 +8467,12 @@ func (t *tICefBrowserRef_147) GetFocusedFrame() ICefFrame {
 	return wrapICefFrame(r0)
 }
 
-func (t *tICefBrowserRef_147) GetFrameByIdentifier(identifier string) ICefFrame {
+func (t *tICefBrowserRef_147) GetFrameByIdentifier(identifier string) ICefFrame_147 {
 	r0 := t.raw.GetFrameByIdentifier(identifier)
 	return wrapICefFrame(r0)
 }
 
-func (t *tICefBrowserRef_147) GetFrameByName(name string) ICefFrame {
+func (t *tICefBrowserRef_147) GetFrameByName(name string) ICefFrame_147 {
 	r0 := t.raw.GetFrameByName(name)
 	return wrapICefFrame(r0)
 }
@@ -7982,7 +8567,10 @@ func newtICefBrowserView_147(raw vcef.ICefBrowserView) *tICefBrowserView_147 {
 	}
 }
 
-func wrapICefBrowserView(raw vcef.ICefBrowserView) ICefBrowserView {
+func wrapICefBrowserView(raw vcef.ICefBrowserView) ICefBrowserView_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefBrowserView_147(raw)
 }
 
@@ -8038,6 +8626,9 @@ func newtICefBrowserViewDelegate_147(raw vcef.ICefBrowserViewDelegate) *tICefBro
 }
 
 func wrapICefBrowserViewDelegate(raw vcef.ICefBrowserViewDelegate) ICefBrowserViewDelegate {
+	if raw == nil {
+		return nil
+	}
 	return newtICefBrowserViewDelegate_147(raw)
 }
 
@@ -8074,6 +8665,9 @@ func newtICefBrowserViewDelegateEvents_147(raw vcef.ICefBrowserViewDelegateEvent
 }
 
 func wrapICefBrowserViewDelegateEvents(raw vcef.ICefBrowserViewDelegateEvents) ICefBrowserViewDelegateEvents {
+	if raw == nil {
+		return nil
+	}
 	return newtICefBrowserViewDelegateEvents_147(raw)
 }
 
@@ -8110,6 +8704,9 @@ func newtICefBrowserViewDelegateOwn_147(raw vcef.ICefBrowserViewDelegateOwn) *tI
 }
 
 func wrapICefBrowserViewDelegateOwn(raw vcef.ICefBrowserViewDelegateOwn) ICefBrowserViewDelegateOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefBrowserViewDelegateOwn_147(raw)
 }
 
@@ -8146,6 +8743,9 @@ func newtICefBrowserViewDelegateRef_147(raw vcef.ICefBrowserViewDelegateRef) *tI
 }
 
 func wrapICefBrowserViewDelegateRef(raw vcef.ICefBrowserViewDelegateRef) ICefBrowserViewDelegateRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefBrowserViewDelegateRef_147(raw)
 }
 
@@ -8191,7 +8791,10 @@ func newtICefBrowserViewRef_147(raw vcef.ICefBrowserViewRef) *tICefBrowserViewRe
 	}
 }
 
-func wrapICefBrowserViewRef(raw vcef.ICefBrowserViewRef) ICefBrowserViewRef {
+func wrapICefBrowserViewRef(raw vcef.ICefBrowserViewRef) ICefBrowserViewRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefBrowserViewRef_147(raw)
 }
 
@@ -8256,7 +8859,10 @@ func newtICefButton_147(raw vcef.ICefButton) *tICefButton_147 {
 	}
 }
 
-func wrapICefButton(raw vcef.ICefButton) ICefButton {
+func wrapICefButton(raw vcef.ICefButton) ICefButton_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefButton_147(raw)
 }
 
@@ -8319,6 +8925,9 @@ func newtICefButtonDelegate_147(raw vcef.ICefButtonDelegate) *tICefButtonDelegat
 }
 
 func wrapICefButtonDelegate(raw vcef.ICefButtonDelegate) ICefButtonDelegate {
+	if raw == nil {
+		return nil
+	}
 	return newtICefButtonDelegate_147(raw)
 }
 
@@ -8355,6 +8964,9 @@ func newtICefButtonDelegateEvents_147(raw vcef.ICefButtonDelegateEvents) *tICefB
 }
 
 func wrapICefButtonDelegateEvents(raw vcef.ICefButtonDelegateEvents) ICefButtonDelegateEvents {
+	if raw == nil {
+		return nil
+	}
 	return newtICefButtonDelegateEvents_147(raw)
 }
 
@@ -8391,6 +9003,9 @@ func newtICefButtonDelegateOwn_147(raw vcef.ICefButtonDelegateOwn) *tICefButtonD
 }
 
 func wrapICefButtonDelegateOwn(raw vcef.ICefButtonDelegateOwn) ICefButtonDelegateOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefButtonDelegateOwn_147(raw)
 }
 
@@ -8427,6 +9042,9 @@ func newtICefButtonDelegateRef_147(raw vcef.ICefButtonDelegateRef) *tICefButtonD
 }
 
 func wrapICefButtonDelegateRef(raw vcef.ICefButtonDelegateRef) ICefButtonDelegateRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefButtonDelegateRef_147(raw)
 }
 
@@ -8472,7 +9090,10 @@ func newtICefButtonRef_147(raw vcef.ICefButtonRef) *tICefButtonRef_147 {
 	}
 }
 
-func wrapICefButtonRef(raw vcef.ICefButtonRef) ICefButtonRef {
+func wrapICefButtonRef(raw vcef.ICefButtonRef) ICefButtonRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefButtonRef_147(raw)
 }
 
@@ -8545,6 +9166,9 @@ func newtICefBytesWriteHandler_147(raw vcef.ICefBytesWriteHandler) *tICefBytesWr
 }
 
 func wrapICefBytesWriteHandler(raw vcef.ICefBytesWriteHandler) ICefBytesWriteHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefBytesWriteHandler_147(raw)
 }
 
@@ -8621,6 +9245,9 @@ func newtICefCallback_147(raw vcef.ICefCallback) *tICefCallback_147 {
 }
 
 func wrapICefCallback(raw vcef.ICefCallback) ICefCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCallback_147(raw)
 }
 
@@ -8665,6 +9292,9 @@ func newtICefCallbackRef_147(raw vcef.ICefCallbackRef) *tICefCallbackRef_147 {
 }
 
 func wrapICefCallbackRef(raw vcef.ICefCallbackRef) ICefCallbackRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCallbackRef_147(raw)
 }
 
@@ -8714,6 +9344,9 @@ func newtICefChromiumTask_147(raw vcef.ICefChromiumTask) *tICefChromiumTask_147 
 }
 
 func wrapICefChromiumTask(raw vcef.ICefChromiumTask) ICefChromiumTask_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefChromiumTask_147(raw)
 }
 
@@ -8755,6 +9388,9 @@ func newtICefClient_147(raw vcef.ICefClient) *tICefClient_147 {
 }
 
 func wrapICefClient(raw vcef.ICefClient) ICefClient {
+	if raw == nil {
+		return nil
+	}
 	return newtICefClient_147(raw)
 }
 
@@ -8791,6 +9427,9 @@ func newtICefClientOwn_147(raw vcef.ICefClientOwn) *tICefClientOwn_147 {
 }
 
 func wrapICefClientOwn(raw vcef.ICefClientOwn) ICefClientOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefClientOwn_147(raw)
 }
 
@@ -8827,6 +9466,9 @@ func newtICefCommandHandler_147(raw vcef.ICefCommandHandler) *tICefCommandHandle
 }
 
 func wrapICefCommandHandler(raw vcef.ICefCommandHandler) ICefCommandHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCommandHandler_147(raw)
 }
 
@@ -8863,6 +9505,9 @@ func newtICefCommandHandlerOwn_147(raw vcef.ICefCommandHandlerOwn) *tICefCommand
 }
 
 func wrapICefCommandHandlerOwn(raw vcef.ICefCommandHandlerOwn) ICefCommandHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCommandHandlerOwn_147(raw)
 }
 
@@ -8898,7 +9543,10 @@ func newtICefCommandLine_147(raw vcef.ICefCommandLine) *tICefCommandLine_147 {
 	}
 }
 
-func wrapICefCommandLine(raw vcef.ICefCommandLine) ICefCommandLine {
+func wrapICefCommandLine(raw vcef.ICefCommandLine) ICefCommandLine_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCommandLine_147(raw)
 }
 
@@ -9028,7 +9676,10 @@ func newtICefCommandLineRef_147(raw vcef.ICefCommandLineRef) *tICefCommandLineRe
 	}
 }
 
-func wrapICefCommandLineRef(raw vcef.ICefCommandLineRef) ICefCommandLineRef {
+func wrapICefCommandLineRef(raw vcef.ICefCommandLineRef) ICefCommandLineRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCommandLineRef_147(raw)
 }
 
@@ -9164,6 +9815,9 @@ func newtICefCompletionCallback_147(raw vcef.ICefCompletionCallback) *tICefCompl
 }
 
 func wrapICefCompletionCallback(raw vcef.ICefCompletionCallback) ICefCompletionCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCompletionCallback_147(raw)
 }
 
@@ -9200,6 +9854,9 @@ func newtICefCompletionCallbackOwn_147(raw vcef.ICefCompletionCallbackOwn) *tICe
 }
 
 func wrapICefCompletionCallbackOwn(raw vcef.ICefCompletionCallbackOwn) ICefCompletionCallbackOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCompletionCallbackOwn_147(raw)
 }
 
@@ -9236,6 +9893,9 @@ func newtICefComponent_147(raw vcef.ICefComponent) *tICefComponent_147 {
 }
 
 func wrapICefComponent(raw vcef.ICefComponent) ICefComponent_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefComponent_147(raw)
 }
 
@@ -9292,6 +9952,9 @@ func newtICefComponentRef_147(raw vcef.ICefComponentRef) *tICefComponentRef_147 
 }
 
 func wrapICefComponentRef(raw vcef.ICefComponentRef) ICefComponentRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefComponentRef_147(raw)
 }
 
@@ -9353,6 +10016,9 @@ func newtICefContextMenuHandler_147(raw vcef.ICefContextMenuHandler) *tICefConte
 }
 
 func wrapICefContextMenuHandler(raw vcef.ICefContextMenuHandler) ICefContextMenuHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefContextMenuHandler_147(raw)
 }
 
@@ -9389,6 +10055,9 @@ func newtICefContextMenuHandlerOwn_147(raw vcef.ICefContextMenuHandlerOwn) *tICe
 }
 
 func wrapICefContextMenuHandlerOwn(raw vcef.ICefContextMenuHandlerOwn) ICefContextMenuHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefContextMenuHandlerOwn_147(raw)
 }
 
@@ -9425,6 +10094,9 @@ func newtICefContextMenuParams_147(raw vcef.ICefContextMenuParams) *tICefContext
 }
 
 func wrapICefContextMenuParams(raw vcef.ICefContextMenuParams) ICefContextMenuParams {
+	if raw == nil {
+		return nil
+	}
 	return newtICefContextMenuParams_147(raw)
 }
 
@@ -9561,6 +10233,9 @@ func newtICefContextMenuParamsRef_147(raw vcef.ICefContextMenuParamsRef) *tICefC
 }
 
 func wrapICefContextMenuParamsRef(raw vcef.ICefContextMenuParamsRef) ICefContextMenuParamsRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefContextMenuParamsRef_147(raw)
 }
 
@@ -9702,6 +10377,9 @@ func newtICefCookieAccessFilter_147(raw vcef.ICefCookieAccessFilter) *tICefCooki
 }
 
 func wrapICefCookieAccessFilter(raw vcef.ICefCookieAccessFilter) ICefCookieAccessFilter {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCookieAccessFilter_147(raw)
 }
 
@@ -9738,6 +10416,9 @@ func newtICefCookieAccessFilterOwn_147(raw vcef.ICefCookieAccessFilterOwn) *tICe
 }
 
 func wrapICefCookieAccessFilterOwn(raw vcef.ICefCookieAccessFilterOwn) ICefCookieAccessFilterOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCookieAccessFilterOwn_147(raw)
 }
 
@@ -9774,6 +10455,9 @@ func newtICefCookieAccessFilterRef_147(raw vcef.ICefCookieAccessFilterRef) *tICe
 }
 
 func wrapICefCookieAccessFilterRef(raw vcef.ICefCookieAccessFilterRef) ICefCookieAccessFilterRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCookieAccessFilterRef_147(raw)
 }
 
@@ -9815,6 +10499,9 @@ func newtICefCookieManager_147(raw vcef.ICefCookieManager) *tICefCookieManager_1
 }
 
 func wrapICefCookieManager(raw vcef.ICefCookieManager) ICefCookieManager {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCookieManager_147(raw)
 }
 
@@ -9876,6 +10563,9 @@ func newtICefCookieManagerRef_147(raw vcef.ICefCookieManagerRef) *tICefCookieMan
 }
 
 func wrapICefCookieManagerRef(raw vcef.ICefCookieManagerRef) ICefCookieManagerRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCookieManagerRef_147(raw)
 }
 
@@ -9942,6 +10632,9 @@ func newtICefCookieVisitor_147(raw vcef.ICefCookieVisitor) *tICefCookieVisitor_1
 }
 
 func wrapICefCookieVisitor(raw vcef.ICefCookieVisitor) ICefCookieVisitor {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCookieVisitor_147(raw)
 }
 
@@ -9978,6 +10671,9 @@ func newtICefCookieVisitorOwn_147(raw vcef.ICefCookieVisitorOwn) *tICefCookieVis
 }
 
 func wrapICefCookieVisitorOwn(raw vcef.ICefCookieVisitorOwn) ICefCookieVisitorOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCookieVisitorOwn_147(raw)
 }
 
@@ -10014,6 +10710,9 @@ func newtICefCustomBrowserProcessHandler_147(raw vcef.ICefCustomBrowserProcessHa
 }
 
 func wrapICefCustomBrowserProcessHandler(raw vcef.ICefCustomBrowserProcessHandler) ICefCustomBrowserProcessHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCustomBrowserProcessHandler_147(raw)
 }
 
@@ -10055,6 +10754,9 @@ func newtICefCustomCompletionCallback_147(raw vcef.ICefCustomCompletionCallback)
 }
 
 func wrapICefCustomCompletionCallback(raw vcef.ICefCustomCompletionCallback) ICefCustomCompletionCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCustomCompletionCallback_147(raw)
 }
 
@@ -10096,6 +10798,9 @@ func newtICefCustomCookieVisitor_147(raw vcef.ICefCustomCookieVisitor) *tICefCus
 }
 
 func wrapICefCustomCookieVisitor(raw vcef.ICefCustomCookieVisitor) ICefCustomCookieVisitor {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCustomCookieVisitor_147(raw)
 }
 
@@ -10137,6 +10842,9 @@ func newtICefCustomDeleteCookiesCallback_147(raw vcef.ICefCustomDeleteCookiesCal
 }
 
 func wrapICefCustomDeleteCookiesCallback(raw vcef.ICefCustomDeleteCookiesCallback) ICefCustomDeleteCookiesCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCustomDeleteCookiesCallback_147(raw)
 }
 
@@ -10178,6 +10886,9 @@ func newtICefCustomDownloadImageCallback_147(raw vcef.ICefCustomDownloadImageCal
 }
 
 func wrapICefCustomDownloadImageCallback(raw vcef.ICefCustomDownloadImageCallback) ICefCustomDownloadImageCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCustomDownloadImageCallback_147(raw)
 }
 
@@ -10219,6 +10930,9 @@ func newtICefCustomMediaRouteCreateCallback_147(raw vcef.ICefCustomMediaRouteCre
 }
 
 func wrapICefCustomMediaRouteCreateCallback(raw vcef.ICefCustomMediaRouteCreateCallback) ICefCustomMediaRouteCreateCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCustomMediaRouteCreateCallback_147(raw)
 }
 
@@ -10260,6 +10974,9 @@ func newtICefCustomMediaSinkDeviceInfoCallback_147(raw vcef.ICefCustomMediaSinkD
 }
 
 func wrapICefCustomMediaSinkDeviceInfoCallback(raw vcef.ICefCustomMediaSinkDeviceInfoCallback) ICefCustomMediaSinkDeviceInfoCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCustomMediaSinkDeviceInfoCallback_147(raw)
 }
 
@@ -10301,6 +11018,9 @@ func newtICefCustomPDFPrintCallBack_147(raw vcef.ICefCustomPDFPrintCallBack) *tI
 }
 
 func wrapICefCustomPDFPrintCallBack(raw vcef.ICefCustomPDFPrintCallBack) ICefCustomPDFPrintCallBack {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCustomPDFPrintCallBack_147(raw)
 }
 
@@ -10342,6 +11062,9 @@ func newtICefCustomRenderProcessHandler_147(raw vcef.ICefCustomRenderProcessHand
 }
 
 func wrapICefCustomRenderProcessHandler(raw vcef.ICefCustomRenderProcessHandler) ICefCustomRenderProcessHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCustomRenderProcessHandler_147(raw)
 }
 
@@ -10383,6 +11106,9 @@ func newtICefCustomResolveCallback_147(raw vcef.ICefCustomResolveCallback) *tICe
 }
 
 func wrapICefCustomResolveCallback(raw vcef.ICefCustomResolveCallback) ICefCustomResolveCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCustomResolveCallback_147(raw)
 }
 
@@ -10424,6 +11150,9 @@ func newtICefCustomResourceBundleHandler_147(raw vcef.ICefCustomResourceBundleHa
 }
 
 func wrapICefCustomResourceBundleHandler(raw vcef.ICefCustomResourceBundleHandler) ICefCustomResourceBundleHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCustomResourceBundleHandler_147(raw)
 }
 
@@ -10465,6 +11194,9 @@ func newtICefCustomSetCookieCallback_147(raw vcef.ICefCustomSetCookieCallback) *
 }
 
 func wrapICefCustomSetCookieCallback(raw vcef.ICefCustomSetCookieCallback) ICefCustomSetCookieCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCustomSetCookieCallback_147(raw)
 }
 
@@ -10506,6 +11238,9 @@ func newtICefCustomStreamReader_147(raw vcef.ICefCustomStreamReader) *tICefCusto
 }
 
 func wrapICefCustomStreamReader(raw vcef.ICefCustomStreamReader) ICefCustomStreamReader {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCustomStreamReader_147(raw)
 }
 
@@ -10573,7 +11308,10 @@ func newtICefCustomStringList_147(raw vcef.ICefCustomStringList) *tICefCustomStr
 	}
 }
 
-func wrapICefCustomStringList(raw vcef.ICefCustomStringList) ICefCustomStringList {
+func wrapICefCustomStringList(raw vcef.ICefCustomStringList) ICefCustomStringList_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCustomStringList_147(raw)
 }
 
@@ -10617,6 +11355,9 @@ func newtICefCustomStringMap_147(raw vcef.ICefCustomStringMap) *tICefCustomStrin
 }
 
 func wrapICefCustomStringMap(raw vcef.ICefCustomStringMap) ICefCustomStringMap {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCustomStringMap_147(raw)
 }
 
@@ -10660,6 +11401,9 @@ func newtICefCustomStringMultimap_147(raw vcef.ICefCustomStringMultimap) *tICefC
 }
 
 func wrapICefCustomStringMultimap(raw vcef.ICefCustomStringMultimap) ICefCustomStringMultimap {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCustomStringMultimap_147(raw)
 }
 
@@ -10701,6 +11445,9 @@ func newtICefCustomUserData_147(raw vcef.ICefCustomUserData) *tICefCustomUserDat
 }
 
 func wrapICefCustomUserData(raw vcef.ICefCustomUserData) ICefCustomUserData_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefCustomUserData_147(raw)
 }
 
@@ -10752,6 +11499,9 @@ func newtICefDeleteCookiesCallback_147(raw vcef.ICefDeleteCookiesCallback) *tICe
 }
 
 func wrapICefDeleteCookiesCallback(raw vcef.ICefDeleteCookiesCallback) ICefDeleteCookiesCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDeleteCookiesCallback_147(raw)
 }
 
@@ -10788,6 +11538,9 @@ func newtICefDeleteCookiesCallbackOwn_147(raw vcef.ICefDeleteCookiesCallbackOwn)
 }
 
 func wrapICefDeleteCookiesCallbackOwn(raw vcef.ICefDeleteCookiesCallbackOwn) ICefDeleteCookiesCallbackOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDeleteCookiesCallbackOwn_147(raw)
 }
 
@@ -10824,6 +11577,9 @@ func newtICefDevToolsMessageObserver_147(raw vcef.ICefDevToolsMessageObserver) *
 }
 
 func wrapICefDevToolsMessageObserver(raw vcef.ICefDevToolsMessageObserver) ICefDevToolsMessageObserver {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDevToolsMessageObserver_147(raw)
 }
 
@@ -10860,6 +11616,9 @@ func newtICefDialogHandler_147(raw vcef.ICefDialogHandler) *tICefDialogHandler_1
 }
 
 func wrapICefDialogHandler(raw vcef.ICefDialogHandler) ICefDialogHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDialogHandler_147(raw)
 }
 
@@ -10896,6 +11655,9 @@ func newtICefDialogHandlerOwn_147(raw vcef.ICefDialogHandlerOwn) *tICefDialogHan
 }
 
 func wrapICefDialogHandlerOwn(raw vcef.ICefDialogHandlerOwn) ICefDialogHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDialogHandlerOwn_147(raw)
 }
 
@@ -10932,6 +11694,9 @@ func newtICefDictionaryValue_147(raw vcef.ICefDictionaryValue) *tICefDictionaryV
 }
 
 func wrapICefDictionaryValue(raw vcef.ICefDictionaryValue) ICefDictionaryValue {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDictionaryValue_147(raw)
 }
 
@@ -11113,6 +11878,9 @@ func newtICefDictionaryValueRef_147(raw vcef.ICefDictionaryValueRef) *tICefDicti
 }
 
 func wrapICefDictionaryValueRef(raw vcef.ICefDictionaryValueRef) ICefDictionaryValueRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDictionaryValueRef_147(raw)
 }
 
@@ -11299,6 +12067,9 @@ func newtICefDisplay_147(raw vcef.ICefDisplay) *tICefDisplay_147 {
 }
 
 func wrapICefDisplay(raw vcef.ICefDisplay) ICefDisplay {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDisplay_147(raw)
 }
 
@@ -11368,6 +12139,9 @@ func newtICefDisplayHandler_147(raw vcef.ICefDisplayHandler) *tICefDisplayHandle
 }
 
 func wrapICefDisplayHandler(raw vcef.ICefDisplayHandler) ICefDisplayHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDisplayHandler_147(raw)
 }
 
@@ -11404,6 +12178,9 @@ func newtICefDisplayHandlerOwn_147(raw vcef.ICefDisplayHandlerOwn) *tICefDisplay
 }
 
 func wrapICefDisplayHandlerOwn(raw vcef.ICefDisplayHandlerOwn) ICefDisplayHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDisplayHandlerOwn_147(raw)
 }
 
@@ -11440,6 +12217,9 @@ func newtICefDisplayRef_147(raw vcef.ICefDisplayRef) *tICefDisplayRef_147 {
 }
 
 func wrapICefDisplayRef(raw vcef.ICefDisplayRef) ICefDisplayRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDisplayRef_147(raw)
 }
 
@@ -11514,6 +12294,9 @@ func newtICefDomDocument_147(raw vcef.ICefDomDocument) *tICefDomDocument_147 {
 }
 
 func wrapICefDomDocument(raw vcef.ICefDomDocument) ICefDomDocument {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDomDocument_147(raw)
 }
 
@@ -11620,6 +12403,9 @@ func newtICefDomDocumentRef_147(raw vcef.ICefDomDocumentRef) *tICefDomDocumentRe
 }
 
 func wrapICefDomDocumentRef(raw vcef.ICefDomDocumentRef) ICefDomDocumentRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDomDocumentRef_147(raw)
 }
 
@@ -11730,7 +12516,10 @@ func newtICefDomNode_147(raw vcef.ICefDomNode) *tICefDomNode_147 {
 	}
 }
 
-func wrapICefDomNode(raw vcef.ICefDomNode) ICefDomNode {
+func wrapICefDomNode(raw vcef.ICefDomNode) ICefDomNode_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDomNode_147(raw)
 }
 
@@ -11895,7 +12684,10 @@ func newtICefDomNodeRef_147(raw vcef.ICefDomNodeRef) *tICefDomNodeRef_147 {
 	}
 }
 
-func wrapICefDomNodeRef(raw vcef.ICefDomNodeRef) ICefDomNodeRef {
+func wrapICefDomNodeRef(raw vcef.ICefDomNodeRef) ICefDomNodeRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDomNodeRef_147(raw)
 }
 
@@ -12066,6 +12858,9 @@ func newtICefDomVisitor_147(raw vcef.ICefDomVisitor) *tICefDomVisitor_147 {
 }
 
 func wrapICefDomVisitor(raw vcef.ICefDomVisitor) ICefDomVisitor {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDomVisitor_147(raw)
 }
 
@@ -12102,6 +12897,9 @@ func newtICefDomVisitorOwn_147(raw vcef.ICefDomVisitorOwn) *tICefDomVisitorOwn_1
 }
 
 func wrapICefDomVisitorOwn(raw vcef.ICefDomVisitorOwn) ICefDomVisitorOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDomVisitorOwn_147(raw)
 }
 
@@ -12138,6 +12936,9 @@ func newtICefDownloadHandler_147(raw vcef.ICefDownloadHandler) *tICefDownloadHan
 }
 
 func wrapICefDownloadHandler(raw vcef.ICefDownloadHandler) ICefDownloadHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDownloadHandler_147(raw)
 }
 
@@ -12174,6 +12975,9 @@ func newtICefDownloadHandlerOwn_147(raw vcef.ICefDownloadHandlerOwn) *tICefDownl
 }
 
 func wrapICefDownloadHandlerOwn(raw vcef.ICefDownloadHandlerOwn) ICefDownloadHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDownloadHandlerOwn_147(raw)
 }
 
@@ -12210,6 +13014,9 @@ func newtICefDownloadImageCallback_147(raw vcef.ICefDownloadImageCallback) *tICe
 }
 
 func wrapICefDownloadImageCallback(raw vcef.ICefDownloadImageCallback) ICefDownloadImageCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDownloadImageCallback_147(raw)
 }
 
@@ -12246,6 +13053,9 @@ func newtICefDownloadImageCallbackOwn_147(raw vcef.ICefDownloadImageCallbackOwn)
 }
 
 func wrapICefDownloadImageCallbackOwn(raw vcef.ICefDownloadImageCallbackOwn) ICefDownloadImageCallbackOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDownloadImageCallbackOwn_147(raw)
 }
 
@@ -12281,7 +13091,10 @@ func newtICefDownloadItem_147(raw vcef.ICefDownloadItem) *tICefDownloadItem_147 
 	}
 }
 
-func wrapICefDownloadItem(raw vcef.ICefDownloadItem) ICefDownloadItem {
+func wrapICefDownloadItem(raw vcef.ICefDownloadItem) ICefDownloadItem_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDownloadItem_147(raw)
 }
 
@@ -12418,6 +13231,9 @@ func newtICefDownloadItemCallback_147(raw vcef.ICefDownloadItemCallback) *tICefD
 }
 
 func wrapICefDownloadItemCallback(raw vcef.ICefDownloadItemCallback) ICefDownloadItemCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDownloadItemCallback_147(raw)
 }
 
@@ -12466,6 +13282,9 @@ func newtICefDownloadItemCallbackRef_147(raw vcef.ICefDownloadItemCallbackRef) *
 }
 
 func wrapICefDownloadItemCallbackRef(raw vcef.ICefDownloadItemCallbackRef) ICefDownloadItemCallbackRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDownloadItemCallbackRef_147(raw)
 }
 
@@ -12519,6 +13338,9 @@ func newtICefDownloadItemRef_147(raw vcef.ICefDownloadItemRef) *tICefDownloadIte
 }
 
 func wrapICefDownloadItemRef(raw vcef.ICefDownloadItemRef) ICefDownloadItemRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDownloadItemRef_147(raw)
 }
 
@@ -12659,7 +13481,10 @@ func newtICefDragData_147(raw vcef.ICefDragData) *tICefDragData_147 {
 	}
 }
 
-func wrapICefDragData(raw vcef.ICefDragData) ICefDragData {
+func wrapICefDragData(raw vcef.ICefDragData) ICefDragData_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDragData_147(raw)
 }
 
@@ -12821,7 +13646,10 @@ func newtICefDragDataRef_147(raw vcef.ICefDragDataRef) *tICefDragDataRef_147 {
 	}
 }
 
-func wrapICefDragDataRef(raw vcef.ICefDragDataRef) ICefDragDataRef {
+func wrapICefDragDataRef(raw vcef.ICefDragDataRef) ICefDragDataRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDragDataRef_147(raw)
 }
 
@@ -12989,6 +13817,9 @@ func newtICefDragHandler_147(raw vcef.ICefDragHandler) *tICefDragHandler_147 {
 }
 
 func wrapICefDragHandler(raw vcef.ICefDragHandler) ICefDragHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDragHandler_147(raw)
 }
 
@@ -13025,6 +13856,9 @@ func newtICefDragHandlerOwn_147(raw vcef.ICefDragHandlerOwn) *tICefDragHandlerOw
 }
 
 func wrapICefDragHandlerOwn(raw vcef.ICefDragHandlerOwn) ICefDragHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefDragHandlerOwn_147(raw)
 }
 
@@ -13061,6 +13895,9 @@ func newtICefEndTracingCallback_147(raw vcef.ICefEndTracingCallback) *tICefEndTr
 }
 
 func wrapICefEndTracingCallback(raw vcef.ICefEndTracingCallback) ICefEndTracingCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefEndTracingCallback_147(raw)
 }
 
@@ -13097,6 +13934,9 @@ func newtICefEndTracingCallbackOwn_147(raw vcef.ICefEndTracingCallbackOwn) *tICe
 }
 
 func wrapICefEndTracingCallbackOwn(raw vcef.ICefEndTracingCallbackOwn) ICefEndTracingCallbackOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefEndTracingCallbackOwn_147(raw)
 }
 
@@ -13133,6 +13973,9 @@ func newtICefEventCompletionCallback_147(raw vcef.ICefEventCompletionCallback) *
 }
 
 func wrapICefEventCompletionCallback(raw vcef.ICefEventCompletionCallback) ICefEventCompletionCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefEventCompletionCallback_147(raw)
 }
 
@@ -13174,6 +14017,9 @@ func newtICefFileDialogCallback_147(raw vcef.ICefFileDialogCallback) *tICefFileD
 }
 
 func wrapICefFileDialogCallback(raw vcef.ICefFileDialogCallback) ICefFileDialogCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefFileDialogCallback_147(raw)
 }
 
@@ -13218,6 +14064,9 @@ func newtICefFileDialogCallbackRef_147(raw vcef.ICefFileDialogCallbackRef) *tICe
 }
 
 func wrapICefFileDialogCallbackRef(raw vcef.ICefFileDialogCallbackRef) ICefFileDialogCallbackRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefFileDialogCallbackRef_147(raw)
 }
 
@@ -13267,6 +14116,9 @@ func newtICefFillLayout_147(raw vcef.ICefFillLayout) *tICefFillLayout_147 {
 }
 
 func wrapICefFillLayout(raw vcef.ICefFillLayout) ICefFillLayout {
+	if raw == nil {
+		return nil
+	}
 	return newtICefFillLayout_147(raw)
 }
 
@@ -13303,6 +14155,9 @@ func newtICefFillLayoutRef_147(raw vcef.ICefFillLayoutRef) *tICefFillLayoutRef_1
 }
 
 func wrapICefFillLayoutRef(raw vcef.ICefFillLayoutRef) ICefFillLayoutRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefFillLayoutRef_147(raw)
 }
 
@@ -13349,6 +14204,9 @@ func newtICefFindHandler_147(raw vcef.ICefFindHandler) *tICefFindHandler_147 {
 }
 
 func wrapICefFindHandler(raw vcef.ICefFindHandler) ICefFindHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefFindHandler_147(raw)
 }
 
@@ -13385,6 +14243,9 @@ func newtICefFindHandlerOwn_147(raw vcef.ICefFindHandlerOwn) *tICefFindHandlerOw
 }
 
 func wrapICefFindHandlerOwn(raw vcef.ICefFindHandlerOwn) ICefFindHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefFindHandlerOwn_147(raw)
 }
 
@@ -13421,6 +14282,9 @@ func newtICefFocusHandler_147(raw vcef.ICefFocusHandler) *tICefFocusHandler_147 
 }
 
 func wrapICefFocusHandler(raw vcef.ICefFocusHandler) ICefFocusHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefFocusHandler_147(raw)
 }
 
@@ -13457,6 +14321,9 @@ func newtICefFocusHandlerOwn_147(raw vcef.ICefFocusHandlerOwn) *tICefFocusHandle
 }
 
 func wrapICefFocusHandlerOwn(raw vcef.ICefFocusHandlerOwn) ICefFocusHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefFocusHandlerOwn_147(raw)
 }
 
@@ -13492,7 +14359,10 @@ func newtICefFrame_147(raw vcef.ICefFrame) *tICefFrame_147 {
 	}
 }
 
-func wrapICefFrame(raw vcef.ICefFrame) ICefFrame {
+func wrapICefFrame(raw vcef.ICefFrame) ICefFrame_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefFrame_147(raw)
 }
 
@@ -13643,6 +14513,9 @@ func newtICefFrameHandler_147(raw vcef.ICefFrameHandler) *tICefFrameHandler_147 
 }
 
 func wrapICefFrameHandler(raw vcef.ICefFrameHandler) ICefFrameHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefFrameHandler_147(raw)
 }
 
@@ -13679,6 +14552,9 @@ func newtICefFrameHandlerOwn_147(raw vcef.ICefFrameHandlerOwn) *tICefFrameHandle
 }
 
 func wrapICefFrameHandlerOwn(raw vcef.ICefFrameHandlerOwn) ICefFrameHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefFrameHandlerOwn_147(raw)
 }
 
@@ -13714,7 +14590,10 @@ func newtICefFrameRef_147(raw vcef.ICefFrameRef) *tICefFrameRef_147 {
 	}
 }
 
-func wrapICefFrameRef(raw vcef.ICefFrameRef) ICefFrameRef {
+func wrapICefFrameRef(raw vcef.ICefFrameRef) ICefFrameRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefFrameRef_147(raw)
 }
 
@@ -13869,7 +14748,10 @@ func newtICefGenericTask_147(raw vcef.ICefGenericTask) *tICefGenericTask_147 {
 	}
 }
 
-func wrapICefGenericTask(raw vcef.ICefGenericTask) ICefGenericTask {
+func wrapICefGenericTask(raw vcef.ICefGenericTask) ICefGenericTask_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefGenericTask_147(raw)
 }
 
@@ -13911,6 +14793,9 @@ func newtICefImage_147(raw vcef.ICefImage) *tICefImage_147 {
 }
 
 func wrapICefImage(raw vcef.ICefImage) ICefImage {
+	if raw == nil {
+		return nil
+	}
 	return newtICefImage_147(raw)
 }
 
@@ -14012,6 +14897,9 @@ func newtICefImageRef_147(raw vcef.ICefImageRef) *tICefImageRef_147 {
 }
 
 func wrapICefImageRef(raw vcef.ICefImageRef) ICefImageRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefImageRef_147(raw)
 }
 
@@ -14118,6 +15006,9 @@ func newtICefJsDialogCallback_147(raw vcef.ICefJsDialogCallback) *tICefJsDialogC
 }
 
 func wrapICefJsDialogCallback(raw vcef.ICefJsDialogCallback) ICefJsDialogCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefJsDialogCallback_147(raw)
 }
 
@@ -14158,6 +15049,9 @@ func newtICefJsDialogCallbackRef_147(raw vcef.ICefJsDialogCallbackRef) *tICefJsD
 }
 
 func wrapICefJsDialogCallbackRef(raw vcef.ICefJsDialogCallbackRef) ICefJsDialogCallbackRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefJsDialogCallbackRef_147(raw)
 }
 
@@ -14203,6 +15097,9 @@ func newtICefJsDialogHandler_147(raw vcef.ICefJsDialogHandler) *tICefJsDialogHan
 }
 
 func wrapICefJsDialogHandler(raw vcef.ICefJsDialogHandler) ICefJsDialogHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefJsDialogHandler_147(raw)
 }
 
@@ -14239,6 +15136,9 @@ func newtICefJsDialogHandlerOwn_147(raw vcef.ICefJsDialogHandlerOwn) *tICefJsDia
 }
 
 func wrapICefJsDialogHandlerOwn(raw vcef.ICefJsDialogHandlerOwn) ICefJsDialogHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefJsDialogHandlerOwn_147(raw)
 }
 
@@ -14275,6 +15175,9 @@ func newtICefKeyboardHandler_147(raw vcef.ICefKeyboardHandler) *tICefKeyboardHan
 }
 
 func wrapICefKeyboardHandler(raw vcef.ICefKeyboardHandler) ICefKeyboardHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefKeyboardHandler_147(raw)
 }
 
@@ -14311,6 +15214,9 @@ func newtICefKeyboardHandlerOwn_147(raw vcef.ICefKeyboardHandlerOwn) *tICefKeybo
 }
 
 func wrapICefKeyboardHandlerOwn(raw vcef.ICefKeyboardHandlerOwn) ICefKeyboardHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefKeyboardHandlerOwn_147(raw)
 }
 
@@ -14346,7 +15252,10 @@ func newtICefLabelButton_147(raw vcef.ICefLabelButton) *tICefLabelButton_147 {
 	}
 }
 
-func wrapICefLabelButton(raw vcef.ICefLabelButton) ICefLabelButton {
+func wrapICefLabelButton(raw vcef.ICefLabelButton) ICefLabelButton_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefLabelButton_147(raw)
 }
 
@@ -14429,7 +15338,10 @@ func newtICefLabelButtonRef_147(raw vcef.ICefLabelButtonRef) *tICefLabelButtonRe
 	}
 }
 
-func wrapICefLabelButtonRef(raw vcef.ICefLabelButtonRef) ICefLabelButtonRef {
+func wrapICefLabelButtonRef(raw vcef.ICefLabelButtonRef) ICefLabelButtonRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefLabelButtonRef_147(raw)
 }
 
@@ -14528,6 +15440,9 @@ func newtICefLayout_147(raw vcef.ICefLayout) *tICefLayout_147 {
 }
 
 func wrapICefLayout(raw vcef.ICefLayout) ICefLayout {
+	if raw == nil {
+		return nil
+	}
 	return newtICefLayout_147(raw)
 }
 
@@ -14579,6 +15494,9 @@ func newtICefLayoutRef_147(raw vcef.ICefLayoutRef) *tICefLayoutRef_147 {
 }
 
 func wrapICefLayoutRef(raw vcef.ICefLayoutRef) ICefLayoutRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefLayoutRef_147(raw)
 }
 
@@ -14635,6 +15553,9 @@ func newtICefLifeSpanHandler_147(raw vcef.ICefLifeSpanHandler) *tICefLifeSpanHan
 }
 
 func wrapICefLifeSpanHandler(raw vcef.ICefLifeSpanHandler) ICefLifeSpanHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefLifeSpanHandler_147(raw)
 }
 
@@ -14671,6 +15592,9 @@ func newtICefLifeSpanHandlerOwn_147(raw vcef.ICefLifeSpanHandlerOwn) *tICefLifeS
 }
 
 func wrapICefLifeSpanHandlerOwn(raw vcef.ICefLifeSpanHandlerOwn) ICefLifeSpanHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefLifeSpanHandlerOwn_147(raw)
 }
 
@@ -14707,6 +15631,9 @@ func newtICefListValue_147(raw vcef.ICefListValue) *tICefListValue_147 {
 }
 
 func wrapICefListValue(raw vcef.ICefListValue) ICefListValue {
+	if raw == nil {
+		return nil
+	}
 	return newtICefListValue_147(raw)
 }
 
@@ -14883,6 +15810,9 @@ func newtICefListValueRef_147(raw vcef.ICefListValueRef) *tICefListValueRef_147 
 }
 
 func wrapICefListValueRef(raw vcef.ICefListValueRef) ICefListValueRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefListValueRef_147(raw)
 }
 
@@ -15064,6 +15994,9 @@ func newtICefLoadHandler_147(raw vcef.ICefLoadHandler) *tICefLoadHandler_147 {
 }
 
 func wrapICefLoadHandler(raw vcef.ICefLoadHandler) ICefLoadHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefLoadHandler_147(raw)
 }
 
@@ -15100,6 +16033,9 @@ func newtICefLoadHandlerOwn_147(raw vcef.ICefLoadHandlerOwn) *tICefLoadHandlerOw
 }
 
 func wrapICefLoadHandlerOwn(raw vcef.ICefLoadHandlerOwn) ICefLoadHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefLoadHandlerOwn_147(raw)
 }
 
@@ -15136,6 +16072,9 @@ func newtICefManagedTask_147(raw vcef.ICefManagedTask) *tICefManagedTask_147 {
 }
 
 func wrapICefManagedTask(raw vcef.ICefManagedTask) ICefManagedTask_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefManagedTask_147(raw)
 }
 
@@ -15177,6 +16116,9 @@ func newtICefMediaAccessCallback_147(raw vcef.ICefMediaAccessCallback) *tICefMed
 }
 
 func wrapICefMediaAccessCallback(raw vcef.ICefMediaAccessCallback) ICefMediaAccessCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMediaAccessCallback_147(raw)
 }
 
@@ -15221,6 +16163,9 @@ func newtICefMediaAccessCallbackRef_147(raw vcef.ICefMediaAccessCallbackRef) *tI
 }
 
 func wrapICefMediaAccessCallbackRef(raw vcef.ICefMediaAccessCallbackRef) ICefMediaAccessCallbackRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMediaAccessCallbackRef_147(raw)
 }
 
@@ -15270,6 +16215,9 @@ func newtICefMediaObserver_147(raw vcef.ICefMediaObserver) *tICefMediaObserver_1
 }
 
 func wrapICefMediaObserver(raw vcef.ICefMediaObserver) ICefMediaObserver {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMediaObserver_147(raw)
 }
 
@@ -15306,6 +16254,9 @@ func newtICefMediaObserverOwn_147(raw vcef.ICefMediaObserverOwn) *tICefMediaObse
 }
 
 func wrapICefMediaObserverOwn(raw vcef.ICefMediaObserverOwn) ICefMediaObserverOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMediaObserverOwn_147(raw)
 }
 
@@ -15342,6 +16293,9 @@ func newtICefMediaRoute_147(raw vcef.ICefMediaRoute) *tICefMediaRoute_147 {
 }
 
 func wrapICefMediaRoute(raw vcef.ICefMediaRoute) ICefMediaRoute {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMediaRoute_147(raw)
 }
 
@@ -15401,6 +16355,9 @@ func newtICefMediaRouteCreateCallback_147(raw vcef.ICefMediaRouteCreateCallback)
 }
 
 func wrapICefMediaRouteCreateCallback(raw vcef.ICefMediaRouteCreateCallback) ICefMediaRouteCreateCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMediaRouteCreateCallback_147(raw)
 }
 
@@ -15437,6 +16394,9 @@ func newtICefMediaRouteCreateCallbackOwn_147(raw vcef.ICefMediaRouteCreateCallba
 }
 
 func wrapICefMediaRouteCreateCallbackOwn(raw vcef.ICefMediaRouteCreateCallbackOwn) ICefMediaRouteCreateCallbackOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMediaRouteCreateCallbackOwn_147(raw)
 }
 
@@ -15473,6 +16433,9 @@ func newtICefMediaRouteRef_147(raw vcef.ICefMediaRouteRef) *tICefMediaRouteRef_1
 }
 
 func wrapICefMediaRouteRef(raw vcef.ICefMediaRouteRef) ICefMediaRouteRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMediaRouteRef_147(raw)
 }
 
@@ -15537,6 +16500,9 @@ func newtICefMediaRouter_147(raw vcef.ICefMediaRouter) *tICefMediaRouter_147 {
 }
 
 func wrapICefMediaRouter(raw vcef.ICefMediaRouter) ICefMediaRouter {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMediaRouter_147(raw)
 }
 
@@ -15595,6 +16561,9 @@ func newtICefMediaRouterRef_147(raw vcef.ICefMediaRouterRef) *tICefMediaRouterRe
 }
 
 func wrapICefMediaRouterRef(raw vcef.ICefMediaRouterRef) ICefMediaRouterRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMediaRouterRef_147(raw)
 }
 
@@ -15658,6 +16627,9 @@ func newtICefMediaSink_147(raw vcef.ICefMediaSink) *tICefMediaSink_147 {
 }
 
 func wrapICefMediaSink(raw vcef.ICefMediaSink) ICefMediaSink {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMediaSink_147(raw)
 }
 
@@ -15728,6 +16700,9 @@ func newtICefMediaSinkDeviceInfoCallback_147(raw vcef.ICefMediaSinkDeviceInfoCal
 }
 
 func wrapICefMediaSinkDeviceInfoCallback(raw vcef.ICefMediaSinkDeviceInfoCallback) ICefMediaSinkDeviceInfoCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMediaSinkDeviceInfoCallback_147(raw)
 }
 
@@ -15764,6 +16739,9 @@ func newtICefMediaSinkDeviceInfoCallbackOwn_147(raw vcef.ICefMediaSinkDeviceInfo
 }
 
 func wrapICefMediaSinkDeviceInfoCallbackOwn(raw vcef.ICefMediaSinkDeviceInfoCallbackOwn) ICefMediaSinkDeviceInfoCallbackOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMediaSinkDeviceInfoCallbackOwn_147(raw)
 }
 
@@ -15800,6 +16778,9 @@ func newtICefMediaSinkRef_147(raw vcef.ICefMediaSinkRef) *tICefMediaSinkRef_147 
 }
 
 func wrapICefMediaSinkRef(raw vcef.ICefMediaSinkRef) ICefMediaSinkRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMediaSinkRef_147(raw)
 }
 
@@ -15875,6 +16856,9 @@ func newtICefMediaSource_147(raw vcef.ICefMediaSource) *tICefMediaSource_147 {
 }
 
 func wrapICefMediaSource(raw vcef.ICefMediaSource) ICefMediaSource {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMediaSource_147(raw)
 }
 
@@ -15926,6 +16910,9 @@ func newtICefMediaSourceRef_147(raw vcef.ICefMediaSourceRef) *tICefMediaSourceRe
 }
 
 func wrapICefMediaSourceRef(raw vcef.ICefMediaSourceRef) ICefMediaSourceRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMediaSourceRef_147(raw)
 }
 
@@ -15981,7 +16968,10 @@ func newtICefMenuButton_147(raw vcef.ICefMenuButton) *tICefMenuButton_147 {
 	}
 }
 
-func wrapICefMenuButton(raw vcef.ICefMenuButton) ICefMenuButton {
+func wrapICefMenuButton(raw vcef.ICefMenuButton) ICefMenuButton_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMenuButton_147(raw)
 }
 
@@ -16026,6 +17016,9 @@ func newtICefMenuButtonDelegate_147(raw vcef.ICefMenuButtonDelegate) *tICefMenuB
 }
 
 func wrapICefMenuButtonDelegate(raw vcef.ICefMenuButtonDelegate) ICefMenuButtonDelegate {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMenuButtonDelegate_147(raw)
 }
 
@@ -16062,6 +17055,9 @@ func newtICefMenuButtonDelegateEvents_147(raw vcef.ICefMenuButtonDelegateEvents)
 }
 
 func wrapICefMenuButtonDelegateEvents(raw vcef.ICefMenuButtonDelegateEvents) ICefMenuButtonDelegateEvents {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMenuButtonDelegateEvents_147(raw)
 }
 
@@ -16098,6 +17094,9 @@ func newtICefMenuButtonDelegateOwn_147(raw vcef.ICefMenuButtonDelegateOwn) *tICe
 }
 
 func wrapICefMenuButtonDelegateOwn(raw vcef.ICefMenuButtonDelegateOwn) ICefMenuButtonDelegateOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMenuButtonDelegateOwn_147(raw)
 }
 
@@ -16134,6 +17133,9 @@ func newtICefMenuButtonDelegateRef_147(raw vcef.ICefMenuButtonDelegateRef) *tICe
 }
 
 func wrapICefMenuButtonDelegateRef(raw vcef.ICefMenuButtonDelegateRef) ICefMenuButtonDelegateRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMenuButtonDelegateRef_147(raw)
 }
 
@@ -16185,6 +17187,9 @@ func newtICefMenuButtonPressedLock_147(raw vcef.ICefMenuButtonPressedLock) *tICe
 }
 
 func wrapICefMenuButtonPressedLock(raw vcef.ICefMenuButtonPressedLock) ICefMenuButtonPressedLock {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMenuButtonPressedLock_147(raw)
 }
 
@@ -16221,6 +17226,9 @@ func newtICefMenuButtonPressedLockRef_147(raw vcef.ICefMenuButtonPressedLockRef)
 }
 
 func wrapICefMenuButtonPressedLockRef(raw vcef.ICefMenuButtonPressedLockRef) ICefMenuButtonPressedLockRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMenuButtonPressedLockRef_147(raw)
 }
 
@@ -16261,7 +17269,10 @@ func newtICefMenuButtonRef_147(raw vcef.ICefMenuButtonRef) *tICefMenuButtonRef_1
 	}
 }
 
-func wrapICefMenuButtonRef(raw vcef.ICefMenuButtonRef) ICefMenuButtonRef {
+func wrapICefMenuButtonRef(raw vcef.ICefMenuButtonRef) ICefMenuButtonRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMenuButtonRef_147(raw)
 }
 
@@ -16326,6 +17337,9 @@ func newtICefMenuModel_147(raw vcef.ICefMenuModel) *tICefMenuModel_147 {
 }
 
 func wrapICefMenuModel(raw vcef.ICefMenuModel) ICefMenuModel {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMenuModel_147(raw)
 }
 
@@ -16642,6 +17656,9 @@ func newtICefMenuModelDelegate_147(raw vcef.ICefMenuModelDelegate) *tICefMenuMod
 }
 
 func wrapICefMenuModelDelegate(raw vcef.ICefMenuModelDelegate) ICefMenuModelDelegate {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMenuModelDelegate_147(raw)
 }
 
@@ -16678,6 +17695,9 @@ func newtICefMenuModelDelegateOwn_147(raw vcef.ICefMenuModelDelegateOwn) *tICefM
 }
 
 func wrapICefMenuModelDelegateOwn(raw vcef.ICefMenuModelDelegateOwn) ICefMenuModelDelegateOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMenuModelDelegateOwn_147(raw)
 }
 
@@ -16714,6 +17734,9 @@ func newtICefMenuModelRef_147(raw vcef.ICefMenuModelRef) *tICefMenuModelRef_147 
 }
 
 func wrapICefMenuModelRef(raw vcef.ICefMenuModelRef) ICefMenuModelRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefMenuModelRef_147(raw)
 }
 
@@ -17035,6 +18058,9 @@ func newtICefNavigationEntry_147(raw vcef.ICefNavigationEntry) *tICefNavigationE
 }
 
 func wrapICefNavigationEntry(raw vcef.ICefNavigationEntry) ICefNavigationEntry {
+	if raw == nil {
+		return nil
+	}
 	return newtICefNavigationEntry_147(raw)
 }
 
@@ -17121,6 +18147,9 @@ func newtICefNavigationEntryRef_147(raw vcef.ICefNavigationEntryRef) *tICefNavig
 }
 
 func wrapICefNavigationEntryRef(raw vcef.ICefNavigationEntryRef) ICefNavigationEntryRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefNavigationEntryRef_147(raw)
 }
 
@@ -17212,6 +18241,9 @@ func newtICefNavigationEntryVisitor_147(raw vcef.ICefNavigationEntryVisitor) *tI
 }
 
 func wrapICefNavigationEntryVisitor(raw vcef.ICefNavigationEntryVisitor) ICefNavigationEntryVisitor {
+	if raw == nil {
+		return nil
+	}
 	return newtICefNavigationEntryVisitor_147(raw)
 }
 
@@ -17248,6 +18280,9 @@ func newtICefNavigationEntryVisitorOwn_147(raw vcef.ICefNavigationEntryVisitorOw
 }
 
 func wrapICefNavigationEntryVisitorOwn(raw vcef.ICefNavigationEntryVisitorOwn) ICefNavigationEntryVisitorOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefNavigationEntryVisitorOwn_147(raw)
 }
 
@@ -17284,6 +18319,9 @@ func newtICefOverlayController_147(raw vcef.ICefOverlayController) *tICefOverlay
 }
 
 func wrapICefOverlayController(raw vcef.ICefOverlayController) ICefOverlayController {
+	if raw == nil {
+		return nil
+	}
 	return newtICefOverlayController_147(raw)
 }
 
@@ -17408,6 +18446,9 @@ func newtICefOverlayControllerRef_147(raw vcef.ICefOverlayControllerRef) *tICefO
 }
 
 func wrapICefOverlayControllerRef(raw vcef.ICefOverlayControllerRef) ICefOverlayControllerRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefOverlayControllerRef_147(raw)
 }
 
@@ -17536,7 +18577,10 @@ func newtICefPanel_147(raw vcef.ICefPanel) *tICefPanel_147 {
 	}
 }
 
-func wrapICefPanel(raw vcef.ICefPanel) ICefPanel {
+func wrapICefPanel(raw vcef.ICefPanel) ICefPanel_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPanel_147(raw)
 }
 
@@ -17627,6 +18671,9 @@ func newtICefPanelDelegate_147(raw vcef.ICefPanelDelegate) *tICefPanelDelegate_1
 }
 
 func wrapICefPanelDelegate(raw vcef.ICefPanelDelegate) ICefPanelDelegate {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPanelDelegate_147(raw)
 }
 
@@ -17663,6 +18710,9 @@ func newtICefPanelDelegateEvents_147(raw vcef.ICefPanelDelegateEvents) *tICefPan
 }
 
 func wrapICefPanelDelegateEvents(raw vcef.ICefPanelDelegateEvents) ICefPanelDelegateEvents {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPanelDelegateEvents_147(raw)
 }
 
@@ -17699,6 +18749,9 @@ func newtICefPanelDelegateOwn_147(raw vcef.ICefPanelDelegateOwn) *tICefPanelDele
 }
 
 func wrapICefPanelDelegateOwn(raw vcef.ICefPanelDelegateOwn) ICefPanelDelegateOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPanelDelegateOwn_147(raw)
 }
 
@@ -17735,6 +18788,9 @@ func newtICefPanelDelegateRef_147(raw vcef.ICefPanelDelegateRef) *tICefPanelDele
 }
 
 func wrapICefPanelDelegateRef(raw vcef.ICefPanelDelegateRef) ICefPanelDelegateRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPanelDelegateRef_147(raw)
 }
 
@@ -17780,7 +18836,10 @@ func newtICefPanelRef_147(raw vcef.ICefPanelRef) *tICefPanelRef_147 {
 	}
 }
 
-func wrapICefPanelRef(raw vcef.ICefPanelRef) ICefPanelRef {
+func wrapICefPanelRef(raw vcef.ICefPanelRef) ICefPanelRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPanelRef_147(raw)
 }
 
@@ -17881,6 +18940,9 @@ func newtICefPdfPrintCallback_147(raw vcef.ICefPdfPrintCallback) *tICefPdfPrintC
 }
 
 func wrapICefPdfPrintCallback(raw vcef.ICefPdfPrintCallback) ICefPdfPrintCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPdfPrintCallback_147(raw)
 }
 
@@ -17917,6 +18979,9 @@ func newtICefPdfPrintCallbackOwn_147(raw vcef.ICefPdfPrintCallbackOwn) *tICefPdf
 }
 
 func wrapICefPdfPrintCallbackOwn(raw vcef.ICefPdfPrintCallbackOwn) ICefPdfPrintCallbackOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPdfPrintCallbackOwn_147(raw)
 }
 
@@ -17953,6 +19018,9 @@ func newtICefPermissionHandler_147(raw vcef.ICefPermissionHandler) *tICefPermiss
 }
 
 func wrapICefPermissionHandler(raw vcef.ICefPermissionHandler) ICefPermissionHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPermissionHandler_147(raw)
 }
 
@@ -17989,6 +19057,9 @@ func newtICefPermissionHandlerOwn_147(raw vcef.ICefPermissionHandlerOwn) *tICefP
 }
 
 func wrapICefPermissionHandlerOwn(raw vcef.ICefPermissionHandlerOwn) ICefPermissionHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPermissionHandlerOwn_147(raw)
 }
 
@@ -18025,6 +19096,9 @@ func newtICefPermissionPromptCallback_147(raw vcef.ICefPermissionPromptCallback)
 }
 
 func wrapICefPermissionPromptCallback(raw vcef.ICefPermissionPromptCallback) ICefPermissionPromptCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPermissionPromptCallback_147(raw)
 }
 
@@ -18065,6 +19139,9 @@ func newtICefPermissionPromptCallbackRef_147(raw vcef.ICefPermissionPromptCallba
 }
 
 func wrapICefPermissionPromptCallbackRef(raw vcef.ICefPermissionPromptCallbackRef) ICefPermissionPromptCallbackRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPermissionPromptCallbackRef_147(raw)
 }
 
@@ -18110,6 +19187,9 @@ func newtICefPostData_147(raw vcef.ICefPostData) *tICefPostData_147 {
 }
 
 func wrapICefPostData(raw vcef.ICefPostData) ICefPostData {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPostData_147(raw)
 }
 
@@ -18186,6 +19266,9 @@ func newtICefPostDataElement_147(raw vcef.ICefPostDataElement) *tICefPostDataEle
 }
 
 func wrapICefPostDataElement(raw vcef.ICefPostDataElement) ICefPostDataElement {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPostDataElement_147(raw)
 }
 
@@ -18259,6 +19342,9 @@ func newtICefPostDataElementRef_147(raw vcef.ICefPostDataElementRef) *tICefPostD
 }
 
 func wrapICefPostDataElementRef(raw vcef.ICefPostDataElementRef) ICefPostDataElementRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPostDataElementRef_147(raw)
 }
 
@@ -18337,6 +19423,9 @@ func newtICefPostDataRef_147(raw vcef.ICefPostDataRef) *tICefPostDataRef_147 {
 }
 
 func wrapICefPostDataRef(raw vcef.ICefPostDataRef) ICefPostDataRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPostDataRef_147(raw)
 }
 
@@ -18417,7 +19506,10 @@ func newtICefPreferenceManager_147(raw vcef.ICefPreferenceManager) *tICefPrefere
 	}
 }
 
-func wrapICefPreferenceManager(raw vcef.ICefPreferenceManager) ICefPreferenceManager {
+func wrapICefPreferenceManager(raw vcef.ICefPreferenceManager) ICefPreferenceManager_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPreferenceManager_147(raw)
 }
 
@@ -18483,7 +19575,10 @@ func newtICefPreferenceManagerRef_147(raw vcef.ICefPreferenceManagerRef) *tICefP
 	}
 }
 
-func wrapICefPreferenceManagerRef(raw vcef.ICefPreferenceManagerRef) ICefPreferenceManagerRef {
+func wrapICefPreferenceManagerRef(raw vcef.ICefPreferenceManagerRef) ICefPreferenceManagerRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPreferenceManagerRef_147(raw)
 }
 
@@ -18555,6 +19650,9 @@ func newtICefPreferenceObserver_147(raw vcef.ICefPreferenceObserver) *tICefPrefe
 }
 
 func wrapICefPreferenceObserver(raw vcef.ICefPreferenceObserver) ICefPreferenceObserver_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPreferenceObserver_147(raw)
 }
 
@@ -18591,6 +19689,9 @@ func newtICefPreferenceObserverOwn_147(raw vcef.ICefPreferenceObserverOwn) *tICe
 }
 
 func wrapICefPreferenceObserverOwn(raw vcef.ICefPreferenceObserverOwn) ICefPreferenceObserverOwn_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPreferenceObserverOwn_147(raw)
 }
 
@@ -18627,6 +19728,9 @@ func newtICefPreferenceRegistrarRef_147(raw vcef.ICefPreferenceRegistrarRef) *tI
 }
 
 func wrapICefPreferenceRegistrarRef(raw vcef.ICefPreferenceRegistrarRef) ICefPreferenceRegistrarRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPreferenceRegistrarRef_147(raw)
 }
 
@@ -18668,6 +19772,9 @@ func newtICefPrintDialogCallback_147(raw vcef.ICefPrintDialogCallback) *tICefPri
 }
 
 func wrapICefPrintDialogCallback(raw vcef.ICefPrintDialogCallback) ICefPrintDialogCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPrintDialogCallback_147(raw)
 }
 
@@ -18712,6 +19819,9 @@ func newtICefPrintDialogCallbackRef_147(raw vcef.ICefPrintDialogCallbackRef) *tI
 }
 
 func wrapICefPrintDialogCallbackRef(raw vcef.ICefPrintDialogCallbackRef) ICefPrintDialogCallbackRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPrintDialogCallbackRef_147(raw)
 }
 
@@ -18761,6 +19871,9 @@ func newtICefPrintHandler_147(raw vcef.ICefPrintHandler) *tICefPrintHandler_147 
 }
 
 func wrapICefPrintHandler(raw vcef.ICefPrintHandler) ICefPrintHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPrintHandler_147(raw)
 }
 
@@ -18797,6 +19910,9 @@ func newtICefPrintHandlerOwn_147(raw vcef.ICefPrintHandlerOwn) *tICefPrintHandle
 }
 
 func wrapICefPrintHandlerOwn(raw vcef.ICefPrintHandlerOwn) ICefPrintHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPrintHandlerOwn_147(raw)
 }
 
@@ -18833,6 +19949,9 @@ func newtICefPrintJobCallback_147(raw vcef.ICefPrintJobCallback) *tICefPrintJobC
 }
 
 func wrapICefPrintJobCallback(raw vcef.ICefPrintJobCallback) ICefPrintJobCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPrintJobCallback_147(raw)
 }
 
@@ -18873,6 +19992,9 @@ func newtICefPrintJobCallbackRef_147(raw vcef.ICefPrintJobCallbackRef) *tICefPri
 }
 
 func wrapICefPrintJobCallbackRef(raw vcef.ICefPrintJobCallbackRef) ICefPrintJobCallbackRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPrintJobCallbackRef_147(raw)
 }
 
@@ -18918,6 +20040,9 @@ func newtICefPrintSettings_147(raw vcef.ICefPrintSettings) *tICefPrintSettings_1
 }
 
 func wrapICefPrintSettings(raw vcef.ICefPrintSettings) ICefPrintSettings {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPrintSettings_147(raw)
 }
 
@@ -19053,6 +20178,9 @@ func newtICefPrintSettingsRef_147(raw vcef.ICefPrintSettingsRef) *tICefPrintSett
 }
 
 func wrapICefPrintSettingsRef(raw vcef.ICefPrintSettingsRef) ICefPrintSettingsRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefPrintSettingsRef_147(raw)
 }
 
@@ -19193,6 +20321,9 @@ func newtICefProcessMessage_147(raw vcef.ICefProcessMessage) *tICefProcessMessag
 }
 
 func wrapICefProcessMessage(raw vcef.ICefProcessMessage) ICefProcessMessage {
+	if raw == nil {
+		return nil
+	}
 	return newtICefProcessMessage_147(raw)
 }
 
@@ -19259,6 +20390,9 @@ func newtICefProcessMessageRef_147(raw vcef.ICefProcessMessageRef) *tICefProcess
 }
 
 func wrapICefProcessMessageRef(raw vcef.ICefProcessMessageRef) ICefProcessMessageRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefProcessMessageRef_147(raw)
 }
 
@@ -19330,6 +20464,9 @@ func newtICefRegistration_147(raw vcef.ICefRegistration) *tICefRegistration_147 
 }
 
 func wrapICefRegistration(raw vcef.ICefRegistration) ICefRegistration {
+	if raw == nil {
+		return nil
+	}
 	return newtICefRegistration_147(raw)
 }
 
@@ -19366,6 +20503,9 @@ func newtICefRegistrationRef_147(raw vcef.ICefRegistrationRef) *tICefRegistratio
 }
 
 func wrapICefRegistrationRef(raw vcef.ICefRegistrationRef) ICefRegistrationRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefRegistrationRef_147(raw)
 }
 
@@ -19407,6 +20547,9 @@ func newtICefRenderHandler_147(raw vcef.ICefRenderHandler) *tICefRenderHandler_1
 }
 
 func wrapICefRenderHandler(raw vcef.ICefRenderHandler) ICefRenderHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefRenderHandler_147(raw)
 }
 
@@ -19443,6 +20586,9 @@ func newtICefRenderHandlerOwn_147(raw vcef.ICefRenderHandlerOwn) *tICefRenderHan
 }
 
 func wrapICefRenderHandlerOwn(raw vcef.ICefRenderHandlerOwn) ICefRenderHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefRenderHandlerOwn_147(raw)
 }
 
@@ -19479,6 +20625,9 @@ func newtICefRenderProcessHandler_147(raw vcef.ICefRenderProcessHandler) *tICefR
 }
 
 func wrapICefRenderProcessHandler(raw vcef.ICefRenderProcessHandler) ICefRenderProcessHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefRenderProcessHandler_147(raw)
 }
 
@@ -19515,6 +20664,9 @@ func newtICefRenderProcessHandlerOwn_147(raw vcef.ICefRenderProcessHandlerOwn) *
 }
 
 func wrapICefRenderProcessHandlerOwn(raw vcef.ICefRenderProcessHandlerOwn) ICefRenderProcessHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefRenderProcessHandlerOwn_147(raw)
 }
 
@@ -19551,6 +20703,9 @@ func newtICefRequest_147(raw vcef.ICefRequest) *tICefRequest_147 {
 }
 
 func wrapICefRequest(raw vcef.ICefRequest) ICefRequest {
+	if raw == nil {
+		return nil
+	}
 	return newtICefRequest_147(raw)
 }
 
@@ -19686,7 +20841,10 @@ func newtICefRequestContext_147(raw vcef.ICefRequestContext) *tICefRequestContex
 	}
 }
 
-func wrapICefRequestContext(raw vcef.ICefRequestContext) ICefRequestContext {
+func wrapICefRequestContext(raw vcef.ICefRequestContext) ICefRequestContext_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefRequestContext_147(raw)
 }
 
@@ -19830,6 +20988,9 @@ func newtICefRequestContextHandler_147(raw vcef.ICefRequestContextHandler) *tICe
 }
 
 func wrapICefRequestContextHandler(raw vcef.ICefRequestContextHandler) ICefRequestContextHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefRequestContextHandler_147(raw)
 }
 
@@ -19866,6 +21027,9 @@ func newtICefRequestContextHandlerOwn_147(raw vcef.ICefRequestContextHandlerOwn)
 }
 
 func wrapICefRequestContextHandlerOwn(raw vcef.ICefRequestContextHandlerOwn) ICefRequestContextHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefRequestContextHandlerOwn_147(raw)
 }
 
@@ -19901,7 +21065,10 @@ func newtICefRequestContextRef_147(raw vcef.ICefRequestContextRef) *tICefRequest
 	}
 }
 
-func wrapICefRequestContextRef(raw vcef.ICefRequestContextRef) ICefRequestContextRef {
+func wrapICefRequestContextRef(raw vcef.ICefRequestContextRef) ICefRequestContextRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefRequestContextRef_147(raw)
 }
 
@@ -20055,6 +21222,9 @@ func newtICefRequestHandler_147(raw vcef.ICefRequestHandler) *tICefRequestHandle
 }
 
 func wrapICefRequestHandler(raw vcef.ICefRequestHandler) ICefRequestHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefRequestHandler_147(raw)
 }
 
@@ -20091,6 +21261,9 @@ func newtICefRequestHandlerOwn_147(raw vcef.ICefRequestHandlerOwn) *tICefRequest
 }
 
 func wrapICefRequestHandlerOwn(raw vcef.ICefRequestHandlerOwn) ICefRequestHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefRequestHandlerOwn_147(raw)
 }
 
@@ -20127,6 +21300,9 @@ func newtICefRequestRef_147(raw vcef.ICefRequestRef) *tICefRequestRef_147 {
 }
 
 func wrapICefRequestRef(raw vcef.ICefRequestRef) ICefRequestRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefRequestRef_147(raw)
 }
 
@@ -20268,6 +21444,9 @@ func newtICefResolveCallback_147(raw vcef.ICefResolveCallback) *tICefResolveCall
 }
 
 func wrapICefResolveCallback(raw vcef.ICefResolveCallback) ICefResolveCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefResolveCallback_147(raw)
 }
 
@@ -20304,6 +21483,9 @@ func newtICefResolveCallbackOwn_147(raw vcef.ICefResolveCallbackOwn) *tICefResol
 }
 
 func wrapICefResolveCallbackOwn(raw vcef.ICefResolveCallbackOwn) ICefResolveCallbackOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefResolveCallbackOwn_147(raw)
 }
 
@@ -20340,6 +21522,9 @@ func newtICefResourceBundle_147(raw vcef.ICefResourceBundle) *tICefResourceBundl
 }
 
 func wrapICefResourceBundle(raw vcef.ICefResourceBundle) ICefResourceBundle {
+	if raw == nil {
+		return nil
+	}
 	return newtICefResourceBundle_147(raw)
 }
 
@@ -20391,6 +21576,9 @@ func newtICefResourceBundleHandler_147(raw vcef.ICefResourceBundleHandler) *tICe
 }
 
 func wrapICefResourceBundleHandler(raw vcef.ICefResourceBundleHandler) ICefResourceBundleHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefResourceBundleHandler_147(raw)
 }
 
@@ -20427,6 +21615,9 @@ func newtICefResourceBundleHandlerOwn_147(raw vcef.ICefResourceBundleHandlerOwn)
 }
 
 func wrapICefResourceBundleHandlerOwn(raw vcef.ICefResourceBundleHandlerOwn) ICefResourceBundleHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefResourceBundleHandlerOwn_147(raw)
 }
 
@@ -20463,6 +21654,9 @@ func newtICefResourceBundleRef_147(raw vcef.ICefResourceBundleRef) *tICefResourc
 }
 
 func wrapICefResourceBundleRef(raw vcef.ICefResourceBundleRef) ICefResourceBundleRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefResourceBundleRef_147(raw)
 }
 
@@ -20519,6 +21713,9 @@ func newtICefResourceHandler_147(raw vcef.ICefResourceHandler) *tICefResourceHan
 }
 
 func wrapICefResourceHandler(raw vcef.ICefResourceHandler) ICefResourceHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefResourceHandler_147(raw)
 }
 
@@ -20555,6 +21752,9 @@ func newtICefResourceHandlerOwn_147(raw vcef.ICefResourceHandlerOwn) *tICefResou
 }
 
 func wrapICefResourceHandlerOwn(raw vcef.ICefResourceHandlerOwn) ICefResourceHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefResourceHandlerOwn_147(raw)
 }
 
@@ -20591,6 +21791,9 @@ func newtICefResourceHandlerRef_147(raw vcef.ICefResourceHandlerRef) *tICefResou
 }
 
 func wrapICefResourceHandlerRef(raw vcef.ICefResourceHandlerRef) ICefResourceHandlerRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefResourceHandlerRef_147(raw)
 }
 
@@ -20632,6 +21835,9 @@ func newtICefResourceReadCallback_147(raw vcef.ICefResourceReadCallback) *tICefR
 }
 
 func wrapICefResourceReadCallback(raw vcef.ICefResourceReadCallback) ICefResourceReadCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefResourceReadCallback_147(raw)
 }
 
@@ -20672,6 +21878,9 @@ func newtICefResourceReadCallbackRef_147(raw vcef.ICefResourceReadCallbackRef) *
 }
 
 func wrapICefResourceReadCallbackRef(raw vcef.ICefResourceReadCallbackRef) ICefResourceReadCallbackRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefResourceReadCallbackRef_147(raw)
 }
 
@@ -20717,6 +21926,9 @@ func newtICefResourceRequestHandler_147(raw vcef.ICefResourceRequestHandler) *tI
 }
 
 func wrapICefResourceRequestHandler(raw vcef.ICefResourceRequestHandler) ICefResourceRequestHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefResourceRequestHandler_147(raw)
 }
 
@@ -20753,6 +21965,9 @@ func newtICefResourceRequestHandlerOwn_147(raw vcef.ICefResourceRequestHandlerOw
 }
 
 func wrapICefResourceRequestHandlerOwn(raw vcef.ICefResourceRequestHandlerOwn) ICefResourceRequestHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefResourceRequestHandlerOwn_147(raw)
 }
 
@@ -20789,6 +22004,9 @@ func newtICefResourceRequestHandlerRef_147(raw vcef.ICefResourceRequestHandlerRe
 }
 
 func wrapICefResourceRequestHandlerRef(raw vcef.ICefResourceRequestHandlerRef) ICefResourceRequestHandlerRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefResourceRequestHandlerRef_147(raw)
 }
 
@@ -20830,6 +22048,9 @@ func newtICefResourceSkipCallback_147(raw vcef.ICefResourceSkipCallback) *tICefR
 }
 
 func wrapICefResourceSkipCallback(raw vcef.ICefResourceSkipCallback) ICefResourceSkipCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefResourceSkipCallback_147(raw)
 }
 
@@ -20870,6 +22091,9 @@ func newtICefResourceSkipCallbackRef_147(raw vcef.ICefResourceSkipCallbackRef) *
 }
 
 func wrapICefResourceSkipCallbackRef(raw vcef.ICefResourceSkipCallbackRef) ICefResourceSkipCallbackRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefResourceSkipCallbackRef_147(raw)
 }
 
@@ -20915,6 +22139,9 @@ func newtICefResponse_147(raw vcef.ICefResponse) *tICefResponse_147 {
 }
 
 func wrapICefResponse(raw vcef.ICefResponse) ICefResponse {
+	if raw == nil {
+		return nil
+	}
 	return newtICefResponse_147(raw)
 }
 
@@ -21027,6 +22254,9 @@ func newtICefResponseFilter_147(raw vcef.ICefResponseFilter) *tICefResponseFilte
 }
 
 func wrapICefResponseFilter(raw vcef.ICefResponseFilter) ICefResponseFilter {
+	if raw == nil {
+		return nil
+	}
 	return newtICefResponseFilter_147(raw)
 }
 
@@ -21063,6 +22293,9 @@ func newtICefResponseFilterOwn_147(raw vcef.ICefResponseFilterOwn) *tICefRespons
 }
 
 func wrapICefResponseFilterOwn(raw vcef.ICefResponseFilterOwn) ICefResponseFilterOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefResponseFilterOwn_147(raw)
 }
 
@@ -21099,6 +22332,9 @@ func newtICefResponseFilterRef_147(raw vcef.ICefResponseFilterRef) *tICefRespons
 }
 
 func wrapICefResponseFilterRef(raw vcef.ICefResponseFilterRef) ICefResponseFilterRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefResponseFilterRef_147(raw)
 }
 
@@ -21140,6 +22376,9 @@ func newtICefResponseRef_147(raw vcef.ICefResponseRef) *tICefResponseRef_147 {
 }
 
 func wrapICefResponseRef(raw vcef.ICefResponseRef) ICefResponseRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefResponseRef_147(raw)
 }
 
@@ -21257,6 +22496,9 @@ func newtICefRunContextMenuCallback_147(raw vcef.ICefRunContextMenuCallback) *tI
 }
 
 func wrapICefRunContextMenuCallback(raw vcef.ICefRunContextMenuCallback) ICefRunContextMenuCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefRunContextMenuCallback_147(raw)
 }
 
@@ -21301,6 +22543,9 @@ func newtICefRunContextMenuCallbackRef_147(raw vcef.ICefRunContextMenuCallbackRe
 }
 
 func wrapICefRunContextMenuCallbackRef(raw vcef.ICefRunContextMenuCallbackRef) ICefRunContextMenuCallbackRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefRunContextMenuCallbackRef_147(raw)
 }
 
@@ -21350,6 +22595,9 @@ func newtICefRunFileDialogCallback_147(raw vcef.ICefRunFileDialogCallback) *tICe
 }
 
 func wrapICefRunFileDialogCallback(raw vcef.ICefRunFileDialogCallback) ICefRunFileDialogCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefRunFileDialogCallback_147(raw)
 }
 
@@ -21386,6 +22634,9 @@ func newtICefRunFileDialogCallbackOwn_147(raw vcef.ICefRunFileDialogCallbackOwn)
 }
 
 func wrapICefRunFileDialogCallbackOwn(raw vcef.ICefRunFileDialogCallbackOwn) ICefRunFileDialogCallbackOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefRunFileDialogCallbackOwn_147(raw)
 }
 
@@ -21422,6 +22673,9 @@ func newtICefRunQuickMenuCallback_147(raw vcef.ICefRunQuickMenuCallback) *tICefR
 }
 
 func wrapICefRunQuickMenuCallback(raw vcef.ICefRunQuickMenuCallback) ICefRunQuickMenuCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefRunQuickMenuCallback_147(raw)
 }
 
@@ -21466,6 +22720,9 @@ func newtICefRunQuickMenuCallbackRef_147(raw vcef.ICefRunQuickMenuCallbackRef) *
 }
 
 func wrapICefRunQuickMenuCallbackRef(raw vcef.ICefRunQuickMenuCallbackRef) ICefRunQuickMenuCallbackRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefRunQuickMenuCallbackRef_147(raw)
 }
 
@@ -21515,6 +22772,9 @@ func newtICefSSLStatus_147(raw vcef.ICefSSLStatus) *tICefSSLStatus_147 {
 }
 
 func wrapICefSSLStatus(raw vcef.ICefSSLStatus) ICefSSLStatus {
+	if raw == nil {
+		return nil
+	}
 	return newtICefSSLStatus_147(raw)
 }
 
@@ -21576,6 +22836,9 @@ func newtICefSSLStatusRef_147(raw vcef.ICefSSLStatusRef) *tICefSSLStatusRef_147 
 }
 
 func wrapICefSSLStatusRef(raw vcef.ICefSSLStatusRef) ICefSSLStatusRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefSSLStatusRef_147(raw)
 }
 
@@ -21642,6 +22905,9 @@ func newtICefSchemeHandlerFactory_147(raw vcef.ICefSchemeHandlerFactory) *tICefS
 }
 
 func wrapICefSchemeHandlerFactory(raw vcef.ICefSchemeHandlerFactory) ICefSchemeHandlerFactory {
+	if raw == nil {
+		return nil
+	}
 	return newtICefSchemeHandlerFactory_147(raw)
 }
 
@@ -21678,6 +22944,9 @@ func newtICefSchemeHandlerFactoryOwn_147(raw vcef.ICefSchemeHandlerFactoryOwn) *
 }
 
 func wrapICefSchemeHandlerFactoryOwn(raw vcef.ICefSchemeHandlerFactoryOwn) ICefSchemeHandlerFactoryOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefSchemeHandlerFactoryOwn_147(raw)
 }
 
@@ -21714,6 +22983,9 @@ func newtICefSchemeRegistrarRef_147(raw vcef.ICefSchemeRegistrarRef) *tICefSchem
 }
 
 func wrapICefSchemeRegistrarRef(raw vcef.ICefSchemeRegistrarRef) ICefSchemeRegistrarRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefSchemeRegistrarRef_147(raw)
 }
 
@@ -21754,7 +23026,10 @@ func newtICefScrollView_147(raw vcef.ICefScrollView) *tICefScrollView_147 {
 	}
 }
 
-func wrapICefScrollView(raw vcef.ICefScrollView) ICefScrollView {
+func wrapICefScrollView(raw vcef.ICefScrollView) ICefScrollView_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefScrollView_147(raw)
 }
 
@@ -21824,7 +23099,10 @@ func newtICefScrollViewRef_147(raw vcef.ICefScrollViewRef) *tICefScrollViewRef_1
 	}
 }
 
-func wrapICefScrollViewRef(raw vcef.ICefScrollViewRef) ICefScrollViewRef {
+func wrapICefScrollViewRef(raw vcef.ICefScrollViewRef) ICefScrollViewRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefScrollViewRef_147(raw)
 }
 
@@ -21905,6 +23183,9 @@ func newtICefSelectClientCertificateCallback_147(raw vcef.ICefSelectClientCertif
 }
 
 func wrapICefSelectClientCertificateCallback(raw vcef.ICefSelectClientCertificateCallback) ICefSelectClientCertificateCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefSelectClientCertificateCallback_147(raw)
 }
 
@@ -21945,6 +23226,9 @@ func newtICefSelectClientCertificateCallbackRef_147(raw vcef.ICefSelectClientCer
 }
 
 func wrapICefSelectClientCertificateCallbackRef(raw vcef.ICefSelectClientCertificateCallbackRef) ICefSelectClientCertificateCallbackRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefSelectClientCertificateCallbackRef_147(raw)
 }
 
@@ -21990,6 +23274,9 @@ func newtICefServer_147(raw vcef.ICefServer) *tICefServer_147 {
 }
 
 func wrapICefServer(raw vcef.ICefServer) ICefServer {
+	if raw == nil {
+		return nil
+	}
 	return newtICefServer_147(raw)
 }
 
@@ -22083,6 +23370,9 @@ func newtICefServerHandler_147(raw vcef.ICefServerHandler) *tICefServerHandler_1
 }
 
 func wrapICefServerHandler(raw vcef.ICefServerHandler) ICefServerHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefServerHandler_147(raw)
 }
 
@@ -22119,6 +23409,9 @@ func newtICefSetCookieCallback_147(raw vcef.ICefSetCookieCallback) *tICefSetCook
 }
 
 func wrapICefSetCookieCallback(raw vcef.ICefSetCookieCallback) ICefSetCookieCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefSetCookieCallback_147(raw)
 }
 
@@ -22155,6 +23448,9 @@ func newtICefSetCookieCallbackOwn_147(raw vcef.ICefSetCookieCallbackOwn) *tICefS
 }
 
 func wrapICefSetCookieCallbackOwn(raw vcef.ICefSetCookieCallbackOwn) ICefSetCookieCallbackOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefSetCookieCallbackOwn_147(raw)
 }
 
@@ -22191,6 +23487,9 @@ func newtICefSettingObserver_147(raw vcef.ICefSettingObserver) *tICefSettingObse
 }
 
 func wrapICefSettingObserver(raw vcef.ICefSettingObserver) ICefSettingObserver_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefSettingObserver_147(raw)
 }
 
@@ -22227,6 +23526,9 @@ func newtICefSettingObserverOwn_147(raw vcef.ICefSettingObserverOwn) *tICefSetti
 }
 
 func wrapICefSettingObserverOwn(raw vcef.ICefSettingObserverOwn) ICefSettingObserverOwn_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefSettingObserverOwn_147(raw)
 }
 
@@ -22263,6 +23565,9 @@ func newtICefSharedMemoryRegion_147(raw vcef.ICefSharedMemoryRegion) *tICefShare
 }
 
 func wrapICefSharedMemoryRegion(raw vcef.ICefSharedMemoryRegion) ICefSharedMemoryRegion {
+	if raw == nil {
+		return nil
+	}
 	return newtICefSharedMemoryRegion_147(raw)
 }
 
@@ -22314,6 +23619,9 @@ func newtICefSharedMemoryRegionRef_147(raw vcef.ICefSharedMemoryRegionRef) *tICe
 }
 
 func wrapICefSharedMemoryRegionRef(raw vcef.ICefSharedMemoryRegionRef) ICefSharedMemoryRegionRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefSharedMemoryRegionRef_147(raw)
 }
 
@@ -22370,6 +23678,9 @@ func newtICefSharedProcessMessageBuilder_147(raw vcef.ICefSharedProcessMessageBu
 }
 
 func wrapICefSharedProcessMessageBuilder(raw vcef.ICefSharedProcessMessageBuilder) ICefSharedProcessMessageBuilder {
+	if raw == nil {
+		return nil
+	}
 	return newtICefSharedProcessMessageBuilder_147(raw)
 }
 
@@ -22426,6 +23737,9 @@ func newtICefSharedProcessMessageBuilderRef_147(raw vcef.ICefSharedProcessMessag
 }
 
 func wrapICefSharedProcessMessageBuilderRef(raw vcef.ICefSharedProcessMessageBuilderRef) ICefSharedProcessMessageBuilderRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefSharedProcessMessageBuilderRef_147(raw)
 }
 
@@ -22487,6 +23801,9 @@ func newtICefSslInfo_147(raw vcef.ICefSslInfo) *tICefSslInfo_147 {
 }
 
 func wrapICefSslInfo(raw vcef.ICefSslInfo) ICefSslInfo {
+	if raw == nil {
+		return nil
+	}
 	return newtICefSslInfo_147(raw)
 }
 
@@ -22533,6 +23850,9 @@ func newtICefSslInfoRef_147(raw vcef.ICefSslInfoRef) *tICefSslInfoRef_147 {
 }
 
 func wrapICefSslInfoRef(raw vcef.ICefSslInfoRef) ICefSslInfoRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefSslInfoRef_147(raw)
 }
 
@@ -22584,6 +23904,9 @@ func newtICefStreamReader_147(raw vcef.ICefStreamReader) *tICefStreamReader_147 
 }
 
 func wrapICefStreamReader(raw vcef.ICefStreamReader) ICefStreamReader {
+	if raw == nil {
+		return nil
+	}
 	return newtICefStreamReader_147(raw)
 }
 
@@ -22645,6 +23968,9 @@ func newtICefStreamReaderRef_147(raw vcef.ICefStreamReaderRef) *tICefStreamReade
 }
 
 func wrapICefStreamReaderRef(raw vcef.ICefStreamReaderRef) ICefStreamReaderRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefStreamReaderRef_147(raw)
 }
 
@@ -22711,6 +24037,9 @@ func newtICefStreamWriter_147(raw vcef.ICefStreamWriter) *tICefStreamWriter_147 
 }
 
 func wrapICefStreamWriter(raw vcef.ICefStreamWriter) ICefStreamWriter {
+	if raw == nil {
+		return nil
+	}
 	return newtICefStreamWriter_147(raw)
 }
 
@@ -22772,6 +24101,9 @@ func newtICefStreamWriterRef_147(raw vcef.ICefStreamWriterRef) *tICefStreamWrite
 }
 
 func wrapICefStreamWriterRef(raw vcef.ICefStreamWriterRef) ICefStreamWriterRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefStreamWriterRef_147(raw)
 }
 
@@ -22837,7 +24169,10 @@ func newtICefStringList_147(raw vcef.ICefStringList) *tICefStringList_147 {
 	}
 }
 
-func wrapICefStringList(raw vcef.ICefStringList) ICefStringList {
+func wrapICefStringList(raw vcef.ICefStringList) ICefStringList_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefStringList_147(raw)
 }
 
@@ -22909,7 +24244,10 @@ func newtICefStringListOwn_147(raw vcef.ICefStringListOwn) *tICefStringListOwn_1
 	}
 }
 
-func wrapICefStringListOwn(raw vcef.ICefStringListOwn) ICefStringListOwn {
+func wrapICefStringListOwn(raw vcef.ICefStringListOwn) ICefStringListOwn_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefStringListOwn_147(raw)
 }
 
@@ -22950,7 +24288,10 @@ func newtICefStringListRef_147(raw vcef.ICefStringListRef) *tICefStringListRef_1
 	}
 }
 
-func wrapICefStringListRef(raw vcef.ICefStringListRef) ICefStringListRef {
+func wrapICefStringListRef(raw vcef.ICefStringListRef) ICefStringListRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefStringListRef_147(raw)
 }
 
@@ -22992,6 +24333,9 @@ func newtICefStringMap_147(raw vcef.ICefStringMap) *tICefStringMap_147 {
 }
 
 func wrapICefStringMap(raw vcef.ICefStringMap) ICefStringMap {
+	if raw == nil {
+		return nil
+	}
 	return newtICefStringMap_147(raw)
 }
 
@@ -23062,6 +24406,9 @@ func newtICefStringMapOwn_147(raw vcef.ICefStringMapOwn) *tICefStringMapOwn_147 
 }
 
 func wrapICefStringMapOwn(raw vcef.ICefStringMapOwn) ICefStringMapOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefStringMapOwn_147(raw)
 }
 
@@ -23103,6 +24450,9 @@ func newtICefStringMapRef_147(raw vcef.ICefStringMapRef) *tICefStringMapRef_147 
 }
 
 func wrapICefStringMapRef(raw vcef.ICefStringMapRef) ICefStringMapRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefStringMapRef_147(raw)
 }
 
@@ -23144,6 +24494,9 @@ func newtICefStringMultimap_147(raw vcef.ICefStringMultimap) *tICefStringMultima
 }
 
 func wrapICefStringMultimap(raw vcef.ICefStringMultimap) ICefStringMultimap {
+	if raw == nil {
+		return nil
+	}
 	return newtICefStringMultimap_147(raw)
 }
 
@@ -23219,6 +24572,9 @@ func newtICefStringMultimapOwn_147(raw vcef.ICefStringMultimapOwn) *tICefStringM
 }
 
 func wrapICefStringMultimapOwn(raw vcef.ICefStringMultimapOwn) ICefStringMultimapOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefStringMultimapOwn_147(raw)
 }
 
@@ -23260,6 +24616,9 @@ func newtICefStringVisitor_147(raw vcef.ICefStringVisitor) *tICefStringVisitor_1
 }
 
 func wrapICefStringVisitor(raw vcef.ICefStringVisitor) ICefStringVisitor {
+	if raw == nil {
+		return nil
+	}
 	return newtICefStringVisitor_147(raw)
 }
 
@@ -23296,6 +24655,9 @@ func newtICefStringVisitorOwn_147(raw vcef.ICefStringVisitorOwn) *tICefStringVis
 }
 
 func wrapICefStringVisitorOwn(raw vcef.ICefStringVisitorOwn) ICefStringVisitorOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefStringVisitorOwn_147(raw)
 }
 
@@ -23332,6 +24694,9 @@ func newtICefTask_147(raw vcef.ICefTask) *tICefTask_147 {
 }
 
 func wrapICefTask(raw vcef.ICefTask) ICefTask {
+	if raw == nil {
+		return nil
+	}
 	return newtICefTask_147(raw)
 }
 
@@ -23368,6 +24733,9 @@ func newtICefTaskManager_147(raw vcef.ICefTaskManager) *tICefTaskManager_147 {
 }
 
 func wrapICefTaskManager(raw vcef.ICefTaskManager) ICefTaskManager_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefTaskManager_147(raw)
 }
 
@@ -23429,6 +24797,9 @@ func newtICefTaskManagerRef_147(raw vcef.ICefTaskManagerRef) *tICefTaskManagerRe
 }
 
 func wrapICefTaskManagerRef(raw vcef.ICefTaskManagerRef) ICefTaskManagerRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefTaskManagerRef_147(raw)
 }
 
@@ -23495,6 +24866,9 @@ func newtICefTaskOwn_147(raw vcef.ICefTaskOwn) *tICefTaskOwn_147 {
 }
 
 func wrapICefTaskOwn(raw vcef.ICefTaskOwn) ICefTaskOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefTaskOwn_147(raw)
 }
 
@@ -23531,6 +24905,9 @@ func newtICefTaskRef_147(raw vcef.ICefTaskRef) *tICefTaskRef_147 {
 }
 
 func wrapICefTaskRef(raw vcef.ICefTaskRef) ICefTaskRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefTaskRef_147(raw)
 }
 
@@ -23572,6 +24949,9 @@ func newtICefTaskRunner_147(raw vcef.ICefTaskRunner) *tICefTaskRunner_147 {
 }
 
 func wrapICefTaskRunner(raw vcef.ICefTaskRunner) ICefTaskRunner {
+	if raw == nil {
+		return nil
+	}
 	return newtICefTaskRunner_147(raw)
 }
 
@@ -23633,6 +25013,9 @@ func newtICefTaskRunnerRef_147(raw vcef.ICefTaskRunnerRef) *tICefTaskRunnerRef_1
 }
 
 func wrapICefTaskRunnerRef(raw vcef.ICefTaskRunnerRef) ICefTaskRunnerRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefTaskRunnerRef_147(raw)
 }
 
@@ -23698,7 +25081,10 @@ func newtICefTextfield_147(raw vcef.ICefTextfield) *tICefTextfield_147 {
 	}
 }
 
-func wrapICefTextfield(raw vcef.ICefTextfield) ICefTextfield {
+func wrapICefTextfield(raw vcef.ICefTextfield) ICefTextfield_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefTextfield_147(raw)
 }
 
@@ -23871,6 +25257,9 @@ func newtICefTextfieldDelegate_147(raw vcef.ICefTextfieldDelegate) *tICefTextfie
 }
 
 func wrapICefTextfieldDelegate(raw vcef.ICefTextfieldDelegate) ICefTextfieldDelegate {
+	if raw == nil {
+		return nil
+	}
 	return newtICefTextfieldDelegate_147(raw)
 }
 
@@ -23907,6 +25296,9 @@ func newtICefTextfieldDelegateEvents_147(raw vcef.ICefTextfieldDelegateEvents) *
 }
 
 func wrapICefTextfieldDelegateEvents(raw vcef.ICefTextfieldDelegateEvents) ICefTextfieldDelegateEvents {
+	if raw == nil {
+		return nil
+	}
 	return newtICefTextfieldDelegateEvents_147(raw)
 }
 
@@ -23943,6 +25335,9 @@ func newtICefTextfieldDelegateOwn_147(raw vcef.ICefTextfieldDelegateOwn) *tICefT
 }
 
 func wrapICefTextfieldDelegateOwn(raw vcef.ICefTextfieldDelegateOwn) ICefTextfieldDelegateOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefTextfieldDelegateOwn_147(raw)
 }
 
@@ -23979,6 +25374,9 @@ func newtICefTextfieldDelegateRef_147(raw vcef.ICefTextfieldDelegateRef) *tICefT
 }
 
 func wrapICefTextfieldDelegateRef(raw vcef.ICefTextfieldDelegateRef) ICefTextfieldDelegateRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefTextfieldDelegateRef_147(raw)
 }
 
@@ -24024,7 +25422,10 @@ func newtICefTextfieldRef_147(raw vcef.ICefTextfieldRef) *tICefTextfieldRef_147 
 	}
 }
 
-func wrapICefTextfieldRef(raw vcef.ICefTextfieldRef) ICefTextfieldRef {
+func wrapICefTextfieldRef(raw vcef.ICefTextfieldRef) ICefTextfieldRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefTextfieldRef_147(raw)
 }
 
@@ -24207,6 +25608,9 @@ func newtICefThread_147(raw vcef.ICefThread) *tICefThread_147 {
 }
 
 func wrapICefThread(raw vcef.ICefThread) ICefThread {
+	if raw == nil {
+		return nil
+	}
 	return newtICefThread_147(raw)
 }
 
@@ -24262,6 +25666,9 @@ func newtICefThreadRef_147(raw vcef.ICefThreadRef) *tICefThreadRef_147 {
 }
 
 func wrapICefThreadRef(raw vcef.ICefThreadRef) ICefThreadRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefThreadRef_147(raw)
 }
 
@@ -24322,6 +25729,9 @@ func newtICefURLRequestClientTask_147(raw vcef.ICefURLRequestClientTask) *tICefU
 }
 
 func wrapICefURLRequestClientTask(raw vcef.ICefURLRequestClientTask) ICefURLRequestClientTask_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefURLRequestClientTask_147(raw)
 }
 
@@ -24363,6 +25773,9 @@ func newtICefUnresponsiveProcessCallback_147(raw vcef.ICefUnresponsiveProcessCal
 }
 
 func wrapICefUnresponsiveProcessCallback(raw vcef.ICefUnresponsiveProcessCallback) ICefUnresponsiveProcessCallback_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefUnresponsiveProcessCallback_147(raw)
 }
 
@@ -24407,6 +25820,9 @@ func newtICefUnresponsiveProcessCallbackRef_147(raw vcef.ICefUnresponsiveProcess
 }
 
 func wrapICefUnresponsiveProcessCallbackRef(raw vcef.ICefUnresponsiveProcessCallbackRef) ICefUnresponsiveProcessCallbackRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefUnresponsiveProcessCallbackRef_147(raw)
 }
 
@@ -24455,7 +25871,10 @@ func newtICefUrlRequest_147(raw vcef.ICefUrlRequest) *tICefUrlRequest_147 {
 	}
 }
 
-func wrapICefUrlRequest(raw vcef.ICefUrlRequest) ICefUrlRequest {
+func wrapICefUrlRequest(raw vcef.ICefUrlRequest) ICefUrlRequest_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefUrlRequest_147(raw)
 }
 
@@ -24525,7 +25944,10 @@ func newtICefUrlRequestRef_147(raw vcef.ICefUrlRequestRef) *tICefUrlRequestRef_1
 	}
 }
 
-func wrapICefUrlRequestRef(raw vcef.ICefUrlRequestRef) ICefUrlRequestRef {
+func wrapICefUrlRequestRef(raw vcef.ICefUrlRequestRef) ICefUrlRequestRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefUrlRequestRef_147(raw)
 }
 
@@ -24601,6 +26023,9 @@ func newtICefUrlrequestClient_147(raw vcef.ICefUrlrequestClient) *tICefUrlreques
 }
 
 func wrapICefUrlrequestClient(raw vcef.ICefUrlrequestClient) ICefUrlrequestClient {
+	if raw == nil {
+		return nil
+	}
 	return newtICefUrlrequestClient_147(raw)
 }
 
@@ -24637,6 +26062,9 @@ func newtICefUrlrequestClientOwn_147(raw vcef.ICefUrlrequestClientOwn) *tICefUrl
 }
 
 func wrapICefUrlrequestClientOwn(raw vcef.ICefUrlrequestClientOwn) ICefUrlrequestClientOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefUrlrequestClientOwn_147(raw)
 }
 
@@ -24673,6 +26101,9 @@ func newtICefUrlrequestClientRef_147(raw vcef.ICefUrlrequestClientRef) *tICefUrl
 }
 
 func wrapICefUrlrequestClientRef(raw vcef.ICefUrlrequestClientRef) ICefUrlrequestClientRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefUrlrequestClientRef_147(raw)
 }
 
@@ -24714,6 +26145,9 @@ func newtICefV8Accessor_147(raw vcef.ICefV8Accessor) *tICefV8Accessor_147 {
 }
 
 func wrapICefV8Accessor(raw vcef.ICefV8Accessor) ICefV8Accessor {
+	if raw == nil {
+		return nil
+	}
 	return newtICefV8Accessor_147(raw)
 }
 
@@ -24750,6 +26184,9 @@ func newtICefV8AccessorOwn_147(raw vcef.ICefV8AccessorOwn) *tICefV8AccessorOwn_1
 }
 
 func wrapICefV8AccessorOwn(raw vcef.ICefV8AccessorOwn) ICefV8AccessorOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefV8AccessorOwn_147(raw)
 }
 
@@ -24786,6 +26223,9 @@ func newtICefV8Exception_147(raw vcef.ICefV8Exception) *tICefV8Exception_147 {
 }
 
 func wrapICefV8Exception(raw vcef.ICefV8Exception) ICefV8Exception {
+	if raw == nil {
+		return nil
+	}
 	return newtICefV8Exception_147(raw)
 }
 
@@ -24862,6 +26302,9 @@ func newtICefV8ExceptionRef_147(raw vcef.ICefV8ExceptionRef) *tICefV8ExceptionRe
 }
 
 func wrapICefV8ExceptionRef(raw vcef.ICefV8ExceptionRef) ICefV8ExceptionRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefV8ExceptionRef_147(raw)
 }
 
@@ -24943,6 +26386,9 @@ func newtICefV8Interceptor_147(raw vcef.ICefV8Interceptor) *tICefV8Interceptor_1
 }
 
 func wrapICefV8Interceptor(raw vcef.ICefV8Interceptor) ICefV8Interceptor {
+	if raw == nil {
+		return nil
+	}
 	return newtICefV8Interceptor_147(raw)
 }
 
@@ -24979,6 +26425,9 @@ func newtICefV8InterceptorOwn_147(raw vcef.ICefV8InterceptorOwn) *tICefV8Interce
 }
 
 func wrapICefV8InterceptorOwn(raw vcef.ICefV8InterceptorOwn) ICefV8InterceptorOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefV8InterceptorOwn_147(raw)
 }
 
@@ -25015,6 +26464,9 @@ func newtICefV8StackFrame_147(raw vcef.ICefV8StackFrame) *tICefV8StackFrame_147 
 }
 
 func wrapICefV8StackFrame(raw vcef.ICefV8StackFrame) ICefV8StackFrame {
+	if raw == nil {
+		return nil
+	}
 	return newtICefV8StackFrame_147(raw)
 }
 
@@ -25091,6 +26543,9 @@ func newtICefV8StackFrameRef_147(raw vcef.ICefV8StackFrameRef) *tICefV8StackFram
 }
 
 func wrapICefV8StackFrameRef(raw vcef.ICefV8StackFrameRef) ICefV8StackFrameRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefV8StackFrameRef_147(raw)
 }
 
@@ -25172,6 +26627,9 @@ func newtICefV8StackTrace_147(raw vcef.ICefV8StackTrace) *tICefV8StackTrace_147 
 }
 
 func wrapICefV8StackTrace(raw vcef.ICefV8StackTrace) ICefV8StackTrace {
+	if raw == nil {
+		return nil
+	}
 	return newtICefV8StackTrace_147(raw)
 }
 
@@ -25223,6 +26681,9 @@ func newtICefV8StackTraceRef_147(raw vcef.ICefV8StackTraceRef) *tICefV8StackTrac
 }
 
 func wrapICefV8StackTraceRef(raw vcef.ICefV8StackTraceRef) ICefV8StackTraceRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefV8StackTraceRef_147(raw)
 }
 
@@ -25279,6 +26740,9 @@ func newtICefValue_147(raw vcef.ICefValue) *tICefValue_147 {
 }
 
 func wrapICefValue(raw vcef.ICefValue) ICefValue {
+	if raw == nil {
+		return nil
+	}
 	return newtICefValue_147(raw)
 }
 
@@ -25425,6 +26889,9 @@ func newtICefValueRef_147(raw vcef.ICefValueRef) *tICefValueRef_147 {
 }
 
 func wrapICefValueRef(raw vcef.ICefValueRef) ICefValueRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefValueRef_147(raw)
 }
 
@@ -25575,7 +27042,10 @@ func newtICefView_147(raw vcef.ICefView) *tICefView_147 {
 	}
 }
 
-func wrapICefView(raw vcef.ICefView) ICefView {
+func wrapICefView(raw vcef.ICefView) ICefView_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefView_147(raw)
 }
 
@@ -25859,6 +27329,9 @@ func newtICefViewDelegate_147(raw vcef.ICefViewDelegate) *tICefViewDelegate_147 
 }
 
 func wrapICefViewDelegate(raw vcef.ICefViewDelegate) ICefViewDelegate {
+	if raw == nil {
+		return nil
+	}
 	return newtICefViewDelegate_147(raw)
 }
 
@@ -25895,6 +27368,9 @@ func newtICefViewDelegateEvents_147(raw vcef.ICefViewDelegateEvents) *tICefViewD
 }
 
 func wrapICefViewDelegateEvents(raw vcef.ICefViewDelegateEvents) ICefViewDelegateEvents {
+	if raw == nil {
+		return nil
+	}
 	return newtICefViewDelegateEvents_147(raw)
 }
 
@@ -25931,6 +27407,9 @@ func newtICefViewDelegateOwn_147(raw vcef.ICefViewDelegateOwn) *tICefViewDelegat
 }
 
 func wrapICefViewDelegateOwn(raw vcef.ICefViewDelegateOwn) ICefViewDelegateOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefViewDelegateOwn_147(raw)
 }
 
@@ -25967,6 +27446,9 @@ func newtICefViewDelegateRef_147(raw vcef.ICefViewDelegateRef) *tICefViewDelegat
 }
 
 func wrapICefViewDelegateRef(raw vcef.ICefViewDelegateRef) ICefViewDelegateRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefViewDelegateRef_147(raw)
 }
 
@@ -26008,6 +27490,9 @@ func newtICefViewDelegateTask_147(raw vcef.ICefViewDelegateTask) *tICefViewDeleg
 }
 
 func wrapICefViewDelegateTask(raw vcef.ICefViewDelegateTask) ICefViewDelegateTask_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefViewDelegateTask_147(raw)
 }
 
@@ -26048,7 +27533,10 @@ func newtICefViewRef_147(raw vcef.ICefViewRef) *tICefViewRef_147 {
 	}
 }
 
-func wrapICefViewRef(raw vcef.ICefViewRef) ICefViewRef {
+func wrapICefViewRef(raw vcef.ICefViewRef) ICefViewRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefViewRef_147(raw)
 }
 
@@ -26337,6 +27825,9 @@ func newtICefWaitableEvent_147(raw vcef.ICefWaitableEvent) *tICefWaitableEvent_1
 }
 
 func wrapICefWaitableEvent(raw vcef.ICefWaitableEvent) ICefWaitableEvent {
+	if raw == nil {
+		return nil
+	}
 	return newtICefWaitableEvent_147(raw)
 }
 
@@ -26395,6 +27886,9 @@ func newtICefWaitableEventRef_147(raw vcef.ICefWaitableEventRef) *tICefWaitableE
 }
 
 func wrapICefWaitableEventRef(raw vcef.ICefWaitableEventRef) ICefWaitableEventRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefWaitableEventRef_147(raw)
 }
 
@@ -26457,7 +27951,10 @@ func newtICefWindow_147(raw vcef.ICefWindow) *tICefWindow_147 {
 	}
 }
 
-func wrapICefWindow(raw vcef.ICefWindow) ICefWindow {
+func wrapICefWindow(raw vcef.ICefWindow) ICefWindow_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefWindow_147(raw)
 }
 
@@ -26517,7 +28014,7 @@ func (t *tICefWindow_147) GetDisplay() ICefDisplay {
 	return wrapICefDisplay(r0)
 }
 
-func (t *tICefWindow_147) GetFocusedView() ICefView {
+func (t *tICefWindow_147) GetFocusedView() ICefView_147 {
 	r0 := t.raw.GetFocusedView()
 	return wrapICefView(r0)
 }
@@ -26677,6 +28174,9 @@ func newtICefWindowDelegate_147(raw vcef.ICefWindowDelegate) *tICefWindowDelegat
 }
 
 func wrapICefWindowDelegate(raw vcef.ICefWindowDelegate) ICefWindowDelegate {
+	if raw == nil {
+		return nil
+	}
 	return newtICefWindowDelegate_147(raw)
 }
 
@@ -26713,6 +28213,9 @@ func newtICefWindowDelegateEvents_147(raw vcef.ICefWindowDelegateEvents) *tICefW
 }
 
 func wrapICefWindowDelegateEvents(raw vcef.ICefWindowDelegateEvents) ICefWindowDelegateEvents {
+	if raw == nil {
+		return nil
+	}
 	return newtICefWindowDelegateEvents_147(raw)
 }
 
@@ -26749,6 +28252,9 @@ func newtICefWindowDelegateOwn_147(raw vcef.ICefWindowDelegateOwn) *tICefWindowD
 }
 
 func wrapICefWindowDelegateOwn(raw vcef.ICefWindowDelegateOwn) ICefWindowDelegateOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefWindowDelegateOwn_147(raw)
 }
 
@@ -26785,6 +28291,9 @@ func newtICefWindowDelegateRef_147(raw vcef.ICefWindowDelegateRef) *tICefWindowD
 }
 
 func wrapICefWindowDelegateRef(raw vcef.ICefWindowDelegateRef) ICefWindowDelegateRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefWindowDelegateRef_147(raw)
 }
 
@@ -26835,7 +28344,10 @@ func newtICefWindowRef_147(raw vcef.ICefWindowRef) *tICefWindowRef_147 {
 	}
 }
 
-func wrapICefWindowRef(raw vcef.ICefWindowRef) ICefWindowRef {
+func wrapICefWindowRef(raw vcef.ICefWindowRef) ICefWindowRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefWindowRef_147(raw)
 }
 
@@ -26910,7 +28422,7 @@ func (t *tICefWindowRef_147) GetDisplay() ICefDisplay {
 	return wrapICefDisplay(r0)
 }
 
-func (t *tICefWindowRef_147) GetFocusedView() ICefView {
+func (t *tICefWindowRef_147) GetFocusedView() ICefView_147 {
 	r0 := t.raw.GetFocusedView()
 	return wrapICefView(r0)
 }
@@ -27070,6 +28582,9 @@ func newtICefWriteHandler_147(raw vcef.ICefWriteHandler) *tICefWriteHandler_147 
 }
 
 func wrapICefWriteHandler(raw vcef.ICefWriteHandler) ICefWriteHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefWriteHandler_147(raw)
 }
 
@@ -27106,6 +28621,9 @@ func newtICefWriteHandlerOwn_147(raw vcef.ICefWriteHandlerOwn) *tICefWriteHandle
 }
 
 func wrapICefWriteHandlerOwn(raw vcef.ICefWriteHandlerOwn) ICefWriteHandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefWriteHandlerOwn_147(raw)
 }
 
@@ -27142,6 +28660,9 @@ func newtICefX509CertPrincipal_147(raw vcef.ICefX509CertPrincipal) *tICefX509Cer
 }
 
 func wrapICefX509CertPrincipal(raw vcef.ICefX509CertPrincipal) ICefX509CertPrincipal {
+	if raw == nil {
+		return nil
+	}
 	return newtICefX509CertPrincipal_147(raw)
 }
 
@@ -27211,6 +28732,9 @@ func newtICefX509CertPrincipalRef_147(raw vcef.ICefX509CertPrincipalRef) *tICefX
 }
 
 func wrapICefX509CertPrincipalRef(raw vcef.ICefX509CertPrincipalRef) ICefX509CertPrincipalRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefX509CertPrincipalRef_147(raw)
 }
 
@@ -27285,6 +28809,9 @@ func newtICefX509Certificate_147(raw vcef.ICefX509Certificate) *tICefX509Certifi
 }
 
 func wrapICefX509Certificate(raw vcef.ICefX509Certificate) ICefX509Certificate {
+	if raw == nil {
+		return nil
+	}
 	return newtICefX509Certificate_147(raw)
 }
 
@@ -27393,6 +28920,9 @@ func newtICefXmlReader_147(raw vcef.ICefXmlReader) *tICefXmlReader_147 {
 }
 
 func wrapICefXmlReader(raw vcef.ICefXmlReader) ICefXmlReader {
+	if raw == nil {
+		return nil
+	}
 	return newtICefXmlReader_147(raw)
 }
 
@@ -27574,6 +29104,9 @@ func newtICefXmlReaderRef_147(raw vcef.ICefXmlReaderRef) *tICefXmlReaderRef_147 
 }
 
 func wrapICefXmlReaderRef(raw vcef.ICefXmlReaderRef) ICefXmlReaderRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefXmlReaderRef_147(raw)
 }
 
@@ -27760,6 +29293,9 @@ func newtICefZipReader_147(raw vcef.ICefZipReader) *tICefZipReader_147 {
 }
 
 func wrapICefZipReader(raw vcef.ICefZipReader) ICefZipReader {
+	if raw == nil {
+		return nil
+	}
 	return newtICefZipReader_147(raw)
 }
 
@@ -27856,6 +29392,9 @@ func newtICefZipReaderRef_147(raw vcef.ICefZipReaderRef) *tICefZipReaderRef_147 
 }
 
 func wrapICefZipReaderRef(raw vcef.ICefZipReaderRef) ICefZipReaderRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefZipReaderRef_147(raw)
 }
 
@@ -27957,6 +29496,9 @@ func newtICefv8ArrayBufferReleaseCallback_147(raw vcef.ICefv8ArrayBufferReleaseC
 }
 
 func wrapICefv8ArrayBufferReleaseCallback(raw vcef.ICefv8ArrayBufferReleaseCallback) ICefv8ArrayBufferReleaseCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtICefv8ArrayBufferReleaseCallback_147(raw)
 }
 
@@ -27993,6 +29535,9 @@ func newtICefv8ArrayBufferReleaseCallbackOwn_147(raw vcef.ICefv8ArrayBufferRelea
 }
 
 func wrapICefv8ArrayBufferReleaseCallbackOwn(raw vcef.ICefv8ArrayBufferReleaseCallbackOwn) ICefv8ArrayBufferReleaseCallbackOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefv8ArrayBufferReleaseCallbackOwn_147(raw)
 }
 
@@ -28029,6 +29574,9 @@ func newtICefv8ArrayBufferReleaseCallbackRef_147(raw vcef.ICefv8ArrayBufferRelea
 }
 
 func wrapICefv8ArrayBufferReleaseCallbackRef(raw vcef.ICefv8ArrayBufferReleaseCallbackRef) ICefv8ArrayBufferReleaseCallbackRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefv8ArrayBufferReleaseCallbackRef_147(raw)
 }
 
@@ -28070,6 +29618,9 @@ func newtICefv8BackingStore_147(raw vcef.ICefv8BackingStore) *tICefv8BackingStor
 }
 
 func wrapICefv8BackingStore(raw vcef.ICefv8BackingStore) ICefv8BackingStore_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefv8BackingStore_147(raw)
 }
 
@@ -28121,6 +29672,9 @@ func newtICefv8BackingStoreRef_147(raw vcef.ICefv8BackingStoreRef) *tICefv8Backi
 }
 
 func wrapICefv8BackingStoreRef(raw vcef.ICefv8BackingStoreRef) ICefv8BackingStoreRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefv8BackingStoreRef_147(raw)
 }
 
@@ -28177,6 +29731,9 @@ func newtICefv8Context_147(raw vcef.ICefv8Context) *tICefv8Context_147 {
 }
 
 func wrapICefv8Context(raw vcef.ICefv8Context) ICefv8Context {
+	if raw == nil {
+		return nil
+	}
 	return newtICefv8Context_147(raw)
 }
 
@@ -28272,6 +29829,9 @@ func newtICefv8ContextRef_147(raw vcef.ICefv8ContextRef) *tICefv8ContextRef_147 
 }
 
 func wrapICefv8ContextRef(raw vcef.ICefv8ContextRef) ICefv8ContextRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefv8ContextRef_147(raw)
 }
 
@@ -28372,6 +29932,9 @@ func newtICefv8Handler_147(raw vcef.ICefv8Handler) *tICefv8Handler_147 {
 }
 
 func wrapICefv8Handler(raw vcef.ICefv8Handler) ICefv8Handler {
+	if raw == nil {
+		return nil
+	}
 	return newtICefv8Handler_147(raw)
 }
 
@@ -28408,6 +29971,9 @@ func newtICefv8HandlerOwn_147(raw vcef.ICefv8HandlerOwn) *tICefv8HandlerOwn_147 
 }
 
 func wrapICefv8HandlerOwn(raw vcef.ICefv8HandlerOwn) ICefv8HandlerOwn {
+	if raw == nil {
+		return nil
+	}
 	return newtICefv8HandlerOwn_147(raw)
 }
 
@@ -28444,6 +30010,9 @@ func newtICefv8HandlerRef_147(raw vcef.ICefv8HandlerRef) *tICefv8HandlerRef_147 
 }
 
 func wrapICefv8HandlerRef(raw vcef.ICefv8HandlerRef) ICefv8HandlerRef {
+	if raw == nil {
+		return nil
+	}
 	return newtICefv8HandlerRef_147(raw)
 }
 
@@ -28484,7 +30053,10 @@ func newtICefv8Value_147(raw vcef.ICefv8Value) *tICefv8Value_147 {
 	}
 }
 
-func wrapICefv8Value(raw vcef.ICefv8Value) ICefv8Value {
+func wrapICefv8Value(raw vcef.ICefv8Value) ICefv8Value_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefv8Value_147(raw)
 }
 
@@ -28780,7 +30352,10 @@ func newtICefv8ValueRef_147(raw vcef.ICefv8ValueRef) *tICefv8ValueRef_147 {
 	}
 }
 
-func wrapICefv8ValueRef(raw vcef.ICefv8ValueRef) ICefv8ValueRef {
+func wrapICefv8ValueRef(raw vcef.ICefv8ValueRef) ICefv8ValueRef_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtICefv8ValueRef_147(raw)
 }
 
@@ -29081,7 +30656,10 @@ func newtIChromium_147(raw vcef.IChromium) *tIChromium_147 {
 	}
 }
 
-func wrapIChromium(raw vcef.IChromium) IChromium {
+func wrapIChromium(raw vcef.IChromium) IChromium_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtIChromium_147(raw)
 }
 
@@ -29175,7 +30753,10 @@ func newtIChromiumCore_147(raw vcef.IChromiumCore) *tIChromiumCore_147 {
 	}
 }
 
-func wrapIChromiumCore(raw vcef.IChromiumCore) IChromiumCore {
+func wrapIChromiumCore(raw vcef.IChromiumCore) IChromiumCore_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtIChromiumCore_147(raw)
 }
 
@@ -29472,7 +31053,7 @@ func (t *tIChromiumCore_147) CreateUrlRequestWithRequestUClientFrame(request ICe
 	return wrapICefUrlRequest(r0)
 }
 
-func (t *tIChromiumCore_147) CreateUrlRequestWithRequestUClientStrX2(request ICefRequest, client IEngUrlrequestClient, frameName string, frameIdentifier string) ICefUrlRequest {
+func (t *tIChromiumCore_147) CreateUrlRequestWithRequestUClientStrX2(request ICefRequest, client IEngUrlrequestClient, frameName string, frameIdentifier string) ICefUrlRequest_147 {
 	r0 := t.raw.CreateUrlRequestWithRequestUClientStrX2(unwrapICefRequest(request), unwrapIEngUrlrequestClient(client), frameName, frameIdentifier)
 	return wrapICefUrlRequest(r0)
 }
@@ -31466,6 +33047,9 @@ func newtIChromiumEvents_147(raw vcef.IChromiumEvents) *tIChromiumEvents_147 {
 }
 
 func wrapIChromiumEvents(raw vcef.IChromiumEvents) IChromiumEvents {
+	if raw == nil {
+		return nil
+	}
 	return newtIChromiumEvents_147(raw)
 }
 
@@ -31502,6 +33086,9 @@ func newtIChromiumFontOptions_147(raw vcef.IChromiumFontOptions) *tIChromiumFont
 }
 
 func wrapIChromiumFontOptions(raw vcef.IChromiumFontOptions) IChromiumFontOptions {
+	if raw == nil {
+		return nil
+	}
 	return newtIChromiumFontOptions_147(raw)
 }
 
@@ -31636,7 +33223,10 @@ func newtIChromiumOptions_147(raw vcef.IChromiumOptions) *tIChromiumOptions_147 
 	}
 }
 
-func wrapIChromiumOptions(raw vcef.IChromiumOptions) IChromiumOptions {
+func wrapIChromiumOptions(raw vcef.IChromiumOptions) IChromiumOptions_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtIChromiumOptions_147(raw)
 }
 
@@ -31816,7 +33406,10 @@ func newtIChromiumWindow_147(raw vcef.IChromiumWindow) *tIChromiumWindow_147 {
 	}
 }
 
-func wrapIChromiumWindow(raw vcef.IChromiumWindow) IChromiumWindow {
+func wrapIChromiumWindow(raw vcef.IChromiumWindow) IChromiumWindow_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtIChromiumWindow_147(raw)
 }
 
@@ -31876,6 +33469,1800 @@ func (t *tIChromiumWindow_147) SetOnClose(fn TNotifyEvent) {
 	t.raw.SetOnClose(func(sender lcl.IObject) { fn(sender) })
 }
 
+type tICustomAccessibilityHandler_147 struct {
+	raw vcef.ICustomAccessibilityHandler
+	*tICEFAccessibilityHandlerOwn_147
+}
+
+func newtICustomAccessibilityHandler_147(raw vcef.ICustomAccessibilityHandler) *tICustomAccessibilityHandler_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomAccessibilityHandler_147{
+		raw:                              raw,
+		tICEFAccessibilityHandlerOwn_147: newtICEFAccessibilityHandlerOwn_147(raw),
+	}
+}
+
+func wrapICustomAccessibilityHandler(raw vcef.ICustomAccessibilityHandler) ICustomAccessibilityHandler {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomAccessibilityHandler_147(raw)
+}
+
+func unwrapICustomAccessibilityHandler(value ICustomAccessibilityHandler) vcef.ICustomAccessibilityHandler {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomAccessibilityHandler_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomAccessibilityHandler](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomAccessibilityHandler_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomAccessibilityHandler_147) AsIntfAccessibilityHandler() uintptr {
+	r0 := t.raw.AsIntfAccessibilityHandler()
+	return r0
+}
+
+func (t *tICustomAccessibilityHandler_147) SetOnLocationChange(fn TOnAccessibilityEvent) {
+	t.raw.SetOnLocationChange(func(sender lcl.IObject, value vcef.ICefValue) { fn(sender, wrapICefValue(value)) })
+}
+
+func (t *tICustomAccessibilityHandler_147) SetOnTreeChange(fn TOnAccessibilityEvent) {
+	t.raw.SetOnTreeChange(func(sender lcl.IObject, value vcef.ICefValue) { fn(sender, wrapICefValue(value)) })
+}
+
+type tICustomAudioHandler_147 struct {
+	raw vcef.ICustomAudioHandler
+	*tICefAudioHandlerOwn_147
+}
+
+func newtICustomAudioHandler_147(raw vcef.ICustomAudioHandler) *tICustomAudioHandler_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomAudioHandler_147{
+		raw:                      raw,
+		tICefAudioHandlerOwn_147: newtICefAudioHandlerOwn_147(raw),
+	}
+}
+
+func wrapICustomAudioHandler(raw vcef.ICustomAudioHandler) ICustomAudioHandler {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomAudioHandler_147(raw)
+}
+
+func unwrapICustomAudioHandler(value ICustomAudioHandler) vcef.ICustomAudioHandler {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomAudioHandler_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomAudioHandler](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomAudioHandler_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomAudioHandler_147) AsIntfAudioHandler() uintptr {
+	r0 := t.raw.AsIntfAudioHandler()
+	return r0
+}
+
+type tICustomBrowserViewDelegate_147 struct {
+	raw vcef.ICustomBrowserViewDelegate
+	*tICefBrowserViewDelegateOwn_147
+}
+
+func newtICustomBrowserViewDelegate_147(raw vcef.ICustomBrowserViewDelegate) *tICustomBrowserViewDelegate_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomBrowserViewDelegate_147{
+		raw:                             raw,
+		tICefBrowserViewDelegateOwn_147: newtICefBrowserViewDelegateOwn_147(raw),
+	}
+}
+
+func wrapICustomBrowserViewDelegate(raw vcef.ICustomBrowserViewDelegate) ICustomBrowserViewDelegate {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomBrowserViewDelegate_147(raw)
+}
+
+func unwrapICustomBrowserViewDelegate(value ICustomBrowserViewDelegate) vcef.ICustomBrowserViewDelegate {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomBrowserViewDelegate_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomBrowserViewDelegate](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomBrowserViewDelegate_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomBrowserViewDelegate_147) AsIntfBrowserViewDelegate() uintptr {
+	r0 := t.raw.AsIntfBrowserViewDelegate()
+	return r0
+}
+
+func (t *tICustomBrowserViewDelegate_147) AsIntfViewDelegate() uintptr {
+	r0 := t.raw.AsIntfViewDelegate()
+	return r0
+}
+
+type tICustomButtonDelegate_147 struct {
+	raw vcef.ICustomButtonDelegate
+	*tICefButtonDelegateOwn_147
+}
+
+func newtICustomButtonDelegate_147(raw vcef.ICustomButtonDelegate) *tICustomButtonDelegate_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomButtonDelegate_147{
+		raw:                        raw,
+		tICefButtonDelegateOwn_147: newtICefButtonDelegateOwn_147(raw),
+	}
+}
+
+func wrapICustomButtonDelegate(raw vcef.ICustomButtonDelegate) ICustomButtonDelegate {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomButtonDelegate_147(raw)
+}
+
+func unwrapICustomButtonDelegate(value ICustomButtonDelegate) vcef.ICustomButtonDelegate {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomButtonDelegate_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomButtonDelegate](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomButtonDelegate_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomButtonDelegate_147) AsIntfButtonDelegate() uintptr {
+	r0 := t.raw.AsIntfButtonDelegate()
+	return r0
+}
+
+func (t *tICustomButtonDelegate_147) AsIntfViewDelegate() uintptr {
+	r0 := t.raw.AsIntfViewDelegate()
+	return r0
+}
+
+type tICustomCefApp_147 struct {
+	raw vcef.ICustomCefApp
+	*tICefAppOwn_147
+}
+
+func newtICustomCefApp_147(raw vcef.ICustomCefApp) *tICustomCefApp_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomCefApp_147{
+		raw:             raw,
+		tICefAppOwn_147: newtICefAppOwn_147(raw),
+	}
+}
+
+func wrapICustomCefApp(raw vcef.ICustomCefApp) ICustomCefApp {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomCefApp_147(raw)
+}
+
+func unwrapICustomCefApp(value ICustomCefApp) vcef.ICustomCefApp {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomCefApp_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomCefApp](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomCefApp_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomCefApp_147) AsIntfApp() uintptr {
+	r0 := t.raw.AsIntfApp()
+	return r0
+}
+
+type tICustomCefNavigationEntryVisitor_147 struct {
+	raw vcef.ICustomCefNavigationEntryVisitor
+	*tICefNavigationEntryVisitorOwn_147
+}
+
+func newtICustomCefNavigationEntryVisitor_147(raw vcef.ICustomCefNavigationEntryVisitor) *tICustomCefNavigationEntryVisitor_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomCefNavigationEntryVisitor_147{
+		raw:                                raw,
+		tICefNavigationEntryVisitorOwn_147: newtICefNavigationEntryVisitorOwn_147(raw),
+	}
+}
+
+func wrapICustomCefNavigationEntryVisitor(raw vcef.ICustomCefNavigationEntryVisitor) ICustomCefNavigationEntryVisitor {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomCefNavigationEntryVisitor_147(raw)
+}
+
+func unwrapICustomCefNavigationEntryVisitor(value ICustomCefNavigationEntryVisitor) vcef.ICustomCefNavigationEntryVisitor {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomCefNavigationEntryVisitor_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomCefNavigationEntryVisitor](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomCefNavigationEntryVisitor_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomCefNavigationEntryVisitor_147) AsIntfNavigationEntryVisitor() uintptr {
+	r0 := t.raw.AsIntfNavigationEntryVisitor()
+	return r0
+}
+
+type tICustomCefStringVisitor_147 struct {
+	raw vcef.ICustomCefStringVisitor
+	*tICefStringVisitorOwn_147
+}
+
+func newtICustomCefStringVisitor_147(raw vcef.ICustomCefStringVisitor) *tICustomCefStringVisitor_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomCefStringVisitor_147{
+		raw:                       raw,
+		tICefStringVisitorOwn_147: newtICefStringVisitorOwn_147(raw),
+	}
+}
+
+func wrapICustomCefStringVisitor(raw vcef.ICustomCefStringVisitor) ICustomCefStringVisitor {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomCefStringVisitor_147(raw)
+}
+
+func unwrapICustomCefStringVisitor(value ICustomCefStringVisitor) vcef.ICustomCefStringVisitor {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomCefStringVisitor_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomCefStringVisitor](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomCefStringVisitor_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomCefStringVisitor_147) AsIntfStringVisitor() uintptr {
+	r0 := t.raw.AsIntfStringVisitor()
+	return r0
+}
+
+type tICustomCefUrlrequestClient_147 struct {
+	raw vcef.ICustomCefUrlrequestClient
+	*tICefUrlrequestClientOwn_147
+}
+
+func newtICustomCefUrlrequestClient_147(raw vcef.ICustomCefUrlrequestClient) *tICustomCefUrlrequestClient_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomCefUrlrequestClient_147{
+		raw:                          raw,
+		tICefUrlrequestClientOwn_147: newtICefUrlrequestClientOwn_147(raw),
+	}
+}
+
+func wrapICustomCefUrlrequestClient(raw vcef.ICustomCefUrlrequestClient) ICustomCefUrlrequestClient {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomCefUrlrequestClient_147(raw)
+}
+
+func unwrapICustomCefUrlrequestClient(value ICustomCefUrlrequestClient) vcef.ICustomCefUrlrequestClient {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomCefUrlrequestClient_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomCefUrlrequestClient](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomCefUrlrequestClient_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomCefUrlrequestClient_147) AsIntfUrlrequestClient() uintptr {
+	r0 := t.raw.AsIntfUrlrequestClient()
+	return r0
+}
+
+type tICustomClientHandler_147 struct {
+	raw vcef.ICustomClientHandler
+	*tICefClientOwn_147
+}
+
+func newtICustomClientHandler_147(raw vcef.ICustomClientHandler) *tICustomClientHandler_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomClientHandler_147{
+		raw:                raw,
+		tICefClientOwn_147: newtICefClientOwn_147(raw),
+	}
+}
+
+func wrapICustomClientHandler(raw vcef.ICustomClientHandler) ICustomClientHandler {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomClientHandler_147(raw)
+}
+
+func unwrapICustomClientHandler(value ICustomClientHandler) vcef.ICustomClientHandler {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomClientHandler_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomClientHandler](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomClientHandler_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomClientHandler_147) AsIntfClient() uintptr {
+	r0 := t.raw.AsIntfClient()
+	return r0
+}
+
+func (t *tICustomClientHandler_147) RemoveReferences() {
+	t.raw.RemoveReferences()
+}
+
+type tICustomCommandHandler_147 struct {
+	raw vcef.ICustomCommandHandler
+	*tICefCommandHandlerOwn_147
+}
+
+func newtICustomCommandHandler_147(raw vcef.ICustomCommandHandler) *tICustomCommandHandler_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomCommandHandler_147{
+		raw:                        raw,
+		tICefCommandHandlerOwn_147: newtICefCommandHandlerOwn_147(raw),
+	}
+}
+
+func wrapICustomCommandHandler(raw vcef.ICustomCommandHandler) ICustomCommandHandler {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomCommandHandler_147(raw)
+}
+
+func unwrapICustomCommandHandler(value ICustomCommandHandler) vcef.ICustomCommandHandler {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomCommandHandler_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomCommandHandler](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomCommandHandler_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomCommandHandler_147) AsIntfCommandHandler() uintptr {
+	r0 := t.raw.AsIntfCommandHandler()
+	return r0
+}
+
+type tICustomContextMenuHandler_147 struct {
+	raw vcef.ICustomContextMenuHandler
+	*tICefContextMenuHandlerOwn_147
+}
+
+func newtICustomContextMenuHandler_147(raw vcef.ICustomContextMenuHandler) *tICustomContextMenuHandler_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomContextMenuHandler_147{
+		raw:                            raw,
+		tICefContextMenuHandlerOwn_147: newtICefContextMenuHandlerOwn_147(raw),
+	}
+}
+
+func wrapICustomContextMenuHandler(raw vcef.ICustomContextMenuHandler) ICustomContextMenuHandler {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomContextMenuHandler_147(raw)
+}
+
+func unwrapICustomContextMenuHandler(value ICustomContextMenuHandler) vcef.ICustomContextMenuHandler {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomContextMenuHandler_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomContextMenuHandler](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomContextMenuHandler_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomContextMenuHandler_147) AsIntfContextMenuHandler() uintptr {
+	r0 := t.raw.AsIntfContextMenuHandler()
+	return r0
+}
+
+type tICustomCookieAccessFilter_147 struct {
+	raw vcef.ICustomCookieAccessFilter
+	*tICefCookieAccessFilterOwn_147
+}
+
+func newtICustomCookieAccessFilter_147(raw vcef.ICustomCookieAccessFilter) *tICustomCookieAccessFilter_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomCookieAccessFilter_147{
+		raw:                            raw,
+		tICefCookieAccessFilterOwn_147: newtICefCookieAccessFilterOwn_147(raw),
+	}
+}
+
+func wrapICustomCookieAccessFilter(raw vcef.ICustomCookieAccessFilter) ICustomCookieAccessFilter {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomCookieAccessFilter_147(raw)
+}
+
+func unwrapICustomCookieAccessFilter(value ICustomCookieAccessFilter) vcef.ICustomCookieAccessFilter {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomCookieAccessFilter_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomCookieAccessFilter](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomCookieAccessFilter_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomCookieAccessFilter_147) AsIntfCookieAccessFilter() uintptr {
+	r0 := t.raw.AsIntfCookieAccessFilter()
+	return r0
+}
+
+func (t *tICustomCookieAccessFilter_147) RemoveReferences() {
+	t.raw.RemoveReferences()
+}
+
+type tICustomDevToolsMessageObserver_147 struct {
+	raw vcef.ICustomDevToolsMessageObserver
+	*tICEFDevToolsMessageObserverOwn_147
+}
+
+func newtICustomDevToolsMessageObserver_147(raw vcef.ICustomDevToolsMessageObserver) *tICustomDevToolsMessageObserver_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomDevToolsMessageObserver_147{
+		raw:                                 raw,
+		tICEFDevToolsMessageObserverOwn_147: newtICEFDevToolsMessageObserverOwn_147(raw),
+	}
+}
+
+func wrapICustomDevToolsMessageObserver(raw vcef.ICustomDevToolsMessageObserver) ICustomDevToolsMessageObserver {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomDevToolsMessageObserver_147(raw)
+}
+
+func unwrapICustomDevToolsMessageObserver(value ICustomDevToolsMessageObserver) vcef.ICustomDevToolsMessageObserver {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomDevToolsMessageObserver_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomDevToolsMessageObserver](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomDevToolsMessageObserver_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomDevToolsMessageObserver_147) AsIntfDevToolsMessageObserver() uintptr {
+	r0 := t.raw.AsIntfDevToolsMessageObserver()
+	return r0
+}
+
+type tICustomDialogHandler_147 struct {
+	raw vcef.ICustomDialogHandler
+	*tICefDialogHandlerOwn_147
+}
+
+func newtICustomDialogHandler_147(raw vcef.ICustomDialogHandler) *tICustomDialogHandler_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomDialogHandler_147{
+		raw:                       raw,
+		tICefDialogHandlerOwn_147: newtICefDialogHandlerOwn_147(raw),
+	}
+}
+
+func wrapICustomDialogHandler(raw vcef.ICustomDialogHandler) ICustomDialogHandler {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomDialogHandler_147(raw)
+}
+
+func unwrapICustomDialogHandler(value ICustomDialogHandler) vcef.ICustomDialogHandler {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomDialogHandler_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomDialogHandler](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomDialogHandler_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomDialogHandler_147) AsIntfDialogHandler() uintptr {
+	r0 := t.raw.AsIntfDialogHandler()
+	return r0
+}
+
+type tICustomDisplayHandler_147 struct {
+	raw vcef.ICustomDisplayHandler
+	*tICefDisplayHandlerOwn_147
+}
+
+func newtICustomDisplayHandler_147(raw vcef.ICustomDisplayHandler) *tICustomDisplayHandler_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomDisplayHandler_147{
+		raw:                        raw,
+		tICefDisplayHandlerOwn_147: newtICefDisplayHandlerOwn_147(raw),
+	}
+}
+
+func wrapICustomDisplayHandler(raw vcef.ICustomDisplayHandler) ICustomDisplayHandler {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomDisplayHandler_147(raw)
+}
+
+func unwrapICustomDisplayHandler(value ICustomDisplayHandler) vcef.ICustomDisplayHandler {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomDisplayHandler_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomDisplayHandler](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomDisplayHandler_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomDisplayHandler_147) AsIntfDisplayHandler() uintptr {
+	r0 := t.raw.AsIntfDisplayHandler()
+	return r0
+}
+
+type tICustomDownloadHandler_147 struct {
+	raw vcef.ICustomDownloadHandler
+	*tICefDownloadHandlerOwn_147
+}
+
+func newtICustomDownloadHandler_147(raw vcef.ICustomDownloadHandler) *tICustomDownloadHandler_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomDownloadHandler_147{
+		raw:                         raw,
+		tICefDownloadHandlerOwn_147: newtICefDownloadHandlerOwn_147(raw),
+	}
+}
+
+func wrapICustomDownloadHandler(raw vcef.ICustomDownloadHandler) ICustomDownloadHandler {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomDownloadHandler_147(raw)
+}
+
+func unwrapICustomDownloadHandler(value ICustomDownloadHandler) vcef.ICustomDownloadHandler {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomDownloadHandler_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomDownloadHandler](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomDownloadHandler_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomDownloadHandler_147) AsIntfDownloadHandler() uintptr {
+	r0 := t.raw.AsIntfDownloadHandler()
+	return r0
+}
+
+type tICustomDragHandler_147 struct {
+	raw vcef.ICustomDragHandler
+	*tICefDragHandlerOwn_147
+}
+
+func newtICustomDragHandler_147(raw vcef.ICustomDragHandler) *tICustomDragHandler_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomDragHandler_147{
+		raw:                     raw,
+		tICefDragHandlerOwn_147: newtICefDragHandlerOwn_147(raw),
+	}
+}
+
+func wrapICustomDragHandler(raw vcef.ICustomDragHandler) ICustomDragHandler {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomDragHandler_147(raw)
+}
+
+func unwrapICustomDragHandler(value ICustomDragHandler) vcef.ICustomDragHandler {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomDragHandler_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomDragHandler](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomDragHandler_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomDragHandler_147) AsIntfDragHandler() uintptr {
+	r0 := t.raw.AsIntfDragHandler()
+	return r0
+}
+
+type tICustomFindHandler_147 struct {
+	raw vcef.ICustomFindHandler
+	*tICefFindHandlerOwn_147
+}
+
+func newtICustomFindHandler_147(raw vcef.ICustomFindHandler) *tICustomFindHandler_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomFindHandler_147{
+		raw:                     raw,
+		tICefFindHandlerOwn_147: newtICefFindHandlerOwn_147(raw),
+	}
+}
+
+func wrapICustomFindHandler(raw vcef.ICustomFindHandler) ICustomFindHandler {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomFindHandler_147(raw)
+}
+
+func unwrapICustomFindHandler(value ICustomFindHandler) vcef.ICustomFindHandler {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomFindHandler_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomFindHandler](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomFindHandler_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomFindHandler_147) AsIntfFindHandler() uintptr {
+	r0 := t.raw.AsIntfFindHandler()
+	return r0
+}
+
+type tICustomFocusHandler_147 struct {
+	raw vcef.ICustomFocusHandler
+	*tICefFocusHandlerOwn_147
+}
+
+func newtICustomFocusHandler_147(raw vcef.ICustomFocusHandler) *tICustomFocusHandler_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomFocusHandler_147{
+		raw:                      raw,
+		tICefFocusHandlerOwn_147: newtICefFocusHandlerOwn_147(raw),
+	}
+}
+
+func wrapICustomFocusHandler(raw vcef.ICustomFocusHandler) ICustomFocusHandler {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomFocusHandler_147(raw)
+}
+
+func unwrapICustomFocusHandler(value ICustomFocusHandler) vcef.ICustomFocusHandler {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomFocusHandler_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomFocusHandler](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomFocusHandler_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomFocusHandler_147) AsIntfFocusHandler() uintptr {
+	r0 := t.raw.AsIntfFocusHandler()
+	return r0
+}
+
+type tICustomFrameHandler_147 struct {
+	raw vcef.ICustomFrameHandler
+	*tICefFrameHandlerOwn_147
+}
+
+func newtICustomFrameHandler_147(raw vcef.ICustomFrameHandler) *tICustomFrameHandler_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomFrameHandler_147{
+		raw:                      raw,
+		tICefFrameHandlerOwn_147: newtICefFrameHandlerOwn_147(raw),
+	}
+}
+
+func wrapICustomFrameHandler(raw vcef.ICustomFrameHandler) ICustomFrameHandler {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomFrameHandler_147(raw)
+}
+
+func unwrapICustomFrameHandler(value ICustomFrameHandler) vcef.ICustomFrameHandler {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomFrameHandler_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomFrameHandler](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomFrameHandler_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomFrameHandler_147) AsIntfFrameHandler() uintptr {
+	r0 := t.raw.AsIntfFrameHandler()
+	return r0
+}
+
+type tICustomJsDialogHandler_147 struct {
+	raw vcef.ICustomJsDialogHandler
+	*tICefJsDialogHandlerOwn_147
+}
+
+func newtICustomJsDialogHandler_147(raw vcef.ICustomJsDialogHandler) *tICustomJsDialogHandler_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomJsDialogHandler_147{
+		raw:                         raw,
+		tICefJsDialogHandlerOwn_147: newtICefJsDialogHandlerOwn_147(raw),
+	}
+}
+
+func wrapICustomJsDialogHandler(raw vcef.ICustomJsDialogHandler) ICustomJsDialogHandler {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomJsDialogHandler_147(raw)
+}
+
+func unwrapICustomJsDialogHandler(value ICustomJsDialogHandler) vcef.ICustomJsDialogHandler {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomJsDialogHandler_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomJsDialogHandler](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomJsDialogHandler_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomJsDialogHandler_147) AsIntfJsDialogHandler() uintptr {
+	r0 := t.raw.AsIntfJsDialogHandler()
+	return r0
+}
+
+type tICustomKeyboardHandler_147 struct {
+	raw vcef.ICustomKeyboardHandler
+	*tICefKeyboardHandlerOwn_147
+}
+
+func newtICustomKeyboardHandler_147(raw vcef.ICustomKeyboardHandler) *tICustomKeyboardHandler_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomKeyboardHandler_147{
+		raw:                         raw,
+		tICefKeyboardHandlerOwn_147: newtICefKeyboardHandlerOwn_147(raw),
+	}
+}
+
+func wrapICustomKeyboardHandler(raw vcef.ICustomKeyboardHandler) ICustomKeyboardHandler {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomKeyboardHandler_147(raw)
+}
+
+func unwrapICustomKeyboardHandler(value ICustomKeyboardHandler) vcef.ICustomKeyboardHandler {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomKeyboardHandler_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomKeyboardHandler](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomKeyboardHandler_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomKeyboardHandler_147) AsIntfKeyboardHandler() uintptr {
+	r0 := t.raw.AsIntfKeyboardHandler()
+	return r0
+}
+
+type tICustomLifeSpanHandler_147 struct {
+	raw vcef.ICustomLifeSpanHandler
+	*tICefLifeSpanHandlerOwn_147
+}
+
+func newtICustomLifeSpanHandler_147(raw vcef.ICustomLifeSpanHandler) *tICustomLifeSpanHandler_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomLifeSpanHandler_147{
+		raw:                         raw,
+		tICefLifeSpanHandlerOwn_147: newtICefLifeSpanHandlerOwn_147(raw),
+	}
+}
+
+func wrapICustomLifeSpanHandler(raw vcef.ICustomLifeSpanHandler) ICustomLifeSpanHandler {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomLifeSpanHandler_147(raw)
+}
+
+func unwrapICustomLifeSpanHandler(value ICustomLifeSpanHandler) vcef.ICustomLifeSpanHandler {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomLifeSpanHandler_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomLifeSpanHandler](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomLifeSpanHandler_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomLifeSpanHandler_147) AsIntfLifeSpanHandler() uintptr {
+	r0 := t.raw.AsIntfLifeSpanHandler()
+	return r0
+}
+
+type tICustomLoadHandler_147 struct {
+	raw vcef.ICustomLoadHandler
+	*tICefLoadHandlerOwn_147
+}
+
+func newtICustomLoadHandler_147(raw vcef.ICustomLoadHandler) *tICustomLoadHandler_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomLoadHandler_147{
+		raw:                     raw,
+		tICefLoadHandlerOwn_147: newtICefLoadHandlerOwn_147(raw),
+	}
+}
+
+func wrapICustomLoadHandler(raw vcef.ICustomLoadHandler) ICustomLoadHandler {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomLoadHandler_147(raw)
+}
+
+func unwrapICustomLoadHandler(value ICustomLoadHandler) vcef.ICustomLoadHandler {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomLoadHandler_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomLoadHandler](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomLoadHandler_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomLoadHandler_147) AsIntfLoadHandler() uintptr {
+	r0 := t.raw.AsIntfLoadHandler()
+	return r0
+}
+
+type tICustomMediaObserver_147 struct {
+	raw vcef.ICustomMediaObserver
+	*tICefMediaObserverOwn_147
+}
+
+func newtICustomMediaObserver_147(raw vcef.ICustomMediaObserver) *tICustomMediaObserver_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomMediaObserver_147{
+		raw:                       raw,
+		tICefMediaObserverOwn_147: newtICefMediaObserverOwn_147(raw),
+	}
+}
+
+func wrapICustomMediaObserver(raw vcef.ICustomMediaObserver) ICustomMediaObserver {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomMediaObserver_147(raw)
+}
+
+func unwrapICustomMediaObserver(value ICustomMediaObserver) vcef.ICustomMediaObserver {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomMediaObserver_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomMediaObserver](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomMediaObserver_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomMediaObserver_147) AsIntfMediaObserver() uintptr {
+	r0 := t.raw.AsIntfMediaObserver()
+	return r0
+}
+
+type tICustomMenuButtonDelegate_147 struct {
+	raw vcef.ICustomMenuButtonDelegate
+	*tICefMenuButtonDelegateOwn_147
+}
+
+func newtICustomMenuButtonDelegate_147(raw vcef.ICustomMenuButtonDelegate) *tICustomMenuButtonDelegate_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomMenuButtonDelegate_147{
+		raw:                            raw,
+		tICefMenuButtonDelegateOwn_147: newtICefMenuButtonDelegateOwn_147(raw),
+	}
+}
+
+func wrapICustomMenuButtonDelegate(raw vcef.ICustomMenuButtonDelegate) ICustomMenuButtonDelegate {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomMenuButtonDelegate_147(raw)
+}
+
+func unwrapICustomMenuButtonDelegate(value ICustomMenuButtonDelegate) vcef.ICustomMenuButtonDelegate {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomMenuButtonDelegate_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomMenuButtonDelegate](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomMenuButtonDelegate_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomMenuButtonDelegate_147) AsIntfButtonDelegate() uintptr {
+	r0 := t.raw.AsIntfButtonDelegate()
+	return r0
+}
+
+func (t *tICustomMenuButtonDelegate_147) AsIntfMenuButtonDelegate() uintptr {
+	r0 := t.raw.AsIntfMenuButtonDelegate()
+	return r0
+}
+
+func (t *tICustomMenuButtonDelegate_147) AsIntfViewDelegate() uintptr {
+	r0 := t.raw.AsIntfViewDelegate()
+	return r0
+}
+
+type tICustomPanelDelegate_147 struct {
+	raw vcef.ICustomPanelDelegate
+	*tICefPanelDelegateOwn_147
+}
+
+func newtICustomPanelDelegate_147(raw vcef.ICustomPanelDelegate) *tICustomPanelDelegate_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomPanelDelegate_147{
+		raw:                       raw,
+		tICefPanelDelegateOwn_147: newtICefPanelDelegateOwn_147(raw),
+	}
+}
+
+func wrapICustomPanelDelegate(raw vcef.ICustomPanelDelegate) ICustomPanelDelegate {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomPanelDelegate_147(raw)
+}
+
+func unwrapICustomPanelDelegate(value ICustomPanelDelegate) vcef.ICustomPanelDelegate {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomPanelDelegate_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomPanelDelegate](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomPanelDelegate_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomPanelDelegate_147) AsIntfPanelDelegate() uintptr {
+	r0 := t.raw.AsIntfPanelDelegate()
+	return r0
+}
+
+func (t *tICustomPanelDelegate_147) AsIntfViewDelegate() uintptr {
+	r0 := t.raw.AsIntfViewDelegate()
+	return r0
+}
+
+type tICustomPermissionHandler_147 struct {
+	raw vcef.ICustomPermissionHandler
+	*tICefPermissionHandlerOwn_147
+}
+
+func newtICustomPermissionHandler_147(raw vcef.ICustomPermissionHandler) *tICustomPermissionHandler_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomPermissionHandler_147{
+		raw:                           raw,
+		tICefPermissionHandlerOwn_147: newtICefPermissionHandlerOwn_147(raw),
+	}
+}
+
+func wrapICustomPermissionHandler(raw vcef.ICustomPermissionHandler) ICustomPermissionHandler {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomPermissionHandler_147(raw)
+}
+
+func unwrapICustomPermissionHandler(value ICustomPermissionHandler) vcef.ICustomPermissionHandler {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomPermissionHandler_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomPermissionHandler](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomPermissionHandler_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomPermissionHandler_147) AsIntfPermissionHandler() uintptr {
+	r0 := t.raw.AsIntfPermissionHandler()
+	return r0
+}
+
+type tICustomPrintHandler_147 struct {
+	raw vcef.ICustomPrintHandler
+	*tICefPrintHandlerOwn_147
+}
+
+func newtICustomPrintHandler_147(raw vcef.ICustomPrintHandler) *tICustomPrintHandler_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomPrintHandler_147{
+		raw:                      raw,
+		tICefPrintHandlerOwn_147: newtICefPrintHandlerOwn_147(raw),
+	}
+}
+
+func wrapICustomPrintHandler(raw vcef.ICustomPrintHandler) ICustomPrintHandler {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomPrintHandler_147(raw)
+}
+
+func unwrapICustomPrintHandler(value ICustomPrintHandler) vcef.ICustomPrintHandler {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomPrintHandler_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomPrintHandler](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomPrintHandler_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomPrintHandler_147) AsIntfPrintHandler() uintptr {
+	r0 := t.raw.AsIntfPrintHandler()
+	return r0
+}
+
+type tICustomRenderHandler_147 struct {
+	raw vcef.ICustomRenderHandler
+	*tICefRenderHandlerOwn_147
+}
+
+func newtICustomRenderHandler_147(raw vcef.ICustomRenderHandler) *tICustomRenderHandler_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomRenderHandler_147{
+		raw:                       raw,
+		tICefRenderHandlerOwn_147: newtICefRenderHandlerOwn_147(raw),
+	}
+}
+
+func wrapICustomRenderHandler(raw vcef.ICustomRenderHandler) ICustomRenderHandler {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomRenderHandler_147(raw)
+}
+
+func unwrapICustomRenderHandler(value ICustomRenderHandler) vcef.ICustomRenderHandler {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomRenderHandler_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomRenderHandler](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomRenderHandler_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomRenderHandler_147) AsIntfRenderHandler() uintptr {
+	r0 := t.raw.AsIntfRenderHandler()
+	return r0
+}
+
+type tICustomRenderLoadHandler_147 struct {
+	raw vcef.ICustomRenderLoadHandler
+	*tICefLoadHandlerOwn_147
+}
+
+func newtICustomRenderLoadHandler_147(raw vcef.ICustomRenderLoadHandler) *tICustomRenderLoadHandler_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomRenderLoadHandler_147{
+		raw:                     raw,
+		tICefLoadHandlerOwn_147: newtICefLoadHandlerOwn_147(raw),
+	}
+}
+
+func wrapICustomRenderLoadHandler(raw vcef.ICustomRenderLoadHandler) ICustomRenderLoadHandler {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomRenderLoadHandler_147(raw)
+}
+
+func unwrapICustomRenderLoadHandler(value ICustomRenderLoadHandler) vcef.ICustomRenderLoadHandler {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomRenderLoadHandler_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomRenderLoadHandler](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomRenderLoadHandler_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomRenderLoadHandler_147) AsIntfLoadHandler() uintptr {
+	r0 := t.raw.AsIntfLoadHandler()
+	return r0
+}
+
+type tICustomRequestContextHandler_147 struct {
+	raw vcef.ICustomRequestContextHandler
+	*tICefRequestContextHandlerOwn_147
+}
+
+func newtICustomRequestContextHandler_147(raw vcef.ICustomRequestContextHandler) *tICustomRequestContextHandler_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomRequestContextHandler_147{
+		raw:                               raw,
+		tICefRequestContextHandlerOwn_147: newtICefRequestContextHandlerOwn_147(raw),
+	}
+}
+
+func wrapICustomRequestContextHandler(raw vcef.ICustomRequestContextHandler) ICustomRequestContextHandler {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomRequestContextHandler_147(raw)
+}
+
+func unwrapICustomRequestContextHandler(value ICustomRequestContextHandler) vcef.ICustomRequestContextHandler {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomRequestContextHandler_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomRequestContextHandler](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomRequestContextHandler_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomRequestContextHandler_147) AsIntfRequestContextHandler() uintptr {
+	r0 := t.raw.AsIntfRequestContextHandler()
+	return r0
+}
+
+func (t *tICustomRequestContextHandler_147) RemoveReferences() {
+	t.raw.RemoveReferences()
+}
+
+type tICustomRequestHandler_147 struct {
+	raw vcef.ICustomRequestHandler
+	*tICefRequestHandlerOwn_147
+}
+
+func newtICustomRequestHandler_147(raw vcef.ICustomRequestHandler) *tICustomRequestHandler_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomRequestHandler_147{
+		raw:                        raw,
+		tICefRequestHandlerOwn_147: newtICefRequestHandlerOwn_147(raw),
+	}
+}
+
+func wrapICustomRequestHandler(raw vcef.ICustomRequestHandler) ICustomRequestHandler {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomRequestHandler_147(raw)
+}
+
+func unwrapICustomRequestHandler(value ICustomRequestHandler) vcef.ICustomRequestHandler {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomRequestHandler_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomRequestHandler](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomRequestHandler_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomRequestHandler_147) AsIntfRequestHandler() uintptr {
+	r0 := t.raw.AsIntfRequestHandler()
+	return r0
+}
+
+func (t *tICustomRequestHandler_147) RemoveReferences() {
+	t.raw.RemoveReferences()
+}
+
+type tICustomResourceRequestHandler_147 struct {
+	raw vcef.ICustomResourceRequestHandler
+	*tICefResourceRequestHandlerOwn_147
+}
+
+func newtICustomResourceRequestHandler_147(raw vcef.ICustomResourceRequestHandler) *tICustomResourceRequestHandler_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomResourceRequestHandler_147{
+		raw:                                raw,
+		tICefResourceRequestHandlerOwn_147: newtICefResourceRequestHandlerOwn_147(raw),
+	}
+}
+
+func wrapICustomResourceRequestHandler(raw vcef.ICustomResourceRequestHandler) ICustomResourceRequestHandler {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomResourceRequestHandler_147(raw)
+}
+
+func unwrapICustomResourceRequestHandler(value ICustomResourceRequestHandler) vcef.ICustomResourceRequestHandler {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomResourceRequestHandler_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomResourceRequestHandler](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomResourceRequestHandler_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomResourceRequestHandler_147) AsIntfResourceRequestHandler() uintptr {
+	r0 := t.raw.AsIntfResourceRequestHandler()
+	return r0
+}
+
+func (t *tICustomResourceRequestHandler_147) RemoveReferences() {
+	t.raw.RemoveReferences()
+}
+
+type tICustomResponseFilter_147 struct {
+	raw vcef.ICustomResponseFilter
+	*tICefResponseFilterOwn_147
+}
+
+func newtICustomResponseFilter_147(raw vcef.ICustomResponseFilter) *tICustomResponseFilter_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomResponseFilter_147{
+		raw:                        raw,
+		tICefResponseFilterOwn_147: newtICefResponseFilterOwn_147(raw),
+	}
+}
+
+func wrapICustomResponseFilter(raw vcef.ICustomResponseFilter) ICustomResponseFilter {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomResponseFilter_147(raw)
+}
+
+func unwrapICustomResponseFilter(value ICustomResponseFilter) vcef.ICustomResponseFilter {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomResponseFilter_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomResponseFilter](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomResponseFilter_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomResponseFilter_147) AsIntfResponseFilter() uintptr {
+	r0 := t.raw.AsIntfResponseFilter()
+	return r0
+}
+
+func (t *tICustomResponseFilter_147) SetOnFilter(fn TOnFilterEvent) {
+	t.raw.SetOnFilter(func(sender lcl.IObject, dataIn uintptr, dataInSize cefTypes.NativeUInt, dataInRead *cefTypes.NativeUInt, dataOut uintptr, dataOutSize cefTypes.NativeUInt, dataOutWritten *cefTypes.NativeUInt, result *cefTypes.TCefResponseFilterStatus) {
+		fn(sender, dataIn, dataInSize, dataInRead, dataOut, dataOutSize, dataOutWritten, result)
+	})
+}
+
+func (t *tICustomResponseFilter_147) SetOnInitFilter(fn TOnInitFilterEvent) {
+	t.raw.SetOnInitFilter(func(sender lcl.IObject, result *bool) { fn(sender, result) })
+}
+
+type tICustomServerHandler_147 struct {
+	raw vcef.ICustomServerHandler
+	*tICEFServerHandlerOwn_147
+}
+
+func newtICustomServerHandler_147(raw vcef.ICustomServerHandler) *tICustomServerHandler_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomServerHandler_147{
+		raw:                       raw,
+		tICEFServerHandlerOwn_147: newtICEFServerHandlerOwn_147(raw),
+	}
+}
+
+func wrapICustomServerHandler(raw vcef.ICustomServerHandler) ICustomServerHandler {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomServerHandler_147(raw)
+}
+
+func unwrapICustomServerHandler(value ICustomServerHandler) vcef.ICustomServerHandler {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomServerHandler_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomServerHandler](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomServerHandler_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomServerHandler_147) AsIntfServerHandler() uintptr {
+	r0 := t.raw.AsIntfServerHandler()
+	return r0
+}
+
+type tICustomTextfieldDelegate_147 struct {
+	raw vcef.ICustomTextfieldDelegate
+	*tICefTextfieldDelegateOwn_147
+}
+
+func newtICustomTextfieldDelegate_147(raw vcef.ICustomTextfieldDelegate) *tICustomTextfieldDelegate_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomTextfieldDelegate_147{
+		raw:                           raw,
+		tICefTextfieldDelegateOwn_147: newtICefTextfieldDelegateOwn_147(raw),
+	}
+}
+
+func wrapICustomTextfieldDelegate(raw vcef.ICustomTextfieldDelegate) ICustomTextfieldDelegate {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomTextfieldDelegate_147(raw)
+}
+
+func unwrapICustomTextfieldDelegate(value ICustomTextfieldDelegate) vcef.ICustomTextfieldDelegate {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomTextfieldDelegate_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomTextfieldDelegate](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomTextfieldDelegate_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomTextfieldDelegate_147) AsIntfTextfieldDelegate() uintptr {
+	r0 := t.raw.AsIntfTextfieldDelegate()
+	return r0
+}
+
+func (t *tICustomTextfieldDelegate_147) AsIntfViewDelegate() uintptr {
+	r0 := t.raw.AsIntfViewDelegate()
+	return r0
+}
+
+type tICustomViewDelegate_147 struct {
+	raw vcef.ICustomViewDelegate
+	*tICefViewDelegateOwn_147
+}
+
+func newtICustomViewDelegate_147(raw vcef.ICustomViewDelegate) *tICustomViewDelegate_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomViewDelegate_147{
+		raw:                      raw,
+		tICefViewDelegateOwn_147: newtICefViewDelegateOwn_147(raw),
+	}
+}
+
+func wrapICustomViewDelegate(raw vcef.ICustomViewDelegate) ICustomViewDelegate {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomViewDelegate_147(raw)
+}
+
+func unwrapICustomViewDelegate(value ICustomViewDelegate) vcef.ICustomViewDelegate {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomViewDelegate_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomViewDelegate](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomViewDelegate_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomViewDelegate_147) AsIntfViewDelegate() uintptr {
+	r0 := t.raw.AsIntfViewDelegate()
+	return r0
+}
+
+type tICustomWindowDelegate_147 struct {
+	raw vcef.ICustomWindowDelegate
+	*tICefWindowDelegateOwn_147
+}
+
+func newtICustomWindowDelegate_147(raw vcef.ICustomWindowDelegate) *tICustomWindowDelegate_147 {
+	if raw == nil {
+		return nil
+	}
+	return &tICustomWindowDelegate_147{
+		raw:                        raw,
+		tICefWindowDelegateOwn_147: newtICefWindowDelegateOwn_147(raw),
+	}
+}
+
+func wrapICustomWindowDelegate(raw vcef.ICustomWindowDelegate) ICustomWindowDelegate {
+	if raw == nil {
+		return nil
+	}
+	return newtICustomWindowDelegate_147(raw)
+}
+
+func unwrapICustomWindowDelegate(value ICustomWindowDelegate) vcef.ICustomWindowDelegate {
+	if value == nil {
+		return nil
+	}
+	if wrapped, ok := value.(*tICustomWindowDelegate_147); ok {
+		return wrapped.raw
+	}
+	if raw, ok := RawAs[vcef.ICustomWindowDelegate](value); ok {
+		return raw
+	}
+	return nil
+}
+
+func (t *tICustomWindowDelegate_147) Raw() Raw {
+	return t.raw
+}
+
+func (t *tICustomWindowDelegate_147) AsIntfPanelDelegate() uintptr {
+	r0 := t.raw.AsIntfPanelDelegate()
+	return r0
+}
+
+func (t *tICustomWindowDelegate_147) AsIntfViewDelegate() uintptr {
+	r0 := t.raw.AsIntfViewDelegate()
+	return r0
+}
+
+func (t *tICustomWindowDelegate_147) AsIntfWindowDelegate() uintptr {
+	r0 := t.raw.AsIntfWindowDelegate()
+	return r0
+}
+
 type tIEngAccessibilityHandler_147 struct {
 	raw vcef.IEngAccessibilityHandler
 	*tICEFAccessibilityHandlerOwn_147
@@ -31892,6 +35279,9 @@ func newtIEngAccessibilityHandler_147(raw vcef.IEngAccessibilityHandler) *tIEngA
 }
 
 func wrapIEngAccessibilityHandler(raw vcef.IEngAccessibilityHandler) IEngAccessibilityHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngAccessibilityHandler_147(raw)
 }
 
@@ -31941,6 +35331,9 @@ func newtIEngApp_147(raw vcef.IEngApp) *tIEngApp_147 {
 }
 
 func wrapIEngApp(raw vcef.IEngApp) IEngApp {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngApp_147(raw)
 }
 
@@ -32022,6 +35415,9 @@ func newtIEngAudioHandler_147(raw vcef.IEngAudioHandler) *tIEngAudioHandler_147 
 }
 
 func wrapIEngAudioHandler(raw vcef.IEngAudioHandler) IEngAudioHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngAudioHandler_147(raw)
 }
 
@@ -32088,7 +35484,10 @@ func newtIEngBrowserProcessHandler_147(raw vcef.IEngBrowserProcessHandler) *tIEn
 	}
 }
 
-func wrapIEngBrowserProcessHandler(raw vcef.IEngBrowserProcessHandler) IEngBrowserProcessHandler {
+func wrapIEngBrowserProcessHandler(raw vcef.IEngBrowserProcessHandler) IEngBrowserProcessHandler_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngBrowserProcessHandler_147(raw)
 }
 
@@ -32171,7 +35570,10 @@ func newtIEngBrowserViewDelegate_147(raw vcef.IEngBrowserViewDelegate) *tIEngBro
 	}
 }
 
-func wrapIEngBrowserViewDelegate(raw vcef.IEngBrowserViewDelegate) IEngBrowserViewDelegate {
+func wrapIEngBrowserViewDelegate(raw vcef.IEngBrowserViewDelegate) IEngBrowserViewDelegate_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngBrowserViewDelegate_147(raw)
 }
 
@@ -32274,6 +35676,9 @@ func newtIEngButtonDelegate_147(raw vcef.IEngButtonDelegate) *tIEngButtonDelegat
 }
 
 func wrapIEngButtonDelegate(raw vcef.IEngButtonDelegate) IEngButtonDelegate {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngButtonDelegate_147(raw)
 }
 
@@ -32328,6 +35733,9 @@ func newtIEngClient_147(raw vcef.IEngClient) *tIEngClient_147 {
 }
 
 func wrapIEngClient(raw vcef.IEngClient) IEngClient {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngClient_147(raw)
 }
 
@@ -32555,7 +35963,10 @@ func newtIEngCommandHandler_147(raw vcef.IEngCommandHandler) *tIEngCommandHandle
 	}
 }
 
-func wrapIEngCommandHandler(raw vcef.IEngCommandHandler) IEngCommandHandler {
+func wrapIEngCommandHandler(raw vcef.IEngCommandHandler) IEngCommandHandler_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngCommandHandler_147(raw)
 }
 
@@ -32632,6 +36043,9 @@ func newtIEngCompletionCallback_147(raw vcef.IEngCompletionCallback) *tIEngCompl
 }
 
 func wrapIEngCompletionCallback(raw vcef.IEngCompletionCallback) IEngCompletionCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngCompletionCallback_147(raw)
 }
 
@@ -32677,6 +36091,9 @@ func newtIEngContextMenuHandler_147(raw vcef.IEngContextMenuHandler) *tIEngConte
 }
 
 func wrapIEngContextMenuHandler(raw vcef.IEngContextMenuHandler) IEngContextMenuHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngContextMenuHandler_147(raw)
 }
 
@@ -32764,6 +36181,9 @@ func newtIEngCookieAccessFilter_147(raw vcef.IEngCookieAccessFilter) *tIEngCooki
 }
 
 func wrapIEngCookieAccessFilter(raw vcef.IEngCookieAccessFilter) IEngCookieAccessFilter {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngCookieAccessFilter_147(raw)
 }
 
@@ -32819,6 +36239,9 @@ func newtIEngCookieVisitor_147(raw vcef.IEngCookieVisitor) *tIEngCookieVisitor_1
 }
 
 func wrapIEngCookieVisitor(raw vcef.IEngCookieVisitor) IEngCookieVisitor {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngCookieVisitor_147(raw)
 }
 
@@ -32867,6 +36290,9 @@ func newtIEngDeleteCookiesCallback_147(raw vcef.IEngDeleteCookiesCallback) *tIEn
 }
 
 func wrapIEngDeleteCookiesCallback(raw vcef.IEngDeleteCookiesCallback) IEngDeleteCookiesCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngDeleteCookiesCallback_147(raw)
 }
 
@@ -32912,6 +36338,9 @@ func newtIEngDevToolsMessageObserver_147(raw vcef.IEngDevToolsMessageObserver) *
 }
 
 func wrapIEngDevToolsMessageObserver(raw vcef.IEngDevToolsMessageObserver) IEngDevToolsMessageObserver {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngDevToolsMessageObserver_147(raw)
 }
 
@@ -32979,6 +36408,9 @@ func newtIEngDialogHandler_147(raw vcef.IEngDialogHandler) *tIEngDialogHandler_1
 }
 
 func wrapIEngDialogHandler(raw vcef.IEngDialogHandler) IEngDialogHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngDialogHandler_147(raw)
 }
 
@@ -33026,7 +36458,10 @@ func newtIEngDisplayHandler_147(raw vcef.IEngDisplayHandler) *tIEngDisplayHandle
 	}
 }
 
-func wrapIEngDisplayHandler(raw vcef.IEngDisplayHandler) IEngDisplayHandler {
+func wrapIEngDisplayHandler(raw vcef.IEngDisplayHandler) IEngDisplayHandler_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngDisplayHandler_147(raw)
 }
 
@@ -33141,6 +36576,9 @@ func newtIEngDomVisitor_147(raw vcef.IEngDomVisitor) *tIEngDomVisitor_147 {
 }
 
 func wrapIEngDomVisitor(raw vcef.IEngDomVisitor) IEngDomVisitor {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngDomVisitor_147(raw)
 }
 
@@ -33186,6 +36624,9 @@ func newtIEngDownloadHandler_147(raw vcef.IEngDownloadHandler) *tIEngDownloadHan
 }
 
 func wrapIEngDownloadHandler(raw vcef.IEngDownloadHandler) IEngDownloadHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngDownloadHandler_147(raw)
 }
 
@@ -33247,6 +36688,9 @@ func newtIEngDownloadImageCallback_147(raw vcef.IEngDownloadImageCallback) *tIEn
 }
 
 func wrapIEngDownloadImageCallback(raw vcef.IEngDownloadImageCallback) IEngDownloadImageCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngDownloadImageCallback_147(raw)
 }
 
@@ -33294,6 +36738,9 @@ func newtIEngDragHandler_147(raw vcef.IEngDragHandler) *tIEngDragHandler_147 {
 }
 
 func wrapIEngDragHandler(raw vcef.IEngDragHandler) IEngDragHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngDragHandler_147(raw)
 }
 
@@ -33348,6 +36795,9 @@ func newtIEngEndTracingCallback_147(raw vcef.IEngEndTracingCallback) *tIEngEndTr
 }
 
 func wrapIEngEndTracingCallback(raw vcef.IEngEndTracingCallback) IEngEndTracingCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngEndTracingCallback_147(raw)
 }
 
@@ -33393,6 +36843,9 @@ func newtIEngFindHandler_147(raw vcef.IEngFindHandler) *tIEngFindHandler_147 {
 }
 
 func wrapIEngFindHandler(raw vcef.IEngFindHandler) IEngFindHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngFindHandler_147(raw)
 }
 
@@ -33440,6 +36893,9 @@ func newtIEngFocusHandler_147(raw vcef.IEngFocusHandler) *tIEngFocusHandler_147 
 }
 
 func wrapIEngFocusHandler(raw vcef.IEngFocusHandler) IEngFocusHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngFocusHandler_147(raw)
 }
 
@@ -33495,7 +36951,10 @@ func newtIEngFrameHandler_147(raw vcef.IEngFrameHandler) *tIEngFrameHandler_147 
 	}
 }
 
-func wrapIEngFrameHandler(raw vcef.IEngFrameHandler) IEngFrameHandler {
+func wrapIEngFrameHandler(raw vcef.IEngFrameHandler) IEngFrameHandler_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngFrameHandler_147(raw)
 }
 
@@ -33567,6 +37026,9 @@ func newtIEngJsDialogHandler_147(raw vcef.IEngJsDialogHandler) *tIEngJsDialogHan
 }
 
 func wrapIEngJsDialogHandler(raw vcef.IEngJsDialogHandler) IEngJsDialogHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngJsDialogHandler_147(raw)
 }
 
@@ -33630,6 +37092,9 @@ func newtIEngKeyboardHandler_147(raw vcef.IEngKeyboardHandler) *tIEngKeyboardHan
 }
 
 func wrapIEngKeyboardHandler(raw vcef.IEngKeyboardHandler) IEngKeyboardHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngKeyboardHandler_147(raw)
 }
 
@@ -33684,7 +37149,10 @@ func newtIEngLifeSpanHandler_147(raw vcef.IEngLifeSpanHandler) *tIEngLifeSpanHan
 	}
 }
 
-func wrapIEngLifeSpanHandler(raw vcef.IEngLifeSpanHandler) IEngLifeSpanHandler {
+func wrapIEngLifeSpanHandler(raw vcef.IEngLifeSpanHandler) IEngLifeSpanHandler_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngLifeSpanHandler_147(raw)
 }
 
@@ -33774,6 +37242,9 @@ func newtIEngLoadHandler_147(raw vcef.IEngLoadHandler) *tIEngLoadHandler_147 {
 }
 
 func wrapIEngLoadHandler(raw vcef.IEngLoadHandler) IEngLoadHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngLoadHandler_147(raw)
 }
 
@@ -33839,6 +37310,9 @@ func newtIEngMediaObserver_147(raw vcef.IEngMediaObserver) *tIEngMediaObserver_1
 }
 
 func wrapIEngMediaObserver(raw vcef.IEngMediaObserver) IEngMediaObserver {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngMediaObserver_147(raw)
 }
 
@@ -33898,6 +37372,9 @@ func newtIEngMediaRouteCreateCallback_147(raw vcef.IEngMediaRouteCreateCallback)
 }
 
 func wrapIEngMediaRouteCreateCallback(raw vcef.IEngMediaRouteCreateCallback) IEngMediaRouteCreateCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngMediaRouteCreateCallback_147(raw)
 }
 
@@ -33945,6 +37422,9 @@ func newtIEngMediaSinkDeviceInfoCallback_147(raw vcef.IEngMediaSinkDeviceInfoCal
 }
 
 func wrapIEngMediaSinkDeviceInfoCallback(raw vcef.IEngMediaSinkDeviceInfoCallback) IEngMediaSinkDeviceInfoCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngMediaSinkDeviceInfoCallback_147(raw)
 }
 
@@ -33990,6 +37470,9 @@ func newtIEngMenuButtonDelegate_147(raw vcef.IEngMenuButtonDelegate) *tIEngMenuB
 }
 
 func wrapIEngMenuButtonDelegate(raw vcef.IEngMenuButtonDelegate) IEngMenuButtonDelegate {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngMenuButtonDelegate_147(raw)
 }
 
@@ -34047,6 +37530,9 @@ func newtIEngMenuModelDelegate_147(raw vcef.IEngMenuModelDelegate) *tIEngMenuMod
 }
 
 func wrapIEngMenuModelDelegate(raw vcef.IEngMenuModelDelegate) IEngMenuModelDelegate {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngMenuModelDelegate_147(raw)
 }
 
@@ -34123,6 +37609,9 @@ func newtIEngNavigationEntryVisitor_147(raw vcef.IEngNavigationEntryVisitor) *tI
 }
 
 func wrapIEngNavigationEntryVisitor(raw vcef.IEngNavigationEntryVisitor) IEngNavigationEntryVisitor {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngNavigationEntryVisitor_147(raw)
 }
 
@@ -34171,6 +37660,9 @@ func newtIEngPanelDelegate_147(raw vcef.IEngPanelDelegate) *tIEngPanelDelegate_1
 }
 
 func wrapIEngPanelDelegate(raw vcef.IEngPanelDelegate) IEngPanelDelegate {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngPanelDelegate_147(raw)
 }
 
@@ -34217,6 +37709,9 @@ func newtIEngPdfPrintCallback_147(raw vcef.IEngPdfPrintCallback) *tIEngPdfPrintC
 }
 
 func wrapIEngPdfPrintCallback(raw vcef.IEngPdfPrintCallback) IEngPdfPrintCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngPdfPrintCallback_147(raw)
 }
 
@@ -34262,6 +37757,9 @@ func newtIEngPermissionHandler_147(raw vcef.IEngPermissionHandler) *tIEngPermiss
 }
 
 func wrapIEngPermissionHandler(raw vcef.IEngPermissionHandler) IEngPermissionHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngPermissionHandler_147(raw)
 }
 
@@ -34323,6 +37821,9 @@ func newtIEngPreferenceObserver_147(raw vcef.IEngPreferenceObserver) *tIEngPrefe
 }
 
 func wrapIEngPreferenceObserver(raw vcef.IEngPreferenceObserver) IEngPreferenceObserver_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngPreferenceObserver_147(raw)
 }
 
@@ -34368,6 +37869,9 @@ func newtIEngPrintHandler_147(raw vcef.IEngPrintHandler) *tIEngPrintHandler_147 
 }
 
 func wrapIEngPrintHandler(raw vcef.IEngPrintHandler) IEngPrintHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngPrintHandler_147(raw)
 }
 
@@ -34441,6 +37945,9 @@ func newtIEngRenderHandler_147(raw vcef.IEngRenderHandler) *tIEngRenderHandler_1
 }
 
 func wrapIEngRenderHandler(raw vcef.IEngRenderHandler) IEngRenderHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngRenderHandler_147(raw)
 }
 
@@ -34582,6 +38089,9 @@ func newtIEngRenderProcessHandler_147(raw vcef.IEngRenderProcessHandler) *tIEngR
 }
 
 func wrapIEngRenderProcessHandler(raw vcef.IEngRenderProcessHandler) IEngRenderProcessHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngRenderProcessHandler_147(raw)
 }
 
@@ -34675,6 +38185,9 @@ func newtIEngRequestContextHandler_147(raw vcef.IEngRequestContextHandler) *tIEn
 }
 
 func wrapIEngRequestContextHandler(raw vcef.IEngRequestContextHandler) IEngRequestContextHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngRequestContextHandler_147(raw)
 }
 
@@ -34729,7 +38242,10 @@ func newtIEngRequestHandler_147(raw vcef.IEngRequestHandler) *tIEngRequestHandle
 	}
 }
 
-func wrapIEngRequestHandler(raw vcef.IEngRequestHandler) IEngRequestHandler {
+func wrapIEngRequestHandler(raw vcef.IEngRequestHandler) IEngRequestHandler_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngRequestHandler_147(raw)
 }
 
@@ -34841,6 +38357,9 @@ func newtIEngResolveCallback_147(raw vcef.IEngResolveCallback) *tIEngResolveCall
 }
 
 func wrapIEngResolveCallback(raw vcef.IEngResolveCallback) IEngResolveCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngResolveCallback_147(raw)
 }
 
@@ -34886,6 +38405,9 @@ func newtIEngResourceBundleHandler_147(raw vcef.IEngResourceBundleHandler) *tIEn
 }
 
 func wrapIEngResourceBundleHandler(raw vcef.IEngResourceBundleHandler) IEngResourceBundleHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngResourceBundleHandler_147(raw)
 }
 
@@ -34948,6 +38470,9 @@ func newtIEngResourceHandler_147(raw vcef.IEngResourceHandler) *tIEngResourceHan
 }
 
 func wrapIEngResourceHandler(raw vcef.IEngResourceHandler) IEngResourceHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngResourceHandler_147(raw)
 }
 
@@ -35034,6 +38559,9 @@ func newtIEngResourceRequestHandler_147(raw vcef.IEngResourceRequestHandler) *tI
 }
 
 func wrapIEngResourceRequestHandler(raw vcef.IEngResourceRequestHandler) IEngResourceRequestHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngResourceRequestHandler_147(raw)
 }
 
@@ -35137,6 +38665,9 @@ func newtIEngResponseFilter_147(raw vcef.IEngResponseFilter) *tIEngResponseFilte
 }
 
 func wrapIEngResponseFilter(raw vcef.IEngResponseFilter) IEngResponseFilter {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngResponseFilter_147(raw)
 }
 
@@ -35192,6 +38723,9 @@ func newtIEngRunFileDialogCallback_147(raw vcef.IEngRunFileDialogCallback) *tIEn
 }
 
 func wrapIEngRunFileDialogCallback(raw vcef.IEngRunFileDialogCallback) IEngRunFileDialogCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngRunFileDialogCallback_147(raw)
 }
 
@@ -35237,6 +38771,9 @@ func newtIEngSchemeHandlerFactory_147(raw vcef.IEngSchemeHandlerFactory) *tIEngS
 }
 
 func wrapIEngSchemeHandlerFactory(raw vcef.IEngSchemeHandlerFactory) IEngSchemeHandlerFactory {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngSchemeHandlerFactory_147(raw)
 }
 
@@ -35285,6 +38822,9 @@ func newtIEngServerHandler_147(raw vcef.IEngServerHandler) *tIEngServerHandler_1
 }
 
 func wrapIEngServerHandler(raw vcef.IEngServerHandler) IEngServerHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngServerHandler_147(raw)
 }
 
@@ -35364,6 +38904,9 @@ func newtIEngSetCookieCallback_147(raw vcef.IEngSetCookieCallback) *tIEngSetCook
 }
 
 func wrapIEngSetCookieCallback(raw vcef.IEngSetCookieCallback) IEngSetCookieCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngSetCookieCallback_147(raw)
 }
 
@@ -35409,6 +38952,9 @@ func newtIEngSettingObserver_147(raw vcef.IEngSettingObserver) *tIEngSettingObse
 }
 
 func wrapIEngSettingObserver(raw vcef.IEngSettingObserver) IEngSettingObserver_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngSettingObserver_147(raw)
 }
 
@@ -35456,6 +39002,9 @@ func newtIEngStringVisitor_147(raw vcef.IEngStringVisitor) *tIEngStringVisitor_1
 }
 
 func wrapIEngStringVisitor(raw vcef.IEngStringVisitor) IEngStringVisitor {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngStringVisitor_147(raw)
 }
 
@@ -35501,6 +39050,9 @@ func newtIEngTask_147(raw vcef.IEngTask) *tIEngTask_147 {
 }
 
 func wrapIEngTask(raw vcef.IEngTask) IEngTask {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngTask_147(raw)
 }
 
@@ -35546,6 +39098,9 @@ func newtIEngTextfieldDelegate_147(raw vcef.IEngTextfieldDelegate) *tIEngTextfie
 }
 
 func wrapIEngTextfieldDelegate(raw vcef.IEngTextfieldDelegate) IEngTextfieldDelegate {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngTextfieldDelegate_147(raw)
 }
 
@@ -35602,6 +39157,9 @@ func newtIEngUrlrequestClient_147(raw vcef.IEngUrlrequestClient) *tIEngUrlreques
 }
 
 func wrapIEngUrlrequestClient(raw vcef.IEngUrlrequestClient) IEngUrlrequestClient {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngUrlrequestClient_147(raw)
 }
 
@@ -35672,6 +39230,9 @@ func newtIEngV8Accessor_147(raw vcef.IEngV8Accessor) *tIEngV8Accessor_147 {
 }
 
 func wrapIEngV8Accessor(raw vcef.IEngV8Accessor) IEngV8Accessor {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngV8Accessor_147(raw)
 }
 
@@ -35731,6 +39292,9 @@ func newtIEngV8ArrayBufferReleaseCallback_147(raw vcef.IEngV8ArrayBufferReleaseC
 }
 
 func wrapIEngV8ArrayBufferReleaseCallback(raw vcef.IEngV8ArrayBufferReleaseCallback) IEngV8ArrayBufferReleaseCallback {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngV8ArrayBufferReleaseCallback_147(raw)
 }
 
@@ -35776,6 +39340,9 @@ func newtIEngV8Handler_147(raw vcef.IEngV8Handler) *tIEngV8Handler_147 {
 }
 
 func wrapIEngV8Handler(raw vcef.IEngV8Handler) IEngV8Handler {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngV8Handler_147(raw)
 }
 
@@ -35828,6 +39395,9 @@ func newtIEngV8Interceptor_147(raw vcef.IEngV8Interceptor) *tIEngV8Interceptor_1
 }
 
 func wrapIEngV8Interceptor(raw vcef.IEngV8Interceptor) IEngV8Interceptor {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngV8Interceptor_147(raw)
 }
 
@@ -35904,7 +39474,10 @@ func newtIEngViewDelegate_147(raw vcef.IEngViewDelegate) *tIEngViewDelegate_147 
 	}
 }
 
-func wrapIEngViewDelegate(raw vcef.IEngViewDelegate) IEngViewDelegate {
+func wrapIEngViewDelegate(raw vcef.IEngViewDelegate) IEngViewDelegate_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngViewDelegate_147(raw)
 }
 
@@ -35993,7 +39566,10 @@ func newtIEngWindowDelegate_147(raw vcef.IEngWindowDelegate) *tIEngWindowDelegat
 	}
 }
 
-func wrapIEngWindowDelegate(raw vcef.IEngWindowDelegate) IEngWindowDelegate {
+func wrapIEngWindowDelegate(raw vcef.IEngWindowDelegate) IEngWindowDelegate_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngWindowDelegate_147(raw)
 }
 
@@ -36151,6 +39727,9 @@ func newtIEngWriteHandler_147(raw vcef.IEngWriteHandler) *tIEngWriteHandler_147 
 }
 
 func wrapIEngWriteHandler(raw vcef.IEngWriteHandler) IEngWriteHandler {
+	if raw == nil {
+		return nil
+	}
 	return newtIEngWriteHandler_147(raw)
 }
 
@@ -36226,7 +39805,10 @@ func newtIPDFPrintOptions_147(raw vcef.IPDFPrintOptions) *tIPDFPrintOptions_147 
 	}
 }
 
-func wrapIPDFPrintOptions(raw vcef.IPDFPrintOptions) IPDFPrintOptions {
+func wrapIPDFPrintOptions(raw vcef.IPDFPrintOptions) IPDFPrintOptions_147 {
+	if raw == nil {
+		return nil
+	}
 	return newtIPDFPrintOptions_147(raw)
 }
 
@@ -36483,6 +40065,9 @@ func newtIServerEvents_147(raw vcef.IServerEvents) *tIServerEvents_147 {
 }
 
 func wrapIServerEvents(raw vcef.IServerEvents) IServerEvents {
+	if raw == nil {
+		return nil
+	}
 	return newtIServerEvents_147(raw)
 }
 
@@ -36503,6 +40088,11 @@ func (t *tIServerEvents_147) Raw() Raw {
 	return t.raw
 }
 
+func AsBufferPanel(obj any) IBufferPanel_147 {
+	r0 := vcef.AsBufferPanel(obj)
+	return wrapIBufferPanel(r0)
+}
+
 func AsCEFBaseScopedWrapperRef(obj any) ICEFBaseScopedWrapperRef {
 	r0 := vcef.AsCEFBaseScopedWrapperRef(obj)
 	return wrapICEFBaseScopedWrapperRef(r0)
@@ -36513,17 +40103,17 @@ func AsCEFBitmapBitBuffer(obj any) ICEFBitmapBitBuffer {
 	return wrapICEFBitmapBitBuffer(r0)
 }
 
-func AsCEFBrowserViewComponent(obj any) ICEFBrowserViewComponent {
+func AsCEFBrowserViewComponent(obj any) ICEFBrowserViewComponent_147 {
 	r0 := vcef.AsCEFBrowserViewComponent(obj)
 	return wrapICEFBrowserViewComponent(r0)
 }
 
-func AsCEFButtonComponent(obj any) ICEFButtonComponent {
+func AsCEFButtonComponent(obj any) ICEFButtonComponent_147 {
 	r0 := vcef.AsCEFButtonComponent(obj)
 	return wrapICEFButtonComponent(r0)
 }
 
-func AsCEFFileDialogInfo(obj any) ICEFFileDialogInfo {
+func AsCEFFileDialogInfo(obj any) ICEFFileDialogInfo_147 {
 	r0 := vcef.AsCEFFileDialogInfo(obj)
 	return wrapICEFFileDialogInfo(r0)
 }
@@ -36533,22 +40123,22 @@ func AsCEFJson(obj any) ICEFJson {
 	return wrapICEFJson(r0)
 }
 
-func AsCEFLabelButtonComponent(obj any) ICEFLabelButtonComponent {
+func AsCEFLabelButtonComponent(obj any) ICEFLabelButtonComponent_147 {
 	r0 := vcef.AsCEFLabelButtonComponent(obj)
 	return wrapICEFLabelButtonComponent(r0)
 }
 
-func AsCEFLinkedWinControlBase(obj any) ICEFLinkedWinControlBase {
+func AsCEFLinkedWinControlBase(obj any) ICEFLinkedWinControlBase_147 {
 	r0 := vcef.AsCEFLinkedWinControlBase(obj)
 	return wrapICEFLinkedWinControlBase(r0)
 }
 
-func AsCEFLinkedWindowParent(obj any) ICEFLinkedWindowParent {
+func AsCEFLinkedWindowParent(obj any) ICEFLinkedWindowParent_147 {
 	r0 := vcef.AsCEFLinkedWindowParent(obj)
 	return wrapICEFLinkedWindowParent(r0)
 }
 
-func AsCEFMenuButtonComponent(obj any) ICEFMenuButtonComponent {
+func AsCEFMenuButtonComponent(obj any) ICEFMenuButtonComponent_147 {
 	r0 := vcef.AsCEFMenuButtonComponent(obj)
 	return wrapICEFMenuButtonComponent(r0)
 }
@@ -36563,7 +40153,7 @@ func AsCEFOSRIMEHandler(obj any) ICEFOSRIMEHandler {
 	return wrapICEFOSRIMEHandler(r0)
 }
 
-func AsCEFPanelComponent(obj any) ICEFPanelComponent {
+func AsCEFPanelComponent(obj any) ICEFPanelComponent_147 {
 	r0 := vcef.AsCEFPanelComponent(obj)
 	return wrapICEFPanelComponent(r0)
 }
@@ -36573,7 +40163,7 @@ func AsCEFProxySettings(obj any) ICEFProxySettings_147 {
 	return wrapICEFProxySettings(r0)
 }
 
-func AsCEFScrollViewComponent(obj any) ICEFScrollViewComponent {
+func AsCEFScrollViewComponent(obj any) ICEFScrollViewComponent_147 {
 	r0 := vcef.AsCEFScrollViewComponent(obj)
 	return wrapICEFScrollViewComponent(r0)
 }
@@ -36593,7 +40183,7 @@ func AsCEFServerRef(obj any) ICEFServerRef {
 	return wrapICEFServerRef(r0)
 }
 
-func AsCEFTextfieldComponent(obj any) ICEFTextfieldComponent {
+func AsCEFTextfieldComponent(obj any) ICEFTextfieldComponent_147 {
 	r0 := vcef.AsCEFTextfieldComponent(obj)
 	return wrapICEFTextfieldComponent(r0)
 }
@@ -36608,7 +40198,7 @@ func AsCEFUrlRequestClientComponent(obj any) ICEFUrlRequestClientComponent {
 	return wrapICEFUrlRequestClientComponent(r0)
 }
 
-func AsCEFViewComponent(obj any) ICEFViewComponent {
+func AsCEFViewComponent(obj any) ICEFViewComponent_147 {
 	r0 := vcef.AsCEFViewComponent(obj)
 	return wrapICEFViewComponent(r0)
 }
@@ -36618,7 +40208,7 @@ func AsCEFWinControl(obj any) ICEFWinControl {
 	return wrapICEFWinControl(r0)
 }
 
-func AsCEFWindowComponent(obj any) ICEFWindowComponent {
+func AsCEFWindowComponent(obj any) ICEFWindowComponent_147 {
 	r0 := vcef.AsCEFWindowComponent(obj)
 	return wrapICEFWindowComponent(r0)
 }
@@ -36638,12 +40228,12 @@ func AsCEFX509CertificateRef(obj any) ICEFX509CertificateRef {
 	return wrapICEFX509CertificateRef(r0)
 }
 
-func AsCefApplication(obj any) ICefApplication {
+func AsCefApplication(obj any) ICefApplication_147 {
 	r0 := vcef.AsCefApplication(obj)
 	return wrapICefApplication(r0)
 }
 
-func AsCefApplicationCore(obj any) ICefApplicationCore {
+func AsCefApplicationCore(obj any) ICefApplicationCore_147 {
 	r0 := vcef.AsCefApplicationCore(obj)
 	return wrapICefApplicationCore(r0)
 }
@@ -36668,7 +40258,7 @@ func AsCefBeforeDownloadCallbackRef(obj any) ICefBeforeDownloadCallbackRef {
 	return wrapICefBeforeDownloadCallbackRef(r0)
 }
 
-func AsCefBinaryValueRef(obj any) ICefBinaryValueRef {
+func AsCefBinaryValueRef(obj any) ICefBinaryValueRef_147 {
 	r0 := vcef.AsCefBinaryValueRef(obj)
 	return wrapICefBinaryValueRef(r0)
 }
@@ -36678,12 +40268,12 @@ func AsCefBoxLayoutRef(obj any) ICefBoxLayoutRef {
 	return wrapICefBoxLayoutRef(r0)
 }
 
-func AsCefBrowserHostRef(obj any) ICefBrowserHostRef {
+func AsCefBrowserHostRef(obj any) ICefBrowserHostRef_147 {
 	r0 := vcef.AsCefBrowserHostRef(obj)
 	return wrapICefBrowserHostRef(r0)
 }
 
-func AsCefBrowserRef(obj any) ICefBrowserRef {
+func AsCefBrowserRef(obj any) ICefBrowserRef_147 {
 	r0 := vcef.AsCefBrowserRef(obj)
 	return wrapICefBrowserRef(r0)
 }
@@ -36693,7 +40283,7 @@ func AsCefBrowserViewDelegateRef(obj any) ICefBrowserViewDelegateRef {
 	return wrapICefBrowserViewDelegateRef(r0)
 }
 
-func AsCefBrowserViewRef(obj any) ICefBrowserViewRef {
+func AsCefBrowserViewRef(obj any) ICefBrowserViewRef_147 {
 	r0 := vcef.AsCefBrowserViewRef(obj)
 	return wrapICefBrowserViewRef(r0)
 }
@@ -36703,7 +40293,7 @@ func AsCefButtonDelegateRef(obj any) ICefButtonDelegateRef {
 	return wrapICefButtonDelegateRef(r0)
 }
 
-func AsCefButtonRef(obj any) ICefButtonRef {
+func AsCefButtonRef(obj any) ICefButtonRef_147 {
 	r0 := vcef.AsCefButtonRef(obj)
 	return wrapICefButtonRef(r0)
 }
@@ -36723,7 +40313,7 @@ func AsCefChromiumTask(obj any) ICefChromiumTask_147 {
 	return wrapICefChromiumTask(r0)
 }
 
-func AsCefCommandLineRef(obj any) ICefCommandLineRef {
+func AsCefCommandLineRef(obj any) ICefCommandLineRef_147 {
 	r0 := vcef.AsCefCommandLineRef(obj)
 	return wrapICefCommandLineRef(r0)
 }
@@ -36813,7 +40403,7 @@ func AsCefCustomStreamReader(obj any) ICefCustomStreamReader {
 	return wrapICefCustomStreamReader(r0)
 }
 
-func AsCefCustomStringList(obj any) ICefCustomStringList {
+func AsCefCustomStringList(obj any) ICefCustomStringList_147 {
 	r0 := vcef.AsCefCustomStringList(obj)
 	return wrapICefCustomStringList(r0)
 }
@@ -36848,7 +40438,7 @@ func AsCefDomDocumentRef(obj any) ICefDomDocumentRef {
 	return wrapICefDomDocumentRef(r0)
 }
 
-func AsCefDomNodeRef(obj any) ICefDomNodeRef {
+func AsCefDomNodeRef(obj any) ICefDomNodeRef_147 {
 	r0 := vcef.AsCefDomNodeRef(obj)
 	return wrapICefDomNodeRef(r0)
 }
@@ -36863,7 +40453,7 @@ func AsCefDownloadItemRef(obj any) ICefDownloadItemRef_147 {
 	return wrapICefDownloadItemRef(r0)
 }
 
-func AsCefDragDataRef(obj any) ICefDragDataRef {
+func AsCefDragDataRef(obj any) ICefDragDataRef_147 {
 	r0 := vcef.AsCefDragDataRef(obj)
 	return wrapICefDragDataRef(r0)
 }
@@ -36883,12 +40473,12 @@ func AsCefFillLayoutRef(obj any) ICefFillLayoutRef {
 	return wrapICefFillLayoutRef(r0)
 }
 
-func AsCefFrameRef(obj any) ICefFrameRef {
+func AsCefFrameRef(obj any) ICefFrameRef_147 {
 	r0 := vcef.AsCefFrameRef(obj)
 	return wrapICefFrameRef(r0)
 }
 
-func AsCefGenericTask(obj any) ICefGenericTask {
+func AsCefGenericTask(obj any) ICefGenericTask_147 {
 	r0 := vcef.AsCefGenericTask(obj)
 	return wrapICefGenericTask(r0)
 }
@@ -36903,7 +40493,7 @@ func AsCefJsDialogCallbackRef(obj any) ICefJsDialogCallbackRef {
 	return wrapICefJsDialogCallbackRef(r0)
 }
 
-func AsCefLabelButtonRef(obj any) ICefLabelButtonRef {
+func AsCefLabelButtonRef(obj any) ICefLabelButtonRef_147 {
 	r0 := vcef.AsCefLabelButtonRef(obj)
 	return wrapICefLabelButtonRef(r0)
 }
@@ -36958,7 +40548,7 @@ func AsCefMenuButtonPressedLockRef(obj any) ICefMenuButtonPressedLockRef {
 	return wrapICefMenuButtonPressedLockRef(r0)
 }
 
-func AsCefMenuButtonRef(obj any) ICefMenuButtonRef {
+func AsCefMenuButtonRef(obj any) ICefMenuButtonRef_147 {
 	r0 := vcef.AsCefMenuButtonRef(obj)
 	return wrapICefMenuButtonRef(r0)
 }
@@ -36983,7 +40573,7 @@ func AsCefPanelDelegateRef(obj any) ICefPanelDelegateRef {
 	return wrapICefPanelDelegateRef(r0)
 }
 
-func AsCefPanelRef(obj any) ICefPanelRef {
+func AsCefPanelRef(obj any) ICefPanelRef_147 {
 	r0 := vcef.AsCefPanelRef(obj)
 	return wrapICefPanelRef(r0)
 }
@@ -37003,7 +40593,7 @@ func AsCefPostDataRef(obj any) ICefPostDataRef {
 	return wrapICefPostDataRef(r0)
 }
 
-func AsCefPreferenceManagerRef(obj any) ICefPreferenceManagerRef {
+func AsCefPreferenceManagerRef(obj any) ICefPreferenceManagerRef_147 {
 	r0 := vcef.AsCefPreferenceManagerRef(obj)
 	return wrapICefPreferenceManagerRef(r0)
 }
@@ -37038,7 +40628,7 @@ func AsCefRegistrationRef(obj any) ICefRegistrationRef {
 	return wrapICefRegistrationRef(r0)
 }
 
-func AsCefRequestContextRef(obj any) ICefRequestContextRef {
+func AsCefRequestContextRef(obj any) ICefRequestContextRef_147 {
 	r0 := vcef.AsCefRequestContextRef(obj)
 	return wrapICefRequestContextRef(r0)
 }
@@ -37103,7 +40693,7 @@ func AsCefSchemeRegistrarRef(obj any) ICefSchemeRegistrarRef {
 	return wrapICefSchemeRegistrarRef(r0)
 }
 
-func AsCefScrollViewRef(obj any) ICefScrollViewRef {
+func AsCefScrollViewRef(obj any) ICefScrollViewRef_147 {
 	r0 := vcef.AsCefScrollViewRef(obj)
 	return wrapICefScrollViewRef(r0)
 }
@@ -37138,12 +40728,12 @@ func AsCefStreamWriterRef(obj any) ICefStreamWriterRef {
 	return wrapICefStreamWriterRef(r0)
 }
 
-func AsCefStringListOwn(obj any) ICefStringListOwn {
+func AsCefStringListOwn(obj any) ICefStringListOwn_147 {
 	r0 := vcef.AsCefStringListOwn(obj)
 	return wrapICefStringListOwn(r0)
 }
 
-func AsCefStringListRef(obj any) ICefStringListRef {
+func AsCefStringListRef(obj any) ICefStringListRef_147 {
 	r0 := vcef.AsCefStringListRef(obj)
 	return wrapICefStringListRef(r0)
 }
@@ -37183,7 +40773,7 @@ func AsCefTextfieldDelegateRef(obj any) ICefTextfieldDelegateRef {
 	return wrapICefTextfieldDelegateRef(r0)
 }
 
-func AsCefTextfieldRef(obj any) ICefTextfieldRef {
+func AsCefTextfieldRef(obj any) ICefTextfieldRef_147 {
 	r0 := vcef.AsCefTextfieldRef(obj)
 	return wrapICefTextfieldRef(r0)
 }
@@ -37203,7 +40793,7 @@ func AsCefUnresponsiveProcessCallbackRef(obj any) ICefUnresponsiveProcessCallbac
 	return wrapICefUnresponsiveProcessCallbackRef(r0)
 }
 
-func AsCefUrlRequestRef(obj any) ICefUrlRequestRef {
+func AsCefUrlRequestRef(obj any) ICefUrlRequestRef_147 {
 	r0 := vcef.AsCefUrlRequestRef(obj)
 	return wrapICefUrlRequestRef(r0)
 }
@@ -37243,7 +40833,7 @@ func AsCefViewDelegateTask(obj any) ICefViewDelegateTask_147 {
 	return wrapICefViewDelegateTask(r0)
 }
 
-func AsCefViewRef(obj any) ICefViewRef {
+func AsCefViewRef(obj any) ICefViewRef_147 {
 	r0 := vcef.AsCefViewRef(obj)
 	return wrapICefViewRef(r0)
 }
@@ -37258,7 +40848,7 @@ func AsCefWindowDelegateRef(obj any) ICefWindowDelegateRef {
 	return wrapICefWindowDelegateRef(r0)
 }
 
-func AsCefWindowRef(obj any) ICefWindowRef {
+func AsCefWindowRef(obj any) ICefWindowRef_147 {
 	r0 := vcef.AsCefWindowRef(obj)
 	return wrapICefWindowRef(r0)
 }
@@ -37298,17 +40888,17 @@ func AsCefv8HandlerRef(obj any) ICefv8HandlerRef {
 	return wrapICefv8HandlerRef(r0)
 }
 
-func AsCefv8ValueRef(obj any) ICefv8ValueRef {
+func AsCefv8ValueRef(obj any) ICefv8ValueRef_147 {
 	r0 := vcef.AsCefv8ValueRef(obj)
 	return wrapICefv8ValueRef(r0)
 }
 
-func AsChromium(obj any) IChromium {
+func AsChromium(obj any) IChromium_147 {
 	r0 := vcef.AsChromium(obj)
 	return wrapIChromium(r0)
 }
 
-func AsChromiumCore(obj any) IChromiumCore {
+func AsChromiumCore(obj any) IChromiumCore_147 {
 	r0 := vcef.AsChromiumCore(obj)
 	return wrapIChromiumCore(r0)
 }
@@ -37318,14 +40908,209 @@ func AsChromiumFontOptions(obj any) IChromiumFontOptions {
 	return wrapIChromiumFontOptions(r0)
 }
 
-func AsChromiumOptions(obj any) IChromiumOptions {
+func AsChromiumOptions(obj any) IChromiumOptions_147 {
 	r0 := vcef.AsChromiumOptions(obj)
 	return wrapIChromiumOptions(r0)
 }
 
-func AsChromiumWindow(obj any) IChromiumWindow {
+func AsChromiumWindow(obj any) IChromiumWindow_147 {
 	r0 := vcef.AsChromiumWindow(obj)
 	return wrapIChromiumWindow(r0)
+}
+
+func AsCustomAccessibilityHandler(obj any) ICustomAccessibilityHandler {
+	r0 := vcef.AsCustomAccessibilityHandler(obj)
+	return wrapICustomAccessibilityHandler(r0)
+}
+
+func AsCustomAudioHandler(obj any) ICustomAudioHandler {
+	r0 := vcef.AsCustomAudioHandler(obj)
+	return wrapICustomAudioHandler(r0)
+}
+
+func AsCustomBrowserViewDelegate(obj any) ICustomBrowserViewDelegate {
+	r0 := vcef.AsCustomBrowserViewDelegate(obj)
+	return wrapICustomBrowserViewDelegate(r0)
+}
+
+func AsCustomButtonDelegate(obj any) ICustomButtonDelegate {
+	r0 := vcef.AsCustomButtonDelegate(obj)
+	return wrapICustomButtonDelegate(r0)
+}
+
+func AsCustomCefApp(obj any) ICustomCefApp {
+	r0 := vcef.AsCustomCefApp(obj)
+	return wrapICustomCefApp(r0)
+}
+
+func AsCustomCefNavigationEntryVisitor(obj any) ICustomCefNavigationEntryVisitor {
+	r0 := vcef.AsCustomCefNavigationEntryVisitor(obj)
+	return wrapICustomCefNavigationEntryVisitor(r0)
+}
+
+func AsCustomCefStringVisitor(obj any) ICustomCefStringVisitor {
+	r0 := vcef.AsCustomCefStringVisitor(obj)
+	return wrapICustomCefStringVisitor(r0)
+}
+
+func AsCustomCefUrlrequestClient(obj any) ICustomCefUrlrequestClient {
+	r0 := vcef.AsCustomCefUrlrequestClient(obj)
+	return wrapICustomCefUrlrequestClient(r0)
+}
+
+func AsCustomClientHandler(obj any) ICustomClientHandler {
+	r0 := vcef.AsCustomClientHandler(obj)
+	return wrapICustomClientHandler(r0)
+}
+
+func AsCustomCommandHandler(obj any) ICustomCommandHandler {
+	r0 := vcef.AsCustomCommandHandler(obj)
+	return wrapICustomCommandHandler(r0)
+}
+
+func AsCustomContextMenuHandler(obj any) ICustomContextMenuHandler {
+	r0 := vcef.AsCustomContextMenuHandler(obj)
+	return wrapICustomContextMenuHandler(r0)
+}
+
+func AsCustomCookieAccessFilter(obj any) ICustomCookieAccessFilter {
+	r0 := vcef.AsCustomCookieAccessFilter(obj)
+	return wrapICustomCookieAccessFilter(r0)
+}
+
+func AsCustomDevToolsMessageObserver(obj any) ICustomDevToolsMessageObserver {
+	r0 := vcef.AsCustomDevToolsMessageObserver(obj)
+	return wrapICustomDevToolsMessageObserver(r0)
+}
+
+func AsCustomDialogHandler(obj any) ICustomDialogHandler {
+	r0 := vcef.AsCustomDialogHandler(obj)
+	return wrapICustomDialogHandler(r0)
+}
+
+func AsCustomDisplayHandler(obj any) ICustomDisplayHandler {
+	r0 := vcef.AsCustomDisplayHandler(obj)
+	return wrapICustomDisplayHandler(r0)
+}
+
+func AsCustomDownloadHandler(obj any) ICustomDownloadHandler {
+	r0 := vcef.AsCustomDownloadHandler(obj)
+	return wrapICustomDownloadHandler(r0)
+}
+
+func AsCustomDragHandler(obj any) ICustomDragHandler {
+	r0 := vcef.AsCustomDragHandler(obj)
+	return wrapICustomDragHandler(r0)
+}
+
+func AsCustomFindHandler(obj any) ICustomFindHandler {
+	r0 := vcef.AsCustomFindHandler(obj)
+	return wrapICustomFindHandler(r0)
+}
+
+func AsCustomFocusHandler(obj any) ICustomFocusHandler {
+	r0 := vcef.AsCustomFocusHandler(obj)
+	return wrapICustomFocusHandler(r0)
+}
+
+func AsCustomFrameHandler(obj any) ICustomFrameHandler {
+	r0 := vcef.AsCustomFrameHandler(obj)
+	return wrapICustomFrameHandler(r0)
+}
+
+func AsCustomJsDialogHandler(obj any) ICustomJsDialogHandler {
+	r0 := vcef.AsCustomJsDialogHandler(obj)
+	return wrapICustomJsDialogHandler(r0)
+}
+
+func AsCustomKeyboardHandler(obj any) ICustomKeyboardHandler {
+	r0 := vcef.AsCustomKeyboardHandler(obj)
+	return wrapICustomKeyboardHandler(r0)
+}
+
+func AsCustomLifeSpanHandler(obj any) ICustomLifeSpanHandler {
+	r0 := vcef.AsCustomLifeSpanHandler(obj)
+	return wrapICustomLifeSpanHandler(r0)
+}
+
+func AsCustomLoadHandler(obj any) ICustomLoadHandler {
+	r0 := vcef.AsCustomLoadHandler(obj)
+	return wrapICustomLoadHandler(r0)
+}
+
+func AsCustomMediaObserver(obj any) ICustomMediaObserver {
+	r0 := vcef.AsCustomMediaObserver(obj)
+	return wrapICustomMediaObserver(r0)
+}
+
+func AsCustomMenuButtonDelegate(obj any) ICustomMenuButtonDelegate {
+	r0 := vcef.AsCustomMenuButtonDelegate(obj)
+	return wrapICustomMenuButtonDelegate(r0)
+}
+
+func AsCustomPanelDelegate(obj any) ICustomPanelDelegate {
+	r0 := vcef.AsCustomPanelDelegate(obj)
+	return wrapICustomPanelDelegate(r0)
+}
+
+func AsCustomPermissionHandler(obj any) ICustomPermissionHandler {
+	r0 := vcef.AsCustomPermissionHandler(obj)
+	return wrapICustomPermissionHandler(r0)
+}
+
+func AsCustomPrintHandler(obj any) ICustomPrintHandler {
+	r0 := vcef.AsCustomPrintHandler(obj)
+	return wrapICustomPrintHandler(r0)
+}
+
+func AsCustomRenderHandler(obj any) ICustomRenderHandler {
+	r0 := vcef.AsCustomRenderHandler(obj)
+	return wrapICustomRenderHandler(r0)
+}
+
+func AsCustomRenderLoadHandler(obj any) ICustomRenderLoadHandler {
+	r0 := vcef.AsCustomRenderLoadHandler(obj)
+	return wrapICustomRenderLoadHandler(r0)
+}
+
+func AsCustomRequestContextHandler(obj any) ICustomRequestContextHandler {
+	r0 := vcef.AsCustomRequestContextHandler(obj)
+	return wrapICustomRequestContextHandler(r0)
+}
+
+func AsCustomRequestHandler(obj any) ICustomRequestHandler {
+	r0 := vcef.AsCustomRequestHandler(obj)
+	return wrapICustomRequestHandler(r0)
+}
+
+func AsCustomResourceRequestHandler(obj any) ICustomResourceRequestHandler {
+	r0 := vcef.AsCustomResourceRequestHandler(obj)
+	return wrapICustomResourceRequestHandler(r0)
+}
+
+func AsCustomResponseFilter(obj any) ICustomResponseFilter {
+	r0 := vcef.AsCustomResponseFilter(obj)
+	return wrapICustomResponseFilter(r0)
+}
+
+func AsCustomServerHandler(obj any) ICustomServerHandler {
+	r0 := vcef.AsCustomServerHandler(obj)
+	return wrapICustomServerHandler(r0)
+}
+
+func AsCustomTextfieldDelegate(obj any) ICustomTextfieldDelegate {
+	r0 := vcef.AsCustomTextfieldDelegate(obj)
+	return wrapICustomTextfieldDelegate(r0)
+}
+
+func AsCustomViewDelegate(obj any) ICustomViewDelegate {
+	r0 := vcef.AsCustomViewDelegate(obj)
+	return wrapICustomViewDelegate(r0)
+}
+
+func AsCustomWindowDelegate(obj any) ICustomWindowDelegate {
+	r0 := vcef.AsCustomWindowDelegate(obj)
+	return wrapICustomWindowDelegate(r0)
 }
 
 func AsEngAccessibilityHandler(obj any) IEngAccessibilityHandler {
@@ -37343,12 +41128,12 @@ func AsEngAudioHandler(obj any) IEngAudioHandler {
 	return wrapIEngAudioHandler(r0)
 }
 
-func AsEngBrowserProcessHandler(obj any) IEngBrowserProcessHandler {
+func AsEngBrowserProcessHandler(obj any) IEngBrowserProcessHandler_147 {
 	r0 := vcef.AsEngBrowserProcessHandler(obj)
 	return wrapIEngBrowserProcessHandler(r0)
 }
 
-func AsEngBrowserViewDelegate(obj any) IEngBrowserViewDelegate {
+func AsEngBrowserViewDelegate(obj any) IEngBrowserViewDelegate_147 {
 	r0 := vcef.AsEngBrowserViewDelegate(obj)
 	return wrapIEngBrowserViewDelegate(r0)
 }
@@ -37363,7 +41148,7 @@ func AsEngClient(obj any) IEngClient {
 	return wrapIEngClient(r0)
 }
 
-func AsEngCommandHandler(obj any) IEngCommandHandler {
+func AsEngCommandHandler(obj any) IEngCommandHandler_147 {
 	r0 := vcef.AsEngCommandHandler(obj)
 	return wrapIEngCommandHandler(r0)
 }
@@ -37403,7 +41188,7 @@ func AsEngDialogHandler(obj any) IEngDialogHandler {
 	return wrapIEngDialogHandler(r0)
 }
 
-func AsEngDisplayHandler(obj any) IEngDisplayHandler {
+func AsEngDisplayHandler(obj any) IEngDisplayHandler_147 {
 	r0 := vcef.AsEngDisplayHandler(obj)
 	return wrapIEngDisplayHandler(r0)
 }
@@ -37443,7 +41228,7 @@ func AsEngFocusHandler(obj any) IEngFocusHandler {
 	return wrapIEngFocusHandler(r0)
 }
 
-func AsEngFrameHandler(obj any) IEngFrameHandler {
+func AsEngFrameHandler(obj any) IEngFrameHandler_147 {
 	r0 := vcef.AsEngFrameHandler(obj)
 	return wrapIEngFrameHandler(r0)
 }
@@ -37458,7 +41243,7 @@ func AsEngKeyboardHandler(obj any) IEngKeyboardHandler {
 	return wrapIEngKeyboardHandler(r0)
 }
 
-func AsEngLifeSpanHandler(obj any) IEngLifeSpanHandler {
+func AsEngLifeSpanHandler(obj any) IEngLifeSpanHandler_147 {
 	r0 := vcef.AsEngLifeSpanHandler(obj)
 	return wrapIEngLifeSpanHandler(r0)
 }
@@ -37538,7 +41323,7 @@ func AsEngRequestContextHandler(obj any) IEngRequestContextHandler {
 	return wrapIEngRequestContextHandler(r0)
 }
 
-func AsEngRequestHandler(obj any) IEngRequestHandler {
+func AsEngRequestHandler(obj any) IEngRequestHandler_147 {
 	r0 := vcef.AsEngRequestHandler(obj)
 	return wrapIEngRequestHandler(r0)
 }
@@ -37633,12 +41418,12 @@ func AsEngV8Interceptor(obj any) IEngV8Interceptor {
 	return wrapIEngV8Interceptor(r0)
 }
 
-func AsEngViewDelegate(obj any) IEngViewDelegate {
+func AsEngViewDelegate(obj any) IEngViewDelegate_147 {
 	r0 := vcef.AsEngViewDelegate(obj)
 	return wrapIEngViewDelegate(r0)
 }
 
-func AsEngWindowDelegate(obj any) IEngWindowDelegate {
+func AsEngWindowDelegate(obj any) IEngWindowDelegate_147 {
 	r0 := vcef.AsEngWindowDelegate(obj)
 	return wrapIEngWindowDelegate(r0)
 }
@@ -37648,17 +41433,17 @@ func AsEngWriteHandler(obj any) IEngWriteHandler {
 	return wrapIEngWriteHandler(r0)
 }
 
-func AsPDFPrintOptions(obj any) IPDFPrintOptions {
+func AsPDFPrintOptions(obj any) IPDFPrintOptions_147 {
 	r0 := vcef.AsPDFPrintOptions(obj)
 	return wrapIPDFPrintOptions(r0)
 }
 
-func NewApplication() ICefApplication {
+func NewApplication() ICefApplication_147 {
 	r0 := vcef.NewApplication()
 	return wrapICefApplication(r0)
 }
 
-func NewApplicationCore() ICefApplicationCore {
+func NewApplicationCore() ICefApplicationCore_147 {
 	r0 := vcef.NewApplicationCore()
 	return wrapICefApplicationCore(r0)
 }
@@ -37688,7 +41473,7 @@ func NewBeforeDownloadCallbackRef(data uintptr) ICefBeforeDownloadCallbackRef {
 	return wrapICefBeforeDownloadCallbackRef(r0)
 }
 
-func NewBinaryValueRef(data uintptr) ICefBinaryValueRef {
+func NewBinaryValueRef(data uintptr) ICefBinaryValueRef_147 {
 	r0 := vcef.NewBinaryValueRef(data)
 	return wrapICefBinaryValueRef(r0)
 }
@@ -37703,17 +41488,17 @@ func NewBoxLayoutRef(data uintptr) ICefBoxLayoutRef {
 	return wrapICefBoxLayoutRef(r0)
 }
 
-func NewBrowserHostRef(data uintptr) ICefBrowserHostRef {
+func NewBrowserHostRef(data uintptr) ICefBrowserHostRef_147 {
 	r0 := vcef.NewBrowserHostRef(data)
 	return wrapICefBrowserHostRef(r0)
 }
 
-func NewBrowserRef(data uintptr) ICefBrowserRef {
+func NewBrowserRef(data uintptr) ICefBrowserRef_147 {
 	r0 := vcef.NewBrowserRef(data)
 	return wrapICefBrowserRef(r0)
 }
 
-func NewBrowserViewComponent(owner lcl.IComponent) ICEFBrowserViewComponent {
+func NewBrowserViewComponent(owner lcl.IComponent) ICEFBrowserViewComponent_147 {
 	r0 := vcef.NewBrowserViewComponent(owner)
 	return wrapICEFBrowserViewComponent(r0)
 }
@@ -37723,12 +41508,17 @@ func NewBrowserViewDelegateRef(data uintptr) ICefBrowserViewDelegateRef {
 	return wrapICefBrowserViewDelegateRef(r0)
 }
 
-func NewBrowserViewRef(data uintptr) ICefBrowserViewRef {
+func NewBrowserViewRef(data uintptr) ICefBrowserViewRef_147 {
 	r0 := vcef.NewBrowserViewRef(data)
 	return wrapICefBrowserViewRef(r0)
 }
 
-func NewButtonComponent(owner lcl.IComponent) ICEFButtonComponent {
+func NewBufferPanel(owner lcl.IComponent) IBufferPanel_147 {
+	r0 := vcef.NewBufferPanel(owner)
+	return wrapIBufferPanel(r0)
+}
+
+func NewButtonComponent(owner lcl.IComponent) ICEFButtonComponent_147 {
 	r0 := vcef.NewButtonComponent(owner)
 	return wrapICEFButtonComponent(r0)
 }
@@ -37738,7 +41528,7 @@ func NewButtonDelegateRef(data uintptr) ICefButtonDelegateRef {
 	return wrapICefButtonDelegateRef(r0)
 }
 
-func NewButtonRef(data uintptr) ICefButtonRef {
+func NewButtonRef(data uintptr) ICefButtonRef_147 {
 	r0 := vcef.NewButtonRef(data)
 	return wrapICefButtonRef(r0)
 }
@@ -37754,11 +41544,11 @@ func NewCallbackRef(data uintptr) ICefCallbackRef {
 }
 
 func NewCefBinaryValueArray(count int, instance uintptr) ICefBinaryValueArray {
-	return &tICefBinaryValueArray{raw: vcef.NewCefBinaryValueArray(count, instance)}
+	return wrapICefBinaryValueArray(vcef.NewCefBinaryValueArray(count, instance))
 }
 
 func NewCefComponentArray(count int, instance uintptr) ICefComponentArray {
-	return &tICefComponentArray{raw: vcef.NewCefComponentArray(count, instance)}
+	return wrapICefComponentArray(vcef.NewCefComponentArray(count, instance))
 }
 
 func NewCefCompositionUnderlineArray(count int, instance uintptr) ICefCompositionUnderlineArray {
@@ -37770,7 +41560,7 @@ func NewCefCompositionUnderlineDynArray(count int, instance uintptr) ICefComposi
 }
 
 func NewCefDisplayArray(count int, instance uintptr) ICefDisplayArray {
-	return &tICefDisplayArray{raw: vcef.NewCefDisplayArray(count, instance)}
+	return wrapICefDisplayArray(vcef.NewCefDisplayArray(count, instance))
 }
 
 func NewCefDraggableRegionArray(count int, instance uintptr) ICefDraggableRegionArray {
@@ -37778,15 +41568,15 @@ func NewCefDraggableRegionArray(count int, instance uintptr) ICefDraggableRegion
 }
 
 func NewCefMediaRouteArray(count int, instance uintptr) ICefMediaRouteArray {
-	return &tICefMediaRouteArray{raw: vcef.NewCefMediaRouteArray(count, instance)}
+	return wrapICefMediaRouteArray(vcef.NewCefMediaRouteArray(count, instance))
 }
 
 func NewCefMediaSinkArray(count int, instance uintptr) ICefMediaSinkArray {
-	return &tICefMediaSinkArray{raw: vcef.NewCefMediaSinkArray(count, instance)}
+	return wrapICefMediaSinkArray(vcef.NewCefMediaSinkArray(count, instance))
 }
 
 func NewCefPostDataElementArray(count int, instance uintptr) ICefPostDataElementArray {
-	return &tICefPostDataElementArray{raw: vcef.NewCefPostDataElementArray(count, instance)}
+	return wrapICefPostDataElementArray(vcef.NewCefPostDataElementArray(count, instance))
 }
 
 func NewCefRangeArray(count int, instance uintptr) ICefRangeArray {
@@ -37802,19 +41592,19 @@ func NewCefRectDynArray(count int, instance uintptr) ICefRectArray {
 }
 
 func NewCefX509CertificateArray(count int, instance uintptr) ICefX509CertificateArray {
-	return &tICefX509CertificateArray{raw: vcef.NewCefX509CertificateArray(count, instance)}
+	return wrapICefX509CertificateArray(vcef.NewCefX509CertificateArray(count, instance))
 }
 
 func NewCefv8ValueArray(count int, instance uintptr) ICefv8ValueArray {
-	return &tICefv8ValueArray{raw: vcef.NewCefv8ValueArray(count, instance)}
+	return wrapICefv8ValueArray(vcef.NewCefv8ValueArray(count, instance))
 }
 
-func NewChromium(owner lcl.IComponent) IChromium {
+func NewChromium(owner lcl.IComponent) IChromium_147 {
 	r0 := vcef.NewChromium(owner)
 	return wrapIChromium(r0)
 }
 
-func NewChromiumCore(owner lcl.IComponent) IChromiumCore {
+func NewChromiumCore(owner lcl.IComponent) IChromiumCore_147 {
 	r0 := vcef.NewChromiumCore(owner)
 	return wrapIChromiumCore(r0)
 }
@@ -37824,7 +41614,7 @@ func NewChromiumFontOptions() IChromiumFontOptions {
 	return wrapIChromiumFontOptions(r0)
 }
 
-func NewChromiumOptions() IChromiumOptions {
+func NewChromiumOptions() IChromiumOptions_147 {
 	r0 := vcef.NewChromiumOptions()
 	return wrapIChromiumOptions(r0)
 }
@@ -37834,12 +41624,12 @@ func NewChromiumTask(events IChromiumCore) ICefChromiumTask_147 {
 	return wrapICefChromiumTask(r0)
 }
 
-func NewChromiumWindow(owner lcl.IComponent) IChromiumWindow {
+func NewChromiumWindow(owner lcl.IComponent) IChromiumWindow_147 {
 	r0 := vcef.NewChromiumWindow(owner)
 	return wrapIChromiumWindow(r0)
 }
 
-func NewCommandLineRef(data uintptr) ICefCommandLineRef {
+func NewCommandLineRef(data uintptr) ICefCommandLineRef_147 {
 	r0 := vcef.NewCommandLineRef(data)
 	return wrapICefCommandLineRef(r0)
 }
@@ -37864,14 +41654,74 @@ func NewCookieManagerRef(data uintptr) ICefCookieManagerRef {
 	return wrapICefCookieManagerRef(r0)
 }
 
+func NewCustomAccessibilityHandler() ICustomAccessibilityHandler {
+	r0 := vcef.NewCustomAccessibilityHandler()
+	return wrapICustomAccessibilityHandler(r0)
+}
+
+func NewCustomAudioHandler(events IChromiumCore) ICustomAudioHandler {
+	r0 := vcef.NewCustomAudioHandler(unwrapIChromiumCore(events))
+	return wrapICustomAudioHandler(r0)
+}
+
 func NewCustomBrowserProcessHandler(cefApp ICefApplicationCore) ICefCustomBrowserProcessHandler {
 	r0 := vcef.NewCustomBrowserProcessHandler(unwrapICefApplicationCore(cefApp))
 	return wrapICefCustomBrowserProcessHandler(r0)
 }
 
+func NewCustomBrowserViewDelegate(events ICEFBrowserViewComponent) ICustomBrowserViewDelegate {
+	r0 := vcef.NewCustomBrowserViewDelegate(unwrapICEFBrowserViewComponent(events))
+	return wrapICustomBrowserViewDelegate(r0)
+}
+
+func NewCustomButtonDelegate(events ICEFButtonComponent) ICustomButtonDelegate {
+	r0 := vcef.NewCustomButtonDelegate(unwrapICEFButtonComponent(events))
+	return wrapICustomButtonDelegate(r0)
+}
+
+func NewCustomCefApp(cefApp ICefApplicationCore) ICustomCefApp {
+	r0 := vcef.NewCustomCefApp(unwrapICefApplicationCore(cefApp))
+	return wrapICustomCefApp(r0)
+}
+
+func NewCustomCefNavigationEntryVisitor(events IChromiumCore) ICustomCefNavigationEntryVisitor {
+	r0 := vcef.NewCustomCefNavigationEntryVisitor(unwrapIChromiumCore(events))
+	return wrapICustomCefNavigationEntryVisitor(r0)
+}
+
+func NewCustomCefStringVisitor(events IChromiumCore) ICustomCefStringVisitor {
+	r0 := vcef.NewCustomCefStringVisitor(unwrapIChromiumCore(events))
+	return wrapICustomCefStringVisitor(r0)
+}
+
+func NewCustomCefUrlrequestClient(events ICEFUrlRequestClientComponent) ICustomCefUrlrequestClient {
+	r0 := vcef.NewCustomCefUrlrequestClient(unwrapICEFUrlRequestClientComponent(events))
+	return wrapICustomCefUrlrequestClient(r0)
+}
+
+func NewCustomClientHandler(events IChromiumCore, devToolsClient bool) ICustomClientHandler {
+	r0 := vcef.NewCustomClientHandler(unwrapIChromiumCore(events), devToolsClient)
+	return wrapICustomClientHandler(r0)
+}
+
+func NewCustomCommandHandler(events IChromiumCore) ICustomCommandHandler {
+	r0 := vcef.NewCustomCommandHandler(unwrapIChromiumCore(events))
+	return wrapICustomCommandHandler(r0)
+}
+
 func NewCustomCompletionCallback(events IChromiumCore) ICefCustomCompletionCallback {
 	r0 := vcef.NewCustomCompletionCallback(unwrapIChromiumCore(events))
 	return wrapICefCustomCompletionCallback(r0)
+}
+
+func NewCustomContextMenuHandler(events IChromiumCore) ICustomContextMenuHandler {
+	r0 := vcef.NewCustomContextMenuHandler(unwrapIChromiumCore(events))
+	return wrapICustomContextMenuHandler(r0)
+}
+
+func NewCustomCookieAccessFilter(events IChromiumCore) ICustomCookieAccessFilter {
+	r0 := vcef.NewCustomCookieAccessFilter(unwrapIChromiumCore(events))
+	return wrapICustomCookieAccessFilter(r0)
 }
 
 func NewCustomCookieVisitor(events IChromiumCore, iD int32) ICefCustomCookieVisitor {
@@ -37884,9 +41734,74 @@ func NewCustomDeleteCookiesCallback(events IChromiumCore) ICefCustomDeleteCookie
 	return wrapICefCustomDeleteCookiesCallback(r0)
 }
 
+func NewCustomDevToolsMessageObserver(events IChromiumCore) ICustomDevToolsMessageObserver {
+	r0 := vcef.NewCustomDevToolsMessageObserver(unwrapIChromiumCore(events))
+	return wrapICustomDevToolsMessageObserver(r0)
+}
+
+func NewCustomDialogHandler(events IChromiumCore) ICustomDialogHandler {
+	r0 := vcef.NewCustomDialogHandler(unwrapIChromiumCore(events))
+	return wrapICustomDialogHandler(r0)
+}
+
+func NewCustomDisplayHandler(events IChromiumCore) ICustomDisplayHandler {
+	r0 := vcef.NewCustomDisplayHandler(unwrapIChromiumCore(events))
+	return wrapICustomDisplayHandler(r0)
+}
+
+func NewCustomDownloadHandler(events IChromiumCore) ICustomDownloadHandler {
+	r0 := vcef.NewCustomDownloadHandler(unwrapIChromiumCore(events))
+	return wrapICustomDownloadHandler(r0)
+}
+
 func NewCustomDownloadImageCallback(events IChromiumCore) ICefCustomDownloadImageCallback {
 	r0 := vcef.NewCustomDownloadImageCallback(unwrapIChromiumCore(events))
 	return wrapICefCustomDownloadImageCallback(r0)
+}
+
+func NewCustomDragHandler(events IChromiumCore) ICustomDragHandler {
+	r0 := vcef.NewCustomDragHandler(unwrapIChromiumCore(events))
+	return wrapICustomDragHandler(r0)
+}
+
+func NewCustomFindHandler(events IChromiumCore) ICustomFindHandler {
+	r0 := vcef.NewCustomFindHandler(unwrapIChromiumCore(events))
+	return wrapICustomFindHandler(r0)
+}
+
+func NewCustomFocusHandler(events IChromiumCore) ICustomFocusHandler {
+	r0 := vcef.NewCustomFocusHandler(unwrapIChromiumCore(events))
+	return wrapICustomFocusHandler(r0)
+}
+
+func NewCustomFrameHandler(events IChromiumCore) ICustomFrameHandler {
+	r0 := vcef.NewCustomFrameHandler(unwrapIChromiumCore(events))
+	return wrapICustomFrameHandler(r0)
+}
+
+func NewCustomJsDialogHandler(events IChromiumCore) ICustomJsDialogHandler {
+	r0 := vcef.NewCustomJsDialogHandler(unwrapIChromiumCore(events))
+	return wrapICustomJsDialogHandler(r0)
+}
+
+func NewCustomKeyboardHandler(events IChromiumCore) ICustomKeyboardHandler {
+	r0 := vcef.NewCustomKeyboardHandler(unwrapIChromiumCore(events))
+	return wrapICustomKeyboardHandler(r0)
+}
+
+func NewCustomLifeSpanHandler(events IChromiumCore) ICustomLifeSpanHandler {
+	r0 := vcef.NewCustomLifeSpanHandler(unwrapIChromiumCore(events))
+	return wrapICustomLifeSpanHandler(r0)
+}
+
+func NewCustomLoadHandler(events IChromiumCore) ICustomLoadHandler {
+	r0 := vcef.NewCustomLoadHandler(unwrapIChromiumCore(events))
+	return wrapICustomLoadHandler(r0)
+}
+
+func NewCustomMediaObserver(events IChromiumCore) ICustomMediaObserver {
+	r0 := vcef.NewCustomMediaObserver(unwrapIChromiumCore(events))
+	return wrapICustomMediaObserver(r0)
 }
 
 func NewCustomMediaRouteCreateCallback(events IChromiumCore) ICefCustomMediaRouteCreateCallback {
@@ -37899,14 +41814,54 @@ func NewCustomMediaSinkDeviceInfoCallback(events IChromiumCore) ICefCustomMediaS
 	return wrapICefCustomMediaSinkDeviceInfoCallback(r0)
 }
 
+func NewCustomMenuButtonDelegate(events ICEFMenuButtonComponent) ICustomMenuButtonDelegate {
+	r0 := vcef.NewCustomMenuButtonDelegate(unwrapICEFMenuButtonComponent(events))
+	return wrapICustomMenuButtonDelegate(r0)
+}
+
 func NewCustomPDFPrintCallBack(events IChromiumCore) ICefCustomPDFPrintCallBack {
 	r0 := vcef.NewCustomPDFPrintCallBack(unwrapIChromiumCore(events))
 	return wrapICefCustomPDFPrintCallBack(r0)
 }
 
+func NewCustomPanelDelegate(events ICEFPanelComponent) ICustomPanelDelegate {
+	r0 := vcef.NewCustomPanelDelegate(unwrapICEFPanelComponent(events))
+	return wrapICustomPanelDelegate(r0)
+}
+
+func NewCustomPermissionHandler(events IChromiumCore) ICustomPermissionHandler {
+	r0 := vcef.NewCustomPermissionHandler(unwrapIChromiumCore(events))
+	return wrapICustomPermissionHandler(r0)
+}
+
+func NewCustomPrintHandler(events IChromiumCore) ICustomPrintHandler {
+	r0 := vcef.NewCustomPrintHandler(unwrapIChromiumCore(events))
+	return wrapICustomPrintHandler(r0)
+}
+
+func NewCustomRenderHandler(events IChromiumCore) ICustomRenderHandler {
+	r0 := vcef.NewCustomRenderHandler(unwrapIChromiumCore(events))
+	return wrapICustomRenderHandler(r0)
+}
+
+func NewCustomRenderLoadHandler(cefApp ICefApplicationCore) ICustomRenderLoadHandler {
+	r0 := vcef.NewCustomRenderLoadHandler(unwrapICefApplicationCore(cefApp))
+	return wrapICustomRenderLoadHandler(r0)
+}
+
 func NewCustomRenderProcessHandler(cefApp ICefApplicationCore) ICefCustomRenderProcessHandler {
 	r0 := vcef.NewCustomRenderProcessHandler(unwrapICefApplicationCore(cefApp))
 	return wrapICefCustomRenderProcessHandler(r0)
+}
+
+func NewCustomRequestContextHandler(events IChromiumCore) ICustomRequestContextHandler {
+	r0 := vcef.NewCustomRequestContextHandler(unwrapIChromiumCore(events))
+	return wrapICustomRequestContextHandler(r0)
+}
+
+func NewCustomRequestHandler(events IChromiumCore) ICustomRequestHandler {
+	r0 := vcef.NewCustomRequestHandler(unwrapIChromiumCore(events))
+	return wrapICustomRequestHandler(r0)
 }
 
 func NewCustomResolveCallback(events IChromiumCore) ICefCustomResolveCallback {
@@ -37917,6 +41872,21 @@ func NewCustomResolveCallback(events IChromiumCore) ICefCustomResolveCallback {
 func NewCustomResourceBundleHandler(cefApp ICefApplicationCore) ICefCustomResourceBundleHandler {
 	r0 := vcef.NewCustomResourceBundleHandler(unwrapICefApplicationCore(cefApp))
 	return wrapICefCustomResourceBundleHandler(r0)
+}
+
+func NewCustomResourceRequestHandler(events IChromiumCore) ICustomResourceRequestHandler {
+	r0 := vcef.NewCustomResourceRequestHandler(unwrapIChromiumCore(events))
+	return wrapICustomResourceRequestHandler(r0)
+}
+
+func NewCustomResponseFilter() ICustomResponseFilter {
+	r0 := vcef.NewCustomResponseFilter()
+	return wrapICustomResponseFilter(r0)
+}
+
+func NewCustomServerHandler(events ICEFServerComponent) ICustomServerHandler {
+	r0 := vcef.NewCustomServerHandler(unwrapICEFServerComponent(events))
+	return wrapICustomServerHandler(r0)
 }
 
 func NewCustomSetCookieCallback(events IChromiumCore, iD int32) ICefCustomSetCookieCallback {
@@ -37934,7 +41904,7 @@ func NewCustomStreamReaderWithStr(filename string) ICefCustomStreamReader {
 	return wrapICefCustomStreamReader(r0)
 }
 
-func NewCustomStringList() ICefCustomStringList {
+func NewCustomStringList() ICefCustomStringList_147 {
 	r0 := vcef.NewCustomStringList()
 	return wrapICefCustomStringList(r0)
 }
@@ -37949,9 +41919,24 @@ func NewCustomStringMultimap() ICefCustomStringMultimap {
 	return wrapICefCustomStringMultimap(r0)
 }
 
+func NewCustomTextfieldDelegate(events ICEFTextfieldComponent) ICustomTextfieldDelegate {
+	r0 := vcef.NewCustomTextfieldDelegate(unwrapICEFTextfieldComponent(events))
+	return wrapICustomTextfieldDelegate(r0)
+}
+
 func NewCustomUserData(userDataType uintptr, userData uintptr) ICefCustomUserData_147 {
 	r0 := vcef.NewCustomUserData(userDataType, userData)
 	return wrapICefCustomUserData(r0)
+}
+
+func NewCustomViewDelegate(events ICEFViewComponent) ICustomViewDelegate {
+	r0 := vcef.NewCustomViewDelegate(unwrapICEFViewComponent(events))
+	return wrapICustomViewDelegate(r0)
+}
+
+func NewCustomWindowDelegate(events ICEFWindowComponent) ICustomWindowDelegate {
+	r0 := vcef.NewCustomWindowDelegate(unwrapICEFWindowComponent(events))
+	return wrapICustomWindowDelegate(r0)
 }
 
 func NewDictionaryValueRef(data uintptr) ICefDictionaryValueRef {
@@ -37969,7 +41954,7 @@ func NewDomDocumentRef(data uintptr) ICefDomDocumentRef {
 	return wrapICefDomDocumentRef(r0)
 }
 
-func NewDomNodeRef(data uintptr) ICefDomNodeRef {
+func NewDomNodeRef(data uintptr) ICefDomNodeRef_147 {
 	r0 := vcef.NewDomNodeRef(data)
 	return wrapICefDomNodeRef(r0)
 }
@@ -37984,7 +41969,7 @@ func NewDownloadItemRef(data uintptr) ICefDownloadItemRef_147 {
 	return wrapICefDownloadItemRef(r0)
 }
 
-func NewDragDataRef(data uintptr) ICefDragDataRef {
+func NewDragDataRef(data uintptr) ICefDragDataRef_147 {
 	r0 := vcef.NewDragDataRef(data)
 	return wrapICefDragDataRef(r0)
 }
@@ -38004,12 +41989,12 @@ func NewEngAudioHandler() IEngAudioHandler {
 	return wrapIEngAudioHandler(r0)
 }
 
-func NewEngBrowserProcessHandler() IEngBrowserProcessHandler {
+func NewEngBrowserProcessHandler() IEngBrowserProcessHandler_147 {
 	r0 := vcef.NewEngBrowserProcessHandler()
 	return wrapIEngBrowserProcessHandler(r0)
 }
 
-func NewEngBrowserViewDelegate() IEngBrowserViewDelegate {
+func NewEngBrowserViewDelegate() IEngBrowserViewDelegate_147 {
 	r0 := vcef.NewEngBrowserViewDelegate()
 	return wrapIEngBrowserViewDelegate(r0)
 }
@@ -38024,7 +42009,7 @@ func NewEngClient() IEngClient {
 	return wrapIEngClient(r0)
 }
 
-func NewEngCommandHandler() IEngCommandHandler {
+func NewEngCommandHandler() IEngCommandHandler_147 {
 	r0 := vcef.NewEngCommandHandler()
 	return wrapIEngCommandHandler(r0)
 }
@@ -38064,7 +42049,7 @@ func NewEngDialogHandler() IEngDialogHandler {
 	return wrapIEngDialogHandler(r0)
 }
 
-func NewEngDisplayHandler() IEngDisplayHandler {
+func NewEngDisplayHandler() IEngDisplayHandler_147 {
 	r0 := vcef.NewEngDisplayHandler()
 	return wrapIEngDisplayHandler(r0)
 }
@@ -38104,7 +42089,7 @@ func NewEngFocusHandler() IEngFocusHandler {
 	return wrapIEngFocusHandler(r0)
 }
 
-func NewEngFrameHandler() IEngFrameHandler {
+func NewEngFrameHandler() IEngFrameHandler_147 {
 	r0 := vcef.NewEngFrameHandler()
 	return wrapIEngFrameHandler(r0)
 }
@@ -38119,7 +42104,7 @@ func NewEngKeyboardHandler() IEngKeyboardHandler {
 	return wrapIEngKeyboardHandler(r0)
 }
 
-func NewEngLifeSpanHandler() IEngLifeSpanHandler {
+func NewEngLifeSpanHandler() IEngLifeSpanHandler_147 {
 	r0 := vcef.NewEngLifeSpanHandler()
 	return wrapIEngLifeSpanHandler(r0)
 }
@@ -38199,7 +42184,7 @@ func NewEngRequestContextHandler() IEngRequestContextHandler {
 	return wrapIEngRequestContextHandler(r0)
 }
 
-func NewEngRequestHandler() IEngRequestHandler {
+func NewEngRequestHandler() IEngRequestHandler_147 {
 	r0 := vcef.NewEngRequestHandler()
 	return wrapIEngRequestHandler(r0)
 }
@@ -38294,12 +42279,12 @@ func NewEngV8Interceptor() IEngV8Interceptor {
 	return wrapIEngV8Interceptor(r0)
 }
 
-func NewEngViewDelegate() IEngViewDelegate {
+func NewEngViewDelegate() IEngViewDelegate_147 {
 	r0 := vcef.NewEngViewDelegate()
 	return wrapIEngViewDelegate(r0)
 }
 
-func NewEngWindowDelegate() IEngWindowDelegate {
+func NewEngWindowDelegate() IEngWindowDelegate_147 {
 	r0 := vcef.NewEngWindowDelegate()
 	return wrapIEngWindowDelegate(r0)
 }
@@ -38319,7 +42304,7 @@ func NewFileDialogCallbackRef(data uintptr) ICefFileDialogCallbackRef {
 	return wrapICefFileDialogCallbackRef(r0)
 }
 
-func NewFileDialogInfo() ICEFFileDialogInfo {
+func NewFileDialogInfo() ICEFFileDialogInfo_147 {
 	r0 := vcef.NewFileDialogInfo()
 	return wrapICEFFileDialogInfo(r0)
 }
@@ -38329,12 +42314,12 @@ func NewFillLayoutRef(data uintptr) ICefFillLayoutRef {
 	return wrapICefFillLayoutRef(r0)
 }
 
-func NewFrameRef(data uintptr) ICefFrameRef {
+func NewFrameRef(data uintptr) ICefFrameRef_147 {
 	r0 := vcef.NewFrameRef(data)
 	return wrapICefFrameRef(r0)
 }
 
-func NewGenericTask(events IChromiumCore, taskID uint32) ICefGenericTask {
+func NewGenericTask(events IChromiumCore, taskID uint32) ICefGenericTask_147 {
 	r0 := vcef.NewGenericTask(unwrapIChromiumCore(events), taskID)
 	return wrapICefGenericTask(r0)
 }
@@ -38349,12 +42334,12 @@ func NewJsDialogCallbackRef(data uintptr) ICefJsDialogCallbackRef {
 	return wrapICefJsDialogCallbackRef(r0)
 }
 
-func NewLabelButtonComponent(owner lcl.IComponent) ICEFLabelButtonComponent {
+func NewLabelButtonComponent(owner lcl.IComponent) ICEFLabelButtonComponent_147 {
 	r0 := vcef.NewLabelButtonComponent(owner)
 	return wrapICEFLabelButtonComponent(r0)
 }
 
-func NewLabelButtonRef(data uintptr) ICefLabelButtonRef {
+func NewLabelButtonRef(data uintptr) ICefLabelButtonRef_147 {
 	r0 := vcef.NewLabelButtonRef(data)
 	return wrapICefLabelButtonRef(r0)
 }
@@ -38364,7 +42349,7 @@ func NewLayoutRef(data uintptr) ICefLayoutRef {
 	return wrapICefLayoutRef(r0)
 }
 
-func NewLinkedWindowParent(owner lcl.IComponent) ICEFLinkedWindowParent {
+func NewLinkedWindowParent(owner lcl.IComponent) ICEFLinkedWindowParent_147 {
 	r0 := vcef.NewLinkedWindowParent(owner)
 	return wrapICEFLinkedWindowParent(r0)
 }
@@ -38404,7 +42389,7 @@ func NewMediaSourceRef(data uintptr) ICefMediaSourceRef {
 	return wrapICefMediaSourceRef(r0)
 }
 
-func NewMenuButtonComponent(owner lcl.IComponent) ICEFMenuButtonComponent {
+func NewMenuButtonComponent(owner lcl.IComponent) ICEFMenuButtonComponent_147 {
 	r0 := vcef.NewMenuButtonComponent(owner)
 	return wrapICEFMenuButtonComponent(r0)
 }
@@ -38419,7 +42404,7 @@ func NewMenuButtonPressedLockRef(data uintptr) ICefMenuButtonPressedLockRef {
 	return wrapICefMenuButtonPressedLockRef(r0)
 }
 
-func NewMenuButtonRef(data uintptr) ICefMenuButtonRef {
+func NewMenuButtonRef(data uintptr) ICefMenuButtonRef_147 {
 	r0 := vcef.NewMenuButtonRef(data)
 	return wrapICefMenuButtonRef(r0)
 }
@@ -38449,12 +42434,12 @@ func NewOverlayControllerRef(data uintptr) ICefOverlayControllerRef {
 	return wrapICefOverlayControllerRef(r0)
 }
 
-func NewPDFPrintOptions() IPDFPrintOptions {
+func NewPDFPrintOptions() IPDFPrintOptions_147 {
 	r0 := vcef.NewPDFPrintOptions()
 	return wrapIPDFPrintOptions(r0)
 }
 
-func NewPanelComponent(owner lcl.IComponent) ICEFPanelComponent {
+func NewPanelComponent(owner lcl.IComponent) ICEFPanelComponent_147 {
 	r0 := vcef.NewPanelComponent(owner)
 	return wrapICEFPanelComponent(r0)
 }
@@ -38464,7 +42449,7 @@ func NewPanelDelegateRef(data uintptr) ICefPanelDelegateRef {
 	return wrapICefPanelDelegateRef(r0)
 }
 
-func NewPanelRef(data uintptr) ICefPanelRef {
+func NewPanelRef(data uintptr) ICefPanelRef_147 {
 	r0 := vcef.NewPanelRef(data)
 	return wrapICefPanelRef(r0)
 }
@@ -38484,7 +42469,7 @@ func NewPostDataRef(data uintptr) ICefPostDataRef {
 	return wrapICefPostDataRef(r0)
 }
 
-func NewPreferenceManagerRef(data uintptr) ICefPreferenceManagerRef {
+func NewPreferenceManagerRef(data uintptr) ICefPreferenceManagerRef_147 {
 	r0 := vcef.NewPreferenceManagerRef(data)
 	return wrapICefPreferenceManagerRef(r0)
 }
@@ -38524,7 +42509,7 @@ func NewRegistrationRef(data uintptr) ICefRegistrationRef {
 	return wrapICefRegistrationRef(r0)
 }
 
-func NewRequestContextRef(data uintptr) ICefRequestContextRef {
+func NewRequestContextRef(data uintptr) ICefRequestContextRef_147 {
 	r0 := vcef.NewRequestContextRef(data)
 	return wrapICefRequestContextRef(r0)
 }
@@ -38589,12 +42574,12 @@ func NewSchemeRegistrarRef(data uintptr) ICefSchemeRegistrarRef {
 	return wrapICefSchemeRegistrarRef(r0)
 }
 
-func NewScrollViewComponent(owner lcl.IComponent) ICEFScrollViewComponent {
+func NewScrollViewComponent(owner lcl.IComponent) ICEFScrollViewComponent_147 {
 	r0 := vcef.NewScrollViewComponent(owner)
 	return wrapICEFScrollViewComponent(r0)
 }
 
-func NewScrollViewRef(data uintptr) ICefScrollViewRef {
+func NewScrollViewRef(data uintptr) ICefScrollViewRef_147 {
 	r0 := vcef.NewScrollViewRef(data)
 	return wrapICefScrollViewRef(r0)
 }
@@ -38644,12 +42629,12 @@ func NewStreamWriterRef(data uintptr) ICefStreamWriterRef {
 	return wrapICefStreamWriterRef(r0)
 }
 
-func NewStringListOwn() ICefStringListOwn {
+func NewStringListOwn() ICefStringListOwn_147 {
 	r0 := vcef.NewStringListOwn()
 	return wrapICefStringListOwn(r0)
 }
 
-func NewStringListRef(handle cefTypes.TCefStringList) ICefStringListRef {
+func NewStringListRef(handle cefTypes.TCefStringList) ICefStringListRef_147 {
 	r0 := vcef.NewStringListRef(handle)
 	return wrapICefStringListRef(r0)
 }
@@ -38684,7 +42669,7 @@ func NewTaskRunnerRef(data uintptr) ICefTaskRunnerRef {
 	return wrapICefTaskRunnerRef(r0)
 }
 
-func NewTextfieldComponent(owner lcl.IComponent) ICEFTextfieldComponent {
+func NewTextfieldComponent(owner lcl.IComponent) ICEFTextfieldComponent_147 {
 	r0 := vcef.NewTextfieldComponent(owner)
 	return wrapICEFTextfieldComponent(r0)
 }
@@ -38694,7 +42679,7 @@ func NewTextfieldDelegateRef(data uintptr) ICefTextfieldDelegateRef {
 	return wrapICefTextfieldDelegateRef(r0)
 }
 
-func NewTextfieldRef(data uintptr) ICefTextfieldRef {
+func NewTextfieldRef(data uintptr) ICefTextfieldRef_147 {
 	r0 := vcef.NewTextfieldRef(data)
 	return wrapICefTextfieldRef(r0)
 }
@@ -38724,7 +42709,7 @@ func NewUrlRequestClientComponent(owner lcl.IComponent) ICEFUrlRequestClientComp
 	return wrapICEFUrlRequestClientComponent(r0)
 }
 
-func NewUrlRequestRef(data uintptr) ICefUrlRequestRef {
+func NewUrlRequestRef(data uintptr) ICefUrlRequestRef_147 {
 	r0 := vcef.NewUrlRequestRef(data)
 	return wrapICefUrlRequestRef(r0)
 }
@@ -38769,7 +42754,7 @@ func NewV8StackTraceRef(data uintptr) ICefV8StackTraceRef {
 	return wrapICefV8StackTraceRef(r0)
 }
 
-func NewV8ValueRef(data uintptr) ICefv8ValueRef {
+func NewV8ValueRef(data uintptr) ICefv8ValueRef_147 {
 	r0 := vcef.NewV8ValueRef(data)
 	return wrapICefv8ValueRef(r0)
 }
@@ -38779,7 +42764,7 @@ func NewValueRef(data uintptr) ICefValueRef {
 	return wrapICefValueRef(r0)
 }
 
-func NewViewComponent(owner lcl.IComponent) ICEFViewComponent {
+func NewViewComponent(owner lcl.IComponent) ICEFViewComponent_147 {
 	r0 := vcef.NewViewComponent(owner)
 	return wrapICEFViewComponent(r0)
 }
@@ -38794,7 +42779,7 @@ func NewViewDelegateTask(events ICEFViewComponent) ICefViewDelegateTask_147 {
 	return wrapICefViewDelegateTask(r0)
 }
 
-func NewViewRef(data uintptr) ICefViewRef {
+func NewViewRef(data uintptr) ICefViewRef_147 {
 	r0 := vcef.NewViewRef(data)
 	return wrapICefViewRef(r0)
 }
@@ -38814,7 +42799,7 @@ func NewWinControlParented(parentWindow types.HWND) ICEFWinControl {
 	return wrapICEFWinControl(r0)
 }
 
-func NewWindowComponent(owner lcl.IComponent) ICEFWindowComponent {
+func NewWindowComponent(owner lcl.IComponent) ICEFWindowComponent_147 {
 	r0 := vcef.NewWindowComponent(owner)
 	return wrapICEFWindowComponent(r0)
 }
@@ -38834,7 +42819,7 @@ func NewWindowParentParented(parentWindow types.HWND) ICEFWindowParent {
 	return wrapICEFWindowParent(r0)
 }
 
-func NewWindowRef(data uintptr) ICefWindowRef {
+func NewWindowRef(data uintptr) ICefWindowRef_147 {
 	r0 := vcef.NewWindowRef(data)
 	return wrapICefWindowRef(r0)
 }
@@ -38891,12 +42876,12 @@ type tBinaryValueRef struct{}
 
 var BinaryValueRef tBinaryValueRef
 
-func (tBinaryValueRef) New(data uintptr, dataSize cefTypes.NativeUInt) (result ICefBinaryValue) {
+func (tBinaryValueRef) New(data uintptr, dataSize cefTypes.NativeUInt) (result ICefBinaryValue_147) {
 	r0 := vcef.BinaryValueRef.New(data, dataSize)
 	return wrapICefBinaryValue(r0)
 }
 
-func (tBinaryValueRef) UnWrap(data uintptr) (result ICefBinaryValue) {
+func (tBinaryValueRef) UnWrap(data uintptr) (result ICefBinaryValue_147) {
 	r0 := vcef.BinaryValueRef.UnWrap(data)
 	return wrapICefBinaryValue(r0)
 }
@@ -38914,7 +42899,7 @@ type tBrowserHostRef struct{}
 
 var BrowserHostRef tBrowserHostRef
 
-func (tBrowserHostRef) UnWrap(data uintptr) (result ICefBrowserHost) {
+func (tBrowserHostRef) UnWrap(data uintptr) (result ICefBrowserHost_147) {
 	r0 := vcef.BrowserHostRef.UnWrap(data)
 	return wrapICefBrowserHost(r0)
 }
@@ -38923,7 +42908,7 @@ type tBrowserRef struct{}
 
 var BrowserRef tBrowserRef
 
-func (tBrowserRef) UnWrap(data uintptr) (result ICefBrowser) {
+func (tBrowserRef) UnWrap(data uintptr) (result ICefBrowser_147) {
 	r0 := vcef.BrowserRef.UnWrap(data)
 	return wrapICefBrowser(r0)
 }
@@ -38932,7 +42917,7 @@ type tBrowserViewDelegateRef struct{}
 
 var BrowserViewDelegateRef tBrowserViewDelegateRef
 
-func (tBrowserViewDelegateRef) UnWrapWithPointer(data uintptr) (result IEngBrowserViewDelegate) {
+func (tBrowserViewDelegateRef) UnWrapWithPointer(data uintptr) (result IEngBrowserViewDelegate_147) {
 	r0 := vcef.BrowserViewDelegateRef.UnWrapWithPointer(data)
 	return wrapIEngBrowserViewDelegate(r0)
 }
@@ -38941,17 +42926,17 @@ type tBrowserViewRef struct{}
 
 var BrowserViewRef tBrowserViewRef
 
-func (tBrowserViewRef) CreateBrowserView(client IEngClient, url string, settings TCefBrowserSettings, extraInfo ICefDictionaryValue, requestContext ICefRequestContext, delegate IEngBrowserViewDelegate) (result ICefBrowserView) {
+func (tBrowserViewRef) CreateBrowserView(client IEngClient, url string, settings TCefBrowserSettings, extraInfo ICefDictionaryValue, requestContext ICefRequestContext, delegate IEngBrowserViewDelegate) (result ICefBrowserView_147) {
 	r0 := vcef.BrowserViewRef.CreateBrowserView(unwrapIEngClient(client), url, settings, unwrapICefDictionaryValue(extraInfo), unwrapICefRequestContext(requestContext), unwrapIEngBrowserViewDelegate(delegate))
 	return wrapICefBrowserView(r0)
 }
 
-func (tBrowserViewRef) GetForBrowser(browser ICefBrowser) (result ICefBrowserView) {
+func (tBrowserViewRef) GetForBrowser(browser ICefBrowser) (result ICefBrowserView_147) {
 	r0 := vcef.BrowserViewRef.GetForBrowser(unwrapICefBrowser(browser))
 	return wrapICefBrowserView(r0)
 }
 
-func (tBrowserViewRef) UnWrapWithPointer(data uintptr) (result ICefBrowserView) {
+func (tBrowserViewRef) UnWrapWithPointer(data uintptr) (result ICefBrowserView_147) {
 	r0 := vcef.BrowserViewRef.UnWrapWithPointer(data)
 	return wrapICefBrowserView(r0)
 }
@@ -38969,7 +42954,7 @@ type tButtonRef struct{}
 
 var ButtonRef tButtonRef
 
-func (tButtonRef) UnWrapWithPointer(data uintptr) (result ICefButton) {
+func (tButtonRef) UnWrapWithPointer(data uintptr) (result ICefButton_147) {
 	r0 := vcef.ButtonRef.UnWrapWithPointer(data)
 	return wrapICefButton(r0)
 }
@@ -38987,17 +42972,17 @@ type tCommandLineRef struct{}
 
 var CommandLineRef tCommandLineRef
 
-func (tCommandLineRef) Global() (result ICefCommandLine) {
+func (tCommandLineRef) Global() (result ICefCommandLine_147) {
 	r0 := vcef.CommandLineRef.Global()
 	return wrapICefCommandLine(r0)
 }
 
-func (tCommandLineRef) New() (result ICefCommandLine) {
+func (tCommandLineRef) New() (result ICefCommandLine_147) {
 	r0 := vcef.CommandLineRef.New()
 	return wrapICefCommandLine(r0)
 }
 
-func (tCommandLineRef) UnWrap(data uintptr) (result ICefCommandLine) {
+func (tCommandLineRef) UnWrap(data uintptr) (result ICefCommandLine_147) {
 	r0 := vcef.CommandLineRef.UnWrap(data)
 	return wrapICefCommandLine(r0)
 }
@@ -39135,7 +43120,7 @@ type tDomNodeRef struct{}
 
 var DomNodeRef tDomNodeRef
 
-func (tDomNodeRef) UnWrap(data uintptr) (result ICefDomNode) {
+func (tDomNodeRef) UnWrap(data uintptr) (result ICefDomNode_147) {
 	r0 := vcef.DomNodeRef.UnWrap(data)
 	return wrapICefDomNode(r0)
 }
@@ -39153,7 +43138,7 @@ type tDownloadItemRef struct{}
 
 var DownloadItemRef tDownloadItemRef
 
-func (tDownloadItemRef) UnWrap(data uintptr) (result ICefDownloadItem) {
+func (tDownloadItemRef) UnWrap(data uintptr) (result ICefDownloadItem_147) {
 	r0 := vcef.DownloadItemRef.UnWrap(data)
 	return wrapICefDownloadItem(r0)
 }
@@ -39162,12 +43147,12 @@ type tDragDataRef struct{}
 
 var DragDataRef tDragDataRef
 
-func (tDragDataRef) New() (result ICefDragData) {
+func (tDragDataRef) New() (result ICefDragData_147) {
 	r0 := vcef.DragDataRef.New()
 	return wrapICefDragData(r0)
 }
 
-func (tDragDataRef) UnWrap(data uintptr) (result ICefDragData) {
+func (tDragDataRef) UnWrap(data uintptr) (result ICefDragData_147) {
 	r0 := vcef.DragDataRef.UnWrap(data)
 	return wrapICefDragData(r0)
 }
@@ -39194,7 +43179,7 @@ type tFrameRef struct{}
 
 var FrameRef tFrameRef
 
-func (tFrameRef) UnWrap(data uintptr) (result ICefFrame) {
+func (tFrameRef) UnWrap(data uintptr) (result ICefFrame_147) {
 	r0 := vcef.FrameRef.UnWrap(data)
 	return wrapICefFrame(r0)
 }
@@ -39345,12 +43330,12 @@ type tLabelButtonRef struct{}
 
 var LabelButtonRef tLabelButtonRef
 
-func (tLabelButtonRef) CreateLabelButton(delegate IEngButtonDelegate, text string) (result ICefLabelButton) {
+func (tLabelButtonRef) CreateLabelButton(delegate IEngButtonDelegate, text string) (result ICefLabelButton_147) {
 	r0 := vcef.LabelButtonRef.CreateLabelButton(unwrapIEngButtonDelegate(delegate), text)
 	return wrapICefLabelButton(r0)
 }
 
-func (tLabelButtonRef) UnWrapWithPointer(data uintptr) (result ICefLabelButton) {
+func (tLabelButtonRef) UnWrapWithPointer(data uintptr) (result ICefLabelButton_147) {
 	r0 := vcef.LabelButtonRef.UnWrapWithPointer(data)
 	return wrapICefLabelButton(r0)
 }
@@ -39450,12 +43435,12 @@ type tMenuButtonRef struct{}
 
 var MenuButtonRef tMenuButtonRef
 
-func (tMenuButtonRef) CreateMenuButton(delegate IEngMenuButtonDelegate, text string) (result ICefMenuButton) {
+func (tMenuButtonRef) CreateMenuButton(delegate IEngMenuButtonDelegate, text string) (result ICefMenuButton_147) {
 	r0 := vcef.MenuButtonRef.CreateMenuButton(unwrapIEngMenuButtonDelegate(delegate), text)
 	return wrapICefMenuButton(r0)
 }
 
-func (tMenuButtonRef) UnWrapWithPointer(data uintptr) (result ICefMenuButton) {
+func (tMenuButtonRef) UnWrapWithPointer(data uintptr) (result ICefMenuButton_147) {
 	r0 := vcef.MenuButtonRef.UnWrapWithPointer(data)
 	return wrapICefMenuButton(r0)
 }
@@ -39482,7 +43467,7 @@ func (tMiscFunc) CefAddCrossOriginWhitelistEntry(sourceOrigin string, targetProt
 	return vcef.MiscFunc.CefAddCrossOriginWhitelistEntry(sourceOrigin, targetProtocol, targetDomain, allowTargetSubdomains)
 }
 
-func (tMiscFunc) CefBase64Decode(data string) (result ICefBinaryValue) {
+func (tMiscFunc) CefBase64Decode(data string) (result ICefBinaryValue_147) {
 	r0 := vcef.MiscFunc.CefBase64Decode(data)
 	return wrapICefBinaryValue(r0)
 }
@@ -39990,12 +43975,12 @@ type tPanelRef struct{}
 
 var PanelRef tPanelRef
 
-func (tPanelRef) CreatePanel(delegate IEngPanelDelegate) (result ICefPanel) {
+func (tPanelRef) CreatePanel(delegate IEngPanelDelegate) (result ICefPanel_147) {
 	r0 := vcef.PanelRef.CreatePanel(unwrapIEngPanelDelegate(delegate))
 	return wrapICefPanel(r0)
 }
 
-func (tPanelRef) UnWrapWithPointer(data uintptr) (result ICefPanel) {
+func (tPanelRef) UnWrapWithPointer(data uintptr) (result ICefPanel_147) {
 	r0 := vcef.PanelRef.UnWrapWithPointer(data)
 	return wrapICefPanel(r0)
 }
@@ -40049,12 +44034,12 @@ func (tPreferenceManagerRef) GetChromeVariationsAsSwitches(switches lcl.IStrings
 	vcef.PreferenceManagerRef.GetChromeVariationsAsSwitches(switches)
 }
 
-func (tPreferenceManagerRef) GlobalToPreferenceManager() (result ICefPreferenceManager) {
+func (tPreferenceManagerRef) GlobalToPreferenceManager() (result ICefPreferenceManager_147) {
 	r0 := vcef.PreferenceManagerRef.GlobalToPreferenceManager()
 	return wrapICefPreferenceManager(r0)
 }
 
-func (tPreferenceManagerRef) UnWrapWithPointer(data uintptr) (result ICefPreferenceManager) {
+func (tPreferenceManagerRef) UnWrapWithPointer(data uintptr) (result ICefPreferenceManager_147) {
 	r0 := vcef.PreferenceManagerRef.UnWrapWithPointer(data)
 	return wrapICefPreferenceManager(r0)
 }
@@ -40118,27 +44103,27 @@ type tRequestContextRef struct{}
 
 var RequestContextRef tRequestContextRef
 
-func (tRequestContextRef) GlobalToRequestContext() (result ICefRequestContext) {
+func (tRequestContextRef) GlobalToRequestContext() (result ICefRequestContext_147) {
 	r0 := vcef.RequestContextRef.GlobalToRequestContext()
 	return wrapICefRequestContext(r0)
 }
 
-func (tRequestContextRef) NewWithPCefRequestContextSettingsRequestContextHandler(settings TCefRequestContextSettings, handler IEngRequestContextHandler) (result ICefRequestContext) {
+func (tRequestContextRef) NewWithPCefRequestContextSettingsRequestContextHandler(settings TCefRequestContextSettings, handler IEngRequestContextHandler) (result ICefRequestContext_147) {
 	r0 := vcef.RequestContextRef.NewWithPCefRequestContextSettingsRequestContextHandler(settings, unwrapIEngRequestContextHandler(handler))
 	return wrapICefRequestContext(r0)
 }
 
-func (tRequestContextRef) NewWithStrX3BoolX2RCHandler(cache string, acceptLanguageList string, cookieableSchemesList string, cookieableSchemesExcludeDefaults bool, persistSessionCookies bool, handler IEngRequestContextHandler) (result ICefRequestContext) {
+func (tRequestContextRef) NewWithStrX3BoolX2RCHandler(cache string, acceptLanguageList string, cookieableSchemesList string, cookieableSchemesExcludeDefaults bool, persistSessionCookies bool, handler IEngRequestContextHandler) (result ICefRequestContext_147) {
 	r0 := vcef.RequestContextRef.NewWithStrX3BoolX2RCHandler(cache, acceptLanguageList, cookieableSchemesList, cookieableSchemesExcludeDefaults, persistSessionCookies, unwrapIEngRequestContextHandler(handler))
 	return wrapICefRequestContext(r0)
 }
 
-func (tRequestContextRef) Shared(other ICefRequestContext, handler IEngRequestContextHandler) (result ICefRequestContext) {
+func (tRequestContextRef) Shared(other ICefRequestContext, handler IEngRequestContextHandler) (result ICefRequestContext_147) {
 	r0 := vcef.RequestContextRef.Shared(unwrapICefRequestContext(other), unwrapIEngRequestContextHandler(handler))
 	return wrapICefRequestContext(r0)
 }
 
-func (tRequestContextRef) UnWrapWithPointer(data uintptr) (result ICefRequestContext) {
+func (tRequestContextRef) UnWrapWithPointer(data uintptr) (result ICefRequestContext_147) {
 	r0 := vcef.RequestContextRef.UnWrapWithPointer(data)
 	return wrapICefRequestContext(r0)
 }
@@ -40261,12 +44246,12 @@ type tScrollViewRef struct{}
 
 var ScrollViewRef tScrollViewRef
 
-func (tScrollViewRef) CreateScrollView(delegate IEngViewDelegate) (result ICefScrollView) {
+func (tScrollViewRef) CreateScrollView(delegate IEngViewDelegate) (result ICefScrollView_147) {
 	r0 := vcef.ScrollViewRef.CreateScrollView(unwrapIEngViewDelegate(delegate))
 	return wrapICefScrollView(r0)
 }
 
-func (tScrollViewRef) UnWrapWithPointer(data uintptr) (result ICefScrollView) {
+func (tScrollViewRef) UnWrapWithPointer(data uintptr) (result ICefScrollView_147) {
 	r0 := vcef.ScrollViewRef.UnWrapWithPointer(data)
 	return wrapICefScrollView(r0)
 }
@@ -40419,12 +44404,12 @@ type tTextfieldRef struct{}
 
 var TextfieldRef tTextfieldRef
 
-func (tTextfieldRef) CreateTextField(delegate IEngTextfieldDelegate) (result ICefTextfield) {
+func (tTextfieldRef) CreateTextField(delegate IEngTextfieldDelegate) (result ICefTextfield_147) {
 	r0 := vcef.TextfieldRef.CreateTextField(unwrapIEngTextfieldDelegate(delegate))
 	return wrapICefTextfield(r0)
 }
 
-func (tTextfieldRef) UnWrapWithPointer(data uintptr) (result ICefTextfield) {
+func (tTextfieldRef) UnWrapWithPointer(data uintptr) (result ICefTextfield_147) {
 	r0 := vcef.TextfieldRef.UnWrapWithPointer(data)
 	return wrapICefTextfield(r0)
 }
@@ -40456,12 +44441,12 @@ type tUrlRequestRef struct{}
 
 var UrlRequestRef tUrlRequestRef
 
-func (tUrlRequestRef) New(request ICefRequest, client IEngUrlrequestClient, requestContext ICefRequestContext) (result ICefUrlRequest) {
+func (tUrlRequestRef) New(request ICefRequest, client IEngUrlrequestClient, requestContext ICefRequestContext) (result ICefUrlRequest_147) {
 	r0 := vcef.UrlRequestRef.New(unwrapICefRequest(request), unwrapIEngUrlrequestClient(client), unwrapICefRequestContext(requestContext))
 	return wrapICefUrlRequest(r0)
 }
 
-func (tUrlRequestRef) UnWrap(data uintptr) (result ICefUrlRequest) {
+func (tUrlRequestRef) UnWrap(data uintptr) (result ICefUrlRequest_147) {
 	r0 := vcef.UrlRequestRef.UnWrap(data)
 	return wrapICefUrlRequest(r0)
 }
@@ -40562,82 +44547,82 @@ type tV8ValueRef struct{}
 
 var V8ValueRef tV8ValueRef
 
-func (tV8ValueRef) NewArray(len int32) (result ICefv8Value) {
+func (tV8ValueRef) NewArray(len int32) (result ICefv8Value_147) {
 	r0 := vcef.V8ValueRef.NewArray(len)
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewArrayBuffer(buffer uintptr, length cefTypes.NativeUInt, callback IEngV8ArrayBufferReleaseCallback) (result ICefv8Value) {
+func (tV8ValueRef) NewArrayBuffer(buffer uintptr, length cefTypes.NativeUInt, callback IEngV8ArrayBufferReleaseCallback) (result ICefv8Value_147) {
 	r0 := vcef.V8ValueRef.NewArrayBuffer(buffer, length, unwrapIEngV8ArrayBufferReleaseCallback(callback))
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewArrayBufferFromBackingStore(backingStore ICefv8BackingStore_147) (result ICefv8Value) {
+func (tV8ValueRef) NewArrayBufferFromBackingStore(backingStore ICefv8BackingStore_147) (result ICefv8Value_147) {
 	r0 := vcef.V8ValueRef.NewArrayBufferFromBackingStore(unwrapICefv8BackingStore(backingStore))
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewArrayBufferWithCopy(buffer uintptr, length cefTypes.NativeUInt) (result ICefv8Value) {
+func (tV8ValueRef) NewArrayBufferWithCopy(buffer uintptr, length cefTypes.NativeUInt) (result ICefv8Value_147) {
 	r0 := vcef.V8ValueRef.NewArrayBufferWithCopy(buffer, length)
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewBool(value bool) (result ICefv8Value) {
+func (tV8ValueRef) NewBool(value bool) (result ICefv8Value_147) {
 	r0 := vcef.V8ValueRef.NewBool(value)
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewDate(value types.TDateTime) (result ICefv8Value) {
+func (tV8ValueRef) NewDate(value types.TDateTime) (result ICefv8Value_147) {
 	r0 := vcef.V8ValueRef.NewDate(value)
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewDouble(value float64) (result ICefv8Value) {
+func (tV8ValueRef) NewDouble(value float64) (result ICefv8Value_147) {
 	r0 := vcef.V8ValueRef.NewDouble(value)
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewFunction(name string, handler IEngV8Handler) (result ICefv8Value) {
+func (tV8ValueRef) NewFunction(name string, handler IEngV8Handler) (result ICefv8Value_147) {
 	r0 := vcef.V8ValueRef.NewFunction(name, unwrapIEngV8Handler(handler))
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewInt(value int32) (result ICefv8Value) {
+func (tV8ValueRef) NewInt(value int32) (result ICefv8Value_147) {
 	r0 := vcef.V8ValueRef.NewInt(value)
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewNull() (result ICefv8Value) {
+func (tV8ValueRef) NewNull() (result ICefv8Value_147) {
 	r0 := vcef.V8ValueRef.NewNull()
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewObject(accessor IEngV8Accessor, interceptor IEngV8Interceptor) (result ICefv8Value) {
+func (tV8ValueRef) NewObject(accessor IEngV8Accessor, interceptor IEngV8Interceptor) (result ICefv8Value_147) {
 	r0 := vcef.V8ValueRef.NewObject(unwrapIEngV8Accessor(accessor), unwrapIEngV8Interceptor(interceptor))
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewPromise() (result ICefv8Value) {
+func (tV8ValueRef) NewPromise() (result ICefv8Value_147) {
 	r0 := vcef.V8ValueRef.NewPromise()
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewString(str string) (result ICefv8Value) {
+func (tV8ValueRef) NewString(str string) (result ICefv8Value_147) {
 	r0 := vcef.V8ValueRef.NewString(str)
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewUInt(value uint32) (result ICefv8Value) {
+func (tV8ValueRef) NewUInt(value uint32) (result ICefv8Value_147) {
 	r0 := vcef.V8ValueRef.NewUInt(value)
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) NewUndefined() (result ICefv8Value) {
+func (tV8ValueRef) NewUndefined() (result ICefv8Value_147) {
 	r0 := vcef.V8ValueRef.NewUndefined()
 	return wrapICefv8Value(r0)
 }
 
-func (tV8ValueRef) UnWrap(data uintptr) (result ICefv8Value) {
+func (tV8ValueRef) UnWrap(data uintptr) (result ICefv8Value_147) {
 	r0 := vcef.V8ValueRef.UnWrap(data)
 	return wrapICefv8Value(r0)
 }
@@ -40660,7 +44645,7 @@ type tViewDelegateRef struct{}
 
 var ViewDelegateRef tViewDelegateRef
 
-func (tViewDelegateRef) UnWrapWithPointer(data uintptr) (result IEngViewDelegate) {
+func (tViewDelegateRef) UnWrapWithPointer(data uintptr) (result IEngViewDelegate_147) {
 	r0 := vcef.ViewDelegateRef.UnWrapWithPointer(data)
 	return wrapIEngViewDelegate(r0)
 }
@@ -40669,7 +44654,7 @@ type tViewRef struct{}
 
 var ViewRef tViewRef
 
-func (tViewRef) UnWrapWithPointer(data uintptr) (result ICefView) {
+func (tViewRef) UnWrapWithPointer(data uintptr) (result ICefView_147) {
 	r0 := vcef.ViewRef.UnWrapWithPointer(data)
 	return wrapICefView(r0)
 }
@@ -40692,7 +44677,7 @@ type tWindowDelegateRef struct{}
 
 var WindowDelegateRef tWindowDelegateRef
 
-func (tWindowDelegateRef) UnWrapWithPointer(data uintptr) (result IEngWindowDelegate) {
+func (tWindowDelegateRef) UnWrapWithPointer(data uintptr) (result IEngWindowDelegate_147) {
 	r0 := vcef.WindowDelegateRef.UnWrapWithPointer(data)
 	return wrapIEngWindowDelegate(r0)
 }
@@ -40701,12 +44686,12 @@ type tWindowRef struct{}
 
 var WindowRef tWindowRef
 
-func (tWindowRef) CreateTopLevel(delegate IEngWindowDelegate) (result ICefWindow) {
+func (tWindowRef) CreateTopLevel(delegate IEngWindowDelegate) (result ICefWindow_147) {
 	r0 := vcef.WindowRef.CreateTopLevel(unwrapIEngWindowDelegate(delegate))
 	return wrapICefWindow(r0)
 }
 
-func (tWindowRef) UnWrapWithPointer(data uintptr) (result ICefWindow) {
+func (tWindowRef) UnWrapWithPointer(data uintptr) (result ICefWindow_147) {
 	r0 := vcef.WindowRef.UnWrapWithPointer(data)
 	return wrapICefWindow(r0)
 }

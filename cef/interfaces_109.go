@@ -144,7 +144,7 @@ type ICefExtension_109 interface {
 	GetBrowserActionPopup() string
 	GetHandler() IEngExtensionHandler_109
 	GetIdentifier() string
-	GetLoaderContext() ICefRequestContext
+	GetLoaderContext() ICefRequestContext_109
 	GetManifest() ICefDictionaryValue
 	GetOptionsPage() string
 	GetOptionsUIPage() string
@@ -277,7 +277,7 @@ type ICefX509CertPrincipalRef_109 interface {
 
 type ICefv8Value_109 interface {
 	ICefv8Value
-	GetUserData() ICefv8Value
+	GetUserData() ICefv8Value_109
 	SetUserData(data ICefv8Value) bool
 	SetValueByAccessor(key string, settings cefTypes.TCefV8AccessControls, attribute cefTypes.TCefV8PropertyAttributes) bool
 }

@@ -17,12 +17,174 @@ import (
 )
 
 type IComponent = lcl.IComponent
+type ICustomPanel = lcl.ICustomPanel
 type IInterfacedObject = lcl.IInterfacedObject
 type IObject = lcl.IObject
 type IPersistent = lcl.IPersistent
 type IWinControl = lcl.IWinControl
 
 type TCefFrameIdentifier string
+
+// IBufferPanel Parent: ICustomPanel
+type IBufferPanel interface {
+	ICustomPanel
+	// BeginBufferDraw
+	// Acquires the synchronization object before drawing into the background bitmap.
+	BeginBufferDraw() bool
+	// BufferBits
+	// Returns a pointer to the buffer that stores the image.
+	BufferBits() uintptr
+	// BufferDrawWithBitmapRectX2
+	// Draws a part of aBitmap into the background bitmap buffer at the specified rectangle.
+	// <param name="aBitmap">Bitmap that will be drawn into the background bitmap.</param>
+	// <param name="aSrcRect">Rectangle that defines the area of aBitmap that will be drawn into the background bitmap.</param>
+	// <param name="aDstRect">Rectangle that defines the area of the background bitmap where aBitmap will be drawn.</param>
+	BufferDrawWithBitmapRectX2(bitmap lcl.IBitmap, srcRect types.TRect, dstRect types.TRect)
+	// BufferDrawWithIntX2Bitmap
+	// Draws aBitmap into the background bitmap buffer at the specified coordinates.
+	// <param name="x">x coordinate where the bitmap will be drawn.</param>
+	// <param name="y">y coordinate where the bitmap will be drawn.</param>
+	// <param name="aBitmap">Bitmap that will be drawn into the background bitmap.</param>
+	BufferDrawWithIntX2Bitmap(X int32, Y int32, bitmap lcl.IBitmap)
+	// BufferHeight
+	// Image height.
+	BufferHeight() int32
+	// BufferIsResized
+	// Check if the background image buffers have the same dimensions as this panel. Returns true if they have the same size.
+	BufferIsResized(useMutex bool) bool
+	// BufferWidth
+	// Image width.
+	BufferWidth() int32
+	// Buffer
+	// Background bitmap.
+	Buffer() lcl.IBitmap
+	// ChangeCompositionRange
+	// Calls ChangeCompositionRange in the IME handler.
+	ChangeCompositionRange(selectionRange TCefRange, characterBounds ICefRectArray)
+	// CopyOriginalBuffer
+	// When CopyOriginalBuffer is True then OrigBuffer will be used internally to copy of
+	// the raw main bitmap buffer sent by CEF in the TChromiumCore.OnPaint event.
+	// OrigBuffer will be transferred to the bitmap buffer before copying the buffer to the panel.
+	// This is necessary in GTK applications in order to avoid handling bitmaps in background
+	// threads.
+	CopyOriginalBuffer() bool
+	// CreateIMEHandler
+	// Creates the IME handler.
+	CreateIMEHandler()
+	DragCursor() types.TCursor
+	DragKind() types.TDragKind
+	DragMode() types.TDragMode
+	// DrawOrigPopupBuffer
+	// Copy the contents from the original popup buffer copy to the main buffer copy.
+	DrawOrigPopupBuffer(srcRect types.TRect, dstRect types.TRect)
+	// EndBufferDraw
+	// Releases the synchronization object after drawing into the background bitmap.
+	EndBufferDraw()
+	// ForcedDeviceScaleFactor
+	// Screen scale value used instead of the real one.
+	ForcedDeviceScaleFactor() float32
+	// InvalidatePanel
+	// Invalidate this panel.
+	InvalidatePanel() bool
+	// MustInitBuffer
+	// Clear the background image before copying the original buffer contents.
+	MustInitBuffer() bool
+	// OrigBufferHeight
+	// Image height of the raw main bitmap buffer copy.
+	OrigBufferHeight() int32
+	// OrigBufferWidth
+	// Image width of the raw main bitmap buffer copy.
+	OrigBufferWidth() int32
+	// OrigBuffer
+	// Copy of the raw main bitmap buffer sent by CEF in the TChromiumCore.OnPaint event.
+	// OrigBuffer will be transferred to the bitmap buffer before copying the bitmap buffer
+	// to the panel.
+	OrigBuffer() ICEFBitmapBitBuffer
+	// OrigPopupBufferBits
+	// Returns a pointer to the raw popup bitmap buffer copye.
+	OrigPopupBufferBits() uintptr
+	// OrigPopupBufferHeight
+	// Image height of the raw popup bitmap buffer copy.
+	OrigPopupBufferHeight() int32
+	// OrigPopupBufferWidth
+	// Image width of the raw popup bitmap buffer copy.
+	OrigPopupBufferWidth() int32
+	// OrigPopupBuffer
+	// Copy of the raw popup bitmap buffer sent by CEF in the TChromiumCore.OnPaint event.
+	OrigPopupBuffer() ICEFBitmapBitBuffer
+	// OrigPopupScanlineSize
+	// Returns the scanline size of the raw popup bitmap buffer copy.
+	OrigPopupScanlineSize() int32
+	ParentFont() bool
+	// ParentFormHandle
+	// Returns the handle of the parent form.
+	ParentFormHandle() cefTypes.TCefWindowHandle
+	// ParentForm
+	// Returns the parent form.
+	ParentForm() lcl.ICustomForm
+	ParentShowHint() bool
+	// SaveToFile
+	// Save the visible web contents as a bitmap file.
+	SaveToFile(filename string) bool
+	// ScanlineSize
+	// Returns the scanline size.
+	ScanlineSize() int32
+	// ScreenScale
+	// Returns the screen scale.
+	ScreenScale() float32
+	SetCopyOriginalBuffer(value bool)
+	SetDragCursor(value types.TCursor)
+	SetDragKind(value types.TDragKind)
+	SetDragMode(value types.TDragMode)
+	SetForcedDeviceScaleFactor(value float32)
+	SetMustInitBuffer(value bool)
+	SetOnConstrainedResize(fn TConstrainedResizeEvent)
+	SetOnContextPopup(fn TContextPopupEvent)
+	SetOnCustomTouch(fn TOnHandledMessageEvent)
+	SetOnDblClick(fn TNotifyEvent)
+	SetOnDragDrop(fn TDragDropEvent)
+	SetOnDragOver(fn TDragOverEvent)
+	SetOnEndDock(fn TEndDragEvent)
+	SetOnEndDrag(fn TEndDragEvent)
+	SetOnGetSiteInfo(fn TGetSiteInfoEvent)
+	SetOnIMECancelComposition(fn TNotifyEvent)
+	SetOnIMECommitText(fn TOnIMECommitTextEvent)
+	SetOnIMESetComposition(fn TOnIMESetCompositionEvent)
+	SetOnMouseDown(fn TMouseEvent)
+	SetOnMouseEnter(fn TNotifyEvent)
+	SetOnMouseLeave(fn TNotifyEvent)
+	SetOnMouseMove(fn TMouseMoveEvent)
+	SetOnMouseUp(fn TMouseEvent)
+	SetOnMouseWheel(fn TMouseWheelEvent)
+	SetOnPaintParentBkg(fn TNotifyEvent)
+	SetOnPointerDown(fn TOnHandledMessageEvent)
+	SetOnPointerUpdate(fn TOnHandledMessageEvent)
+	SetOnPointerUp(fn TOnHandledMessageEvent)
+	SetOnStartDock(fn TStartDockEvent)
+	SetOnStartDrag(fn TStartDragEvent)
+	SetParentFont(value bool)
+	SetParentShowHint(value bool)
+	SetTransparent(value bool)
+	// Transparent
+	// Set Transparent to True to use a WS_EX_TRANSPARENT window style in the panel
+	// and to call AlphaBlend in order to transfer the web contents from the bitmap
+	// buffer to the panel.
+	// If this property is False then BitBlt is used to transfer the web contents
+	// from the bitmap buffer to the panel.
+	Transparent() bool
+	// UpdateBufferDimensions
+	// Update the background bitmap size.
+	UpdateBufferDimensions(width int32, height int32) bool
+	// UpdateDeviceScaleFactor
+	// Update the FDeviceScaleFactor value with the current scale.
+	UpdateDeviceScaleFactor()
+	// UpdateOrigBufferDimensions
+	// Update the image size of the original buffer copy.
+	UpdateOrigBufferDimensions(width int32, height int32) bool
+	// UpdateOrigPopupBufferDimensions
+	// Update the popup image size of the original buffer copy.
+	UpdateOrigPopupBufferDimensions(width int32, height int32) bool
+}
 
 type ICEFAccessibilityHandlerOwn interface {
 	ICefAccessibilityHandler
@@ -9133,6 +9295,257 @@ type IChromiumWindow interface {
 	SetOnAfterCreated(fn TNotifyEvent)
 	SetOnBeforeClose(fn TNotifyEvent)
 	SetOnClose(fn TNotifyEvent)
+}
+
+// ICustomAccessibilityHandler Parent: ICEFAccessibilityHandlerOwn
+type ICustomAccessibilityHandler interface {
+	ICEFAccessibilityHandlerOwn
+	AsIntfAccessibilityHandler() uintptr
+	SetOnLocationChange(fn TOnAccessibilityEvent)
+	SetOnTreeChange(fn TOnAccessibilityEvent)
+}
+
+// ICustomAudioHandler Parent: ICefAudioHandlerOwn
+type ICustomAudioHandler interface {
+	ICefAudioHandlerOwn
+	AsIntfAudioHandler() uintptr
+}
+
+// ICustomBrowserViewDelegate Parent: ICefBrowserViewDelegateOwn
+type ICustomBrowserViewDelegate interface {
+	ICefBrowserViewDelegateOwn
+	AsIntfBrowserViewDelegate() uintptr
+	AsIntfViewDelegate() uintptr
+}
+
+// ICustomButtonDelegate Parent: ICefButtonDelegateOwn
+type ICustomButtonDelegate interface {
+	ICefButtonDelegateOwn
+	AsIntfButtonDelegate() uintptr
+	AsIntfViewDelegate() uintptr
+}
+
+// ICustomCefApp Parent: ICefAppOwn
+type ICustomCefApp interface {
+	ICefAppOwn
+	AsIntfApp() uintptr
+}
+
+// ICustomCefNavigationEntryVisitor Parent: ICefNavigationEntryVisitorOwn
+type ICustomCefNavigationEntryVisitor interface {
+	ICefNavigationEntryVisitorOwn
+	AsIntfNavigationEntryVisitor() uintptr
+}
+
+// ICustomCefStringVisitor Parent: ICefStringVisitorOwn
+type ICustomCefStringVisitor interface {
+	ICefStringVisitorOwn
+	AsIntfStringVisitor() uintptr
+}
+
+// ICustomCefUrlrequestClient Parent: ICefUrlrequestClientOwn
+type ICustomCefUrlrequestClient interface {
+	ICefUrlrequestClientOwn
+	AsIntfUrlrequestClient() uintptr
+}
+
+// ICustomClientHandler Parent: ICefClientOwn
+type ICustomClientHandler interface {
+	ICefClientOwn
+	AsIntfClient() uintptr
+	RemoveReferences()
+}
+
+// ICustomCommandHandler Parent: ICefCommandHandlerOwn
+type ICustomCommandHandler interface {
+	ICefCommandHandlerOwn
+	AsIntfCommandHandler() uintptr
+}
+
+// ICustomContextMenuHandler Parent: ICefContextMenuHandlerOwn
+type ICustomContextMenuHandler interface {
+	ICefContextMenuHandlerOwn
+	AsIntfContextMenuHandler() uintptr
+}
+
+// ICustomCookieAccessFilter Parent: ICefCookieAccessFilterOwn
+type ICustomCookieAccessFilter interface {
+	ICefCookieAccessFilterOwn
+	AsIntfCookieAccessFilter() uintptr
+	RemoveReferences()
+}
+
+// ICustomDevToolsMessageObserver Parent: ICEFDevToolsMessageObserverOwn
+type ICustomDevToolsMessageObserver interface {
+	ICEFDevToolsMessageObserverOwn
+	AsIntfDevToolsMessageObserver() uintptr
+}
+
+// ICustomDialogHandler Parent: ICefDialogHandlerOwn
+type ICustomDialogHandler interface {
+	ICefDialogHandlerOwn
+	AsIntfDialogHandler() uintptr
+}
+
+// ICustomDisplayHandler Parent: ICefDisplayHandlerOwn
+type ICustomDisplayHandler interface {
+	ICefDisplayHandlerOwn
+	AsIntfDisplayHandler() uintptr
+}
+
+// ICustomDownloadHandler Parent: ICefDownloadHandlerOwn
+type ICustomDownloadHandler interface {
+	ICefDownloadHandlerOwn
+	AsIntfDownloadHandler() uintptr
+}
+
+// ICustomDragHandler Parent: ICefDragHandlerOwn
+type ICustomDragHandler interface {
+	ICefDragHandlerOwn
+	AsIntfDragHandler() uintptr
+}
+
+// ICustomFindHandler Parent: ICefFindHandlerOwn
+type ICustomFindHandler interface {
+	ICefFindHandlerOwn
+	AsIntfFindHandler() uintptr
+}
+
+// ICustomFocusHandler Parent: ICefFocusHandlerOwn
+type ICustomFocusHandler interface {
+	ICefFocusHandlerOwn
+	AsIntfFocusHandler() uintptr
+}
+
+// ICustomFrameHandler Parent: ICefFrameHandlerOwn
+type ICustomFrameHandler interface {
+	ICefFrameHandlerOwn
+	AsIntfFrameHandler() uintptr
+}
+
+// ICustomJsDialogHandler Parent: ICefJsDialogHandlerOwn
+type ICustomJsDialogHandler interface {
+	ICefJsDialogHandlerOwn
+	AsIntfJsDialogHandler() uintptr
+}
+
+// ICustomKeyboardHandler Parent: ICefKeyboardHandlerOwn
+type ICustomKeyboardHandler interface {
+	ICefKeyboardHandlerOwn
+	AsIntfKeyboardHandler() uintptr
+}
+
+// ICustomLifeSpanHandler Parent: ICefLifeSpanHandlerOwn
+type ICustomLifeSpanHandler interface {
+	ICefLifeSpanHandlerOwn
+	AsIntfLifeSpanHandler() uintptr
+}
+
+// ICustomLoadHandler Parent: ICefLoadHandlerOwn
+type ICustomLoadHandler interface {
+	ICefLoadHandlerOwn
+	AsIntfLoadHandler() uintptr
+}
+
+// ICustomMediaObserver Parent: ICefMediaObserverOwn
+type ICustomMediaObserver interface {
+	ICefMediaObserverOwn
+	AsIntfMediaObserver() uintptr
+}
+
+// ICustomMenuButtonDelegate Parent: ICefMenuButtonDelegateOwn
+type ICustomMenuButtonDelegate interface {
+	ICefMenuButtonDelegateOwn
+	AsIntfButtonDelegate() uintptr
+	AsIntfMenuButtonDelegate() uintptr
+	AsIntfViewDelegate() uintptr
+}
+
+// ICustomPanelDelegate Parent: ICefPanelDelegateOwn
+type ICustomPanelDelegate interface {
+	ICefPanelDelegateOwn
+	AsIntfPanelDelegate() uintptr
+	AsIntfViewDelegate() uintptr
+}
+
+// ICustomPermissionHandler Parent: ICefPermissionHandlerOwn
+type ICustomPermissionHandler interface {
+	ICefPermissionHandlerOwn
+	AsIntfPermissionHandler() uintptr
+}
+
+// ICustomPrintHandler Parent: ICefPrintHandlerOwn
+type ICustomPrintHandler interface {
+	ICefPrintHandlerOwn
+	AsIntfPrintHandler() uintptr
+}
+
+// ICustomRenderHandler Parent: ICefRenderHandlerOwn
+type ICustomRenderHandler interface {
+	ICefRenderHandlerOwn
+	AsIntfRenderHandler() uintptr
+}
+
+// ICustomRenderLoadHandler Parent: ICefLoadHandlerOwn
+type ICustomRenderLoadHandler interface {
+	ICefLoadHandlerOwn
+	AsIntfLoadHandler() uintptr
+}
+
+// ICustomRequestContextHandler Parent: ICefRequestContextHandlerOwn
+type ICustomRequestContextHandler interface {
+	ICefRequestContextHandlerOwn
+	AsIntfRequestContextHandler() uintptr
+	RemoveReferences()
+}
+
+// ICustomRequestHandler Parent: ICefRequestHandlerOwn
+type ICustomRequestHandler interface {
+	ICefRequestHandlerOwn
+	AsIntfRequestHandler() uintptr
+	RemoveReferences()
+}
+
+// ICustomResourceRequestHandler Parent: ICefResourceRequestHandlerOwn
+type ICustomResourceRequestHandler interface {
+	ICefResourceRequestHandlerOwn
+	AsIntfResourceRequestHandler() uintptr
+	RemoveReferences()
+}
+
+// ICustomResponseFilter Parent: ICefResponseFilterOwn
+type ICustomResponseFilter interface {
+	ICefResponseFilterOwn
+	AsIntfResponseFilter() uintptr
+	SetOnFilter(fn TOnFilterEvent)
+	SetOnInitFilter(fn TOnInitFilterEvent)
+}
+
+// ICustomServerHandler Parent: ICEFServerHandlerOwn
+type ICustomServerHandler interface {
+	ICEFServerHandlerOwn
+	AsIntfServerHandler() uintptr
+}
+
+// ICustomTextfieldDelegate Parent: ICefTextfieldDelegateOwn
+type ICustomTextfieldDelegate interface {
+	ICefTextfieldDelegateOwn
+	AsIntfTextfieldDelegate() uintptr
+	AsIntfViewDelegate() uintptr
+}
+
+// ICustomViewDelegate Parent: ICefViewDelegateOwn
+type ICustomViewDelegate interface {
+	ICefViewDelegateOwn
+	AsIntfViewDelegate() uintptr
+}
+
+// ICustomWindowDelegate Parent: ICefWindowDelegateOwn
+type ICustomWindowDelegate interface {
+	ICefWindowDelegateOwn
+	AsIntfPanelDelegate() uintptr
+	AsIntfViewDelegate() uintptr
+	AsIntfWindowDelegate() uintptr
 }
 
 // IEngAccessibilityHandler Parent: ICEFAccessibilityHandlerOwn

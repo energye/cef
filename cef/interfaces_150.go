@@ -15,10 +15,18 @@ package cef
 import (
 	cefTypes "github.com/energye/cef/cef/types"
 	"github.com/energye/lcl/lcl"
+	"github.com/energye/lcl/types"
 )
 
 type IApplicationCoreEvents_150 interface {
 	IObject
+}
+
+type IBufferPanel_150 interface {
+	IBufferPanel
+	// SendMessage
+	// This is just a workaround for the missing implementation of SendMessage in GTK3. Don't use!
+	SendMessage(message *types.TMessage)
 }
 
 type ICEFBrowserViewComponent_150 interface {
@@ -31,7 +39,7 @@ type ICEFBrowserViewComponent_150 interface {
 	// CEF_CTT_NONE and the toolbar will not be available until after this
 	// BrowserView is added to a ICefWindow and
 	// ICefViewDelegate.OnWindowChanged() has been called.
-	ChromeToolbar() ICefView
+	ChromeToolbar() ICefView_150
 	// RuntimeStyle
 	// Returns the runtime style for this BrowserView (ALLOY or CHROME). See
 	// TCefRuntimeStyle documentation for details.
@@ -174,7 +182,7 @@ type ICEFWindowComponent_150 interface {
 	// View currently has focus. A Window may have a focused View even if it is
 	// not currently active. Any focus changes while a Window is not active may
 	// be applied after that Window next becomes active.
-	FocusedView() ICefView
+	FocusedView() ICefView_150
 	// RuntimeStyle
 	// Returns the runtime style for this Window (ALLOY or CHROME). See
 	// TCefRuntimeStyle documentation for details.
@@ -267,7 +275,7 @@ type ICefApplicationCore_150 interface {
 	AutoAcceptCamAndMicCapture() bool
 	// BrowserById
 	// Returns the browser (if any) with the specified identifier.
-	BrowserById(id int32) ICefBrowser
+	BrowserById(id int32) ICefBrowser_150
 	// ChromeAppIconId
 	// Specify an ID for an ICON resource that can be loaded from the main
 	// executable and used when creating default Chrome windows such as DevTools
@@ -545,10 +553,10 @@ type ICefBrowser_150 interface {
 	ICefBrowser
 	// GetFrameByIdentifier
 	// Returns the frame with the specified identifier, or NULL if not found.
-	GetFrameByIdentifier(identifier string) ICefFrame
+	GetFrameByIdentifier(identifier string) ICefFrame_150
 	// GetFrameByName
 	// Returns the frame with the specified name, or NULL if not found.
-	GetFrameByName(name string) ICefFrame
+	GetFrameByName(name string) ICefFrame_150
 	// GetFrameIdentifiers
 	// Returns the identifiers of all existing frames.
 	GetFrameIdentifiers(frameIdentifiers *lcl.IStrings) bool
@@ -1141,7 +1149,7 @@ type ICefWindow_150 interface {
 	// View currently has focus. A Window may have a focused View even if it is
 	// not currently active. Any focus changes while a Window is not active may
 	// be applied after that Window next becomes active.
-	GetFocusedView() ICefView
+	GetFocusedView() ICefView_150
 	// GetRuntimeStyle
 	// Returns the runtime style for this Window (ALLOY or CHROME). See
 	// TCefRuntimeStyle documentation for details.
@@ -1364,7 +1372,7 @@ type IChromiumCore_150 interface {
 	// </code>
 	// The |request| object will be marked as read-only after calling this
 	// function.
-	CreateUrlRequestWithRequestUClientStrX2(request ICefRequest, client IEngUrlrequestClient, frameName string, frameIdentifier string) ICefUrlRequest
+	CreateUrlRequestWithRequestUClientStrX2(request ICefRequest, client IEngUrlrequestClient, frameName string, frameIdentifier string) ICefUrlRequest_150
 	// CredentialsService
 	// This service shows a dialog to save the usernames and passwords in Chrome style.
 	CredentialsService() cefTypes.TCefState

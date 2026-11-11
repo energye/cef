@@ -548,7 +548,7 @@ type ICefExtension_127 interface {
 	// for internal extensions or if the extension has been unloaded. See the
 	// ICefRequestContext.LoadExtension documentation for more information
 	// about loader contexts. Must be called on the browser process UI thread.
-	GetLoaderContext() ICefRequestContext
+	GetLoaderContext() ICefRequestContext_127
 	// GetManifest
 	// Returns the extension manifest contents as a ICefDictionaryValue
 	// object. See https://developer.chrome.com/extensions/manifest for details.
@@ -1021,7 +1021,7 @@ type ICefv8Value_127 interface {
 	GetArrayBufferData() uintptr
 	// GetUserData
 	// Returns the user data, if any, assigned to this object.
-	GetUserData() ICefv8Value
+	GetUserData() ICefv8Value_127
 	// SetUserData
 	// Sets the user data for this object and returns true (1) on success.
 	// Returns false (0) if this function is called incorrectly. This function
@@ -1103,7 +1103,7 @@ type IChromiumCore_127 interface {
 	// </code>
 	// The |request| object will be marked as read-only after calling this
 	// function.
-	CreateUrlRequestWithRequestUClientStrX2(request ICefRequest, client IEngUrlrequestClient, frameName string, frameIdentifier string) ICefUrlRequest
+	CreateUrlRequestWithRequestUClientStrX2(request ICefRequest, client IEngUrlrequestClient, frameName string, frameIdentifier string) ICefUrlRequest_127
 	// DecZoomCommand
 	// Execute a zoom OUT command in this browser. If called on the CEF UI thread the
 	// change will be applied immediately. Otherwise, the change will be applied

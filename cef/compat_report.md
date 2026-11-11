@@ -1,7 +1,15 @@
 # CEF 兼容性报告
 
 - 版本: 109, 127, 147, 150
-- 接口数量: 469
+- 接口数量: 509
+- 自动能力接口数量: 275
+- 能力接口覆盖的方法数: 334
+
+## IBufferPanel
+
+- 公共方法数量: 72
+- 147 版本特有方法数量: 1
+- 150 版本特有方法数量: 1
 
 ## ICEFBaseScopedWrapperRef
 
@@ -1159,6 +1167,162 @@
 - 公共方法数量: 9
 - 109 版本特有方法数量: 2
 
+## ICustomAccessibilityHandler
+
+- 公共方法数量: 3
+
+## ICustomAudioHandler
+
+- 公共方法数量: 1
+
+## ICustomBrowserViewDelegate
+
+- 公共方法数量: 2
+
+## ICustomButtonDelegate
+
+- 公共方法数量: 2
+
+## ICustomCefApp
+
+- 公共方法数量: 1
+
+## ICustomCefNavigationEntryVisitor
+
+- 公共方法数量: 1
+
+## ICustomCefStringVisitor
+
+- 公共方法数量: 1
+
+## ICustomCefUrlrequestClient
+
+- 公共方法数量: 1
+
+## ICustomClientHandler
+
+- 公共方法数量: 2
+
+## ICustomCommandHandler
+
+- 公共方法数量: 1
+
+## ICustomContextMenuHandler
+
+- 公共方法数量: 1
+
+## ICustomCookieAccessFilter
+
+- 公共方法数量: 2
+
+## ICustomDevToolsMessageObserver
+
+- 公共方法数量: 1
+
+## ICustomDialogHandler
+
+- 公共方法数量: 1
+
+## ICustomDisplayHandler
+
+- 公共方法数量: 1
+
+## ICustomDownloadHandler
+
+- 公共方法数量: 1
+
+## ICustomDragHandler
+
+- 公共方法数量: 1
+
+## ICustomFindHandler
+
+- 公共方法数量: 1
+
+## ICustomFocusHandler
+
+- 公共方法数量: 1
+
+## ICustomFrameHandler
+
+- 公共方法数量: 1
+
+## ICustomJsDialogHandler
+
+- 公共方法数量: 1
+
+## ICustomKeyboardHandler
+
+- 公共方法数量: 1
+
+## ICustomLifeSpanHandler
+
+- 公共方法数量: 1
+
+## ICustomLoadHandler
+
+- 公共方法数量: 1
+
+## ICustomMediaObserver
+
+- 公共方法数量: 1
+
+## ICustomMenuButtonDelegate
+
+- 公共方法数量: 3
+
+## ICustomPanelDelegate
+
+- 公共方法数量: 2
+
+## ICustomPermissionHandler
+
+- 公共方法数量: 1
+
+## ICustomPrintHandler
+
+- 公共方法数量: 1
+
+## ICustomRenderHandler
+
+- 公共方法数量: 1
+
+## ICustomRenderLoadHandler
+
+- 公共方法数量: 1
+
+## ICustomRequestContextHandler
+
+- 公共方法数量: 2
+
+## ICustomRequestHandler
+
+- 公共方法数量: 2
+
+## ICustomResourceRequestHandler
+
+- 公共方法数量: 2
+
+## ICustomResponseFilter
+
+- 公共方法数量: 3
+
+## ICustomServerHandler
+
+- 公共方法数量: 1
+
+## ICustomTextfieldDelegate
+
+- 公共方法数量: 2
+
+## ICustomViewDelegate
+
+- 公共方法数量: 1
+
+## ICustomWindowDelegate
+
+- 公共方法数量: 3
+
 ## IEngAccessibilityHandler
 
 - 公共方法数量: 3
@@ -1462,6 +1626,288 @@
 - 127 版本特有方法数量: 4
 - 147 版本特有方法数量: 4
 - 150 版本特有方法数量: 4
+
+## 自动能力接口
+
+能力接口由生成器根据版本专有方法的出现版本和可移植签名自动推导，不需要人工配置。
+
+签名中包含版本专有接口、版本专有回调类型，或签名随版本变化的方法不会生成公共能力接口；它们仍完整保留在对应版本接口中。
+
+- IBufferPanelSendMessageCapability [147, 150] <- IBufferPanel.SendMessage
+- ICEFBrowserViewComponentRuntimeStyleCapability [127, 147, 150] <- ICEFBrowserViewComponent.RuntimeStyle
+- ICEFFileDialogInfoSetAcceptDescriptionsCapability [127, 147, 150] <- ICEFFileDialogInfo.SetAcceptDescriptions
+- ICEFFileDialogInfoSetAcceptExtensionsCapability [127, 147, 150] <- ICEFFileDialogInfo.SetAcceptExtensions
+- ICEFLinkedWinControlBaseUseSetFocusCapability [127, 147, 150] <- ICEFLinkedWinControlBase.UseSetFocus
+- ICEFPanelComponentChildViewCountCapability [127, 147, 150] <- ICEFPanelComponent.ChildViewCount
+- ICEFPanelComponentGetChildViewCountCapability [109] <- ICEFPanelComponent.GetChildViewCount
+- ICEFProxySettingsAutoDetectCapability [147, 150] <- ICEFProxySettings.AutoDetect, SetAutoDetect
+- ICEFProxySettingsByPassListCapability [147, 150] <- ICEFProxySettings.ByPassList, SetByPassList
+- ICEFProxySettingsNoProxyServerCapability [147, 150] <- ICEFProxySettings.NoProxyServer, SetNoProxyServer
+- ICEFProxySettingsPacUrlCapability [147, 150] <- ICEFProxySettings.PacUrl, SetPacUrl
+- ICEFProxySettingsServerCapability [147, 150] <- ICEFProxySettings.Server, SetServer
+- ICEFTextfieldComponentCursorPositionCapability [127, 147, 150] <- ICEFTextfieldComponent.CursorPosition
+- ICEFTextfieldComponentSelectRangeCapability [109] <- ICEFTextfieldComponent.SelectRange
+- ICEFTextfieldComponentSelectedRangeCapability [127, 147, 150] <- ICEFTextfieldComponent.SelectedRange, SetSelectedRange
+- ICEFTextfieldComponentSelectionBackgroundColorCapability [109, 127, 147] <- ICEFTextfieldComponent.SelectionBackgroundColor, SetSelectionBackgroundColor
+- ICEFTextfieldComponentSelectionTextColorCapability [109, 127, 147] <- ICEFTextfieldComponent.SelectionTextColor, SetSelectionTextColor
+- ICEFTextfieldComponentSetPlaceholderTextColorCapability [109, 127, 147] <- ICEFTextfieldComponent.SetPlaceholderTextColor
+- ICEFTextfieldComponentTextColorCapability [109, 127, 147] <- ICEFTextfieldComponent.TextColor
+- ICEFViewComponentGetThemeColorCapability [127, 147, 150] <- ICEFViewComponent.GetThemeColor
+- ICEFViewComponentHasFocusCapability [147, 150] <- ICEFViewComponent.HasFocus
+- ICEFViewComponentInsetsCapability [127, 147, 150] <- ICEFViewComponent.Insets, SetInsets
+- ICEFWindowComponentRuntimeStyleCapability [127, 147, 150] <- ICEFWindowComponent.RuntimeStyle
+- ICEFWindowComponentSetThemeColorCapability [127, 147, 150] <- ICEFWindowComponent.SetThemeColor
+- ICEFWindowComponentShowAsBrowserModalDialogCapability [127, 147, 150] <- ICEFWindowComponent.ShowAsBrowserModalDialog
+- ICEFWindowComponentThemeChangedCapability [127, 147, 150] <- ICEFWindowComponent.ThemeChanged
+- ICefApplicationAsIntfApplicationCoreEventsCapability [127, 147, 150] <- ICefApplication.AsIntfApplicationCoreEvents
+- ICefApplicationCoreAfterConstructionCapability [109] <- ICefApplicationCore.AfterConstruction
+- ICefApplicationCoreApiHashUniversalCapability [109, 127] <- ICefApplicationCore.ApiHashUniversal
+- ICefApplicationCoreApiVersionCapability [147, 150] <- ICefApplicationCore.ApiVersion
+- ICefApplicationCoreAsIntfApplicationCoreEventsCapability [127, 147, 150] <- ICefApplicationCore.AsIntfApplicationCoreEvents
+- ICefApplicationCoreAutoAcceptCamAndMicCaptureCapability [127, 147, 150] <- ICefApplicationCore.AutoAcceptCamAndMicCapture, SetAutoAcceptCamAndMicCapture
+- ICefApplicationCoreChromeAppIconIdCapability [127, 147, 150] <- ICefApplicationCore.ChromeAppIconId, SetChromeAppIconId
+- ICefApplicationCoreChromePolicyIdCapability [127, 147, 150] <- ICefApplicationCore.ChromePolicyId, SetChromePolicyId
+- ICefApplicationCoreChromeRuntimeCapability [109, 127] <- ICefApplicationCore.ChromeRuntime, SetChromeRuntime
+- ICefApplicationCoreDisableHangMonitorCapability [127, 147, 150] <- ICefApplicationCore.DisableHangMonitor, SetDisableHangMonitor
+- ICefApplicationCoreDisableSafeBrowsingCapability [109] <- ICefApplicationCore.DisableSafeBrowsing, SetDisableSafeBrowsing
+- ICefApplicationCoreDisableSignalHandlersCapability [147, 150] <- ICefApplicationCore.DisableSignalHandlers, SetDisableSignalHandlers
+- ICefApplicationCoreDisplayServerCapability [147, 150] <- ICefApplicationCore.DisplayServer
+- ICefApplicationCoreDoNotDeElevateCapability [147, 150] <- ICefApplicationCore.DoNotDeElevate, SetDoNotDeElevate
+- ICefApplicationCoreDumpWithoutCrashingCapability [147, 150] <- ICefApplicationCore.DumpWithoutCrashing
+- ICefApplicationCoreEnableAutomationCapability [147, 150] <- ICefApplicationCore.EnableAutomation, SetEnableAutomation
+- ICefApplicationCoreEnableHighDPISupportCapability [109] <- ICefApplicationCore.EnableHighDPISupport, SetEnableHighDPISupport
+- ICefApplicationCoreExitCodeCapability [127, 147, 150] <- ICefApplicationCore.ExitCode
+- ICefApplicationCoreExternalBeginFrameEnabledCapability [147, 150] <- ICefApplicationCore.ExternalBeginFrameEnabled, SetExternalBeginFrameEnabled
+- ICefApplicationCoreFastUnloadCapability [109] <- ICefApplicationCore.FastUnload, SetFastUnload
+- ICefApplicationCoreFieldTrialConfigCapability [147, 150] <- ICefApplicationCore.FieldTrialConfig, SetFieldTrialConfig
+- ICefApplicationCoreGTKVersionCapability [147, 150] <- ICefApplicationCore.GTKVersion, SetGTKVersion
+- ICefApplicationCoreGetIdForCommandIdNameCapability [147, 150] <- ICefApplicationCore.GetIdForCommandIdName
+- ICefApplicationCoreGetIdForPackResourceNameCapability [147, 150] <- ICefApplicationCore.GetIdForPackResourceName
+- ICefApplicationCoreGetIdForPackStringNameCapability [147, 150] <- ICefApplicationCore.GetIdForPackStringName
+- ICefApplicationCoreHideCrashRestoreBubbleCapability [127, 147, 150] <- ICefApplicationCore.HideCrashRestoreBubble, SetHideCrashRestoreBubble
+- ICefApplicationCoreInternalGetDataResourceCapability [109] <- ICefApplicationCore.InternalGetDataResource
+- ICefApplicationCoreInternalGetDataResourceForScaleCapability [109] <- ICefApplicationCore.InternalGetDataResourceForScale
+- ICefApplicationCoreInternalGetDefaultClientCapability [109] <- ICefApplicationCore.InternalGetDefaultClient
+- ICefApplicationCoreInternalGetLocalizedStringCapability [109] <- ICefApplicationCore.InternalGetLocalizedString
+- ICefApplicationCoreInternalOnBeforeChildProcessLaunchCapability [109] <- ICefApplicationCore.InternalOnBeforeChildProcessLaunch
+- ICefApplicationCoreInternalOnBeforeCommandLineProcessingCapability [109] <- ICefApplicationCore.InternalOnBeforeCommandLineProcessing
+- ICefApplicationCoreInternalOnBrowserCreatedCapability [109] <- ICefApplicationCore.InternalOnBrowserCreated
+- ICefApplicationCoreInternalOnBrowserDestroyedCapability [109] <- ICefApplicationCore.InternalOnBrowserDestroyed
+- ICefApplicationCoreInternalOnContextCreatedCapability [109] <- ICefApplicationCore.InternalOnContextCreated
+- ICefApplicationCoreInternalOnContextInitializedCapability [109] <- ICefApplicationCore.InternalOnContextInitialized
+- ICefApplicationCoreInternalOnContextReleasedCapability [109] <- ICefApplicationCore.InternalOnContextReleased
+- ICefApplicationCoreInternalOnFocusedNodeChangedCapability [109] <- ICefApplicationCore.InternalOnFocusedNodeChanged
+- ICefApplicationCoreInternalOnLoadEndCapability [109] <- ICefApplicationCore.InternalOnLoadEnd
+- ICefApplicationCoreInternalOnLoadErrorCapability [109] <- ICefApplicationCore.InternalOnLoadError
+- ICefApplicationCoreInternalOnLoadStartCapability [109] <- ICefApplicationCore.InternalOnLoadStart
+- ICefApplicationCoreInternalOnLoadingStateChangeCapability [109] <- ICefApplicationCore.InternalOnLoadingStateChange
+- ICefApplicationCoreInternalOnProcessMessageReceivedCapability [109] <- ICefApplicationCore.InternalOnProcessMessageReceived
+- ICefApplicationCoreInternalOnRegisterCustomPreferencesCapability [109] <- ICefApplicationCore.InternalOnRegisterCustomPreferences
+- ICefApplicationCoreInternalOnRegisterCustomSchemesCapability [109] <- ICefApplicationCore.InternalOnRegisterCustomSchemes
+- ICefApplicationCoreInternalOnScheduleMessagePumpWorkCapability [109] <- ICefApplicationCore.InternalOnScheduleMessagePumpWork
+- ICefApplicationCoreInternalOnUncaughtExceptionCapability [109] <- ICefApplicationCore.InternalOnUncaughtException
+- ICefApplicationCoreInternalOnWebKitInitializedCapability [109] <- ICefApplicationCore.InternalOnWebKitInitialized
+- ICefApplicationCoreLogItemsCapability [127, 147, 150] <- ICefApplicationCore.LogItems, SetLogItems
+- ICefApplicationCoreNextComponentIDCapability [127, 147, 150] <- ICefApplicationCore.NextComponentID
+- ICefApplicationCoreNoDefaultBrowserCheckCapability [147, 150] <- ICefApplicationCore.NoDefaultBrowserCheck, SetNoDefaultBrowserCheck
+- ICefApplicationCoreNoFirstRunCapability [147, 150] <- ICefApplicationCore.NoFirstRun, SetNoFirstRun
+- ICefApplicationCoreOzonePlatformCapability [147, 150] <- ICefApplicationCore.OzonePlatform, SetOzonePlatform
+- ICefApplicationCorePackLoadingDisabledCapability [109, 127] <- ICefApplicationCore.PackLoadingDisabled, SetPackLoadingDisabled
+- ICefApplicationCorePasswordStorageCapability [147, 150] <- ICefApplicationCore.PasswordStorage, SetPasswordStorage
+- ICefApplicationCorePersistUserPreferencesCapability [109, 127] <- ICefApplicationCore.PersistUserPreferences, SetPersistUserPreferences
+- ICefApplicationCoreRemoteAllowOriginsCapability [127, 147, 150] <- ICefApplicationCore.RemoteAllowOrigins, SetRemoteAllowOrigins
+- ICefApplicationCoreRemoveComponentIDCapability [127, 147, 150] <- ICefApplicationCore.RemoveComponentID
+- ICefApplicationCoreSetNestableTasksAllowedCapability [147, 150] <- ICefApplicationCore.SetNestableTasksAllowed
+- ICefApplicationCoreSharedTextureEnabledCapability [147, 150] <- ICefApplicationCore.SharedTextureEnabled
+- ICefApplicationCoreTLS13HybridizedKyberSupportCapability [147, 150] <- ICefApplicationCore.TLS13HybridizedKyberSupport
+- ICefApplicationCoreUIColorModeCapability [127, 147, 150] <- ICefApplicationCore.UIColorMode
+- ICefApplicationCoreUseAngleCapability [147, 150] <- ICefApplicationCore.UseAngle
+- ICefApplicationCoreUseGLCapability [147, 150] <- ICefApplicationCore.UseGL
+- ICefApplicationCoreUseViewsDefaultPopupCapability [147, 150] <- ICefApplicationCore.UseViewsDefaultPopup
+- ICefApplicationCoreUserDataPathCapability [109] <- ICefApplicationCore.UserDataPath
+- ICefApplicationCoreValidComponentIDCapability [127, 147, 150] <- ICefApplicationCore.ValidComponentID
+- ICefBinaryValueGetRawDataCapability [127, 147, 150] <- ICefBinaryValue.GetRawData
+- ICefBrowserGetFrameByidentCapability [109] <- ICefBrowser.GetFrameByident
+- ICefBrowserGetFrameCapability [109] <- ICefBrowser.GetFrame
+- ICefBrowserHostCanExecuteChromeCommandCapability [127, 147, 150] <- ICefBrowserHost.CanExecuteChromeCommand
+- ICefBrowserHostCanZoomCapability [127, 147, 150] <- ICefBrowserHost.CanZoom
+- ICefBrowserHostExecuteChromeCommandCapability [127, 147, 150] <- ICefBrowserHost.ExecuteChromeCommand
+- ICefBrowserHostExitFullscreenCapability [127, 147, 150] <- ICefBrowserHost.ExitFullscreen
+- ICefBrowserHostGetClientCapability [127, 147, 150] <- ICefBrowserHost.GetClient
+- ICefBrowserHostGetDefaultZoomLevelCapability [127, 147, 150] <- ICefBrowserHost.GetDefaultZoomLevel
+- ICefBrowserHostGetOpenerIdentifierCapability [147, 150] <- ICefBrowserHost.GetOpenerIdentifier
+- ICefBrowserHostGetRuntimeStyleCapability [127, 147, 150] <- ICefBrowserHost.GetRuntimeStyle
+- ICefBrowserHostIsBackgroundHostCapability [109, 127] <- ICefBrowserHost.IsBackgroundHost
+- ICefBrowserHostIsFullscreenCapability [127, 147, 150] <- ICefBrowserHost.IsFullscreen
+- ICefBrowserHostIsReadyToBeClosedCapability [147, 150] <- ICefBrowserHost.IsReadyToBeClosed
+- ICefBrowserHostIsRenderProcessUnresponsiveCapability [127, 147, 150] <- ICefBrowserHost.IsRenderProcessUnresponsive
+- ICefBrowserHostSetAxViewportCollapseCapability [147, 150] <- ICefBrowserHost.SetAxViewportCollapse
+- ICefBrowserHostZoomCapability [127, 147, 150] <- ICefBrowserHost.Zoom
+- ICefBrowserViewGetRuntimeStyleCapability [127, 147, 150] <- ICefBrowserView.GetRuntimeStyle
+- ICefChromiumTaskAsIntfTaskCapability [127, 147, 150] <- ICefChromiumTask.AsIntfTask
+- ICefCommandLineRemoveSwitchCapability [147, 150] <- ICefCommandLine.RemoveSwitch
+- ICefComponentGetIdCapability [147, 150] <- ICefComponent.GetId
+- ICefComponentGetNameCapability [147, 150] <- ICefComponent.GetName
+- ICefComponentGetStateCapability [147, 150] <- ICefComponent.GetState
+- ICefComponentGetVersionCapability [147, 150] <- ICefComponent.GetVersion
+- ICefComponentRefAsIntfComponentCapability [147, 150] <- ICefComponentRef.AsIntfComponent
+- ICefCustomUserDataAsIntfCustomUserDataCapability [147, 150] <- ICefCustomUserData.AsIntfCustomUserData
+- ICefCustomUserDataGetUserDataCapability [147, 150] <- ICefCustomUserData.GetUserData
+- ICefCustomUserDataGetUserDataTypeCapability [147, 150] <- ICefCustomUserData.GetUserDataType
+- ICefDownLoadItemRefAsIntfDownloadItemCapability [109] <- ICefDownLoadItemRef.AsIntfDownloadItem
+- ICefDownloadItemGetInterruptReasonCapability [127, 147, 150] <- ICefDownloadItem.GetInterruptReason
+- ICefDownloadItemIsInterruptedCapability [127, 147, 150] <- ICefDownloadItem.IsInterrupted
+- ICefDownloadItemIsPausedCapability [147, 150] <- ICefDownloadItem.IsPaused
+- ICefDownloadItemRefAsIntfDownloadItemCapability [127, 147, 150] <- ICefDownloadItemRef.AsIntfDownloadItem
+- ICefDragDataGetFilePathsCapability [127, 147, 150] <- ICefDragData.GetFilePaths
+- ICefExtensionGetBackgroundPageCapability [109, 127] <- ICefExtension.GetBackgroundPage
+- ICefExtensionGetBrowserActionIconCapability [109, 127] <- ICefExtension.GetBrowserActionIcon
+- ICefExtensionGetBrowserActionPopupCapability [109, 127] <- ICefExtension.GetBrowserActionPopup
+- ICefExtensionGetIdentifierCapability [109, 127] <- ICefExtension.GetIdentifier
+- ICefExtensionGetManifestCapability [109, 127] <- ICefExtension.GetManifest
+- ICefExtensionGetOptionsPageCapability [109, 127] <- ICefExtension.GetOptionsPage
+- ICefExtensionGetOptionsUIPageCapability [109, 127] <- ICefExtension.GetOptionsUIPage
+- ICefExtensionGetPageActionIconCapability [109, 127] <- ICefExtension.GetPageActionIcon
+- ICefExtensionGetPageActionPopupCapability [109, 127] <- ICefExtension.GetPageActionPopup
+- ICefExtensionGetPathCapability [109, 127] <- ICefExtension.GetPath
+- ICefExtensionGetURLCapability [109, 127] <- ICefExtension.GetURL
+- ICefExtensionIsLoadedCapability [109, 127] <- ICefExtension.IsLoaded
+- ICefExtensionRefAsIntfExtensionCapability [109, 127] <- ICefExtensionRef.AsIntfExtension
+- ICefExtensionUnloadCapability [109, 127] <- ICefExtension.Unload
+- ICefFramePasteAndMatchStyleCapability [147, 150] <- ICefFrame.PasteAndMatchStyle
+- ICefGetExtensionResourceCallbackCancelCapability [109, 127] <- ICefGetExtensionResourceCallback.Cancel
+- ICefGetExtensionResourceCallbackContCapability [109, 127] <- ICefGetExtensionResourceCallback.Cont
+- ICefGetExtensionResourceCallbackRefAsIntfGetExtensionResourceCallbackCapability [109, 127] <- ICefGetExtensionResourceCallbackRef.AsIntfGetExtensionResourceCallback
+- ICefManagedTaskAsIntfTaskCapability [127, 147, 150] <- ICefManagedTask.AsIntfTask
+- ICefMediaSinkGetDescriptionCapability [109] <- ICefMediaSink.GetDescription
+- ICefRequestContextClearHttpCacheCapability [147, 150] <- ICefRequestContext.ClearHttpCache
+- ICefRequestContextContentSettingCapability [127, 147, 150] <- ICefRequestContext.GetContentSetting, SetContentSetting
+- ICefRequestContextDidLoadExtensionCapability [109, 127] <- ICefRequestContext.DidLoadExtension
+- ICefRequestContextGetChromeColorSchemeColorCapability [127, 147, 150] <- ICefRequestContext.GetChromeColorSchemeColor
+- ICefRequestContextGetChromeColorSchemeModeCapability [127, 147, 150] <- ICefRequestContext.GetChromeColorSchemeMode
+- ICefRequestContextGetChromeColorSchemeVariantCapability [127, 147, 150] <- ICefRequestContext.GetChromeColorSchemeVariant
+- ICefRequestContextGetExtensionsCapability [109, 127] <- ICefRequestContext.GetExtensions
+- ICefRequestContextHasExtensionCapability [109, 127] <- ICefRequestContext.HasExtension
+- ICefRequestContextSetChromeColorSchemeCapability [127, 147, 150] <- ICefRequestContext.SetChromeColorScheme
+- ICefRequestContextWebsiteSettingCapability [127, 147, 150] <- ICefRequestContext.GetWebsiteSetting, SetWebsiteSetting
+- ICefTaskManagerGetTaskIdForBrowserIdCapability [147, 150] <- ICefTaskManager.GetTaskIdForBrowserId
+- ICefTaskManagerGetTaskIdsListCapability [147, 150] <- ICefTaskManager.GetTaskIdsList
+- ICefTaskManagerGetTasksCountCapability [147, 150] <- ICefTaskManager.GetTasksCount
+- ICefTaskManagerKillTaskCapability [147, 150] <- ICefTaskManager.KillTask
+- ICefTaskManagerRefAsIntfTaskManagerCapability [147, 150] <- ICefTaskManagerRef.AsIntfTaskManager
+- ICefTaskRefAsIntfTaskCapability [147, 150] <- ICefTaskRef.AsIntfTask
+- ICefTextfieldSelectionBackgroundColorCapability [109, 127, 147] <- ICefTextfield.GetSelectionBackgroundColor, SetSelectionBackgroundColor
+- ICefTextfieldSelectionTextColorCapability [109, 127, 147] <- ICefTextfield.GetSelectionTextColor, SetSelectionTextColor
+- ICefTextfieldSetPlaceholderTextColorCapability [109, 127, 147] <- ICefTextfield.SetPlaceholderTextColor
+- ICefTextfieldTextColorCapability [109, 127, 147] <- ICefTextfield.GetTextColor, SetTextColor
+- ICefURLRequestClientTaskAsIntfTaskCapability [127, 147, 150] <- ICefURLRequestClientTask.AsIntfTask
+- ICefUnresponsiveProcessCallbackRefAsIntfUnresponsiveProcessCallbackCapability [127, 147, 150] <- ICefUnresponsiveProcessCallbackRef.AsIntfUnresponsiveProcessCallback
+- ICefUnresponsiveProcessCallbackTerminateCapability [127, 147, 150] <- ICefUnresponsiveProcessCallback.Terminate
+- ICefUnresponsiveProcessCallbackWaitCapability [127, 147, 150] <- ICefUnresponsiveProcessCallback.Wait
+- ICefUrlRequestGetClientCapability [127, 147, 150] <- ICefUrlRequest.GetClient
+- ICefUrlrequestClientRefAsIntfUrlrequestClientCapability [127, 147, 150] <- ICefUrlrequestClientRef.AsIntfUrlrequestClient
+- ICefViewDelegateTaskAsIntfTaskCapability [127, 147, 150] <- ICefViewDelegateTask.AsIntfTask
+- ICefViewGetThemeColorCapability [127, 147, 150] <- ICefView.GetThemeColor
+- ICefViewHasFocusCapability [147, 150] <- ICefView.HasFocus
+- ICefWindowGetRuntimeStyleCapability [127, 147, 150] <- ICefWindow.GetRuntimeStyle
+- ICefWindowSetThemeColorCapability [127, 147, 150] <- ICefWindow.SetThemeColor
+- ICefWindowShowAsBrowserModalDialogCapability [127, 147, 150] <- ICefWindow.ShowAsBrowserModalDialog
+- ICefWindowThemeChangedCapability [127, 147, 150] <- ICefWindow.ThemeChanged
+- ICefX509CertPrincipalGetDomainComponentsCapability [109] <- ICefX509CertPrincipal.GetDomainComponents
+- ICefX509CertPrincipalGetStreetAddressesCapability [109] <- ICefX509CertPrincipal.GetStreetAddresses
+- ICefv8BackingStoreByteLengthCapability [147, 150] <- ICefv8BackingStore.ByteLength
+- ICefv8BackingStoreDataCapability [147, 150] <- ICefv8BackingStore.Data
+- ICefv8BackingStoreIsValidCapability [147, 150] <- ICefv8BackingStore.IsValid
+- ICefv8BackingStoreRefAsIntfV8BackingStoreCapability [147, 150] <- ICefv8BackingStoreRef.AsIntfV8BackingStore
+- ICefv8ValueGetArrayBufferByteLengthCapability [127, 147, 150] <- ICefv8Value.GetArrayBufferByteLength
+- ICefv8ValueGetArrayBufferDataCapability [127, 147, 150] <- ICefv8Value.GetArrayBufferData
+- IChromiumCoreAcceptLanguageListCapability [109, 127] <- IChromiumCore.AcceptLanguageList, SetAcceptLanguageList
+- IChromiumCoreAddPreferenceObserverCapability [147, 150] <- IChromiumCore.AddPreferenceObserver
+- IChromiumCoreAutofillCreditCardCapability [147, 150] <- IChromiumCore.AutofillCreditCard, SetAutofillCreditCard
+- IChromiumCoreAutofillProfileCapability [147, 150] <- IChromiumCore.AutofillProfile, SetAutofillProfile
+- IChromiumCoreAutofillSaveDataCapability [147, 150] <- IChromiumCore.AutofillSaveData, SetAutofillSaveData
+- IChromiumCoreBatterySaverModeStateCapability [109, 127] <- IChromiumCore.BatterySaverModeState, SetBatterySaverModeState
+- IChromiumCoreCanDecZoomCapability [127, 147, 150] <- IChromiumCore.CanDecZoom
+- IChromiumCoreCanExecuteChromeCommandCapability [127, 147, 150] <- IChromiumCore.CanExecuteChromeCommand
+- IChromiumCoreCanFocusCapability [127, 147, 150] <- IChromiumCore.CanFocus
+- IChromiumCoreCanIncZoomCapability [127, 147, 150] <- IChromiumCore.CanIncZoom
+- IChromiumCoreCanMakePaymentCapability [147, 150] <- IChromiumCore.CanMakePayment, SetCanMakePayment
+- IChromiumCoreCanResetZoomCapability [127, 147, 150] <- IChromiumCore.CanResetZoom
+- IChromiumCoreChromeColorSchemeColorCapability [127, 147, 150] <- IChromiumCore.ChromeColorSchemeColor
+- IChromiumCoreChromeColorSchemeModeCapability [127, 147, 150] <- IChromiumCore.ChromeColorSchemeMode
+- IChromiumCoreChromeColorSchemeVariantCapability [127, 147, 150] <- IChromiumCore.ChromeColorSchemeVariant
+- IChromiumCoreClearHttpCacheCapability [147, 150] <- IChromiumCore.ClearHttpCache
+- IChromiumCoreClipboardPasteAndMatchStyleCapability [147, 150] <- IChromiumCore.ClipboardPasteAndMatchStyle
+- IChromiumCoreContentSettingCapability [127, 147, 150] <- IChromiumCore.GetContentSetting, SetContentSetting
+- IChromiumCoreCreateUrlRequestWithRequestUClientInt64Capability [109] <- IChromiumCore.CreateUrlRequestWithRequestUClientInt64
+- IChromiumCoreCreateUrlRequestWithRequestUClientStrCapability [109] <- IChromiumCore.CreateUrlRequestWithRequestUClientStr
+- IChromiumCoreCredentialsServiceCapability [147, 150] <- IChromiumCore.CredentialsService, SetCredentialsService
+- IChromiumCoreDecZoomCommandCapability [127, 147, 150] <- IChromiumCore.DecZoomCommand
+- IChromiumCoreDefaultZoomLevelCapability [127, 147, 150] <- IChromiumCore.DefaultZoomLevel
+- IChromiumCoreDidLoadExtensionCapability [109] <- IChromiumCore.DidLoadExtension
+- IChromiumCoreDownloadBubbleCapability [127, 147, 150] <- IChromiumCore.DownloadBubble, SetDownloadBubble
+- IChromiumCoreEnableFocusDelayMsCapability [127, 147, 150] <- IChromiumCore.EnableFocusDelayMs, SetEnableFocusDelayMs
+- IChromiumCoreExecuteChromeCommandCapability [127, 147, 150] <- IChromiumCore.ExecuteChromeCommand
+- IChromiumCoreExecuteJavaScriptWithStrX2Int64IntCapability [109] <- IChromiumCore.ExecuteJavaScriptWithStrX2Int64Int
+- IChromiumCoreExecuteJavaScriptWithStrX3IntCapability [109] <- IChromiumCore.ExecuteJavaScriptWithStrX3Int
+- IChromiumCoreExecuteJavaScriptWithStrX4IntCapability [127, 147, 150] <- IChromiumCore.ExecuteJavaScriptWithStrX4Int
+- IChromiumCoreExitFullscreenCapability [127, 147, 150] <- IChromiumCore.ExitFullscreen
+- IChromiumCoreFullscreenCapability [127, 147, 150] <- IChromiumCore.Fullscreen
+- IChromiumCoreGetComponentCountCapability [147, 150] <- IChromiumCore.GetComponentCount
+- IChromiumCoreGetExtensionsCapability [109] <- IChromiumCore.GetExtensions
+- IChromiumCoreHSTSPolicyBypassListCapability [127, 147, 150] <- IChromiumCore.HSTSPolicyBypassList, SetHSTSPolicyBypassList
+- IChromiumCoreHTTPSUpgradeCapability [127, 147, 150] <- IChromiumCore.HTTPSUpgrade, SetHTTPSUpgrade
+- IChromiumCoreHasExtensionCapability [109] <- IChromiumCore.HasExtension
+- IChromiumCoreHighEfficiencyModeCapability [109] <- IChromiumCore.HighEfficiencyMode, SetHighEfficiencyMode
+- IChromiumCoreHighEfficiencyModeStateCapability [127] <- IChromiumCore.HighEfficiencyModeState, SetHighEfficiencyModeState
+- IChromiumCoreIncZoomCommandCapability [127, 147, 150] <- IChromiumCore.IncZoomCommand
+- IChromiumCoreIsReadyToBeClosedCapability [147, 150] <- IChromiumCore.IsReadyToBeClosed
+- IChromiumCoreIsRenderProcessUnresponsiveCapability [127, 147, 150] <- IChromiumCore.IsRenderProcessUnresponsive
+- IChromiumCoreLoadResourceWithCMStreamStrX2Int64Capability [109] <- IChromiumCore.LoadResourceWithCMStreamStrX2Int64
+- IChromiumCoreLoadResourceWithCMStreamStrX3Capability [109] <- IChromiumCore.LoadResourceWithCMStreamStrX3
+- IChromiumCoreLoadResourceWithCMStreamStrX4Capability [127, 147, 150] <- IChromiumCore.LoadResourceWithCMStreamStrX4
+- IChromiumCoreLoadStringWithStrInt64Capability [109] <- IChromiumCore.LoadStringWithStrInt64
+- IChromiumCoreLoadStringWithStrX2Capability [109] <- IChromiumCore.LoadStringWithStrX2
+- IChromiumCoreLoadStringWithStrX3Capability [127, 147, 150] <- IChromiumCore.LoadStringWithStrX3
+- IChromiumCoreLoadURLWithStrInt64Capability [109] <- IChromiumCore.LoadURLWithStrInt64
+- IChromiumCoreLoadURLWithStrX2Capability [109] <- IChromiumCore.LoadURLWithStrX2
+- IChromiumCoreLoadURLWithStrX3Capability [127, 147, 150] <- IChromiumCore.LoadURLWithStrX3
+- IChromiumCoreOpenerIdentifierCapability [147, 150] <- IChromiumCore.OpenerIdentifier
+- IChromiumCoreRemovePreferenceObserverCapability [147, 150] <- IChromiumCore.RemovePreferenceObserver
+- IChromiumCoreResetZoomCommandCapability [127, 147, 150] <- IChromiumCore.ResetZoomCommand
+- IChromiumCoreRetrieveHTMLWithInt64Capability [109] <- IChromiumCore.RetrieveHTMLWithInt64
+- IChromiumCoreRetrieveHTMLWithStrCapability [109] <- IChromiumCore.RetrieveHTMLWithStr
+- IChromiumCoreRetrieveHTMLWithStrX2Capability [127, 147, 150] <- IChromiumCore.RetrieveHTMLWithStrX2
+- IChromiumCoreRetrieveTextWithInt64Capability [109] <- IChromiumCore.RetrieveTextWithInt64
+- IChromiumCoreRetrieveTextWithStrCapability [109] <- IChromiumCore.RetrieveTextWithStr
+- IChromiumCoreRetrieveTextWithStrX2Capability [127, 147, 150] <- IChromiumCore.RetrieveTextWithStrX2
+- IChromiumCoreRuntimeStyleCapability [127, 147, 150] <- IChromiumCore.RuntimeStyle, SetRuntimeStyle
+- IChromiumCoreSearchSuggestEnabledCapability [147, 150] <- IChromiumCore.SearchSuggestEnabled, SetSearchSuggestEnabled
+- IChromiumCoreSendProcessMessageWithPIdPMessageInt64Capability [109] <- IChromiumCore.SendProcessMessageWithPIdPMessageInt64
+- IChromiumCoreSendProcessMessageWithPIdPMessageStrCapability [109] <- IChromiumCore.SendProcessMessageWithPIdPMessageStr
+- IChromiumCoreSendProcessMessageWithPIdPMessageStrX2Capability [127, 147, 150] <- IChromiumCore.SendProcessMessageWithPIdPMessageStrX2
+- IChromiumCoreSetAutoResizeEnabledCapability [150] <- IChromiumCore.SetAutoResizeEnabled
+- IChromiumCoreSetAxViewportCollapseCapability [147, 150] <- IChromiumCore.SetAxViewportCollapse
+- IChromiumCoreSetChromeColorSchemeCapability [127, 147, 150] <- IChromiumCore.SetChromeColorScheme
+- IChromiumCoreSetOnCanFocusCapability [127, 147, 150] <- IChromiumCore.SetOnCanFocus
+- IChromiumCoreSetOnHttpCacheClearedCapability [147, 150] <- IChromiumCore.SetOnHttpCacheCleared
+- IChromiumCoreSetOnWidgetCompMsgCapability [109, 127] <- IChromiumCore.SetOnWidgetCompMsg
+- IChromiumCoreSimulateEditingCommandCapability [127, 147, 150] <- IChromiumCore.SimulateEditingCommand
+- IChromiumCoreStorageNotificationServiceCapability [147, 150] <- IChromiumCore.StorageNotificationService
+- IChromiumCoreURLDataCollectionCapability [147, 150] <- IChromiumCore.URLDataCollection
+- IChromiumCoreUpdateComponentCapability [147, 150] <- IChromiumCore.UpdateComponent
+- IChromiumCoreWebsiteSettingCapability [127, 147, 150] <- IChromiumCore.GetWebsiteSetting, SetWebsiteSetting
+- IChromiumCoreWidgetHandleCapability [109, 127] <- IChromiumCore.WidgetHandle
+- IChromiumOptionsAcceptLanguageListCapability [109] <- IChromiumOptions.AcceptLanguageList, SetAcceptLanguageList
+- IChromiumOptionsAxViewportCollapseCapability [147, 150] <- IChromiumOptions.AxViewportCollapse, SetAxViewportCollapse
+- IChromiumOptionsChromeZoomBubbleCapability [127, 147, 150] <- IChromiumOptions.ChromeZoomBubble, SetChromeZoomBubble
+- IChromiumWindowUseSetFocusCapability [109] <- IChromiumWindow.UseSetFocus
+- IEngExtensionHandlerAsIntfExtensionHandlerCapability [109, 127] <- IEngExtensionHandler.AsIntfExtensionHandler
+- IEngMediaAccessHandlerAsIntfMediaAccessHandlerCapability [109, 127] <- IEngMediaAccessHandler.AsIntfMediaAccessHandler
+- IEngPreferenceObserverAsIntfPreferenceObserverCapability [147, 150] <- IEngPreferenceObserver.AsIntfPreferenceObserver
+- IEngSettingObserverAsIntfSettingObserverCapability [147, 150] <- IEngSettingObserver.AsIntfSettingObserver
+- IPDFPrintOptionsGenerateDocumentOutlineCapability [127, 147, 150] <- IPDFPrintOptions.GenerateDocumentOutline, SetGenerateDocumentOutline
+- IPDFPrintOptionsGenerateTaggedPDFCapability [127, 147, 150] <- IPDFPrintOptions.GenerateTaggedPDF, SetGenerateTaggedPDF
 
 ## 已配置的兼容签名转换
 
